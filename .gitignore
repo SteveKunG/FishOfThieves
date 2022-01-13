@@ -1,0 +1,18 @@
+# folder
+.settings
+.gradle
+.idea
+.vscode
+.cache
+bin
+build
+libs
+run
+
+# file
+*.bat
+*.launch
+.metadata
+.classpath
+.project
+!gradlew.bat
