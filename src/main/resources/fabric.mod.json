@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "fishofthieves",
+    "version": "${version}",
+    "name": "Fish of Thieves",
+    "description": "A mod that adds fishes fer ye pirate!",
+    "authors": [
+        "SteveKunG"
+    ],
+    "icon": "logo.png",
+    "contact": {},
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.stevekung.fishofthieves.FishOfThieves"
+        ],
+        "client": [
+            "com.stevekung.fishofthieves.FishOfThievesClient"
+        ],
+        "fabric-datagen": [
+            "com.stevekung.fishofthieves.datagen.FOTDataGeneratorEntrypoint"
+        ],
+        "modmenu": [
+            "com.stevekung.fishofthieves.modmenu.ModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "mixins.fishofthieves.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.12.12",
+        "minecraft": ">=1.18.1"
+    },
+    "accessWidener": "fishofthieves.accesswidener"
+}
