@@ -12,12 +12,14 @@ import net.minecraft.world.level.material.Fluids;
 public class FOTItems
 {
     public static final Item SPLASHTAIL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.SALMON));
+    public static final Item COOKED_SPLASHTAIL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.COOKED_SALMON));
     public static final Item SPLASHTAIL_SPAWN_EGG = new SpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item SPLASHTAIL_BUCKET = new MobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
 
     public static void init()
     {
         register("splashtail", SPLASHTAIL);
+        register("cooked_splashtail", COOKED_SPLASHTAIL);
         register("splashtail_spawn_egg", SPLASHTAIL_SPAWN_EGG);
         register("splashtail_bucket", SPLASHTAIL_BUCKET);
     }

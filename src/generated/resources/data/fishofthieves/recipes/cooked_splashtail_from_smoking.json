@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "fishofthieves:splashtail"
+  },
+  "result": "fishofthieves:cooked_splashtail",
+  "experience": 0.35,
+  "cookingtime": 100
+}

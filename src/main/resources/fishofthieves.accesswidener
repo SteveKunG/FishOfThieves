@@ -1,1 +1,2 @@
 accessWidener v1 named
+accessible field net/minecraft/data/loot/EntityLoot ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;

@@ -21,7 +21,7 @@ public class GlowFishLayer<T extends LivingEntity & GlowFish, M extends EntityMo
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        if (livingEntity.canGlow(livingEntity.getVariant()))
+        if (livingEntity.canGlow())
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(livingEntity.getGlowTextureByType().get(livingEntity.getVariant())));
             this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 0xF00000, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);

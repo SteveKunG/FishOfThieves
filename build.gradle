@@ -10,17 +10,22 @@ version = project.mod_version
 group = project.maven_group
 
 sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+    srcDir "src/generated/resources"
 }
 
 loom {
-    //accessWidenerPath = file("src/main/resources/fishofthieves.accesswidener")
+    accessWidenerPath = file("src/main/resources/fishofthieves.accesswidener")
 
     mixin {
         defaultRefmapName = "mixins.fishofthieves.refmap.json"
     }
 
     runs {
+        client {
+            programArgs "--username", "${username}", "--uuid", "${uuid}"
+            vmArg "-Dmixin.debug.export=true"
+            vmArg "-Dmixin.hotSwap=true"
+        }
         datagen {
             server()
             name "Data Generation"
@@ -63,6 +68,10 @@ dependencies {
     modImplementation ("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+}
+
+jar {
+    exclude ".cache"
 }
 
 processResources {

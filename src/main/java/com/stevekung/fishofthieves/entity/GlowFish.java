@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public interface GlowFish
 {
-    boolean canGlow(FishType type);
+    boolean canGlow();
     Map<FishType, ResourceLocation> getGlowTextureByType();
     FishType getVariant();
 }

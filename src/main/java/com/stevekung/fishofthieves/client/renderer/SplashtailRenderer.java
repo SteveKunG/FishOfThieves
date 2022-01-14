@@ -44,11 +44,17 @@ public class SplashtailRenderer extends MobRenderer<Splashtail, SplashtailModel<
         var f = 4.3f * Mth.sin(0.6f * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(f));
 
-        //TODO
-//        if (!splashtail.isInWater())
-//        {
-//            poseStack.translate(0.1f, 0.1f, -0.1f);
-//            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
-//        }
+        if (!splashtail.isInWater())
+        {
+            poseStack.translate(0.1f, 0.1f, -0.1f);
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
+        }
+    }
+
+    @Override
+    protected void scale(Splashtail splashtail, PoseStack poseStack, float partialTickTime)
+    {
+        var scale = splashtail.isTrophy() ? 1.0F : 0.5F;
+        poseStack.scale(scale, scale, scale);
     }
 }

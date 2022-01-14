@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_splashtail_from_smoking"
+    ]
+  },
+  "criteria": {
+    "has_splashtail": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:splashtail"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cooked_splashtail_from_smoking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_splashtail",
+      "has_the_recipe"
+    ]
+  ]
+}

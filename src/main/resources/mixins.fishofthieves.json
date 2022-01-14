@@ -6,7 +6,7 @@
     "client": [
     ],
     "mixins": [
-    	"MixinMobBucketItem"
+        "MixinMobBucketItem"
     ],
     "injectors": {
         "defaultRequire": 1

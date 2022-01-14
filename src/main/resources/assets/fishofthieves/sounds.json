@@ -1,0 +1,69 @@
+{
+  "entity.splashtail.death": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.entity.splashtail.death"
+  },
+  "entity.splashtail.flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "pitch": 0.8,
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop2",
+        "pitch": 0.8,
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop3",
+        "pitch": 0.8,
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop4",
+        "pitch": 0.8,
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.entity.splashtail.flop"
+  },
+  "entity.splashtail.hurt": {
+    "sounds": [
+      {
+        "name": "entity/fish/hurt1",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt2",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt3",
+        "pitch": 0.8
+      },
+      {
+        "name": "entity/fish/hurt4",
+        "pitch": 0.8
+      }
+    ],
+    "subtitle": "subtitles.entity.splashtail.hurt"
+  }
+}

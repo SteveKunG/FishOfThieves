@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.FOTEntities;
 import com.stevekung.fishofthieves.entity.Splashtail;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EntityType;
@@ -27,17 +28,23 @@ public class MixinMobBucketItem
 {
     @Shadow
     @Final
-    private EntityType<?> type;
+    EntityType<?> type;
 
     @Inject(method = "appendHoverText", at = @At("TAIL"))
     private void appendCustomFishType(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo info)
     {
         var compoundTag = stack.getTag();
 
-        if (this.type == FOTEntities.SPLASHTAIL && stack.hasTag() && compoundTag.contains(Splashtail.VARIANT_TAG, 3))
+        if (this.type == FOTEntities.SPLASHTAIL && stack.hasTag() && compoundTag.contains(Splashtail.VARIANT_TAG, Tag.TAG_INT))
         {
             var i = compoundTag.getInt(Splashtail.VARIANT_TAG);
-            tooltipComponents.add(new TranslatableComponent("entity.fishofthieves.splashtail." + Splashtail.Variant.BY_ID[i].getName()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+            var type = new TranslatableComponent("entity.fishofthieves.splashtail." + Splashtail.Variant.BY_ID[i].getName()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+
+            if (compoundTag.contains(Splashtail.TROPHY_TAG, Tag.TAG_BYTE))
+            {
+                type.append(", ").append(new TranslatableComponent("entity.fishofthieves.trophy"));
+            }
+            tooltipComponents.add(type);
         }
     }
 }

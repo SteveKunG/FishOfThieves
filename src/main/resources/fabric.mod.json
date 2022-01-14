@@ -5,7 +5,8 @@
     "name": "Fish of Thieves",
     "description": "A mod that adds fishes fer ye pirate!",
     "authors": [
-        "SteveKunG"
+        "SteveKunG",
+        "PloyiinGz"
     ],
     "icon": "logo.png",
     "contact": {},
@@ -30,6 +31,7 @@
     ],
     "depends": {
         "fabricloader": ">=0.12.12",
+        "fabric": "*",
         "minecraft": ">=1.18.1"
     },
     "accessWidener": "fishofthieves.accesswidener"
