@@ -144,6 +144,8 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
         if (this.random.nextInt(15) == 0)
         {
             this.setTrophy(true);
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(5.0D);
+            this.setHealth(5.0f);
         }
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
@@ -196,10 +198,6 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
 
     public void setTrophy(boolean trophy)
     {
-        if (trophy)
-        {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(5.0D);
-        }
         this.entityData.set(TROPHY, trophy);
     }
 
