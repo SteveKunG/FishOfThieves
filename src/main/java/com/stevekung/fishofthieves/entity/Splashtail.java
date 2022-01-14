@@ -1,19 +1,19 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FOTItems;
+import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public class Splashtail extends AbstractSchoolingFish
+public class Splashtail extends AbstractSchoolingFish implements GlowFish
 {
     private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.INT);
     public static final String VARIANT_TAG = "Variant";
@@ -123,9 +123,25 @@ public class Splashtail extends AbstractSchoolingFish
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
+    @Override
+    public boolean canGlow(FishType type)
+    {
+        return type == Variant.SEAFOAM;
+    }
+
+    @Override
     public Variant getVariant()
     {
         return Variant.BY_ID[this.entityData.get(TYPE)];
+    }
+
+    @Override
+    public Map<FishType, ResourceLocation> getGlowTextureByType()
+    {
+        return Util.make(Maps.newHashMap(), map ->
+        {
+            map.put(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
+        });
     }
 
     private void setVariant(Variant variant)
@@ -138,7 +154,7 @@ public class Splashtail extends AbstractSchoolingFish
         this.entityData.set(TYPE, id);
     }
 
-    public enum Variant
+    public enum Variant implements FishType
     {
         RUBY(true),
         SUNNY(true),

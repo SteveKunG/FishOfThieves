@@ -1,39 +1,30 @@
 package com.stevekung.fishofthieves.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.client.models.SplashtailModel;
-import com.stevekung.fishofthieves.entity.Splashtail;
-import com.stevekung.fishofthieves.entity.Splashtail.Variant;
+import com.stevekung.fishofthieves.entity.GlowFish;
 
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.entity.LivingEntity;
 
-public class GlowFishLayer<T extends Splashtail> extends EyesLayer<T, SplashtailModel<T>>
+public class GlowFishLayer<T extends LivingEntity & GlowFish, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final RenderType GLOW = RenderType.eyes(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
-
-    public GlowFishLayer(RenderLayerParent<T, SplashtailModel<T>> renderLayerParent)
+    public GlowFishLayer(RenderLayerParent<T, M> renderLayerParent)
     {
         super(renderLayerParent);
     }
 
-    //TODO Better glowing render system
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        if (livingEntity.getVariant() == Variant.SEAFOAM)
+        if (livingEntity.canGlow(livingEntity.getVariant()))
         {
-            super.render(poseStack, buffer, packedLight, livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+            var vertexConsumer = buffer.getBuffer(RenderType.eyes(livingEntity.getGlowTextureByType().get(livingEntity.getVariant())));
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 0xF00000, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
         }
-    }
-
-    @Override
-    public RenderType renderType()
-    {
-        return GLOW;
     }
 }
