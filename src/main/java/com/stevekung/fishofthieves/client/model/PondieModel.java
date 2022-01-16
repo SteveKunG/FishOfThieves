@@ -39,28 +39,28 @@ public class PondieModel<T extends Pondie> extends EntityModel<T>
         var meshDefinition = new MeshDefinition();
         var partDefinition = meshDefinition.getRoot();
 
-        var body_front = partDefinition.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -1.0F, 0.0F, 5.0F, 6.0F, 5.0F, CubeDeformation.NONE)
-                .texOffs(15, 0).addBox(-2.5F, 4.0F, -1.0F, 5.0F, 1.0F, 1.0F, CubeDeformation.NONE)
+        var body_front = partDefinition.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -1.0F, 0.0F, 5.0F, 6.0F, 5.0F)
+                .texOffs(15, 0).addBox(-2.5F, 4.0F, -1.0F, 5.0F, 1.0F, 1.0F)
                 .texOffs(15, 2).addBox(-2.5F, -0.25F, 0.75F, 5.0F, 1.0F, 1.0F, new CubeDeformation(0.1F)), PartPose.offset(0.0F, 18.0F, -2.5F));
 
-        body_front.addOrReplaceChild("fin_back_1", CubeListBuilder.create().texOffs(18, 18).addBox(0.0F, -0.5F, 0.0F, 0.0F, 2.0F, 4.0F, CubeDeformation.NONE), PartPose.offset(0.0F, -2.0F, 0.5F));
+        body_front.addOrReplaceChild("fin_back_1", CubeListBuilder.create().texOffs(18, 18).addBox(0.0F, -0.5F, 0.0F, 0.0F, 2.0F, 4.0F), PartPose.offset(0.0F, -2.0F, 0.5F));
 
-        body_front.addOrReplaceChild("right_fin", CubeListBuilder.create().texOffs(24, 17).addBox(-3.5303F, 0.0F, 0.5303F, 3.0F, 3.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-2.25F, 1.0F, 2.5F, 0.0F, 0.7854F, 0.0F));
+        body_front.addOrReplaceChild("right_fin", CubeListBuilder.create().texOffs(24, 17).addBox(-3.5303F, 0.0F, 0.5303F, 3.0F, 3.0F, 0.0F), PartPose.offsetAndRotation(-2.25F, 1.0F, 2.5F, 0.0F, 0.7854F, 0.0F));
 
-        body_front.addOrReplaceChild("left_fin", CubeListBuilder.create().texOffs(18, 17).addBox(0.5303F, 0.0F, 0.5303F, 3.0F, 3.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(2.25F, 1.0F, 2.5F, 0.0F, -0.7854F, 0.0F));
+        body_front.addOrReplaceChild("left_fin", CubeListBuilder.create().texOffs(18, 17).addBox(0.5303F, 0.0F, 0.5303F, 3.0F, 3.0F, 0.0F), PartPose.offsetAndRotation(2.25F, 1.0F, 2.5F, 0.0F, -0.7854F, 0.0F));
 
-        body_front.addOrReplaceChild("fin_under", CubeListBuilder.create().texOffs(15, 1).addBox(0.0F, 1.5F, -1.5F, 0.0F, 1.0F, 3.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 3.5F, 2.0F));
+        body_front.addOrReplaceChild("fin_under", CubeListBuilder.create().texOffs(15, 1).addBox(0.0F, 1.5F, -1.5F, 0.0F, 1.0F, 3.0F), PartPose.offset(0.0F, 3.5F, 2.0F));
 
-        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(20, 10).addBox(-1.0F, 0.0F, 1.5F, 2.0F, 3.0F, 2.0F, CubeDeformation.NONE)
-                .texOffs(20, 4).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 4.0F, 2.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 18.0F, 2.5F));
+        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(20, 10).addBox(-1.0F, 0.0F, 1.5F, 2.0F, 3.0F, 2.0F)
+                .texOffs(20, 4).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 4.0F, 2.0F), PartPose.offset(0.0F, 18.0F, 2.5F));
 
         body_back.addOrReplaceChild("fin_back_2", CubeListBuilder.create(), PartPose.offset(0.0F, -3.5F, -2.0F));
 
-        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(24, 17).addBox(0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-1.0F, 1.5F, 2.0F, 0.0F, 0.0F, 0.5236F));
+        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(24, 17).addBox(0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(-1.0F, 1.5F, 2.0F, 0.0F, 0.0F, 0.5236F));
 
-        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(18, 17).addBox(-0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(1.0F, 1.5F, 2.0F, 0.0F, 0.0F, -0.5236F));
+        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(18, 17).addBox(-0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(1.0F, 1.5F, 2.0F, 0.0F, 0.0F, -0.5236F));
 
-        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 23).addBox(0.0F, -1.0F, 0.0F, 0.0F, 5.0F, 3.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 0.0F, 3.5F));
+        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 23).addBox(0.0F, -1.0F, 0.0F, 0.0F, 5.0F, 3.0F), PartPose.offset(0.0F, 0.0F, 3.5F));
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 18.0F, -2.5F));
 
