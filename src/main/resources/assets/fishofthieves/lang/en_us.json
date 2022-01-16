@@ -4,6 +4,10 @@
     "item.fishofthieves.cooked_splashtail": "Cooked Splashtail",
     "item.fishofthieves.splashtail_bucket": "Splashtail Bucket",
     "item.fishofthieves.splashtail_spawn_egg": "Splashtail Spawn Egg",
+    "item.fishofthieves.pondie": "Pondie",
+    "item.fishofthieves.cooked_pondie": "Cooked Pondie",
+    "item.fishofthieves.pondie_bucket": "Pondie Bucket",
+    "item.fishofthieves.pondie_spawn_egg": "Pondie Spawn Egg",
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
     "entity.fishofthieves.splashtail.ruby": "Ruby",
@@ -11,7 +15,16 @@
     "entity.fishofthieves.splashtail.indigo": "Indigo",
     "entity.fishofthieves.splashtail.umber": "Umber",
     "entity.fishofthieves.splashtail.seafoam": "Seafoam",
+    "entity.fishofthieves.pondie": "Splashtail",
+    "entity.fishofthieves.pondie.charcoal": "Charcoal",
+    "entity.fishofthieves.pondie.orchid": "Orchid",
+    "entity.fishofthieves.pondie.bronze": "Bronze",
+    "entity.fishofthieves.pondie.bright": "Bright",
+    "entity.fishofthieves.pondie.moonsky": "Moonsky",
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
-    "subtitles.entity.splashtail.hurt": "Splashtail hurts"
+    "subtitles.entity.splashtail.hurt": "Splashtail hurts",
+    "subtitles.entity.pondie.death": "Pondie dies",
+    "subtitles.entity.pondie.flop": "Pondie flops",
+    "subtitles.entity.pondie.hurt": "Pondie hurts"
 }

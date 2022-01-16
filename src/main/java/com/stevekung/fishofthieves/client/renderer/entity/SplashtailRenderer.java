@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.client.renderer;
+package com.stevekung.fishofthieves.client.renderer.entity;
 
 import java.util.Map;
 
@@ -6,16 +6,15 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.client.models.SplashtailModel;
-import com.stevekung.fishofthieves.entity.Splashtail;
+import com.stevekung.fishofthieves.client.model.SplashtailModel;
+import com.stevekung.fishofthieves.entity.animal.Splashtail;
 
 import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class SplashtailRenderer extends MobRenderer<Splashtail, SplashtailModel<Splashtail>>
+public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, SplashtailModel<Splashtail>>
 {
     private static final Map<Splashtail.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), hashMap ->
     {
@@ -28,7 +27,6 @@ public class SplashtailRenderer extends MobRenderer<Splashtail, SplashtailModel<
     public SplashtailRenderer(EntityRendererProvider.Context context)
     {
         super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)), 0.3F);
-        this.addLayer(new GlowFishLayer<>(this));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.entity;
+package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -7,11 +7,12 @@ import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FOTItems;
 import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.GlowFish;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -34,13 +35,10 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
 {
     private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.BOOLEAN);
-    private static final Map<FishType, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
     {
         map.put(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
     });
-
-    public static final String VARIANT_TAG = "Variant";
-    public static final String TROPHY_TAG = "Trophy";
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
@@ -100,17 +98,14 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
-        var compound = itemStack.getOrCreateTag();
-        compound.putInt(VARIANT_TAG, this.getVariant().ordinal());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
+        this.saveToBucket(itemStack, this.getVariant().ordinal(), this.getVariant().getName());
     }
 
     @Override
     public void loadFromBucketTag(CompoundTag compound)
     {
         super.loadFromBucketTag(compound);
-        this.setVariant(Variant.BY_ID[compound.getInt(VARIANT_TAG)]);
-        this.setTrophy(compound.getBoolean(TROPHY_TAG));
+        this.loadFromBucket(Variant.BY_ID[compound.getInt(VARIANT_TAG)].ordinal(), compound);
     }
 
     @Override
@@ -122,6 +117,8 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
+        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+
         if (reason == MobSpawnType.BUCKET)
         {
             if (dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_INT))
@@ -130,24 +127,14 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
             }
             return spawnData;
         }
-        if (spawnData instanceof AbstractSchoolingFish.SchoolSpawnGroupData data)
-        {
-            this.startFollowing(data.leader);
-        }
-        else
-        {
-            spawnData = new AbstractSchoolingFish.SchoolSpawnGroupData(this);
-        }
-
-        this.setVariant(Variant.getSpawnVariant(this));
-
         if (this.random.nextInt(15) == 0)
         {
             this.setTrophy(true);
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(5.0D);
             this.setHealth(5.0f);
         }
-        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        this.setVariant(Variant.getSpawnVariant(this));
+        return spawnData;
     }
 
     @Override
@@ -163,8 +150,7 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     @Override
     public EntityDimensions getDimensions(Pose pose)
     {
-        var dimension = super.getDimensions(pose);
-        return this.isTrophy() ? dimension : EntityDimensions.fixed(0.45F, 0.25F);
+        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.45F, 0.25F);
     }
 
     @Override
@@ -186,50 +172,53 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     }
 
     @Override
-    public Map<FishType, ResourceLocation> getGlowTextureByType()
+    public void setVariant(int id)
+    {
+        this.entityData.set(TYPE, id);
+    }
+
+    @Override
+    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
     {
         return GLOW_BY_TYPE;
     }
 
+    @Override
     public boolean isTrophy()
     {
         return this.entityData.get(TROPHY);
     }
 
+    @Override
     public void setTrophy(boolean trophy)
     {
         this.entityData.set(TROPHY, trophy);
     }
 
-    private void setVariant(Variant variant)
+    public void setVariant(Variant variant)
     {
         this.setVariant(variant.ordinal());
     }
 
-    private void setVariant(int id)
-    {
-        this.entityData.set(TYPE, id);
-    }
-
-    public enum Variant implements FishType
+    public enum Variant implements ThievesFish.FishVariant
     {
         RUBY,
-        SUNNY(Level::isDay),
+        SUNNY((level, pos) -> level.isDay()),
         INDIGO,
-        UMBER(level -> level.random.nextInt(100) == 0),
-        SEAFOAM(Level::isNight);
+        UMBER((level, pos) -> level.random.nextInt(100) == 0),
+        SEAFOAM((level, pos) -> level.random.nextInt(2) == 0 && level.isNight());
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
-        private final Predicate<Level> condition;
+        private final ThievesFish.Condition condition;
 
-        Variant(Predicate<Level> condition)
+        Variant(ThievesFish.Condition condition)
         {
             this.condition = condition;
         }
 
         Variant()
         {
-            this(level -> true);
+            this((level, pos) -> true);
         }
 
         public String getName()
@@ -239,7 +228,7 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
 
         public static Variant getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.apply(livingEntity.level)).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(livingEntity.level, livingEntity.blockPosition())).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
         }
     }

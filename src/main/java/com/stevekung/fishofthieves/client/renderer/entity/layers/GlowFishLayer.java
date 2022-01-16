@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.client.renderer;
+package com.stevekung.fishofthieves.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.entity.GlowFish;

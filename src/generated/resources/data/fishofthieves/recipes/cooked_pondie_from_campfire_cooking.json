@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "fishofthieves:pondie"
+  },
+  "result": "fishofthieves:cooked_pondie",
+  "experience": 0.35,
+  "cookingtime": 600
+}

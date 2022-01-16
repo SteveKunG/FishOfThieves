@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_pondie"
+    ]
+  },
+  "criteria": {
+    "has_pondie": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:pondie"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_pondie"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pondie",
+      "has_the_recipe"
+    ]
+  ]
+}

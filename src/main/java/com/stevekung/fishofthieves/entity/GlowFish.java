@@ -4,9 +4,8 @@ import java.util.Map;
 
 import net.minecraft.resources.ResourceLocation;
 
-public interface GlowFish
+public interface GlowFish extends ThievesFish
 {
     boolean canGlow();
-    Map<FishType, ResourceLocation> getGlowTextureByType();
-    FishType getVariant();
+    Map<FishVariant, ResourceLocation> getGlowTextureByType();
 }

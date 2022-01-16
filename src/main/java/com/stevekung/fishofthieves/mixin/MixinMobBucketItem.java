@@ -10,10 +10,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.stevekung.fishofthieves.FOTEntities;
-import com.stevekung.fishofthieves.entity.Splashtail;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -31,16 +31,15 @@ public class MixinMobBucketItem
     EntityType<?> type;
 
     @Inject(method = "appendHoverText", at = @At("TAIL"))
-    private void appendCustomFishType(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo info)
+    private void appendCustomFishType(ItemStack itemStack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo info)
     {
-        var compoundTag = stack.getTag();
+        var compoundTag = itemStack.getTag();
 
-        if (this.type == FOTEntities.SPLASHTAIL && stack.hasTag() && compoundTag.contains(Splashtail.VARIANT_TAG, Tag.TAG_INT))
+        if (this.type.is(ThievesFish.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
         {
-            var i = compoundTag.getInt(Splashtail.VARIANT_TAG);
-            var type = new TranslatableComponent("entity.fishofthieves.splashtail." + Splashtail.Variant.BY_ID[i].getName()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+            var type = new TranslatableComponent("entity.fishofthieves." + Registry.ENTITY_TYPE.getKey(this.type).getPath() + "." + compoundTag.getString(ThievesFish.NAME_TAG)).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
-            if (compoundTag.contains(Splashtail.TROPHY_TAG, Tag.TAG_BYTE))
+            if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
             {
                 type.append(", ").append(new TranslatableComponent("entity.fishofthieves.trophy"));
             }
