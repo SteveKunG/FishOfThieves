@@ -9,7 +9,11 @@
         "PloyiinGz"
     ],
     "icon": "logo.png",
-    "contact": {},
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves",
+        "sources": "https://github.com/SteveKunG/FishOfThieves",
+        "issues": "https://github.com/SteveKunG/FishOfThieves/issues"
+    },
     "license": "MIT",
     "environment": "*",
     "entrypoints": {
@@ -32,6 +36,7 @@
     "depends": {
         "fabricloader": ">=0.12.12",
         "fabric": "*",
+        "cloth-config": ">=6.1.0",
         "minecraft": ">=1.18.1"
     },
     "accessWidener": "fishofthieves.accesswidener"

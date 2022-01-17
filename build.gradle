@@ -1,6 +1,9 @@
 plugins {
     id "fabric-loom" version "0.10-SNAPSHOT"
+    id "com.matthewprenger.cursegradle" version "1.4.0" apply false
 }
+
+apply plugin: "com.matthewprenger.cursegradle"
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
@@ -70,8 +73,16 @@ dependencies {
     }
 }
 
+String fileName = "${archives_base_name}-mc${minecraft_version}"
+
 jar {
     exclude ".cache"
+}
+
+remapJar {
+    archiveClassifier = "fabric"
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
 }
 
 processResources {
@@ -85,4 +96,34 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
     it.options.release = 17
+}
+
+curseforge {
+    if (project.hasProperty("upload_api_key")) {
+        apiKey = project.upload_api_key
+        project {
+            id = "568372"
+            changelog = file("../CHANGE_LOG.md")
+            changelogType = "markdown"
+            releaseType = "release"
+            addGameVersion "Fabric"
+            addGameVersion "Java 17"
+            addGameVersion rootProject.minecraft_version
+
+            mainArtifact(remapJar.archiveFile) {
+                displayName = "[Fabric] " + fileName + "-v${project.version}"
+            }
+            relations {
+                requiredDependency "fabric-api"
+                requiredDependency "cloth-config"
+                optionalDependency "modmenu"
+            }
+            afterEvaluate {
+                uploadTask.dependsOn(remapJar)
+            }
+        }
+        options {
+            forgeGradleIntegration = false
+        }
+    }
 }
