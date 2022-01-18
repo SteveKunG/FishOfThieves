@@ -126,6 +126,7 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
             if (dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_INT))
             {
                 this.setVariant(dataTag.getInt(VARIANT_TAG));
+                this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             }
             return spawnData;
         }
