@@ -21,6 +21,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -203,10 +204,10 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     public enum Variant implements ThievesFish.FishVariant
     {
         RUBY,
-        SUNNY((level, pos) -> level.isDay()),
+        SUNNY((level, blockPos) -> level.isDay()),
         INDIGO,
-        UMBER((level, pos) -> level.random.nextInt(100) == 0),
-        SEAFOAM((level, pos) -> level.random.nextInt(2) == 0 && level.isNight());
+        UMBER((level, blockPos) -> level.random.nextInt(100) == 0),
+        SEAFOAM((level, blockPos) -> level.random.nextInt(2) == 0 && level.isNight());
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -228,7 +229,7 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
 
         public static Variant getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(livingEntity.level, livingEntity.blockPosition())).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn((ServerLevel) livingEntity.level, livingEntity.blockPosition())).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
         }
     }

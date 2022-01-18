@@ -6,10 +6,10 @@ import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public interface ThievesFish
 {
@@ -42,6 +42,6 @@ public interface ThievesFish
     @FunctionalInterface
     interface Condition
     {
-        boolean spawn(Level level, BlockPos pos);
+        boolean spawn(ServerLevel level, BlockPos pos);
     }
 }

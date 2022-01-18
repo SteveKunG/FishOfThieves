@@ -21,6 +21,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -206,8 +207,8 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
         CHARCOAL,
         ORCHID,
         BRONZE,
-        BRIGHT((level, pos) -> level.random.nextInt(150) == 0),
-        MOONSKY((level, pos) -> level.random.nextInt(4) == 0 && (level.isNight() || level.getBrightness(LightLayer.SKY, pos) < 10));
+        BRIGHT((level, blockPos) -> level.random.nextInt(150) == 0),
+        MOONSKY((level, blockPos) -> level.random.nextInt(4) == 0 && (level.isNight() || level.getBrightness(LightLayer.SKY, blockPos) < 10));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -229,7 +230,7 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
 
         public static Variant getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(livingEntity.level, livingEntity.blockPosition())).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn((ServerLevel) livingEntity.level, livingEntity.blockPosition())).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
         }
     }
