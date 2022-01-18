@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.spongepowered.asm.mixin.Final;
@@ -29,7 +28,7 @@ public class MixinCat
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void addFoods(CallbackInfo info)
     {
-        Supplier<Stream<ItemStack>> catFoods = Suppliers.memoize(() -> Stream.of(new ItemStack(FOTItems.SPLASHTAIL), new ItemStack(FOTItems.PONDIE)));
+        var catFoods = Suppliers.<Stream<ItemStack>>memoize(() -> Stream.of(new ItemStack(FOTItems.SPLASHTAIL), new ItemStack(FOTItems.PONDIE)));
         TEMPT_INGREDIENT = Ingredient.of(Stream.<ItemStack>concat(Stream.of(TEMPT_INGREDIENT.getItems()), catFoods.get()));
     }
 }

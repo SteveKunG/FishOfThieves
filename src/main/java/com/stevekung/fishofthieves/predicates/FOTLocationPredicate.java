@@ -1,20 +1,16 @@
 package com.stevekung.fishofthieves.predicates;
 
-import java.util.Locale;
-
 import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.QuartPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTLocationPredicate
@@ -39,14 +35,8 @@ public class FOTLocationPredicate
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var biome = level.getBiome(blockPos);
-        var chunkX = QuartPos.fromBlock(blockPos.getX());
-        var chunkY = QuartPos.fromBlock(blockPos.getY());
-        var chunkZ = QuartPos.fromBlock(blockPos.getZ());
-        var targetPoint = level.getChunkSource().getGenerator().climateSampler().sample(chunkX, chunkY, chunkZ);
-        var continentalness = Climate.unquantizeCoord(targetPoint.continentalness());
-        var overworldBiomeBuilder = new OverworldBiomeBuilder();
 
-        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness.equals(overworldBiomeBuilder.getDebugStringForContinentalness(continentalness).toLowerCase(Locale.ROOT))))
+        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness.equals(TerrainUtils.getContinentalness(level, blockPos))))
         {
             return false;
         }
