@@ -8,7 +8,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = FishOfThieves.MOD_ID)
-@Config.Gui.Background("minecraft:textures/block/prismarine.png")
+@Config.Gui.Background("minecraft:textures/block/prismarine_bricks.png")
 public final class FishOfThievesConfig implements ConfigData
 {
     @Comment("Toggles spore particles in Lush Cave biome.")

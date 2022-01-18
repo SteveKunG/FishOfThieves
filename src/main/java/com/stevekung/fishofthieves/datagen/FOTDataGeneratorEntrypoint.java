@@ -28,6 +28,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -52,6 +53,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         dataGenerator.addProvider(RecipeProvider::new);
         dataGenerator.addProvider(LootProvider::new);
+        dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
     }
 
@@ -141,6 +143,20 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+        }
+    }
+
+    private static class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
+    {
+        private ItemTagsProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator);
+        }
+
+        @Override
+        protected void generateTags()
+        {
+            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
         }
     }
 

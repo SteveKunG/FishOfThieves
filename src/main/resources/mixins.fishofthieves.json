@@ -6,7 +6,12 @@
     "client": [
     ],
     "mixins": [
-        "MixinMobBucketItem"
+        "DispenserBlockAccessor",
+        
+        "animal.MixinCat",
+        "animal.MixinOcelot",
+        
+        "item.MixinMobBucketItem"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.mixin;
+package com.stevekung.fishofthieves.mixin.item;
 
 import java.util.List;
 
