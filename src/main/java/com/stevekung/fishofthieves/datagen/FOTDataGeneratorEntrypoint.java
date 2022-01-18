@@ -156,6 +156,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
+            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET);
             this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
         }
     }
