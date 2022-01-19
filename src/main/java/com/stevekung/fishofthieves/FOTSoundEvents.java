@@ -12,6 +12,9 @@ public class FOTSoundEvents
     public static final SoundEvent PONDIE_DEATH = create("entity.pondie.death");
     public static final SoundEvent PONDIE_FLOP = create("entity.pondie.flop");
     public static final SoundEvent PONDIE_HURT = create("entity.pondie.hurt");
+    public static final SoundEvent ISLEHOPPER_DEATH = create("entity.islehopper.death");
+    public static final SoundEvent ISLEHOPPER_FLOP = create("entity.islehopper.flop");
+    public static final SoundEvent ISLEHOPPER_HURT = create("entity.islehopper.hurt");
 
     public static void init()
     {
@@ -21,6 +24,9 @@ public class FOTSoundEvents
         register(PONDIE_DEATH);
         register(PONDIE_FLOP);
         register(PONDIE_HURT);
+        register(ISLEHOPPER_DEATH);
+        register(ISLEHOPPER_FLOP);
+        register(ISLEHOPPER_HURT);
     }
 
     private static SoundEvent create(String key)

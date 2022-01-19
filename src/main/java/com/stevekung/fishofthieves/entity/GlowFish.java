@@ -8,4 +8,9 @@ public interface GlowFish extends ThievesFish
 {
     boolean canGlow();
     Map<FishVariant, ResourceLocation> getGlowTextureByType();
+
+    default float getGlowBrightness(float ageInTicks)
+    {
+        return 1.0F;
+    }
 }

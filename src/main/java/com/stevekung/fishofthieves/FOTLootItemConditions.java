@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves;
 
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.utils.Continentalness;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +19,8 @@ public class FOTLootItemConditions
     public static final LootItemCondition.Builder IN_OCEAN = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(Biome.BiomeCategory.OCEAN));
     public static final LootItemCondition.Builder IN_RIVER = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(Biome.BiomeCategory.RIVER));
     public static final LootItemCondition.Builder IN_FOREST = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(Biome.BiomeCategory.FOREST));
+
+    public static final LootItemCondition.Builder COAST = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
 
     private static LootItemConditionType register(String registryName, Serializer<? extends LootItemCondition> serializer)
     {

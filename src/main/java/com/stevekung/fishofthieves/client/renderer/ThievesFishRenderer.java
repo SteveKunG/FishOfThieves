@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.client.renderer.entity;
+package com.stevekung.fishofthieves.client.renderer;
 
 import com.stevekung.fishofthieves.client.renderer.entity.layers.GlowFishLayer;
 import com.stevekung.fishofthieves.entity.GlowFish;

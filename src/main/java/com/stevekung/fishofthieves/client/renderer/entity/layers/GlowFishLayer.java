@@ -24,7 +24,8 @@ public class GlowFishLayer<T extends LivingEntity & GlowFish, M extends EntityMo
         if (livingEntity.canGlow())
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(livingEntity.getGlowTextureByType().get(livingEntity.getVariant())));
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 0xF00000, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+            var color = livingEntity.getGlowBrightness(ageInTicks);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 0xF00000, OverlayTexture.NO_OVERLAY, color, color, color, 1.0f);
         }
     }
 }

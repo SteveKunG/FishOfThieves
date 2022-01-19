@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.SplashtailModel;
+import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
 
 import net.minecraft.Util;

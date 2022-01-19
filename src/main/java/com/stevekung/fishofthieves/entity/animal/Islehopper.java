@@ -1,9 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -15,32 +13,44 @@ import com.stevekung.fishofthieves.entity.GlowFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class Pondie extends AbstractSchoolingFish implements GlowFish
+public class Islehopper extends AbstractFish implements GlowFish
 {
-    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Pondie.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Pondie.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Islehopper.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Islehopper.class, EntityDataSerializers.BOOLEAN);
     private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
     {
-        map.put(Variant.MOONSKY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/pondie/moonsky_glow.png"));
+        map.put(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
     });
 
-    public Pondie(EntityType<? extends Pondie> entityType, Level level)
+    public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -57,25 +67,25 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(FOTItems.PONDIE_BUCKET);
+        return new ItemStack(FOTItems.ISLEHOPPER_BUCKET);
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return FOTSoundEvents.PONDIE_DEATH;
+        return FOTSoundEvents.ISLEHOPPER_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
     {
-        return FOTSoundEvents.PONDIE_HURT;
+        return FOTSoundEvents.ISLEHOPPER_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound()
     {
-        return FOTSoundEvents.PONDIE_FLOP;
+        return FOTSoundEvents.ISLEHOPPER_FLOP;
     }
 
     @Override
@@ -109,9 +119,19 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
     }
 
     @Override
-    public int getMaxSchoolSize()
+    public boolean skipAttackInteraction(Entity entity)
     {
-        return 5;
+        var multiplier = this.isTrophy() ? 2 : 1;
+
+        if (entity instanceof ServerPlayer serverPlayer && entity.hurt(DamageSource.mobAttack(this), multiplier))
+        {
+            if (!this.isSilent())
+            {
+                serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0f));
+            }
+            serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
+        }
+        return false;
     }
 
     @Override
@@ -134,19 +154,25 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
     @Override
     public EntityDimensions getDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.35F, 0.25F);
+        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.3F, 0.2F);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.35F : 0.18F;
+        return this.isTrophy() ? 0.29F : 0.15F;
     }
 
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.MOONSKY;
+        return this.getVariant() == Variant.AMETHYST;
+    }
+
+    @Override
+    public float getGlowBrightness(float ageInTicks)
+    {
+        return Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
     }
 
     @Override
@@ -186,11 +212,25 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
 
     public enum Variant implements ThievesFish.FishVariant
     {
-        CHARCOAL,
-        ORCHID,
-        BRONZE,
-        BRIGHT(context -> context.level().random.nextInt(150) == 0),
-        MOONSKY(context -> context.level().random.nextInt(4) == 0 && (context.level().isNight() || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
+        STONE,
+        MOSS(context ->
+        {
+            var category = getBiomeCategory(context.level(), context.blockPos());
+            return category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || getBiomeKeys(context.level(), context.blockPos()) == Biomes.LUSH_CAVES;
+        }),
+        HONEY(context ->
+        {
+            var optional = lookForBlock(context.blockPos(), 5, blockPos2 ->
+            {
+                var blockState = context.level().getBlockState(blockPos2);
+                var beehiveOptional = context.level().getBlockEntity(blockPos2, BlockEntityType.BEEHIVE);
+                var isBeehive = blockState.is(BlockTags.BEEHIVES);
+                return isBeehive && BeehiveBlockEntity.getHoneyLevel(blockState) == 5 && beehiveOptional.isPresent() && !beehiveOptional.get().isEmpty();
+            });
+            return optional.isPresent();
+        }),
+        RAVEN(context -> context.blockPos().getY() < 0 && context.level().random.nextInt(100) == 0),
+        AMETHYST(context -> lookForGeode(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -214,6 +254,37 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
         {
             var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
+        }
+
+        private static ResourceKey<Biome> getBiomeKeys(ServerLevel level, BlockPos blockPos)
+        {
+            var optional = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getResourceKey(level.getBiome(blockPos));
+            return optional.isPresent() ? optional.get() : Biomes.OCEAN;
+        }
+
+        private static Biome.BiomeCategory getBiomeCategory(ServerLevel level, BlockPos blockPos)
+        {
+            return level.getBiome(blockPos).getBiomeCategory();
+        }
+
+        private static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)
+        {
+            return BlockPos.findClosestMatch(blockPos, range, range, posFilter);
+        }
+
+        private static boolean lookForGeode(BlockPos blockPos, int range, int maxSize, Predicate<BlockPos> posFilter)
+        {
+            var size = 0;
+
+            for (var blockPos2 : BlockPos.withinManhattan(blockPos, range, range, range))
+            {
+                if (!posFilter.test(blockPos2))
+                {
+                    continue;
+                }
+                size++;
+            }
+            return size >= maxSize;
         }
     }
 }

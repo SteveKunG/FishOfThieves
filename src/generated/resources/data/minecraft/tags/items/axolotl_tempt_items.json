@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "fishofthieves:splashtail_bucket",
-    "fishofthieves:pondie_bucket"
+    "fishofthieves:pondie_bucket",
+    "fishofthieves:islehopper_bucket"
   ]
 }

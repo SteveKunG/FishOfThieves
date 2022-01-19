@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
@@ -17,9 +18,9 @@ public class FOTLocationPredicate
 {
     public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null);
     private final Biome.BiomeCategory biomeCategory;
-    private final String continentalness;
+    private final Continentalness continentalness;
 
-    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, String continentalness)
+    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness)
     {
         this.biomeCategory = biomeCategory;
         this.continentalness = continentalness;
@@ -36,7 +37,7 @@ public class FOTLocationPredicate
         var loaded = level.isLoaded(blockPos);
         var biome = level.getBiome(blockPos);
 
-        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness.equals(TerrainUtils.getContinentalness(level, blockPos))))
+        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)))
         {
             return false;
         }
@@ -58,7 +59,7 @@ public class FOTLocationPredicate
         }
         if (this.continentalness != null)
         {
-            jsonObject.addProperty("continentalness", this.continentalness);
+            jsonObject.addProperty("continentalness", this.continentalness.getSerializedName());
         }
         return jsonObject;
     }
@@ -71,7 +72,7 @@ public class FOTLocationPredicate
         }
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
         var biomeCategory = Biome.BiomeCategory.byName(GsonHelper.getAsString(jsonObject, "biomeCategory"));
-        var continentalness = GsonHelper.getAsString(jsonObject, "continentalness");
+        var continentalness = Continentalness.byName(GsonHelper.getAsString(jsonObject, "continentalness"));
         return new FOTLocationPredicate(biomeCategory, continentalness);
     }
 
@@ -80,7 +81,7 @@ public class FOTLocationPredicate
         @Nullable
         private Biome.BiomeCategory biomeCategory;
         @Nullable
-        private String continentalness;
+        private Continentalness continentalness;
 
         public static Builder location()
         {
@@ -93,7 +94,7 @@ public class FOTLocationPredicate
             return this;
         }
 
-        public Builder setContinentalness(@Nullable String continentalness)
+        public Builder setContinentalness(@Nullable Continentalness continentalness)
         {
             this.continentalness = continentalness;
             return this;

@@ -28,7 +28,7 @@ public class MixinOcelot
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void addFoods(CallbackInfo info)
     {
-        var catFoods = Suppliers.<Stream<ItemStack>>memoize(() -> Stream.of(new ItemStack(FOTItems.SPLASHTAIL), new ItemStack(FOTItems.PONDIE)));
+        var catFoods = Suppliers.<Stream<ItemStack>>memoize(() -> Stream.of(FOTItems.CAT_FOODS));
         TEMPT_INGREDIENT = Ingredient.of(Stream.<ItemStack>concat(Stream.of(TEMPT_INGREDIENT.getItems()), catFoods.get()));
     }
 }

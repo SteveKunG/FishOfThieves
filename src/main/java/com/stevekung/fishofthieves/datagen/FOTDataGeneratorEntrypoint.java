@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.FOTEntities;
 import com.stevekung.fishofthieves.FOTItems;
-import com.stevekung.fishofthieves.FOTLootTables;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -77,6 +76,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             itemModelGenerator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(FOTItems.PONDIE_BUCKET, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
+            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_BUCKET, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
         }
 
         @Override
@@ -104,6 +107,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, 0.35F);
             simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, 0.35F);
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(FOTItems.PONDIE), FOTItems.COOKED_PONDIE, 0.35F, 200).unlockedBy(getHasName(FOTItems.PONDIE), has(FOTItems.PONDIE)).save(consumer);
+            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, 0.35F);
+            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, 0.35F);
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(FOTItems.ISLEHOPPER), FOTItems.COOKED_ISLEHOPPER, 0.35F, 200).unlockedBy(getHasName(FOTItems.ISLEHOPPER), has(FOTItems.ISLEHOPPER)).save(consumer);
         }
     }
 
@@ -119,7 +125,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void accept(BiConsumer<ResourceLocation, Builder> consumer)
         {
-            consumer.accept(FOTLootTables.SPLASHTAIL, LootTable.lootTable()
+            consumer.accept(FOTEntities.SPLASHTAIL.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
@@ -131,10 +137,22 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
-            consumer.accept(FOTLootTables.PONDIE, LootTable.lootTable()
+            consumer.accept(FOTEntities.PONDIE.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.PONDIE)
+                                    .apply(SmeltItemFunction.smelted()
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+            consumer.accept(FOTEntities.ISLEHOPPER.getDefaultLootTable(), LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
@@ -156,8 +174,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET);
-            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
+            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET, FOTItems.ISLEHOPPER_BUCKET);
+            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
         }
     }
 
@@ -171,8 +189,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE);
-            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE);
+            this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER);
+            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER);
         }
     }
 }
