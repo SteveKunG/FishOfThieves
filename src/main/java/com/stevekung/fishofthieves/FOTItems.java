@@ -23,7 +23,7 @@ public class FOTItems
     public static final Item SPLASHTAIL_BUCKET = new MobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item PONDIE_BUCKET = new MobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item ISLEHOPPER_BUCKET = new MobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
-    public static final Item ANCIENTSCALE_BUCKET = new MobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
+    public static final Item ANCIENTSCALE_BUCKET = new MobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item SPLASHTAIL_SPAWN_EGG = new SpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item PONDIE_SPAWN_EGG = new SpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item ISLEHOPPER_SPAWN_EGG = new SpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, new Item.Properties().tab(FishOfThieves.FOT_TAB));

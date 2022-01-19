@@ -5,52 +5,33 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FOTItems;
 import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.GlowFish;
+import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 
-public class Splashtail extends AbstractSchoolingFish implements GlowFish
+public class Splashtail extends AbstractSchoolingThievesFish
 {
-    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.BOOLEAN);
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
-    });
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png")));
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
         super(entityType, level);
-        this.refreshDimensions();
-    }
-
-    @Override
-    protected void defineSynchedData()
-    {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
-        this.entityData.define(TROPHY, false);
     }
 
     @Override
@@ -78,56 +59,9 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putInt(VARIANT_TAG, this.getVariant().ordinal());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(Variant.BY_ID[compound.getInt(VARIANT_TAG)]);
-        this.setTrophy(compound.getBoolean(TROPHY_TAG));
-    }
-
-    @Override
-    public void saveToBucketTag(ItemStack itemStack)
-    {
-        super.saveToBucketTag(itemStack);
-        this.saveToBucket(itemStack, this.getVariant().ordinal(), this.getVariant().getName());
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag compound)
-    {
-        super.loadFromBucketTag(compound);
-        this.loadFromBucket(Variant.BY_ID[compound.getInt(VARIANT_TAG)].ordinal(), compound);
-    }
-
-    @Override
     public int getMaxSchoolSize()
     {
         return 5;
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
-    {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag, Variant.getSpawnVariant(this));
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key)
-    {
-        if (TROPHY.equals(key))
-        {
-            this.refreshDimensions();
-        }
-        super.onSyncedDataUpdated(key);
     }
 
     @Override
@@ -155,32 +89,15 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     }
 
     @Override
-    public void setVariant(int id)
+    public FishVariant getVariant(CompoundTag compound)
     {
-        this.entityData.set(TYPE, id);
+        return Variant.BY_ID[compound.getInt(VARIANT_TAG)];
     }
 
     @Override
     public Map<FishVariant, ResourceLocation> getGlowTextureByType()
     {
         return GLOW_BY_TYPE;
-    }
-
-    @Override
-    public boolean isTrophy()
-    {
-        return this.entityData.get(TROPHY);
-    }
-
-    @Override
-    public void setTrophy(boolean trophy)
-    {
-        this.entityData.set(TROPHY, trophy);
-    }
-
-    public void setVariant(Variant variant)
-    {
-        this.setVariant(variant.ordinal());
     }
 
     public enum Variant implements ThievesFish.FishVariant
@@ -191,7 +108,7 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
         UMBER(context -> context.level().random.nextInt(100) == 0),
         SEAFOAM(context -> context.level().random.nextInt(2) == 0 && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
-        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
+        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
 
         Variant(ThievesFish.Condition condition)
@@ -204,9 +121,16 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
             this(context -> true);
         }
 
+        @Override
         public String getName()
         {
             return this.name().toLowerCase(Locale.ROOT);
+        }
+
+        @Override
+        public int getId()
+        {
+            return this.ordinal();
         }
 
         public static Variant getSpawnVariant(LivingEntity livingEntity)

@@ -25,6 +25,7 @@ public interface ThievesFish
     net.minecraft.tags.Tag.Named<EntityType<?>> THIEVES_FISH = TagFactory.ENTITY_TYPE.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
     FishVariant getVariant();
+    FishVariant getVariant(CompoundTag compound);
     void setVariant(int id);
     boolean isTrophy();
     void setTrophy(boolean trophy);
@@ -70,6 +71,11 @@ public interface ThievesFish
         boolean spawn(SpawnConditionContext context);
     }
 
-    interface FishVariant {}
+    interface FishVariant
+    {
+        String getName();
+        int getId();
+    }
+
     record SpawnConditionContext(ServerLevel level, BlockPos blockPos) {}
 }

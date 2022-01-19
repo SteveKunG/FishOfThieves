@@ -5,63 +5,41 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FOTItems;
 import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.GlowFish;
+import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class Islehopper extends AbstractFish implements GlowFish
+public class Islehopper extends AbstractThievesFish
 {
-    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Islehopper.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Islehopper.class, EntityDataSerializers.BOOLEAN);
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
-    });
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png")));
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
         super(entityType, level);
-        this.refreshDimensions();
-    }
-
-    @Override
-    protected void defineSynchedData()
-    {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
-        this.entityData.define(TROPHY, false);
     }
 
     @Override
@@ -89,36 +67,6 @@ public class Islehopper extends AbstractFish implements GlowFish
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putInt(VARIANT_TAG, this.getVariant().ordinal());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(Variant.BY_ID[compound.getInt(VARIANT_TAG)]);
-        this.setTrophy(compound.getBoolean(TROPHY_TAG));
-    }
-
-    @Override
-    public void saveToBucketTag(ItemStack itemStack)
-    {
-        super.saveToBucketTag(itemStack);
-        this.saveToBucket(itemStack, this.getVariant().ordinal(), this.getVariant().getName());
-    }
-
-    @Override
-    public void loadFromBucketTag(CompoundTag compound)
-    {
-        super.loadFromBucketTag(compound);
-        this.loadFromBucket(Variant.BY_ID[compound.getInt(VARIANT_TAG)].ordinal(), compound);
-    }
-
-    @Override
     public boolean skipAttackInteraction(Entity entity)
     {
         var multiplier = this.isTrophy() ? 2 : 1;
@@ -132,23 +80,6 @@ public class Islehopper extends AbstractFish implements GlowFish
             serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
         }
         return false;
-    }
-
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
-    {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag, Variant.getSpawnVariant(this));
-    }
-
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key)
-    {
-        if (TROPHY.equals(key))
-        {
-            this.refreshDimensions();
-        }
-        super.onSyncedDataUpdated(key);
     }
 
     @Override
@@ -182,32 +113,15 @@ public class Islehopper extends AbstractFish implements GlowFish
     }
 
     @Override
-    public void setVariant(int id)
+    public FishVariant getVariant(CompoundTag compound)
     {
-        this.entityData.set(TYPE, id);
+        return Variant.BY_ID[compound.getInt(VARIANT_TAG)];
     }
 
     @Override
     public Map<FishVariant, ResourceLocation> getGlowTextureByType()
     {
         return GLOW_BY_TYPE;
-    }
-
-    @Override
-    public boolean isTrophy()
-    {
-        return this.entityData.get(TROPHY);
-    }
-
-    @Override
-    public void setTrophy(boolean trophy)
-    {
-        this.entityData.set(TROPHY, trophy);
-    }
-
-    public void setVariant(Variant variant)
-    {
-        this.setVariant(variant.ordinal());
     }
 
     public enum Variant implements ThievesFish.FishVariant
@@ -232,7 +146,7 @@ public class Islehopper extends AbstractFish implements GlowFish
         RAVEN(context -> context.blockPos().getY() < 0 && context.level().random.nextInt(100) == 0),
         AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
-        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
+        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
 
         Variant(ThievesFish.Condition condition)
@@ -245,9 +159,16 @@ public class Islehopper extends AbstractFish implements GlowFish
             this(context -> true);
         }
 
+        @Override
         public String getName()
         {
             return this.name().toLowerCase(Locale.ROOT);
+        }
+
+        @Override
+        public int getId()
+        {
+            return this.ordinal();
         }
 
         public static Variant getSpawnVariant(LivingEntity livingEntity)
