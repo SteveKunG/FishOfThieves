@@ -48,16 +48,16 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T>
 
         body_front.addOrReplaceChild("fin_under", CubeListBuilder.create().texOffs(20, 10).addBox(0.0F, 2.25F, -3.0F, 0.0F, 1.0F, 6.0F), PartPose.offset(0.0F, 2.5F, 1.0F));
 
-        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(16, 6).addBox(-1.5F, 0.0F, -0.25F, 3.0F, 1.0F, 5.0F, new CubeDeformation(-0.2F))
-                .texOffs(0, 19).addBox(-1.5F, 0.75F, 0.0F, 3.0F, 4.0F, 6.0F), PartPose.offset(0.0F, 18.0F, 2.5F));
+        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(16, 6).addBox(-1.5F, -2.5F, -0.25F, 3.0F, 1.0F, 5.0F, new CubeDeformation(-0.2F))
+                .texOffs(0, 19).addBox(-1.5F, -1.75F, 0.0F, 3.0F, 4.0F, 6.0F), PartPose.offset(0.0F, 20.5F, 2.5F));
 
-        body_back.addOrReplaceChild("fin_back_2", CubeListBuilder.create().texOffs(20, 6).addBox(0.0F, 0.75F, 0.0F, 0.0F, 4.0F, 6.0F), PartPose.offset(0.0F, -3.5F, 0.0F));
+        body_back.addOrReplaceChild("fin_back_2", CubeListBuilder.create().texOffs(20, 6).addBox(0.0F, 0.75F, 0.0F, 0.0F, 4.0F, 6.0F), PartPose.offset(0.0F, -6.0F, 0.0F));
 
-        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(26, 16).addBox(1.125F, 1.9486F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(-1.0F, 2.0F, 4.0F, 0.0F, 0.0F, 0.5236F));
+        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(26, 16).addBox(1.125F, 1.9486F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(-1.0F, -0.5F, 4.0F, 0.0F, 0.0F, 0.5236F));
 
-        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(26, 14).addBox(-1.125F, 1.9486F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(1.0F, 2.0F, 4.0F, 0.0F, 0.0F, -0.5236F));
+        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(26, 14).addBox(-1.125F, 1.9486F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(1.0F, -0.5F, 4.0F, 0.0F, 0.0F, -0.5236F));
 
-        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(20, 20).addBox(0.0F, -0.25F, 0.0F, 0.0F, 5.0F, 5.0F), PartPose.offset(0.0F, 0.5F, 6.0F));
+        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(20, 20).addBox(0.0F, -0.25F, 0.0F, 0.0F, 5.0F, 5.0F), PartPose.offset(0.0F, -2.0F, 6.0F));
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 18.0F, -3.5F));
 
@@ -71,13 +71,15 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        var f = 1.0f;
+        var backRotation = 1.0f;
+        var backRotSpeed = 1.0f;
 
         if (!entity.isInWater())
         {
-            f = 1.5f;
+            backRotation = 1.5f;
+            backRotSpeed = 1.7f;
         }
-        this.body_back.yRot = -f * 0.2f * Mth.sin(0.6f * ageInTicks);
+        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
     }
 
     @Override

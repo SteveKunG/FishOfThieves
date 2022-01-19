@@ -56,17 +56,17 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T>
 
         body_front.addOrReplaceChild("left_fin", CubeListBuilder.create().texOffs(6, 27).addBox(-0.6339F, 1.5F, -0.7374F, 3.0F, 2.0F, 0.0F), PartPose.offsetAndRotation(2.0F, 1.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
 
-        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(18, 4).addBox(-1.5F, 0.5F, -1.0F, 3.0F, 4.0F, 2.0F), PartPose.offset(0.0F, 17.75F, 2.5F));
+        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(18, 4).addBox(-1.5F, -2.0F, 0.0F, 3.0F, 4.0F, 2.0F), PartPose.offset(0.0F, 20.25F, 1.5F));
 
-        body_back.addOrReplaceChild("spike_r5", CubeListBuilder.create().texOffs(11, 18).addBox(0.0F, 0.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(-1.4993F, 4.5007F, 1.5F, 0.0F, 0.0F, 0.7854F));
+        body_back.addOrReplaceChild("spike_r5", CubeListBuilder.create().texOffs(11, 18).addBox(0.0F, 0.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(-1.4993F, 2.0007F, 2.5F, 0.0F, 0.0F, 0.7854F));
 
-        body_back.addOrReplaceChild("spike_r6", CubeListBuilder.create().texOffs(11, 19).addBox(0.0F, 0.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(1.5F, 4.5F, 1.5F, 0.0F, 0.0F, -0.7854F));
+        body_back.addOrReplaceChild("spike_r6", CubeListBuilder.create().texOffs(11, 19).addBox(0.0F, 0.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(1.5F, 2.0F, 2.5F, 0.0F, 0.0F, -0.7854F));
 
-        body_back.addOrReplaceChild("spike_r7", CubeListBuilder.create().texOffs(11, 16).addBox(0.25F, -0.5F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(-2.0303F, 0.3232F, 1.5F, 0.0F, 0.0F, -0.7854F));
+        body_back.addOrReplaceChild("spike_r7", CubeListBuilder.create().texOffs(11, 16).addBox(0.25F, -0.5F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(-2.0303F, -2.1768F, 2.5F, 0.0F, 0.0F, -0.7854F));
 
-        body_back.addOrReplaceChild("spike_r8", CubeListBuilder.create().texOffs(11, 17).addBox(0.0F, -1.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(1.5007F, 0.5007F, 1.5F, 0.0F, 0.0F, 0.7854F));
+        body_back.addOrReplaceChild("spike_r8", CubeListBuilder.create().texOffs(11, 17).addBox(0.0F, -1.0F, -2.5F, 0.0F, 1.0F, 2.0F), PartPose.offsetAndRotation(1.5007F, -1.9993F, 2.5F, 0.0F, 0.0F, 0.7854F));
 
-        var body_back_2 = body_back.addOrReplaceChild("body_back_2", CubeListBuilder.create().texOffs(18, 14).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 2.0F), PartPose.offset(0.0F, 2.25F, 1.0F));
+        var body_back_2 = body_back.addOrReplaceChild("body_back_2", CubeListBuilder.create().texOffs(18, 14).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 2.0F), PartPose.offset(0.0F, -0.25F, 2.0F));
 
         body_back_2.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 22).addBox(0.0F, -2.5F, 0.0F, 0.0F, 5.0F, 3.0F), PartPose.offset(0.0F, 0.0F, 1.5F));
 
@@ -82,14 +82,16 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        var f = 1.0f;
+        var backRotation = 1.0f;
+        var backRotSpeed = 1.0f;
 
         if (!entity.isInWater())
         {
-            f = 1.5f;
+            backRotation = 1.5f;
+            backRotSpeed = 1.7f;
         }
-        this.body_back.yRot = -f * 0.05f * Mth.sin(0.5f * ageInTicks);
-        this.body_back_2.yRot = -f * 0.1f * Mth.sin(0.5f * ageInTicks);
+        this.body_back.yRot = -backRotation * 0.05f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
+        this.body_back_2.yRot = -backRotation * 0.1f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
     }
 
     @Override

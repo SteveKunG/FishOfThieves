@@ -40,13 +40,20 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
     protected void setupRotations(Islehopper islehopper, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
         super.setupRotations(islehopper, poseStack, ageInTicks, rotationYaw, partialTicks);
-        var f = 4.3f * Mth.sin(0.5f * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(f));
-        poseStack.translate(0.0, Mth.cos(ageInTicks * 0.1f) * 0.01f, 0.0);
+        var bodyRotSpeed = 1.0f;
 
         if (!islehopper.isInWater())
         {
-            poseStack.translate(0.1f, 0.1f, -0.1f);
+            bodyRotSpeed = 1.7f;
+        }
+
+        var degree = 4.3f * Mth.sin(bodyRotSpeed * 0.6f * ageInTicks);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+        poseStack.translate(0.0f, Mth.cos(ageInTicks * 0.1f) * 0.01f, 0.0f);
+
+        if (!islehopper.isInWater())
+        {
+            poseStack.translate(0.15f, 0.1f, 0.0f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }

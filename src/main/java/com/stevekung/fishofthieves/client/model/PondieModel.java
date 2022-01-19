@@ -51,16 +51,14 @@ public class PondieModel<T extends Pondie> extends EntityModel<T>
 
         body_front.addOrReplaceChild("fin_under", CubeListBuilder.create().texOffs(15, 1).addBox(0.0F, 1.5F, -1.5F, 0.0F, 1.0F, 3.0F), PartPose.offset(0.0F, 3.5F, 2.0F));
 
-        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(20, 10).addBox(-1.0F, 0.0F, 1.5F, 2.0F, 3.0F, 2.0F)
-                .texOffs(20, 4).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 4.0F, 2.0F), PartPose.offset(0.0F, 18.0F, 2.5F));
+        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(20, 10).addBox(-1.0F, -1.5F, 1.5F, 2.0F, 3.0F, 2.0F)
+                .texOffs(20, 4).addBox(-1.5F, -2.0F, 0.0F, 3.0F, 4.0F, 2.0F), PartPose.offset(0.0F, 19.5F, 2.5F));
 
-        body_back.addOrReplaceChild("fin_back_2", CubeListBuilder.create(), PartPose.offset(0.0F, -3.5F, -2.0F));
+        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(24, 17).addBox(0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(-1.0F, 0.0F, 2.0F, 0.0F, 0.0F, 0.5236F));
 
-        body_back.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(24, 17).addBox(0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(-1.0F, 1.5F, 2.0F, 0.0F, 0.0F, 0.5236F));
+        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(18, 17).addBox(-0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(1.0F, 0.0F, 2.0F, 0.0F, 0.0F, -0.5236F));
 
-        body_back.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(18, 17).addBox(-0.75F, 1.299F, -1.5F, 0.0F, 2.0F, 3.0F), PartPose.offsetAndRotation(1.0F, 1.5F, 2.0F, 0.0F, 0.0F, -0.5236F));
-
-        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 23).addBox(0.0F, -1.0F, 0.0F, 0.0F, 5.0F, 3.0F), PartPose.offset(0.0F, 0.0F, 3.5F));
+        body_back.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 23).addBox(0.0F, -1.0F, 0.0F, 0.0F, 5.0F, 3.0F), PartPose.offset(0.0F, -1.5F, 3.5F));
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 18.0F, -2.5F));
 
@@ -74,15 +72,18 @@ public class PondieModel<T extends Pondie> extends EntityModel<T>
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        var f = 1.0f;
-        var mouth = Mth.cos(ageInTicks * 0.15f);
+        var backRotation = 1.0f;
+        var backRotSpeed = 1.0f;
+        var mouthSpeed = 0.15f;
 
         if (!entity.isInWater())
         {
-            f = 1.5f;
+            backRotation = 1.5f;
+            backRotSpeed = 1.7f;
+            mouthSpeed = 2.1f;
         }
-        this.body_back.yRot = -f * 0.15f * Mth.sin(0.65f * ageInTicks);
-        this.mouth.xRot = -0.8727F + mouth * (float)Math.PI * 0.02f;
+        this.body_back.yRot = -backRotation * 0.15f * Mth.sin(backRotSpeed * 0.65f * ageInTicks);
+        this.mouth.xRot = -0.8727F + Mth.cos(mouthSpeed * ageInTicks) * (float)Math.PI * 0.02f;
     }
 
     @Override

@@ -40,12 +40,19 @@ public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pond
     protected void setupRotations(Pondie pondie, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
         super.setupRotations(pondie, poseStack, ageInTicks, rotationYaw, partialTicks);
-        var f = 5.3f * Mth.sin(0.65f * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(f));
+        var bodyRotSpeed = 1.0f;
 
         if (!pondie.isInWater())
         {
-            poseStack.translate(0.1f, 0.1f, -0.1f);
+            bodyRotSpeed = 1.7f;
+        }
+
+        var degree = 5.3f * Mth.sin(bodyRotSpeed * 0.65f * ageInTicks);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+
+        if (!pondie.isInWater())
+        {
+            poseStack.translate(0.165f, 0.1f, 0.0f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }

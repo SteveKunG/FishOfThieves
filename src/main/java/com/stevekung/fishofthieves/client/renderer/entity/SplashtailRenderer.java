@@ -40,12 +40,19 @@ public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, Splashta
     protected void setupRotations(Splashtail splashtail, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
         super.setupRotations(splashtail, poseStack, ageInTicks, rotationYaw, partialTicks);
-        var f = 4.3f * Mth.sin(0.6f * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(f));
+        var bodyRotSpeed = 1.0f;
 
         if (!splashtail.isInWater())
         {
-            poseStack.translate(0.1f, 0.1f, -0.1f);
+            bodyRotSpeed = 1.7f;
+        }
+
+        var degree = 4.3f * Mth.sin(bodyRotSpeed * 0.6f * ageInTicks);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+
+        if (!splashtail.isInWater())
+        {
+            poseStack.translate(0.15f, 0.1f, -0.1f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }
