@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -11,16 +13,14 @@ import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.GlowFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -215,12 +215,12 @@ public class Islehopper extends AbstractFish implements GlowFish
         STONE,
         MOSS(context ->
         {
-            var category = getBiomeCategory(context.level(), context.blockPos());
-            return category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || getBiomeKeys(context.level(), context.blockPos()) == Biomes.LUSH_CAVES;
+            var category = TerrainUtils.getBiomeCategory(context.level(), context.blockPos());
+            return category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUSH_CAVES);
         }),
         HONEY(context ->
         {
-            var optional = lookForBlock(context.blockPos(), 5, blockPos2 ->
+            var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
             {
                 var blockState = context.level().getBlockState(blockPos2);
                 var beehiveOptional = context.level().getBlockEntity(blockPos2, BlockEntityType.BEEHIVE);
@@ -230,7 +230,7 @@ public class Islehopper extends AbstractFish implements GlowFish
             return optional.isPresent();
         }),
         RAVEN(context -> context.blockPos().getY() < 0 && context.level().random.nextInt(100) == 0),
-        AMETHYST(context -> lookForGeode(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
+        AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -254,37 +254,6 @@ public class Islehopper extends AbstractFish implements GlowFish
         {
             var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
-        }
-
-        private static ResourceKey<Biome> getBiomeKeys(ServerLevel level, BlockPos blockPos)
-        {
-            var optional = level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getResourceKey(level.getBiome(blockPos));
-            return optional.isPresent() ? optional.get() : Biomes.OCEAN;
-        }
-
-        private static Biome.BiomeCategory getBiomeCategory(ServerLevel level, BlockPos blockPos)
-        {
-            return level.getBiome(blockPos).getBiomeCategory();
-        }
-
-        private static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)
-        {
-            return BlockPos.findClosestMatch(blockPos, range, range, posFilter);
-        }
-
-        private static boolean lookForGeode(BlockPos blockPos, int range, int maxSize, Predicate<BlockPos> posFilter)
-        {
-            var size = 0;
-
-            for (var blockPos2 : BlockPos.withinManhattan(blockPos, range, range, range))
-            {
-                if (!posFilter.test(blockPos2))
-                {
-                    continue;
-                }
-                size++;
-            }
-            return size >= maxSize;
         }
     }
 }

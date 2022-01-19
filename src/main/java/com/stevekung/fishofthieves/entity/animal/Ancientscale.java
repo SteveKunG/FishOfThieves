@@ -13,9 +13,9 @@ import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.GlowFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -188,7 +188,7 @@ public class Ancientscale extends AbstractSchoolingFish implements GlowFish
         {
             var level = context.level();
             var blockPos = context.blockPos();
-            return level.random.nextInt(100) == 0 || level.random.nextInt(10) == 0 && (isInFeature(level, blockPos, StructureFeature.MINESHAFT) || isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
+            return level.random.nextInt(100) == 0 || level.random.nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
         }),
         STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
@@ -214,11 +214,6 @@ public class Ancientscale extends AbstractSchoolingFish implements GlowFish
         {
             var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
-        }
-
-        private static boolean isInFeature(ServerLevel level, BlockPos blockPos, StructureFeature<?> structureFeature)
-        {
-            return level.structureFeatureManager().getStructureWithPieceAt(blockPos, structureFeature).isValid();
         }
     }
 }
