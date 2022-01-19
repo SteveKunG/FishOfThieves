@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_ancientscale"
+    ]
+  },
+  "criteria": {
+    "has_ancientscale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:ancientscale"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_ancientscale"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ancientscale",
+      "has_the_recipe"
+    ]
+  ]
+}

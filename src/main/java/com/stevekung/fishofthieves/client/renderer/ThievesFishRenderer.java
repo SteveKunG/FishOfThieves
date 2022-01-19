@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.GlowFishLayer;
 import com.stevekung.fishofthieves.entity.GlowFish;
 
@@ -14,5 +15,12 @@ public abstract class ThievesFishRenderer<T extends AbstractFish & GlowFish, M e
     {
         super(context, entityModel, shadowSize);
         this.addLayer(new GlowFishLayer<>(this));
+    }
+
+    @Override
+    protected void scale(T livingEntity, PoseStack poseStack, float partialTickTime)
+    {
+        var scale = livingEntity.isTrophy() ? 1.0F : 0.5F;
+        poseStack.scale(scale, scale, scale);
     }
 }

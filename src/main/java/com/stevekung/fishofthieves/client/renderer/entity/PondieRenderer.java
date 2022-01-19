@@ -56,11 +56,4 @@ public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pond
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }
-
-    @Override
-    protected void scale(Pondie pondie, PoseStack poseStack, float partialTickTime)
-    {
-        var scale = pondie.isTrophy() ? 1.0F : 0.5F;
-        poseStack.scale(scale, scale, scale);
-    }
 }

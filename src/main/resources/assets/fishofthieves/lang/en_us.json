@@ -12,6 +12,10 @@
     "item.fishofthieves.cooked_islehopper": "Cooked Islehopper",
     "item.fishofthieves.islehopper_bucket": "Islehopper Bucket",
     "item.fishofthieves.islehopper_spawn_egg": "Islehopper Spawn Egg",
+    "item.fishofthieves.ancientscale": "Ancientscale",
+    "item.fishofthieves.cooked_ancientscale": "Cooked Ancientscale",
+    "item.fishofthieves.ancientscale_bucket": "Ancientscale Bucket",
+    "item.fishofthieves.ancientscale_spawn_egg": "Ancientscale Spawn Egg",
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
     "entity.fishofthieves.splashtail.ruby": "Ruby",
@@ -31,6 +35,12 @@
     "entity.fishofthieves.islehopper.honey": "Honey",
     "entity.fishofthieves.islehopper.raven": "Raven",
     "entity.fishofthieves.islehopper.amethyst": "Amethyst",
+    "entity.fishofthieves.ancientscale": "Ancientscale",
+    "entity.fishofthieves.ancientscale.almond": "Almond",
+    "entity.fishofthieves.ancientscale.sapphire": "Sapphire",
+    "entity.fishofthieves.ancientscale.smoke": "Smoke",
+    "entity.fishofthieves.ancientscale.bone": "Bone",
+    "entity.fishofthieves.ancientscale.starshine": "Starshine",
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
     "subtitles.entity.splashtail.hurt": "Splashtail hurts",
@@ -39,5 +49,8 @@
     "subtitles.entity.pondie.hurt": "Pondie hurts",
     "subtitles.entity.islehopper.death": "Islehopper dies",
     "subtitles.entity.islehopper.flop": "Islehopper flops",
-    "subtitles.entity.islehopper.hurt": "Islehopper hurts"
+    "subtitles.entity.islehopper.hurt": "Islehopper hurts",
+    "subtitles.entity.ancientscale.death": "Ancientscale dies",
+    "subtitles.entity.ancientscale.flop": "Ancientscale flops",
+    "subtitles.entity.ancientscale.hurt": "Ancientscale hurts"
 }

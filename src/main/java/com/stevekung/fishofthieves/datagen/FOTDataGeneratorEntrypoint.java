@@ -28,9 +28,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -80,6 +82,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             itemModelGenerator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_BUCKET, ModelTemplates.FLAT_ITEM);
             itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
+            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE_BUCKET, ModelTemplates.FLAT_ITEM);
+            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
         }
 
         @Override
@@ -101,15 +107,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
-            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, 0.35F);
-            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, 0.35F);
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(FOTItems.SPLASHTAIL), FOTItems.COOKED_SPLASHTAIL, 0.35F, 200).unlockedBy(getHasName(FOTItems.SPLASHTAIL), has(FOTItems.SPLASHTAIL)).save(consumer);
-            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, 0.35F);
-            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, 0.35F);
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(FOTItems.PONDIE), FOTItems.COOKED_PONDIE, 0.35F, 200).unlockedBy(getHasName(FOTItems.PONDIE), has(FOTItems.PONDIE)).save(consumer);
-            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, 0.35F);
-            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, 0.35F);
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(FOTItems.ISLEHOPPER), FOTItems.COOKED_ISLEHOPPER, 0.35F, 200).unlockedBy(getHasName(FOTItems.ISLEHOPPER), has(FOTItems.ISLEHOPPER)).save(consumer);
+            addCookingRecipes(consumer, 200, 100, 600, 0.35F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
+            addCookingRecipes(consumer, 200, 100, 600, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
+            addCookingRecipes(consumer, 200, 100, 600, 0.4F, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
+            addCookingRecipes(consumer, 200, 100, 600, 0.45F, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE);
+        }
+
+        private static void addCookingRecipes(Consumer<FinishedRecipe> consumer, int smeltingTime, int smokingTime, int campfireTime, float xp, ItemLike rawFood, ItemLike cookedFood)
+        {
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), cookedFood, xp, smeltingTime).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
+            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, smokingTime, rawFood, cookedFood, xp);
+            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, campfireTime, rawFood, cookedFood, xp);
         }
     }
 
@@ -161,6 +169,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+            consumer.accept(FOTEntities.ANCIENTSCALE.getDefaultLootTable(), LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                                    .apply(SmeltItemFunction.smelted()
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
         }
     }
 
@@ -174,8 +194,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET, FOTItems.ISLEHOPPER_BUCKET);
-            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
+            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET, FOTItems.ISLEHOPPER_BUCKET, FOTItems.ANCIENTSCALE_BUCKET);
+            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE);
         }
     }
 
@@ -189,8 +209,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER);
-            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH).add(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER);
+            var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE};
+            this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(fishes);
+            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH).add(fishes);
         }
     }
 }

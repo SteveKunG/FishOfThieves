@@ -57,11 +57,4 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }
-
-    @Override
-    protected void scale(Islehopper islehopper, PoseStack poseStack, float partialTickTime)
-    {
-        var scale = islehopper.isTrophy() ? 1.0F : 0.5F;
-        poseStack.scale(scale, scale, scale);
-    }
 }

@@ -56,11 +56,4 @@ public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, Splashta
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }
-
-    @Override
-    protected void scale(Splashtail splashtail, PoseStack poseStack, float partialTickTime)
-    {
-        var scale = splashtail.isTrophy() ? 1.0F : 0.5F;
-        poseStack.scale(scale, scale, scale);
-    }
 }

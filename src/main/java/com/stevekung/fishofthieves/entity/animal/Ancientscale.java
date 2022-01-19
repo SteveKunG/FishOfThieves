@@ -15,6 +15,7 @@ import com.stevekung.fishofthieves.entity.GlowFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,17 +30,18 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
-public class Splashtail extends AbstractSchoolingFish implements GlowFish
+public class Ancientscale extends AbstractSchoolingFish implements GlowFish
 {
-    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Splashtail.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(Ancientscale.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(Ancientscale.class, EntityDataSerializers.BOOLEAN);
     private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
     {
-        map.put(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
+        map.put(Variant.STARSHINE, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/ancientscale/starshine_glow.png"));
     });
 
-    public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
+    public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -56,25 +58,25 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
+        return new ItemStack(FOTItems.ANCIENTSCALE_BUCKET);
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return FOTSoundEvents.SPLASHTAIL_DEATH;
+        return FOTSoundEvents.ANCIENTSCALE_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
     {
-        return FOTSoundEvents.SPLASHTAIL_HURT;
+        return FOTSoundEvents.ANCIENTSCALE_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound()
     {
-        return FOTSoundEvents.SPLASHTAIL_FLOP;
+        return FOTSoundEvents.ANCIENTSCALE_FLOP;
     }
 
     @Override
@@ -108,12 +110,6 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     }
 
     @Override
-    public int getMaxSchoolSize()
-    {
-        return 5;
-    }
-
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
@@ -133,19 +129,19 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
     @Override
     public EntityDimensions getDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.45F, 0.25F);
+        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.3F, 0.25F);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.325F : 0.165F;
+        return this.isTrophy() ? 0.3575F : 0.18F;
     }
 
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.SEAFOAM;
+        return this.getVariant() == Variant.STARSHINE;
     }
 
     @Override
@@ -185,11 +181,16 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
 
     public enum Variant implements ThievesFish.FishVariant
     {
-        RUBY,
-        SUNNY(context -> context.level().isDay()),
-        INDIGO,
-        UMBER(context -> context.level().random.nextInt(100) == 0),
-        SEAFOAM(context -> context.level().random.nextInt(2) == 0 && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
+        ALMOND,
+        SAPPHIRE,
+        SMOKE,
+        BONE(context ->
+        {
+            var level = context.level();
+            var blockPos = context.blockPos();
+            return level.random.nextInt(100) == 0 || level.random.nextInt(10) == 0 && (isInFeature(level, blockPos, StructureFeature.MINESHAFT) || isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
+        }),
+        STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -213,6 +214,11 @@ public class Splashtail extends AbstractSchoolingFish implements GlowFish
         {
             var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom());
+        }
+
+        private static boolean isInFeature(ServerLevel level, BlockPos blockPos, StructureFeature<?> structureFeature)
+        {
+            return level.structureFeatureManager().getStructureWithPieceAt(blockPos, structureFeature).isValid();
         }
     }
 }

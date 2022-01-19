@@ -11,7 +11,9 @@
         "animal.MixinCat",
         "animal.MixinOcelot",
         
-        "item.MixinMobBucketItem"
+        "item.MixinMobBucketItem",
+        
+        "levelgen.MixinNoiseBasedChunkGenerator"
     ],
     "injectors": {
         "defaultRequire": 1

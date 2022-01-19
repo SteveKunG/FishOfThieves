@@ -15,6 +15,9 @@ public class FOTSoundEvents
     public static final SoundEvent ISLEHOPPER_DEATH = create("entity.islehopper.death");
     public static final SoundEvent ISLEHOPPER_FLOP = create("entity.islehopper.flop");
     public static final SoundEvent ISLEHOPPER_HURT = create("entity.islehopper.hurt");
+    public static final SoundEvent ANCIENTSCALE_DEATH = create("entity.ancientscale.death");
+    public static final SoundEvent ANCIENTSCALE_FLOP = create("entity.ancientscale.flop");
+    public static final SoundEvent ANCIENTSCALE_HURT = create("entity.ancientscale.hurt");
 
     public static void init()
     {
@@ -27,6 +30,9 @@ public class FOTSoundEvents
         register(ISLEHOPPER_DEATH);
         register(ISLEHOPPER_FLOP);
         register(ISLEHOPPER_HURT);
+        register(ANCIENTSCALE_DEATH);
+        register(ANCIENTSCALE_FLOP);
+        register(ANCIENTSCALE_HURT);
     }
 
     private static SoundEvent create(String key)

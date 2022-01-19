@@ -190,7 +190,7 @@ public class Pondie extends AbstractSchoolingFish implements GlowFish
         ORCHID,
         BRONZE,
         BRIGHT(context -> context.level().random.nextInt(150) == 0),
-        MOONSKY(context -> context.level().random.nextInt(4) == 0 && (context.level().isNight() || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
+        MOONSKY(context -> context.level().random.nextInt(3) == 0 && context.level().isWaterAt(context.blockPos()) && (context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()) || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::ordinal)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
