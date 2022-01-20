@@ -1,4 +1,11 @@
 {
+    "text.autoconfig.fishofthieves.title": "Fish of Thieves Config",
+    "text.autoconfig.fishofthieves.category.general": "General",
+    "text.autoconfig.fishofthieves.category.spawn_rate": "Spawn Rate",
+    
+    "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "Trophy Max Health",
+    "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Trophy Probability",
+    
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
     "item.fishofthieves.splashtail": "Splashtail",
