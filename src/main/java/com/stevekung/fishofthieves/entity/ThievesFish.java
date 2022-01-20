@@ -26,6 +26,7 @@ public interface ThievesFish
 
     FishVariant getVariant();
     FishVariant getVariant(CompoundTag compound);
+    Enum<? extends FishVariant> getSpawnVariant();
     void setVariant(int id);
     boolean isTrophy();
     void setTrophy(boolean trophy);

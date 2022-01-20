@@ -27,7 +27,7 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
 
     public IslehopperRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new IslehopperModel<>(context.bakeLayer(IslehopperModel.LAYER)), 0.3F);
+        super(context, new IslehopperModel<>(context.bakeLayer(IslehopperModel.LAYER)), 0.2F);
     }
 
     @Override

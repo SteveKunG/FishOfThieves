@@ -18,6 +18,9 @@ public class FOTSoundEvents
     public static final SoundEvent ANCIENTSCALE_DEATH = create("entity.ancientscale.death");
     public static final SoundEvent ANCIENTSCALE_FLOP = create("entity.ancientscale.flop");
     public static final SoundEvent ANCIENTSCALE_HURT = create("entity.ancientscale.hurt");
+    public static final SoundEvent PLENTIFIN_DEATH = create("entity.plentifin.death");
+    public static final SoundEvent PLENTIFIN_FLOP = create("entity.plentifin.flop");
+    public static final SoundEvent PLENTIFIN_HURT = create("entity.plentifin.hurt");
 
     public static void init()
     {
@@ -33,6 +36,9 @@ public class FOTSoundEvents
         register(ANCIENTSCALE_DEATH);
         register(ANCIENTSCALE_FLOP);
         register(ANCIENTSCALE_HURT);
+        register(PLENTIFIN_DEATH);
+        register(PLENTIFIN_FLOP);
+        register(PLENTIFIN_HURT);
     }
 
     private static SoundEvent create(String key)

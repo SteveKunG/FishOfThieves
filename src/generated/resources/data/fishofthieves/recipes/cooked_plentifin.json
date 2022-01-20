@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "fishofthieves:plentifin"
+  },
+  "result": "fishofthieves:cooked_plentifin",
+  "experience": 0.4,
+  "cookingtime": 200
+}

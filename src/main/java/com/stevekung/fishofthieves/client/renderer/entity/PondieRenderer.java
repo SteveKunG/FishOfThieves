@@ -27,7 +27,7 @@ public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pond
 
     public PondieRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new PondieModel<>(context.bakeLayer(PondieModel.LAYER)), 0.3F);
+        super(context, new PondieModel<>(context.bakeLayer(PondieModel.LAYER)), 0.2F);
     }
 
     @Override

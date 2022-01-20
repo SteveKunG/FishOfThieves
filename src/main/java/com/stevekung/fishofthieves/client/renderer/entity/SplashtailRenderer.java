@@ -27,7 +27,7 @@ public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, Splashta
 
     public SplashtailRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)), 0.3F);
+        super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)), 0.2F);
     }
 
     @Override

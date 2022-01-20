@@ -2,8 +2,6 @@ package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.stevekung.fishofthieves.entity.animal.Splashtail.Variant;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -71,7 +69,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag, Variant.getSpawnVariant(this));
+        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag, this.getSpawnVariant());
     }
 
     @Override

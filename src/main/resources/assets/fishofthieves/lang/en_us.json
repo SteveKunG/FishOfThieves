@@ -1,5 +1,6 @@
 {
     "itemGroup.fishofthieves.main": "Fish of Thieves",
+    
     "item.fishofthieves.splashtail": "Splashtail",
     "item.fishofthieves.cooked_splashtail": "Cooked Splashtail",
     "item.fishofthieves.splashtail_bucket": "Splashtail Bucket",
@@ -16,6 +17,11 @@
     "item.fishofthieves.cooked_ancientscale": "Cooked Ancientscale",
     "item.fishofthieves.ancientscale_bucket": "Ancientscale Bucket",
     "item.fishofthieves.ancientscale_spawn_egg": "Ancientscale Spawn Egg",
+    "item.fishofthieves.plentifin": "Plentifin",
+    "item.fishofthieves.cooked_plentifin": "Cooked Plentifin",
+    "item.fishofthieves.plentifin_bucket": "Plentifin Bucket",
+    "item.fishofthieves.plentifin_spawn_egg": "Plentifin Spawn Egg",
+    
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
     "entity.fishofthieves.splashtail.ruby": "Ruby",
@@ -41,6 +47,13 @@
     "entity.fishofthieves.ancientscale.smoke": "Smoke",
     "entity.fishofthieves.ancientscale.bone": "Bone",
     "entity.fishofthieves.ancientscale.starshine": "Starshine",
+    "entity.fishofthieves.plentifin": "Plentifin",
+    "entity.fishofthieves.plentifin.olive": "Olive",
+    "entity.fishofthieves.plentifin.amber": "Amber",
+    "entity.fishofthieves.plentifin.cloudy": "Cloudy",
+    "entity.fishofthieves.plentifin.bonedust": "Bonedust",
+    "entity.fishofthieves.plentifin.watery": "Watery",
+    
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
     "subtitles.entity.splashtail.hurt": "Splashtail hurts",
@@ -52,5 +65,8 @@
     "subtitles.entity.islehopper.hurt": "Islehopper hurts",
     "subtitles.entity.ancientscale.death": "Ancientscale dies",
     "subtitles.entity.ancientscale.flop": "Ancientscale flops",
-    "subtitles.entity.ancientscale.hurt": "Ancientscale hurts"
+    "subtitles.entity.ancientscale.hurt": "Ancientscale hurts",
+    "subtitles.entity.plentifin.death": "Plentifin dies",
+    "subtitles.entity.plentifin.flop": "Plentifin flops",
+    "subtitles.entity.plentifin.hurt": "Plentifin hurts"
 }

@@ -27,7 +27,7 @@ public class AncientscaleRenderer extends ThievesFishRenderer<Ancientscale, Anci
 
     public AncientscaleRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new AncientscaleModel<>(context.bakeLayer(AncientscaleModel.LAYER)), 0.3F);
+        super(context, new AncientscaleModel<>(context.bakeLayer(AncientscaleModel.LAYER)), 0.2F);
     }
 
     @Override

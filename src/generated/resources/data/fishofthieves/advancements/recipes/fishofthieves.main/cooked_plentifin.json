@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_plentifin"
+    ]
+  },
+  "criteria": {
+    "has_plentifin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:plentifin"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_plentifin"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_plentifin",
+      "has_the_recipe"
+    ]
+  ]
+}

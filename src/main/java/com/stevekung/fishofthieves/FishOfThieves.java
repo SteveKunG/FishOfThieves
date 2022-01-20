@@ -63,6 +63,7 @@ public class FishOfThieves implements ModInitializer
         DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.ISLEHOPPER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.ANCIENTSCALE_BUCKET, bucket);
+        DispenserBlock.registerBehavior(FOTItems.PLENTIFIN_BUCKET, bucket);
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, list ->
         {
@@ -70,6 +71,7 @@ public class FishOfThieves implements ModInitializer
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PONDIE, 4, FOTItems.COOKED_PONDIE, 4, 13, 3));
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ISLEHOPPER, 8, FOTItems.COOKED_ISLEHOPPER, 2, 6, 4));
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ANCIENTSCALE, 10, FOTItems.COOKED_ANCIENTSCALE, 2, 4, 6));
+            list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PLENTIFIN, 9, FOTItems.COOKED_PLENTIFIN, 3, 5, 8));
         });
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, list ->
         {
@@ -77,6 +79,7 @@ public class FishOfThieves implements ModInitializer
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.PONDIE, 10, 12, 16));
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.ISLEHOPPER, 16, 8, 25));
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.ANCIENTSCALE, 16, 4, 28));
+            list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 12, 6, 25));
         });
 
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) ->
@@ -90,7 +93,8 @@ public class FishOfThieves implements ModInitializer
                         .with(LootItem.lootTableItem(FOTItems.SPLASHTAIL))
                         .with(LootItem.lootTableItem(FOTItems.PONDIE))
                         .with(LootItem.lootTableItem(FOTItems.ISLEHOPPER))
-                        .with(LootItem.lootTableItem(FOTItems.ANCIENTSCALE));
+                        .with(LootItem.lootTableItem(FOTItems.ANCIENTSCALE))
+                        .with(LootItem.lootTableItem(FOTItems.PLENTIFIN));
                 pools.set(0, pool.build());
             }
             else if (id.equals(BuiltInLootTables.FISHING_FISH))
@@ -107,7 +111,10 @@ public class FishOfThieves implements ModInitializer
                                 .when(FOTLootItemConditions.COAST))
                         .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                                 .setWeight(70)
-                                .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)));
+                                .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
+                        .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                                .setWeight(65)
+                                .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)));
                 pools.set(0, pool.build());
             }
             // Entity Loot
@@ -140,6 +147,12 @@ public class FishOfThieves implements ModInitializer
                         .setWeight(2)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))).build());
+                builder.add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                        .apply(SmeltItemFunction.smelted()
+                                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                        .setWeight(2)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))).build());
 
                 pools.set(0, pool.build());
             }
@@ -158,7 +171,10 @@ public class FishOfThieves implements ModInitializer
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
                         .with(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                                 .setWeight(1)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))));
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
+                        .with(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                                .setWeight(1)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))));
                 supplier.withPool(villagerFisher);
             }
             else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
@@ -172,6 +188,8 @@ public class FishOfThieves implements ModInitializer
                         .with(LootItem.lootTableItem(FOTItems.COOKED_ISLEHOPPER)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f))))
                         .with(LootItem.lootTableItem(FOTItems.COOKED_ANCIENTSCALE)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
+                        .with(LootItem.lootTableItem(FOTItems.COOKED_PLENTIFIN)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
                 supplier.withPool(buriedTreasure);
             }
@@ -181,15 +199,18 @@ public class FishOfThieves implements ModInitializer
         FabricDefaultAttributeRegistry.register(FOTEntities.PONDIE, AbstractFish.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.ISLEHOPPER, AbstractFish.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.ANCIENTSCALE, AbstractFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.PLENTIFIN, AbstractFish.createAttributes());
 
         SpawnRestrictionAccessor.callRegister(FOTEntities.SPLASHTAIL, Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.PONDIE, Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.ISLEHOPPER, Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.ANCIENTSCALE, Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+        SpawnRestrictionAccessor.callRegister(FOTEntities.PLENTIFIN, Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.OCEAN), FOTEntities.SPLASHTAIL.getCategory(), FOTEntities.SPLASHTAIL, 15, 8, 8);
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.RIVER, Biome.BiomeCategory.FOREST), FOTEntities.PONDIE.getCategory(), FOTEntities.PONDIE, 15, 2, 4);
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.OCEAN, Biome.BiomeCategory.BEACH, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP, Biome.BiomeCategory.UNDERGROUND), FOTEntities.ISLEHOPPER.getCategory(), FOTEntities.ISLEHOPPER, 10, 2, 3);
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), FOTEntities.ANCIENTSCALE.getCategory(), FOTEntities.ANCIENTSCALE, 8, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).or(BiomeSelectors.categories(Biome.BiomeCategory.UNDERGROUND)), FOTEntities.PLENTIFIN.getCategory(), FOTEntities.PLENTIFIN, 12, 4, 8);
     }
 }

@@ -91,6 +91,12 @@ public class Ancientscale extends AbstractSchoolingThievesFish
     }
 
     @Override
+    public Variant getSpawnVariant()
+    {
+        return Variant.getSpawnVariant(this);
+    }
+
+    @Override
     public Map<FishVariant, ResourceLocation> getGlowTextureByType()
     {
         return GLOW_BY_TYPE;

@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -24,13 +25,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
-public class Pondie extends AbstractSchoolingThievesFish
+public class Plentifin extends AbstractSchoolingThievesFish
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.MOONSKY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/pondie/moonsky_glow.png")));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.WATERY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png")));
 
-    public Pondie(EntityType<? extends Pondie> entityType, Level level)
+    public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {
         super(entityType, level);
     }
@@ -38,49 +39,43 @@ public class Pondie extends AbstractSchoolingThievesFish
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(FOTItems.PONDIE_BUCKET);
+        return new ItemStack(FOTItems.PLENTIFIN_BUCKET);
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return FOTSoundEvents.PONDIE_DEATH;
+        return FOTSoundEvents.PLENTIFIN_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
     {
-        return FOTSoundEvents.PONDIE_HURT;
+        return FOTSoundEvents.PLENTIFIN_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound()
     {
-        return FOTSoundEvents.PONDIE_FLOP;
-    }
-
-    @Override
-    public int getMaxSchoolSize()
-    {
-        return 5;
+        return FOTSoundEvents.PLENTIFIN_FLOP;
     }
 
     @Override
     public EntityDimensions getDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.35F, 0.25F);
+        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.275F, 0.25F);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.35F : 0.18F;
+        return this.isTrophy() ? 0.17F : 0.09F;
     }
 
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.MOONSKY;
+        return this.getVariant() == Variant.WATERY;
     }
 
     @Override
@@ -109,11 +104,20 @@ public class Pondie extends AbstractSchoolingThievesFish
 
     public enum Variant implements ThievesFish.FishVariant
     {
-        CHARCOAL,
-        ORCHID,
-        BRONZE,
-        BRIGHT(context -> context.level().random.nextInt(150) == 0),
-        MOONSKY(context -> context.level().random.nextInt(3) == 0 && context.level().isWaterAt(context.blockPos()) && (context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()) || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
+        OLIVE,
+        AMBER(context ->
+        {
+            var time = context.level().getTimeOfDay(1.0F);
+            return time >= 0.75F && time <= 0.9F && !context.level().isRaining();
+        }),
+        CLOUDY(context -> context.level().isRaining() && context.level().canSeeSkyFromBelowWater(context.blockPos())),
+        BONEDUST(context ->
+        {
+            var level = context.level();
+            var blockPos = context.blockPos();
+            return level.random.nextInt(120) == 0 || level.random.nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
+        }),
+        WATERY(context -> context.level().random.nextInt(2) == 0 && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
