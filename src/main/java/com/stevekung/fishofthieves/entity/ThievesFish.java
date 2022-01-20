@@ -17,7 +17,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
-public interface ThievesFish
+public interface ThievesFish extends GlowFish
 {
     String VARIANT_TAG = "Variant";
     String TROPHY_TAG = "Trophy";
@@ -25,8 +25,7 @@ public interface ThievesFish
     net.minecraft.tags.Tag.Named<EntityType<?>> THIEVES_FISH = TagFactory.ENTITY_TYPE.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
     FishVariant getVariant();
-    FishVariant getVariant(CompoundTag compound);
-    Enum<? extends FishVariant> getSpawnVariant();
+    int getSpawnVariantId();
     void setVariant(int id);
     boolean isTrophy();
     void setTrophy(boolean trophy);
@@ -39,13 +38,13 @@ public interface ThievesFish
         compound.putString(NAME_TAG, name);
     }
 
-    default void loadFromBucket(int variant, CompoundTag compound)
+    default void loadFromBucket(CompoundTag compound)
     {
-        this.setVariant(variant);
+        this.setVariant(compound.getInt(VARIANT_TAG));
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
     }
 
-    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag, Enum<? extends FishVariant> variant)
+    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         if (reason == MobSpawnType.BUCKET)
         {
@@ -62,7 +61,7 @@ public interface ThievesFish
             livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.setVariant(variant.ordinal());
+        this.setVariant(this.getSpawnVariantId());
         return spawnData;
     }
 

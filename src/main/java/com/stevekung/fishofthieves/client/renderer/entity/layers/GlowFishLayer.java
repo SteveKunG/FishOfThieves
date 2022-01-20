@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stevekung.fishofthieves.entity.GlowFish;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.LivingEntity;
 
-public class GlowFishLayer<T extends LivingEntity & GlowFish, M extends EntityModel<T>> extends RenderLayer<T, M>
+public class GlowFishLayer<T extends LivingEntity & ThievesFish, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
     public GlowFishLayer(RenderLayerParent<T, M> renderLayerParent)
     {
@@ -25,7 +25,7 @@ public class GlowFishLayer<T extends LivingEntity & GlowFish, M extends EntityMo
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(livingEntity.getGlowTextureByType().get(livingEntity.getVariant())));
             var color = livingEntity.getGlowBrightness(ageInTicks);
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 0xF00000, OverlayTexture.NO_OVERLAY, color, color, color, 1.0f);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, color, color, color, 1.0f);
         }
     }
 }

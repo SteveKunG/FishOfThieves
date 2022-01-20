@@ -14,7 +14,6 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -109,17 +108,11 @@ public class Islehopper extends AbstractThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.BY_ID[this.entityData.get(TYPE)];
+        return Variant.byId(this.entityData.get(TYPE));
     }
 
     @Override
-    public FishVariant getVariant(CompoundTag compound)
-    {
-        return Variant.BY_ID[compound.getInt(VARIANT_TAG)];
-    }
-
-    @Override
-    public Variant getSpawnVariant()
+    public int getSpawnVariantId()
     {
         return Variant.getSpawnVariant(this);
     }
@@ -177,10 +170,21 @@ public class Islehopper extends AbstractThievesFish
             return this.ordinal();
         }
 
-        public static Variant getSpawnVariant(LivingEntity livingEntity)
+        public static Variant byId(int id)
+        {
+            var types = BY_ID;
+
+            if (id < 0 || id >= types.length)
+            {
+                id = 0;
+            }
+            return types[id];
+        }
+
+        public static int getSpawnVariant(LivingEntity livingEntity)
         {
             var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
-            return Util.getRandom(variants, livingEntity.getRandom());
+            return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }
 }

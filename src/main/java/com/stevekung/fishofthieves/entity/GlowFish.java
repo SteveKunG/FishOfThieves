@@ -4,10 +4,10 @@ import java.util.Map;
 
 import net.minecraft.resources.ResourceLocation;
 
-public interface GlowFish extends ThievesFish
+public interface GlowFish
 {
     boolean canGlow();
-    Map<FishVariant, ResourceLocation> getGlowTextureByType();
+    Map<ThievesFish.FishVariant, ResourceLocation> getGlowTextureByType();
 
     default float getGlowBrightness(float ageInTicks)
     {

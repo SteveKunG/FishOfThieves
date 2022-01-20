@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish implements GlowFish
+public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish implements ThievesFish
 {
     protected static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
@@ -46,7 +46,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        this.setVariant(this.getVariant(compound).getId());
+        this.setVariant(compound.getInt(VARIANT_TAG));
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public void loadFromBucketTag(CompoundTag compound)
     {
         super.loadFromBucketTag(compound);
-        this.loadFromBucket(this.getVariant(compound).getId(), compound);
+        this.loadFromBucket(compound);
     }
 
     @Override
@@ -69,7 +69,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag, this.getSpawnVariant());
+        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
     }
 
     @Override
