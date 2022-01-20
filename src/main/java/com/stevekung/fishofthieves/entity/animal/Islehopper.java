@@ -16,7 +16,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.Util;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -142,7 +141,7 @@ public class Islehopper extends AbstractThievesFish
             });
             return optional.isPresent();
         }),
-        RAVEN(context -> context.blockPos().getY() < 0 && context.level().random.nextInt(100) == 0),
+        RAVEN(context -> context.blockPos().getY() < 0 && context.random().nextInt(100) == 0),
         AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
@@ -183,7 +182,7 @@ public class Islehopper extends AbstractThievesFish
 
         public static int getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }

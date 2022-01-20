@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.Random;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -65,6 +67,12 @@ public interface ThievesFish extends GlowFish
         return spawnData;
     }
 
+    static ThievesFish.SpawnConditionContext create(LivingEntity livingEntity)
+    {
+        var level = (ServerLevel) livingEntity.level;
+        return new ThievesFish.SpawnConditionContext(level, livingEntity.blockPosition(), livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining());
+    }
+
     @FunctionalInterface
     interface Condition
     {
@@ -77,5 +85,5 @@ public interface ThievesFish extends GlowFish
         int getId();
     }
 
-    record SpawnConditionContext(ServerLevel level, BlockPos blockPos) {}
+    record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining) {}
 }

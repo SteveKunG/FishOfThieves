@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -101,16 +100,16 @@ public class Plentifin extends AbstractSchoolingThievesFish
         AMBER(context ->
         {
             var time = context.level().getTimeOfDay(1.0F);
-            return time >= 0.75F && time <= 0.9F && !context.level().isRaining();
+            return time >= 0.75F && time <= 0.9F && !context.isRaining();
         }),
-        CLOUDY(context -> context.level().isRaining() && context.level().canSeeSkyFromBelowWater(context.blockPos())),
+        CLOUDY(context -> context.isRaining() && context.level().canSeeSkyFromBelowWater(context.blockPos())),
         BONEDUST(context ->
         {
             var level = context.level();
             var blockPos = context.blockPos();
-            return level.random.nextInt(120) == 0 || level.random.nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
+            return context.random().nextInt(120) == 0 || context.random().nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
         }),
-        WATERY(context -> context.level().random.nextInt(2) == 0 && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
+        WATERY(context -> context.random().nextInt(2) == 0 && context.isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -150,7 +149,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
 
         public static int getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }

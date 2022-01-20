@@ -14,7 +14,6 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -105,8 +104,8 @@ public class Pondie extends AbstractSchoolingThievesFish
         CHARCOAL,
         ORCHID,
         BRONZE,
-        BRIGHT(context -> context.level().random.nextInt(150) == 0),
-        MOONSKY(context -> context.level().random.nextInt(3) == 0 && context.level().isWaterAt(context.blockPos()) && (context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()) || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
+        BRIGHT(context -> context.random().nextInt(150) == 0),
+        MOONSKY(context -> context.random().nextInt(3) == 0 && context.level().isWaterAt(context.blockPos()) && (context.isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()) || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -146,7 +145,7 @@ public class Pondie extends AbstractSchoolingThievesFish
 
         public static int getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }

@@ -14,7 +14,6 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -102,10 +101,10 @@ public class Splashtail extends AbstractSchoolingThievesFish
     public enum Variant implements ThievesFish.FishVariant
     {
         RUBY,
-        SUNNY(context -> context.level().isDay()),
+        SUNNY(SpawnConditionContext::isDay),
         INDIGO,
-        UMBER(context -> context.level().random.nextInt(100) == 0),
-        SEAFOAM(context -> context.level().random.nextInt(2) == 0 && context.level().isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
+        UMBER(context -> context.random().nextInt(100) == 0),
+        SEAFOAM(context -> context.random().nextInt(2) == 0 && context.isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
@@ -145,7 +144,7 @@ public class Splashtail extends AbstractSchoolingThievesFish
 
         public static int getSpawnVariant(LivingEntity livingEntity)
         {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(new ThievesFish.SpawnConditionContext((ServerLevel) livingEntity.level, livingEntity.blockPosition()))).toArray(Variant[]::new);
+            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
             return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }
