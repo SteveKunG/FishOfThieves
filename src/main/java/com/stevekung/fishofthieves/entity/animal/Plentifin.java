@@ -6,11 +6,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
-import com.stevekung.fishofthieves.FOTItems;
-import com.stevekung.fishofthieves.FOTSoundEvents;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;

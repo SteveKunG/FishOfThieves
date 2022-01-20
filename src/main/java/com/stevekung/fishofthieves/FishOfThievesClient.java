@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves;
 
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;

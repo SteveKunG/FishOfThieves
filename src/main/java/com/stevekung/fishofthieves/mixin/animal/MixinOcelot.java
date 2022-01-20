@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.google.common.base.Suppliers;
-import com.stevekung.fishofthieves.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.item.ItemStack;

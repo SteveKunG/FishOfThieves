@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.stevekung.fishofthieves.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.random.WeightedRandomList;

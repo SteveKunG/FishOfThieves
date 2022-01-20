@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.predicates;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import com.stevekung.fishofthieves.FOTLootItemConditions;
+import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.GsonHelper;

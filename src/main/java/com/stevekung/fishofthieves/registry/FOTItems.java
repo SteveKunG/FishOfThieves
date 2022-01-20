@@ -1,4 +1,6 @@
-package com.stevekung.fishofthieves;
+package com.stevekung.fishofthieves.registry;
+
+import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;

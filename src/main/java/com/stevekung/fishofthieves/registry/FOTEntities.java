@@ -1,5 +1,6 @@
-package com.stevekung.fishofthieves;
+package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;

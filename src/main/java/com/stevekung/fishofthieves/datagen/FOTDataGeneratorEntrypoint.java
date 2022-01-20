@@ -4,9 +4,9 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import com.stevekung.fishofthieves.FOTEntities;
-import com.stevekung.fishofthieves.FOTItems;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
