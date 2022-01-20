@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -11,11 +8,15 @@ import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.utils.Continentalness;
+import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -24,8 +25,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
@@ -122,6 +125,20 @@ public class Islehopper extends AbstractThievesFish
         return GLOW_BY_TYPE;
     }
 
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    {
+        var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        var category = levelAccessor.getBiome(blockPos).getBiomeCategory();
+        var continentalness = TerrainUtils.getContinentalness((ServerLevel) levelAccessor, blockPos);
+        var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) levelAccessor, blockPos);
+
+        if (category == Biome.BiomeCategory.OCEAN || category == Biome.BiomeCategory.BEACH)
+        {
+            return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
+        }
+        return category == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
+    }
+
     public enum Variant implements ThievesFish.FishVariant
     {
         STONE,
@@ -141,7 +158,7 @@ public class Islehopper extends AbstractThievesFish
             });
             return optional.isPresent();
         }),
-        RAVEN(context -> context.blockPos().getY() < 0 && context.random().nextInt(100) == 0),
+        RAVEN(context -> context.blockPos().getY() <= 0 && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability),
         AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

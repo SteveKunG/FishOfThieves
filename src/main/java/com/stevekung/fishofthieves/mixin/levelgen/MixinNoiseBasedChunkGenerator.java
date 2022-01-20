@@ -20,13 +20,21 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 public class MixinNoiseBasedChunkGenerator
 {
     private static final WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALES = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 1, 8, 12));
+    private static final WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFINS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
 
     @Inject(method = "getMobsAt", cancellable = true, at = @At("HEAD"))
     private void addFishSpawn(Biome biome, StructureFeatureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
     {
-        if (structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.OCEAN_RUIN).isValid() && category == MobCategory.WATER_AMBIENT)
+        if (category == MobCategory.WATER_AMBIENT)
         {
-            info.setReturnValue(ANCIENTSCALES);
+            if (structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.OCEAN_RUIN).isValid())
+            {
+                info.setReturnValue(ANCIENTSCALES);
+            }
+            if (structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.MINESHAFT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.STRONGHOLD).isValid())
+            {
+                info.setReturnValue(PLENTIFINS);
+            }
         }
     }
 }

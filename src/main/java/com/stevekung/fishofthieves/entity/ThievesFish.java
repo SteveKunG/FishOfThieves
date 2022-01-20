@@ -70,7 +70,8 @@ public interface ThievesFish extends GlowFish
     static ThievesFish.SpawnConditionContext create(LivingEntity livingEntity)
     {
         var level = (ServerLevel) livingEntity.level;
-        return new ThievesFish.SpawnConditionContext(level, livingEntity.blockPosition(), livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining());
+        var blockPos = livingEntity.blockPosition();
+        return new ThievesFish.SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.canSeeSkyFromBelowWater(blockPos));
     }
 
     @FunctionalInterface
@@ -85,5 +86,5 @@ public interface ThievesFish extends GlowFish
         int getId();
     }
 
-    record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining) {}
+    record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining, boolean seeSkyInWater) {}
 }

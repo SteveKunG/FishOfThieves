@@ -103,8 +103,8 @@ public class Splashtail extends AbstractSchoolingThievesFish
         RUBY,
         SUNNY(SpawnConditionContext::isDay),
         INDIGO,
-        UMBER(context -> context.random().nextInt(100) == 0),
-        SEAFOAM(context -> context.random().nextInt(2) == 0 && context.isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
+        UMBER(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.umberSplashtailProbability),
+        SEAFOAM(context -> context.isNight() && context.seeSkyInWater());
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;

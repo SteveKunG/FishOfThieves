@@ -34,5 +34,15 @@ public final class FishOfThievesConfig implements ConfigData
     {
         @Comment("Chance of spawning trophy.")
         public float trophyProbability = 0.15F;
+        @Comment("Chance of spawning Umber variant of Splashtails.")
+        public float umberSplashtailProbability = 0.1F;
+        @Comment("Chance of spawning Bright variant of Pondies.")
+        public float brightPondieProbability = 0.1F;
+        @Comment("Chance of spawning Raven variant of Islehoppers.")
+        public float ravenIslehopperProbability = 0.1F;
+        @Comment("Chance of spawning Bone variant of Ancientscales.")
+        public float boneAncientscaleProbability = 0.1F;
+        @Comment("Chance of spawning Bonedust variant of Plentifins.")
+        public float bonedustPlentifinProbability = 0.1F;
     }
 }

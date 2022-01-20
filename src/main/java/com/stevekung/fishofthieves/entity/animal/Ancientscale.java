@@ -103,9 +103,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         {
             var level = context.level();
             var blockPos = context.blockPos();
-            return context.random().nextInt(100) == 0 || context.random().nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
+            return context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability || context.random().nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
         }),
-        STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.isNight() && context.level().canSeeSkyFromBelowWater(context.blockPos()));
+        STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.isNight() && context.seeSkyInWater());
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;

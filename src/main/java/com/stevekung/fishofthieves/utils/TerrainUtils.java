@@ -11,19 +11,23 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
+import net.minecraft.world.level.biome.TerrainShaper;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 public class TerrainUtils
 {
     public static Continentalness getContinentalness(ServerLevel level, BlockPos blockPos)
     {
-        var chunkX = QuartPos.fromBlock(blockPos.getX());
-        var chunkY = QuartPos.fromBlock(blockPos.getY());
-        var chunkZ = QuartPos.fromBlock(blockPos.getZ());
-        var targetPoint = level.getChunkSource().getGenerator().climateSampler().sample(chunkX, chunkY, chunkZ);
-        var continentalness = Climate.unquantizeCoord(targetPoint.continentalness());
+        var continentalness = Climate.unquantizeCoord(TerrainUtils.getTargetPoint(level, blockPos).continentalness());
         var overworldBiomeBuilder = new OverworldBiomeBuilder();
         return Continentalness.byName(overworldBiomeBuilder.getDebugStringForContinentalness(continentalness));
+    }
+
+    public static PeakTypes getPeakTypes(ServerLevel level, BlockPos blockPos)
+    {
+        var weirdness = Climate.unquantizeCoord(TerrainUtils.getTargetPoint(level, blockPos).weirdness());
+        var peakTypes = TerrainShaper.peaksAndValleys(weirdness);
+        return PeakTypes.byName(OverworldBiomeBuilder.getDebugStringForPeaksAndValleys(peakTypes));
     }
 
     public static boolean isInBiome(ServerLevel level, BlockPos blockPos, ResourceKey<Biome> biomeKey)
@@ -59,5 +63,13 @@ public class TerrainUtils
             size++;
         }
         return size >= maxSize;
+    }
+
+    private static Climate.TargetPoint getTargetPoint(ServerLevel level, BlockPos blockPos)
+    {
+        var chunkX = QuartPos.fromBlock(blockPos.getX());
+        var chunkY = QuartPos.fromBlock(blockPos.getY());
+        var chunkZ = QuartPos.fromBlock(blockPos.getZ());
+        return level.getChunkSource().getGenerator().climateSampler().sample(chunkX, chunkY, chunkZ);
     }
 }

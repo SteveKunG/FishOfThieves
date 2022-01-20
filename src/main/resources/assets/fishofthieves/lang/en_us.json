@@ -4,7 +4,13 @@
     "text.autoconfig.fishofthieves.category.spawn_rate": "Spawn Rate",
     
     "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "Trophy Max Health",
+    
     "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Trophy Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "Umber Splashtail Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "Bright Pondie Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.ravenIslehopperProbability": "Raven Islehopper Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.boneAncientscaleProbability": "Bone Ancientscale Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.bonedustPlentifinProbability": "Bonedust Plentifin Probability",
     
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
