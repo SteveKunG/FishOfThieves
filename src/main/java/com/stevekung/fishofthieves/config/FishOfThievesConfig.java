@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = FishOfThieves.MOD_ID)
 @Config.Gui.Background("minecraft:textures/block/prismarine_bricks.png")
@@ -31,6 +32,7 @@ public final class FishOfThievesConfig implements ConfigData
 
     public static class SpawnRate
     {
-        public int trophyChance = 15;
+        @Comment("Chance of spawning trophy.")
+        public float trophyProbability = 0.15F;
     }
 }

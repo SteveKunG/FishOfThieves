@@ -55,7 +55,7 @@ public interface ThievesFish extends GlowFish
             }
             return spawnData;
         }
-        if (livingEntity.getRandom().nextInt(FishOfThieves.CONFIG.spawnRate.trophyChance) == 0)
+        if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);
             livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
