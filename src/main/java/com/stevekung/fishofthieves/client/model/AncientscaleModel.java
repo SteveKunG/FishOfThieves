@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.animal.Ancientscale;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -15,9 +16,8 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
-public class AncientscaleModel<T extends Entity> extends EntityModel<T>
+public class AncientscaleModel<T extends Ancientscale> extends EntityModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "ancientscale"), "main");
     private final ModelPart body_front;
@@ -34,7 +34,8 @@ public class AncientscaleModel<T extends Entity> extends EntityModel<T>
         this.body_back_2 = this.body_back.getChild("body_back_2");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer()
+    {
         var meshdefinition = new MeshDefinition();
         var partdefinition = meshdefinition.getRoot();
 

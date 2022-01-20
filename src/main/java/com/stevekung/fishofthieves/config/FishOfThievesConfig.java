@@ -5,43 +5,32 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = FishOfThieves.MOD_ID)
 @Config.Gui.Background("minecraft:textures/block/prismarine_bricks.png")
 public final class FishOfThievesConfig implements ConfigData
 {
-    @Comment("Toggles spore particles in Lush Cave biome.")
-    public boolean sporeParticlesInLushCave = true;
-
-    @ConfigEntry.Category("be_render_distance")
+    @ConfigEntry.Category("general")
     @ConfigEntry.Gui.TransitiveObject
-    public BlockEntityRenderDistanceCategory blockEntityRenderDistance;
+    public General general;
+
+    @ConfigEntry.Category("spawn_rate")
+    @ConfigEntry.Gui.TransitiveObject
+    public SpawnRate spawnRate;
 
     public FishOfThievesConfig()
     {
-        this.blockEntityRenderDistance = new BlockEntityRenderDistanceCategory();
+        this.general = new General();
+        this.spawnRate = new SpawnRate();
     }
 
-    public static class BlockEntityRenderDistanceCategory
+    public static class General
     {
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int chest = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int shulkerBox = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int conduit = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 1024)
-        public int beacon = 256;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int banner = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int movingPiston = 68;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int skullBlock = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int bell = 64;
-        @ConfigEntry.BoundedDiscrete(min = 0, max = 512)
-        public int sign = 64;
+        public float trophyMaxHealth = 5.0F;
+    }
+
+    public static class SpawnRate
+    {
+        public int trophyChance = 15;
     }
 }

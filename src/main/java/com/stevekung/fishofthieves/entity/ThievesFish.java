@@ -56,11 +56,11 @@ public interface ThievesFish
             }
             return spawnData;
         }
-        if (livingEntity.getRandom().nextInt(15) == 0)
+        if (livingEntity.getRandom().nextInt(FishOfThieves.CONFIG.spawnRate.trophyChance) == 0)
         {
             this.setTrophy(true);
-            livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(5.0D);
-            livingEntity.setHealth(5.0f);
+            livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
+            livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         this.setVariant(variant.ordinal());
         return spawnData;

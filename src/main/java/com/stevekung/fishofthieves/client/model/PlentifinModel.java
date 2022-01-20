@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.animal.Plentifin;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -15,9 +16,8 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
-public class PlentifinModel<T extends Entity> extends EntityModel<T>
+public class PlentifinModel<T extends Plentifin> extends EntityModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "plentifin"), "main");
     private final ModelPart body_front;
