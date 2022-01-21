@@ -44,5 +44,7 @@ public final class FishOfThievesConfig implements ConfigData
         public float boneAncientscaleProbability = 0.1F;
         @Comment("Chance of spawning Bonedust variant of Plentifins.")
         public float bonedustPlentifinProbability = 0.1F;
+        @Comment("Chance of spawning Muddy variant of Wildsplashes.")
+        public float muddyWildsplashProbability = 0.1F;
     }
 }

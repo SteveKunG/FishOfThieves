@@ -2,28 +2,20 @@ package com.stevekung.fishofthieves.client.renderer.entity;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.IslehopperModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.Islehopper;
 
-import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, IslehopperModel<Islehopper>>
 {
-    private static final Map<Islehopper.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), hashMap ->
-    {
-        for (var variant : Islehopper.Variant.BY_ID)
-        {
-            hashMap.put(variant, new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/islehopper/%s.png", variant.getName())));
-        }
-    });
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Islehopper.Variant.BY_ID, "islehopper");
 
     public IslehopperRenderer(EntityRendererProvider.Context context)
     {

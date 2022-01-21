@@ -16,7 +16,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -84,7 +87,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
     @Override
     public int getSpawnVariantId()
     {
-        return Variant.getSpawnVariant(this);
+        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new);
     }
 
     @Override
@@ -147,6 +150,12 @@ public class Plentifin extends AbstractSchoolingThievesFish
             return this.ordinal();
         }
 
+        @Override
+        public ThievesFish.Condition getCondition()
+        {
+            return this.condition;
+        }
+
         public static Variant byId(int id)
         {
             var types = BY_ID;
@@ -156,12 +165,6 @@ public class Plentifin extends AbstractSchoolingThievesFish
                 id = 0;
             }
             return types[id];
-        }
-
-        public static int getSpawnVariant(LivingEntity livingEntity)
-        {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
-            return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }
 }

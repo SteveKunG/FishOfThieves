@@ -1,12 +1,15 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.function.IntFunction;
 
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.fabricmc.fabric.api.tag.TagFactory;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -74,6 +77,12 @@ public interface ThievesFish extends GlowFish
         return new ThievesFish.SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.canSeeSkyFromBelowWater(blockPos));
     }
 
+    static int getSpawnVariant(LivingEntity livingEntity, ThievesFish.FishVariant[] ids, IntFunction<ThievesFish.FishVariant[]> generator)
+    {
+        var variants = Arrays.stream(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
+        return Util.getRandom(variants, livingEntity.getRandom()).getId();
+    }
+
     @FunctionalInterface
     interface Condition
     {
@@ -84,6 +93,7 @@ public interface ThievesFish extends GlowFish
     {
         String getName();
         int getId();
+        ThievesFish.Condition getCondition();
     }
 
     record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining, boolean seeSkyInWater) {}

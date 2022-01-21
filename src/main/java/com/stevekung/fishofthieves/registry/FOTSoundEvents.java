@@ -23,6 +23,9 @@ public class FOTSoundEvents
     public static final SoundEvent PLENTIFIN_DEATH = create("entity.plentifin.death");
     public static final SoundEvent PLENTIFIN_FLOP = create("entity.plentifin.flop");
     public static final SoundEvent PLENTIFIN_HURT = create("entity.plentifin.hurt");
+    public static final SoundEvent WILDSPLASH_DEATH = create("entity.wildsplash.death");
+    public static final SoundEvent WILDSPLASH_FLOP = create("entity.wildsplash.flop");
+    public static final SoundEvent WILDSPLASH_HURT = create("entity.wildsplash.hurt");
 
     public static void init()
     {
@@ -41,6 +44,9 @@ public class FOTSoundEvents
         register(PLENTIFIN_DEATH);
         register(PLENTIFIN_FLOP);
         register(PLENTIFIN_HURT);
+        register(WILDSPLASH_DEATH);
+        register(WILDSPLASH_FLOP);
+        register(WILDSPLASH_HURT);
     }
 
     private static SoundEvent create(String key)

@@ -2,28 +2,20 @@ package com.stevekung.fishofthieves.client.renderer.entity;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.PondieModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.Pondie;
 
-import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pondie>>
 {
-    private static final Map<Pondie.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), hashMap ->
-    {
-        for (var variant : Pondie.Variant.BY_ID)
-        {
-            hashMap.put(variant, new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/pondie/%s.png", variant.getName())));
-        }
-    });
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Pondie.Variant.BY_ID, "pondie");
 
     public PondieRenderer(EntityRendererProvider.Context context)
     {

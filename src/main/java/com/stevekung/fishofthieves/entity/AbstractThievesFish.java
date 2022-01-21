@@ -18,7 +18,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 public abstract class AbstractThievesFish extends AbstractFish implements ThievesFish
 {
     protected static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {

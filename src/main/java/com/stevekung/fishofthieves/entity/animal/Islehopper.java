@@ -116,7 +116,7 @@ public class Islehopper extends AbstractThievesFish
     @Override
     public int getSpawnVariantId()
     {
-        return Variant.getSpawnVariant(this);
+        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new);
     }
 
     @Override
@@ -186,6 +186,12 @@ public class Islehopper extends AbstractThievesFish
             return this.ordinal();
         }
 
+        @Override
+        public ThievesFish.Condition getCondition()
+        {
+            return this.condition;
+        }
+
         public static Variant byId(int id)
         {
             var types = BY_ID;
@@ -195,12 +201,6 @@ public class Islehopper extends AbstractThievesFish
                 id = 0;
             }
             return types[id];
-        }
-
-        public static int getSpawnVariant(LivingEntity livingEntity)
-        {
-            var variants = Arrays.stream(BY_ID).filter(variant -> variant.condition.spawn(ThievesFish.create(livingEntity))).toArray(Variant[]::new);
-            return Util.getRandom(variants, livingEntity.getRandom()).getId();
         }
     }
 }

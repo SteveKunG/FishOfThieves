@@ -2,28 +2,20 @@ package com.stevekung.fishofthieves.client.renderer.entity;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.AncientscaleModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.Ancientscale;
 
-import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class AncientscaleRenderer extends ThievesFishRenderer<Ancientscale, AncientscaleModel<Ancientscale>>
 {
-    private static final Map<Ancientscale.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), hashMap ->
-    {
-        for (var variant : Ancientscale.Variant.BY_ID)
-        {
-            hashMap.put(variant, new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/ancientscale/%s.png", variant.getName())));
-        }
-    });
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Ancientscale.Variant.BY_ID, "ancientscale");
 
     public AncientscaleRenderer(EntityRendererProvider.Context context)
     {

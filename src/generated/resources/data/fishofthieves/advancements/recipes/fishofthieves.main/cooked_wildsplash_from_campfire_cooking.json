@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_wildsplash_from_campfire_cooking"
+    ]
+  },
+  "criteria": {
+    "has_wildsplash": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:wildsplash"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cooked_wildsplash_from_campfire_cooking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wildsplash",
+      "has_the_recipe"
+    ]
+  ]
+}

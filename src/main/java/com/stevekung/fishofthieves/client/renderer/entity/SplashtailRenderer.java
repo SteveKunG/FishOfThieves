@@ -2,28 +2,20 @@ package com.stevekung.fishofthieves.client.renderer.entity;
 
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.SplashtailModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
 
-import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, SplashtailModel<Splashtail>>
 {
-    private static final Map<Splashtail.Variant, ResourceLocation> TEXTURE_BY_TYPE = Util.make(Maps.newHashMap(), hashMap ->
-    {
-        for (var variant : Splashtail.Variant.BY_ID)
-        {
-            hashMap.put(variant, new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/splashtail/%s.png", variant.getName())));
-        }
-    });
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Splashtail.Variant.BY_ID, "splashtail");
 
     public SplashtailRenderer(EntityRendererProvider.Context context)
     {

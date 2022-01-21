@@ -60,9 +60,12 @@ public class TerrainUtils
             {
                 continue;
             }
-            size++;
+            if (++size >= maxSize)
+            {
+                return true;
+            }
         }
-        return size >= maxSize;
+        return false;
     }
 
     private static Climate.TargetPoint getTargetPoint(ServerLevel level, BlockPos blockPos)

@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -11,24 +8,32 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 
-public class Ancientscale extends AbstractSchoolingThievesFish
+public class Wildsplash extends AbstractSchoolingThievesFish
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.STARSHINE, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/ancientscale/starshine_glow.png")));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.CORAL, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png")));
 
-    public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
+    public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
         super(entityType, level);
     }
@@ -36,25 +41,31 @@ public class Ancientscale extends AbstractSchoolingThievesFish
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(FOTItems.ANCIENTSCALE_BUCKET);
+        return new ItemStack(FOTItems.WILDSPLASH_BUCKET);
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return FOTSoundEvents.ANCIENTSCALE_DEATH;
+        return FOTSoundEvents.WILDSPLASH_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
     {
-        return FOTSoundEvents.ANCIENTSCALE_HURT;
+        return FOTSoundEvents.WILDSPLASH_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound()
     {
-        return FOTSoundEvents.ANCIENTSCALE_FLOP;
+        return FOTSoundEvents.WILDSPLASH_FLOP;
+    }
+
+    @Override
+    public int getMaxSchoolSize()
+    {
+        return 4;
     }
 
     @Override
@@ -66,13 +77,13 @@ public class Ancientscale extends AbstractSchoolingThievesFish
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.3575F : 0.18F;
+        return this.isTrophy() ? 0.38F : 0.2F;
     }
 
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.STARSHINE;
+        return this.getVariant() == Variant.CORAL;
     }
 
     @Override
@@ -93,18 +104,22 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    {
+        return TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.LUSH_CAVES) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+    }
+
     public enum Variant implements ThievesFish.FishVariant
     {
-        ALMOND,
-        SAPPHIRE,
-        SMOKE,
-        BONE(context ->
+        RUSSET,
+        SANDY(context -> TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.BEACH && TerrainUtils.getContinentalness(context.level(), context.blockPos()) == Continentalness.COAST),
+        OCEAN(context -> TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.OCEAN),
+        MUDDY(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability && TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.SWAMP),
+        CORAL(context -> context.isNight() && context.seeSkyInWater() && TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.WARM_OCEAN) && TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
-            var level = context.level();
-            var blockPos = context.blockPos();
-            return context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability || context.random().nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
-        }),
-        STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.isNight() && context.seeSkyInWater());
+            var blockState = context.level().getBlockState(blockPos2);
+            return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);
+        }));
 
         public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
