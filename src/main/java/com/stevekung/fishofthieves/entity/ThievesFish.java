@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.function.IntFunction;
+import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -79,7 +79,7 @@ public interface ThievesFish extends GlowFish
 
     static int getSpawnVariant(LivingEntity livingEntity, ThievesFish.FishVariant[] ids, IntFunction<ThievesFish.FishVariant[]> generator)
     {
-        var variants = Arrays.stream(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
+        var variants = Stream.of(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
         return Util.getRandom(variants, livingEntity.getRandom()).getId();
     }
 
@@ -87,6 +87,11 @@ public interface ThievesFish extends GlowFish
     interface Condition
     {
         boolean spawn(SpawnConditionContext context);
+
+        static Condition always()
+        {
+            return context -> true;
+        }
     }
 
     interface FishVariant

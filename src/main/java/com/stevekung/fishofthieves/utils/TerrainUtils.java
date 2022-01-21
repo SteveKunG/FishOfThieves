@@ -16,11 +16,12 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 public class TerrainUtils
 {
+    private static final OverworldBiomeBuilder OVERWORLD_BUILDER = new OverworldBiomeBuilder();
+
     public static Continentalness getContinentalness(ServerLevel level, BlockPos blockPos)
     {
         var continentalness = Climate.unquantizeCoord(TerrainUtils.getTargetPoint(level, blockPos).continentalness());
-        var overworldBiomeBuilder = new OverworldBiomeBuilder();
-        return Continentalness.byName(overworldBiomeBuilder.getDebugStringForContinentalness(continentalness));
+        return Continentalness.byName(TerrainUtils.OVERWORLD_BUILDER.getDebugStringForContinentalness(continentalness));
     }
 
     public static PeakTypes getPeakTypes(ServerLevel level, BlockPos blockPos)

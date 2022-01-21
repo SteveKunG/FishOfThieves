@@ -1,8 +1,9 @@
 package com.stevekung.fishofthieves.utils;
 
-import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.util.StringRepresentable;
 
@@ -16,7 +17,7 @@ public enum Continentalness implements StringRepresentable
     FAR_INLAND("Far inland"),
     MUSHROOM_FIELDS("Mushroom fields");
 
-    private static final Map<String, Continentalness> BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(Continentalness::getName, continentalness -> continentalness));
+    private static final Map<String, Continentalness> BY_NAME = Stream.of(values()).collect(Collectors.toMap(Continentalness::getName, Function.identity()));
     private final String name;
 
     Continentalness(String name)

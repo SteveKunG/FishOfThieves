@@ -39,7 +39,7 @@ public class FOTItems
     public static final Item PLENTIFIN_SPAWN_EGG = new SpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item WILDSPLASH_SPAWN_EGG = new SpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, new Item.Properties().tab(FishOfThieves.FOT_TAB));
 
-    public static final ItemStack[] CAT_FOODS = new ItemStack[] {
+    public static final ItemStack[] CAT_FOODS = {
             new ItemStack(FOTItems.SPLASHTAIL),
             new ItemStack(FOTItems.PONDIE),
             new ItemStack(FOTItems.ISLEHOPPER),

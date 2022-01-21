@@ -1,8 +1,9 @@
 package com.stevekung.fishofthieves.utils;
 
-import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.minecraft.util.StringRepresentable;
 
@@ -14,7 +15,7 @@ public enum PeakTypes implements StringRepresentable
     PEAK("Peak"),
     VALLEY("Valley");
 
-    private static final Map<String, PeakTypes> BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(PeakTypes::getName, peakTypes -> peakTypes));
+    private static final Map<String, PeakTypes> BY_NAME = Stream.of(values()).collect(Collectors.toMap(PeakTypes::getName, Function.identity()));
     private final String name;
 
     PeakTypes(String name)

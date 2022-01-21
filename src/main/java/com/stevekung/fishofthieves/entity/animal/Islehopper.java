@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.*;
+import java.util.stream.Stream;
 
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +35,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class Islehopper extends AbstractThievesFish
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png")));
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
@@ -161,7 +160,7 @@ public class Islehopper extends AbstractThievesFish
         RAVEN(context -> context.blockPos().getY() <= 0 && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability),
         AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
-        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
 
         Variant(ThievesFish.Condition condition)
@@ -171,7 +170,7 @@ public class Islehopper extends AbstractThievesFish
 
         Variant()
         {
-            this(context -> true);
+            this(ThievesFish.Condition.always());
         }
 
         @Override

@@ -1,18 +1,17 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Stream;
 
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
-import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,7 +24,7 @@ import net.minecraft.world.level.LightLayer;
 
 public class Pondie extends AbstractSchoolingThievesFish
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.put(Variant.MOONSKY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/pondie/moonsky_glow.png")));
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.MOONSKY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/pondie/moonsky_glow.png"));
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
@@ -106,7 +105,7 @@ public class Pondie extends AbstractSchoolingThievesFish
         BRIGHT(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.brightPondieProbability),
         MOONSKY(context -> context.isNight() && context.seeSkyInWater() || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10);
 
-        public static final Variant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
 
         Variant(ThievesFish.Condition condition)
@@ -116,7 +115,7 @@ public class Pondie extends AbstractSchoolingThievesFish
 
         Variant()
         {
-            this(context -> true);
+            this(ThievesFish.Condition.always());
         }
 
         @Override
