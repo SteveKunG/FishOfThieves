@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class SplashtailModel<T extends Splashtail> extends EntityModel<T>
+public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implements ScaleableModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "splashtail"), "main");
     private final ModelPart body_front;
@@ -88,5 +88,13 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T>
         this.body_front.render(poseStack, buffer, packedLight, packedOverlay);
         this.body_back.render(poseStack, buffer, packedLight, packedOverlay);
         this.head.render(poseStack, buffer, packedLight, packedOverlay);
+    }
+
+    @Override
+    public void scale(T entity, PoseStack poseStack)
+    {
+        var scale = 1.5f;
+        poseStack.scale(scale, scale, scale);
+        poseStack.translate(0.0f, -0.275f, -0.075f);
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class IslehopperModel<T extends Islehopper> extends EntityModel<T>
+public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implements ScaleableModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "islehopper"), "main");
     private final ModelPart body_front;
@@ -100,5 +100,13 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T>
         this.body_front.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         this.body_back.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
         this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    @Override
+    public void scale(T entity, PoseStack poseStack)
+    {
+        var scale = 2.0f;
+        poseStack.scale(scale, scale - 0.5f, scale - 0.5f);
+        poseStack.translate(0.0f, -0.265f, -0.06f);
     }
 }

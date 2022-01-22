@@ -32,14 +32,16 @@ public class PlentifinRenderer extends ThievesFishRenderer<Plentifin, PlentifinM
     protected void setupRotations(Plentifin plentifin, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
         super.setupRotations(plentifin, poseStack, ageInTicks, rotationYaw, partialTicks);
-        var bodyRotSpeed = 1.0f;
+        var bodyRotBase = 1.0f;
+        var baseDegree = plentifin.isPartying() ? -20.0f : 5.0f;
+        var bodyRotSpeed = plentifin.isPartying() ? 2.0f : 0.65f;
 
         if (!plentifin.isInWater())
         {
-            bodyRotSpeed = 1.7f;
+            bodyRotBase = 1.7f;
         }
 
-        var degree = 5.3f * Mth.sin(bodyRotSpeed * 0.65f * ageInTicks);
+        var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
         if (!plentifin.isInWater())

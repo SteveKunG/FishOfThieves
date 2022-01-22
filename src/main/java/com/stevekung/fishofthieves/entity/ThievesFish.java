@@ -22,7 +22,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
-public interface ThievesFish extends GlowFish
+public interface ThievesFish extends GlowFish, PartyFish
 {
     String VARIANT_TAG = "Variant";
     String TROPHY_TAG = "Trophy";

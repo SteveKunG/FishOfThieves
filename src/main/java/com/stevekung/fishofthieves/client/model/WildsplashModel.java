@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class WildsplashModel<T extends Wildsplash> extends EntityModel<T>
+public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements ScaleableModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "wildsplash"), "main");
     private final ModelPart body_front;
@@ -95,5 +95,13 @@ public class WildsplashModel<T extends Wildsplash> extends EntityModel<T>
         this.body_front.render(poseStack, buffer, packedLight, packedOverlay);
         this.body_back.render(poseStack, buffer, packedLight, packedOverlay);
         this.head.render(poseStack, buffer, packedLight, packedOverlay);
+    }
+
+    @Override
+    public void scale(T entity, PoseStack poseStack)
+    {
+        var scale = 2.0f;
+        poseStack.scale(scale, scale - 0.5f, scale - 0.25f);
+        poseStack.translate(0.0f, -0.3f, -0.1f);
     }
 }

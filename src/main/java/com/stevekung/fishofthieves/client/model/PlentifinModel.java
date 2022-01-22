@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class PlentifinModel<T extends Plentifin> extends EntityModel<T>
+public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implements ScaleableModel<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "plentifin"), "main");
     private final ModelPart body_front;
@@ -90,5 +90,13 @@ public class PlentifinModel<T extends Plentifin> extends EntityModel<T>
         this.body_front.render(poseStack, buffer, packedLight, packedOverlay);
         this.body_back.render(poseStack, buffer, packedLight, packedOverlay);
         this.head.render(poseStack, buffer, packedLight, packedOverlay);
+    }
+
+    @Override
+    public void scale(T entity, PoseStack poseStack)
+    {
+        var scale = 1.25f;
+        poseStack.scale(scale, scale + 0.5f, scale);
+        poseStack.translate(0.0f, -0.375f, -0.125f);
     }
 }

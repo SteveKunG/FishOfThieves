@@ -32,14 +32,16 @@ public class WildsplashRenderer extends ThievesFishRenderer<Wildsplash, Wildspla
     protected void setupRotations(Wildsplash wildsplash, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
         super.setupRotations(wildsplash, poseStack, ageInTicks, rotationYaw, partialTicks);
-        var bodyRotSpeed = 1.0f;
+        var bodyRotBase = 1.0f;
+        var baseDegree = wildsplash.isPartying() ? -20.0f : 5.0f;
+        var bodyRotSpeed = wildsplash.isPartying() ? 2.0f : 0.7f;
 
         if (!wildsplash.isInWater())
         {
-            bodyRotSpeed = 1.8f;
+            bodyRotBase = 1.8f;
         }
 
-        var degree = 5.3f * Mth.sin(bodyRotSpeed * 0.7f * ageInTicks);
+        var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
         if (!wildsplash.isInWater())
