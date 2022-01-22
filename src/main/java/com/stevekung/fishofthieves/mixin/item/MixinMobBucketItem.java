@@ -31,7 +31,7 @@ public class MixinMobBucketItem
     EntityType<?> type;
 
     @Inject(method = "appendHoverText", at = @At("TAIL"))
-    private void appendCustomFishType(ItemStack itemStack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo info)
+    private void fishofthieves$appendCustomFishTooltip(ItemStack itemStack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo info)
     {
         var compoundTag = itemStack.getTag();
 

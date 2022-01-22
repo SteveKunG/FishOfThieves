@@ -27,7 +27,7 @@ public abstract class MixinVanillaFishesRenderer<T extends Mob & PartyFish, M ex
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void addlayer(EntityRendererProvider.Context context, CallbackInfo info)
+    private void fishofthieves$addLayer(EntityRendererProvider.Context context, CallbackInfo info)
     {
         this.addLayer(new HeadphoneLayer<>(this, context));
     }

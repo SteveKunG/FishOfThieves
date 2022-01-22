@@ -17,7 +17,7 @@ import net.minecraft.world.entity.animal.Pufferfish;
 public class MixinPufferfishRenderer
 {
     @Inject(method = "setupRotations", at = @At("HEAD"))
-    private void setupRotations(Pufferfish pufferfish, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, CallbackInfo info)
+    private void fishofthieves$setupRotations(Pufferfish pufferfish, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, CallbackInfo info)
     {
         if (((PartyFish)pufferfish).isPartying())
         {

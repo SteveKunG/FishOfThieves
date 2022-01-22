@@ -23,7 +23,7 @@ public class MixinNoiseBasedChunkGenerator
     private static final WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFINS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
 
     @Inject(method = "getMobsAt", cancellable = true, at = @At("HEAD"))
-    private void addFishSpawn(Biome biome, StructureFeatureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
+    private void fishofthieves$addFishSpawn(Biome biome, StructureFeatureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
     {
         if (category == MobCategory.WATER_AMBIENT)
         {

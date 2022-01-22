@@ -24,7 +24,7 @@ public class MixinCat
     static Ingredient TEMPT_INGREDIENT;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void addFoods(CallbackInfo info)
+    private static void fishofthieves$addFoods(CallbackInfo info)
     {
         TEMPT_INGREDIENT = Ingredient.of(ObjectArrays.concat(TEMPT_INGREDIENT.getItems(), FOTItems.CAT_FOODS, ItemStack.class));
     }

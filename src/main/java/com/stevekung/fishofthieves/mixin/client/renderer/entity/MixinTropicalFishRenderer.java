@@ -13,13 +13,13 @@ import net.minecraft.world.entity.animal.TropicalFish;
 public class MixinTropicalFishRenderer
 {
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 4.3f))
-    private float modifyBaseDegree(float defaultValue, TropicalFish tropicalFish)
+    private float fishofthieves$modifyBaseDegree(float defaultValue, TropicalFish tropicalFish)
     {
         return ((PartyFish)tropicalFish).isPartying() ? -20.0f : defaultValue;
     }
 
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 0.6f))
-    private float modifyBodyRotSpeed(float defaultValue, TropicalFish tropicalFish)
+    private float fishofthieves$modifyBodyRotSpeed(float defaultValue, TropicalFish tropicalFish)
     {
         return ((PartyFish)tropicalFish).isPartying() ? 2.0f : defaultValue;
     }

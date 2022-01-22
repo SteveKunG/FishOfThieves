@@ -13,13 +13,13 @@ import net.minecraft.world.entity.animal.Cod;
 public class MixinCodRenderer
 {
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 4.3f))
-    private float modifyBaseDegree(float defaultValue, Cod cod)
+    private float fishofthieves$modifyBaseDegree(float defaultValue, Cod cod)
     {
         return ((PartyFish)cod).isPartying() ? -20.0f : defaultValue;
     }
 
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 0.6f))
-    private float modifyBodyRotSpeed(float defaultValue, Cod cod)
+    private float fishofthieves$modifyBodyRotSpeed(float defaultValue, Cod cod)
     {
         return ((PartyFish)cod).isPartying() ? 2.0f : defaultValue;
     }

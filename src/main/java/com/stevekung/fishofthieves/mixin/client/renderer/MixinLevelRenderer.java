@@ -15,7 +15,7 @@ import net.minecraft.world.phys.AABB;
 public class MixinLevelRenderer
 {
     @Inject(method = "notifyNearbyEntities", at = @At("HEAD"))
-    private void notifyNearbyFishes(Level level, BlockPos blockPos, boolean playing, CallbackInfo info)
+    private void fishofthieves$notifyNearbyFishes(Level level, BlockPos blockPos, boolean playing, CallbackInfo info)
     {
         var list = level.getEntitiesOfClass(AbstractFish.class, new AABB(blockPos).inflate(8.0D));
 

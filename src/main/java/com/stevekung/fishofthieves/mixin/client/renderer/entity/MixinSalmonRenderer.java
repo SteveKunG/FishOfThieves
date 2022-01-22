@@ -13,13 +13,13 @@ import net.minecraft.world.entity.animal.Salmon;
 public class MixinSalmonRenderer
 {
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 4.3f))
-    private float modifyBaseDegree(float defaultValue, Salmon salmon)
+    private float fishofthieves$modifyBaseDegree(float defaultValue, Salmon salmon)
     {
         return ((PartyFish)salmon).isPartying() ? -20.0f : defaultValue;
     }
 
     @ModifyConstant(method = "setupRotations", constant = @Constant(floatValue = 0.6f))
-    private float modifyBodyRotSpeed(float defaultValue, Salmon salmon)
+    private float fishofthieves$modifyBodyRotSpeed(float defaultValue, Salmon salmon)
     {
         return ((PartyFish)salmon).isPartying() ? salmon.isInWater() ? 2.0f : 1.0f : defaultValue;
     }
