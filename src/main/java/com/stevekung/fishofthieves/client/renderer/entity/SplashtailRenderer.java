@@ -34,7 +34,7 @@ public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, Splashta
         super.setupRotations(splashtail, poseStack, ageInTicks, rotationYaw, partialTicks);
         var bodyRotBase = 1.0f;
         var baseDegree = splashtail.isPartying() ? -20.0f : 4.0f;
-        var bodyRotSpeed = splashtail.isPartying() ? 2.0f : 0.6f;
+        var bodyRotSpeed = splashtail.isPartying() ? splashtail.isInWater() ? 2.0f : 1.0f : 0.6f;
 
         if (!splashtail.isInWater())
         {

@@ -34,7 +34,7 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
         super.setupRotations(islehopper, poseStack, ageInTicks, rotationYaw, partialTicks);
         var bodyRotBase = 1.0f;
         var baseDegree = islehopper.isPartying() ? -20.0f : 4.0f;
-        var bodyRotSpeed = islehopper.isPartying() ? 2.0f : 0.6f;
+        var bodyRotSpeed = islehopper.isPartying() ? islehopper.isInWater() ? 2.0f : 1.0f : 0.6f;
 
         if (!islehopper.isInWater())
         {

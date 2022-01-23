@@ -34,7 +34,7 @@ public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pond
         super.setupRotations(pondie, poseStack, ageInTicks, rotationYaw, partialTicks);
         var bodyRotBase = 1.0f;
         var baseDegree = pondie.isPartying() ? -20.0f : 5.0f;
-        var bodyRotSpeed = pondie.isPartying() ? 2.0f : 0.65f;
+        var bodyRotSpeed = pondie.isPartying() ? pondie.isInWater() ? 2.0f : 1.0f : 0.65f;
 
         if (!pondie.isInWater())
         {

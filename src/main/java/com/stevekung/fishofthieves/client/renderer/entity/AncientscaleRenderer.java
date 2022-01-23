@@ -34,7 +34,7 @@ public class AncientscaleRenderer extends ThievesFishRenderer<Ancientscale, Anci
         super.setupRotations(ancientscale, poseStack, ageInTicks, rotationYaw, partialTicks);
         var bodyRotBase = 1.0f;
         var baseDegree = ancientscale.isPartying() ? -20.0f : 5.0f;
-        var bodyRotSpeed = ancientscale.isPartying() ? 2.0f : 0.65f;
+        var bodyRotSpeed = ancientscale.isPartying() ? ancientscale.isInWater() ? 2.0f : 1.0f : 0.65f;
 
         if (!ancientscale.isInWater())
         {
