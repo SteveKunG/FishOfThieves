@@ -20,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ItemStack;
 
 public interface ThievesFish extends GlowFish, PartyFish
 {
@@ -35,12 +34,11 @@ public interface ThievesFish extends GlowFish, PartyFish
     boolean isTrophy();
     void setTrophy(boolean trophy);
 
-    default void saveToBucket(ItemStack itemStack, int variant, String name)
+    default void saveToBucket(CompoundTag compound)
     {
-        var compound = itemStack.getOrCreateTag();
-        compound.putInt(VARIANT_TAG, variant);
+        compound.putInt(VARIANT_TAG, this.getVariant().getId());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putString(NAME_TAG, name);
+        compound.putString(NAME_TAG, this.getVariant().getName());
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -93,7 +91,7 @@ public interface ThievesFish extends GlowFish, PartyFish
         return new ThievesFish.SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.canSeeSkyFromBelowWater(blockPos));
     }
 
-    static int getSpawnVariant(LivingEntity livingEntity, ThievesFish.FishVariant[] ids, IntFunction<ThievesFish.FishVariant[]> generator, boolean random)
+    static int getSpawnVariant(LivingEntity livingEntity, FishVariant[] ids, IntFunction<FishVariant[]> generator, boolean random)
     {
         var variants = random ? Stream.of(ids).toArray(generator) : Stream.of(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
         return Util.getRandom(variants, livingEntity.getRandom()).getId();
@@ -108,13 +106,6 @@ public interface ThievesFish extends GlowFish, PartyFish
         {
             return context -> true;
         }
-    }
-
-    interface FishVariant
-    {
-        String getName();
-        int getId();
-        ThievesFish.Condition getCondition();
     }
 
     record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining, boolean seeSkyInWater) {}

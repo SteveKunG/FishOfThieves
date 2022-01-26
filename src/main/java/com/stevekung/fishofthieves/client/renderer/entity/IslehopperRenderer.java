@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.IslehopperModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.animal.Islehopper;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 
 public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, IslehopperModel<Islehopper>>
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Islehopper.Variant.BY_ID, "islehopper");
+    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Islehopper.Variant.BY_ID, "islehopper");
 
     public IslehopperRenderer(EntityRendererProvider.Context context)
     {

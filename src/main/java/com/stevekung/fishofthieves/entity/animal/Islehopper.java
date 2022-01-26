@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -35,7 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class Islehopper extends AbstractThievesFish
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
@@ -138,7 +139,7 @@ public class Islehopper extends AbstractThievesFish
         return category == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
     }
 
-    public enum Variant implements ThievesFish.FishVariant
+    public enum Variant implements FishVariant
     {
         STONE,
         MOSS(context ->

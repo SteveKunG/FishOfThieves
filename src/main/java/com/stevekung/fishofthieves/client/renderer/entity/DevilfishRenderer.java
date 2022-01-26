@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.DevilfishModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 
 public class DevilfishRenderer extends ThievesFishRenderer<Devilfish, DevilfishModel<Devilfish>>
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Devilfish.Variant.BY_ID, "devilfish");
+    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Devilfish.Variant.BY_ID, "devilfish");
 
     public DevilfishRenderer(EntityRendererProvider.Context context)
     {

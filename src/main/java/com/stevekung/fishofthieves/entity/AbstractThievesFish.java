@@ -54,7 +54,7 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
-        this.saveToBucket(itemStack, this.getVariant().getId(), this.getVariant().getName());
+        this.saveToBucket(itemStack.getOrCreateTag());
     }
 
     @Override

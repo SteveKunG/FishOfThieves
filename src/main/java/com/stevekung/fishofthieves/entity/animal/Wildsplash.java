@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -30,7 +31,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public class Wildsplash extends AbstractSchoolingThievesFish
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.CORAL, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png"));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.CORAL, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png"));
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
@@ -108,7 +109,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
         return TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.LUSH_CAVES) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 
-    public enum Variant implements ThievesFish.FishVariant
+    public enum Variant implements FishVariant
     {
         RUSSET,
         SANDY(context -> TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.BEACH && TerrainUtils.getContinentalness(context.level(), context.blockPos()) == Continentalness.COAST),

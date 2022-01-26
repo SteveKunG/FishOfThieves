@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.PondieModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.animal.Pondie;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 
 public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pondie>>
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Pondie.Variant.BY_ID, "pondie");
+    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Pondie.Variant.BY_ID, "pondie");
 
     public PondieRenderer(EntityRendererProvider.Context context)
     {

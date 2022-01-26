@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -28,7 +29,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
 public class Plentifin extends AbstractSchoolingThievesFish
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.WATERY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png"));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.WATERY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png"));
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {
@@ -107,7 +108,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
         return waterRules;
     }
 
-    public enum Variant implements ThievesFish.FishVariant
+    public enum Variant implements FishVariant
     {
         OLIVE,
         AMBER(context ->

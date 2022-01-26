@@ -37,7 +37,7 @@ public class MixinMobBucketItem
 
         if (this.type.is(ThievesFish.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
         {
-            var type = new TranslatableComponent("entity.fishofthieves." + Registry.ENTITY_TYPE.getKey(this.type).getPath() + "." + compoundTag.getString(ThievesFish.NAME_TAG)).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+            var type = new TranslatableComponent(String.format("entity.fishofthieves.%s.%s", Registry.ENTITY_TYPE.getKey(this.type).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
             if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
             {

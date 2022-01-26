@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.Level;
 
 public class Splashtail extends AbstractSchoolingThievesFish
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.SEAFOAM, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/seafoam_glow.png"));
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
@@ -96,7 +97,7 @@ public class Splashtail extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public enum Variant implements ThievesFish.FishVariant
+    public enum Variant implements FishVariant
     {
         RUBY,
         SUNNY(SpawnConditionContext::isDay),

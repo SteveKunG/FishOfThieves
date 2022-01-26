@@ -54,7 +54,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
-        this.saveToBucket(itemStack, this.getVariant().getId(), this.getVariant().getName());
+        this.saveToBucket(itemStack.getOrCreateTag());
     }
 
     @Override

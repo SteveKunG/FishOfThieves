@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.ScaleableModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.GlowFishLayer;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.Util;
@@ -36,7 +37,7 @@ public abstract class ThievesFishRenderer<T extends AbstractFish & ThievesFish, 
         poseStack.scale(scale, scale, scale);
     }
 
-    protected static Map<ThievesFish.FishVariant, ResourceLocation> createTextureByType(ThievesFish.FishVariant[] variants, String name)
+    protected static Map<FishVariant, ResourceLocation> createTextureByType(FishVariant[] variants, String name)
     {
         return Util.make(Maps.newHashMap(), map -> map.putAll(Stream.of(variants).collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/%s/%s.png", name, variant.getName()))))));
     }

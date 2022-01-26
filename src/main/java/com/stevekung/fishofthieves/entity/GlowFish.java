@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 public interface GlowFish
 {
     boolean canGlow();
-    Map<ThievesFish.FishVariant, ResourceLocation> getGlowTextureByType();
+    Map<FishVariant, ResourceLocation> getGlowTextureByType();
 
     default float getGlowBrightness(float ageInTicks)
     {
