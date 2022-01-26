@@ -51,7 +51,7 @@ public class FishOfThieves implements ModInitializer
     public static final String MOD_ID = "fishofthieves";
     public static FishOfThievesConfig CONFIG;
 
-    public static final CreativeModeTab FOT_TAB = FabricItemGroupBuilder.build(new ResourceLocation(MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
+    public static final CreativeModeTab FOT_TAB = FabricItemGroupBuilder.build(new ResourceLocation(MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL_BUCKET));
 
     @Override
     public void onInitialize()
