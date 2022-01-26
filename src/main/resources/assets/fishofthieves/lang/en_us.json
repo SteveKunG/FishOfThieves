@@ -12,6 +12,7 @@
     "text.autoconfig.fishofthieves.option.spawnRate.boneAncientscaleProbability": "Bone Ancientscale Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.bonedustPlentifinProbability": "Bonedust Plentifin Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.muddyWildsplashProbability": "Muddy Wildsplash Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.forsakenDevilfishProbability": "Forsaken Devilfish Probability",
     
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
@@ -39,6 +40,10 @@
     "item.fishofthieves.cooked_wildsplash": "Cooked Wildsplash",
     "item.fishofthieves.wildsplash_bucket": "Wildsplash Bucket",
     "item.fishofthieves.wildsplash_spawn_egg": "Wildsplash Spawn Egg",
+    "item.fishofthieves.devilfish": "Devilfish",
+    "item.fishofthieves.cooked_devilfish": "Cooked Devilfish",
+    "item.fishofthieves.devilfish_bucket": "Devilfish Bucket",
+    "item.fishofthieves.devilfish_spawn_egg": "Devilfish Spawn Egg",
     
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
@@ -77,6 +82,12 @@
     "entity.fishofthieves.wildsplash.ocean": "Ocean",
     "entity.fishofthieves.wildsplash.muddy": "Muddy",
     "entity.fishofthieves.wildsplash.coral": "Coral",
+    "entity.fishofthieves.devilfish": "Devilfish",
+    "entity.fishofthieves.devilfish.ashen": "Ashen",
+    "entity.fishofthieves.devilfish.seashell": "Seashell",
+    "entity.fishofthieves.devilfish.lava": "Lava",
+    "entity.fishofthieves.devilfish.forsaken": "Forsaken",
+    "entity.fishofthieves.devilfish.firelight": "Firelight",
     
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
@@ -95,5 +106,8 @@
     "subtitles.entity.plentifin.hurt": "Plentifin hurts",
     "subtitles.entity.wildsplash.death": "Wildsplash dies",
     "subtitles.entity.wildsplash.flop": "Wildsplash flops",
-    "subtitles.entity.wildsplash.hurt": "Wildsplash hurts"
+    "subtitles.entity.wildsplash.hurt": "Wildsplash hurts",
+    "subtitles.entity.devilfish.death": "Devilfish dies",
+    "subtitles.entity.devilfish.flop": "Devilfish flops",
+    "subtitles.entity.devilfish.hurt": "Devilfish hurts"
 }

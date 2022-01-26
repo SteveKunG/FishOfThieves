@@ -46,5 +46,7 @@ public final class FishOfThievesConfig implements ConfigData
         public float bonedustPlentifinProbability = 0.1F;
         @Comment("Chance of spawning Muddy variant of Wildsplashes.")
         public float muddyWildsplashProbability = 0.1F;
+        @Comment("Chance of spawning Forsaken variant of Devilfishes.")
+        public float forsakenDevilfishProbability = 0.1F;
     }
 }

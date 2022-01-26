@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_devilfish"
+    ]
+  },
+  "criteria": {
+    "has_devilfish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:devilfish"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_devilfish"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_devilfish",
+      "has_the_recipe"
+    ]
+  ]
+}

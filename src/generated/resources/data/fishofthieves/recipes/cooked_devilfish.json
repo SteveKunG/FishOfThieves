@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "fishofthieves:devilfish"
+  },
+  "result": "fishofthieves:cooked_devilfish",
+  "experience": 0.5,
+  "cookingtime": 200
+}

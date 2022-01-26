@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "fishofthieves:devilfish"
+  },
+  "result": "fishofthieves:cooked_devilfish",
+  "experience": 0.5,
+  "cookingtime": 600
+}
