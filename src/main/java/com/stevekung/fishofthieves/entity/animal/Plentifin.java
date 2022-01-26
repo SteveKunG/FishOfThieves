@@ -84,9 +84,9 @@ public class Plentifin extends AbstractSchoolingThievesFish
     }
 
     @Override
-    public int getSpawnVariantId()
+    public int getSpawnVariantId(boolean bucket)
     {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new);
+        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
     }
 
     @Override

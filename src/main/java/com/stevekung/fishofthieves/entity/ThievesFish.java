@@ -30,7 +30,7 @@ public interface ThievesFish extends GlowFish, PartyFish
     net.minecraft.tags.Tag.Named<EntityType<?>> THIEVES_FISH = TagFactory.ENTITY_TYPE.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
     FishVariant getVariant();
-    int getSpawnVariantId();
+    int getSpawnVariantId(boolean bucket);
     void setVariant(int id);
     boolean isTrophy();
     void setTrophy(boolean trophy);
@@ -45,8 +45,14 @@ public interface ThievesFish extends GlowFish, PartyFish
 
     default void loadFromBucket(CompoundTag compound)
     {
-        this.setVariant(compound.getInt(VARIANT_TAG));
-        this.setTrophy(compound.getBoolean(TROPHY_TAG));
+        if (compound.contains(VARIANT_TAG))
+        {
+            this.setVariant(compound.getInt(VARIANT_TAG));
+        }
+        if (compound.contains(TROPHY_TAG))
+        {
+            this.setTrophy(compound.getBoolean(TROPHY_TAG));
+        }
     }
 
     default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
@@ -58,16 +64,26 @@ public interface ThievesFish extends GlowFish, PartyFish
                 this.setVariant(dataTag.getInt(VARIANT_TAG));
                 this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             }
+            else
+            {
+                this.randomTrophy(livingEntity);
+                this.setVariant(this.getSpawnVariantId(true));
+            }
             return spawnData;
         }
+        this.randomTrophy(livingEntity);
+        this.setVariant(this.getSpawnVariantId(false));
+        return spawnData;
+    }
+
+    private void randomTrophy(LivingEntity livingEntity)
+    {
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);
             livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.setVariant(this.getSpawnVariantId());
-        return spawnData;
     }
 
     static ThievesFish.SpawnConditionContext create(LivingEntity livingEntity)
@@ -77,9 +93,9 @@ public interface ThievesFish extends GlowFish, PartyFish
         return new ThievesFish.SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.canSeeSkyFromBelowWater(blockPos));
     }
 
-    static int getSpawnVariant(LivingEntity livingEntity, ThievesFish.FishVariant[] ids, IntFunction<ThievesFish.FishVariant[]> generator)
+    static int getSpawnVariant(LivingEntity livingEntity, ThievesFish.FishVariant[] ids, IntFunction<ThievesFish.FishVariant[]> generator, boolean random)
     {
-        var variants = Stream.of(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
+        var variants = random ? Stream.of(ids).toArray(generator) : Stream.of(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
         return Util.getRandom(variants, livingEntity.getRandom()).getId();
     }
 
