@@ -16,6 +16,7 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.DifficultyInstance;
@@ -32,14 +33,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 
-public class Devilfish extends AbstractSchoolingThievesFish
+public class Battlegill extends AbstractSchoolingThievesFish
 {
-    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.FIRELIGHT, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png"));
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.attackable();
+    private static final Map<ThievesFish.FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.BITTERSWEET, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png"));
+    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getMobType() == MobType.WATER) && livingEntity.attackable();
 
-    public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
+    public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {
         super(entityType, level);
     }
@@ -48,32 +51,32 @@ public class Devilfish extends AbstractSchoolingThievesFish
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
     }
 
     @Override
     public ItemStack getBucketItemStack()
     {
-        return new ItemStack(FOTItems.DEVILFISH_BUCKET);
+        return new ItemStack(FOTItems.BATTLEGILL_BUCKET);
     }
 
     @Override
     protected SoundEvent getDeathSound()
     {
-        return FOTSoundEvents.DEVILFISH_DEATH;
+        return FOTSoundEvents.BATTLEGILL_DEATH;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource)
     {
-        return FOTSoundEvents.DEVILFISH_HURT;
+        return FOTSoundEvents.BATTLEGILL_HURT;
     }
 
     @Override
     protected SoundEvent getFlopSound()
     {
-        return FOTSoundEvents.DEVILFISH_FLOP;
+        return FOTSoundEvents.BATTLEGILL_FLOP;
     }
 
     @Override
@@ -91,7 +94,7 @@ public class Devilfish extends AbstractSchoolingThievesFish
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.375F : 0.185F;
+        return this.isTrophy() ? 0.25F : 0.125F;
     }
 
     @Override
@@ -110,7 +113,7 @@ public class Devilfish extends AbstractSchoolingThievesFish
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.FIRELIGHT;
+        return this.getVariant() == Variant.BITTERSWEET;
     }
 
     @Override
@@ -133,7 +136,9 @@ public class Devilfish extends AbstractSchoolingThievesFish
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        return blockPos.getY() <= 0 && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var waterRules = (TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureFeature.OCEAN_MONUMENT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureFeature.PILLAGER_OUTPOST)) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var inFeatures = levelAccessor.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel)levelAccessor).isRaided(blockPos);
+        return waterRules || inFeatures;
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -143,15 +148,15 @@ public class Devilfish extends AbstractSchoolingThievesFish
 
     public enum Variant implements ThievesFish.FishVariant
     {
-        ASHEN,
-        SEASHELL,
-        LAVA(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent()),
-        FORSAKEN(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability),
-        FIRELIGHT(context ->
+        JADE,
+        SKY(SpawnConditionContext::seeSkyInWater),
+        RUM,
+        SAND(context ->
         {
-            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
-            return context.isNight() && optional.isPresent();
-        });
+            var inBiomes = TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.WARM_OCEAN) || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUKEWARM_OCEAN) || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.DEEP_LUKEWARM_OCEAN);
+            return inBiomes && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability;
+        }),
+        BITTERSWEET(context -> context.isNight() && context.seeSkyInWater());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;

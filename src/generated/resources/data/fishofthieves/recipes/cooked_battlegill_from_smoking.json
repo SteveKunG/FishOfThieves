@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "fishofthieves:battlegill"
+  },
+  "result": "fishofthieves:cooked_battlegill",
+  "experience": 0.5,
+  "cookingtime": 100
+}

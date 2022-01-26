@@ -16,14 +16,16 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTLocationPredicate
 {
-    public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null);
+    public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null, null);
     private final Biome.BiomeCategory biomeCategory;
     private final Continentalness continentalness;
+    private final Boolean raidActive;
 
-    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness)
+    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, @Nullable Boolean raidActive)
     {
         this.biomeCategory = biomeCategory;
         this.continentalness = continentalness;
+        this.raidActive = raidActive;
     }
 
     public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
@@ -36,8 +38,9 @@ public class FOTLocationPredicate
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var biome = level.getBiome(blockPos);
+        var isRaided = level.isRaided(blockPos);
 
-        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)))
+        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) || !(this.raidActive == null || loaded && this.raidActive == isRaided))
         {
             return false;
         }
@@ -61,6 +64,10 @@ public class FOTLocationPredicate
         {
             jsonObject.addProperty("continentalness", this.continentalness.getSerializedName());
         }
+        if (this.raidActive != null)
+        {
+            jsonObject.addProperty("raidActive", this.raidActive);
+        }
         return jsonObject;
     }
 
@@ -73,7 +80,8 @@ public class FOTLocationPredicate
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
         var biomeCategory = Biome.BiomeCategory.byName(GsonHelper.getAsString(jsonObject, "biomeCategory"));
         var continentalness = Continentalness.byName(GsonHelper.getAsString(jsonObject, "continentalness"));
-        return new FOTLocationPredicate(biomeCategory, continentalness);
+        var raidActive = GsonHelper.getAsBoolean(jsonObject, "raidActive");
+        return new FOTLocationPredicate(biomeCategory, continentalness, raidActive);
     }
 
     public static class Builder
@@ -82,6 +90,8 @@ public class FOTLocationPredicate
         private Biome.BiomeCategory biomeCategory;
         @Nullable
         private Continentalness continentalness;
+        @Nullable
+        private Boolean raidActive;
 
         public static Builder location()
         {
@@ -100,9 +110,15 @@ public class FOTLocationPredicate
             return this;
         }
 
+        public Builder isRaidActive()
+        {
+            this.raidActive = true;
+            return this;
+        }
+
         public FOTLocationPredicate build()
         {
-            return new FOTLocationPredicate(this.biomeCategory, this.continentalness);
+            return new FOTLocationPredicate(this.biomeCategory, this.continentalness, this.raidActive);
         }
     }
 }

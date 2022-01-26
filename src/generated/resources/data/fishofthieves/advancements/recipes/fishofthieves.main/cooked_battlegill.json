@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_battlegill"
+    ]
+  },
+  "criteria": {
+    "has_battlegill": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:battlegill"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_battlegill"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_battlegill",
+      "has_the_recipe"
+    ]
+  ]
+}

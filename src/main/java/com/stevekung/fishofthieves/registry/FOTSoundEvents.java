@@ -29,6 +29,9 @@ public class FOTSoundEvents
     public static final SoundEvent DEVILFISH_DEATH = create("entity.devilfish.death");
     public static final SoundEvent DEVILFISH_FLOP = create("entity.devilfish.flop");
     public static final SoundEvent DEVILFISH_HURT = create("entity.devilfish.hurt");
+    public static final SoundEvent BATTLEGILL_DEATH = create("entity.battlegill.death");
+    public static final SoundEvent BATTLEGILL_FLOP = create("entity.battlegill.flop");
+    public static final SoundEvent BATTLEGILL_HURT = create("entity.battlegill.hurt");
 
     public static void init()
     {
@@ -53,6 +56,9 @@ public class FOTSoundEvents
         register(DEVILFISH_DEATH);
         register(DEVILFISH_FLOP);
         register(DEVILFISH_HURT);
+        register(BATTLEGILL_DEATH);
+        register(BATTLEGILL_FLOP);
+        register(BATTLEGILL_HURT);
     }
 
     private static SoundEvent create(String key)

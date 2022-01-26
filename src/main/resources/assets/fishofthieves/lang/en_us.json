@@ -13,6 +13,7 @@
     "text.autoconfig.fishofthieves.option.spawnRate.bonedustPlentifinProbability": "Bonedust Plentifin Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.muddyWildsplashProbability": "Muddy Wildsplash Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.forsakenDevilfishProbability": "Forsaken Devilfish Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.sandBattlegillProbability": "Sand Battlegill Probability",
     
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
@@ -44,6 +45,10 @@
     "item.fishofthieves.cooked_devilfish": "Cooked Devilfish",
     "item.fishofthieves.devilfish_bucket": "Devilfish Bucket",
     "item.fishofthieves.devilfish_spawn_egg": "Devilfish Spawn Egg",
+    "item.fishofthieves.battlegill": "Battlegill",
+    "item.fishofthieves.cooked_battlegill": "Cooked Battlegill",
+    "item.fishofthieves.battlegill_bucket": "Battlegill Bucket",
+    "item.fishofthieves.battlegill_spawn_egg": "Battlegill Spawn Egg",
     
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
@@ -88,6 +93,12 @@
     "entity.fishofthieves.devilfish.lava": "Lava",
     "entity.fishofthieves.devilfish.forsaken": "Forsaken",
     "entity.fishofthieves.devilfish.firelight": "Firelight",
+    "entity.fishofthieves.battlegill": "Battlegill",
+    "entity.fishofthieves.battlegill.jade": "Jade",
+    "entity.fishofthieves.battlegill.sky": "Sky",
+    "entity.fishofthieves.battlegill.rum": "Rum",
+    "entity.fishofthieves.battlegill.sand": "Sand",
+    "entity.fishofthieves.battlegill.bittersweet": "Bittersweet",
     
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
@@ -109,5 +120,8 @@
     "subtitles.entity.wildsplash.hurt": "Wildsplash hurts",
     "subtitles.entity.devilfish.death": "Devilfish dies",
     "subtitles.entity.devilfish.flop": "Devilfish flops",
-    "subtitles.entity.devilfish.hurt": "Devilfish hurts"
+    "subtitles.entity.devilfish.hurt": "Devilfish hurts",
+    "subtitles.entity.battlegill.death": "Battlegill dies",
+    "subtitles.entity.battlegill.flop": "Battlegill flops",
+    "subtitles.entity.battlegill.hurt": "Battlegill hurts"
 }
