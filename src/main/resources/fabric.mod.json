@@ -14,7 +14,7 @@
         "sources": "https://github.com/SteveKunG/FishOfThieves",
         "issues": "https://github.com/SteveKunG/FishOfThieves/issues"
     },
-    "license": "MIT",
+    "license": "Apache 2.0",
     "environment": "*",
     "entrypoints": {
         "main": [
