@@ -55,22 +55,14 @@ public interface ThievesFish extends GlowFish, PartyFish
 
     default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
-        if (reason == MobSpawnType.BUCKET)
+        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_INT))
         {
-            if (dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_INT))
-            {
-                this.setVariant(dataTag.getInt(VARIANT_TAG));
-                this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
-            }
-            else
-            {
-                this.randomTrophy(livingEntity);
-                this.setVariant(this.getSpawnVariantId(true));
-            }
+            this.setVariant(dataTag.getInt(VARIANT_TAG));
+            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             return spawnData;
         }
         this.randomTrophy(livingEntity);
-        this.setVariant(this.getSpawnVariantId(false));
+        this.setVariant(this.getSpawnVariantId(reason == MobSpawnType.BUCKET));
         return spawnData;
     }
 
