@@ -14,6 +14,7 @@
     "text.autoconfig.fishofthieves.option.spawnRate.muddyWildsplashProbability": "Muddy Wildsplash Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.forsakenDevilfishProbability": "Forsaken Devilfish Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.sandBattlegillProbability": "Sand Battlegill Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.snowWreckerProbability": "Snow Wrecker Probability",
     
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
@@ -49,6 +50,10 @@
     "item.fishofthieves.cooked_battlegill": "Cooked Battlegill",
     "item.fishofthieves.battlegill_bucket": "Battlegill Bucket",
     "item.fishofthieves.battlegill_spawn_egg": "Battlegill Spawn Egg",
+    "item.fishofthieves.wrecker": "Wrecker",
+    "item.fishofthieves.cooked_wrecker": "Cooked Wrecker",
+    "item.fishofthieves.wrecker_bucket": "Wrecker Bucket",
+    "item.fishofthieves.wrecker_spawn_egg": "Wrecker Spawn Egg",
     
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
@@ -99,6 +104,12 @@
     "entity.fishofthieves.battlegill.rum": "Rum",
     "entity.fishofthieves.battlegill.sand": "Sand",
     "entity.fishofthieves.battlegill.bittersweet": "Bittersweet",
+    "entity.fishofthieves.wrecker": "Wrecker",
+    "entity.fishofthieves.wrecker.rose": "Rose",
+    "entity.fishofthieves.wrecker.sun": "Sun",
+    "entity.fishofthieves.wrecker.blackcloud": "Blackcloud",
+    "entity.fishofthieves.wrecker.snow": "Snow",
+    "entity.fishofthieves.wrecker.moon": "Moon",
     
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
@@ -123,5 +134,8 @@
     "subtitles.entity.devilfish.hurt": "Devilfish hurts",
     "subtitles.entity.battlegill.death": "Battlegill dies",
     "subtitles.entity.battlegill.flop": "Battlegill flops",
-    "subtitles.entity.battlegill.hurt": "Battlegill hurts"
+    "subtitles.entity.battlegill.hurt": "Battlegill hurts",
+    "subtitles.entity.wrecker.death": "Wrecker dies",
+    "subtitles.entity.wrecker.flop": "Wrecker flops",
+    "subtitles.entity.wrecker.hurt": "Wrecker hurts"
 }

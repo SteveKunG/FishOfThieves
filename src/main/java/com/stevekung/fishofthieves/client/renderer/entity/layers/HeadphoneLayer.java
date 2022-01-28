@@ -33,8 +33,10 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends Entity
     {
         if (!livingEntity.isInvisible() && (livingEntity.getType() == EntityType.SALMON && livingEntity.hasCustomName() && "Sally".equals(livingEntity.getName().getContents()) || livingEntity.isPartying()))
         {
+            poseStack.pushPose();
             this.getParentModel().scale(livingEntity, poseStack);
             this.model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+            poseStack.popPose();
         }
     }
 }

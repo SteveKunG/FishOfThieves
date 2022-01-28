@@ -32,6 +32,9 @@ public class FOTSoundEvents
     public static final SoundEvent BATTLEGILL_DEATH = create("entity.battlegill.death");
     public static final SoundEvent BATTLEGILL_FLOP = create("entity.battlegill.flop");
     public static final SoundEvent BATTLEGILL_HURT = create("entity.battlegill.hurt");
+    public static final SoundEvent WRECKER_DEATH = create("entity.wrecker.death");
+    public static final SoundEvent WRECKER_FLOP = create("entity.wrecker.flop");
+    public static final SoundEvent WRECKER_HURT = create("entity.wrecker.hurt");
 
     public static void init()
     {
@@ -59,6 +62,9 @@ public class FOTSoundEvents
         register(BATTLEGILL_DEATH);
         register(BATTLEGILL_FLOP);
         register(BATTLEGILL_HURT);
+        register(WRECKER_DEATH);
+        register(WRECKER_FLOP);
+        register(WRECKER_HURT);
     }
 
     private static SoundEvent create(String key)

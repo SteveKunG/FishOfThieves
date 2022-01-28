@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_wrecker"
+    ]
+  },
+  "criteria": {
+    "has_wrecker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:wrecker"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_wrecker"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wrecker",
+      "has_the_recipe"
+    ]
+  ]
+}

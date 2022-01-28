@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "fishofthieves:wrecker"
+  },
+  "result": "fishofthieves:cooked_wrecker",
+  "experience": 0.5,
+  "cookingtime": 200
+}

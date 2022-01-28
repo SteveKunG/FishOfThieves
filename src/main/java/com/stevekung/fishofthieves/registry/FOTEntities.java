@@ -21,6 +21,7 @@ public class FOTEntities
     public static final EntityType<Wildsplash> WILDSPLASH = FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, Wildsplash::new).dimensions(EntityDimensions.fixed(0.6F, 0.5F)).trackRangeBlocks(4).build();
     public static final EntityType<Devilfish> DEVILFISH = FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, Devilfish::new).dimensions(EntityDimensions.fixed(0.5F, 0.55F)).trackRangeBlocks(4).build();
     public static final EntityType<Battlegill> BATTLEGILL = FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, Battlegill::new).dimensions(EntityDimensions.fixed(0.5F, 0.55F)).trackRangeBlocks(4).build();
+    public static final EntityType<Wrecker> WRECKER = FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, Wrecker::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).trackRangeBlocks(4).build();
 
     public static void init()
     {
@@ -32,6 +33,7 @@ public class FOTEntities
         register("wildsplash", WILDSPLASH);
         register("devilfish", DEVILFISH);
         register("battlegill", BATTLEGILL);
+        register("wrecker", WRECKER);
     }
 
     private static <T extends Entity> EntityType<T> register(String key, EntityType<T> type)

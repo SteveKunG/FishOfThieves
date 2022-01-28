@@ -22,6 +22,7 @@ public class MixinNoiseBasedChunkGenerator
     private static final WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALES = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 1, 8, 12));
     private static final WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFINS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
     private static final WeightedRandomList<MobSpawnSettings.SpawnerData> BATTLEGILLS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
+    private static final WeightedRandomList<MobSpawnSettings.SpawnerData> WRECKERS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 24, 4, 8));
 
     @Inject(method = "getMobsAt", cancellable = true, at = @At("HEAD"))
     private void fishofthieves$addFishSpawn(Biome biome, StructureFeatureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
@@ -39,6 +40,10 @@ public class MixinNoiseBasedChunkGenerator
             if (structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.OCEAN_MONUMENT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.PILLAGER_OUTPOST).isValid())
             {
                 info.setReturnValue(BATTLEGILLS);
+            }
+            if (structureFeatureManager.getStructureWithPieceAt(pos, StructureFeature.SHIPWRECK).isValid())
+            {
+                info.setReturnValue(WRECKERS);
             }
         }
     }
