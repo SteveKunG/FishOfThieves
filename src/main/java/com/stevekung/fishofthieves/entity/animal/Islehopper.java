@@ -32,7 +32,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class Islehopper extends AbstractThievesFish
 {
@@ -148,9 +147,7 @@ public class Islehopper extends AbstractThievesFish
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
             {
                 var blockState = context.level().getBlockState(blockPos2);
-                var beehiveOptional = context.level().getBlockEntity(blockPos2, BlockEntityType.BEEHIVE);
-                var isBeehive = blockState.is(BlockTags.BEEHIVES);
-                return isBeehive && BeehiveBlockEntity.getHoneyLevel(blockState) == 5 && beehiveOptional.isPresent() && !beehiveOptional.get().isEmpty();
+                return blockState.is(BlockTags.BEEHIVES) && BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
             });
             return optional.isPresent();
         }),
