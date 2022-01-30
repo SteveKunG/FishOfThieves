@@ -107,7 +107,7 @@ public class Stormfish extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         ANCIENT,
-        SHORES(context -> TerrainUtils.getContinentalness(context.level(), context.blockPos()) == Continentalness.COAST),
+        SHORES(context -> context.continentalness() == Continentalness.COAST),
         WILD(context -> TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.SPARSE_JUNGLE)),
         SHADOW(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4 && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability),
         TWILIGHT(context -> context.level().getSkyDarken() >= 9);

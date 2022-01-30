@@ -142,11 +142,7 @@ public class Islehopper extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         STONE,
-        MOSS(context ->
-        {
-            var category = TerrainUtils.getBiomeCategory(context.level(), context.blockPos());
-            return category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUSH_CAVES);
-        }),
+        MOSS(context -> context.biomeCategory() == Biome.BiomeCategory.JUNGLE || context.biomeCategory() == Biome.BiomeCategory.SWAMP || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUSH_CAVES)),
         HONEY(context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->

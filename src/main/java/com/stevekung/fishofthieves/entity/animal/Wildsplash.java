@@ -112,9 +112,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         RUSSET,
-        SANDY(context -> TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.BEACH && TerrainUtils.getContinentalness(context.level(), context.blockPos()) == Continentalness.COAST),
-        OCEAN(context -> TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.OCEAN),
-        MUDDY(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability && TerrainUtils.getBiomeCategory(context.level(), context.blockPos()) == Biome.BiomeCategory.SWAMP),
+        SANDY(context -> context.biomeCategory() == Biome.BiomeCategory.BEACH && context.continentalness() == Continentalness.COAST),
+        OCEAN(context -> context.biomeCategory() == Biome.BiomeCategory.OCEAN),
+        MUDDY(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability && context.biomeCategory() == Biome.BiomeCategory.SWAMP),
         CORAL(context -> context.isNight() && context.seeSkyInWater() && TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.WARM_OCEAN) && TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
