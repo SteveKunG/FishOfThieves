@@ -21,7 +21,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.biome.Biome;
 
 public interface ThievesFish extends GlowFish, PartyFish
@@ -64,19 +63,13 @@ public interface ThievesFish extends GlowFish, PartyFish
             this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             return spawnData;
         }
-        this.randomTrophy(livingEntity);
-        this.setVariant(this.getSpawnVariantId(reason == MobSpawnType.BUCKET));
-        return spawnData;
-    }
-
-    private void randomTrophy(LivingEntity livingEntity)
-    {
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);
-            livingEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
+        this.setVariant(this.getSpawnVariantId(reason == MobSpawnType.BUCKET));
+        return spawnData;
     }
 
     static ThievesFish.SpawnConditionContext create(LivingEntity livingEntity)

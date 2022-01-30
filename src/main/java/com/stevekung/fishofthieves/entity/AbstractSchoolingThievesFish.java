@@ -2,6 +2,8 @@ package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -10,6 +12,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -97,6 +100,10 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     @Override
     public void setTrophy(boolean trophy)
     {
+        if (trophy)
+        {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
+        }
         this.entityData.set(TROPHY, trophy);
     }
 }
