@@ -73,6 +73,7 @@ public class FishOfThieves implements ModInitializer
         DispenserBlock.registerBehavior(FOTItems.DEVILFISH_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
+        DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, list ->
         {
@@ -85,6 +86,7 @@ public class FishOfThieves implements ModInitializer
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.DEVILFISH, 2, FOTItems.COOKED_DEVILFISH, 8, 4, 15));
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.BATTLEGILL, 2, FOTItems.COOKED_BATTLEGILL, 12, 4, 18));
             list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WRECKER, 1, FOTItems.COOKED_WRECKER, 14, 4, 20));
+            list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.STORMFISH, 1, FOTItems.COOKED_STORMFISH, 20, 5, 30));
         });
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, list ->
         {
@@ -97,6 +99,7 @@ public class FishOfThieves implements ModInitializer
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 12, 2, 30));
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 14, 2, 30));
             list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 15, 1, 30));
+            list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 20, 1, 30));
         });
 
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) ->
@@ -115,7 +118,8 @@ public class FishOfThieves implements ModInitializer
                         .with(LootItem.lootTableItem(FOTItems.WILDSPLASH))
                         .with(LootItem.lootTableItem(FOTItems.DEVILFISH))
                         .with(LootItem.lootTableItem(FOTItems.BATTLEGILL))
-                        .with(LootItem.lootTableItem(FOTItems.WRECKER));
+                        .with(LootItem.lootTableItem(FOTItems.WRECKER))
+                        .with(LootItem.lootTableItem(FOTItems.STORMFISH));
                 pools.set(0, pool.build());
             }
             else if (id.equals(BuiltInLootTables.FISHING_FISH))
@@ -147,7 +151,10 @@ public class FishOfThieves implements ModInitializer
                                 .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.RAID_ACTIVE)))
                         .add(LootItem.lootTableItem(FOTItems.WRECKER)
                                 .setWeight(100)
-                                .when(FOTLootItemConditions.IN_SHIPWRECKS));
+                                .when(FOTLootItemConditions.IN_SHIPWRECKS))
+                        .add(LootItem.lootTableItem(FOTItems.STORMFISH)
+                                .setWeight(120)
+                                .when(FOTLootItemConditions.THUNDERING));
                 pools.set(0, pool.build());
             }
             // Entity Loot
@@ -210,6 +217,12 @@ public class FishOfThieves implements ModInitializer
                         .setWeight(1)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))).build());
+                builder.add(LootItem.lootTableItem(FOTItems.STORMFISH)
+                        .apply(SmeltItemFunction.smelted()
+                                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                        .setWeight(1)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))).build());
 
                 pools.set(0, pool.build());
             }
@@ -243,6 +256,9 @@ public class FishOfThieves implements ModInitializer
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
                         .with(LootItem.lootTableItem(FOTItems.WRECKER)
                                 .setWeight(1)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
+                        .with(LootItem.lootTableItem(FOTItems.STORMFISH)
+                                .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
                 supplier.withPool(villagerFisher);
             }
@@ -267,6 +283,8 @@ public class FishOfThieves implements ModInitializer
                         .with(LootItem.lootTableItem(FOTItems.COOKED_BATTLEGILL)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
                         .with(LootItem.lootTableItem(FOTItems.COOKED_WRECKER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
+                        .with(LootItem.lootTableItem(FOTItems.COOKED_STORMFISH)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
                 supplier.withPool(buriedTreasure);
             }
@@ -281,6 +299,7 @@ public class FishOfThieves implements ModInitializer
         FabricDefaultAttributeRegistry.register(FOTEntities.DEVILFISH, Devilfish.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.BATTLEGILL, Battlegill.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.WRECKER, Wrecker.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.STORMFISH, AbstractFish.createAttributes());
 
         SpawnRestrictionAccessor.callRegister(FOTEntities.SPLASHTAIL, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.PONDIE, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
@@ -291,6 +310,7 @@ public class FishOfThieves implements ModInitializer
         SpawnRestrictionAccessor.callRegister(FOTEntities.DEVILFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Devilfish::checkSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.BATTLEGILL, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Battlegill::checkSpawnRules);
         SpawnRestrictionAccessor.callRegister(FOTEntities.WRECKER, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wrecker::checkSpawnRules);
+        SpawnRestrictionAccessor.callRegister(FOTEntities.STORMFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stormfish::checkSpawnRules);
 
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.OCEAN), FOTEntities.SPLASHTAIL.getCategory(), FOTEntities.SPLASHTAIL, 15, 4, 8);
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.RIVER, Biome.BiomeCategory.FOREST), FOTEntities.PONDIE.getCategory(), FOTEntities.PONDIE, 15, 2, 4);
@@ -301,5 +321,6 @@ public class FishOfThieves implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.all().and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)), FOTEntities.DEVILFISH.getCategory(), FOTEntities.DEVILFISH, 4, 1, 2);
         BiomeModifications.addSpawn(BiomeSelectors.all(), FOTEntities.BATTLEGILL.getCategory(), FOTEntities.BATTLEGILL, 5, 2, 4);
         BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.OCEAN), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, 24, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.categories(Biome.BiomeCategory.OCEAN).or(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE)), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, 12, 4, 8);
     }
 }

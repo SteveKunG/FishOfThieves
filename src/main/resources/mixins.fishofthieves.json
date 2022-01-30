@@ -23,6 +23,8 @@
         
         "item.MixinMobBucketItem",
         
+        "level.MixinServerLevel",
+        
         "levelgen.MixinNoiseBasedChunkGenerator"
     ],
     "injectors": {

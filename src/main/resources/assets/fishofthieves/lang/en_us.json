@@ -15,6 +15,7 @@
     "text.autoconfig.fishofthieves.option.spawnRate.forsakenDevilfishProbability": "Forsaken Devilfish Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.sandBattlegillProbability": "Sand Battlegill Probability",
     "text.autoconfig.fishofthieves.option.spawnRate.snowWreckerProbability": "Snow Wrecker Probability",
+    "text.autoconfig.fishofthieves.option.spawnRate.shadowStormfishProbability": "Shadow Stormfish Probability",
     
     "itemGroup.fishofthieves.main": "Fish of Thieves",
     
@@ -54,6 +55,10 @@
     "item.fishofthieves.cooked_wrecker": "Cooked Wrecker",
     "item.fishofthieves.wrecker_bucket": "Wrecker Bucket",
     "item.fishofthieves.wrecker_spawn_egg": "Wrecker Spawn Egg",
+    "item.fishofthieves.stormfish": "Stormfish",
+    "item.fishofthieves.cooked_stormfish": "Cooked Stormfish",
+    "item.fishofthieves.stormfish_bucket": "Stormfish Bucket",
+    "item.fishofthieves.stormfish_spawn_egg": "Stormfish Spawn Egg",
     
     "entity.fishofthieves.trophy": "Trophy",
     "entity.fishofthieves.splashtail": "Splashtail",
@@ -110,6 +115,12 @@
     "entity.fishofthieves.wrecker.blackcloud": "Blackcloud",
     "entity.fishofthieves.wrecker.snow": "Snow",
     "entity.fishofthieves.wrecker.moon": "Moon",
+    "entity.fishofthieves.stormfish": "Stormfish",
+    "entity.fishofthieves.stormfish.ancient": "Ancient",
+    "entity.fishofthieves.stormfish.shores": "Shores",
+    "entity.fishofthieves.stormfish.wild": "Wild",
+    "entity.fishofthieves.stormfish.shadow": "Shadow",
+    "entity.fishofthieves.stormfish.twilight": "Twilight",
     
     "subtitles.entity.splashtail.death": "Splashtail dies",
     "subtitles.entity.splashtail.flop": "Splashtail flops",
@@ -137,5 +148,8 @@
     "subtitles.entity.battlegill.hurt": "Battlegill hurts",
     "subtitles.entity.wrecker.death": "Wrecker dies",
     "subtitles.entity.wrecker.flop": "Wrecker flops",
-    "subtitles.entity.wrecker.hurt": "Wrecker hurts"
+    "subtitles.entity.wrecker.hurt": "Wrecker hurts",
+    "subtitles.entity.stormfish.death": "Stormfish dies",
+    "subtitles.entity.stormfish.flop": "Stormfish flops",
+    "subtitles.entity.stormfish.hurt": "Stormfish hurts"
 }

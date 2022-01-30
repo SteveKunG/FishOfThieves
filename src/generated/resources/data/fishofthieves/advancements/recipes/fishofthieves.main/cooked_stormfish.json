@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "fishofthieves:cooked_stormfish"
+    ]
+  },
+  "criteria": {
+    "has_stormfish": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:stormfish"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "fishofthieves:cooked_stormfish"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stormfish",
+      "has_the_recipe"
+    ]
+  ]
+}

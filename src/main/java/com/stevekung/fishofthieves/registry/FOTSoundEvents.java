@@ -35,6 +35,9 @@ public class FOTSoundEvents
     public static final SoundEvent WRECKER_DEATH = create("entity.wrecker.death");
     public static final SoundEvent WRECKER_FLOP = create("entity.wrecker.flop");
     public static final SoundEvent WRECKER_HURT = create("entity.wrecker.hurt");
+    public static final SoundEvent STORMFISH_DEATH = create("entity.stormfish.death");
+    public static final SoundEvent STORMFISH_FLOP = create("entity.stormfish.flop");
+    public static final SoundEvent STORMFISH_HURT = create("entity.stormfish.hurt");
 
     public static void init()
     {
@@ -65,6 +68,9 @@ public class FOTSoundEvents
         register(WRECKER_DEATH);
         register(WRECKER_FLOP);
         register(WRECKER_HURT);
+        register(STORMFISH_DEATH);
+        register(STORMFISH_FLOP);
+        register(STORMFISH_HURT);
     }
 
     private static SoundEvent create(String key)

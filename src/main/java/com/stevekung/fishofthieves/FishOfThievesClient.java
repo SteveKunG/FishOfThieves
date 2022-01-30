@@ -22,6 +22,7 @@ public class FishOfThievesClient implements ClientModInitializer
         EntityRendererRegistry.register(FOTEntities.DEVILFISH, DevilfishRenderer::new);
         EntityRendererRegistry.register(FOTEntities.BATTLEGILL, BattlegillRenderer::new);
         EntityRendererRegistry.register(FOTEntities.WRECKER, WreckerRenderer::new);
+        EntityRendererRegistry.register(FOTEntities.STORMFISH, StormfishRenderer::new);
 
         EntityModelLayerRegistry.registerModelLayer(SplashtailModel.LAYER, SplashtailModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PondieModel.LAYER, PondieModel::createBodyLayer);
@@ -32,6 +33,7 @@ public class FishOfThievesClient implements ClientModInitializer
         EntityModelLayerRegistry.registerModelLayer(DevilfishModel.LAYER, DevilfishModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(BattlegillModel.LAYER, BattlegillModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(WreckerModel.LAYER, WreckerModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(StormfishModel.LAYER, StormfishModel::createBodyLayer);
 
         EntityModelLayerRegistry.registerModelLayer(HeadphoneModel.LAYER, HeadphoneModel::createBodyLayer);
     }
