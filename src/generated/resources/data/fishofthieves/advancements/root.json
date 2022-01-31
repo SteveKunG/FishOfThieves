@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "fishofthieves:splashtail"
+    },
+    "title": {
+      "translate": "advancements.fot.root.title"
+    },
+    "description": {
+      "translate": "advancements.fot.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/block/tube_coral_block.png"
+  },
+  "criteria": {
+    "in_water": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "fluid": {
+            "tag": "minecraft:water"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "in_water"
+    ]
+  ]
+}

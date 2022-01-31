@@ -151,5 +151,26 @@
     "subtitles.entity.wrecker.hurt": "Wrecker hurts",
     "subtitles.entity.stormfish.death": "Stormfish dies",
     "subtitles.entity.stormfish.flop": "Stormfish flops",
-    "subtitles.entity.stormfish.hurt": "Stormfish hurts"
+    "subtitles.entity.stormfish.hurt": "Stormfish hurts",
+    
+    "advancements.fot.root.title": "Fish of Thieves",
+    "advancements.fot.root.description": "Thieves's fish... huh?",
+    "advancements.fot.fish_collectors.title": "Fish Collectors",
+    "advancements.fot.fish_collectors.description": "Collects all the thieves fishes!",
+    "advancements.fot.master_fish_collectors.title": "Master Fish Collectors",
+    "advancements.fot.master_fish_collectors.description": "Collects all the fish variants",
+    "advancements.fot.legendary_fish_collectors.title": "Legendary Fish Collectors",
+    "advancements.fot.legendary_fish_collectors.description": "Collects all the fish variants but all are Trophy!",
+    "advancements.fot.feed_axolotl_with_lava_devilfish.title": "Hottest Fish",
+    "advancements.fot.feed_axolotl_with_lava_devilfish.description": "Feed an Axolotl with a Lava Devilfish!",
+    "advancements.fot.so_chill.title": "Oh you're so chill",
+    "advancements.fot.so_chill.description": "Catch a Battlegill during raids",
+    "advancements.fot.lightning_straight_to_my_fish.title": "Lightning Straight to My Fish",
+    "advancements.fot.lightning_straight_to_my_fish.description": "Witness lightning strikes on Stormfishes during thunderstorm",
+    "advancements.fot.spyglass_at_plentifins.title": "Is that a Tropical Fish?",
+    "advancements.fot.spyglass_at_plentifins.description": "Look at a Plentifin through a spyglass",
+    "advancements.fot.play_jukebox_near_fishes.title": "Fish Dance Beach Parade",
+    "advancements.fot.play_jukebox_near_fishes.description": "Play a music disc near the fish to help it seem more alive",
+    "advancements.fot.lost_sally.title": "Is that you? Sally?",
+    "advancements.fot.lost_sally.description": "Name the salmon Sally, you've just found my lovely fish!"
 }

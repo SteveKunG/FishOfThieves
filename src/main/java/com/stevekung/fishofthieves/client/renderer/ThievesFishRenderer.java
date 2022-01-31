@@ -39,6 +39,6 @@ public abstract class ThievesFishRenderer<T extends AbstractFish & ThievesFish, 
 
     protected static Map<FishVariant, ResourceLocation> createTextureByType(FishVariant[] variants, String name)
     {
-        return Util.make(Maps.newHashMap(), map -> map.putAll(Stream.of(variants).collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/%s/%s.png", name, variant.getName()))))));
+        return Util.make(Maps.newHashMap(), map -> map.putAll(Stream.of(variants).collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/%s/%s.png".formatted(name, variant.getName()))))));
     }
 }

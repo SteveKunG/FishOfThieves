@@ -18,10 +18,12 @@
         "DispenserBlockAccessor",
         
         "animal.MixinAbstractFish",
+        "animal.MixinAxolotl",
         "animal.MixinCat",
         "animal.MixinOcelot",
         
         "item.MixinMobBucketItem",
+        "item.MixinRecordItem",
         
         "level.MixinServerLevel",
         

@@ -40,7 +40,7 @@ public class FOTLootItemConditions
 
     public static final LootItemCondition.Builder COAST = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
 
-    public static final LootItemCondition.Builder RAID_ACTIVE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().isRaidActive());
+    public static final LootItemCondition.Builder RAID_ACTIVE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().hasRaids(true));
 
     private static LootItemConditionType register(String registryName, Serializer<? extends LootItemCondition> serializer)
     {

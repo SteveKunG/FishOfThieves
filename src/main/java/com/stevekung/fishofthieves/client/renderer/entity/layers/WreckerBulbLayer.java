@@ -25,7 +25,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class WreckerBulbLayer<T extends LivingEntity & ThievesFish, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Map<FishVariant, ResourceLocation> BULB_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.putAll(Stream.of(Variant.BY_ID).collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> new ResourceLocation(FishOfThieves.MOD_ID, String.format("textures/entity/wrecker/%s_bulb.png", variant.getName()))))));
+    private static final Map<FishVariant, ResourceLocation> BULB_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.putAll(Stream.of(Variant.BY_ID).collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/%s_bulb.png".formatted(variant.getName()))))));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {

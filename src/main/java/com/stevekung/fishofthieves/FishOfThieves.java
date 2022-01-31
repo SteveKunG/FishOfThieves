@@ -3,10 +3,7 @@ package com.stevekung.fishofthieves;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.mixin.DispenserBlockAccessor;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -62,6 +59,7 @@ public class FishOfThieves implements ModInitializer
         FOTItems.init();
         FOTEntities.init();
         FOTSoundEvents.init();
+        FOTCriteriaTriggers.init();
 
         var bucket = DispenserBlockAccessor.getDispenserRegistry().get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);

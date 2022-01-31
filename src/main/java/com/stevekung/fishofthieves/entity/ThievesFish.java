@@ -21,6 +21,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 
 public interface ThievesFish extends GlowFish, PartyFish
@@ -29,6 +30,7 @@ public interface ThievesFish extends GlowFish, PartyFish
     String TROPHY_TAG = "Trophy";
     String NAME_TAG = "Name";
     net.minecraft.tags.Tag.Named<EntityType<?>> THIEVES_FISH = TagFactory.ENTITY_TYPE.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
+    net.minecraft.tags.Tag.Named<Item> THIEVES_FISH_BUCKET = TagFactory.ITEM.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish_bucket"));
 
     FishVariant getVariant();
     int getSpawnVariantId(boolean bucket);

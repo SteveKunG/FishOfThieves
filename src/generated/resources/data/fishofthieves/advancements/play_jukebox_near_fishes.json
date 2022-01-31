@@ -1,0 +1,74 @@
+{
+  "parent": "fishofthieves:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:jukebox"
+    },
+    "title": {
+      "translate": "advancements.fot.play_jukebox_near_fishes.title"
+    },
+    "description": {
+      "translate": "advancements.fot.play_jukebox_near_fishes.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "play_jukebox_near_thieves_fish": {
+      "trigger": "fishofthieves:item_used_on_block_with_nearby_entity",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "minecraft:jukebox"
+            ]
+          }
+        },
+        "item": {
+          "tag": "minecraft:music_discs"
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "#fishofthieves:thieves_fish"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    },
+    "play_jukebox_near_fishes": {
+      "trigger": "fishofthieves:item_used_on_block_with_nearby_entity",
+      "conditions": {
+        "location": {
+          "block": {
+            "blocks": [
+              "minecraft:jukebox"
+            ]
+          }
+        },
+        "item": {
+          "tag": "minecraft:music_discs"
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "#minecraft:axolotl_hunt_targets"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "play_jukebox_near_thieves_fish",
+      "play_jukebox_near_fishes"
+    ]
+  ]
+}

@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTLocationPredicate
 {
@@ -21,16 +20,11 @@ public class FOTLocationPredicate
     private final Continentalness continentalness;
     private final Boolean raidActive;
 
-    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, @Nullable Boolean raidActive)
+    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, Boolean raidActive)
     {
         this.biomeCategory = biomeCategory;
         this.continentalness = continentalness;
         this.raidActive = raidActive;
-    }
-
-    public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
-    {
-        return () -> new FOTLocationCheck(locationPredicateBuilder.build(), BlockPos.ZERO);
     }
 
     public boolean matches(ServerLevel level, double x, double y, double z)
@@ -77,10 +71,24 @@ public class FOTLocationPredicate
         {
             return ANY;
         }
+
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
-        var biomeCategory = Biome.BiomeCategory.byName(GsonHelper.getAsString(jsonObject, "biomeCategory"));
-        var continentalness = Continentalness.byName(GsonHelper.getAsString(jsonObject, "continentalness"));
-        var raidActive = GsonHelper.getAsBoolean(jsonObject, "raidActive");
+        Biome.BiomeCategory biomeCategory = null;
+        Continentalness continentalness = null;
+        Boolean raidActive = null;
+
+        if (jsonObject.has("biomeCategory"))
+        {
+            biomeCategory = Biome.BiomeCategory.byName(GsonHelper.getAsString(jsonObject, "biomeCategory"));
+        }
+        if (jsonObject.has("continentalness"))
+        {
+            continentalness = Continentalness.byName(GsonHelper.getAsString(jsonObject, "continentalness"));
+        }
+        if (jsonObject.has("raidActive"))
+        {
+            raidActive = GsonHelper.getAsBoolean(jsonObject, "raidActive");
+        }
         return new FOTLocationPredicate(biomeCategory, continentalness, raidActive);
     }
 
@@ -110,9 +118,9 @@ public class FOTLocationPredicate
             return this;
         }
 
-        public Builder isRaidActive()
+        public Builder hasRaids(@Nullable Boolean raidActive)
         {
-            this.raidActive = true;
+            this.raidActive = raidActive;
             return this;
         }
 
