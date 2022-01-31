@@ -103,7 +103,7 @@ public class Pondie extends AbstractSchoolingThievesFish
         CHARCOAL,
         ORCHID,
         BRONZE,
-        BRIGHT(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.brightPondieProbability),
+        BRIGHT(context -> context.isDay() && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.brightPondieProbability),
         MOONSKY(context -> context.isNight() && context.seeSkyInWater() || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10);
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
