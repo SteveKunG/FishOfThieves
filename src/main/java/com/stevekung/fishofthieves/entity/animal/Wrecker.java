@@ -106,6 +106,16 @@ public class Wrecker extends AbstractThievesFish
     }
 
     @Override
+    public void setTrophy(boolean trophy)
+    {
+        if (trophy)
+        {
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
+        }
+        super.setTrophy(trophy);
+    }
+
+    @Override
     public boolean canGlow()
     {
         return this.getVariant() == Variant.MOON;

@@ -109,6 +109,16 @@ public class Devilfish extends AbstractSchoolingThievesFish
     }
 
     @Override
+    public void setTrophy(boolean trophy)
+    {
+        if (trophy)
+        {
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
+        }
+        super.setTrophy(trophy);
+    }
+
+    @Override
     public boolean canGlow()
     {
         return this.getVariant() == Variant.FIRELIGHT;
