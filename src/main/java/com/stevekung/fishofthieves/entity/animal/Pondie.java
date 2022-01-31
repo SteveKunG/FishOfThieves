@@ -21,7 +21,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 
 public class Pondie extends AbstractSchoolingThievesFish
 {
@@ -104,7 +103,7 @@ public class Pondie extends AbstractSchoolingThievesFish
         ORCHID,
         BRONZE,
         BRIGHT(context -> context.isDay() && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.brightPondieProbability),
-        MOONSKY(context -> context.isNight() && context.seeSkyInWater() || context.level().getBrightness(LightLayer.SKY, context.blockPos()) < 10);
+        MOONSKY(context -> context.isNight() && context.seeSkyInWater());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final ThievesFish.Condition condition;
