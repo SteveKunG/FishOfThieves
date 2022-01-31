@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
@@ -35,7 +36,7 @@ public class MixinMobBucketItem
     {
         var compoundTag = itemStack.getTag();
 
-        if (this.type.is(ThievesFish.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
+        if (this.type.is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
         {
             var type = new TranslatableComponent("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.type).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 

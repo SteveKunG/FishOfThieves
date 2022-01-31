@@ -10,18 +10,14 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 
 public interface ThievesFish extends GlowFish, PartyFish
@@ -29,8 +25,6 @@ public interface ThievesFish extends GlowFish, PartyFish
     String VARIANT_TAG = "Variant";
     String TROPHY_TAG = "Trophy";
     String NAME_TAG = "Name";
-    net.minecraft.tags.Tag.Named<EntityType<?>> THIEVES_FISH = TagFactory.ENTITY_TYPE.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
-    net.minecraft.tags.Tag.Named<Item> THIEVES_FISH_BUCKET = TagFactory.ITEM.create(new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish_bucket"));
 
     FishVariant getVariant();
     int getSpawnVariantId(boolean bucket);

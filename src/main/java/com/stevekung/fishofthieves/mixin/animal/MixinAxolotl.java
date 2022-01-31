@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
@@ -19,7 +19,7 @@ public class MixinAxolotl
     @Inject(method = "usePlayerItem", at = @At("HEAD"))
     private void fishofthieves$fixReturnBucketItem(Player player, InteractionHand interactionHand, ItemStack itemStack, CallbackInfo info)
     {
-        if (itemStack.is(ThievesFish.THIEVES_FISH_BUCKET) && !player.getAbilities().instabuild)
+        if (itemStack.is(FOTTags.THIEVES_FISH_BUCKET) && !player.getAbilities().instabuild)
         {
             player.setItemInHand(interactionHand, new ItemStack(Items.WATER_BUCKET));
         }

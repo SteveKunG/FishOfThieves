@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -184,7 +185,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class LootProvider extends SimpleFabricLootTableProvider
     {
-        private static final EntityPredicate.Builder TROPHY = EntityPredicate.Builder.entity().nbt(new NbtPredicate(Util.make(new CompoundTag(), tag -> tag.putBoolean("Trophy", true))));
+        private static final EntityPredicate.Builder TROPHY = EntityPredicate.Builder.entity().nbt(new NbtPredicate(Util.make(new CompoundTag(), tag -> tag.putBoolean(ThievesFish.TROPHY_TAG, true))));
 
         private LootProvider(FabricDataGenerator dataGenerator)
         {
@@ -330,7 +331,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS);
             this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN,
                     FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL, FOTItems.WRECKER, FOTItems.COOKED_WRECKER, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
-            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
+            this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
         }
     }
 
@@ -347,7 +348,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var neutralFishes = new EntityType<?>[] { FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER };
             var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
-            this.getOrCreateTagBuilder(ThievesFish.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
+            this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
         }
     }
 
@@ -460,7 +461,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     LocationPredicate.Builder.location()
                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                     ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
-                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(ThievesFish.THIEVES_FISH).build())))
+                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
             .addCriterion("play_jukebox_near_fishes", itemUsedOnBlock(
                     LocationPredicate.Builder.location()
                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
