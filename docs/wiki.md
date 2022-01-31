@@ -11,9 +11,7 @@ Here you will find the information what fish can do. Where it spawn. And some ad
 * [Modrinth](https://modrinth.com/mod/fish-of-thieves)
 
 ## Pages
-* [Information](info.md)
-* [Advancements](advancements.md)
-* [Compatibility](compatibility.md)
+* [Mod Information](info.md)
 
 ## Configurations
 Currently have Trophy Max Health and rare variants probability configs.

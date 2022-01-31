@@ -1,4 +1,4 @@
-# Spawning
+# Basic Information
 Fishes in the mod has different spawning conditions. Depends on biomes or day-night cycle, etc.
 
 And it has a 10% chance to spawn in trophy size (can be configured), just like in the Sea of Thieves.
@@ -127,3 +127,13 @@ Can be found in the ocean biomes and during thunderstorm.
 * Immune to Lightning Bolt
 
 ![](images/stormfishes.png)
+
+# Advancements
+There are 7 advancements for people who love challenges to get all of them and 2 hidden advancements you might not know.
+I won't spoil you much, have fun!
+
+![](images/advancements.png)
+
+# Compatibility
+
+- [Canvas Renderer](https://www.curseforge.com/minecraft/mc-mods/canvas-renderer) - Glowing layer for fishes
