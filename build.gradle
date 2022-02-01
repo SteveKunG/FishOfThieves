@@ -117,6 +117,7 @@ curseforge {
                 requiredDependency "fabric-api"
                 requiredDependency "cloth-config"
                 optionalDependency "modmenu"
+                optionalDependency "canvas-renderer"
             }
             afterEvaluate {
                 uploadTask.dependsOn(remapJar)
