@@ -1,4 +1,4 @@
-# Basic Information
+# Spawning
 Fishes in the mod has different spawning conditions. Depends on biomes or day-night cycle, etc.
 
 And it has a 10% chance to spawn in trophy size (can be configured), just like in the Sea of Thieves.
