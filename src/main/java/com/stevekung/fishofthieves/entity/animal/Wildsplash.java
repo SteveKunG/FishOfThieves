@@ -110,7 +110,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        return TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.LUSH_CAVES) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        return TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.LUSH_CAVES) || TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 
     public enum Variant implements FishVariant
