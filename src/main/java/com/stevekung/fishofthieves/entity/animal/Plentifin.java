@@ -115,7 +115,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         OLIVE(SpawnSelectors.always()),
-        AMBER(SpawnSelectors.rainingAndSeeSky().negate().and(context ->
+        AMBER(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
         {
             var time = context.level().getTimeOfDay(1.0F);
             return time >= 0.75F && time <= 0.9F;
