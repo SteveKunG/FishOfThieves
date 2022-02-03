@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -9,6 +10,8 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
@@ -17,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -89,7 +93,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.byId(this.entityData.get(TYPE));
+        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
     }
 
     @Override
@@ -111,27 +115,22 @@ public class Wildsplash extends AbstractSchoolingThievesFish
 
     public enum Variant implements FishVariant
     {
-        RUSSET,
-        SANDY(context -> context.biomeCategory() == Biome.BiomeCategory.BEACH && context.continentalness() == Continentalness.COAST),
-        OCEAN(context -> context.biomeCategory() == Biome.BiomeCategory.OCEAN),
-        MUDDY(context -> context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability && context.biomeCategory() == Biome.BiomeCategory.SWAMP),
-        CORAL(context -> context.isNight() && context.seeSkyInWater() && TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.WARM_OCEAN) && TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
+        RUSSET(SpawnSelectors.always()),
+        SANDY(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))),
+        OCEAN(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN)),
+        MUDDY(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP))),
+        CORAL(SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
             return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);
-        }));
+        })));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final ThievesFish.Condition condition;
+        private final Predicate<SpawnConditionContext> condition;
 
-        Variant(ThievesFish.Condition condition)
+        Variant(Predicate<SpawnConditionContext> condition)
         {
             this.condition = condition;
-        }
-
-        Variant()
-        {
-            this(ThievesFish.Condition.always());
         }
 
         @Override
@@ -147,20 +146,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish
         }
 
         @Override
-        public ThievesFish.Condition getCondition()
+        public Predicate<SpawnConditionContext> getCondition()
         {
             return this.condition;
-        }
-
-        public static Variant byId(int id)
-        {
-            var types = BY_ID;
-
-            if (id < 0 || id >= types.length)
-            {
-                id = 0;
-            }
-            return types[id];
         }
     }
 }

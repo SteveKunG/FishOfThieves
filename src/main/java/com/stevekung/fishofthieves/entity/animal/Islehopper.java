@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -9,6 +10,8 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -109,7 +112,7 @@ public class Islehopper extends AbstractThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.byId(this.entityData.get(TYPE));
+        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
     }
 
     @Override
@@ -140,8 +143,8 @@ public class Islehopper extends AbstractThievesFish
 
     public enum Variant implements FishVariant
     {
-        STONE,
-        MOSS(context -> context.biomeCategory() == Biome.BiomeCategory.JUNGLE || context.biomeCategory() == Biome.BiomeCategory.SWAMP || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUSH_CAVES)),
+        STONE(SpawnSelectors.always()),
+        MOSS(SpawnSelectors.categories(Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES))),
         HONEY(context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
@@ -151,20 +154,15 @@ public class Islehopper extends AbstractThievesFish
             });
             return optional.isPresent();
         }),
-        RAVEN(context -> context.blockPos().getY() <= 0 && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability),
+        RAVEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0)),
         AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final ThievesFish.Condition condition;
+        private final Predicate<SpawnConditionContext> condition;
 
-        Variant(ThievesFish.Condition condition)
+        Variant(Predicate<SpawnConditionContext> condition)
         {
             this.condition = condition;
-        }
-
-        Variant()
-        {
-            this(ThievesFish.Condition.always());
         }
 
         @Override
@@ -180,20 +178,9 @@ public class Islehopper extends AbstractThievesFish
         }
 
         @Override
-        public ThievesFish.Condition getCondition()
+        public Predicate<SpawnConditionContext> getCondition()
         {
             return this.condition;
-        }
-
-        public static Variant byId(int id)
-        {
-            var types = BY_ID;
-
-            if (id < 0 || id >= types.length)
-            {
-                id = 0;
-            }
-            return types[id];
         }
     }
 }

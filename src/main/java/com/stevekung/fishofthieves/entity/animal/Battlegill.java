@@ -12,6 +12,8 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
@@ -20,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -130,7 +133,7 @@ public class Battlegill extends AbstractSchoolingThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.byId(this.entityData.get(TYPE));
+        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
     }
 
     @Override
@@ -159,27 +162,18 @@ public class Battlegill extends AbstractSchoolingThievesFish
 
     public enum Variant implements FishVariant
     {
-        JADE,
+        JADE(SpawnSelectors.always()),
         SKY(SpawnConditionContext::seeSkyInWater),
-        RUM,
-        SAND(context ->
-        {
-            var inBiomes = TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.WARM_OCEAN) || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.LUKEWARM_OCEAN) || TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.DEEP_LUKEWARM_OCEAN);
-            return inBiomes && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability;
-        }),
-        BITTERSWEET(context -> context.isNight() && context.seeSkyInWater());
+        RUM(SpawnSelectors.always()),
+        SAND(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN))),
+        BITTERSWEET(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final ThievesFish.Condition condition;
+        private final Predicate<SpawnConditionContext> condition;
 
-        Variant(ThievesFish.Condition condition)
+        Variant(Predicate<SpawnConditionContext> condition)
         {
             this.condition = condition;
-        }
-
-        Variant()
-        {
-            this(ThievesFish.Condition.always());
         }
 
         @Override
@@ -195,20 +189,9 @@ public class Battlegill extends AbstractSchoolingThievesFish
         }
 
         @Override
-        public ThievesFish.Condition getCondition()
+        public Predicate<SpawnConditionContext> getCondition()
         {
             return this.condition;
-        }
-
-        public static Variant byId(int id)
-        {
-            var types = BY_ID;
-
-            if (id < 0 || id >= types.length)
-            {
-                id = 0;
-            }
-            return types[id];
         }
     }
 }

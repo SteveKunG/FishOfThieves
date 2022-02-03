@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -9,14 +10,16 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -84,7 +87,7 @@ public class Stormfish extends AbstractThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.byId(this.entityData.get(TYPE));
+        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
     }
 
     @Override
@@ -106,23 +109,18 @@ public class Stormfish extends AbstractThievesFish
 
     public enum Variant implements FishVariant
     {
-        ANCIENT,
+        ANCIENT(SpawnSelectors.always()),
         SHORES(context -> context.continentalness() == Continentalness.COAST),
-        WILD(context -> TerrainUtils.isInBiome(context.level(), context.blockPos(), Biomes.SPARSE_JUNGLE)),
-        SHADOW(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4 && context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability),
+        WILD(SpawnSelectors.includeByKey(Biomes.SPARSE_JUNGLE)),
+        SHADOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4)),
         TWILIGHT(context -> context.level().getSkyDarken() >= 9);
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final ThievesFish.Condition condition;
+        private final Predicate<SpawnConditionContext> condition;
 
-        Variant(ThievesFish.Condition condition)
+        Variant(Predicate<SpawnConditionContext> condition)
         {
             this.condition = condition;
-        }
-
-        Variant()
-        {
-            this(ThievesFish.Condition.always());
         }
 
         @Override
@@ -138,20 +136,9 @@ public class Stormfish extends AbstractThievesFish
         }
 
         @Override
-        public ThievesFish.Condition getCondition()
+        public Predicate<SpawnConditionContext> getCondition()
         {
             return this.condition;
-        }
-
-        public static Variant byId(int id)
-        {
-            var types = BY_ID;
-
-            if (id < 0 || id >= types.length)
-            {
-                id = 0;
-            }
-            return types[id];
         }
     }
 }

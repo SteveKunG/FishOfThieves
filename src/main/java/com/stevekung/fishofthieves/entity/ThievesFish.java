@@ -1,24 +1,19 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Random;
 import java.util.function.IntFunction;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.level.biome.Biome;
 
 public interface ThievesFish extends GlowFish, PartyFish
 {
@@ -68,29 +63,9 @@ public interface ThievesFish extends GlowFish, PartyFish
         return spawnData;
     }
 
-    static ThievesFish.SpawnConditionContext create(LivingEntity livingEntity)
-    {
-        var level = (ServerLevel) livingEntity.level;
-        var blockPos = livingEntity.blockPosition();
-        return new ThievesFish.SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), TerrainUtils.getBiomeCategory(level, blockPos), TerrainUtils.getContinentalness(level, blockPos));
-    }
-
     static int getSpawnVariant(LivingEntity livingEntity, FishVariant[] ids, IntFunction<FishVariant[]> generator, boolean random)
     {
-        var variants = random ? Stream.of(ids).toArray(generator) : Stream.of(ids).filter(variant -> variant.getCondition().spawn(ThievesFish.create(livingEntity))).toArray(generator);
+        var variants = random ? Stream.of(ids).toArray(generator) : Stream.of(ids).filter(variant -> variant.getCondition().test(SpawnSelectors.get(livingEntity))).toArray(generator);
         return Util.getRandom(variants, livingEntity.getRandom()).getId();
     }
-
-    @FunctionalInterface
-    interface Condition
-    {
-        boolean spawn(SpawnConditionContext context);
-
-        static Condition always()
-        {
-            return context -> true;
-        }
-    }
-
-    record SpawnConditionContext(ServerLevel level, BlockPos blockPos, Random random, boolean isDay, boolean isNight, boolean isRaining, boolean isThundering, boolean seeSkyInWater, Biome.BiomeCategory biomeCategory, Continentalness continentalness) {}
 }

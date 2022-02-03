@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -12,10 +13,12 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
+import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -78,7 +81,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish
     @Override
     public Variant getVariant()
     {
-        return Variant.byId(this.entityData.get(TYPE));
+        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
     }
 
     @Override
@@ -95,28 +98,18 @@ public class Ancientscale extends AbstractSchoolingThievesFish
 
     public enum Variant implements FishVariant
     {
-        ALMOND,
-        SAPPHIRE,
-        SMOKE,
-        BONE(context ->
-        {
-            var level = context.level();
-            var blockPos = context.blockPos();
-            return context.random().nextFloat() < FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability || context.random().nextInt(10) == 0 && (TerrainUtils.isInFeature(level, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature(level, blockPos, StructureFeature.STRONGHOLD));
-        }),
-        STARSHINE(context -> context.level().getMoonBrightness() <= 0.25F && context.isNight() && context.seeSkyInWater());
+        ALMOND(SpawnSelectors.always()),
+        SAPPHIRE(SpawnSelectors.always()),
+        SMOKE(SpawnSelectors.always()),
+        BONE(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(StructureFeature.MINESHAFT, StructureFeature.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        STARSHINE(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final ThievesFish.Condition condition;
+        private final Predicate<SpawnConditionContext> condition;
 
-        Variant(ThievesFish.Condition condition)
+        Variant(Predicate<SpawnConditionContext> condition)
         {
             this.condition = condition;
-        }
-
-        Variant()
-        {
-            this(ThievesFish.Condition.always());
         }
 
         @Override
@@ -132,20 +125,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         }
 
         @Override
-        public ThievesFish.Condition getCondition()
+        public Predicate<SpawnConditionContext> getCondition()
         {
             return this.condition;
-        }
-
-        public static Variant byId(int id)
-        {
-            var types = BY_ID;
-
-            if (id < 0 || id >= types.length)
-            {
-                id = 0;
-            }
-            return types[id];
         }
     }
 }
