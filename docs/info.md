@@ -1,9 +1,16 @@
+
+_[Return to Main Page](wiki.md)_
+
+# Items
+
+This is all items existed in the Fish of Thieves. All the fish has food and saturation same as Salmon.
+
+![](images/items.png)
+
 # Spawning
 Fishes in the mod has different spawning conditions. Depends on biomes or day-night cycle, etc.
 
 And it has a 10% chance to spawn in trophy size (can be configured), just like in the Sea of Thieves.
-
-_[Return to Main Page](wiki.md)_
 
 ## Splashtails
 Can be found in the ocean biomes.
@@ -110,6 +117,7 @@ Can be found only in the Shipwrecks.
 
 #### Behaviors
 * Attack mobs/players
+* Swim around a nearby Shipwreck
 
 ![](images/wreckers.png)
 
