@@ -1,0 +1,100 @@
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+loom {
+    forge {
+        mixinConfig "mixins.fishofthieves.json"
+    }
+
+    launches {
+        client {
+            arg "--username", "${username}", "--uuid", "${uuid}"
+        }
+    }
+
+    runs {
+        client {
+            vmArg("-Dmixin.debug.export=true")
+            vmArg("-Dmixin.hotSwap=true")
+        }
+    }
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.mc_version}-${rootProject.forge_version}"
+
+    modRuntimeOnly "curse.maven:configured-457570:${rootProject.configured_version}"
+    modRuntimeOnly "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+String fileName = "${rootProject.archives_base_name}-mc${rootProject.mc_version}"
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = "forge"
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+curseforge {
+    if (project.hasProperty("upload_api_key")) {
+        apiKey = project.upload_api_key
+        project {
+            id = "272146"
+            changelog = file("../CHANGE_LOG.md")
+            changelogType = "markdown"
+            releaseType = "release"
+            addGameVersion "Forge"
+            addGameVersion "Java 17"
+            addGameVersion rootProject.mc_version
+
+            mainArtifact(remapJar.archiveFile) {
+                displayName = "[Forge] " + fileName + "-v${project.version}"
+            }
+            relations {
+                optionalDependency "configured"
+            }
+            afterEvaluate {
+                uploadTask.dependsOn(remapJar)
+            }
+        }
+        options {
+            forgeGradleIntegration = false
+        }
+    }
+}

@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[39,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/SteveKunG/FishOfThieves/issues"
+
+[[mods]]
+modId = "fishofthieves"
+version = "${version}"
+displayName = "Fish of Thieves"
+description = "A mod that adds all of the fish from Sea of Thieves, fish fer ye pirate!"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves"
+updateJSONURL = "https://raw.githubusercontent.com/SteveKunG/VersionCheckLibrary/master/fish_of_thieves_version.json"
+logoFile = "logo.png"
+authors = "SteveKunG, PloyiinGz"
+
+[[dependencies.fishofthieves]]
+modId = "forge"
+mandatory = true
+versionRange = "[39.0.46,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.1,)"
+ordering = "NONE"
+side = "BOTH"

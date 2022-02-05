@@ -1,0 +1,34 @@
+{
+    "required": true,
+    "minVersion": "0.8.4",
+    "package": "com.stevekung.fishofthieves.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "client": [
+        "client.model.MixinVanillaFishesModel",
+        
+        "client.renderer.MixinLevelRenderer",
+        
+        "client.renderer.entity.MixinCodRenderer",
+        "client.renderer.entity.MixinPufferfishRenderer",
+        "client.renderer.entity.MixinSalmonRenderer",
+        "client.renderer.entity.MixinTropicalFishRenderer",
+        "client.renderer.entity.MixinVanillaFishesRenderer"
+    ],
+    "mixins": [
+        "DispenserBlockAccessor",
+        
+        "animal.MixinAbstractFish",
+        "animal.MixinAxolotl",
+        "animal.MixinCat",
+        "animal.MixinOcelot",
+        
+        "item.MixinRecordItem",
+        
+        "level.MixinServerLevel",
+        
+        "levelgen.MixinNoiseBasedChunkGenerator"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

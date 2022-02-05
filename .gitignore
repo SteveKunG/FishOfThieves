@@ -1,9 +1,9 @@
 # folder
+.architectury-transformer
 .settings
 .gradle
 .idea
 .vscode
-.cache
 bin
 build
 libs

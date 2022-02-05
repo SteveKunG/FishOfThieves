@@ -1,0 +1,122 @@
+loom {
+    accessWidenerPath = file("src/main/resources/fishofthieves.accesswidener")
+
+    launches {
+        client {
+            arg "--username", "${username}", "--uuid", "${uuid}"
+        }
+    }
+
+    runs {
+        client {
+            vmArg("-Dmixin.debug.export=true")
+            vmArg("-Dmixin.hotSwap=true")
+        }
+        datagen {
+            server()
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            runDir "build/datagen"
+        }
+    }
+
+    mixin {
+        defaultRefmapName = "mixins.fishofthieves_fabric.refmap.json"
+    }
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+}
+
+repositories {
+    maven {
+        name "ModMenu Maven"
+        url "https://maven.terraformersmc.com/releases/"
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    modApi "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+String fileName = "${rootProject.archives_base_name}-mc${rootProject.mc_version}"
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = "fabric"
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+curseforge {
+    if (project.hasProperty("upload_api_key")) {
+        apiKey = project.upload_api_key
+        project {
+            id = "272146"
+            changelog = file("../CHANGE_LOG.md")
+            changelogType = "markdown"
+            releaseType = "release"
+            addGameVersion "Fabric"
+            addGameVersion "Java 17"
+            addGameVersion rootProject.mc_version
+
+            mainArtifact(remapJar.archiveFile) {
+                displayName = "[Fabric] " + fileName + "-v${project.version}"
+            }
+            relations {
+                requiredDependency "fabric-api"
+                requiredDependency "cloth-config"
+                optionalDependency "modmenu"
+                optionalDependency "canvas-renderer"
+            }
+            afterEvaluate {
+                uploadTask.dependsOn(remapJar)
+            }
+        }
+        options {
+            forgeGradleIntegration = false
+        }
+    }
+}
