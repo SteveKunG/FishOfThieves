@@ -41,11 +41,6 @@ public class FOTLocationCheck implements LootItemCondition
         return () -> new FOTLocationCheck(locationPredicateBuilder.build(), BlockPos.ZERO);
     }
 
-    public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder, BlockPos offset)
-    {
-        return () -> new FOTLocationCheck(locationPredicateBuilder.build(), offset);
-    }
-
     public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<FOTLocationCheck>
     {
         @Override
