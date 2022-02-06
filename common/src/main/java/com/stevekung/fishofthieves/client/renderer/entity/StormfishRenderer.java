@@ -18,13 +18,13 @@ public class StormfishRenderer extends ThievesFishRenderer<Stormfish, StormfishM
 
     public StormfishRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new StormfishModel<>(context.bakeLayer(StormfishModel.LAYER)), 0.2F);
+        super(context, new StormfishModel<>(context.bakeLayer(StormfishModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Stormfish stormfish)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(stormfish.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

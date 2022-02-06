@@ -4,7 +4,7 @@
 
 This mod is focused only adds all the fish from Sea of Thieves. It's adapted to Minecraft gameplay with different behavior and feature interactions.
 
-Here you will find the information what fish can do. Where it spawn. And some advancements included!
+Here you will find the information what fish can do. Where it spawns. And some advancements included!
 
 ## Download
 * [Curseforge](https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves)
@@ -14,7 +14,7 @@ Here you will find the information what fish can do. Where it spawn. And some ad
 * [Mod Information](info.md)
 
 ## Configurations
-Currently have Trophy Max Health and rare variants probability configs.
+Currently, We only have Trophy Max Health and rare variants probability configs.
 
 ![](images/config1.png)
 

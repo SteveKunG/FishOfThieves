@@ -35,10 +35,10 @@ public class AncientscaleModel<T extends Ancientscale> extends EntityModel<T> im
 
     public static LayerDefinition createBodyLayer()
     {
-        var meshdefinition = new MeshDefinition();
-        var partdefinition = meshdefinition.getRoot();
+        var meshDefinition = new MeshDefinition();
+        var partDefinition = meshDefinition.getRoot();
 
-        var body_front = partdefinition.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.5F, -3.0F, 4.0F, 5.0F, 6.0F, new CubeDeformation(0.01F)).texOffs(20, 8).addBox(-2.0F, 1.5F, -4.5F, 4.0F, 1.0F, 2.0F).texOffs(14, 11).addBox(-2.0F, -1.75F, -2.5F, 4.0F, 1.0F, 1.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 19.5F, -2.5F));
+        var body_front = partDefinition.addOrReplaceChild("body_front", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.5F, -3.0F, 4.0F, 5.0F, 6.0F, new CubeDeformation(0.01F)).texOffs(20, 8).addBox(-2.0F, 1.5F, -4.5F, 4.0F, 1.0F, 2.0F).texOffs(14, 11).addBox(-2.0F, -1.75F, -2.5F, 4.0F, 1.0F, 1.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 19.5F, -2.5F));
 
         body_front.addOrReplaceChild("fin_back_1", CubeListBuilder.create().texOffs(22, -4).addBox(0.0F, -1.0F, -4.0F, 0.0F, 2.0F, 4.0F), PartPose.offset(0.0F, -3.25F, 3.0F));
 
@@ -48,7 +48,7 @@ public class AncientscaleModel<T extends Ancientscale> extends EntityModel<T> im
 
         body_front.addOrReplaceChild("fin_under", CubeListBuilder.create().texOffs(15, 1).addBox(0.0F, 1.5F, -3.5F, 0.0F, 2.0F, 3.0F), PartPose.offset(0.0F, 1.0F, 2.0F));
 
-        var body_back = partdefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(0, 18).addBox(-1.5F, -2.0F, 0.0F, 3.0F, 4.0F, 4.0F), PartPose.offset(0.0F, 19.5F, 0.5F));
+        var body_back = partDefinition.addOrReplaceChild("body_back", CubeListBuilder.create().texOffs(0, 18).addBox(-1.5F, -2.0F, 0.0F, 3.0F, 4.0F, 4.0F), PartPose.offset(0.0F, 19.5F, 0.5F));
 
         body_back.addOrReplaceChild("fin_back_2", CubeListBuilder.create().texOffs(22, 0).addBox(0.0F, -1.0F, 0.0F, 0.0F, 3.0F, 2.0F), PartPose.offset(0.0F, -3.25F, 0.0F));
 
@@ -60,7 +60,7 @@ public class AncientscaleModel<T extends Ancientscale> extends EntityModel<T> im
 
         body_back_2.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(23, 17).addBox(0.0F, -2.5F, 0.0F, 0.0F, 5.0F, 4.0F), PartPose.offset(0.0F, 0.0F, 2.0F));
 
-        var head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.5F, 19.5F, -5.5F));
+        var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.5F, 19.5F, -5.5F));
 
         head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(23, 16).mirror().addBox(0.0F, -1.0F, 0.0F, 0.0F, 1.0F, 2.0F).mirror(false), PartPose.offsetAndRotation(-2.56F, 2.4241F, -1.5178F, -1.2464F, -0.1313F, 0.3712F));
 
@@ -70,7 +70,7 @@ public class AncientscaleModel<T extends Ancientscale> extends EntityModel<T> im
 
         head.addOrReplaceChild("head_r4", CubeListBuilder.create().texOffs(0, 11).addBox(-2.0F, -2.3012F, -2.1953F, 4.0F, 4.0F, 3.0F, new CubeDeformation(0.06F)), PartPose.offsetAndRotation(-0.5F, 0.0F, 0.0F, 0.3491F, 0.0F, 0.0F));
 
-        return LayerDefinition.create(meshdefinition, 32, 32);
+        return LayerDefinition.create(meshDefinition, 32, 32);
     }
 
     @Override

@@ -52,7 +52,6 @@ String fileName = "${rootProject.archives_base_name}-mc${rootProject.mc_version}
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    exclude "assets/fishofthieves/materialmaps/**"
     archiveClassifier = "dev-shadow"
     archiveVersion = "v${project.version}"
     archiveBaseName = fileName

@@ -22,11 +22,17 @@ import net.minecraft.world.entity.animal.AbstractFish;
 
 public abstract class ThievesFishRenderer<T extends AbstractFish & ThievesFish, M extends EntityModel<T> & ScaleableModel<T>> extends MobRenderer<T, M>
 {
-    protected ThievesFishRenderer(EntityRendererProvider.Context context, M entityModel, float shadowSize)
+    protected ThievesFishRenderer(EntityRendererProvider.Context context, M entityModel)
     {
-        super(context, entityModel, shadowSize);
+        super(context, entityModel, 0.2f);
         this.addLayer(new GlowFishLayer<>(this));
         this.addLayer(new HeadphoneLayer<>(this, context));
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(T livingEntity)
+    {
+        return this.getTextureMap().get(livingEntity.getVariant());
     }
 
     @Override
@@ -35,6 +41,8 @@ public abstract class ThievesFishRenderer<T extends AbstractFish & ThievesFish, 
         var scale = livingEntity.isTrophy() ? 1.0F : 0.5F;
         poseStack.scale(scale, scale, scale);
     }
+
+    protected abstract Map<FishVariant, ResourceLocation> getTextureMap();
 
     protected static Map<FishVariant, ResourceLocation> createTextureByType(FishVariant[] variants, String name)
     {

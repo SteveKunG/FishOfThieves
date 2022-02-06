@@ -455,12 +455,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.title"),
                     new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.description"),
                     null, FrameType.TASK, true, true, true)
-            .addCriterion("play_jukebox_near_thieves_fish", itemUsedOnBlock(
+            .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                     LocationPredicate.Builder.location()
                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                     ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
-            .addCriterion("play_jukebox_near_fishes", itemUsedOnBlock(
+            .addCriterion("play_jukebox_near_fishes", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                     LocationPredicate.Builder.location()
                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                     ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
@@ -522,11 +522,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         private static UsingItemTrigger.TriggerInstance lookAtThroughItem(EntityType<?> lookedAtEntityType, Item lookedThroughItem)
         {
             return UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().player(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(lookedAtEntityType).build()).build()), ItemPredicate.Builder.item().of(lookedThroughItem));
-        }
-
-        private static ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance itemUsedOnBlock(LocationPredicate.Builder locationBuilder, ItemPredicate.Builder stackBuilder, EntityPredicate.Composite composite)
-        {
-            return new ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance(EntityPredicate.Composite.ANY, locationBuilder.build(), stackBuilder.build(), composite);
         }
     }
 }

@@ -18,13 +18,13 @@ public class PlentifinRenderer extends ThievesFishRenderer<Plentifin, PlentifinM
 
     public PlentifinRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new PlentifinModel<>(context.bakeLayer(PlentifinModel.LAYER)), 0.2F);
+        super(context, new PlentifinModel<>(context.bakeLayer(PlentifinModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Plentifin plentifin)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(plentifin.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

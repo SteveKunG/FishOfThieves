@@ -18,13 +18,13 @@ public class WildsplashRenderer extends ThievesFishRenderer<Wildsplash, Wildspla
 
     public WildsplashRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new WildsplashModel<>(context.bakeLayer(WildsplashModel.LAYER)), 0.2F);
+        super(context, new WildsplashModel<>(context.bakeLayer(WildsplashModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Wildsplash wildsplash)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(wildsplash.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

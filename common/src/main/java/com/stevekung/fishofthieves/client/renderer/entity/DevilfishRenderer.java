@@ -18,13 +18,13 @@ public class DevilfishRenderer extends ThievesFishRenderer<Devilfish, DevilfishM
 
     public DevilfishRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new DevilfishModel<>(context.bakeLayer(DevilfishModel.LAYER)), 0.2F);
+        super(context, new DevilfishModel<>(context.bakeLayer(DevilfishModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Devilfish devilfish)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(devilfish.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

@@ -18,13 +18,13 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
 
     public IslehopperRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new IslehopperModel<>(context.bakeLayer(IslehopperModel.LAYER)), 0.2F);
+        super(context, new IslehopperModel<>(context.bakeLayer(IslehopperModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Islehopper islehopper)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(islehopper.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

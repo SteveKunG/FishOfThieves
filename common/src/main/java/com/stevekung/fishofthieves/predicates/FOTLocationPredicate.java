@@ -11,19 +11,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
 
-public class FOTLocationPredicate
+public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, Boolean raidActive)
 {
     public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null, null);
-    private final Biome.BiomeCategory biomeCategory;
-    private final Continentalness continentalness;
-    private final Boolean raidActive;
-
-    public FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, Boolean raidActive)
-    {
-        this.biomeCategory = biomeCategory;
-        this.continentalness = continentalness;
-        this.raidActive = raidActive;
-    }
 
     public boolean matches(ServerLevel level, double x, double y, double z)
     {
@@ -31,12 +21,7 @@ public class FOTLocationPredicate
         var loaded = level.isLoaded(blockPos);
         var biome = level.getBiome(blockPos);
         var isRaided = level.isRaided(blockPos);
-
-        if (!(this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) || !(this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) || !(this.raidActive == null || loaded && this.raidActive == isRaided))
-        {
-            return false;
-        }
-        return true;
+        return (this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.raidActive == null || loaded && this.raidActive == isRaided);
     }
 
     public JsonElement serializeToJson()

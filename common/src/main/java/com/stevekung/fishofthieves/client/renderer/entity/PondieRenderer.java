@@ -18,13 +18,13 @@ public class PondieRenderer extends ThievesFishRenderer<Pondie, PondieModel<Pond
 
     public PondieRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new PondieModel<>(context.bakeLayer(PondieModel.LAYER)), 0.2F);
+        super(context, new PondieModel<>(context.bakeLayer(PondieModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Pondie pondie)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(pondie.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

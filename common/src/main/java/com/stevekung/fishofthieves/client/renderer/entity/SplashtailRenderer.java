@@ -18,13 +18,13 @@ public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, Splashta
 
     public SplashtailRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)), 0.2F);
+        super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Splashtail splashtail)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(splashtail.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

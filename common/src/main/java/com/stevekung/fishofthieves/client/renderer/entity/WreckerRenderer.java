@@ -19,14 +19,14 @@ public class WreckerRenderer extends ThievesFishRenderer<Wrecker, WreckerModel<W
 
     public WreckerRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new WreckerModel<>(context.bakeLayer(WreckerModel.LAYER)), 0.2F);
+        super(context, new WreckerModel<>(context.bakeLayer(WreckerModel.LAYER)));
         this.addLayer(new WreckerBulbLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Wrecker wrecker)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(wrecker.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

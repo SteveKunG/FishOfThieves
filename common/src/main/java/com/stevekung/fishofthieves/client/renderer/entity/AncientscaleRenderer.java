@@ -18,13 +18,13 @@ public class AncientscaleRenderer extends ThievesFishRenderer<Ancientscale, Anci
 
     public AncientscaleRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new AncientscaleModel<>(context.bakeLayer(AncientscaleModel.LAYER)), 0.2F);
+        super(context, new AncientscaleModel<>(context.bakeLayer(AncientscaleModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Ancientscale ancientscale)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(ancientscale.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override

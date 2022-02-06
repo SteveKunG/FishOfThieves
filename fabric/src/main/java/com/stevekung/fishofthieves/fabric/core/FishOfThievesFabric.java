@@ -53,7 +53,7 @@ public class FishOfThievesFabric implements ModInitializer
 
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) ->
         {
-            var pools = ((LootSupplierBuilderHooks)supplier).getPools();
+            var pools = ((LootSupplierBuilderHooks) supplier).getPools();
 
             // Gameplay
             if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))

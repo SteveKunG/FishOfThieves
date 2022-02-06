@@ -127,11 +127,11 @@ Can be found in the ocean biomes and during thunderstorm.
 * Ancient:  _Always_
 * Shores:  _Coast_
 * Wild:  _Sparse Jungle_
-* Shadow:  _10% Chance & Sky Light lower than or equals 4_
+* Shadow:  _10% Chance & Skylight lower than or equals 4_
 * Twilight:  _Night Time_
 
 #### Behaviors
-* Chance of lightning strikes if it swimming near the ocean surface
+* Chance of lightning strikes if it is swimming near the ocean surface
 * Immune to Lightning Bolt
 
 ![](images/stormfishes.png)

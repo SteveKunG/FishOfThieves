@@ -18,13 +18,13 @@ public class BattlegillRenderer extends ThievesFishRenderer<Battlegill, Battlegi
 
     public BattlegillRenderer(EntityRendererProvider.Context context)
     {
-        super(context, new BattlegillModel<>(context.bakeLayer(BattlegillModel.LAYER)), 0.2F);
+        super(context, new BattlegillModel<>(context.bakeLayer(BattlegillModel.LAYER)));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Battlegill battlegill)
+    protected Map<FishVariant, ResourceLocation> getTextureMap()
     {
-        return TEXTURE_BY_TYPE.get(battlegill.getVariant());
+        return TEXTURE_BY_TYPE;
     }
 
     @Override
