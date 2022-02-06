@@ -4,11 +4,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.stevekung.fishofthieves.client.model.ScaleableModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.entity.PartyFish;
-
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.world.entity.Mob;

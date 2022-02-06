@@ -13,10 +13,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public class FOTLocationCheck implements LootItemCondition
 {
-    final FOTLocationPredicate predicate;
-    final BlockPos offset;
+    protected final FOTLocationPredicate predicate;
+    protected final BlockPos offset;
 
-    FOTLocationCheck(FOTLocationPredicate locationPredicate, BlockPos blockPos)
+    protected FOTLocationCheck(FOTLocationPredicate locationPredicate, BlockPos blockPos)
     {
         this.predicate = locationPredicate;
         this.offset = blockPos;

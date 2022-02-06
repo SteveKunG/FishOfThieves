@@ -6,7 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.mixin.DispenserBlockAccessor;
-import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -28,7 +31,6 @@ public class FishOfThieves
         FOTEntities.init();
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
-        FOTLootItemConditions.init();
 
         var bucket = DispenserBlockAccessor.getDispenserRegistry().get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);

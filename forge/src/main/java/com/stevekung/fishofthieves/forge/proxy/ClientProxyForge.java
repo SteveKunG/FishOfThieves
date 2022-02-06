@@ -32,11 +32,13 @@ public class ClientProxyForge extends CommonProxyForge
     @Override
     public void commonSetup(FMLCommonSetupEvent event)
     {
+        super.commonSetup(event);
     }
 
     @Override
     public void clientSetup(FMLClientSetupEvent event)
     {
+        super.clientSetup(event);
     }
 
     @SubscribeEvent
