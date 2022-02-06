@@ -1,5 +1,6 @@
 # folder
 .architectury-transformer
+.cache
 .settings
 .gradle
 .idea
