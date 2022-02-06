@@ -40,7 +40,7 @@ import net.minecraft.world.level.block.Blocks;
 public class Devilfish extends AbstractSchoolingThievesFish
 {
     private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.FIRELIGHT, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png"));
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.attackable();
+    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.isInWater() && livingEntity.attackable();
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {

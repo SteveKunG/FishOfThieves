@@ -43,7 +43,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 public class Battlegill extends AbstractSchoolingThievesFish
 {
     private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.BITTERSWEET, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png"));
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getMobType() == MobType.WATER) && livingEntity.attackable();
+    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getMobType() == MobType.WATER) && livingEntity.isInWater() && livingEntity.attackable();
 
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {

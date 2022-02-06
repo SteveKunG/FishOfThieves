@@ -50,7 +50,7 @@ public class Wrecker extends AbstractThievesFish
 {
     private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
     private static final EntityDataAccessor<BlockPos> SHIPWRECK_POS = SynchedEntityData.defineId(Wrecker.class, EntityDataSerializers.BLOCK_POS);
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.attackable();
+    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
 
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
@@ -64,7 +64,7 @@ public class Wrecker extends AbstractThievesFish
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
         this.goalSelector.addGoal(5, new SwimToShipwreckGoal(this));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, null));
+        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
     }
 
     @Override
