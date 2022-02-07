@@ -1,4 +1,4 @@
-![](images/logo.png)
+<img src="images/logo.png" alt="logo" width="400"/>
 
 ## Welcome to the Fish of Thieves wiki!
 
