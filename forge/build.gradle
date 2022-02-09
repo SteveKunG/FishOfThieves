@@ -98,3 +98,19 @@ curseforge {
         }
     }
 }
+
+import com.modrinth.minotaur.TaskModrinthUpload
+
+task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
+    if (project.hasProperty("modrinth_api_token")) {
+        token = project.modrinth_api_token
+        projectId = "BzOTnuqM"
+        changelog = file("../CHANGE_LOG.md")
+        versionName = "[Forge] " + fileName + "-v${project.version}"
+        versionNumber = rootProject.mod_version
+        versionType = "release"
+        uploadFile = remapJar
+        addGameVersion(rootProject.mc_version)
+        addLoader("forge")
+    }
+}
