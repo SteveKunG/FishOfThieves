@@ -43,6 +43,9 @@ Some variant can be found around island coast using new 1.18 terrain system. Spe
 * Raven:  _10% Chance & In the deep cave_
 * Amethyst:  _Around Amethyst Geode, Minimum 16 blocks_
 
+#### Behaviors
+* Inflicting damage and poison to a mob when take damage
+
 ![](images/islehoppers.png)
 
 ## Ancientscales
