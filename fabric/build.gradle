@@ -129,7 +129,7 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         projectId = "BzOTnuqM"
         changelog = file("../CHANGE_LOG.md")
         versionName = "[Fabric] " + fileName + "-v${project.version}"
-        versionNumber = rootProject.mod_version
+        versionNumber = rootProject.mod_version + "-fabric"
         versionType = "release"
         uploadFile = remapJar
         addGameVersion(rootProject.mc_version)

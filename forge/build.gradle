@@ -107,7 +107,7 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         projectId = "BzOTnuqM"
         changelog = file("../CHANGE_LOG.md")
         versionName = "[Forge] " + fileName + "-v${project.version}"
-        versionNumber = rootProject.mod_version
+        versionNumber = rootProject.mod_version + "-forge"
         versionType = "release"
         uploadFile = remapJar
         addGameVersion(rootProject.mc_version)
