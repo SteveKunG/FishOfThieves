@@ -81,7 +81,7 @@ Can be found in the warm ocean and lush caves biomes. Some are in specific biome
 
 ![](images/wildsplashes.png)
 
-## Devilfishes
+## Devilfish
 Can be found in the deep caves.
 
 * Ashen:  _Always_
@@ -93,7 +93,7 @@ Can be found in the deep caves.
 #### Behaviors
 * Attack undead mobs
 
-![](images/devilfishes.png)
+![](images/devilfish.png)
 
 ## Battlegills
 Can be found in the Pillager Outpost/Ocean Monument and during raids
@@ -124,7 +124,7 @@ Can be found only in the Shipwrecks.
 
 ![](images/wreckers.png)
 
-## Stormfishes
+## Stormfish
 Can be found in the ocean biomes and during thunderstorm.
 
 * Ancient:  _Always_
@@ -137,7 +137,7 @@ Can be found in the ocean biomes and during thunderstorm.
 * Chance of lightning strikes if it is swimming near the ocean surface
 * Immune to Lightning Bolt
 
-![](images/stormfishes.png)
+![](images/stormfish.png)
 
 # Advancements
 There are 7 advancements for people who love challenges to get all of them and 2 hidden advancements you might not know.
