@@ -14,12 +14,6 @@ loom {
     }
 }
 
-afterEvaluate {
-    remapJar {
-        remapAccessWidener = false
-    }
-}
-
 sourceSets {
     main {
         resources {
