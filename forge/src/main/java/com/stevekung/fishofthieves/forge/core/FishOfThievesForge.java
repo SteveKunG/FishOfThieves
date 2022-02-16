@@ -4,9 +4,11 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.forge.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
+import com.stevekung.fishofthieves.forge.registry.FOTLootItemConditionsForge;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +30,7 @@ public class FishOfThievesForge
     {
         var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.register(FishOfThievesConfig.class);
+        MinecraftForge.EVENT_BUS.register(FOTLootItemConditionsForge.class);
         ENTITY.register(modEventBus);
         ITEM.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);

@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.forge.predicates;
 
-import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
+import com.stevekung.fishofthieves.forge.registry.FOTLootItemConditionsForge;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import net.minecraft.core.BlockPos;
@@ -17,7 +17,7 @@ public class FOTLocationCheckForge extends FOTLocationCheck
     @Override
     public LootItemConditionType getType()
     {
-        return CommonProxyForge.FOT_LOCATION_CHECK;
+        return FOTLootItemConditionsForge.FOT_LOCATION_CHECK;
     }
 
     public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
