@@ -80,30 +80,14 @@ public final class SpawnSelectors
     {
         Set<Biome.BiomeCategory> categorySet = EnumSet.noneOf(Biome.BiomeCategory.class);
         Collections.addAll(categorySet, categories);
-
-        return context ->
-        {
-            for (var category : categorySet)
-            {
-                return context.biomeCategory() == category;
-            }
-            return false;
-        };
+        return context -> categorySet.stream().anyMatch(category -> context.biomeCategory() == category);
     }
 
     public static Predicate<SpawnConditionContext> continentalness(Continentalness... continentalnesses)
     {
         Set<Continentalness> continentalnessSet = EnumSet.noneOf(Continentalness.class);
         Collections.addAll(continentalnessSet, continentalnesses);
-
-        return context ->
-        {
-            for (var continentalness : continentalnessSet)
-            {
-                return context.continentalness() == continentalness;
-            }
-            return false;
-        };
+        return context -> continentalnessSet.stream().anyMatch(continentalness -> context.continentalness() == continentalness);
     }
 
     public static SpawnConditionContext get(LivingEntity livingEntity)
