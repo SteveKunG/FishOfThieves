@@ -25,7 +25,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Ancientscale extends AbstractSchoolingThievesFish
 {
@@ -101,7 +101,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         ALMOND(SpawnSelectors.always()),
         SAPPHIRE(SpawnSelectors.always()),
         SMOKE(SpawnSelectors.always()),
-        BONE(SpawnSelectors.probability(PlatformConfig.boneAncientscaleProbability()).or(SpawnSelectors.features(StructureFeature.MINESHAFT, StructureFeature.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        BONE(SpawnSelectors.probability(PlatformConfig.boneAncientscaleProbability()).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
         STARSHINE(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
 public final class SpawnSelectors
 {
@@ -45,7 +45,8 @@ public final class SpawnSelectors
         return context -> context.random().nextFloat() < probability;
     }
 
-    public static Predicate<SpawnConditionContext> features(StructureFeature<?>... structureFeatures)
+    @SafeVarargs
+    public static Predicate<SpawnConditionContext> features(ResourceKey<ConfiguredStructureFeature<?, ?>>... structureFeatures)
     {
         return context ->
         {
@@ -67,10 +68,7 @@ public final class SpawnSelectors
         {
             for (var key : keys)
             {
-                if (TerrainUtils.isInBiome(context.level(), context.blockPos(), key))
-                {
-                    return true;
-                }
+                return context.level().getBiome(context.blockPos()).is(key);
             }
             return false;
         };

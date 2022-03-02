@@ -29,7 +29,7 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void fishofthieves$checkNearbyJukebox(CallbackInfo info)
     {
-        if (this.jukebox == null || !this.jukebox.closerThan(this.position(), 8.0D) || !this.level.getBlockState(this.jukebox).is(Blocks.JUKEBOX))
+        if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 8.0D) || !this.level.getBlockState(this.jukebox).is(Blocks.JUKEBOX))
         {
             this.partyFish = false;
             this.jukebox = null;

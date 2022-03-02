@@ -13,7 +13,7 @@ configurations {
 
 loom {
     forge {
-        mixinConfig "mixins.fishofthieves.json"
+        mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
     }
 
     launches {
@@ -78,7 +78,7 @@ curseforge {
             id = "568372"
             changelog = file("../CHANGE_LOG.md")
             changelogType = "markdown"
-            releaseType = "release"
+            releaseType = "beta"
             addGameVersion "Forge"
             addGameVersion "Java 17"
             addGameVersion rootProject.mc_version

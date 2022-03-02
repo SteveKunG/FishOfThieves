@@ -1,20 +1,15 @@
 package com.stevekung.fishofthieves.utils.forge;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.common.ForgeTagHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class FOTPlatformImpl
 {
@@ -28,16 +23,6 @@ public class FOTPlatformImpl
                 return new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
             }
         };
-    }
-
-    public static Tag.Named<Item> createItemTag(String id)
-    {
-        return ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS, new ResourceLocation(FishOfThieves.MOD_ID, id));
-    }
-
-    public static Tag.Named<EntityType<?>> createEntityTypeTag(String id)
-    {
-        return ForgeTagHandler.createOptionalTag(ForgeRegistries.ENTITIES, new ResourceLocation(FishOfThieves.MOD_ID, id));
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)

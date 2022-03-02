@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.utils;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -12,7 +11,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.biome.TerrainShaper;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
 public class TerrainUtils
 {
@@ -31,19 +30,14 @@ public class TerrainUtils
         return PeakTypes.byName(OverworldBiomeBuilder.getDebugStringForPeaksAndValleys(peakTypes));
     }
 
-    public static boolean isInBiome(ServerLevel level, BlockPos blockPos, ResourceKey<Biome> biomeKey)
-    {
-        return Objects.equals(level.getBiomeName(blockPos), Optional.of(biomeKey));
-    }
-
-    public static boolean isInFeature(ServerLevel level, BlockPos blockPos, StructureFeature<?> structureFeature)
+    public static boolean isInFeature(ServerLevel level, BlockPos blockPos, ResourceKey<ConfiguredStructureFeature<?, ?>> structureFeature)
     {
         return level.structureFeatureManager().getStructureWithPieceAt(blockPos, structureFeature).isValid();
     }
 
     public static Biome.BiomeCategory getBiomeCategory(ServerLevel level, BlockPos blockPos)
     {
-        return level.getBiome(blockPos).getBiomeCategory();
+        return level.getBiome(blockPos).value().getBiomeCategory();
     }
 
     public static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)

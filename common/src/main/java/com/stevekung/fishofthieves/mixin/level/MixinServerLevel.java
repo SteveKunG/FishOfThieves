@@ -47,7 +47,7 @@ public abstract class MixinServerLevel extends Level
         {
             return false;
         }
-        var biome = this.getBiome(blockPos);
+        var biome = this.getBiome(blockPos).value();
         return biome.getPrecipitation() == Biome.Precipitation.RAIN && biome.warmEnoughToRain(blockPos);
     }
 

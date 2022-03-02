@@ -19,7 +19,7 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
     {
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
-        var biome = level.getBiome(blockPos);
+        var biome = level.getBiome(blockPos).value();
         var isRaided = level.isRaided(blockPos);
         return (this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.raidActive == null || loaded && this.raidActive == isRaided);
     }

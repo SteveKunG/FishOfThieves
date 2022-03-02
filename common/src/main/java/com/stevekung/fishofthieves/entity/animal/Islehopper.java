@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -130,15 +131,15 @@ public class Islehopper extends AbstractThievesFish
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var category = levelAccessor.getBiome(blockPos).getBiomeCategory();
+        var biome = levelAccessor.getBiome(blockPos);
         var continentalness = TerrainUtils.getContinentalness((ServerLevel) levelAccessor, blockPos);
         var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) levelAccessor, blockPos);
 
-        if (category == Biome.BiomeCategory.OCEAN || category == Biome.BiomeCategory.BEACH)
+        if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
         {
             return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
         }
-        return category == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
+        return biome.value().getBiomeCategory() == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
     }
 
     public enum Variant implements FishVariant

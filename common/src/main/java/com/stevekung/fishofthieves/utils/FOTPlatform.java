@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.utils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -13,18 +12,6 @@ public class FOTPlatform
 {
     @ExpectPlatform
     public static CreativeModeTab createCreativeTab()
-    {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static Tag.Named<Item> createItemTag(String id)
-    {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static Tag.Named<EntityType<?>> createEntityTypeTag(String id)
     {
         throw new AssertionError();
     }

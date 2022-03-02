@@ -35,10 +35,10 @@
         "mixins.fishofthieves_fabric.json"
     ],
     "depends": {
-        "fabricloader": ">=0.12.12",
+        "fabricloader": ">=0.13.3",
         "fabric": "*",
-        "cloth-config": ">=6.1.0",
-        "minecraft": ">=1.18.1"
+        "cloth-config": ">=6.2.0",
+        "minecraft": ">=1.18.2"
     },
     "accessWidener": "fishofthieves.accesswidener"
 }

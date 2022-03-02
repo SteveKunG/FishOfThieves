@@ -17,7 +17,6 @@ import com.stevekung.fishofthieves.utils.PlatformConfig;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -110,7 +109,8 @@ public class Wildsplash extends AbstractSchoolingThievesFish
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        return TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.LUSH_CAVES) || TerrainUtils.isInBiome((ServerLevel) levelAccessor, blockPos, Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        var biome = levelAccessor.getBiome(blockPos);
+        return biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 
     public enum Variant implements FishVariant

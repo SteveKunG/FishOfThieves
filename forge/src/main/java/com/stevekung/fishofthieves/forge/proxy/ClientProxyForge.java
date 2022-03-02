@@ -3,12 +3,12 @@ package com.stevekung.fishofthieves.forge.proxy;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.MobBucketItem;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -53,11 +53,11 @@ public class ClientProxyForge extends CommonProxyForge
             insertAt -= 2;
         }
 
-        if (itemStack.getItem() instanceof MobBucketItem mobBucketItem)
+        if (itemStack.getItem() instanceof MobBucketItemAccessor mobBucketItem)
         {
-            if (mobBucketItem.type.is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
+            if (mobBucketItem.invokeGetFishType().is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
             {
-                var type = new TranslatableComponent("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITIES.getKey(mobBucketItem.type).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+                var type = new TranslatableComponent("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITIES.getKey(mobBucketItem.invokeGetFishType()).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
                 if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
                 {

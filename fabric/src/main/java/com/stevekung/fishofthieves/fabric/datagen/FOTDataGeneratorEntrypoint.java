@@ -48,7 +48,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -88,7 +88,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(AdvancementProvider::new);
     }
 
-    private static class ModelProvider extends FabricBlockStateDefinitionProvider
+    private static class ModelProvider extends FabricModelProvider
     {
         private static final ModelTemplate TEMPLATE_SPAWN_EGG = createItem("template_spawn_egg");
 
@@ -151,7 +151,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class RecipeProvider extends FabricRecipesProvider
+    private static class RecipeProvider extends FabricRecipeProvider
     {
         private RecipeProvider(FabricDataGenerator dataGenerator)
         {
@@ -350,7 +350,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class AdvancementProvider extends FabricAdvancementsProvider
+    private static class AdvancementProvider extends FabricAdvancementProvider
     {
         private static final Map<Item, FishVariant[]> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
         {
@@ -382,8 +382,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             FrameType.TASK, false, false, false)
                     .addCriterion("in_water", LocationTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.location()
-                            .setFluid(FluidPredicate.Builder.fluid()
-                                    .of(FluidTags.WATER).build()).build()))
+                                    .setFluid(FluidPredicate.Builder.fluid()
+                                            .of(FluidTags.WATER).build()).build()))
                     .save(consumer, this.get("root"));
 
             var advancement2 = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
@@ -395,92 +395,101 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .save(consumer, this.get("fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
-            .display(FOTItems.SPLASHTAIL_BUCKET,
-                    new TranslatableComponent("advancements.fot.master_fish_collectors.title"),
-                    new TranslatableComponent("advancements.fot.master_fish_collectors.description"),
-                    null, FrameType.CHALLENGE, true, true, false)
-            .rewards(AdvancementRewards.Builder.experience(1000))
-            .save(consumer, this.get("master_fish_collectors"));
+                    .display(FOTItems.SPLASHTAIL_BUCKET,
+                            new TranslatableComponent("advancements.fot.master_fish_collectors.title"),
+                            new TranslatableComponent("advancements.fot.master_fish_collectors.description"),
+                            null, FrameType.CHALLENGE, true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(1000))
+                    .save(consumer, this.get("master_fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
-            .display(FOTItems.SPLASHTAIL_BUCKET,
-                    new TranslatableComponent("advancements.fot.legendary_fish_collectors.title"),
-                    new TranslatableComponent("advancements.fot.legendary_fish_collectors.description"),
-                    null, FrameType.CHALLENGE, true, true, false)
-            .rewards(AdvancementRewards.Builder.experience(2000))
-            .save(consumer, this.get("legendary_fish_collectors"));
+                    .display(FOTItems.SPLASHTAIL_BUCKET,
+                            new TranslatableComponent("advancements.fot.legendary_fish_collectors.title"),
+                            new TranslatableComponent("advancements.fot.legendary_fish_collectors.description"),
+                            null, FrameType.CHALLENGE, true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(2000))
+                    .save(consumer, this.get("legendary_fish_collectors"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
-                    PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
-                            ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound ->
-                            {
-                                compound.putInt(ThievesFish.VARIANT_TAG, 2);
-                                compound.putString(ThievesFish.NAME_TAG, "lava");
-                            })),
-                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
-            .display(FOTItems.DEVILFISH,
-                    new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
-                    new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
-                    null, FrameType.TASK, true, true, false)
-            .save(consumer, this.get("feed_axolotl_with_lava_devilfish"));
+                            PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
+                                    ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound ->
+                                    {
+                                        compound.putInt(ThievesFish.VARIANT_TAG, 2);
+                                        compound.putString(ThievesFish.NAME_TAG, "lava");
+                                    })),
+                                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
+                    .display(FOTItems.DEVILFISH,
+                            new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
+                            new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
+                            null, FrameType.TASK, true, true, false)
+                    .save(consumer, this.get("feed_axolotl_with_lava_devilfish"));
+
+            var battlegill = Registry.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
+            Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
+                    .addCriterion(battlegill + "_village_plains",
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_PLAINS)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                    .addCriterion(battlegill + "_village_desert",
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_DESERT)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                    .addCriterion(battlegill + "_village_savanna",
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_SAVANNA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                    .addCriterion(battlegill + "_village_snowy",
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_SNOWY)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                    .addCriterion(battlegill + "_village_taiga",
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_TAIGA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                    .display(FOTItems.BATTLEGILL,
+                            new TranslatableComponent("advancements.fot.so_chill.title"),
+                            new TranslatableComponent("advancements.fot.so_chill.description"),
+                            null, FrameType.TASK, true, true, false)
+                    .save(consumer, this.get("so_chill"));
 
             Advancement.Builder.advancement().parent(advancement)
-            .addCriterion(Registry.ITEM.getKey(FOTItems.BATTLEGILL).getPath(),
-                    FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(StructureFeature.VILLAGE)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
-            .display(FOTItems.BATTLEGILL,
-                    new TranslatableComponent("advancements.fot.so_chill.title"),
-                    new TranslatableComponent("advancements.fot.so_chill.description"),
-                    null, FrameType.TASK, true, true, false)
-            .save(consumer, this.get("so_chill"));
+                    .display(FOTItems.STORMFISH,
+                            new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.title"),
+                            new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.description"),
+                            null, FrameType.TASK, true, true, false)
+                    .addCriterion("lightning_strike_at_stormfish", fireCountAndBystander(MinMaxBounds.Ints.exactly(0),
+                            EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
+                    .save(consumer, this.get("lightning_straight_to_my_fish"));
 
             Advancement.Builder.advancement().parent(advancement)
-            .display(FOTItems.STORMFISH,
-                    new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.title"),
-                    new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.description"),
-                    null, FrameType.TASK, true, true, false)
-            .addCriterion("lightning_strike_at_stormfish", fireCountAndBystander(MinMaxBounds.Ints.exactly(0),
-                    EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
-            .save(consumer, this.get("lightning_straight_to_my_fish"));
-
-            Advancement.Builder.advancement().parent(advancement)
-            .display(Items.SPYGLASS,
-                    new TranslatableComponent("advancements.fot.spyglass_at_plentifins.title"),
-                    new TranslatableComponent("advancements.fot.spyglass_at_plentifins.description"),
-                    null, FrameType.TASK, true, true, false)
-            .addCriterion("spyglass_at_plentifins", lookAtThroughItem(FOTEntities.PLENTIFIN, Items.SPYGLASS))
-            .save(consumer, this.get("spyglass_at_plentifins"));
+                    .display(Items.SPYGLASS,
+                            new TranslatableComponent("advancements.fot.spyglass_at_plentifins.title"),
+                            new TranslatableComponent("advancements.fot.spyglass_at_plentifins.description"),
+                            null, FrameType.TASK, true, true, false)
+                    .addCriterion("spyglass_at_plentifins", lookAtThroughItem(FOTEntities.PLENTIFIN, Items.SPYGLASS))
+                    .save(consumer, this.get("spyglass_at_plentifins"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
-            .display(Items.JUKEBOX,
-                    new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.title"),
-                    new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.description"),
-                    null, FrameType.TASK, true, true, true)
-            .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
-                    LocationPredicate.Builder.location()
-                    .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
-                    ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
-                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
-            .addCriterion("play_jukebox_near_fishes", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
-                    LocationPredicate.Builder.location()
-                    .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
-                    ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
-                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS).build())))
-            .save(consumer, this.get("play_jukebox_near_fishes"));
+                    .display(Items.JUKEBOX,
+                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.title"),
+                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.description"),
+                            null, FrameType.TASK, true, true, true)
+                    .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
+                            LocationPredicate.Builder.location()
+                                    .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
+                            ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
+                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
+                    .addCriterion("play_jukebox_near_fishes", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
+                            LocationPredicate.Builder.location()
+                                    .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
+                            ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
+                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS).build())))
+                    .save(consumer, this.get("play_jukebox_near_fishes"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(),
-                    PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
-                            ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(Util.make(new CompoundTag(), compound ->
-                            {
-                                var displayCompound = new CompoundTag();
-                                displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(new TextComponent("Sally")));
-                                compound.put(ItemStack.TAG_DISPLAY, displayCompound);
-                            })),
-                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
-            .display(Items.SALMON,
-                    new TranslatableComponent("advancements.fot.lost_sally.title"),
-                    new TranslatableComponent("advancements.fot.lost_sally.description"),
-                    null, FrameType.TASK, true, true, true)
-            .save(consumer, this.get("lost_sally"));
+                            PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
+                                    ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(Util.make(new CompoundTag(), compound ->
+                                    {
+                                        var displayCompound = new CompoundTag();
+                                        displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(new TextComponent("Sally")));
+                                        compound.put(ItemStack.TAG_DISPLAY, displayCompound);
+                                    })),
+                                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
+                    .display(Items.SALMON,
+                            new TranslatableComponent("advancements.fot.lost_sally.title"),
+                            new TranslatableComponent("advancements.fot.lost_sally.description"),
+                            null, FrameType.TASK, true, true, true)
+                    .save(consumer, this.get("lost_sally"));
         }
 
         private String get(String name)

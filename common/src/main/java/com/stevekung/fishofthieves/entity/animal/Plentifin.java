@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Plentifin extends AbstractSchoolingThievesFish
 {
@@ -103,11 +103,11 @@ public class Plentifin extends AbstractSchoolingThievesFish
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var category = levelAccessor.getBiome(blockPos).getBiomeCategory();
+        var category = levelAccessor.getBiome(blockPos).value().getBiomeCategory();
 
         if (category == Biome.BiomeCategory.UNDERGROUND)
         {
-            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureFeature.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureFeature.STRONGHOLD);
+            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
         }
         return waterRules;
     }
@@ -121,7 +121,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
             return time >= 0.75F && time <= 0.9F;
         })),
         CLOUDY(SpawnSelectors.rainingAndSeeSky()),
-        BONEDUST(SpawnSelectors.probability(PlatformConfig.bonedustPlentifinProbability()).or(SpawnSelectors.features(StructureFeature.MINESHAFT, StructureFeature.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        BONEDUST(SpawnSelectors.probability(PlatformConfig.bonedustPlentifinProbability()).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
         WATERY(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
