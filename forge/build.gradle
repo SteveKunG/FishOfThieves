@@ -58,7 +58,7 @@ shadowJar {
 }
 
 remapJar {
-    input.set shadowJar.archiveFile
+    inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
     archiveClassifier = "forge"
     archiveVersion = "v${project.version}"
@@ -105,7 +105,7 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
         projectId = "BzOTnuqM"
-        changelog = file("../CHANGE_LOG.md")
+        changelog = file("../CHANGE_LOG.md").text
         versionName = "[Forge] " + fileName + "-v${project.version}"
         versionNumber = rootProject.mod_version + "-forge"
         versionType = "release"
