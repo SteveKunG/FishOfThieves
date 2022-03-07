@@ -24,8 +24,7 @@
         
         "item.MixinRecordItem",
         
-        "level.MixinServerLevel",
-        "level.chunk.MixinChunkGenerator"
+        "level.MixinServerLevel"
     ],
     "injectors": {
         "defaultRequire": 1

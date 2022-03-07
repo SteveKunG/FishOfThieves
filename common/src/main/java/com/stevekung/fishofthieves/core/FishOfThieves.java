@@ -27,11 +27,12 @@ public class FishOfThieves
 
     public static void init()
     {
-        FOTItems.init();
-        FOTEntities.init();
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
+    }
 
+    public static void initCommon()
+    {
         var bucket = DispenserBlockAccessor.getDispenserRegistry().get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);

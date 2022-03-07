@@ -46,6 +46,9 @@ public class FishOfThievesFabric implements ModInitializer
         CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
 
         FishOfThieves.init();
+        FOTItems.init();
+        FOTEntities.init();
+        FishOfThieves.initCommon();
         FOTLootItemConditions.init();
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, FishOfThieves::getTierOneTrades);

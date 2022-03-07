@@ -5,14 +5,19 @@ import com.stevekung.fishofthieves.forge.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.forge.registry.FOTLootItemConditionsForge;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -29,10 +34,12 @@ public class FishOfThievesForge
     public FishOfThievesForge()
     {
         var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.register(this);
         modEventBus.register(FishOfThievesConfig.class);
+        modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(FOTLootItemConditionsForge.class);
-        ENTITY.register(modEventBus);
         ITEM.register(modEventBus);
+        ENTITY.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
 
         FishOfThieves.init();
@@ -41,5 +48,22 @@ public class FishOfThievesForge
         PROXY.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FishOfThievesConfig.SPEC);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event)
+    {
+        FishOfThieves.initCommon();
+    }
+
+    @SubscribeEvent
+    public void registerItem(RegistryEvent.Register<Item> event)
+    {
+        FOTItems.init();
+    }
+
+    @SubscribeEvent
+    public void registerEntityType(RegistryEvent.Register<EntityType<?>> event)
+    {
+        FOTEntities.init();
     }
 }

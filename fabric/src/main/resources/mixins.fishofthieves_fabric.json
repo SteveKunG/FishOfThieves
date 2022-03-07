@@ -6,6 +6,9 @@
     "client": [
         "client.MixinMobBucketItem"
     ],
+    "mixins": [
+        "level.chunk.MixinChunkGenerator"
+    ],
     "injectors": {
         "defaultRequire": 1
     }

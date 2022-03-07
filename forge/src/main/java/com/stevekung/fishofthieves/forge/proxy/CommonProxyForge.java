@@ -15,11 +15,13 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.Util;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -37,6 +39,8 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -303,6 +307,27 @@ public class CommonProxyForge
         if (category == Biome.BiomeCategory.OCEAN || Objects.equals(name, Biomes.SPARSE_JUNGLE.location()))
         {
             event.getSpawns().addSpawn(FOTEntities.STORMFISH.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8));
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void addFishSpawnToStructure(StructureSpawnListGatherEvent event)
+    {
+        if (event.getStructure() == StructureFeature.OCEAN_RUIN)
+        {
+            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.ANCIENTSCALES.unwrap());
+        }
+        if (event.getStructure() == StructureFeature.MINESHAFT || event.getStructure() == StructureFeature.STRONGHOLD)
+        {
+            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.PLENTIFINS.unwrap());
+        }
+        if (event.getStructure() == StructureFeature.OCEAN_MONUMENT || event.getStructure() == StructureFeature.PILLAGER_OUTPOST)
+        {
+            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.BATTLEGILLS.unwrap());
+        }
+        if (event.getStructure() == StructureFeature.SHIPWRECK)
+        {
+            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.WRECKERS.unwrap());
         }
     }
 
