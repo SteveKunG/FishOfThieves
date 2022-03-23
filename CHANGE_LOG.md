@@ -2,5 +2,6 @@
 
 ### Please report if you found the issues!
 
-* Forge is now working
-* Internal registries update
+* Added mod compatibility
+    * **Both**: Farmer's Delight, Croptopia
+    * **Forge**: Aquaculture 2, Fishing Real
