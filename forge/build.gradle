@@ -11,14 +11,32 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+repositories {
+    maven {
+        name "Aquaculture 2"
+        url "https://girafi.dk/maven/"
+    }
+}
+
 loom {
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
+
+        mixin {
+            defaultRefmapName = "mixins.fishofthieves_forge.refmap.json"
+        }
+
+        dataGen {
+            mod "fishofthieves"
+        }
     }
 
     launches {
         client {
             arg "--username", "${username}", "--uuid", "${uuid}"
+        }
+        data {
+            arg "--existing", file("../common/src/main/resources/").absolutePath
         }
     }
 
@@ -32,6 +50,8 @@ loom {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.mc_version}-${rootProject.forge_version}"
+
+    modApi "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
 
     modRuntimeOnly "curse.maven:configured-457570:${rootProject.configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
@@ -55,6 +75,7 @@ shadowJar {
     archiveClassifier = "dev-shadow"
     archiveVersion = "v${project.version}"
     archiveBaseName = fileName
+    excludes = [".cache", "data/fabric/**"]
 }
 
 remapJar {

@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.forge.core;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
@@ -14,6 +15,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -53,6 +55,11 @@ public class FishOfThievesForge
     private void commonSetup(FMLCommonSetupEvent event)
     {
         FishOfThieves.initCommon();
+
+        if (ModList.get().isLoaded("aquaculture"))
+        {
+            Aquaculture2.init();
+        }
     }
 
     @SubscribeEvent
