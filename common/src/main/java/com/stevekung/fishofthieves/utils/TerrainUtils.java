@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.utils;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -68,6 +69,6 @@ public class TerrainUtils
         var chunkX = QuartPos.fromBlock(blockPos.getX());
         var chunkY = QuartPos.fromBlock(blockPos.getY());
         var chunkZ = QuartPos.fromBlock(blockPos.getZ());
-        return level.getChunkSource().getGenerator().climateSampler().sample(chunkX, chunkY, chunkZ);
+        return Objects.requireNonNullElseGet(level.getChunkSource().getGenerator().climateSampler(), Climate::empty).sample(chunkX, chunkY, chunkZ);
     }
 }
