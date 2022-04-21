@@ -2,8 +2,10 @@ loom {
     accessWidenerPath = file("src/main/resources/fishofthieves.accesswidener")
 
     launches {
-        client {
-            arg "--username", "${username}", "--uuid", "${uuid}"
+        if (project.hasProperty("username") && project.hasProperty("uuid")) {
+            client {
+                arg "--username", "${username}", "--uuid", "${uuid}"
+            }
         }
     }
 
@@ -47,11 +49,11 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    modApi "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modApi "com.terraformersmc:modmenu:${modmenu_version}"
 
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
@@ -67,7 +69,7 @@ processResources {
     }
 }
 
-String fileName = "${rootProject.archives_base_name}-mc${rootProject.mc_version}"
+String fileName = "${archives_base_name}-mc${mc_version}"
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
@@ -100,7 +102,7 @@ curseforge {
             releaseType = "release"
             addGameVersion "Fabric"
             addGameVersion "Java 17"
-            addGameVersion rootProject.mc_version
+            addGameVersion project.mc_version
 
             mainArtifact(remapJar.archiveFile) {
                 displayName = "[Fabric] " + fileName + "-v${project.version}"
@@ -129,10 +131,10 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         projectId = "BzOTnuqM"
         changelog = file("../CHANGE_LOG.md").text
         versionName = "[Fabric] " + fileName + "-v${project.version}"
-        versionNumber = rootProject.mod_version + "-fabric"
+        versionNumber = project.mod_version + "-fabric"
         versionType = "release"
         uploadFile = remapJar
-        addGameVersion(rootProject.mc_version)
+        addGameVersion(project.mc_version)
         addLoader("fabric")
     }
 }

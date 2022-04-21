@@ -32,8 +32,10 @@ loom {
     }
 
     launches {
-        client {
-            arg "--username", "${username}", "--uuid", "${uuid}"
+        if (project.hasProperty("username") && project.hasProperty("uuid")) {
+            client {
+                arg "--username", "${username}", "--uuid", "${uuid}"
+            }
         }
         data {
             arg "--existing", file("../common/src/main/resources/").absolutePath
@@ -49,12 +51,12 @@ loom {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.mc_version}-${rootProject.forge_version}"
+    forge "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    modApi "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
 
-    modRuntimeOnly "curse.maven:configured-457570:${rootProject.configured_version}"
-    modRuntimeOnly "curse.maven:catalogue-459701:${rootProject.catalogue_version}"
+    modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
+    modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
@@ -68,7 +70,7 @@ processResources {
     }
 }
 
-String fileName = "${rootProject.archives_base_name}-mc${rootProject.mc_version}"
+String fileName = "${archives_base_name}-mc${mc_version}"
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
@@ -102,7 +104,7 @@ curseforge {
             releaseType = "beta"
             addGameVersion "Forge"
             addGameVersion "Java 17"
-            addGameVersion rootProject.mc_version
+            addGameVersion project.mc_version
 
             mainArtifact(remapJar.archiveFile) {
                 displayName = "[Forge] " + fileName + "-v${project.version}"
@@ -128,10 +130,10 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         projectId = "BzOTnuqM"
         changelog = file("../CHANGE_LOG.md").text
         versionName = "[Forge] " + fileName + "-v${project.version}"
-        versionNumber = rootProject.mod_version + "-forge"
+        versionNumber = project.mod_version + "-forge"
         versionType = "release"
         uploadFile = remapJar
-        addGameVersion(rootProject.mc_version)
+        addGameVersion(project.mc_version)
         addLoader("forge")
     }
 }

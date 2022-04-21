@@ -7,7 +7,7 @@ plugins {
 }
 
 architectury {
-    minecraft = rootProject.mc_version
+    minecraft = project.mc_version
 }
 
 subprojects {
@@ -27,10 +27,10 @@ subprojects {
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.mc_version}"
+        minecraft "com.mojang:minecraft:${mc_version}"
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.parchmentmc_version}@zip")
+            parchment("org.parchmentmc.data:parchment-${parchmentmc_version}@zip")
         }
     }
 }
@@ -39,9 +39,9 @@ allprojects {
     apply plugin: "java"
     apply plugin: "architectury-plugin"
 
-    archivesBaseName = rootProject.archives_base_name
-    version = rootProject.mod_version
-    group = rootProject.maven_group
+    archivesBaseName = project.archives_base_name
+    version = project.mod_version
+    group = project.maven_group
 
     repositories {
         maven {
