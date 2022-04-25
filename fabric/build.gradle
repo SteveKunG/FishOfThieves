@@ -1,5 +1,10 @@
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
 loom {
-    accessWidenerPath = file("src/main/resources/fishofthieves.accesswidener")
+    accessWidenerPath = project(":common").loom.accessWidenerPath
 
     launches {
         if (project.hasProperty("username") && project.hasProperty("uuid")) {
@@ -26,11 +31,6 @@ loom {
     mixin {
         defaultRefmapName = "mixins.fishofthieves_fabric.refmap.json"
     }
-}
-
-architectury {
-    platformSetupLoomIde()
-    fabric()
 }
 
 configurations {
@@ -123,9 +123,9 @@ curseforge {
     }
 }
 
-import com.modrinth.minotaur.TaskModrinthUpload
+import com.modrinth.minotaur.dependencies.ModDependency
 
-task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
+modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
         projectId = "BzOTnuqM"
@@ -134,7 +134,10 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         versionNumber = project.mod_version + "-fabric"
         versionType = "release"
         uploadFile = remapJar
-        addGameVersion(project.mc_version)
-        addLoader("fabric")
+        gameVersions = ["${project.mc_version}"]
+        loaders = ["fabric"]
+        dependencies = [
+                new ModDependency("P7dR8mSH", "required") // Fabric API
+        ]
     }
 }

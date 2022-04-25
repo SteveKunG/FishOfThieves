@@ -3,21 +3,6 @@ architectury {
     forge()
 }
 
-configurations {
-    common
-    shadowCommon
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
-}
-
-repositories {
-    maven {
-        name "Aquaculture 2"
-        url "https://girafi.dk/maven/"
-    }
-}
-
 loom {
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
@@ -47,6 +32,24 @@ loom {
             vmArg("-Dmixin.debug.export=true")
             vmArg("-Dmixin.hotSwap=true")
         }
+        data {
+            name "Forge Data Generation"
+        }
+    }
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+}
+
+repositories {
+    maven {
+        name "Aquaculture 2"
+        url "https://girafi.dk/maven/"
     }
 }
 
@@ -122,9 +125,7 @@ curseforge {
     }
 }
 
-import com.modrinth.minotaur.TaskModrinthUpload
-
-task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
+modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
         projectId = "BzOTnuqM"
@@ -133,7 +134,7 @@ task modrinth(type: TaskModrinthUpload, dependsOn: remapJar, group: "upload") {
         versionNumber = project.mod_version + "-forge"
         versionType = "release"
         uploadFile = remapJar
-        addGameVersion(project.mc_version)
-        addLoader("forge")
+        gameVersions = ["${project.mc_version}"]
+        loaders = ["forge"]
     }
 }
