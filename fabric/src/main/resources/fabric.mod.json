@@ -1,44 +1,44 @@
 {
-    "schemaVersion": 1,
-    "id": "fishofthieves",
-    "version": "${version}",
-    "name": "Fish of Thieves",
-    "description": "A mod adds all the fish from Sea of Thieves, fish fer ye pirate!",
-    "authors": [
-        "SteveKunG",
-        "PloyiinGz"
+  "schemaVersion": 1,
+  "id": "fishofthieves",
+  "version": "${version}",
+  "name": "Fish of Thieves",
+  "description": "A mod adds all the fish from Sea of Thieves, fish fer ye pirate!",
+  "authors": [
+    "SteveKunG",
+    "PloyiinGz"
+  ],
+  "icon": "logo.png",
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves",
+    "sources": "https://github.com/SteveKunG/FishOfThieves",
+    "issues": "https://github.com/SteveKunG/FishOfThieves/issues"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabric"
     ],
-    "icon": "logo.png",
-    "contact": {
-        "homepage": "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves",
-        "sources": "https://github.com/SteveKunG/FishOfThieves",
-        "issues": "https://github.com/SteveKunG/FishOfThieves/issues"
-    },
-    "license": "MIT",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabric"
-        ],
-        "client": [
-            "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabricClient"
-        ],
-        "fabric-datagen": [
-            "com.stevekung.fishofthieves.fabric.datagen.FOTDataGeneratorEntrypoint"
-        ],
-        "modmenu": [
-            "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
-        ]
-    },
-    "mixins": [
-        "mixins.fishofthieves.json",
-        "mixins.fishofthieves_fabric.json"
+    "client": [
+      "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabricClient"
     ],
-    "depends": {
-        "fabricloader": ">=0.13.3",
-        "fabric": "*",
-        "cloth-config": ">=6.2.0",
-        "minecraft": ">=1.18.2"
-    },
-    "accessWidener": "fishofthieves.accesswidener"
+    "fabric-datagen": [
+      "com.stevekung.fishofthieves.fabric.datagen.FOTDataGeneratorEntrypoint"
+    ],
+    "modmenu": [
+      "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "mixins.fishofthieves.json",
+    "mixins.fishofthieves_fabric.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "cloth-config": ">=6.2.0",
+    "minecraft": ">=1.18.2"
+  },
+  "accessWidener": "fishofthieves.accesswidener"
 }
