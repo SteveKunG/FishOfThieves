@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.fabric.modmenu;
 
-import com.stevekung.fishofthieves.fabric.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.autoconfig.AutoConfig;

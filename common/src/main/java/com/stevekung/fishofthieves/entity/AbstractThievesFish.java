@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
+import com.stevekung.fishofthieves.core.FishOfThieves;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -100,7 +100,7 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
     {
         if (trophy)
         {
-            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(PlatformConfig.trophyMaxHealth());
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         this.entityData.set(TROPHY, trophy);
     }

@@ -13,7 +13,6 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -112,7 +111,7 @@ public class Stormfish extends AbstractThievesFish
         ANCIENT(SpawnSelectors.always()),
         SHORES(context -> context.continentalness() == Continentalness.COAST),
         WILD(SpawnSelectors.includeByKey(Biomes.SPARSE_JUNGLE)),
-        SHADOW(SpawnSelectors.probability(PlatformConfig.shadowStormfishProbability()).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4)),
+        SHADOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4)),
         TWILIGHT(context -> context.level().getSkyDarken() >= 9);
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

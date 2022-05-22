@@ -4,8 +4,8 @@ import java.util.function.IntFunction;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -56,10 +56,10 @@ public interface ThievesFish extends GlowFish, PartyFish
             this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             return spawnData;
         }
-        if (livingEntity.getRandom().nextFloat() < PlatformConfig.trophyProbability())
+        if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);
-            livingEntity.setHealth(PlatformConfig.trophyMaxHealth());
+            livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         this.setVariant(this.getSpawnVariantId(reason == MobSpawnType.BUCKET));
         return spawnData;

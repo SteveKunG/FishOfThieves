@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -101,7 +100,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         ALMOND(SpawnSelectors.always()),
         SAPPHIRE(SpawnSelectors.always()),
         SMOKE(SpawnSelectors.always()),
-        BONE(SpawnSelectors.probability(PlatformConfig.boneAncientscaleProbability()).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        BONE(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
         STARSHINE(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

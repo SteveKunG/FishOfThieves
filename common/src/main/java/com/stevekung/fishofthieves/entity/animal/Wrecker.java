@@ -13,7 +13,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -287,7 +286,7 @@ public class Wrecker extends AbstractThievesFish
         ROSE(SpawnSelectors.always()),
         SUN(SpawnSelectors.dayAndSeeSky()),
         BLACKCLOUD(SpawnSelectors.thunderingAndSeeSky()),
-        SNOW(SpawnSelectors.probability(PlatformConfig.snowWreckerProbability()).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN))),
+        SNOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN))),
         MOON(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

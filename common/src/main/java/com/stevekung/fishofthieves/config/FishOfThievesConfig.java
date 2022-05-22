@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.fabric.config;
+package com.stevekung.fishofthieves.config;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;

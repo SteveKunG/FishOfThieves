@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -106,7 +105,7 @@ public class Pondie extends AbstractSchoolingThievesFish
         CHARCOAL(SpawnSelectors.always()),
         ORCHID(SpawnSelectors.always()),
         BRONZE(SpawnSelectors.always()),
-        BRIGHT(SpawnSelectors.probability(PlatformConfig.brightPondieProbability()).and(SpawnSelectors.dayAndSeeSky())),
+        BRIGHT(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky())),
         MOONSKY(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

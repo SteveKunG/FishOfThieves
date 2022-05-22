@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -106,7 +105,7 @@ public class Splashtail extends AbstractSchoolingThievesFish
         RUBY(SpawnSelectors.always()),
         SUNNY(SpawnSelectors.dayAndSeeSky()),
         INDIGO(SpawnSelectors.always()),
-        UMBER(SpawnSelectors.probability(PlatformConfig.umberSplashtailProbability())),
+        UMBER(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.umberSplashtailProbability)),
         SEAFOAM(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

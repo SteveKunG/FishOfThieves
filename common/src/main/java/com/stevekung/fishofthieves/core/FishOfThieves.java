@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.mixin.DispenserBlockAccessor;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
@@ -11,6 +12,8 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -24,11 +27,14 @@ public class FishOfThieves
     public static final String MOD_ID = "fishofthieves";
     public static final CreativeModeTab FOT_TAB = FOTPlatform.createCreativeTab();
     public static final Logger LOGGER = LogManager.getLogger();
+    public static FishOfThievesConfig CONFIG;
 
     public static void init()
     {
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
+        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
+        FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
     }
 
     public static void initCommon()

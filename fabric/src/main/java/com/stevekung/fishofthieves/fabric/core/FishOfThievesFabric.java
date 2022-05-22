@@ -4,12 +4,9 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
-import com.stevekung.fishofthieves.fabric.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -37,14 +34,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FishOfThievesFabric implements ModInitializer
 {
-    public static FishOfThievesConfig CONFIG;
-
     @Override
     public void onInitialize()
     {
-        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
-        CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
-
         FishOfThieves.init();
         FOTItems.init();
         FOTEntities.init();

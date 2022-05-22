@@ -13,7 +13,6 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.PlatformConfig;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -118,7 +117,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
         RUSSET(SpawnSelectors.always()),
         SANDY(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))),
         OCEAN(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN)),
-        MUDDY(SpawnSelectors.probability(PlatformConfig.muddyWildsplashProbability()).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP))),
+        MUDDY(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP))),
         CORAL(SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
