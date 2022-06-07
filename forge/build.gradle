@@ -139,3 +139,5 @@ modrinth {
         loaders = ["forge"]
     }
 }
+
+task curseforgeModrinth(dependsOn: [ build, "modrinth", "curseforge" ], group: "upload")

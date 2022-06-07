@@ -141,3 +141,5 @@ modrinth {
         ]
     }
 }
+
+task curseforgeModrinth(dependsOn: [ build, "modrinth", "curseforge" ], group: "upload")
