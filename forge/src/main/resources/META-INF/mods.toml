@@ -21,6 +21,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
+modId = "cloth_config"
+mandatory = true
+versionRange = "[6.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.18.2,)"

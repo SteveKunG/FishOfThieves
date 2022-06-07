@@ -40,5 +40,12 @@
     "cloth-config": ">=6.2.0",
     "minecraft": ">=1.18.2"
   },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/4bAj4mkGag"
+      }
+    }
+  },
   "accessWidener": "fishofthieves.accesswidener"
 }
