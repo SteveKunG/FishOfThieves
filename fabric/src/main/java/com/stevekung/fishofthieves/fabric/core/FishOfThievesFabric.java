@@ -4,18 +4,18 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
+import com.stevekung.fishofthieves.fabric.mixin.accessor.LootPoolBuilderAccessor;
+import com.stevekung.fishofthieves.fabric.mixin.accessor.LootTableBuilderAccessor;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.mixin.loot.table.LootPoolBuilderHooks;
-import net.fabricmc.fabric.mixin.loot.table.LootSupplierBuilderHooks;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -24,6 +24,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -46,29 +47,29 @@ public class FishOfThievesFabric implements ModInitializer
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, FishOfThieves::getTierOneTrades);
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, FishOfThieves::getTierTwoTrades);
 
-        LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) ->
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) ->
         {
-            var pools = ((LootSupplierBuilderHooks) supplier).getPools();
+            var pools = ((LootTableBuilderAccessor)tableBuilder).getPools();
 
             // Gameplay
             if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
             {
-                var pool = FabricLootPoolBuilder.of(pools.get(0))
-                        .with(LootItem.lootTableItem(FOTItems.SPLASHTAIL))
-                        .with(LootItem.lootTableItem(FOTItems.PONDIE))
-                        .with(LootItem.lootTableItem(FOTItems.ISLEHOPPER))
-                        .with(LootItem.lootTableItem(FOTItems.ANCIENTSCALE))
-                        .with(LootItem.lootTableItem(FOTItems.PLENTIFIN))
-                        .with(LootItem.lootTableItem(FOTItems.WILDSPLASH))
-                        .with(LootItem.lootTableItem(FOTItems.DEVILFISH))
-                        .with(LootItem.lootTableItem(FOTItems.BATTLEGILL))
-                        .with(LootItem.lootTableItem(FOTItems.WRECKER))
-                        .with(LootItem.lootTableItem(FOTItems.STORMFISH));
+                var pool = FabricLootPoolBuilder.copyOf(pools.get(0))
+                        .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL))
+                        .add(LootItem.lootTableItem(FOTItems.PONDIE))
+                        .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER))
+                        .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE))
+                        .add(LootItem.lootTableItem(FOTItems.PLENTIFIN))
+                        .add(LootItem.lootTableItem(FOTItems.WILDSPLASH))
+                        .add(LootItem.lootTableItem(FOTItems.DEVILFISH))
+                        .add(LootItem.lootTableItem(FOTItems.BATTLEGILL))
+                        .add(LootItem.lootTableItem(FOTItems.WRECKER))
+                        .add(LootItem.lootTableItem(FOTItems.STORMFISH));
                 pools.set(0, pool.build());
             }
             else if (id.equals(BuiltInLootTables.FISHING_FISH))
             {
-                var pool = FabricLootPoolBuilder.of(pools.get(0))
+                var pool = FabricLootPoolBuilder.copyOf(pools.get(0))
                         .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                                 .setWeight(25)
                                 .when(FOTLootItemConditions.IN_OCEAN))
@@ -104,8 +105,8 @@ public class FishOfThievesFabric implements ModInitializer
             // Entity Loot
             else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
             {
-                var pool = FabricLootPoolBuilder.of(pools.get(0));
-                var builder = ((LootPoolBuilderHooks)pool).getEntries();
+                var pool = FabricLootPoolBuilder.copyOf(pools.get(0));
+                var builder = ((LootPoolBuilderAccessor)pool).getEntries();
 
                 builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted()
@@ -173,64 +174,64 @@ public class FishOfThievesFabric implements ModInitializer
             // Chests
             else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
             {
-                var villagerFisher = FabricLootPoolBuilder.builder()
-                        .with(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                var villagerFisher = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.PONDIE)
+                        .add(LootItem.lootTableItem(FOTItems.PONDIE)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
+                        .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                        .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 3.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                        .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.WILDSPLASH)
+                        .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.DEVILFISH)
+                        .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.BATTLEGILL)
+                        .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.WRECKER)
+                        .add(LootItem.lootTableItem(FOTItems.WRECKER)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.STORMFISH)
+                        .add(LootItem.lootTableItem(FOTItems.STORMFISH)
                                 .setWeight(1)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
-                supplier.withPool(villagerFisher);
+                tableBuilder.pool(villagerFisher.build());
             }
             else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
             {
-                var buriedTreasure = FabricLootPoolBuilder.builder()
-                        .rolls(ConstantValue.exactly(2.0f))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_SPLASHTAIL)
+                var buriedTreasure = LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(2.0f))
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_SPLASHTAIL)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_PONDIE)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_PONDIE)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_ISLEHOPPER)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_ISLEHOPPER)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_ANCIENTSCALE)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_ANCIENTSCALE)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_PLENTIFIN)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_PLENTIFIN)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_WILDSPLASH)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_WILDSPLASH)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_DEVILFISH)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_DEVILFISH)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_BATTLEGILL)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_BATTLEGILL)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_WRECKER)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_WRECKER)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .with(LootItem.lootTableItem(FOTItems.COOKED_STORMFISH)
+                        .add(LootItem.lootTableItem(FOTItems.COOKED_STORMFISH)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
-                supplier.withPool(buriedTreasure);
+                tableBuilder.pool(buriedTreasure.build());
             }
         });
 
