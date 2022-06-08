@@ -46,6 +46,7 @@ public final class SpawnSelectors
         return context -> context.random().nextFloat() < probability;
     }
 
+    @SafeVarargs
     public static Predicate<SpawnConditionContext> features(TagKey<Structure>... structures)
     {
         return context ->

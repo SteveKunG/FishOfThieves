@@ -380,7 +380,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(FOTTags.UNDERGROUND).add(Biomes.LUSH_CAVES).add(Biomes.DRIPSTONE_CAVES);
+            this.tag(FOTTags.UNDERGROUND).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
         }
     }
 
