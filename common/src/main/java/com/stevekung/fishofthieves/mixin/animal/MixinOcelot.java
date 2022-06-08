@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.google.common.collect.ObjectArrays;
-import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTEarlyItems;
 import net.minecraft.world.entity.animal.Ocelot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -24,6 +24,6 @@ public class MixinOcelot
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void fishofthieves$addFoods(CallbackInfo info)
     {
-        TEMPT_INGREDIENT = Ingredient.of(ObjectArrays.concat(TEMPT_INGREDIENT.getItems(), FOTItems.CAT_FOODS, ItemStack.class));
+        TEMPT_INGREDIENT = Ingredient.of(ObjectArrays.concat(TEMPT_INGREDIENT.getItems(), FOTEarlyItems.CAT_FOODS, ItemStack.class));
     }
 }

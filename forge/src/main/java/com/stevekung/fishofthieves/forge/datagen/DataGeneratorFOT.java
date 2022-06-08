@@ -1,11 +1,8 @@
 package com.stevekung.fishofthieves.forge.datagen;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.Objects;
 
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -18,9 +15,9 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.nbt.CompoundTag;
@@ -45,12 +42,8 @@ public class DataGeneratorFOT
     {
         var dataGenerator = event.getGenerator();
         var helper = event.getExistingFileHelper();
-
-        if (event.includeServer())
-        {
-            dataGenerator.addProvider(new ForgeItemTags(dataGenerator, FishOfThieves.MOD_ID, helper));
-            dataGenerator.addProvider(new FishingReal(dataGenerator));
-        }
+        dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(dataGenerator, FishOfThieves.MOD_ID, helper));
+        dataGenerator.addProvider(event.includeServer(), new FishingReal(dataGenerator));
     }
 
     private static class ForgeItemTags extends ItemTagsProvider
@@ -117,11 +110,11 @@ public class DataGeneratorFOT
         public void add(Item item, EntityType<?> entityType, @Nullable CompoundTag compoundTag)
         {
             var builder = new FishingRealBuilder(item, entityType, compoundTag);
-            this.builders.put(entityType.getRegistryName(), builder);
+            this.builders.put(ForgeRegistries.ENTITIES.getKey(entityType), builder);
         }
 
         @Override
-        public void run(HashCache cache)
+        public void run(CachedOutput cachedOutput)
         {
             this.builders.clear();
             this.addFishingReal();
@@ -132,19 +125,7 @@ public class DataGeneratorFOT
 
                 try
                 {
-                    var string = GSON.toJson(jsonObject);
-                    var string2 = SHA1.hashUnencodedChars(string).toString();
-
-                    if (!Objects.equals(cache.getHash(path), string2) || !Files.exists(path))
-                    {
-                        Files.createDirectories(path.getParent());
-
-                        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path))
-                        {
-                            bufferedWriter.write(string);
-                        }
-                    }
-                    cache.putNew(path, string2);
+                    DataProvider.saveStable(cachedOutput, jsonObject, path);
                 }
                 catch (IOException iOException)
                 {

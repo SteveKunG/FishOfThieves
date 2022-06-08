@@ -5,7 +5,6 @@ import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
@@ -55,19 +54,6 @@ public class FOTItems
     public static final Item BATTLEGILL_SPAWN_EGG = new SpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item WRECKER_SPAWN_EGG = new SpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item STORMFISH_SPAWN_EGG = new SpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-
-    public static final ItemStack[] CAT_FOODS = {
-            new ItemStack(FOTItems.SPLASHTAIL),
-            new ItemStack(FOTItems.PONDIE),
-            new ItemStack(FOTItems.ISLEHOPPER),
-            new ItemStack(FOTItems.ANCIENTSCALE),
-            new ItemStack(FOTItems.PLENTIFIN),
-            new ItemStack(FOTItems.WILDSPLASH),
-            new ItemStack(FOTItems.DEVILFISH),
-            new ItemStack(FOTItems.BATTLEGILL),
-            new ItemStack(FOTItems.WRECKER),
-            new ItemStack(FOTItems.STORMFISH)
-    };
 
     public static void init()
     {

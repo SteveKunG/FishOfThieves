@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.ArrayUtils;
@@ -14,14 +13,11 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.Util;
 import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.data.worldgen.Structures;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -38,7 +34,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -263,69 +258,22 @@ public class CommonProxyForge
         }
     }
 
-    @SubscribeEvent
-    public void registerMobSpawn(BiomeLoadingEvent event)
-    {
-        var category = event.getCategory();
-        var name = event.getName();
-
-        if (category == Biome.BiomeCategory.OCEAN)
-        {
-            event.getSpawns().addSpawn(FOTEntities.SPLASHTAIL.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 15, 4, 8));
-        }
-        if (category == Biome.BiomeCategory.RIVER || category == Biome.BiomeCategory.FOREST)
-        {
-            event.getSpawns().addSpawn(FOTEntities.PONDIE.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 15, 2, 4));
-        }
-        if (category == Biome.BiomeCategory.OCEAN || category == Biome.BiomeCategory.BEACH || category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP || category == Biome.BiomeCategory.UNDERGROUND)
-        {
-            event.getSpawns().addSpawn(FOTEntities.ISLEHOPPER.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, 8, 2, 4));
-        }
-        if (Objects.equals(name, Biomes.LUKEWARM_OCEAN.location()) || Objects.equals(name, Biomes.DEEP_LUKEWARM_OCEAN.location()))
-        {
-            event.getSpawns().addSpawn(FOTEntities.ANCIENTSCALE.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 8, 4, 8));
-        }
-        if (Objects.equals(name, Biomes.WARM_OCEAN.location()) || Objects.equals(name, Biomes.LUKEWARM_OCEAN.location()) || Objects.equals(name, Biomes.DEEP_LUKEWARM_OCEAN.location()) || category == Biome.BiomeCategory.UNDERGROUND)
-        {
-            event.getSpawns().addSpawn(FOTEntities.PLENTIFIN.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
-        }
-        if (Objects.equals(name, Biomes.LUSH_CAVES.location()) || Objects.equals(name, Biomes.WARM_OCEAN.location()) || category == Biome.BiomeCategory.OCEAN || category == Biome.BiomeCategory.BEACH || category == Biome.BiomeCategory.JUNGLE || category == Biome.BiomeCategory.SWAMP)
-        {
-            event.getSpawns().addSpawn(FOTEntities.WILDSPLASH.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, 10, 2, 4));
-        }
-        if (!Objects.equals(name, Biomes.LUSH_CAVES.location()))
-        {
-            event.getSpawns().addSpawn(FOTEntities.DEVILFISH.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, 4, 1, 2));
-        }
-
-        event.getSpawns().addSpawn(FOTEntities.BATTLEGILL.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
-
-        if (category == Biome.BiomeCategory.OCEAN)
-        {
-            event.getSpawns().addSpawn(FOTEntities.WRECKER.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8));
-        }
-        if (category == Biome.BiomeCategory.OCEAN || Objects.equals(name, Biomes.SPARSE_JUNGLE.location()))
-        {
-            event.getSpawns().addSpawn(FOTEntities.STORMFISH.getCategory(), new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8));
-        }
-    }
-
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void addFishSpawnToStructure(StructureSpawnListGatherEvent event)
     {
-        if (event.getStructure() == StructureFeature.OCEAN_RUIN)
+        if (event.getStructure() == Structures.OCEAN_RUIN_COLD.get() || event.getStructure() == Structures.OCEAN_RUIN_WARM.get())
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.ANCIENTSCALES.unwrap());
         }
-        if (event.getStructure() == StructureFeature.MINESHAFT || event.getStructure() == StructureFeature.STRONGHOLD)
+        if (event.getStructure() == Structures.MINESHAFT.get() || event.getStructure() == Structures.STRONGHOLD.get())
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.PLENTIFINS.unwrap());
         }
-        if (event.getStructure() == StructureFeature.OCEAN_MONUMENT || event.getStructure() == StructureFeature.PILLAGER_OUTPOST)
+        if (event.getStructure() == Structures.OCEAN_MONUMENT.get() || event.getStructure() == Structures.PILLAGER_OUTPOST.get())
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.BATTLEGILLS.unwrap());
         }
-        if (event.getStructure() == StructureFeature.SHIPWRECK)
+        if (event.getStructure() == Structures.SHIPWRECK.get())
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.WRECKERS.unwrap());
         }
