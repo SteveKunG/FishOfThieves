@@ -124,20 +124,24 @@ curseforge {
 }
 
 import com.modrinth.minotaur.dependencies.ModDependency
+import com.modrinth.minotaur.dependencies.DependencyType
 
 modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
         projectId = "BzOTnuqM"
         changelog = file("../CHANGE_LOG.md").text
-        versionName = "[Fabric] " + fileName + "-v${project.version}"
+        versionName = "[Fabric] Fish of Thieves " + "v${project.version}" + " for Minecraft " + project.mc_version
         versionNumber = project.mod_version + "-fabric"
         versionType = "release"
         uploadFile = remapJar
         gameVersions = ["${project.mc_version}"]
         loaders = ["fabric"]
         dependencies = [
-                new ModDependency("P7dR8mSH", "required") // Fabric API
+                new ModDependency("P7dR8mSH", DependencyType.REQUIRED), // Fabric API
+                new ModDependency("9s6osm5g", DependencyType.REQUIRED), // Cloth Config
+                new ModDependency("mOgUt4GM", DependencyType.OPTIONAL), // Mod Menu
+                new ModDependency("VOYxIjFI", DependencyType.OPTIONAL) // Canvas Renderer
         ]
     }
 }
