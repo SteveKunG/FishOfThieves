@@ -2,4 +2,5 @@
 
 ### Please report if you found the issues!
 
-* [Fabric] Update to 1.19
+* Update to 1.19
+* [Fabric] Fixed Ancientscales now spawning inside Cold Ocean Ruin
