@@ -50,7 +50,7 @@ public class FishOfThievesFabric implements ModInitializer
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) ->
         {
-            var pools = ((LootTableBuilderAccessor)tableBuilder).getPools();
+            var pools = ((LootTableBuilderAccessor) tableBuilder).getPools();
 
             // Gameplay
             if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
@@ -107,7 +107,7 @@ public class FishOfThievesFabric implements ModInitializer
             else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
             {
                 var pool = FabricLootPoolBuilder.copyOf(pools.get(0));
-                var builder = ((LootPoolBuilderAccessor)pool).getEntries();
+                var builder = ((LootPoolBuilderAccessor) pool).getEntries();
 
                 builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted()
