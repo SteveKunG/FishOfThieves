@@ -23,7 +23,7 @@ public class MixinChunkGenerator
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_RUIN_WARM).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_RUIN_WARM).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_RUIN_COLD).isValid())
             {
                 info.setReturnValue(FOTEntities.ANCIENTSCALES);
             }
