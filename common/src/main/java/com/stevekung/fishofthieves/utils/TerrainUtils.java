@@ -6,13 +6,12 @@ import java.util.function.Predicate;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
-import net.minecraft.world.level.biome.TerrainShaper;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.NoiseRouterData;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class TerrainUtils
 {
@@ -27,18 +26,13 @@ public class TerrainUtils
     public static PeakTypes getPeakTypes(ServerLevel level, BlockPos blockPos)
     {
         var weirdness = Climate.unquantizeCoord(TerrainUtils.getTargetPoint(level, blockPos).weirdness());
-        var peakTypes = TerrainShaper.peaksAndValleys(weirdness);
+        var peakTypes = NoiseRouterData.peaksAndValleys(weirdness);
         return PeakTypes.byName(OverworldBiomeBuilder.getDebugStringForPeaksAndValleys(peakTypes));
     }
 
-    public static boolean isInFeature(ServerLevel level, BlockPos blockPos, ResourceKey<ConfiguredStructureFeature<?, ?>> structureFeature)
+    public static boolean isInFeature(ServerLevel level, BlockPos blockPos, TagKey<Structure> tagKey)
     {
-        return level.structureFeatureManager().getStructureWithPieceAt(blockPos, structureFeature).isValid();
-    }
-
-    public static Biome.BiomeCategory getBiomeCategory(ServerLevel level, BlockPos blockPos)
-    {
-        return level.getBiome(blockPos).value().getBiomeCategory();
+        return level.structureManager().getStructureWithPieceAt(blockPos, tagKey).isValid();
     }
 
     public static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)
@@ -69,6 +63,6 @@ public class TerrainUtils
         var chunkX = QuartPos.fromBlock(blockPos.getX());
         var chunkY = QuartPos.fromBlock(blockPos.getY());
         var chunkZ = QuartPos.fromBlock(blockPos.getZ());
-        return Objects.requireNonNullElseGet(level.getChunkSource().getGenerator().climateSampler(), Climate::empty).sample(chunkX, chunkY, chunkZ);
+        return Objects.requireNonNullElseGet(level.getChunkSource().randomState().sampler(), Climate::empty).sample(chunkX, chunkY, chunkZ);
     }
 }

@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.5,
   "ingredient": {
     "item": "fishofthieves:battlegill"
   },
-  "result": "fishofthieves:cooked_battlegill",
-  "experience": 0.5,
-  "cookingtime": 200
+  "result": "fishofthieves:cooked_battlegill"
 }

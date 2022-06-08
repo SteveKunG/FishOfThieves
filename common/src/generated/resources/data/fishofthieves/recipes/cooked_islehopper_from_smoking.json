@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smoking",
+  "cookingtime": 100,
+  "experience": 0.4,
   "ingredient": {
     "item": "fishofthieves:islehopper"
   },
-  "result": "fishofthieves:cooked_islehopper",
-  "experience": 0.4,
-  "cookingtime": 100
+  "result": "fishofthieves:cooked_islehopper"
 }

@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 public class MixinChunkGenerator
 {
     @Inject(method = "getMobsAt", cancellable = true, at = @At("HEAD"))
-    private void fishofthieves$addFishSpawn(Holder<Biome> holder, StructureFeatureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
+    private void fishofthieves$addFishSpawn(Holder<Biome> holder, StructureManager structureFeatureManager, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> info)
     {
         if (category == MobCategory.WATER_AMBIENT)
         {

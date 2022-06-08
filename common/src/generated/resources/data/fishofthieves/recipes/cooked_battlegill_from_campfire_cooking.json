@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.5,
   "ingredient": {
     "item": "fishofthieves:battlegill"
   },
-  "result": "fishofthieves:cooked_battlegill",
-  "experience": 0.5,
-  "cookingtime": 600
+  "result": "fishofthieves:cooked_battlegill"
 }

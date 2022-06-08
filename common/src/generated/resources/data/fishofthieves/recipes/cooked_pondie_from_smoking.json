@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smoking",
+  "cookingtime": 100,
+  "experience": 0.25,
   "ingredient": {
     "item": "fishofthieves:pondie"
   },
-  "result": "fishofthieves:cooked_pondie",
-  "experience": 0.25,
-  "cookingtime": 100
+  "result": "fishofthieves:cooked_pondie"
 }

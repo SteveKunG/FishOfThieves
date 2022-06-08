@@ -1,30 +1,26 @@
 {
+  "criteria": {
+    "in_water": {
+      "conditions": {
+        "block": "minecraft:water"
+      },
+      "trigger": "minecraft:enter_block"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "fishofthieves:splashtail"
-    },
-    "title": {
-      "translate": "advancements.fot.root.title"
-    },
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/tube_coral_block.png",
     "description": {
       "translate": "advancements.fot.root.description"
     },
     "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": false,
     "hidden": false,
-    "background": "minecraft:textures/block/tube_coral_block.png"
-  },
-  "criteria": {
-    "in_water": {
-      "trigger": "minecraft:location",
-      "conditions": {
-        "location": {
-          "fluid": {
-            "tag": "minecraft:water"
-          }
-        }
-      }
+    "icon": {
+      "item": "fishofthieves:splashtail"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.fot.root.title"
     }
   },
   "requirements": [

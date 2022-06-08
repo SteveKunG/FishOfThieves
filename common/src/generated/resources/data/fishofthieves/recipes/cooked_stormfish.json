@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.6,
   "ingredient": {
     "item": "fishofthieves:stormfish"
   },
-  "result": "fishofthieves:cooked_stormfish",
-  "experience": 0.6,
-  "cookingtime": 200
+  "result": "fishofthieves:cooked_stormfish"
 }

@@ -4,14 +4,17 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
 
-public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continentalness continentalness, Boolean raidActive)
+public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continentalness, Boolean raidActive)
 {
     public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null, null);
 
@@ -19,9 +22,8 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
     {
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
-        var biome = level.getBiome(blockPos).value();
         var isRaided = level.isRaided(blockPos);
-        return (this.biomeCategory == null || loaded && this.biomeCategory == biome.getBiomeCategory()) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.raidActive == null || loaded && this.raidActive == isRaided);
+        return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.raidActive == null || loaded && this.raidActive == isRaided);
     }
 
     public JsonElement serializeToJson()
@@ -33,9 +35,9 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
 
         var jsonObject = new JsonObject();
 
-        if (this.biomeCategory != null)
+        if (this.biome != null)
         {
-            jsonObject.addProperty("biomeCategory", this.biomeCategory.getSerializedName());
+            jsonObject.addProperty("biome", this.biome.location().toString());
         }
         if (this.continentalness != null)
         {
@@ -56,13 +58,18 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
         }
 
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
-        Biome.BiomeCategory biomeCategory = null;
+        TagKey<Biome> biome = null;
         Continentalness continentalness = null;
         Boolean raidActive = null;
 
-        if (jsonObject.has("biomeCategory"))
+        if (jsonObject.has("biome"))
         {
-            biomeCategory = Biome.BiomeCategory.byName(GsonHelper.getAsString(jsonObject, "biomeCategory"));
+            var tagCodec = TagKey.codec(Registry.BIOME_REGISTRY).parse(JsonOps.INSTANCE, jsonObject.get("biome"));
+
+            if (tagCodec.result().isPresent())
+            {
+                biome = tagCodec.result().get();
+            }
         }
         if (jsonObject.has("continentalness"))
         {
@@ -72,13 +79,13 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
         {
             raidActive = GsonHelper.getAsBoolean(jsonObject, "raidActive");
         }
-        return new FOTLocationPredicate(biomeCategory, continentalness, raidActive);
+        return new FOTLocationPredicate(biome, continentalness, raidActive);
     }
 
     public static class Builder
     {
         @Nullable
-        private Biome.BiomeCategory biomeCategory;
+        private TagKey<Biome> biome;
         @Nullable
         private Continentalness continentalness;
         @Nullable
@@ -89,9 +96,9 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
             return new Builder();
         }
 
-        public Builder setBiomeCategory(@Nullable Biome.BiomeCategory biomeCategory)
+        public Builder setBiomeCategory(@Nullable TagKey<Biome> biome)
         {
-            this.biomeCategory = biomeCategory;
+            this.biome = biome;
             return this;
         }
 
@@ -109,7 +116,7 @@ public record FOTLocationPredicate(Biome.BiomeCategory biomeCategory, Continenta
 
         public FOTLocationPredicate build()
         {
-            return new FOTLocationPredicate(this.biomeCategory, this.continentalness, this.raidActive);
+            return new FOTLocationPredicate(this.biome, this.continentalness, this.raidActive);
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -11,6 +14,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -21,6 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -37,7 +42,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Battlegill extends AbstractSchoolingThievesFish
 {
@@ -146,9 +150,9 @@ public class Battlegill extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        var waterRules = (TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.OCEAN_MONUMENT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.PILLAGER_OUTPOST)) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var waterRules = (TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.MONUMENTS) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.PILLAGER_OUTPOSTS)) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
         var inFeatures = levelAccessor.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) levelAccessor).isRaided(blockPos);
         return waterRules || inFeatures;
     }

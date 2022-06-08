@@ -34,11 +34,8 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -48,8 +45,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -93,6 +93,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(LootProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
+        dataGenerator.addProvider(BiomeTagsProvider::new);
+        dataGenerator.addProvider(StructureTagsProvider::new);
         dataGenerator.addProvider(AdvancementProvider::new);
     }
 
@@ -368,6 +370,35 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
+    private static class BiomeTagsProvider extends FabricTagProvider.DynamicRegistryTagProvider<Biome>
+    {
+        public BiomeTagsProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator, Registry.BIOME_REGISTRY);
+        }
+
+        @Override
+        protected void generateTags()
+        {
+            this.tag(FOTTags.UNDERGROUND).add(Biomes.LUSH_CAVES).add(Biomes.DRIPSTONE_CAVES);
+        }
+    }
+
+    private static class StructureTagsProvider extends FabricTagProvider.DynamicRegistryTagProvider<Structure>
+    {
+        public StructureTagsProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator, Registry.STRUCTURE_REGISTRY);
+        }
+
+        @Override
+        protected void generateTags()
+        {
+            this.tag(FOTTags.MONUMENTS).add(BuiltinStructures.OCEAN_MONUMENT);
+            this.tag(FOTTags.STRONGHOLDS).add(BuiltinStructures.STRONGHOLD);
+        }
+    }
+
     private static class AdvancementProvider extends FabricAdvancementProvider
     {
         private static final Map<Item, FishVariant[]> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
@@ -394,36 +425,33 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             var advancement = Advancement.Builder.advancement()
                     .display(FOTItems.SPLASHTAIL,
-                            new TranslatableComponent("advancements.fot.root.title"),
-                            new TranslatableComponent("advancements.fot.root.description"),
+                            Component.translatable("advancements.fot.root.title"),
+                            Component.translatable("advancements.fot.root.description"),
                             new ResourceLocation("textures/block/tube_coral_block.png"),
                             FrameType.TASK, false, false, false)
-                    .addCriterion("in_water", LocationTrigger.TriggerInstance.located(
-                            LocationPredicate.Builder.location()
-                                    .setFluid(FluidPredicate.Builder.fluid()
-                                            .of(FluidTags.WATER).build()).build()))
+                    .addCriterion("in_water", EnterBlockTrigger.TriggerInstance.entersBlock(Blocks.WATER))
                     .save(consumer, this.get("root"));
 
             var advancement2 = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
                     .display(FOTItems.SPLASHTAIL_BUCKET,
-                            new TranslatableComponent("advancements.fot.fish_collectors.title"),
-                            new TranslatableComponent("advancements.fot.fish_collectors.description"),
+                            Component.translatable("advancements.fot.fish_collectors.title"),
+                            Component.translatable("advancements.fot.fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(250))
                     .save(consumer, this.get("fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
                     .display(FOTItems.SPLASHTAIL_BUCKET,
-                            new TranslatableComponent("advancements.fot.master_fish_collectors.title"),
-                            new TranslatableComponent("advancements.fot.master_fish_collectors.description"),
+                            Component.translatable("advancements.fot.master_fish_collectors.title"),
+                            Component.translatable("advancements.fot.master_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(1000))
                     .save(consumer, this.get("master_fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
                     .display(FOTItems.SPLASHTAIL_BUCKET,
-                            new TranslatableComponent("advancements.fot.legendary_fish_collectors.title"),
-                            new TranslatableComponent("advancements.fot.legendary_fish_collectors.description"),
+                            Component.translatable("advancements.fot.legendary_fish_collectors.title"),
+                            Component.translatable("advancements.fot.legendary_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(2000))
                     .save(consumer, this.get("legendary_fish_collectors"));
@@ -437,33 +465,33 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     })),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
                     .display(FOTItems.DEVILFISH,
-                            new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
-                            new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
+                            Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
+                            Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
                             null, FrameType.TASK, true, true, false)
                     .save(consumer, this.get("feed_axolotl_with_lava_devilfish"));
 
             var battlegill = Registry.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .addCriterion(battlegill + "_village_plains",
-                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_PLAINS)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_PLAINS)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                     .addCriterion(battlegill + "_village_desert",
-                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_DESERT)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_DESERT)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                     .addCriterion(battlegill + "_village_savanna",
-                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_SAVANNA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_SAVANNA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                     .addCriterion(battlegill + "_village_snowy",
-                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_SNOWY)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_SNOWY)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                     .addCriterion(battlegill + "_village_taiga",
-                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inFeature(BuiltinStructures.VILLAGE_TAIGA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
+                            FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_TAIGA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                     .display(FOTItems.BATTLEGILL,
-                            new TranslatableComponent("advancements.fot.so_chill.title"),
-                            new TranslatableComponent("advancements.fot.so_chill.description"),
+                            Component.translatable("advancements.fot.so_chill.title"),
+                            Component.translatable("advancements.fot.so_chill.description"),
                             null, FrameType.TASK, true, true, false)
                     .save(consumer, this.get("so_chill"));
 
             Advancement.Builder.advancement().parent(advancement)
                     .display(FOTItems.STORMFISH,
-                            new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.title"),
-                            new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.description"),
+                            Component.translatable("advancements.fot.lightning_straight_to_my_fish.title"),
+                            Component.translatable("advancements.fot.lightning_straight_to_my_fish.description"),
                             null, FrameType.TASK, true, true, false)
                     .addCriterion("lightning_strike_at_stormfish", fireCountAndBystander(MinMaxBounds.Ints.exactly(0),
                             EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
@@ -471,16 +499,16 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             Advancement.Builder.advancement().parent(advancement)
                     .display(Items.SPYGLASS,
-                            new TranslatableComponent("advancements.fot.spyglass_at_plentifins.title"),
-                            new TranslatableComponent("advancements.fot.spyglass_at_plentifins.description"),
+                            Component.translatable("advancements.fot.spyglass_at_plentifins.title"),
+                            Component.translatable("advancements.fot.spyglass_at_plentifins.description"),
                             null, FrameType.TASK, true, true, false)
                     .addCriterion("spyglass_at_plentifins", lookAtThroughItem(FOTEntities.PLENTIFIN, Items.SPYGLASS))
                     .save(consumer, this.get("spyglass_at_plentifins"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .display(Items.JUKEBOX,
-                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.title"),
-                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.description"),
+                            Component.translatable("advancements.fot.play_jukebox_near_fishes.title"),
+                            Component.translatable("advancements.fot.play_jukebox_near_fishes.description"),
                             null, FrameType.TASK, true, true, true)
                     .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
@@ -499,13 +527,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(Util.make(new CompoundTag(), compound ->
                                     {
                                         var displayCompound = new CompoundTag();
-                                        displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(new TextComponent("Sally")));
+                                        displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(Component.literal("Sally")));
                                         compound.put(ItemStack.TAG_DISPLAY, displayCompound);
                                     })),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
                     .display(Items.SALMON,
-                            new TranslatableComponent("advancements.fot.lost_sally.title"),
-                            new TranslatableComponent("advancements.fot.lost_sally.description"),
+                            Component.translatable("advancements.fot.lost_sally.title"),
+                            Component.translatable("advancements.fot.lost_sally.description"),
                             null, FrameType.TASK, true, true, true)
                     .save(consumer, this.get("lost_sally"));
         }
@@ -543,12 +571,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         private static LightningStrikeTrigger.TriggerInstance fireCountAndBystander(MinMaxBounds.Ints blocksSetOnFire, EntityPredicate bystander)
         {
-            return LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).lighthingBolt(LighthingBoltPredicate.blockSetOnFire(blocksSetOnFire)).build(), bystander);
+            return LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LighthingBoltPredicate.blockSetOnFire(blocksSetOnFire)).build(), bystander);
         }
 
         private static UsingItemTrigger.TriggerInstance lookAtThroughItem(EntityType<?> lookedAtEntityType, Item lookedThroughItem)
         {
-            return UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().player(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(lookedAtEntityType).build()).build()), ItemPredicate.Builder.item().of(lookedThroughItem));
+            return UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(lookedAtEntityType).build()).build()), ItemPredicate.Builder.item().of(lookedThroughItem));
         }
     }
 }

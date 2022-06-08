@@ -13,10 +13,12 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -24,7 +26,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Ancientscale extends AbstractSchoolingThievesFish
 {
@@ -100,7 +101,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         ALMOND(SpawnSelectors.always()),
         SAPPHIRE(SpawnSelectors.always()),
         SMOKE(SpawnSelectors.always()),
-        BONE(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        BONE(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0))),
         STARSHINE(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

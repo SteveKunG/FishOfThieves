@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smoking",
+  "cookingtime": 100,
+  "experience": 0.4,
   "ingredient": {
     "item": "fishofthieves:plentifin"
   },
-  "result": "fishofthieves:cooked_plentifin",
-  "experience": 0.4,
-  "cookingtime": 100
+  "result": "fishofthieves:cooked_plentifin"
 }

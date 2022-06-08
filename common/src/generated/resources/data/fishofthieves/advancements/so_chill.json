@@ -1,125 +1,125 @@
 {
   "parent": "fishofthieves:root",
+  "criteria": {
+    "battlegill_village_desert": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:village_desert"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "fishofthieves:battlegill"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "battlegill_village_plains": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:village_plains"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "fishofthieves:battlegill"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "battlegill_village_savanna": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:village_savanna"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "fishofthieves:battlegill"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "battlegill_village_snowy": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:village_snowy"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "fishofthieves:battlegill"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    },
+    "battlegill_village_taiga": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "minecraft:village_taiga"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": [
+            "fishofthieves:battlegill"
+          ]
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "fishofthieves:battlegill"
-    },
-    "title": {
-      "translate": "advancements.fot.so_chill.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.so_chill.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:battlegill"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "battlegill_village_plains": {
-      "trigger": "minecraft:fishing_rod_hooked",
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "location": {
-                "feature": "minecraft:village_plains"
-              }
-            },
-            "entity": "this"
-          }
-        ],
-        "item": {
-          "items": [
-            "fishofthieves:battlegill"
-          ]
-        }
-      }
-    },
-    "battlegill_village_desert": {
-      "trigger": "minecraft:fishing_rod_hooked",
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "location": {
-                "feature": "minecraft:village_desert"
-              }
-            },
-            "entity": "this"
-          }
-        ],
-        "item": {
-          "items": [
-            "fishofthieves:battlegill"
-          ]
-        }
-      }
-    },
-    "battlegill_village_savanna": {
-      "trigger": "minecraft:fishing_rod_hooked",
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "location": {
-                "feature": "minecraft:village_savanna"
-              }
-            },
-            "entity": "this"
-          }
-        ],
-        "item": {
-          "items": [
-            "fishofthieves:battlegill"
-          ]
-        }
-      }
-    },
-    "battlegill_village_snowy": {
-      "trigger": "minecraft:fishing_rod_hooked",
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "location": {
-                "feature": "minecraft:village_snowy"
-              }
-            },
-            "entity": "this"
-          }
-        ],
-        "item": {
-          "items": [
-            "fishofthieves:battlegill"
-          ]
-        }
-      }
-    },
-    "battlegill_village_taiga": {
-      "trigger": "minecraft:fishing_rod_hooked",
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "location": {
-                "feature": "minecraft:village_taiga"
-              }
-            },
-            "entity": "this"
-          }
-        ],
-        "item": {
-          "items": [
-            "fishofthieves:battlegill"
-          ]
-        }
-      }
+    "title": {
+      "translate": "advancements.fot.so_chill.title"
     }
   },
   "requirements": [

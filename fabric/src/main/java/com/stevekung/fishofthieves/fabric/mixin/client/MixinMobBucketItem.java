@@ -15,7 +15,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
@@ -36,11 +35,11 @@ public class MixinMobBucketItem
 
         if (this.type.is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
         {
-            var type = new TranslatableComponent("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.type).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+            var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.type).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
             if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
             {
-                type.append(", ").append(new TranslatableComponent("entity.fishofthieves.trophy"));
+                type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
             }
             tooltipComponents.add(type);
         }

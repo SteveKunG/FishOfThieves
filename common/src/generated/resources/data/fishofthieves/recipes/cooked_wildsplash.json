@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.45,
   "ingredient": {
     "item": "fishofthieves:wildsplash"
   },
-  "result": "fishofthieves:cooked_wildsplash",
-  "experience": 0.45,
-  "cookingtime": 200
+  "result": "fishofthieves:cooked_wildsplash"
 }

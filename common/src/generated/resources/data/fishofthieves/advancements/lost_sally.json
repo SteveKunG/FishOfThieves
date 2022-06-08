@@ -1,40 +1,40 @@
 {
   "parent": "fishofthieves:root",
-  "display": {
-    "icon": {
-      "item": "minecraft:salmon"
-    },
-    "title": {
-      "translate": "advancements.fot.lost_sally.title"
-    },
-    "description": {
-      "translate": "advancements.fot.lost_sally.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": true
-  },
   "criteria": {
     "name_tag": {
-      "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:salmon"
+            }
+          }
+        ],
         "item": {
           "items": [
             "minecraft:name_tag"
           ],
-          "nbt": "{display:{Name:\u0027{\"text\":\"Sally\"}\u0027}}"
-        },
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "minecraft:salmon"
-            },
-            "entity": "this"
-          }
-        ]
-      }
+          "nbt": "{display:{Name:'{\"text\":\"Sally\"}'}}"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.lost_sally.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "minecraft:salmon"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.lost_sally.title"
     }
   },
   "requirements": [

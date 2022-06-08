@@ -1,123 +1,120 @@
 {
   "parent": "fishofthieves:root",
-  "display": {
-    "icon": {
-      "item": "fishofthieves:splashtail_bucket"
-    },
-    "title": {
-      "translate": "advancements.fot.fish_collectors.title"
-    },
-    "description": {
-      "translate": "advancements.fot.fish_collectors.description"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "rewards": {
-    "experience": 250
-  },
   "criteria": {
-    "splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ]
-        }
-      }
-    },
-    "pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ]
-        }
-      }
-    },
-    "islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ]
-        }
-      }
-    },
     "ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
             "fishofthieves:ancientscale_bucket"
           ]
         }
-      }
-    },
-    "plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:plentifin_bucket"
-          ]
-        }
-      }
-    },
-    "wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ]
-        }
-      }
-    },
-    "devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ]
-        }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
             "fishofthieves:battlegill_bucket"
           ]
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
-    "wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
+    "devilfish_bucket": {
       "conditions": {
         "item": {
           "items": [
-            "fishofthieves:wrecker_bucket"
+            "fishofthieves:devilfish_bucket"
           ]
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:islehopper_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:plentifin_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
             "fishofthieves:stormfish_bucket"
           ]
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ]
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.fish_collectors.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:splashtail_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.fish_collectors.title"
     }
   },
   "requirements": [
@@ -151,5 +148,8 @@
     [
       "stormfish_bucket"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
 }

@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -10,6 +13,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -24,6 +28,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -32,7 +37,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
@@ -127,7 +131,7 @@ public class Islehopper extends AbstractThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
         var biome = levelAccessor.getBiome(blockPos);
@@ -138,13 +142,13 @@ public class Islehopper extends AbstractThievesFish
         {
             return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
         }
-        return biome.value().getBiomeCategory() == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
+        return biome.is(FOTTags.UNDERGROUND) && blockPos.getY() <= 0 || waterRules;
     }
 
     public enum Variant implements FishVariant
     {
         STONE(SpawnSelectors.always()),
-        MOSS(SpawnSelectors.categories(Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES))),
+        MOSS(SpawnSelectors.biomes(BiomeTags.IS_JUNGLE, BiomeTags.HAS_CLOSER_WATER_FOG).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES))),
         HONEY(context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->

@@ -22,9 +22,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ConfiguredStructureTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -42,7 +43,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
@@ -178,9 +178,9 @@ public class Wrecker extends AbstractThievesFish
         return false;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.SHIPWRECK) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
+        return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.SHIPWRECK) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -220,11 +220,11 @@ public class Wrecker extends AbstractThievesFish
                 this.stuck = false;
                 this.wrecker.getNavigation().stop();
                 var blockPos = this.wrecker.blockPosition();
-                var blockPos2 = serverLevel.findNearestMapFeature(ConfiguredStructureTags.SHIPWRECK, blockPos, 32, false);
+                var blockPos2 = serverLevel.findNearestMapStructure(StructureTags.SHIPWRECK, blockPos, 32, false);
 
                 if (blockPos2 == null)
                 {
-                    var blockPos3 = serverLevel.findNearestMapFeature(ConfiguredStructureTags.SHIPWRECK, blockPos, 32, false);
+                    var blockPos3 = serverLevel.findNearestMapStructure(StructureTags.SHIPWRECK, blockPos, 32, false);
 
                     if (blockPos3 == null)
                     {

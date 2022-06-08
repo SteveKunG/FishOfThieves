@@ -1,43 +1,44 @@
 {
   "parent": "fishofthieves:root",
-  "display": {
-    "icon": {
-      "item": "minecraft:spyglass"
-    },
-    "title": {
-      "translate": "advancements.fot.spyglass_at_plentifins.title"
-    },
-    "description": {
-      "translate": "advancements.fot.spyglass_at_plentifins.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "spyglass_at_plentifins": {
-      "trigger": "minecraft:using_item",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "player": {
-                "looking_at": {
-                  "type": "fishofthieves:plentifin"
-                }
-              }
-            },
-            "entity": "this"
-          }
-        ],
         "item": {
           "items": [
             "minecraft:spyglass"
           ]
-        }
-      }
+        },
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "player",
+                "looking_at": {
+                  "type": "fishofthieves:plentifin"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.spyglass_at_plentifins.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:spyglass"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.spyglass_at_plentifins.title"
     }
   },
   "requirements": [

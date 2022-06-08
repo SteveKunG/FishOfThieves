@@ -1,50 +1,51 @@
 {
   "parent": "fishofthieves:root",
-  "display": {
-    "icon": {
-      "item": "fishofthieves:stormfish"
-    },
-    "title": {
-      "translate": "advancements.fot.lightning_straight_to_my_fish.title"
-    },
-    "description": {
-      "translate": "advancements.fot.lightning_straight_to_my_fish.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "lightning_strike_at_stormfish": {
-      "trigger": "minecraft:lightning_strike",
       "conditions": {
+        "bystander": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "fishofthieves:stormfish"
+            }
+          }
+        ],
         "lightning": [
           {
             "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
               "distance": {
                 "absolute": {
                   "max": 16.0
                 }
               },
-              "lightning_bolt": {
+              "type_specific": {
+                "type": "lightning",
                 "blocks_set_on_fire": 0
               }
-            },
-            "entity": "this"
-          }
-        ],
-        "bystander": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "fishofthieves:stormfish"
-            },
-            "entity": "this"
+            }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:lightning_strike"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.lightning_straight_to_my_fish.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:stormfish"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.lightning_straight_to_my_fish.title"
     }
   },
   "requirements": [

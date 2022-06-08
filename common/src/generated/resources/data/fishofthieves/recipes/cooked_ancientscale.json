@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.45,
   "ingredient": {
     "item": "fishofthieves:ancientscale"
   },
-  "result": "fishofthieves:cooked_ancientscale",
-  "experience": 0.45,
-  "cookingtime": 200
+  "result": "fishofthieves:cooked_ancientscale"
 }

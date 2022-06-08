@@ -9,9 +9,10 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class SpawnSelectors
 {
@@ -45,17 +46,13 @@ public final class SpawnSelectors
         return context -> context.random().nextFloat() < probability;
     }
 
-    @SafeVarargs
-    public static Predicate<SpawnConditionContext> features(ResourceKey<ConfiguredStructureFeature<?, ?>>... structureFeatures)
+    public static Predicate<SpawnConditionContext> features(TagKey<Structure>... structures)
     {
         return context ->
         {
-            for (var structureFeature : structureFeatures)
+            for (TagKey<Structure> structure : structures)
             {
-                if (TerrainUtils.isInFeature(context.level(), context.blockPos(), structureFeature))
-                {
-                    return true;
-                }
+                return TerrainUtils.isInFeature(context.level(), context.blockPos(), structure);
             }
             return false;
         };
@@ -74,11 +71,17 @@ public final class SpawnSelectors
         };
     }
 
-    public static Predicate<SpawnConditionContext> categories(Biome.BiomeCategory... categories)
+    @SafeVarargs
+    public static Predicate<SpawnConditionContext> biomes(TagKey<Biome>... biomes)
     {
-        Set<Biome.BiomeCategory> categorySet = EnumSet.noneOf(Biome.BiomeCategory.class);
-        Collections.addAll(categorySet, categories);
-        return context -> categorySet.stream().anyMatch(category -> context.biomeCategory() == category);
+        return context ->
+        {
+            for (TagKey<Biome> biome : biomes)
+            {
+                return context.biomeTag().is(biome);
+            }
+            return false;
+        };
     }
 
     public static Predicate<SpawnConditionContext> continentalness(Continentalness... continentalnesses)
@@ -92,6 +95,6 @@ public final class SpawnSelectors
     {
         var level = (ServerLevel) livingEntity.level;
         var blockPos = livingEntity.blockPosition();
-        return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), TerrainUtils.getBiomeCategory(level, blockPos), TerrainUtils.getContinentalness(level, blockPos));
+        return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), level.getBiome(blockPos), TerrainUtils.getContinentalness(level, blockPos));
     }
 }

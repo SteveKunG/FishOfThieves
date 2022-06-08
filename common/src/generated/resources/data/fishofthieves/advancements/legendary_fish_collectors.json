@@ -1,191 +1,7 @@
 {
   "parent": "fishofthieves:fish_collectors",
-  "display": {
-    "icon": {
-      "item": "fishofthieves:splashtail_bucket"
-    },
-    "title": {
-      "translate": "advancements.fot.legendary_fish_collectors.title"
-    },
-    "description": {
-      "translate": "advancements.fot.legendary_fish_collectors.description"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "rewards": {
-    "experience": 2000
-  },
   "criteria": {
-    "ruby_splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ],
-          "nbt": "{Name:\"ruby\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "sunny_splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ],
-          "nbt": "{Name:\"sunny\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "indigo_splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ],
-          "nbt": "{Name:\"indigo\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "umber_splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ],
-          "nbt": "{Name:\"umber\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "seafoam_splashtail_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:splashtail_bucket"
-          ],
-          "nbt": "{Name:\"seafoam\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "charcoal_pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ],
-          "nbt": "{Name:\"charcoal\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "orchid_pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ],
-          "nbt": "{Name:\"orchid\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "bronze_pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ],
-          "nbt": "{Name:\"bronze\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "bright_pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ],
-          "nbt": "{Name:\"bright\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "moonsky_pondie_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:pondie_bucket"
-          ],
-          "nbt": "{Name:\"moonsky\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "stone_islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ],
-          "nbt": "{Name:\"stone\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "moss_islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ],
-          "nbt": "{Name:\"moss\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "honey_islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ],
-          "nbt": "{Name:\"honey\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "raven_islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ],
-          "nbt": "{Name:\"raven\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "amethyst_islehopper_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:islehopper_bucket"
-          ],
-          "nbt": "{Name:\"amethyst\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
     "almond_ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
@@ -193,65 +9,10 @@
           ],
           "nbt": "{Name:\"almond\",Trophy:1b,Variant:0}"
         }
-      }
-    },
-    "sapphire_ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:ancientscale_bucket"
-          ],
-          "nbt": "{Name:\"sapphire\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "smoke_ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:ancientscale_bucket"
-          ],
-          "nbt": "{Name:\"smoke\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "bone_ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:ancientscale_bucket"
-          ],
-          "nbt": "{Name:\"bone\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "starshine_ancientscale_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:ancientscale_bucket"
-          ],
-          "nbt": "{Name:\"starshine\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "olive_plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:plentifin_bucket"
-          ],
-          "nbt": "{Name:\"olive\",Trophy:1b,Variant:0}"
-        }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "amber_plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
@@ -259,263 +20,21 @@
           ],
           "nbt": "{Name:\"amber\",Trophy:1b,Variant:1}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
-    "cloudy_plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
+    "amethyst_islehopper_bucket": {
       "conditions": {
         "item": {
           "items": [
-            "fishofthieves:plentifin_bucket"
+            "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"cloudy\",Trophy:1b,Variant:2}"
+          "nbt": "{Name:\"amethyst\",Trophy:1b,Variant:4}"
         }
-      }
-    },
-    "bonedust_plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:plentifin_bucket"
-          ],
-          "nbt": "{Name:\"bonedust\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "watery_plentifin_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:plentifin_bucket"
-          ],
-          "nbt": "{Name:\"watery\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "russet_wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ],
-          "nbt": "{Name:\"russet\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "sandy_wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ],
-          "nbt": "{Name:\"sandy\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "ocean_wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ],
-          "nbt": "{Name:\"ocean\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "muddy_wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ],
-          "nbt": "{Name:\"muddy\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "coral_wildsplash_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wildsplash_bucket"
-          ],
-          "nbt": "{Name:\"coral\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "ashen_devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{Name:\"ashen\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "seashell_devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{Name:\"seashell\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "lava_devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{Name:\"lava\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "forsaken_devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{Name:\"forsaken\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "firelight_devilfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{Name:\"firelight\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "jade_battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:battlegill_bucket"
-          ],
-          "nbt": "{Name:\"jade\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "sky_battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:battlegill_bucket"
-          ],
-          "nbt": "{Name:\"sky\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "rum_battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:battlegill_bucket"
-          ],
-          "nbt": "{Name:\"rum\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "sand_battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:battlegill_bucket"
-          ],
-          "nbt": "{Name:\"sand\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "bittersweet_battlegill_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:battlegill_bucket"
-          ],
-          "nbt": "{Name:\"bittersweet\",Trophy:1b,Variant:4}"
-        }
-      }
-    },
-    "rose_wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wrecker_bucket"
-          ],
-          "nbt": "{Name:\"rose\",Trophy:1b,Variant:0}"
-        }
-      }
-    },
-    "sun_wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wrecker_bucket"
-          ],
-          "nbt": "{Name:\"sun\",Trophy:1b,Variant:1}"
-        }
-      }
-    },
-    "blackcloud_wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wrecker_bucket"
-          ],
-          "nbt": "{Name:\"blackcloud\",Trophy:1b,Variant:2}"
-        }
-      }
-    },
-    "snow_wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wrecker_bucket"
-          ],
-          "nbt": "{Name:\"snow\",Trophy:1b,Variant:3}"
-        }
-      }
-    },
-    "moon_wrecker_bucket": {
-      "trigger": "minecraft:filled_bucket",
-      "conditions": {
-        "item": {
-          "items": [
-            "fishofthieves:wrecker_bucket"
-          ],
-          "nbt": "{Name:\"moon\",Trophy:1b,Variant:4}"
-        }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "ancient_stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
@@ -523,32 +42,373 @@
           ],
           "nbt": "{Name:\"ancient\",Trophy:1b,Variant:0}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
-    "shores_stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
+    "ashen_devilfish_bucket": {
       "conditions": {
         "item": {
           "items": [
-            "fishofthieves:stormfish_bucket"
+            "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"shores\",Trophy:1b,Variant:1}"
+          "nbt": "{Name:\"ashen\",Trophy:1b,Variant:0}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
-    "wild_stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
+    "bittersweet_battlegill_bucket": {
       "conditions": {
         "item": {
           "items": [
-            "fishofthieves:stormfish_bucket"
+            "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"wild\",Trophy:1b,Variant:2}"
+          "nbt": "{Name:\"bittersweet\",Trophy:1b,Variant:4}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "blackcloud_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ],
+          "nbt": "{Name:\"blackcloud\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "bone_ancientscale_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:ancientscale_bucket"
+          ],
+          "nbt": "{Name:\"bone\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "bonedust_plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:plentifin_bucket"
+          ],
+          "nbt": "{Name:\"bonedust\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "bright_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ],
+          "nbt": "{Name:\"bright\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "bronze_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ],
+          "nbt": "{Name:\"bronze\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "charcoal_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ],
+          "nbt": "{Name:\"charcoal\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "cloudy_plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:plentifin_bucket"
+          ],
+          "nbt": "{Name:\"cloudy\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "coral_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ],
+          "nbt": "{Name:\"coral\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "firelight_devilfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:devilfish_bucket"
+          ],
+          "nbt": "{Name:\"firelight\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "forsaken_devilfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:devilfish_bucket"
+          ],
+          "nbt": "{Name:\"forsaken\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "honey_islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:islehopper_bucket"
+          ],
+          "nbt": "{Name:\"honey\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "indigo_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ],
+          "nbt": "{Name:\"indigo\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "jade_battlegill_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:battlegill_bucket"
+          ],
+          "nbt": "{Name:\"jade\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "lava_devilfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:devilfish_bucket"
+          ],
+          "nbt": "{Name:\"lava\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "moon_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ],
+          "nbt": "{Name:\"moon\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "moonsky_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ],
+          "nbt": "{Name:\"moonsky\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "moss_islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:islehopper_bucket"
+          ],
+          "nbt": "{Name:\"moss\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "muddy_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ],
+          "nbt": "{Name:\"muddy\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "ocean_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ],
+          "nbt": "{Name:\"ocean\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "olive_plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:plentifin_bucket"
+          ],
+          "nbt": "{Name:\"olive\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "orchid_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:pondie_bucket"
+          ],
+          "nbt": "{Name:\"orchid\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "raven_islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:islehopper_bucket"
+          ],
+          "nbt": "{Name:\"raven\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "rose_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ],
+          "nbt": "{Name:\"rose\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "ruby_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ],
+          "nbt": "{Name:\"ruby\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "rum_battlegill_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:battlegill_bucket"
+          ],
+          "nbt": "{Name:\"rum\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "russet_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ],
+          "nbt": "{Name:\"russet\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sand_battlegill_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:battlegill_bucket"
+          ],
+          "nbt": "{Name:\"sand\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sandy_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wildsplash_bucket"
+          ],
+          "nbt": "{Name:\"sandy\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sapphire_ancientscale_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:ancientscale_bucket"
+          ],
+          "nbt": "{Name:\"sapphire\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "seafoam_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ],
+          "nbt": "{Name:\"seafoam\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "seashell_devilfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:devilfish_bucket"
+          ],
+          "nbt": "{Name:\"seashell\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "shadow_stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
@@ -556,10 +416,98 @@
           ],
           "nbt": "{Name:\"shadow\",Trophy:1b,Variant:3}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "shores_stormfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:stormfish_bucket"
+          ],
+          "nbt": "{Name:\"shores\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sky_battlegill_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:battlegill_bucket"
+          ],
+          "nbt": "{Name:\"sky\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "smoke_ancientscale_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:ancientscale_bucket"
+          ],
+          "nbt": "{Name:\"smoke\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "snow_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ],
+          "nbt": "{Name:\"snow\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "starshine_ancientscale_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:ancientscale_bucket"
+          ],
+          "nbt": "{Name:\"starshine\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "stone_islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:islehopper_bucket"
+          ],
+          "nbt": "{Name:\"stone\",Trophy:1b,Variant:0}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sun_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:wrecker_bucket"
+          ],
+          "nbt": "{Name:\"sun\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "sunny_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ],
+          "nbt": "{Name:\"sunny\",Trophy:1b,Variant:1}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
     },
     "twilight_stormfish_bucket": {
-      "trigger": "minecraft:filled_bucket",
       "conditions": {
         "item": {
           "items": [
@@ -567,7 +515,56 @@
           ],
           "nbt": "{Name:\"twilight\",Trophy:1b,Variant:4}"
         }
-      }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "umber_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:splashtail_bucket"
+          ],
+          "nbt": "{Name:\"umber\",Trophy:1b,Variant:3}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "watery_plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:plentifin_bucket"
+          ],
+          "nbt": "{Name:\"watery\",Trophy:1b,Variant:4}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "wild_stormfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:stormfish_bucket"
+          ],
+          "nbt": "{Name:\"wild\",Trophy:1b,Variant:2}"
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.legendary_fish_collectors.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:splashtail_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.legendary_fish_collectors.title"
     }
   },
   "requirements": [
@@ -721,5 +718,8 @@
     [
       "twilight_stormfish_bucket"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 2000
+  }
 }

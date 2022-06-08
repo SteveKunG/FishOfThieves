@@ -1,40 +1,40 @@
 {
   "parent": "fishofthieves:root",
-  "display": {
-    "icon": {
-      "item": "fishofthieves:devilfish"
-    },
-    "title": {
-      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.title"
-    },
-    "description": {
-      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "devilfish_bucket": {
-      "trigger": "minecraft:player_interacted_with_entity",
       "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:axolotl"
+            }
+          }
+        ],
         "item": {
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
           "nbt": "{Name:\"lava\",Variant:2}"
-        },
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "minecraft:axolotl"
-            },
-            "entity": "this"
-          }
-        ]
-      }
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:devilfish"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.title"
     }
   },
   "requirements": [

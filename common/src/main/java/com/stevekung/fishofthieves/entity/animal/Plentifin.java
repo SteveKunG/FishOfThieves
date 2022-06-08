@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -10,6 +13,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -17,7 +21,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -27,8 +33,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Plentifin extends AbstractSchoolingThievesFish
 {
@@ -99,14 +103,13 @@ public class Plentifin extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var category = levelAccessor.getBiome(blockPos).value().getBiomeCategory();
 
-        if (category == Biome.BiomeCategory.UNDERGROUND)
+        if (levelAccessor.getBiome(blockPos).is(FOTTags.UNDERGROUND))
         {
-            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
+            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.STRONGHOLDS);
         }
         return waterRules;
     }
@@ -120,7 +123,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
             return time >= 0.75F && time <= 0.9F;
         })),
         CLOUDY(SpawnSelectors.rainingAndSeeSky()),
-        BONEDUST(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
+        BONEDUST(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0))),
         WATERY(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

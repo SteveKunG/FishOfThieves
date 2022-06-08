@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -17,8 +20,10 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -28,7 +33,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 public class Wildsplash extends AbstractSchoolingThievesFish
@@ -106,7 +110,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var biome = levelAccessor.getBiome(blockPos);
         return biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
@@ -115,9 +119,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         RUSSET(SpawnSelectors.always()),
-        SANDY(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))),
-        OCEAN(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN)),
-        MUDDY(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP))),
+        SANDY(SpawnSelectors.biomes(BiomeTags.IS_BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))),
+        OCEAN(SpawnSelectors.biomes(BiomeTags.IS_OCEAN)),
+        MUDDY(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.biomes(BiomeTags.HAS_CLOSER_WATER_FOG))),
         CORAL(SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
