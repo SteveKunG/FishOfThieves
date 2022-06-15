@@ -142,7 +142,7 @@ public class Islehopper extends AbstractThievesFish
         {
             return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
         }
-        return biome.is(FOTTags.UNDERGROUND) && blockPos.getY() <= 0 || waterRules;
+        return biome.is(FOTTags.IS_CAVES) && blockPos.getY() <= 0 || waterRules;
     }
 
     public enum Variant implements FishVariant

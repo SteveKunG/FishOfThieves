@@ -18,7 +18,6 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.data.loot.EntityLoot;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -247,15 +246,15 @@ public class FishOfThievesFabric implements ModInitializer
         FabricDefaultAttributeRegistry.register(FOTEntities.WRECKER, Wrecker.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.STORMFISH, AbstractFish.createAttributes());
 
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN), FOTEntities.SPLASHTAIL.getCategory(), FOTEntities.SPLASHTAIL, 15, 4, 8);
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_RIVER).or(BiomeSelectors.tag(BiomeTags.IS_FOREST)), FOTEntities.PONDIE.getCategory(), FOTEntities.PONDIE, 15, 2, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN).or(BiomeSelectors.tag(BiomeTags.IS_BEACH)).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)).or(BiomeSelectors.tag(BiomeTags.HAS_CLOSER_WATER_FOG)).or(BiomeSelectors.tag(FOTTags.UNDERGROUND)), FOTEntities.ISLEHOPPER.getCategory(), FOTEntities.ISLEHOPPER, 8, 2, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), FOTEntities.ANCIENTSCALE.getCategory(), FOTEntities.ANCIENTSCALE, 8, 4, 8);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).or(BiomeSelectors.all().and(BiomeSelectors.tag(FOTTags.UNDERGROUND))), FOTEntities.PLENTIFIN.getCategory(), FOTEntities.PLENTIFIN, 12, 4, 8);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.LUSH_CAVES, Biomes.WARM_OCEAN).or(BiomeSelectors.tag(BiomeTags.IS_OCEAN).or(BiomeSelectors.tag(BiomeTags.IS_BEACH)).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE)).or(BiomeSelectors.tag(BiomeTags.HAS_CLOSER_WATER_FOG))), FOTEntities.WILDSPLASH.getCategory(), FOTEntities.WILDSPLASH, 10, 2, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld().and(BiomeSelectors.excludeByKey(Biomes.LUSH_CAVES)), FOTEntities.DEVILFISH.getCategory(), FOTEntities.DEVILFISH, 4, 1, 2);
-        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), FOTEntities.BATTLEGILL.getCategory(), FOTEntities.BATTLEGILL, 5, 2, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, 50, 4, 8);
-        BiomeModifications.addSpawn(BiomeSelectors.tag(BiomeTags.IS_OCEAN).or(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE)), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, 12, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_SPLASHTAILS), FOTEntities.SPLASHTAIL.getCategory(), FOTEntities.SPLASHTAIL, 15, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_PONDIES), FOTEntities.PONDIE.getCategory(), FOTEntities.PONDIE, 15, 2, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_ISLEHOPPERS), FOTEntities.ISLEHOPPER.getCategory(), FOTEntities.ISLEHOPPER, 8, 2, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_ANCIENTSCALES), FOTEntities.ANCIENTSCALE.getCategory(), FOTEntities.ANCIENTSCALE, 8, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_PLENTIFINS), FOTEntities.PLENTIFIN.getCategory(), FOTEntities.PLENTIFIN, 12, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_WILDSPLASH), FOTEntities.WILDSPLASH.getCategory(), FOTEntities.WILDSPLASH, 10, 2, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_DEVILFISH), FOTEntities.DEVILFISH.getCategory(), FOTEntities.DEVILFISH, 4, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_BATTLEGILLS), FOTEntities.BATTLEGILL.getCategory(), FOTEntities.BATTLEGILL, 5, 2, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_WRECKERS), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, 50, 4, 8);
+        BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.SPAWNS_STORMFISH).or(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE)), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, 12, 4, 8);
     }
 }

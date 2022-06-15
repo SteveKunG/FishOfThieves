@@ -35,6 +35,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -380,7 +381,20 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(FOTTags.UNDERGROUND).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.IS_CAVES).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_SPLASHTAILS).forceAddTag(BiomeTags.IS_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_PONDIES).forceAddTag(BiomeTags.IS_RIVER).forceAddTag(BiomeTags.IS_FOREST);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ANCIENTSCALES).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_PLENTIFINS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES, Biomes.WARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_DEVILFISH).forceAddTag(BiomeTags.IS_OVERWORLD);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_BATTLEGILLS).forceAddTag(BiomeTags.IS_OVERWORLD);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_WRECKERS).forceAddTag(BiomeTags.IS_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE);
+
+            this.getOrCreateTagBuilder(FOTTags.DEVILFISH_CANNOT_SPAWN).add(Biomes.LUSH_CAVES, Biomes.DEEP_DARK);
         }
     }
 
@@ -394,8 +408,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            this.tag(FOTTags.MONUMENTS).add(BuiltinStructures.OCEAN_MONUMENT);
-            this.tag(FOTTags.STRONGHOLDS).add(BuiltinStructures.STRONGHOLD);
+            this.getOrCreateTagBuilder(FOTTags.MONUMENTS).add(BuiltinStructures.OCEAN_MONUMENT);
+            this.getOrCreateTagBuilder(FOTTags.STRONGHOLDS).add(BuiltinStructures.STRONGHOLD);
         }
     }
 

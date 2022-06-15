@@ -107,7 +107,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
 
-        if (levelAccessor.getBiome(blockPos).is(FOTTags.UNDERGROUND))
+        if (levelAccessor.getBiome(blockPos).is(FOTTags.IS_CAVES))
         {
             return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.STRONGHOLDS);
         }
