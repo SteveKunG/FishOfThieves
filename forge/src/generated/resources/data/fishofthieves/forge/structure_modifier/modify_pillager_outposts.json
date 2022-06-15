@@ -1,0 +1,10 @@
+{
+  "type": "fishofthieves:thieves_fish_spawns_in_structure",
+  "spawnerData": {
+    "type": "fishofthieves:battlegill",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 5
+  },
+  "structures": "minecraft:pillager_outpost"
+}

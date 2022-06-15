@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#fishofthieves:spawns_stormfish",
+  "spawners": {
+    "type": "fishofthieves:stormfish",
+    "maxCount": 8,
+    "minCount": 4,
+    "weight": 12
+  }
+}

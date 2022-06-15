@@ -13,9 +13,7 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.Util;
 import net.minecraft.data.loot.EntityLoot;
-import net.minecraft.data.worldgen.Structures;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -34,8 +32,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.event.world.StructureSpawnListGatherEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -255,27 +251,6 @@ public class CommonProxyForge
         {
             event.getTrades().put(1, Util.make(Lists.newArrayList(), FishOfThieves::getTierOneTrades));
             event.getTrades().put(2, Util.make(Lists.newArrayList(), FishOfThieves::getTierTwoTrades));
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void addFishSpawnToStructure(StructureSpawnListGatherEvent event)
-    {
-        if (event.getStructure() == Structures.OCEAN_RUIN_COLD.get() || event.getStructure() == Structures.OCEAN_RUIN_WARM.get())
-        {
-            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.ANCIENTSCALES.unwrap());
-        }
-        if (event.getStructure() == Structures.MINESHAFT.get() || event.getStructure() == Structures.STRONGHOLD.get())
-        {
-            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.PLENTIFINS.unwrap());
-        }
-        if (event.getStructure() == Structures.OCEAN_MONUMENT.get() || event.getStructure() == Structures.PILLAGER_OUTPOST.get())
-        {
-            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.BATTLEGILLS.unwrap());
-        }
-        if (event.getStructure() == Structures.SHIPWRECK.get())
-        {
-            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.WRECKERS.unwrap());
         }
     }
 

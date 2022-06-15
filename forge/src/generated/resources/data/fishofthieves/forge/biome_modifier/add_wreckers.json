@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#fishofthieves:spawns_wreckers",
+  "spawners": {
+    "type": "fishofthieves:wrecker",
+    "maxCount": 8,
+    "minCount": 4,
+    "weight": 50
+  }
+}
