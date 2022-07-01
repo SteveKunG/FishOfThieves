@@ -7,8 +7,6 @@
     "client.MixinMobBucketItem"
   ],
   "mixins": [
-    "accessor.LootPoolBuilderAccessor",
-    "accessor.LootTableBuilderAccessor",
     "level.chunk.MixinChunkGenerator"
   ],
   "injectors": {
