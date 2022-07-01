@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -18,6 +19,7 @@ import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigge
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -25,6 +27,7 @@ import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
@@ -37,10 +40,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
+import net.minecraft.tags.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -48,6 +48,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -93,6 +95,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(LootProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
+        dataGenerator.addProvider(BiomeTagsProvider::new);
         dataGenerator.addProvider(AdvancementProvider::new);
     }
 
@@ -365,6 +368,39 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
+        }
+    }
+
+    private static class BiomeTagsProvider extends FabricTagProvider.DynamicRegistryTagProvider<Biome>
+    {
+        public BiomeTagsProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator, BuiltinRegistries.BIOME.key(), "worldgen/biome", "Biome Tags");
+        }
+
+        @Override
+        protected void generateTags()
+        {
+            this.getOrCreateTagBuilder(FOTTags.IS_CAVES).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_SPLASHTAILS).forceAddTag(BiomeTags.IS_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_PONDIES).forceAddTag(BiomeTags.IS_RIVER).forceAddTag(BiomeTags.IS_FOREST);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).add(Biomes.SWAMP, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ANCIENTSCALES).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_PLENTIFINS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).add(Biomes.SWAMP, Biomes.LUSH_CAVES, Biomes.WARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_DEVILFISH).forceAddTag(ConventionalBiomeTags.IN_OVERWORLD);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_BATTLEGILLS).forceAddTag(ConventionalBiomeTags.IN_OVERWORLD);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_WRECKERS).forceAddTag(BiomeTags.IS_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE);
+
+            this.getOrCreateTagBuilder(FOTTags.DEVILFISH_CANNOT_SPAWN).add(Biomes.LUSH_CAVES);
+        }
+
+        @Override
+        protected Path getPath(ResourceLocation id)
+        {
+            return this.generator.getOutputFolder().resolve("data/%s/%s/%s.json".formatted(id.getNamespace(), "tags/worldgen/biome", id.getPath()));
         }
     }
 

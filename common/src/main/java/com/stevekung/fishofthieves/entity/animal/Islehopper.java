@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -138,7 +139,7 @@ public class Islehopper extends AbstractThievesFish
         {
             return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
         }
-        return biome.value().getBiomeCategory() == Biome.BiomeCategory.UNDERGROUND && blockPos.getY() <= 0 || waterRules;
+        return biome.is(FOTTags.IS_CAVES) && blockPos.getY() <= 0 || waterRules;
     }
 
     public enum Variant implements FishVariant

@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -27,7 +28,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Plentifin extends AbstractSchoolingThievesFish
@@ -104,7 +104,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
         var category = levelAccessor.getBiome(blockPos).value().getBiomeCategory();
 
-        if (category == Biome.BiomeCategory.UNDERGROUND)
+        if (levelAccessor.getBiome(blockPos).is(FOTTags.IS_CAVES))
         {
             return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
         }
