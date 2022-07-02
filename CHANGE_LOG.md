@@ -2,6 +2,5 @@
 
 ### Please report if you found the issues!
 
-* All fish can now control biome to spawn by using datapack
-* [Forge] Required Forge 41.0.32
-* [Forge] Use new StructureModifier for fish spawning
+* [Forge] Fix using wrong `Lists` class, closed #12
+* [Fabric] Required Fabric API 0.57.x

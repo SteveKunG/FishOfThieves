@@ -2,8 +2,8 @@ package com.stevekung.fishofthieves.forge.proxy;
 
 import java.util.List;
 
-import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.ArrayUtils;
+import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;

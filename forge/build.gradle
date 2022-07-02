@@ -56,7 +56,7 @@ repositories {
 dependencies {
     forge "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    api "com.teammetallurgy.aquaculture:aquaculture2_1.18.2:1.18.2-${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_1.19:1.19-${aquaculture_version}:api"
 
     modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
@@ -114,6 +114,7 @@ curseforge {
                 displayName = "[Forge] " + fileName + "-v${project.version}"
             }
             relations {
+                requiredDependency "cloth-config"
                 optionalDependency "configured"
             }
             afterEvaluate {
@@ -126,13 +127,10 @@ curseforge {
     }
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
-import com.modrinth.minotaur.dependencies.DependencyType
-
 modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
-        projectId = "BzOTnuqM"
+        projectId = "fish-of-thieves"
         changelog = file("../CHANGE_LOG.md").text
         versionName = "[Forge] Fish of Thieves " + "v${project.version}" + " for Minecraft " + project.mc_version
         versionNumber = project.mod_version + "-forge"
@@ -140,9 +138,10 @@ modrinth {
         uploadFile = remapJar
         gameVersions = ["${project.mc_version}"]
         loaders = ["forge"]
-        dependencies = [
-                new ModDependency("9s6osm5g", DependencyType.REQUIRED) // Cloth Config
-        ]
+        dependencies {
+            required.project "cloth-config"
+            optional.project "configured"
+        }
     }
 }
 
