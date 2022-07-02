@@ -1,3 +1,7 @@
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+}
+
 architectury {
     platformSetupLoomIde()
     fabric()
@@ -93,53 +97,49 @@ components.java {
 }
 
 curseforge {
-    if (project.hasProperty("upload_api_key")) {
-        apiKey = project.upload_api_key
-        project {
-            id = "568372"
-            changelog = file("../CHANGE_LOG.md")
-            changelogType = "markdown"
-            releaseType = "release"
-            addGameVersion "Fabric"
-            addGameVersion "Java 17"
-            addGameVersion project.mc_version
+    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    project {
+        id = "568372"
+        changelog = file("../CHANGE_LOG.md")
+        changelogType = "markdown"
+        releaseType = "release"
+        addGameVersion "Fabric"
+        addGameVersion "Java 17"
+        addGameVersion project.mc_version
 
-            mainArtifact(remapJar.archiveFile) {
-                displayName = "[Fabric] " + fileName + "-v${project.version}"
-            }
-            relations {
-                requiredDependency "fabric-api"
-                requiredDependency "cloth-config"
-                optionalDependency "modmenu"
-                optionalDependency "canvas-renderer"
-            }
-            afterEvaluate {
-                uploadTask.dependsOn(remapJar)
-            }
+        mainArtifact(remapJar.archiveFile) {
+            displayName = "[Fabric] " + fileName + "-v${project.version}"
         }
-        options {
-            forgeGradleIntegration = false
+        relations {
+            requiredDependency "fabric-api"
+            requiredDependency "cloth-config"
+            optionalDependency "modmenu"
+            optionalDependency "canvas-renderer"
         }
+        afterEvaluate {
+            uploadTask.dependsOn(remapJar)
+        }
+    }
+    options {
+        forgeGradleIntegration = false
     }
 }
 
 modrinth {
-    if (project.hasProperty("modrinth_api_token")) {
-        token = project.modrinth_api_token
-        projectId = "fish-of-thieves"
-        changelog = file("../CHANGE_LOG.md").text
-        versionName = "[Fabric] " + fileName + "-v${project.version}"
-        versionNumber = project.mod_version + "-fabric"
-        versionType = "release"
-        uploadFile = remapJar
-        gameVersions = ["${project.mc_version}"]
-        loaders = ["fabric"]
-        dependencies {
-            required.project "fabric-api"
-            required.project "cloth-config"
-            optional.project "modmenu"
-            optional.project "canvas"
-        }
+    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    projectId = "fish-of-thieves"
+    changelog = file("../CHANGE_LOG.md").text
+    versionName = "[Fabric] " + fileName + "-v${project.version}"
+    versionNumber = project.mod_version + "-fabric"
+    versionType = "release"
+    uploadFile = remapJar
+    gameVersions = ["${project.mc_version}"]
+    loaders = ["fabric"]
+    dependencies {
+        required.project "fabric-api"
+        required.project "cloth-config"
+        optional.project "modmenu"
+        optional.project "canvas"
     }
 }
 

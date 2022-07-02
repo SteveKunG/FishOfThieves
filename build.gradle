@@ -3,7 +3,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
     id "com.matthewprenger.cursegradle" version "1.4.0" apply false
-    id "com.modrinth.minotaur" version "2.+"
 }
 
 architectury {
@@ -14,7 +13,6 @@ subprojects {
     apply plugin: "dev.architectury.loom"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "com.matthewprenger.cursegradle"
-    apply plugin: "com.modrinth.minotaur"
 
     loom {
         silentMojangMappingsLicense()

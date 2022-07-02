@@ -1,3 +1,7 @@
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+}
+
 architectury {
     platformSetupLoomIde()
     forge()
@@ -99,49 +103,45 @@ components.java {
 }
 
 curseforge {
-    if (project.hasProperty("upload_api_key")) {
-        apiKey = project.upload_api_key
-        project {
-            id = "568372"
-            changelog = file("../CHANGE_LOG.md")
-            changelogType = "markdown"
-            releaseType = "beta"
-            addGameVersion "Forge"
-            addGameVersion "Java 17"
-            addGameVersion project.mc_version
+    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    project {
+        id = "568372"
+        changelog = file("../CHANGE_LOG.md")
+        changelogType = "markdown"
+        releaseType = "beta"
+        addGameVersion "Forge"
+        addGameVersion "Java 17"
+        addGameVersion project.mc_version
 
-            mainArtifact(remapJar.archiveFile) {
-                displayName = "[Forge] " + fileName + "-v${project.version}"
-            }
-            relations {
-                requiredDependency "cloth-config"
-                optionalDependency "configured"
-            }
-            afterEvaluate {
-                uploadTask.dependsOn(remapJar)
-            }
+        mainArtifact(remapJar.archiveFile) {
+            displayName = "[Forge] " + fileName + "-v${project.version}"
         }
-        options {
-            forgeGradleIntegration = false
+        relations {
+            requiredDependency "cloth-config"
+            optionalDependency "configured"
         }
+        afterEvaluate {
+            uploadTask.dependsOn(remapJar)
+        }
+    }
+    options {
+        forgeGradleIntegration = false
     }
 }
 
 modrinth {
-    if (project.hasProperty("modrinth_api_token")) {
-        token = project.modrinth_api_token
-        projectId = "fish-of-thieves"
-        changelog = file("../CHANGE_LOG.md").text
-        versionName = "[Forge] " + fileName + "-v${project.version}"
-        versionNumber = project.mod_version + "-forge"
-        versionType = "release"
-        uploadFile = remapJar
-        gameVersions = ["${project.mc_version}"]
-        loaders = ["forge"]
-        dependencies {
-            required.project "cloth-config"
-            optional.project "configured"
-        }
+    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    projectId = "fish-of-thieves"
+    changelog = file("../CHANGE_LOG.md").text
+    versionName = "[Forge] " + fileName + "-v${project.version}"
+    versionNumber = project.mod_version + "-forge"
+    versionType = "release"
+    uploadFile = remapJar
+    gameVersions = ["${project.mc_version}"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "cloth-config"
+        optional.project "configured"
     }
 }
 
