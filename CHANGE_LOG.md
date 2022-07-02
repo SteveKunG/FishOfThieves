@@ -2,6 +2,6 @@
 
 ### Please report if you found the issues!
 
-* [Forge] Use ClothConfig for setting configs
-* [Forge] Fixed crash on a server
-* [Fabric] Fixed crash with latest Fabric LootTable API, Closed #10
+* Backport - All fish can now control biome to spawn by datapack
+* [Forge] Fix using wrong `Lists` class, closed #12
+* [Fabric] Required Fabric API 0.57.x
