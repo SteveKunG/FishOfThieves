@@ -123,8 +123,6 @@ curseforge {
     }
 }
 
-import com.modrinth.minotaur.dependencies.ModDependency
-
 modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
@@ -136,9 +134,12 @@ modrinth {
         uploadFile = remapJar
         gameVersions = ["${project.mc_version}"]
         loaders = ["fabric"]
-        dependencies = [
-                new ModDependency("P7dR8mSH", "required") // Fabric API
-        ]
+        dependencies {
+            required.project "fabric-api"
+            required.project "cloth-config"
+            optional.project "modmenu"
+            optional.project "canvas"
+        }
     }
 }
 

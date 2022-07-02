@@ -114,6 +114,7 @@ curseforge {
                 displayName = "[Forge] " + fileName + "-v${project.version}"
             }
             relations {
+                requiredDependency "cloth-config"
                 optionalDependency "configured"
             }
             afterEvaluate {
@@ -137,6 +138,10 @@ modrinth {
         uploadFile = remapJar
         gameVersions = ["${project.mc_version}"]
         loaders = ["forge"]
+        dependencies {
+            required.project "cloth-config"
+            optional.project "configured"
+        }
     }
 }
 
