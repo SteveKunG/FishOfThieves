@@ -130,7 +130,7 @@ curseforge {
 modrinth {
     if (project.hasProperty("modrinth_api_token")) {
         token = project.modrinth_api_token
-        projectId = "BzOTnuqM"
+        projectId = "fish-of-thieves"
         changelog = file("../CHANGE_LOG.md").text
         versionName = "[Forge] " + fileName + "-v${project.version}"
         versionNumber = project.mod_version + "-forge"
