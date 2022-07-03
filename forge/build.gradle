@@ -1,3 +1,7 @@
+plugins {
+    id "com.modrinth.minotaur"
+}
+
 architectury {
     platformSetupLoomIde()
     forge()
@@ -23,7 +27,7 @@ loom {
             }
         }
         data {
-            arg "--existing", file("../common/src/main/resources/").absolutePath
+            arg "--existing", project(":common").file("src/main/resources/").absolutePath
         }
     }
 
@@ -78,10 +82,24 @@ String fileName = "${archives_base_name}-mc${mc_version}"
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
+    archiveClassifier = "dev"
     archiveVersion = "v${project.version}"
     archiveBaseName = fileName
     excludes = [".cache", "data/fabric/**"]
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    commonSources.exclude ".cache"
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    from commonSources.archiveFile.map { zipTree(it) }
+    excludes = [".cache", "data/fabric/**"]
+}
+
+remapSourcesJar {
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
 }
 
 remapJar {
@@ -98,51 +116,52 @@ components.java {
     }
 }
 
-curseforge {
-    if (project.hasProperty("upload_api_key")) {
-        apiKey = project.upload_api_key
-        project {
-            id = "568372"
-            changelog = file("../CHANGE_LOG.md")
-            changelogType = "markdown"
-            releaseType = "beta"
-            addGameVersion "Forge"
-            addGameVersion "Java 17"
-            addGameVersion project.mc_version
+def uploadDebug = true
 
-            mainArtifact(remapJar.archiveFile) {
-                displayName = "[Forge] " + fileName + "-v${project.version}"
-            }
-            relations {
-                requiredDependency "cloth-config"
-                optionalDependency "configured"
-            }
-            afterEvaluate {
-                uploadTask.dependsOn(remapJar)
-            }
+curseforge {
+    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    project {
+        id = "568372"
+        changelog = rootProject.file("CHANGE_LOG.md")
+        changelogType = "markdown"
+        releaseType = "beta"
+        addGameVersion "Forge"
+        addGameVersion "Java 17"
+        addGameVersion project.mc_version
+
+        mainArtifact(remapJar.archiveFile) {
+            displayName = "[Forge] " + fileName + "-v${project.version}"
         }
-        options {
-            forgeGradleIntegration = false
+        relations {
+            requiredDependency "cloth-config"
+            optionalDependency "configured"
         }
+        afterEvaluate {
+            uploadTask.dependsOn(remapJar)
+        }
+        addArtifact shadowJar
+        addArtifact remapSourcesJar
+    }
+    options {
+        debug uploadDebug
+        forgeGradleIntegration = false
     }
 }
 
 modrinth {
-    if (project.hasProperty("modrinth_api_token")) {
-        token = project.modrinth_api_token
-        projectId = "fish-of-thieves"
-        changelog = file("../CHANGE_LOG.md").text
-        versionName = "[Forge] Fish of Thieves " + "v${project.version}" + " for Minecraft " + project.mc_version
-        versionNumber = project.mod_version + "-forge"
-        versionType = "release"
-        uploadFile = remapJar
-        gameVersions = ["${project.mc_version}"]
-        loaders = ["forge"]
-        dependencies {
-            required.project "cloth-config"
-            optional.project "configured"
-        }
+    debugMode = uploadDebug
+    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    projectId = "fish-of-thieves"
+    changelog = rootProject.file("CHANGE_LOG.md").text
+    versionName = "[Forge] Fish of Thieves " + "v${project.version}" + " for Minecraft " + project.mc_version
+    versionNumber = project.mod_version + "-forge"
+    versionType = "release"
+    uploadFile = remapJar
+    additionalFiles = [shadowJar, remapSourcesJar]
+    gameVersions = ["${project.mc_version}"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "cloth-config"
+        optional.project "configured"
     }
 }
-
-task curseforgeModrinth(dependsOn: [ build, "modrinth", "curseforge" ], group: "upload")

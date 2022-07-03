@@ -3,7 +3,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = file("../fabric/src/main/resources/fishofthieves.accesswidener")
+    accessWidenerPath = project(":fabric").file("src/main/resources/fishofthieves.accesswidener")
 
     mixin {
         defaultRefmapName = "mixins.fishofthieves.refmap.json"
@@ -28,7 +28,7 @@ dependencies {
 sourceSets {
     main {
         resources {
-            srcDirs = ["src/main/resources/", "src/generated/resources/"]
+            srcDirs += "src/generated/resources/"
         }
     }
 }
