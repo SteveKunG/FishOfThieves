@@ -66,6 +66,6 @@ allprojects {
 task curseforgeModrinth(dependsOn: [
         ":fabric:modrinth",
         ":fabric:curseforge",
-        // ":forge:modrinth", TODO Disable until minotaur (or me?) issue have been fixed
+        ":forge:modrinth",
         ":forge:curseforge"
 ], group: "upload")
