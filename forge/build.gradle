@@ -162,6 +162,6 @@ modrinth {
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"
-        optional.project "configured"
+        // optional.project "configured" TODO Enable when "Configured" mod is on Modrinth, Thank you Emmaffle!
     }
 }
