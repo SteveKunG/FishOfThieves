@@ -1,5 +1,5 @@
 plugins {
-    id "com.modrinth.minotaur" version "2.+"
+    id "com.modrinth.minotaur"
 }
 
 architectury {
@@ -27,7 +27,7 @@ loom {
             }
         }
         data {
-            arg "--existing", file("../common/src/main/resources/").absolutePath
+            arg "--existing", project(":common").file("src/main/resources/").absolutePath
         }
     }
 
@@ -82,10 +82,24 @@ String fileName = "${archives_base_name}-mc${mc_version}"
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
+    archiveClassifier = "dev"
     archiveVersion = "v${project.version}"
     archiveBaseName = fileName
     excludes = [".cache", "data/fabric/**"]
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    commonSources.exclude ".cache"
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    from commonSources.archiveFile.map { zipTree(it) }
+    excludes = [".cache", "data/fabric/**"]
+}
+
+remapSourcesJar {
+    archiveVersion = "v${project.version}"
+    archiveBaseName = fileName
 }
 
 remapJar {
@@ -102,11 +116,13 @@ components.java {
     }
 }
 
+def uploadDebug = true
+
 curseforge {
     apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
     project {
         id = "568372"
-        changelog = file("../CHANGE_LOG.md")
+        changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
         releaseType = "beta"
         addGameVersion "Forge"
@@ -123,20 +139,25 @@ curseforge {
         afterEvaluate {
             uploadTask.dependsOn(remapJar)
         }
+        addArtifact shadowJar
+        addArtifact remapSourcesJar
     }
     options {
+        debug uploadDebug
         forgeGradleIntegration = false
     }
 }
 
 modrinth {
+    debugMode = uploadDebug
     token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
     projectId = "fish-of-thieves"
-    changelog = file("../CHANGE_LOG.md").text
-    versionName = "[Forge] " + fileName + "-v${project.version}"
+    changelog = rootProject.file("CHANGE_LOG.md").text
+    versionName = "[Forge] Fish of Thieves " + "v${project.version}" + " for Minecraft " + project.mc_version
     versionNumber = project.mod_version + "-forge"
     versionType = "release"
     uploadFile = remapJar
+    additionalFiles = [shadowJar, remapSourcesJar]
     gameVersions = ["${project.mc_version}"]
     loaders = ["forge"]
     dependencies {
@@ -144,5 +165,3 @@ modrinth {
         optional.project "configured"
     }
 }
-
-task curseforgeModrinth(dependsOn: [ build, "modrinth", "curseforge" ], group: "upload")
