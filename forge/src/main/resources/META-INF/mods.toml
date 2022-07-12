@@ -16,14 +16,14 @@ authors = "SteveKunG, PloyiinGz"
 [[dependencies.fishofthieves]]
 modId = "forge"
 mandatory = true
-versionRange = "[41.0.32,)"
+versionRange = "[41.0.94,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "cloth_config"
 mandatory = true
-versionRange = "[7.0,)"
+versionRange = "[7.0.73,)"
 ordering = "NONE"
 side = "BOTH"
 
