@@ -11,7 +11,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -28,7 +28,7 @@ public class ClientProxyForge extends CommonProxyForge
     public void init()
     {
         super.init();
-        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
         MinecraftForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayerDefinitions);
@@ -62,7 +62,7 @@ public class ClientProxyForge extends CommonProxyForge
         {
             if (mobBucketItem.invokeGetFishType().is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
             {
-                var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITIES.getKey(mobBucketItem.invokeGetFishType()).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+                var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITY_TYPES.getKey(mobBucketItem.invokeGetFishType()).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
                 if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
                 {

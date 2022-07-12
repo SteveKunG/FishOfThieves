@@ -26,9 +26,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = FishOfThieves.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -110,7 +110,7 @@ public class DataGeneratorFOT
         public void add(Item item, EntityType<?> entityType, @Nullable CompoundTag compoundTag)
         {
             var builder = new FishingRealBuilder(item, entityType, compoundTag);
-            this.builders.put(ForgeRegistries.ENTITIES.getKey(entityType), builder);
+            this.builders.put(ForgeRegistries.ENTITY_TYPES.getKey(entityType), builder);
         }
 
         @Override
@@ -153,7 +153,7 @@ public class DataGeneratorFOT
                 var jsonItem = new JsonObject();
                 var jsonResult = new JsonObject();
                 jsonItem.addProperty("item", ForgeRegistries.ITEMS.getKey(this.item).toString());
-                jsonResult.addProperty("id", ForgeRegistries.ENTITIES.getKey(this.entityType).toString());
+                jsonResult.addProperty("id", ForgeRegistries.ENTITY_TYPES.getKey(this.entityType).toString());
 
                 if (this.compoundTag != null)
                 {

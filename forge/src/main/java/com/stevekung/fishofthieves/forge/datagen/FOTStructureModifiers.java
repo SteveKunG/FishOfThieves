@@ -18,7 +18,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.common.data.JsonCodecProvider;
 import net.minecraftforge.common.world.ModifiableStructureInfo;
 import net.minecraftforge.common.world.StructureModifier;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
