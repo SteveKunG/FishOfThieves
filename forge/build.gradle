@@ -112,6 +112,24 @@ components.java {
     }
 }
 
+// TODO Enable when hot swapping working on Forge -.-
+/*tasks.getByName("configureLaunch") {
+    doFirst {
+        loom {
+            runs {
+                def mixinJarFile = configurations.compileClasspath.files { it.name == "mixin-patched" }.find { true }
+
+                client {
+                    vmArg("-javaagent:$mixinJarFile")
+                }
+                server {
+                    vmArg("-javaagent:$mixinJarFile")
+                }
+            }
+        }
+    }
+}*/
+
 def uploadDebug = true
 
 curseforge {
