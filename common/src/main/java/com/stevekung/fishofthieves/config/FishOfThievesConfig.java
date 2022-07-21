@@ -45,13 +45,13 @@ public final class FishOfThievesConfig implements ConfigData
         public float bonedustPlentifinProbability = 0.1F;
         @Comment("Chance of spawning Muddy variant of Wildsplashes.")
         public float muddyWildsplashProbability = 0.1F;
-        @Comment("Chance of spawning Forsaken variant of Devilfishes.")
+        @Comment("Chance of spawning Forsaken variant of Devilfish.")
         public float forsakenDevilfishProbability = 0.1F;
         @Comment("Chance of spawning Sand variant of Battlegills.")
         public float sandBattlegillProbability = 0.1F;
         @Comment("Chance of spawning Snow variant of Wreckers.")
         public float snowWreckerProbability = 0.1F;
-        @Comment("Chance of spawning Shadow variant of Stormfishes.")
+        @Comment("Chance of spawning Shadow variant of Stormfish.")
         public float shadowStormfishProbability = 0.1F;
     }
 }

@@ -56,11 +56,11 @@ public abstract class MixinServerLevel extends Level
     {
         var blockPos2 = this.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos);
         var aabb = new AABB(blockPos2, new BlockPos(blockPos2.getX(), this.getMaxBuildHeight(), blockPos2.getZ())).inflate(16.0D);
-        var stormfishes = this.getEntitiesOfClass(Stormfish.class, aabb, living -> living != null && living.isAlive() && this.canSeeSkyFromBelowWater(blockPos2));
+        var stormfish = this.getEntitiesOfClass(Stormfish.class, aabb, living -> living != null && living.isAlive() && this.canSeeSkyFromBelowWater(blockPos2));
 
-        if (!stormfishes.isEmpty())
+        if (!stormfish.isEmpty())
         {
-            return stormfishes.get(this.random.nextInt(stormfishes.size())).blockPosition();
+            return stormfish.get(this.random.nextInt(stormfish.size())).blockPosition();
         }
         return null;
     }
