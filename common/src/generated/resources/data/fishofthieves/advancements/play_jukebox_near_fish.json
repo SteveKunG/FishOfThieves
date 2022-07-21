@@ -5,10 +5,10 @@
       "item": "minecraft:jukebox"
     },
     "title": {
-      "translate": "advancements.fot.play_jukebox_near_fishes.title"
+      "translate": "advancements.fot.play_jukebox_near_fish.title"
     },
     "description": {
-      "translate": "advancements.fot.play_jukebox_near_fishes.description"
+      "translate": "advancements.fot.play_jukebox_near_fish.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -40,7 +40,7 @@
         ]
       }
     },
-    "play_jukebox_near_fishes": {
+    "play_jukebox_near_fish": {
       "trigger": "fishofthieves:item_used_on_block_with_nearby_entity",
       "conditions": {
         "location": {
@@ -68,7 +68,7 @@
   "requirements": [
     [
       "play_jukebox_near_thieves_fish",
-      "play_jukebox_near_fishes"
+      "play_jukebox_near_fish"
     ]
   ]
 }

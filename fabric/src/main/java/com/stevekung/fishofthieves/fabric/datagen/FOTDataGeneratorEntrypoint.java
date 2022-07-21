@@ -540,20 +540,20 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .display(Items.JUKEBOX,
-                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.title"),
-                            new TranslatableComponent("advancements.fot.play_jukebox_near_fishes.description"),
+                            new TranslatableComponent("advancements.fot.play_jukebox_near_fish.title"),
+                            new TranslatableComponent("advancements.fot.play_jukebox_near_fish.description"),
                             null, FrameType.TASK, true, true, true)
                     .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                             ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
                             EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
-                    .addCriterion("play_jukebox_near_fishes", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
+                    .addCriterion("play_jukebox_near_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                             ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
                             EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS).build())))
-                    .save(consumer, this.get("play_jukebox_near_fishes"));
+                    .save(consumer, this.get("play_jukebox_near_fish"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(),
                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
