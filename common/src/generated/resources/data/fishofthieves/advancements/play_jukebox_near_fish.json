@@ -1,7 +1,7 @@
 {
   "parent": "fishofthieves:root",
   "criteria": {
-    "play_jukebox_near_fishes": {
+    "play_jukebox_near_fish": {
       "conditions": {
         "entity": [
           {
@@ -53,7 +53,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.play_jukebox_near_fishes.description"
+      "translate": "advancements.fot.play_jukebox_near_fish.description"
     },
     "frame": "task",
     "hidden": true,
@@ -62,13 +62,13 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.play_jukebox_near_fishes.title"
+      "translate": "advancements.fot.play_jukebox_near_fish.title"
     }
   },
   "requirements": [
     [
       "play_jukebox_near_thieves_fish",
-      "play_jukebox_near_fishes"
+      "play_jukebox_near_fish"
     ]
   ]
 }
