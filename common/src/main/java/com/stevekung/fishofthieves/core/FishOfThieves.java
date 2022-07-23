@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.mixin.DispenserBlockAccessor;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -39,7 +38,7 @@ public class FishOfThieves
 
     public static void initCommon()
     {
-        var bucket = DispenserBlockAccessor.getDispenserRegistry().get(Items.WATER_BUCKET);
+        var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.ISLEHOPPER_BUCKET, bucket);
