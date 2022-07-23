@@ -70,6 +70,7 @@ public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements S
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
+            mouthSpeed = 1.8f;
         }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
         this.mouth.xRot = 0.1F + Mth.cos(mouthSpeed * ageInTicks) * (float) Math.PI * 0.07f;
