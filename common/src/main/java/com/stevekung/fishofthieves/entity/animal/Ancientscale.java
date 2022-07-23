@@ -100,8 +100,8 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         ALMOND(SpawnSelectors.always()),
         SAPPHIRE(SpawnSelectors.always()),
         SMOKE(SpawnSelectors.always()),
-        BONE(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0))),
-        STARSHINE(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F));
+        BONE(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0)))),
+        STARSHINE(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

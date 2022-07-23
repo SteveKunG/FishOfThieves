@@ -105,7 +105,7 @@ public class Pondie extends AbstractSchoolingThievesFish
         CHARCOAL(SpawnSelectors.always()),
         ORCHID(SpawnSelectors.always()),
         BRONZE(SpawnSelectors.always()),
-        BRIGHT(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky())),
+        BRIGHT(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.brightPondieProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky()))),
         MOONSKY(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

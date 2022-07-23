@@ -103,7 +103,7 @@ public class Splashtail extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         RUBY(SpawnSelectors.always()),
-        SUNNY(SpawnSelectors.dayAndSeeSky()),
+        SUNNY(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
         INDIGO(SpawnSelectors.always()),
         UMBER(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.umberSplashtailProbability)),
         SEAFOAM(SpawnSelectors.nightAndSeeSky());

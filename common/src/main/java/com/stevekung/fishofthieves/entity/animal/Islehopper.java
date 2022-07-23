@@ -145,8 +145,8 @@ public class Islehopper extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         STONE(SpawnSelectors.always()),
-        MOSS(SpawnSelectors.categories(Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES))),
-        HONEY(context ->
+        MOSS(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES)))),
+        HONEY(SpawnSelectors.simpleSpawn(context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
             {
@@ -154,9 +154,9 @@ public class Islehopper extends AbstractThievesFish
                 return blockState.is(BlockTags.BEEHIVES) && BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
             });
             return optional.isPresent();
-        }),
-        RAVEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0)),
-        AMETHYST(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)));
+        })),
+        RAVEN(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))),
+        AMETHYST(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS))));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

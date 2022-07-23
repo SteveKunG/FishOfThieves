@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.resources.ResourceKey;
@@ -43,6 +44,21 @@ public final class SpawnSelectors
     public static Predicate<SpawnConditionContext> probability(float probability)
     {
         return context -> context.random().nextFloat() < probability;
+    }
+
+    public static Predicate<SpawnConditionContext> simpleSpawn(Predicate<SpawnConditionContext> complex)
+    {
+        return simpleSpawn(false, complex);
+    }
+
+    public static Predicate<SpawnConditionContext> simpleSpawn(boolean nightTime, Predicate<SpawnConditionContext> complex)
+    {
+        return FishOfThieves.CONFIG.general.simpleSpawningCondition ? nightTime ? SpawnSelectors.nightAndSeeSky() : SpawnSelectors.always() : complex;
+    }
+
+    public static Predicate<SpawnConditionContext> simpleSpawn(float probability, Predicate<SpawnConditionContext> complex)
+    {
+        return FishOfThieves.CONFIG.general.simpleSpawningCondition ? probability(probability) : complex;
     }
 
     @SafeVarargs

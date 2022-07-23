@@ -292,10 +292,10 @@ public class Wrecker extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         ROSE(SpawnSelectors.always()),
-        SUN(SpawnSelectors.dayAndSeeSky()),
-        BLACKCLOUD(SpawnSelectors.thunderingAndSeeSky()),
-        SNOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN))),
-        MOON(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F));
+        SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
+        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
+        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
+        MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

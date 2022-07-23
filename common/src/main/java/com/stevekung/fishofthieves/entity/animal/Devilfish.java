@@ -158,13 +158,13 @@ public class Devilfish extends AbstractSchoolingThievesFish
     {
         ASHEN(SpawnSelectors.always()),
         SEASHELL(SpawnSelectors.always()),
-        LAVA(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent()),
+        LAVA(SpawnSelectors.simpleSpawn(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent())),
         FORSAKEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability)),
-        FIRELIGHT(context ->
+        FIRELIGHT(SpawnSelectors.simpleSpawn(true, context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
             return context.isNight() && optional.isPresent();
-        });
+        }));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

@@ -115,14 +115,14 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         RUSSET(SpawnSelectors.always()),
-        SANDY(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))),
-        OCEAN(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN)),
-        MUDDY(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP))),
-        CORAL(SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
+        SANDY(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST)))),
+        OCEAN(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN))),
+        MUDDY(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP)))),
+        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
             return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);
-        })));
+        }))));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

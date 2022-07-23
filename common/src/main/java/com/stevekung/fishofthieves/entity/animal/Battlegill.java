@@ -161,9 +161,9 @@ public class Battlegill extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         JADE(SpawnSelectors.always()),
-        SKY(SpawnConditionContext::seeSkyInWater),
+        SKY(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)),
         RUM(SpawnSelectors.always()),
-        SAND(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN))),
+        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN)))),
         BITTERSWEET(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
