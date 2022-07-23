@@ -1,14 +1,21 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.Collections;
 import java.util.Map;
 
 import net.minecraft.resources.ResourceLocation;
 
 public interface GlowFish
 {
-    boolean canGlow();
+    default boolean canGlow()
+    {
+        return false;
+    }
 
-    Map<FishVariant, ResourceLocation> getGlowTextureByType();
+    default Map<FishVariant, ResourceLocation> getGlowTextureByType()
+    {
+        return Collections.emptyMap();
+    }
 
     default float getGlowBrightness(float ageInTicks)
     {
