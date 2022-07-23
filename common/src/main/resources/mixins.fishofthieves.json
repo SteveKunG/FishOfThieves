@@ -13,7 +13,6 @@
     "client.renderer.entity.MixinVanillaFishesRenderer"
   ],
   "mixins": [
-    "DispenserBlockAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "animal.MixinCat",
