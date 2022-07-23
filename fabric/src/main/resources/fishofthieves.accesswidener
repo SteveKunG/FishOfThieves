@@ -2,6 +2,7 @@ accessWidener v1 named
 accessible field net/minecraft/data/loot/EntityLoot ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
 
 accessible method net/minecraft/world/level/biome/Biome getBiomeCategory ()Lnet/minecraft/world/level/biome/Biome$BiomeCategory;
+accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
 accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
