@@ -83,6 +83,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("croptopia", "fishes"));
 
+    // Immersive Weathering
+    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
@@ -360,6 +363,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
+
+            // Immersive Weathering compatibility
+            this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.THIEVES_FISH);
+            this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).forceAddTag(FOTTags.THIEVES_FISH);
         }
     }
 
