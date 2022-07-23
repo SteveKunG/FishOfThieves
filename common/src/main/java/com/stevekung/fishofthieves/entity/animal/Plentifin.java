@@ -117,13 +117,13 @@ public class Plentifin extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         OLIVE(SpawnSelectors.always()),
-        AMBER(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
+        AMBER(SpawnSelectors.simpleSpawn(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
         {
             var time = context.level().getTimeOfDay(1.0F);
             return time >= 0.75F && time <= 0.9F;
-        })),
-        CLOUDY(SpawnSelectors.rainingAndSeeSky()),
-        BONEDUST(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0))),
+        }))),
+        CLOUDY(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())),
+        BONEDUST(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0)))),
         WATERY(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

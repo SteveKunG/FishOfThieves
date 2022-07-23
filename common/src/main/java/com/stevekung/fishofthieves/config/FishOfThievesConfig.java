@@ -27,31 +27,35 @@ public final class FishOfThievesConfig implements ConfigData
     public static class General
     {
         public float trophyMaxHealth = 5.0F;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still work")
+        public boolean simpleSpawningCondition;
     }
 
     public static class SpawnRate
     {
-        @Comment("Chance of spawning trophy.")
+        @Comment("Chance to spawn Trophy fish size.")
         public float trophyProbability = 0.15F;
-        @Comment("Chance of spawning Umber variant of Splashtails.")
+        @Comment("Chance to spawn Umber variant of Splashtails.")
         public float umberSplashtailProbability = 0.1F;
-        @Comment("Chance of spawning Bright variant of Pondies.")
+        @Comment("Chance to spawn Bright variant of Pondies.")
         public float brightPondieProbability = 0.1F;
-        @Comment("Chance of spawning Raven variant of Islehoppers.")
+        @Comment("Chance to spawn Raven variant of Islehoppers.")
         public float ravenIslehopperProbability = 0.1F;
-        @Comment("Chance of spawning Bone variant of Ancientscales.")
+        @Comment("Chance to spawn Bone variant of Ancientscales.")
         public float boneAncientscaleProbability = 0.1F;
-        @Comment("Chance of spawning Bonedust variant of Plentifins.")
+        @Comment("Chance to spawn Bonedust variant of Plentifins.")
         public float bonedustPlentifinProbability = 0.1F;
-        @Comment("Chance of spawning Muddy variant of Wildsplashes.")
+        @Comment("Chance to spawn Muddy variant of Wildsplashes.")
         public float muddyWildsplashProbability = 0.1F;
-        @Comment("Chance of spawning Forsaken variant of Devilfish.")
+        @Comment("Chance to spawn Forsaken variant of Devilfish.")
         public float forsakenDevilfishProbability = 0.1F;
-        @Comment("Chance of spawning Sand variant of Battlegills.")
+        @Comment("Chance to spawn Sand variant of Battlegills.")
         public float sandBattlegillProbability = 0.1F;
-        @Comment("Chance of spawning Snow variant of Wreckers.")
+        @Comment("Chance to spawn Snow variant of Wreckers.")
         public float snowWreckerProbability = 0.1F;
-        @Comment("Chance of spawning Shadow variant of Stormfish.")
+        @Comment("Chance to spawn Shadow variant of Stormfish.")
         public float shadowStormfishProbability = 0.1F;
     }
 }

@@ -15,13 +15,16 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
@@ -200,29 +203,9 @@ public class FishOfThievesFabric implements ModInitializer
             }
             else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
             {
-                tableBuilder.modifyPools(builder -> builder
+                tableBuilder.withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(2.0f))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_SPLASHTAIL)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_PONDIE)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_ISLEHOPPER)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_ANCIENTSCALE)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_PLENTIFIN)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_WILDSPLASH)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_DEVILFISH)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_BATTLEGILL)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_WRECKER)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .add(LootItem.lootTableItem(FOTItems.COOKED_STORMFISH)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                        .build());
+                        .add(TagEntry.expandTag(FOTTags.COOKED_THIEVES_FISH).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f)))));
             }
         });
 

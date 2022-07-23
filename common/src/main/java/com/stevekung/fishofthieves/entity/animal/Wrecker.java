@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.FishVariant;
@@ -14,6 +15,7 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -48,7 +50,13 @@ import net.minecraft.world.phys.Vec3;
 
 public class Wrecker extends AbstractThievesFish
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
+    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
+    {
+        map.put(Variant.SUN, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/sun_glow.png"));
+        map.put(Variant.BLACKCLOUD, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png"));
+        map.put(Variant.SNOW, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png"));
+        map.put(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
+    });
     private static final EntityDataAccessor<BlockPos> SHIPWRECK_POS = SynchedEntityData.defineId(Wrecker.class, EntityDataSerializers.BLOCK_POS);
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
 
@@ -136,7 +144,7 @@ public class Wrecker extends AbstractThievesFish
     @Override
     public boolean canGlow()
     {
-        return this.getVariant() == Variant.MOON;
+        return this.getVariant() != Variant.ROSE;
     }
 
     @Override
@@ -284,10 +292,10 @@ public class Wrecker extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         ROSE(SpawnSelectors.always()),
-        SUN(SpawnSelectors.dayAndSeeSky()),
-        BLACKCLOUD(SpawnSelectors.thunderingAndSeeSky()),
-        SNOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN))),
-        MOON(SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F));
+        SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
+        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
+        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
+        MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

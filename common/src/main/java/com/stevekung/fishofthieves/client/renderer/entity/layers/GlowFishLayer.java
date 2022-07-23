@@ -20,7 +20,7 @@ public class GlowFishLayer<T extends LivingEntity & ThievesFish, M extends Entit
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        if (!livingEntity.isInvisible() && livingEntity.canGlow())
+        if (!livingEntity.isInvisible() && livingEntity.canGlow() && !livingEntity.getGlowTextureByType().isEmpty())
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(livingEntity.getGlowTextureByType().get(livingEntity.getVariant())));
             var color = livingEntity.getGlowBrightness(ageInTicks);

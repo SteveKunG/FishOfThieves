@@ -3,6 +3,7 @@
   "text.autoconfig.fishofthieves.category.general": "常规",
   "text.autoconfig.fishofthieves.category.spawn_rate": "生成率",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "奖杯鱼最大生命",
+  "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "Simple Spawning Condition",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "奖杯鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "琥珀浪尾鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "明亮小池鱼概率",

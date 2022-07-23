@@ -113,10 +113,10 @@ public class Stormfish extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         ANCIENT(SpawnSelectors.always()),
-        SHORES(context -> context.continentalness() == Continentalness.COAST),
-        WILD(SpawnSelectors.includeByKey(Biomes.SPARSE_JUNGLE)),
-        SHADOW(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4)),
-        TWILIGHT(context -> context.level().getSkyDarken() >= 9);
+        SHORES(SpawnSelectors.simpleSpawn(context -> context.continentalness() == Continentalness.COAST)),
+        WILD(SpawnSelectors.simpleSpawn(SpawnSelectors.includeByKey(Biomes.SPARSE_JUNGLE))),
+        SHADOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4))),
+        TWILIGHT(SpawnSelectors.simpleSpawn(true, context -> context.level().getSkyDarken() >= 9));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
         private final Predicate<SpawnConditionContext> condition;

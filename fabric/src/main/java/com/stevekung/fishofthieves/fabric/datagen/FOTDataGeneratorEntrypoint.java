@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -54,7 +53,6 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTable.Builder;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
@@ -85,6 +83,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("croptopia", "fishes"));
 
+    // Immersive Weathering
+    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
+
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
@@ -101,7 +102,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class ModelProvider extends FabricModelProvider
     {
-        private static final ModelTemplate TEMPLATE_SPAWN_EGG = createItem("template_spawn_egg");
+        private static final ModelTemplate SPAWN_EGG = ModelTemplates.createItem("template_spawn_egg");
 
         private ModelProvider(FabricDataGenerator dataGenerator)
         {
@@ -109,57 +110,52 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
 
         @Override
-        public void generateItemModels(ItemModelGenerators itemModelGenerator)
+        public void generateItemModels(ItemModelGenerators generator)
         {
-            itemModelGenerator.generateFlatItem(FOTItems.SPLASHTAIL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.SPLASHTAIL_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.PONDIE, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.PONDIE_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.PLENTIFIN, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.PLENTIFIN_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.WILDSPLASH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.WILDSPLASH_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.DEVILFISH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_DEVILFISH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.DEVILFISH_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.BATTLEGILL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_BATTLEGILL, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.BATTLEGILL_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.WRECKER, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_WRECKER, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.WRECKER_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
-            itemModelGenerator.generateFlatItem(FOTItems.STORMFISH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.STORMFISH_BUCKET, ModelTemplates.FLAT_ITEM);
-            itemModelGenerator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, TEMPLATE_SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.SPLASHTAIL, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.SPLASHTAIL_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.PONDIE, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.PONDIE_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.ISLEHOPPER, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.ISLEHOPPER_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.ANCIENTSCALE_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.PLENTIFIN, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.PLENTIFIN_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.WILDSPLASH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.WILDSPLASH_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.DEVILFISH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_DEVILFISH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.DEVILFISH_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.BATTLEGILL, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_BATTLEGILL, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.BATTLEGILL_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.WRECKER, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_WRECKER, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.WRECKER_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, SPAWN_EGG);
+            generator.generateFlatItem(FOTItems.STORMFISH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.STORMFISH_BUCKET, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
         }
 
         @Override
-        public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {}
-
-        private static ModelTemplate createItem(String itemModelLocation)
-        {
-            return new ModelTemplate(Optional.of(new ResourceLocation("item/" + itemModelLocation)), Optional.empty());
-        }
+        public void generateBlockStateModels(BlockModelGenerators generator) {}
     }
 
     private static class RecipeProvider extends FabricRecipeProvider
@@ -202,7 +198,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
 
         @Override
-        public void accept(BiConsumer<ResourceLocation, Builder> consumer)
+        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
             consumer.accept(FOTEntities.SPLASHTAIL.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -344,6 +340,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN,
                     FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL, FOTItems.WRECKER, FOTItems.COOKED_WRECKER, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
+            this.getOrCreateTagBuilder(FOTTags.COOKED_THIEVES_FISH).add(cookedFishes);
 
             // Fabric
             this.getOrCreateTagBuilder(RAW_FISHES).add(rawFishes);
@@ -368,6 +365,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
+
+            // Immersive Weathering compatibility
+            this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.THIEVES_FISH);
+            this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).forceAddTag(FOTTags.THIEVES_FISH);
         }
     }
 
