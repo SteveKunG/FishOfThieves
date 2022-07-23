@@ -69,9 +69,9 @@ public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implemen
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
     {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay);
-        this.body_main.render(poseStack, buffer, packedLight, packedOverlay);
-        this.body_back.render(poseStack, buffer, packedLight, packedOverlay);
+        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
