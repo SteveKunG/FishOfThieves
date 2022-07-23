@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.forge.registry.FOTLootItemConditionsForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.Util;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.world.entity.EntityType;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
@@ -227,29 +229,9 @@ public class CommonProxyForge
         }
         else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
         {
-            var buriedTreasure = LootPool.lootPool()
+            table.addPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(2.0f))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_SPLASHTAIL)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0f, 4.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_PONDIE)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 2.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_ISLEHOPPER)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_ANCIENTSCALE)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_PLENTIFIN)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_WILDSPLASH)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_DEVILFISH)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_BATTLEGILL)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_WRECKER)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))))
-                    .add(LootItem.lootTableItem(FOTItems.COOKED_STORMFISH)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f))));
-            inject(table, "main", buriedTreasure.entries);
+                    .add(TagEntry.expandTag(FOTTags.COOKED_THIEVES_FISH).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f)))).build());
         }
     }
 

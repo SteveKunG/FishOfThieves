@@ -11,6 +11,7 @@ import net.minecraft.world.level.biome.Biome;
 public class FOTTags
 {
     public static final TagKey<Item> THIEVES_FISH_BUCKET = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish_bucket"));
+    public static final TagKey<Item> COOKED_THIEVES_FISH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "cooked_thieves_fish"));
 
     public static final TagKey<EntityType<?>> THIEVES_FISH = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
