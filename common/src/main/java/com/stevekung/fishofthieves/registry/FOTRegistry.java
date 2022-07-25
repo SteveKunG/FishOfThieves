@@ -20,6 +20,8 @@ public class FOTRegistry
     public static final Registry<PlentifinVariant> PLENTIFIN_VARIANT = Registry.registerSimple(PLENTIFIN_VARIANT_REGISTRY, registry -> PlentifinVariant.OLIVE);
     public static final ResourceKey<Registry<WildsplashVariant>> WILDSPLASH_VARIANT_REGISTRY = createRegistryKey("wildsplash_variant");
     public static final Registry<WildsplashVariant> WILDSPLASH_VARIANT = Registry.registerSimple(WILDSPLASH_VARIANT_REGISTRY, registry -> WildsplashVariant.RUSSET);
+    public static final ResourceKey<Registry<DevilfishVariant>> DEVILFISH_VARIANT_REGISTRY = createRegistryKey("devilfish_variant");
+    public static final Registry<DevilfishVariant> DEVILFISH_VARIANT = Registry.registerSimple(DEVILFISH_VARIANT_REGISTRY, registry -> DevilfishVariant.ASHEN);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {

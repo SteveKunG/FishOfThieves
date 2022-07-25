@@ -12,6 +12,7 @@ public class FOTDataSerializers
     public static final EntityDataSerializer<AncientscaleVariant> ANCIENTSCALE_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.ANCIENTSCALE_VARIANT);
     public static final EntityDataSerializer<PlentifinVariant> PLENTIFIN_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.PLENTIFIN_VARIANT);
     public static final EntityDataSerializer<WildsplashVariant> WILDSPLASH_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.WILDSPLASH_VARIANT);
+    public static final EntityDataSerializer<DevilfishVariant> DEVILFISH_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.DEVILFISH_VARIANT);
 
     public static void init()
     {
@@ -21,5 +22,6 @@ public class FOTDataSerializers
         EntityDataSerializers.registerSerializer(FOTDataSerializers.ANCIENTSCALE_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.PLENTIFIN_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.WILDSPLASH_VARIANT);
+        EntityDataSerializers.registerSerializer(FOTDataSerializers.DEVILFISH_VARIANT);
     }
 }

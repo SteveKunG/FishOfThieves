@@ -42,6 +42,7 @@ public class FishOfThieves
         AncientscaleVariant.init();
         PlentifinVariant.init();
         WildsplashVariant.init();
+        DevilfishVariant.init();
         FOTDataSerializers.init();
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);

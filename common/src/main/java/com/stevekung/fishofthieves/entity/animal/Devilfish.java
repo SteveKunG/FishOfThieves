@@ -1,33 +1,22 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishData;
-import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
+import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,10 +34,19 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
-public class Devilfish extends AbstractSchoolingThievesFish<FishData>
+public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
-//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.FIRELIGHT, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png"));
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.isInWater() && livingEntity.attackable();
+    private static final EntityDataAccessor<DevilfishVariant> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:ashen");
+        map.put(0, "fishofthieves:ashen");
+        map.put(1, "fishofthieves:seashell");
+        map.put(2, "fishofthieves:lava");
+        map.put(3, "fishofthieves:forsaken");
+        map.put(4, "fishofthieves:firelight");
+    };
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {
@@ -61,6 +59,43 @@ public class Devilfish extends AbstractSchoolingThievesFish<FishData>
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+    }
+
+    @Override
+    protected void defineSynchedData()
+    {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, DevilfishVariant.ASHEN);
+    }
+
+    @Override
+    public Registry<DevilfishVariant> getRegistry()
+    {
+        return FOTRegistry.DEVILFISH_VARIANT;
+    }
+
+    @Override
+    public void setVariant(DevilfishVariant variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public DevilfishVariant getVariant()
+    {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public Holder<DevilfishVariant> getSpawnVariant(boolean fromBucket)
+    {
+        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_DEVILFISH_SPAWNS, DevilfishVariant.ASHEN, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
@@ -119,36 +154,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<FishData>
     }
 
     @Override
-    public FishData getVariant()
-    {
-        return null;
-    }
-
-    @Override
-    public void setVariant(FishData variant)
-    {
-
-    }
-
-    @Override
-    public Holder<FishData> getSpawnVariant(boolean bucket)
-    {
-        return null;
-    }
-
-    @Override
-    public Registry<FishData> getRegistry()
-    {
-        return null;
-    }
-
-    @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
-    {
-        return null;
-    }
-
-    @Override
     public void setTrophy(boolean trophy)
     {
         if (trophy)
@@ -157,30 +162,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<FishData>
         }
         super.setTrophy(trophy);
     }
-
-//    @Override
-//    public boolean canGlow()
-//    {
-//        return this.getVariant() == Variant.FIRELIGHT;
-//    }
-//
-//    @Override
-//    public Variant getVariant()
-//    {
-//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-//    }
-//
-//    @Override
-//    public int getSpawnVariantId(boolean bucket)
-//    {
-//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-//    }
-//
-//    @Override
-//    public Map<FishData, ResourceLocation> getGlowTextureByType()
-//    {
-//        return GLOW_BY_TYPE;
-//    }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
@@ -191,43 +172,4 @@ public class Devilfish extends AbstractSchoolingThievesFish<FishData>
     {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.0).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
-//
-//    public enum Variant implements FishData
-//    {
-//        ASHEN(SpawnSelectors.always()),
-//        SEASHELL(SpawnSelectors.always()),
-//        LAVA(SpawnSelectors.simpleSpawn(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent())),
-//        FORSAKEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability)),
-//        FIRELIGHT(SpawnSelectors.simpleSpawn(true, context ->
-//        {
-//            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
-//            return context.isNight() && optional.isPresent();
-//        }));
-//
-//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-//        private final Predicate<SpawnConditionContext> condition;
-//
-//        Variant(Predicate<SpawnConditionContext> condition)
-//        {
-//            this.condition = condition;
-//        }
-//
-//        @Override
-//        public String getName()
-//        {
-//            return this.name().toLowerCase(Locale.ROOT);
-//        }
-//
-//        @Override
-//        public int getId()
-//        {
-//            return this.ordinal();
-//        }
-//
-//        @Override
-//        public Predicate<SpawnConditionContext> getCondition()
-//        {
-//            return this.condition;
-//        }
-//    }
 }
