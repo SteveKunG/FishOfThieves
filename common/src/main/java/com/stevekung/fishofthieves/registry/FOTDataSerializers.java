@@ -14,6 +14,7 @@ public class FOTDataSerializers
     public static final EntityDataSerializer<WildsplashVariant> WILDSPLASH_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.WILDSPLASH_VARIANT);
     public static final EntityDataSerializer<DevilfishVariant> DEVILFISH_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.DEVILFISH_VARIANT);
     public static final EntityDataSerializer<BattlegillVariant> BATTLEGILL_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.BATTLEGILL_VARIANT);
+    public static final EntityDataSerializer<WreckerVariant> WRECKER_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.WRECKER_VARIANT);
 
     public static void init()
     {
@@ -25,5 +26,6 @@ public class FOTDataSerializers
         EntityDataSerializers.registerSerializer(FOTDataSerializers.WILDSPLASH_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.DEVILFISH_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.BATTLEGILL_VARIANT);
+        EntityDataSerializers.registerSerializer(FOTDataSerializers.WRECKER_VARIANT);
     }
 }

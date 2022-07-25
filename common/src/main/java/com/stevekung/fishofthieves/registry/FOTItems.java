@@ -43,7 +43,7 @@ public class FOTItems
     public static final Item WILDSPLASH_BUCKET = new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Wildsplash.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item DEVILFISH_BUCKET = new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Devilfish.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item BATTLEGILL_BUCKET = new FOTMobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Battlegill.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
-    public static final Item WRECKER_BUCKET = new MobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
+    public static final Item WRECKER_BUCKET = new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Wrecker.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item STORMFISH_BUCKET = new MobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
 
     public static final Item SPLASHTAIL_SPAWN_EGG = new SpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties().tab(FishOfThieves.FOT_TAB));
