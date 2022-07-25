@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -37,6 +38,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
     }
 
@@ -44,6 +46,15 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
+        ThievesFish.fixData(compound, this.getDataFix());
+
+        var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
+
+        if (variant != null)
+        {
+            this.setVariant(variant);
+        }
+
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
     }
 

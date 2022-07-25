@@ -1,22 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.FishData;
-import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -25,12 +14,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -41,16 +30,60 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
-public class Islehopper extends AbstractThievesFish<FishData>
+public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
-//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.AMETHYST, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png"));
+    private static final EntityDataAccessor<IslehopperVariant> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:stone");
+        map.put(0, "fishofthieves:stone");
+        map.put(1, "fishofthieves:moss");
+        map.put(2, "fishofthieves:honey");
+        map.put(3, "fishofthieves:raven");
+        map.put(4, "fishofthieves:amethyst");
+    };
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void defineSynchedData()
+    {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, IslehopperVariant.STONE);
+    }
+
+    @Override
+    public Registry<IslehopperVariant> getRegistry()
+    {
+        return FOTRegistry.ISLEHOPPER_VARIANT;
+    }
+
+    @Override
+    public void setVariant(IslehopperVariant variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public IslehopperVariant getVariant()
+    {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public Holder<IslehopperVariant> getSpawnVariant(boolean fromBucket)
+    {
+        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariant.STONE, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
@@ -105,35 +138,11 @@ public class Islehopper extends AbstractThievesFish<FishData>
         return this.isTrophy() ? 0.29F : 0.15F;
     }
 
-//    @Override
-//    public boolean canGlow()
-//    {
-//        return this.getVariant() == Variant.AMETHYST;
-//    }
-//
-//    @Override
-//    public float getGlowBrightness(float ageInTicks)
-//    {
-//        return Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
-//    }
-//
-//    @Override
-//    public Variant getVariant()
-//    {
-//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-//    }
-//
-//    @Override
-//    public int getSpawnVariantId(boolean bucket)
-//    {
-//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-//    }
-//
-//    @Override
-//    public Map<FishData, ResourceLocation> getGlowTextureByType()
-//    {
-//        return GLOW_BY_TYPE;
-//    }
+    @Override
+    public float getGlowBrightness(float ageInTicks)
+    {
+        return Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
+    }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
@@ -148,77 +157,4 @@ public class Islehopper extends AbstractThievesFish<FishData>
         }
         return biome.is(FOTTags.IS_CAVES) && blockPos.getY() <= 0 || waterRules;
     }
-
-    @Override
-    public FishData getVariant()
-    {
-        return null;
-    }
-
-    @Override
-    public void setVariant(FishData variant)
-    {
-
-    }
-
-    @Override
-    public Holder<FishData> getSpawnVariant(boolean bucket)
-    {
-        return null;
-    }
-
-    @Override
-    public Registry<FishData> getRegistry()
-    {
-        return null;
-    }
-
-    @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
-    {
-        return null;
-    }
-
-    //    public enum Variant implements FishData
-//    {
-//        STONE(SpawnSelectors.always()),
-//        MOSS(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(BiomeTags.IS_JUNGLE, BiomeTags.HAS_CLOSER_WATER_FOG).or(SpawnSelectors.includeByKey(Biomes.LUSH_CAVES)))),
-//        HONEY(SpawnSelectors.simpleSpawn(context ->
-//        {
-//            var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
-//            {
-//                var blockState = context.level().getBlockState(blockPos2);
-//                return blockState.is(BlockTags.BEEHIVES) && BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
-//            });
-//            return optional.isPresent();
-//        })),
-//        RAVEN(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))),
-//        AMETHYST(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS))));
-//
-//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-//        private final Predicate<SpawnConditionContext> condition;
-//
-//        Variant(Predicate<SpawnConditionContext> condition)
-//        {
-//            this.condition = condition;
-//        }
-//
-//        @Override
-//        public String getName()
-//        {
-//            return this.name().toLowerCase(Locale.ROOT);
-//        }
-//
-//        @Override
-//        public int getId()
-//        {
-//            return this.ordinal();
-//        }
-//
-//        @Override
-//        public Predicate<SpawnConditionContext> getCondition()
-//        {
-//            return this.condition;
-//        }
-//    }
 }

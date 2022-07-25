@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.variants.PondieVariant;
 import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
 import net.minecraft.core.Registry;
@@ -13,6 +14,8 @@ public class FOTRegistry
     public static final Registry<SplashtailVariant> SPLASHTAIL_VARIANT = Registry.registerSimple(SPLASHTAIL_VARIANT_REGISTRY, registry -> SplashtailVariant.RUBY);
     public static final ResourceKey<Registry<PondieVariant>> PONDIE_VARIANT_REGISTRY = createRegistryKey("pondie_variant");
     public static final Registry<PondieVariant> PONDIE_VARIANT = Registry.registerSimple(PONDIE_VARIANT_REGISTRY, registry -> PondieVariant.CHARCOAL);
+    public static final ResourceKey<Registry<IslehopperVariant>> ISLEHOPPER_VARIANT_REGISTRY = createRegistryKey("islehopper_variant");
+    public static final Registry<IslehopperVariant> ISLEHOPPER_VARIANT = Registry.registerSimple(ISLEHOPPER_VARIANT_REGISTRY, registry -> IslehopperVariant.STONE);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {
