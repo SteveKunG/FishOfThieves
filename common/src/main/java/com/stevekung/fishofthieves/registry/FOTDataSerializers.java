@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
-import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
-import com.stevekung.fishofthieves.registry.variants.PondieVariant;
-import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
+import com.stevekung.fishofthieves.registry.variants.*;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 
@@ -13,6 +10,7 @@ public class FOTDataSerializers
     public static final EntityDataSerializer<PondieVariant> PONDIE_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.PONDIE_VARIANT);
     public static final EntityDataSerializer<IslehopperVariant> ISLEHOPPER_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.ISLEHOPPER_VARIANT);
     public static final EntityDataSerializer<AncientscaleVariant> ANCIENTSCALE_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.ANCIENTSCALE_VARIANT);
+    public static final EntityDataSerializer<PlentifinVariant> PLENTIFIN_VARIANT = EntityDataSerializer.simpleId(FOTRegistry.PLENTIFIN_VARIANT);
 
     public static void init()
     {
@@ -20,5 +18,6 @@ public class FOTDataSerializers
         EntityDataSerializers.registerSerializer(FOTDataSerializers.PONDIE_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.ISLEHOPPER_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.ANCIENTSCALE_VARIANT);
+        EntityDataSerializers.registerSerializer(FOTDataSerializers.PLENTIFIN_VARIANT);
     }
 }

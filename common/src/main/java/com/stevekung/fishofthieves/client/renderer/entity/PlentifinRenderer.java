@@ -1,31 +1,20 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.Map;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.PlentifinModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.animal.Plentifin;
+import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class PlentifinRenderer extends ThievesFishRenderer<FishData, Plentifin, PlentifinModel<Plentifin>>
+public class PlentifinRenderer extends ThievesFishRenderer<PlentifinVariant, Plentifin, PlentifinModel<Plentifin>>
 {
-//    private static final Map<FishData, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Plentifin.Variant.BY_ID, "plentifin");
-
     public PlentifinRenderer(EntityRendererProvider.Context context)
     {
         super(context, new PlentifinModel<>(context.bakeLayer(PlentifinModel.LAYER)));
     }
-
-//    @Override
-//    protected Map<FishData, ResourceLocation> getTextureMap()
-//    {
-//        return TEXTURE_BY_TYPE;
-//    }
 
     @Override
     protected void setupRotations(Plentifin plentifin, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)

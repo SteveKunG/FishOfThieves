@@ -7,10 +7,7 @@ import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
-import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
-import com.stevekung.fishofthieves.registry.variants.PondieVariant;
-import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
+import com.stevekung.fishofthieves.registry.variants.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -43,6 +40,7 @@ public class FishOfThieves
         PondieVariant.init();
         IslehopperVariant.init();
         AncientscaleVariant.init();
+        PlentifinVariant.init();
         FOTDataSerializers.init();
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
