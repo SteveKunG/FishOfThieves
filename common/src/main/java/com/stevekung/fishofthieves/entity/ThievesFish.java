@@ -20,10 +20,10 @@ import net.minecraft.world.entity.SpawnGroupData;
 public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
 {
     String OLD_VARIANT_TAG = "Variant";
+    String OLD_NAME_TAG = "Name";
 
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
-    String NAME_TAG = "Name";
 
     T getVariant();
 
@@ -44,7 +44,6 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
         var variant = this.getRegistry().getKey(this.getVariant());
         compound.putString(VARIANT_TAG, variant.toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putString(NAME_TAG, variant.getPath());
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -102,6 +101,10 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
             var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
             compound.remove(OLD_VARIANT_TAG);
             compound.putString(VARIANT_TAG, oldMap.get(variant));
+        }
+        if (compound.contains(OLD_NAME_TAG))
+        {
+            compound.remove(OLD_NAME_TAG);
         }
     }
 }
