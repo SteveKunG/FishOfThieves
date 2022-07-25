@@ -12,4 +12,5 @@ public class FishVariantTags
     public static final TagKey<IslehopperVariant> DEFAULT_ISLEHOPPER_SPAWNS = TagKey.create(FOTRegistry.ISLEHOPPER_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_islehopper_spawns"));
     public static final TagKey<AncientscaleVariant> DEFAULT_ANCIENTSCALE_SPAWNS = TagKey.create(FOTRegistry.ANCIENTSCALE_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_ancientscale_spawns"));
     public static final TagKey<PlentifinVariant> DEFAULT_PLENTIFIN_SPAWNS = TagKey.create(FOTRegistry.PLENTIFIN_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_plentifin_spawns"));
+    public static final TagKey<WildsplashVariant> DEFAULT_WILDSPLASH_SPAWNS = TagKey.create(FOTRegistry.WILDSPLASH_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_wildsplash_spawns"));
 }

@@ -81,7 +81,15 @@ public class FOTItems
             ThievesFish.fixData(compoundTag, Plentifin.DATA_FIX_MAP);
         }
     };
-    public static final Item WILDSPLASH_BUCKET = new MobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
+    public static final Item WILDSPLASH_BUCKET = new MobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB))
+    {
+        @Override
+        public void verifyTagAfterLoad(CompoundTag compoundTag)
+        {
+            super.verifyTagAfterLoad(compoundTag);
+            ThievesFish.fixData(compoundTag, Wildsplash.DATA_FIX_MAP);
+        }
+    };
     public static final Item DEVILFISH_BUCKET = new MobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item BATTLEGILL_BUCKET = new MobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item WRECKER_BUCKET = new MobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));

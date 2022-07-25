@@ -1,32 +1,21 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishData;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
+import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -39,13 +28,59 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 
-public class Wildsplash extends AbstractSchoolingThievesFish<FishData>
+public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 {
-//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.CORAL, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png"));
+    private static final EntityDataAccessor<WildsplashVariant> VARIANT = SynchedEntityData.defineId(Wildsplash.class, FOTDataSerializers.WILDSPLASH_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:russet");
+        map.put(0, "fishofthieves:russet");
+        map.put(1, "fishofthieves:sandy");
+        map.put(2, "fishofthieves:ocean");
+        map.put(3, "fishofthieves:muddy");
+        map.put(4, "fishofthieves:coral");
+    };
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void defineSynchedData()
+    {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, WildsplashVariant.RUSSET);
+    }
+
+    @Override
+    public Registry<WildsplashVariant> getRegistry()
+    {
+        return FOTRegistry.WILDSPLASH_VARIANT;
+    }
+
+    @Override
+    public void setVariant(WildsplashVariant variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public WildsplashVariant getVariant()
+    {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public Holder<WildsplashVariant> getSpawnVariant(boolean fromBucket)
+    {
+        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_WILDSPLASH_SPAWNS, WildsplashVariant.RUSSET, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
@@ -90,102 +125,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish<FishData>
         return this.isTrophy() ? 0.38F : 0.2F;
     }
 
-//    @Override
-//    public boolean canGlow()
-//    {
-//        return this.getVariant() == Variant.CORAL;
-//    }
-//
-//    @Override
-//    public Variant getVariant()
-//    {
-//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-//    }
-//
-//    @Override
-//    public int getSpawnVariantId(boolean bucket)
-//    {
-//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-//    }
-//
-//    @Override
-//    public Map<FishData, ResourceLocation> getGlowTextureByType()
-//    {
-//        return GLOW_BY_TYPE;
-//    }
-
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var biome = levelAccessor.getBiome(blockPos);
         return biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
-
-    @Override
-    public FishData getVariant()
-    {
-        return null;
-    }
-
-    @Override
-    public void setVariant(FishData variant)
-    {
-
-    }
-
-    @Override
-    public Holder<FishData> getSpawnVariant(boolean bucket)
-    {
-        return null;
-    }
-
-    @Override
-    public Registry<FishData> getRegistry()
-    {
-        return null;
-    }
-
-    @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
-    {
-        return null;
-    }
-
-    //    public enum Variant implements FishData
-//    {
-//        RUSSET(SpawnSelectors.always()),
-//        SANDY(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(BiomeTags.IS_BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST)))),
-//        OCEAN(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(BiomeTags.IS_OCEAN))),
-//        MUDDY(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.biomes(BiomeTags.HAS_CLOSER_WATER_FOG)))),
-//        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
-//        {
-//            var blockState = context.level().getBlockState(blockPos2);
-//            return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);
-//        }))));
-//
-//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-//        private final Predicate<SpawnConditionContext> condition;
-//
-//        Variant(Predicate<SpawnConditionContext> condition)
-//        {
-//            this.condition = condition;
-//        }
-//
-//        @Override
-//        public String getName()
-//        {
-//            return this.name().toLowerCase(Locale.ROOT);
-//        }
-//
-//        @Override
-//        public int getId()
-//        {
-//            return this.ordinal();
-//        }
-//
-//        @Override
-//        public Predicate<SpawnConditionContext> getCondition()
-//        {
-//            return this.condition;
-//        }
-//    }
 }

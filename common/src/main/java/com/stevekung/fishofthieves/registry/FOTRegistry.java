@@ -18,6 +18,8 @@ public class FOTRegistry
     public static final Registry<AncientscaleVariant> ANCIENTSCALE_VARIANT = Registry.registerSimple(ANCIENTSCALE_VARIANT_REGISTRY, registry -> AncientscaleVariant.ALMOND);
     public static final ResourceKey<Registry<PlentifinVariant>> PLENTIFIN_VARIANT_REGISTRY = createRegistryKey("plentifin_variant");
     public static final Registry<PlentifinVariant> PLENTIFIN_VARIANT = Registry.registerSimple(PLENTIFIN_VARIANT_REGISTRY, registry -> PlentifinVariant.OLIVE);
+    public static final ResourceKey<Registry<WildsplashVariant>> WILDSPLASH_VARIANT_REGISTRY = createRegistryKey("wildsplash_variant");
+    public static final Registry<WildsplashVariant> WILDSPLASH_VARIANT = Registry.registerSimple(WILDSPLASH_VARIANT_REGISTRY, registry -> WildsplashVariant.RUSSET);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {
