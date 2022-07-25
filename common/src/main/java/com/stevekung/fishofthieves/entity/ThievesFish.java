@@ -1,8 +1,12 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.function.Consumer;
+
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +19,8 @@ import net.minecraft.world.entity.SpawnGroupData;
 
 public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
 {
+    String OLD_VARIANT_TAG = "Variant";
+
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String NAME_TAG = "Name";
@@ -26,6 +32,8 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
     Holder<T> getSpawnVariant(boolean fromBucket);
 
     Registry<T> getRegistry();
+
+    Consumer<Int2ObjectOpenHashMap<String>> getDataFix();
 
     boolean isTrophy();
 
@@ -41,6 +49,8 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
 
     default void loadFromBucket(CompoundTag compound)
     {
+        ThievesFish.fixData(compound, this.getDataFix());
+
         if (compound.contains(VARIANT_TAG))
         {
             var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
@@ -82,5 +92,16 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
     default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean fromBucket)
     {
         return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> fromBucket || variant.value().getCondition().test(SpawnSelectors.get(livingEntity))).orElseGet(() -> Holder.direct(defaultSpawn));
+    }
+
+    static void fixData(CompoundTag compound, Consumer<Int2ObjectOpenHashMap<String>> consumer)
+    {
+        if (compound.contains(OLD_VARIANT_TAG, Tag.TAG_INT))
+        {
+            int variant = compound.getInt(OLD_VARIANT_TAG);
+            var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
+            compound.remove(OLD_VARIANT_TAG);
+            compound.putString(VARIANT_TAG, oldMap.get(variant));
+        }
     }
 }

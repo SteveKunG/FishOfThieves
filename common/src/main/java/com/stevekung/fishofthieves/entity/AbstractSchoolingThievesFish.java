@@ -46,6 +46,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
+        ThievesFish.fixData(compound, this.getDataFix());
 
         var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
 

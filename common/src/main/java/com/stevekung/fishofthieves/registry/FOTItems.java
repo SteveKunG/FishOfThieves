@@ -1,7 +1,10 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.animal.Splashtail;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
@@ -33,7 +36,15 @@ public class FOTItems
     public static final Item COOKED_WRECKER = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.COOKED_SALMON));
     public static final Item COOKED_STORMFISH = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.COOKED_SALMON));
 
-    public static final Item SPLASHTAIL_BUCKET = new MobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
+    public static final Item SPLASHTAIL_BUCKET = new MobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB))
+    {
+        @Override
+        public void verifyTagAfterLoad(CompoundTag compoundTag)
+        {
+            super.verifyTagAfterLoad(compoundTag);
+            ThievesFish.fixData(compoundTag, Splashtail.DATA_FIX_MAP);
+        }
+    };
     public static final Item PONDIE_BUCKET = new MobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item ISLEHOPPER_BUCKET = new MobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item ANCIENTSCALE_BUCKET = new MobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));

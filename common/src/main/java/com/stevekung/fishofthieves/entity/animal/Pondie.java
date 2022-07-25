@@ -1,9 +1,12 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.function.Consumer;
+
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
@@ -98,6 +101,12 @@ public class Pondie extends AbstractSchoolingThievesFish<FishData>
 
     @Override
     public Registry<FishData> getRegistry()
+    {
+        return null;
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
     {
         return null;
     }

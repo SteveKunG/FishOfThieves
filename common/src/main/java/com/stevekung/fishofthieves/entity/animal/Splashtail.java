@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.function.Consumer;
+
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -7,6 +9,7 @@ import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,6 +25,15 @@ import net.minecraft.world.level.Level;
 public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 {
     private static final EntityDataAccessor<SplashtailVariant> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:ruby");
+        map.put(0, "fishofthieves:ruby");
+        map.put(1, "fishofthieves:sunny");
+        map.put(2, "fishofthieves:indigo");
+        map.put(3, "fishofthieves:umber");
+        map.put(4, "fishofthieves:seafoam");
+    };
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
@@ -57,6 +69,12 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     public Holder<SplashtailVariant> getSpawnVariant(boolean fromBucket)
     {
         return this.getSpawnVariant(this, FishVariantTags.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariant.RUBY, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
