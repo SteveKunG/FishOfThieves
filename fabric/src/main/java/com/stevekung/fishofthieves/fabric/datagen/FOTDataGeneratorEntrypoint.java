@@ -96,6 +96,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
         dataGenerator.addProvider(SplashtailVariantTagsProvider::new);
+        dataGenerator.addProvider(PondieVariantTagsProvider::new);
         dataGenerator.addProvider(BiomeTagsProvider::new);
         dataGenerator.addProvider(StructureTagsProvider::new);
         dataGenerator.addProvider(AdvancementProvider::new);

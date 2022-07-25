@@ -8,4 +8,5 @@ import net.minecraft.tags.TagKey;
 public class FishVariantTags
 {
     public static final TagKey<SplashtailVariant> DEFAULT_SPLASHTAIL_SPAWNS = TagKey.create(FOTRegistry.SPLASHTAIL_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_splashtail_spawns"));
+    public static final TagKey<PondieVariant> DEFAULT_PONDIE_SPAWNS = TagKey.create(FOTRegistry.PONDIE_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_pondie_spawns"));
 }
