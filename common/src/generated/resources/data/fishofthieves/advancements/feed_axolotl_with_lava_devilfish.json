@@ -16,7 +16,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"lava\",Variant:2}"
+          "nbt": "{variant:\"fishofthieves:lava\"}"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"

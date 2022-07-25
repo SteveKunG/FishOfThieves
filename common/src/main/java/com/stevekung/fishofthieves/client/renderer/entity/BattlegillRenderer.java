@@ -1,31 +1,20 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.Map;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.BattlegillModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
+import com.stevekung.fishofthieves.registry.variants.BattlegillVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class BattlegillRenderer extends ThievesFishRenderer<FishData, Battlegill, BattlegillModel<Battlegill>>
+public class BattlegillRenderer extends ThievesFishRenderer<BattlegillVariant, Battlegill, BattlegillModel<Battlegill>>
 {
-//    private static final Map<FishData, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Battlegill.Variant.BY_ID, "battlegill");
-
     public BattlegillRenderer(EntityRendererProvider.Context context)
     {
         super(context, new BattlegillModel<>(context.bakeLayer(BattlegillModel.LAYER)));
     }
-
-//    @Override
-//    protected Map<FishData, ResourceLocation> getTextureMap()
-//    {
-//        return TEXTURE_BY_TYPE;
-//    }
 
     @Override
     protected void setupRotations(Battlegill battlegill, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
