@@ -9,10 +9,14 @@ import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.variants.PondieVariant;
+import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,13 +25,14 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.registries.*;
 
 @Mod(FishOfThieves.MOD_ID)
 public class FishOfThievesForge
 {
+    public static final IForgeRegistry<PondieVariant> PONDIE_VARIANT_F = RegistryManager.ACTIVE.getRegistry(FOTRegistry.PONDIE_VARIANT_REGISTRY);
+    public static final DeferredRegister<PondieVariant> PONDIE_VARIANT = DeferredRegister.create(PONDIE_VARIANT_F, FishOfThieves.MOD_ID);
+
     public static final DeferredRegister<Item> ITEM = DeferredRegister.create(ForgeRegistries.ITEMS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FishOfThieves.MOD_ID);
@@ -75,5 +80,7 @@ public class FishOfThievesForge
     {
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
+
+        event.register(FOTRegistry.PONDIE_VARIANT_REGISTRY, helper -> PondieVariant.init());
     }
 }
