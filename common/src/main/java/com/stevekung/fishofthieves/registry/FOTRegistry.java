@@ -26,6 +26,8 @@ public class FOTRegistry
     public static final Registry<BattlegillVariant> BATTLEGILL_VARIANT = Registry.registerSimple(BATTLEGILL_VARIANT_REGISTRY, registry -> BattlegillVariant.JADE);
     public static final ResourceKey<Registry<WreckerVariant>> WRECKER_VARIANT_REGISTRY = createRegistryKey("wrecker_variant");
     public static final Registry<WreckerVariant> WRECKER_VARIANT = Registry.registerSimple(WRECKER_VARIANT_REGISTRY, registry -> WreckerVariant.ROSE);
+    public static final ResourceKey<Registry<StormfishVariant>> STORMFISH_VARIANT_REGISTRY = createRegistryKey("stormfish_variant");
+    public static final Registry<StormfishVariant> STORMFISH_VARIANT = Registry.registerSimple(STORMFISH_VARIANT_REGISTRY, registry -> StormfishVariant.ANCIENT);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {

@@ -45,6 +45,7 @@ public class FishOfThieves
         DevilfishVariant.init();
         BattlegillVariant.init();
         WreckerVariant.init();
+        StormfishVariant.init();
 
         FOTDataSerializers.init();
 

@@ -16,4 +16,5 @@ public class FishVariantTags
     public static final TagKey<DevilfishVariant> DEFAULT_DEVILFISH_SPAWNS = TagKey.create(FOTRegistry.DEVILFISH_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_devilfish_spawns"));
     public static final TagKey<BattlegillVariant> DEFAULT_BATTLEGILL_SPAWNS = TagKey.create(FOTRegistry.BATTLEGILL_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_battlegill_spawns"));
     public static final TagKey<WreckerVariant> DEFAULT_WRECKER_SPAWNS = TagKey.create(FOTRegistry.WRECKER_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_wrecker_spawns"));
+    public static final TagKey<StormfishVariant> DEFAULT_STORMFISH_SPAWNS = TagKey.create(FOTRegistry.STORMFISH_VARIANT_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "default_stormfish_spawns"));
 }

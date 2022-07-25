@@ -107,6 +107,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(DevilfishVariantTagsProvider::new);
         dataGenerator.addProvider(BattlegillVariantTagsProvider::new);
         dataGenerator.addProvider(WreckerVariantTagsProvider::new);
+        dataGenerator.addProvider(StormfishVariantTagsProvider::new);
     }
 
     private static class ModelProvider extends FabricModelProvider

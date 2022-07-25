@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:ancient",
+    "fishofthieves:shores",
+    "fishofthieves:wild",
+    "fishofthieves:shadow",
+    "fishofthieves:twilight"
+  ]
+}
