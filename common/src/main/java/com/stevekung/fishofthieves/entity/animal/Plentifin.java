@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -18,6 +18,8 @@ import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -34,9 +36,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
-public class Plentifin extends AbstractSchoolingThievesFish
+public class Plentifin extends AbstractSchoolingThievesFish<FishData>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.WATERY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png"));
+//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.WATERY, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png"));
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {
@@ -79,29 +81,29 @@ public class Plentifin extends AbstractSchoolingThievesFish
         return this.isTrophy() ? 0.17F : 0.09F;
     }
 
-    @Override
-    public boolean canGlow()
-    {
-        return this.getVariant() == Variant.WATERY;
-    }
-
-    @Override
-    public Variant getVariant()
-    {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-    }
-
-    @Override
-    public int getSpawnVariantId(boolean bucket)
-    {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-    }
-
-    @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
-    {
-        return GLOW_BY_TYPE;
-    }
+//    @Override
+//    public boolean canGlow()
+//    {
+//        return this.getVariant() == Variant.WATERY;
+//    }
+//
+//    @Override
+//    public Variant getVariant()
+//    {
+//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
+//    }
+//
+//    @Override
+//    public int getSpawnVariantId(boolean bucket)
+//    {
+//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
+//    }
+//
+//    @Override
+//    public Map<FishData, ResourceLocation> getGlowTextureByType()
+//    {
+//        return GLOW_BY_TYPE;
+//    }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
@@ -114,42 +116,66 @@ public class Plentifin extends AbstractSchoolingThievesFish
         return waterRules;
     }
 
-    public enum Variant implements FishVariant
+    @Override
+    public FishData getVariant()
     {
-        OLIVE(SpawnSelectors.always()),
-        AMBER(SpawnSelectors.simpleSpawn(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
-        {
-            var time = context.level().getTimeOfDay(1.0F);
-            return time >= 0.75F && time <= 0.9F;
-        }))),
-        CLOUDY(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())),
-        BONEDUST(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0)))),
-        WATERY(SpawnSelectors.nightAndSeeSky());
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
-        }
+        return null;
     }
+
+    @Override
+    public void setVariant(FishData variant)
+    {
+
+    }
+
+    @Override
+    public Holder<FishData> getSpawnVariant(boolean bucket)
+    {
+        return null;
+    }
+
+    @Override
+    public Registry<FishData> getRegistry()
+    {
+        return null;
+    }
+
+    //    public enum Variant implements FishData
+//    {
+//        OLIVE(SpawnSelectors.always()),
+//        AMBER(SpawnSelectors.simpleSpawn(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
+//        {
+//            var time = context.level().getTimeOfDay(1.0F);
+//            return time >= 0.75F && time <= 0.9F;
+//        }))),
+//        CLOUDY(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())),
+//        BONEDUST(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0)))),
+//        WATERY(SpawnSelectors.nightAndSeeSky());
+//
+//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+//        private final Predicate<SpawnConditionContext> condition;
+//
+//        Variant(Predicate<SpawnConditionContext> condition)
+//        {
+//            this.condition = condition;
+//        }
+//
+//        @Override
+//        public String getName()
+//        {
+//            return this.name().toLowerCase(Locale.ROOT);
+//        }
+//
+//        @Override
+//        public int getId()
+//        {
+//            return this.ordinal();
+//        }
+//
+//        @Override
+//        public Predicate<SpawnConditionContext> getCondition()
+//        {
+//            return this.condition;
+//        }
+//    }
 }

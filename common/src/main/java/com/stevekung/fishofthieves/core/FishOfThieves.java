@@ -2,14 +2,12 @@ package com.stevekung.fishofthieves.core;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -25,7 +23,7 @@ public class FishOfThieves
 {
     public static final String MOD_ID = "fishofthieves";
     public static final CreativeModeTab FOT_TAB = FOTPlatform.createCreativeTab();
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static FishOfThievesConfig CONFIG;
 
     public static void init()
@@ -38,6 +36,9 @@ public class FishOfThieves
 
     public static void initCommon()
     {
+        SplashtailVariant.init();
+        FOTDataSerializers.init();
+
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);

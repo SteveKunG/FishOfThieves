@@ -3,6 +3,9 @@ accessible field net/minecraft/data/loot/EntityLoot ENTITY_ON_FIRE Lnet/minecraf
 accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
 
 accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
+accessible method net/minecraft/core/Registry registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry$RegistryBootstrap;)Lnet/minecraft/core/Registry;
+accessible method net/minecraft/util/datafix/schemas/V100 equipment (Lcom/mojang/datafixers/schemas/Schema;)Lcom/mojang/datafixers/types/templates/TypeTemplate;
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
 accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
+accessible class net/minecraft/core/Registry$RegistryBootstrap

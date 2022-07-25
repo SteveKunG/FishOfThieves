@@ -1,29 +1,31 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.function.IntFunction;
-import java.util.stream.Stream;
-
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 
-public interface ThievesFish extends GlowFish, PartyFish
+public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
 {
-    String VARIANT_TAG = "Variant";
+    String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String NAME_TAG = "Name";
 
-    FishVariant getVariant();
+    T getVariant();
 
-    int getSpawnVariantId(boolean bucket);
+    void setVariant(T variant);
 
-    void setVariant(int id);
+    Holder<T> getSpawnVariant(boolean fromBucket);
+
+    Registry<T> getRegistry();
 
     boolean isTrophy();
 
@@ -31,16 +33,22 @@ public interface ThievesFish extends GlowFish, PartyFish
 
     default void saveToBucket(CompoundTag compound)
     {
-        compound.putInt(VARIANT_TAG, this.getVariant().getId());
+        var variant = this.getRegistry().getKey(this.getVariant());
+        compound.putString(VARIANT_TAG, variant.toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putString(NAME_TAG, this.getVariant().getName());
+        compound.putString(NAME_TAG, variant.getPath());
     }
 
     default void loadFromBucket(CompoundTag compound)
     {
         if (compound.contains(VARIANT_TAG))
         {
-            this.setVariant(compound.getInt(VARIANT_TAG));
+            var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
+
+            if (variant != null)
+            {
+                this.setVariant(variant);
+            }
         }
         if (compound.contains(TROPHY_TAG))
         {
@@ -50,9 +58,15 @@ public interface ThievesFish extends GlowFish, PartyFish
 
     default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
-        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_INT))
+        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))
         {
-            this.setVariant(dataTag.getInt(VARIANT_TAG));
+            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
+
+            if (variant != null)
+            {
+                this.setVariant(variant);
+            }
+
             this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
             return spawnData;
         }
@@ -61,13 +75,12 @@ public interface ThievesFish extends GlowFish, PartyFish
             this.setTrophy(true);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.setVariant(this.getSpawnVariantId(reason == MobSpawnType.BUCKET));
+        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET).value());
         return spawnData;
     }
 
-    static int getSpawnVariant(LivingEntity livingEntity, FishVariant[] ids, IntFunction<FishVariant[]> generator, boolean random)
+    default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean fromBucket)
     {
-        var variants = random ? Stream.of(ids).toArray(generator) : Stream.of(ids).filter(variant -> variant.getCondition().test(SpawnSelectors.get(livingEntity))).toArray(generator);
-        return Util.getRandom(variants, livingEntity.getRandom()).getId();
+        return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> fromBucket || variant.value().getCondition().test(SpawnSelectors.get(livingEntity))).orElseGet(() -> Holder.direct(defaultSpawn));
     }
 }

@@ -16,9 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractThievesFish extends AbstractFish implements ThievesFish
+public abstract class AbstractThievesFish<T extends FishData> extends AbstractFish implements ThievesFish<T>
 {
-    protected static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
@@ -31,7 +30,6 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
         this.entityData.define(TROPHY, false);
     }
 
@@ -39,7 +37,6 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putInt(VARIANT_TAG, this.getVariant().getId());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
     }
 
@@ -47,7 +44,6 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt(VARIANT_TAG));
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
     }
 
@@ -81,12 +77,6 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
-    }
-
-    @Override
-    public void setVariant(int id)
-    {
-        this.entityData.set(TYPE, id);
     }
 
     @Override

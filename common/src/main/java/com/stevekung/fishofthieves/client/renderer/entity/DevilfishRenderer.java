@@ -6,26 +6,26 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.DevilfishModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class DevilfishRenderer extends ThievesFishRenderer<Devilfish, DevilfishModel<Devilfish>>
+public class DevilfishRenderer extends ThievesFishRenderer<FishData, Devilfish, DevilfishModel<Devilfish>>
 {
-    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Devilfish.Variant.BY_ID, "devilfish");
+//    private static final Map<FishData, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Devilfish.Variant.BY_ID, "devilfish");
 
     public DevilfishRenderer(EntityRendererProvider.Context context)
     {
         super(context, new DevilfishModel<>(context.bakeLayer(DevilfishModel.LAYER)));
     }
 
-    @Override
-    protected Map<FishVariant, ResourceLocation> getTextureMap()
-    {
-        return TEXTURE_BY_TYPE;
-    }
+//    @Override
+//    protected Map<FishData, ResourceLocation> getTextureMap()
+//    {
+//        return TEXTURE_BY_TYPE;
+//    }
 
     @Override
     protected void setupRotations(Devilfish devilfish, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)

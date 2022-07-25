@@ -18,7 +18,9 @@
     "animal.MixinCat",
     "animal.MixinOcelot",
     "item.MixinRecordItem",
-    "level.MixinServerLevel"
+    "level.MixinServerLevel",
+    "util.datafix.MixinDataFixers",
+    "util.datafix.MixinV3078"
   ],
   "injectors": {
     "defaultRequire": 1

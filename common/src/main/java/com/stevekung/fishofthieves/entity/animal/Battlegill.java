@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -19,6 +19,8 @@ import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -43,9 +45,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
-public class Battlegill extends AbstractSchoolingThievesFish
+public class Battlegill extends AbstractSchoolingThievesFish<FishData>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.BITTERSWEET, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png"));
+//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.BITTERSWEET, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png"));
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && (livingEntity.getMobType() == MobType.UNDEAD || livingEntity.getMobType() == MobType.WATER) && livingEntity.isInWater() && livingEntity.attackable();
 
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
@@ -126,29 +128,53 @@ public class Battlegill extends AbstractSchoolingThievesFish
         super.setTrophy(trophy);
     }
 
+//    @Override
+//    public boolean canGlow()
+//    {
+//        return this.getVariant() == Variant.BITTERSWEET;
+//    }
+//
+//    @Override
+//    public Variant getVariant()
+//    {
+//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
+//    }
+
     @Override
-    public boolean canGlow()
+    public FishData getVariant()
     {
-        return this.getVariant() == Variant.BITTERSWEET;
+        return null;
     }
 
     @Override
-    public Variant getVariant()
+    public void setVariant(FishData variant)
     {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
+
     }
 
     @Override
-    public int getSpawnVariantId(boolean bucket)
+    public Holder<FishData> getSpawnVariant(boolean bucket)
     {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
+        return null;
     }
 
     @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
+    public Registry<FishData> getRegistry()
     {
-        return GLOW_BY_TYPE;
+        return null;
     }
+
+    //    @Override
+//    public int getSpawnVariantId(boolean bucket)
+//    {
+//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
+//    }
+//
+//    @Override
+//    public Map<FishData, ResourceLocation> getGlowTextureByType()
+//    {
+//        return GLOW_BY_TYPE;
+//    }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
@@ -162,38 +188,38 @@ public class Battlegill extends AbstractSchoolingThievesFish
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.0).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
 
-    public enum Variant implements FishVariant
-    {
-        JADE(SpawnSelectors.always()),
-        SKY(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)),
-        RUM(SpawnSelectors.always()),
-        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN)))),
-        BITTERSWEET(SpawnSelectors.nightAndSeeSky());
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
-        }
-    }
+//    public enum Variant implements FishData
+//    {
+//        JADE(SpawnSelectors.always()),
+//        SKY(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)),
+//        RUM(SpawnSelectors.always()),
+//        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN)))),
+//        BITTERSWEET(SpawnSelectors.nightAndSeeSky());
+//
+//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+//        private final Predicate<SpawnConditionContext> condition;
+//
+//        Variant(Predicate<SpawnConditionContext> condition)
+//        {
+//            this.condition = condition;
+//        }
+//
+//        @Override
+//        public String getName()
+//        {
+//            return this.name().toLowerCase(Locale.ROOT);
+//        }
+//
+//        @Override
+//        public int getId()
+//        {
+//            return this.ordinal();
+//        }
+//
+//        @Override
+//        public Predicate<SpawnConditionContext> getCondition()
+//        {
+//            return this.condition;
+//        }
+//    }
 }

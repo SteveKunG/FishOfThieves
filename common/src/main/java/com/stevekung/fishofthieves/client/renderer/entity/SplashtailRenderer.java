@@ -1,30 +1,19 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.Map;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.SplashtailModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
+import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class SplashtailRenderer extends ThievesFishRenderer<Splashtail, SplashtailModel<Splashtail>>
+public class SplashtailRenderer extends ThievesFishRenderer<SplashtailVariant, Splashtail, SplashtailModel<Splashtail>>
 {
-    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Splashtail.Variant.BY_ID, "splashtail");
-
     public SplashtailRenderer(EntityRendererProvider.Context context)
     {
         super(context, new SplashtailModel<>(context.bakeLayer(SplashtailModel.LAYER)));
-    }
-
-    @Override
-    protected Map<FishVariant, ResourceLocation> getTextureMap()
-    {
-        return TEXTURE_BY_TYPE;
     }
 
     @Override

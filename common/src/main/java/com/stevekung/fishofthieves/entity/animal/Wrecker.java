@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -17,6 +17,8 @@ import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -48,15 +50,15 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
-public class Wrecker extends AbstractThievesFish
+public class Wrecker extends AbstractThievesFish<FishData>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(Variant.SUN, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/sun_glow.png"));
-        map.put(Variant.BLACKCLOUD, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png"));
-        map.put(Variant.SNOW, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png"));
-        map.put(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
-    });
+//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
+//    {
+//        map.put(Variant.SUN, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/sun_glow.png"));
+//        map.put(Variant.BLACKCLOUD, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png"));
+//        map.put(Variant.SNOW, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png"));
+//        map.put(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
+//    });
     private static final EntityDataAccessor<BlockPos> SHIPWRECK_POS = SynchedEntityData.defineId(Wrecker.class, EntityDataSerializers.BLOCK_POS);
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
 
@@ -132,6 +134,30 @@ public class Wrecker extends AbstractThievesFish
     }
 
     @Override
+    public FishData getVariant()
+    {
+        return null;
+    }
+
+    @Override
+    public void setVariant(FishData variant)
+    {
+
+    }
+
+    @Override
+    public Holder<FishData> getSpawnVariant(boolean bucket)
+    {
+        return null;
+    }
+
+    @Override
+    public Registry<FishData> getRegistry()
+    {
+        return null;
+    }
+
+    @Override
     public void setTrophy(boolean trophy)
     {
         if (trophy)
@@ -141,29 +167,29 @@ public class Wrecker extends AbstractThievesFish
         super.setTrophy(trophy);
     }
 
-    @Override
-    public boolean canGlow()
-    {
-        return this.getVariant() != Variant.ROSE;
-    }
-
-    @Override
-    public Variant getVariant()
-    {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-    }
-
-    @Override
-    public int getSpawnVariantId(boolean bucket)
-    {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-    }
-
-    @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
-    {
-        return GLOW_BY_TYPE;
-    }
+//    @Override
+//    public boolean canGlow()
+//    {
+//        return this.getVariant() != Variant.ROSE;
+//    }
+//
+//    @Override
+//    public Variant getVariant()
+//    {
+//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
+//    }
+//
+//    @Override
+//    public int getSpawnVariantId(boolean bucket)
+//    {
+//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
+//    }
+//
+//    @Override
+//    public Map<FishData, ResourceLocation> getGlowTextureByType()
+//    {
+//        return GLOW_BY_TYPE;
+//    }
 
     public void setShipwreckPos(BlockPos pos)
     {
@@ -289,38 +315,38 @@ public class Wrecker extends AbstractThievesFish
         }
     }
 
-    public enum Variant implements FishVariant
-    {
-        ROSE(SpawnSelectors.always()),
-        SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
-        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
-        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
-        MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
-        }
-    }
+//    public enum Variant implements FishData
+//    {
+//        ROSE(SpawnSelectors.always()),
+//        SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
+//        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
+//        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
+//        MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
+//
+//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+//        private final Predicate<SpawnConditionContext> condition;
+//
+//        Variant(Predicate<SpawnConditionContext> condition)
+//        {
+//            this.condition = condition;
+//        }
+//
+//        @Override
+//        public String getName()
+//        {
+//            return this.name().toLowerCase(Locale.ROOT);
+//        }
+//
+//        @Override
+//        public int getId()
+//        {
+//            return this.ordinal();
+//        }
+//
+//        @Override
+//        public Predicate<SpawnConditionContext> getCondition()
+//        {
+//            return this.condition;
+//        }
+//    }
 }

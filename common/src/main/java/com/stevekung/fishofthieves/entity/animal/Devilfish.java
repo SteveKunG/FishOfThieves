@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -19,6 +19,8 @@ import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -41,9 +43,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
-public class Devilfish extends AbstractSchoolingThievesFish
+public class Devilfish extends AbstractSchoolingThievesFish<FishData>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.FIRELIGHT, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png"));
+//    private static final Map<FishData, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.FIRELIGHT, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png"));
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.isInWater() && livingEntity.attackable();
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
@@ -115,6 +117,30 @@ public class Devilfish extends AbstractSchoolingThievesFish
     }
 
     @Override
+    public FishData getVariant()
+    {
+        return null;
+    }
+
+    @Override
+    public void setVariant(FishData variant)
+    {
+
+    }
+
+    @Override
+    public Holder<FishData> getSpawnVariant(boolean bucket)
+    {
+        return null;
+    }
+
+    @Override
+    public Registry<FishData> getRegistry()
+    {
+        return null;
+    }
+
+    @Override
     public void setTrophy(boolean trophy)
     {
         if (trophy)
@@ -124,29 +150,29 @@ public class Devilfish extends AbstractSchoolingThievesFish
         super.setTrophy(trophy);
     }
 
-    @Override
-    public boolean canGlow()
-    {
-        return this.getVariant() == Variant.FIRELIGHT;
-    }
-
-    @Override
-    public Variant getVariant()
-    {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-    }
-
-    @Override
-    public int getSpawnVariantId(boolean bucket)
-    {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-    }
-
-    @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
-    {
-        return GLOW_BY_TYPE;
-    }
+//    @Override
+//    public boolean canGlow()
+//    {
+//        return this.getVariant() == Variant.FIRELIGHT;
+//    }
+//
+//    @Override
+//    public Variant getVariant()
+//    {
+//        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
+//    }
+//
+//    @Override
+//    public int getSpawnVariantId(boolean bucket)
+//    {
+//        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
+//    }
+//
+//    @Override
+//    public Map<FishData, ResourceLocation> getGlowTextureByType()
+//    {
+//        return GLOW_BY_TYPE;
+//    }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
@@ -157,43 +183,43 @@ public class Devilfish extends AbstractSchoolingThievesFish
     {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.0).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
-
-    public enum Variant implements FishVariant
-    {
-        ASHEN(SpawnSelectors.always()),
-        SEASHELL(SpawnSelectors.always()),
-        LAVA(SpawnSelectors.simpleSpawn(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent())),
-        FORSAKEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability)),
-        FIRELIGHT(SpawnSelectors.simpleSpawn(true, context ->
-        {
-            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
-            return context.isNight() && optional.isPresent();
-        }));
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
-        }
-    }
+//
+//    public enum Variant implements FishData
+//    {
+//        ASHEN(SpawnSelectors.always()),
+//        SEASHELL(SpawnSelectors.always()),
+//        LAVA(SpawnSelectors.simpleSpawn(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent())),
+//        FORSAKEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability)),
+//        FIRELIGHT(SpawnSelectors.simpleSpawn(true, context ->
+//        {
+//            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
+//            return context.isNight() && optional.isPresent();
+//        }));
+//
+//        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
+//        private final Predicate<SpawnConditionContext> condition;
+//
+//        Variant(Predicate<SpawnConditionContext> condition)
+//        {
+//            this.condition = condition;
+//        }
+//
+//        @Override
+//        public String getName()
+//        {
+//            return this.name().toLowerCase(Locale.ROOT);
+//        }
+//
+//        @Override
+//        public int getId()
+//        {
+//            return this.ordinal();
+//        }
+//
+//        @Override
+//        public Predicate<SpawnConditionContext> getCondition()
+//        {
+//            return this.condition;
+//        }
+//    }
 }

@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.entity.FishVariant;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -95,6 +95,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(LootProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
+        dataGenerator.addProvider(SplashtailVariantTagsProvider::new);
         dataGenerator.addProvider(BiomeTagsProvider::new);
         dataGenerator.addProvider(StructureTagsProvider::new);
         dataGenerator.addProvider(AdvancementProvider::new);
@@ -416,19 +417,19 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class AdvancementProvider extends FabricAdvancementProvider
     {
-        private static final Map<Item, FishVariant[]> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
-        {
-            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.Variant.BY_ID);
-            map.put(FOTItems.PONDIE_BUCKET, Pondie.Variant.BY_ID);
-            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.Variant.BY_ID);
-            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.Variant.BY_ID);
-            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.Variant.BY_ID);
-            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.Variant.BY_ID);
-            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.Variant.BY_ID);
-            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.Variant.BY_ID);
-            map.put(FOTItems.WRECKER_BUCKET, Wrecker.Variant.BY_ID);
-            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.Variant.BY_ID);
-        });
+//        private static final Map<Item, FishData[]> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
+//        {
+//            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.Variant.BY_ID);
+//            map.put(FOTItems.PONDIE_BUCKET, Pondie.Variant.BY_ID);
+//            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.Variant.BY_ID);
+//            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.Variant.BY_ID);
+//            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.Variant.BY_ID);
+//            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.Variant.BY_ID);
+//            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.Variant.BY_ID);
+//            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.Variant.BY_ID);
+//            map.put(FOTItems.WRECKER_BUCKET, Wrecker.Variant.BY_ID);
+//            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.Variant.BY_ID);
+//        });
 
         private AdvancementProvider(FabricDataGenerator dataGenerator)
         {
@@ -571,15 +572,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             for (var item : FISH_BUCKETS)
             {
-                for (var variant : BUCKET_TO_VARIANTS_MAP.get(item))
-                {
-                    builder.addCriterion(variant.getName() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
-                    {
-                        compound.putInt(ThievesFish.VARIANT_TAG, variant.getId());
-                        compound.putString(ThievesFish.NAME_TAG, variant.getName());
-                        compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
-                    })).build()));
-                }
+//                for (var variant : BUCKET_TO_VARIANTS_MAP.get(item))
+//                {
+//                    builder.addCriterion(variant.getName() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
+//                    {
+//                        compound.putInt(ThievesFish.VARIANT_TAG, variant.getId());
+//                        compound.putString(ThievesFish.NAME_TAG, variant.getName());
+//                        compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+//                    })).build()));
+//                }
             }
             return builder;
         }
