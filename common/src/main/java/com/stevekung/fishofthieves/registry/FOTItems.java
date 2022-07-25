@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.animal.Ancientscale;
 import com.stevekung.fishofthieves.entity.animal.Islehopper;
 import com.stevekung.fishofthieves.entity.animal.Pondie;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
@@ -65,7 +66,15 @@ public class FOTItems
             ThievesFish.fixData(compoundTag, Islehopper.DATA_FIX_MAP);
         }
     };
-    public static final Item ANCIENTSCALE_BUCKET = new MobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
+    public static final Item ANCIENTSCALE_BUCKET = new MobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB))
+    {
+        @Override
+        public void verifyTagAfterLoad(CompoundTag compoundTag)
+        {
+            super.verifyTagAfterLoad(compoundTag);
+            ThievesFish.fixData(compoundTag, Ancientscale.DATA_FIX_MAP);
+        }
+    };
     public static final Item PLENTIFIN_BUCKET = new MobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item WILDSPLASH_BUCKET = new MobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item DEVILFISH_BUCKET = new MobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));

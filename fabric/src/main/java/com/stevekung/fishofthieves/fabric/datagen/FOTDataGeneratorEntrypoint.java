@@ -1,15 +1,15 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
-import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ArrayUtils;
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.fabric.datagen.variants.AncientscaleVariantTagsProvider;
+import com.stevekung.fishofthieves.fabric.datagen.variants.IslehopperVariantTagsProvider;
+import com.stevekung.fishofthieves.fabric.datagen.variants.PondieVariantTagsProvider;
+import com.stevekung.fishofthieves.fabric.datagen.variants.SplashtailVariantTagsProvider;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -102,6 +102,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(SplashtailVariantTagsProvider::new);
         dataGenerator.addProvider(PondieVariantTagsProvider::new);
         dataGenerator.addProvider(IslehopperVariantTagsProvider::new);
+        dataGenerator.addProvider(AncientscaleVariantTagsProvider::new);
     }
 
     private static class ModelProvider extends FabricModelProvider

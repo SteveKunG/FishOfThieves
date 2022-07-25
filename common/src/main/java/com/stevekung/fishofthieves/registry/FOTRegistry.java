@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.variants.PondieVariant;
 import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
@@ -16,6 +17,8 @@ public class FOTRegistry
     public static final Registry<PondieVariant> PONDIE_VARIANT = Registry.registerSimple(PONDIE_VARIANT_REGISTRY, registry -> PondieVariant.CHARCOAL);
     public static final ResourceKey<Registry<IslehopperVariant>> ISLEHOPPER_VARIANT_REGISTRY = createRegistryKey("islehopper_variant");
     public static final Registry<IslehopperVariant> ISLEHOPPER_VARIANT = Registry.registerSimple(ISLEHOPPER_VARIANT_REGISTRY, registry -> IslehopperVariant.STONE);
+    public static final ResourceKey<Registry<AncientscaleVariant>> ANCIENTSCALE_VARIANT_REGISTRY = createRegistryKey("ancientscale_variant");
+    public static final Registry<AncientscaleVariant> ANCIENTSCALE_VARIANT = Registry.registerSimple(ANCIENTSCALE_VARIANT_REGISTRY, registry -> AncientscaleVariant.ALMOND);
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {

@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.fabric.datagen;
+package com.stevekung.fishofthieves.fabric.datagen.variants;
 
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;

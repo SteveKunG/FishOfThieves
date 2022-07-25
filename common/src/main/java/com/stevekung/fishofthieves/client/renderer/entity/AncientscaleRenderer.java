@@ -1,31 +1,20 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.Map;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.AncientscaleModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.animal.Ancientscale;
+import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class AncientscaleRenderer extends ThievesFishRenderer<FishData, Ancientscale, AncientscaleModel<Ancientscale>>
+public class AncientscaleRenderer extends ThievesFishRenderer<AncientscaleVariant, Ancientscale, AncientscaleModel<Ancientscale>>
 {
-//    private static final Map<FishData, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Ancientscale.Variant.BY_ID, "ancientscale");
-
     public AncientscaleRenderer(EntityRendererProvider.Context context)
     {
         super(context, new AncientscaleModel<>(context.bakeLayer(AncientscaleModel.LAYER)));
     }
-
-//    @Override
-//    protected Map<FishData, ResourceLocation> getTextureMap()
-//    {
-//        return TEXTURE_BY_TYPE;
-//    }
 
     @Override
     protected void setupRotations(Ancientscale ancientscale, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
