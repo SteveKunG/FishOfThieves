@@ -7,13 +7,13 @@ import java.util.function.Supplier;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.block.Blocks;
 
 public record DevilfishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
@@ -23,7 +23,7 @@ public record DevilfishVariant(Supplier<Predicate<SpawnConditionContext>> condit
     public static final DevilfishVariant FORSAKEN = create(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability), name("forsaken"));
     public static final DevilfishVariant FIRELIGHT = new DevilfishVariant(() -> SpawnSelectors.simpleSpawn(true, context ->
     {
-        var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
+        var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
         return context.isNight() && optional.isPresent();
     }), name("firelight"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/firelight_glow.png")));
 
