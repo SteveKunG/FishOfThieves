@@ -4,7 +4,6 @@
   "package": "com.stevekung.fishofthieves.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MobBucketItemAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

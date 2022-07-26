@@ -1,32 +1,30 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
-import com.google.common.collect.Maps;
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
+import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.variants.WreckerVariant;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.Util;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.StructureTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,21 +42,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
-public class Wrecker extends AbstractThievesFish
+public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(Variant.SUN, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/sun_glow.png"));
-        map.put(Variant.BLACKCLOUD, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png"));
-        map.put(Variant.SNOW, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png"));
-        map.put(Variant.MOON, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png"));
-    });
     private static final EntityDataAccessor<BlockPos> SHIPWRECK_POS = SynchedEntityData.defineId(Wrecker.class, EntityDataSerializers.BLOCK_POS);
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
+    private static final EntityDataAccessor<WreckerVariant> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:rose");
+        map.put(0, "fishofthieves:rose");
+        map.put(1, "fishofthieves:sun");
+        map.put(2, "fishofthieves:blackcloud");
+        map.put(3, "fishofthieves:snow");
+        map.put(4, "fishofthieves:moon");
+    };
 
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
@@ -79,7 +79,38 @@ public class Wrecker extends AbstractThievesFish
     protected void defineSynchedData()
     {
         super.defineSynchedData();
+        this.entityData.define(VARIANT, WreckerVariant.ROSE);
         this.entityData.define(SHIPWRECK_POS, BlockPos.ZERO);
+    }
+
+    @Override
+    public Registry<WreckerVariant> getRegistry()
+    {
+        return FOTRegistry.WRECKER_VARIANT;
+    }
+
+    @Override
+    public void setVariant(WreckerVariant variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public WreckerVariant getVariant()
+    {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public Holder<WreckerVariant> getSpawnVariant(boolean fromBucket)
+    {
+        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_WRECKER_SPAWNS, WreckerVariant.ROSE, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
@@ -139,30 +170,6 @@ public class Wrecker extends AbstractThievesFish
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
         }
         super.setTrophy(trophy);
-    }
-
-    @Override
-    public boolean canGlow()
-    {
-        return this.getVariant() != Variant.ROSE;
-    }
-
-    @Override
-    public Variant getVariant()
-    {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-    }
-
-    @Override
-    public int getSpawnVariantId(boolean bucket)
-    {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-    }
-
-    @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
-    {
-        return GLOW_BY_TYPE;
     }
 
     public void setShipwreckPos(BlockPos pos)
@@ -286,41 +293,6 @@ public class Wrecker extends AbstractThievesFish
                 this.wrecker.getLookControl().setLookAt(vec32.x, vec32.y, vec32.z, this.wrecker.getMaxHeadYRot() + 20, this.wrecker.getMaxHeadXRot());
                 this.wrecker.getNavigation().moveTo(vec32.x, vec32.y, vec32.z, 1.3D);
             }
-        }
-    }
-
-    public enum Variant implements FishVariant
-    {
-        ROSE(SpawnSelectors.always()),
-        SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
-        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
-        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
-        MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
         }
     }
 }

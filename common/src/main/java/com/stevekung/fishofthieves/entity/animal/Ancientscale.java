@@ -1,25 +1,20 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.function.Consumer;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.entity.FishVariant;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.resources.ResourceLocation;
+import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
+import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.StructureTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -27,13 +22,59 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class Ancientscale extends AbstractSchoolingThievesFish
+public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
-    private static final Map<FishVariant, ResourceLocation> GLOW_BY_TYPE = Collections.singletonMap(Variant.STARSHINE, new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/ancientscale/starshine_glow.png"));
+    private static final EntityDataAccessor<AncientscaleVariant> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
+    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    {
+        map.defaultReturnValue("fishofthieves:almond");
+        map.put(0, "fishofthieves:almond");
+        map.put(1, "fishofthieves:sapphire");
+        map.put(2, "fishofthieves:smoke");
+        map.put(3, "fishofthieves:bone");
+        map.put(4, "fishofthieves:starshine");
+    };
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void defineSynchedData()
+    {
+        super.defineSynchedData();
+        this.entityData.define(VARIANT, AncientscaleVariant.ALMOND);
+    }
+
+    @Override
+    public Registry<AncientscaleVariant> getRegistry()
+    {
+        return FOTRegistry.ANCIENTSCALE_VARIANT;
+    }
+
+    @Override
+    public void setVariant(AncientscaleVariant variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public AncientscaleVariant getVariant()
+    {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public Holder<AncientscaleVariant> getSpawnVariant(boolean fromBucket)
+    {
+        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_ANCIENTSCALE_SPAWNS, AncientscaleVariant.ALMOND, fromBucket);
+    }
+
+    @Override
+    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return DATA_FIX_MAP;
     }
 
     @Override
@@ -70,64 +111,5 @@ public class Ancientscale extends AbstractSchoolingThievesFish
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
         return this.isTrophy() ? 0.3575F : 0.18F;
-    }
-
-    @Override
-    public boolean canGlow()
-    {
-        return this.getVariant() == Variant.STARSHINE;
-    }
-
-    @Override
-    public Variant getVariant()
-    {
-        return Variant.BY_ID[Mth.positiveModulo(this.entityData.get(TYPE), Variant.BY_ID.length)];
-    }
-
-    @Override
-    public int getSpawnVariantId(boolean bucket)
-    {
-        return ThievesFish.getSpawnVariant(this, Variant.BY_ID, Variant[]::new, bucket);
-    }
-
-    @Override
-    public Map<FishVariant, ResourceLocation> getGlowTextureByType()
-    {
-        return GLOW_BY_TYPE;
-    }
-
-    public enum Variant implements FishVariant
-    {
-        ALMOND(SpawnSelectors.always()),
-        SAPPHIRE(SpawnSelectors.always()),
-        SMOKE(SpawnSelectors.always()),
-        BONE(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0)))),
-        STARSHINE(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F)));
-
-        public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);
-        private final Predicate<SpawnConditionContext> condition;
-
-        Variant(Predicate<SpawnConditionContext> condition)
-        {
-            this.condition = condition;
-        }
-
-        @Override
-        public String getName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public int getId()
-        {
-            return this.ordinal();
-        }
-
-        @Override
-        public Predicate<SpawnConditionContext> getCondition()
-        {
-            return this.condition;
-        }
     }
 }

@@ -1,30 +1,19 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.Map;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.WildsplashModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
-import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.animal.Wildsplash;
+import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class WildsplashRenderer extends ThievesFishRenderer<Wildsplash, WildsplashModel<Wildsplash>>
+public class WildsplashRenderer extends ThievesFishRenderer<WildsplashVariant, Wildsplash, WildsplashModel<Wildsplash>>
 {
-    private static final Map<FishVariant, ResourceLocation> TEXTURE_BY_TYPE = ThievesFishRenderer.createTextureByType(Wildsplash.Variant.BY_ID, "wildsplash");
-
     public WildsplashRenderer(EntityRendererProvider.Context context)
     {
         super(context, new WildsplashModel<>(context.bakeLayer(WildsplashModel.LAYER)));
-    }
-
-    @Override
-    protected Map<FishVariant, ResourceLocation> getTextureMap()
-    {
-        return TEXTURE_BY_TYPE;
     }
 
     @Override

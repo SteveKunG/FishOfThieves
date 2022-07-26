@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -16,9 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish implements ThievesFish
+public abstract class AbstractSchoolingThievesFish<T extends FishData> extends AbstractSchoolingFish implements ThievesFish<T>
 {
-    protected static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
@@ -31,7 +31,6 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(TYPE, 0);
         this.entityData.define(TROPHY, false);
     }
 
@@ -39,7 +38,7 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putInt(VARIANT_TAG, this.getVariant().getId());
+        compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
     }
 
@@ -47,7 +46,15 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt(VARIANT_TAG));
+        ThievesFish.fixData(compound, this.getDataFix());
+
+        var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
+
+        if (variant != null)
+        {
+            this.setVariant(variant);
+        }
+
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
     }
 
@@ -81,12 +88,6 @@ public abstract class AbstractSchoolingThievesFish extends AbstractSchoolingFish
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
-    }
-
-    @Override
-    public void setVariant(int id)
-    {
-        this.entityData.set(TYPE, id);
     }
 
     @Override

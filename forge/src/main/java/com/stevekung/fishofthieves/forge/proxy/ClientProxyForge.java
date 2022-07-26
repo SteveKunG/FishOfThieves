@@ -3,24 +3,15 @@ package com.stevekung.fishofthieves.forge.proxy;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import me.shedaniel.autoconfig.AutoConfig;
-import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ClientProxyForge extends CommonProxyForge
 {
@@ -44,33 +35,6 @@ public class ClientProxyForge extends CommonProxyForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         super.clientSetup(event);
-    }
-
-    @SubscribeEvent
-    public void addItemTooltip(ItemTooltipEvent event)
-    {
-        var itemStack = event.getItemStack();
-        var compoundTag = itemStack.getTag();
-        var insertAt = event.getToolTip().size();
-
-        if (event.getFlags().isAdvanced())
-        {
-            insertAt -= 2;
-        }
-
-        if (itemStack.getItem() instanceof MobBucketItemAccessor mobBucketItem)
-        {
-            if (mobBucketItem.invokeGetFishType().is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
-            {
-                var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITY_TYPES.getKey(mobBucketItem.invokeGetFishType()).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
-
-                if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
-                {
-                    type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
-                }
-                event.getToolTip().add(insertAt, type);
-            }
-        }
     }
 
     public void registerRenderers(EntityRenderersEvent.RegisterRenderers event)

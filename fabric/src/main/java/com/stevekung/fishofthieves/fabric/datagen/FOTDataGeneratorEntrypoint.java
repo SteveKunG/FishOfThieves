@@ -7,12 +7,13 @@ import java.util.function.Consumer;
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.fabric.datagen.variants.*;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -98,6 +99,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(BiomeTagsProvider::new);
         dataGenerator.addProvider(StructureTagsProvider::new);
         dataGenerator.addProvider(AdvancementProvider::new);
+
+        dataGenerator.addProvider(SplashtailVariantTagsProvider::new);
+        dataGenerator.addProvider(PondieVariantTagsProvider::new);
+        dataGenerator.addProvider(IslehopperVariantTagsProvider::new);
+        dataGenerator.addProvider(AncientscaleVariantTagsProvider::new);
+        dataGenerator.addProvider(PlentifinVariantTagsProvider::new);
+        dataGenerator.addProvider(WildsplashVariantTagsProvider::new);
+        dataGenerator.addProvider(DevilfishVariantTagsProvider::new);
+        dataGenerator.addProvider(BattlegillVariantTagsProvider::new);
+        dataGenerator.addProvider(WreckerVariantTagsProvider::new);
+        dataGenerator.addProvider(StormfishVariantTagsProvider::new);
     }
 
     private static class ModelProvider extends FabricModelProvider
@@ -416,18 +428,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class AdvancementProvider extends FabricAdvancementProvider
     {
-        private static final Map<Item, FishVariant[]> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
+        private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
         {
-            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.Variant.BY_ID);
-            map.put(FOTItems.PONDIE_BUCKET, Pondie.Variant.BY_ID);
-            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.Variant.BY_ID);
-            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.Variant.BY_ID);
-            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.Variant.BY_ID);
-            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.Variant.BY_ID);
-            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.Variant.BY_ID);
-            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.Variant.BY_ID);
-            map.put(FOTItems.WRECKER_BUCKET, Wrecker.Variant.BY_ID);
-            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.Variant.BY_ID);
+            map.put(FOTItems.SPLASHTAIL_BUCKET, FOTRegistry.SPLASHTAIL_VARIANT);
+            map.put(FOTItems.PONDIE_BUCKET, FOTRegistry.PONDIE_VARIANT);
+            map.put(FOTItems.ISLEHOPPER_BUCKET, FOTRegistry.ISLEHOPPER_VARIANT);
+            map.put(FOTItems.ANCIENTSCALE_BUCKET, FOTRegistry.ANCIENTSCALE_VARIANT);
+            map.put(FOTItems.PLENTIFIN_BUCKET, FOTRegistry.PLENTIFIN_VARIANT);
+            map.put(FOTItems.WILDSPLASH_BUCKET, FOTRegistry.WILDSPLASH_VARIANT);
+            map.put(FOTItems.DEVILFISH_BUCKET, FOTRegistry.DEVILFISH_VARIANT);
+            map.put(FOTItems.BATTLEGILL_BUCKET, FOTRegistry.BATTLEGILL_VARIANT);
+            map.put(FOTItems.WRECKER_BUCKET, FOTRegistry.WRECKER_VARIANT);
+            map.put(FOTItems.STORMFISH_BUCKET, FOTRegistry.STORMFISH_VARIANT);
         });
 
         private AdvancementProvider(FabricDataGenerator dataGenerator)
@@ -473,11 +485,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
-                                    ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound ->
-                                    {
-                                        compound.putInt(ThievesFish.VARIANT_TAG, 2);
-                                        compound.putString(ThievesFish.NAME_TAG, "lava");
-                                    })),
+                                    ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariant.LAVA).toString()))),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
                     .display(FOTItems.DEVILFISH,
                             Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
@@ -571,12 +579,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             for (var item : FISH_BUCKETS)
             {
-                for (var variant : BUCKET_TO_VARIANTS_MAP.get(item))
+                for (var variant : BUCKET_TO_VARIANTS_MAP.get(item).entrySet())
                 {
-                    builder.addCriterion(variant.getName() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
+                    builder.addCriterion(variant.getKey().location().getPath() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                     {
-                        compound.putInt(ThievesFish.VARIANT_TAG, variant.getId());
-                        compound.putString(ThievesFish.NAME_TAG, variant.getName());
+                        compound.putString(ThievesFish.VARIANT_TAG, variant.getKey().location().toString());
                         compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
                     })).build()));
                 }
