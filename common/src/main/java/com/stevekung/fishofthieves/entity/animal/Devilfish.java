@@ -162,7 +162,7 @@ public class Devilfish extends AbstractSchoolingThievesFish
         FORSAKEN(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.forsakenDevilfishProbability)),
         FIRELIGHT(SpawnSelectors.simpleSpawn(true, context ->
         {
-            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(Blocks.MAGMA_BLOCK) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
+            var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
             return context.isNight() && optional.isPresent();
         }));
 

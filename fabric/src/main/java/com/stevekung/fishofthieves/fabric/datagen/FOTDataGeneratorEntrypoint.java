@@ -93,6 +93,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         dataGenerator.addProvider(RecipeProvider::new);
         dataGenerator.addProvider(LootProvider::new);
+        dataGenerator.addProvider(BlockTagsProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
         dataGenerator.addProvider(BiomeTagsProvider::new);
@@ -319,6 +320,20 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+        }
+    }
+
+    private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
+    {
+        private BlockTagsProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator);
+        }
+
+        @Override
+        protected void generateTags()
+        {
+            this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
         }
     }
 
