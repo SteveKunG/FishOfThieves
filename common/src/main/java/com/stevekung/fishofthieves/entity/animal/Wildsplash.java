@@ -3,10 +3,7 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -26,7 +23,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 
 public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 {
@@ -128,6 +124,6 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var biome = levelAccessor.getBiome(blockPos);
-        return biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        return biome.is(FOTTags.SPAWNS_WILDSPLASH) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 }

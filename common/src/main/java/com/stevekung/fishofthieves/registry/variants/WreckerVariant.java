@@ -7,18 +7,18 @@ import java.util.function.Supplier;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biomes;
 
 public record WreckerVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
     public static final WreckerVariant ROSE = create(SpawnSelectors.always(), name("rose"));
     public static final WreckerVariant SUN = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky()), name("sun"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/sun_glow.png")));
-    public static final WreckerVariant BLACKCLOUD = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky()), name("blackcloud"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png")));
-    public static final WreckerVariant SNOW = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN))), name("snow"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png")));
+    public static final WreckerVariant BLACKCLOUD = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability).and(SpawnSelectors.thunderingAndSeeSky())), name("blackcloud"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/blackcloud_glow.png")));
+    public static final WreckerVariant SNOW = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.biomes(FOTTags.SPAWNS_SNOW_WRECKERS))), name("snow"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/snow_glow.png")));
     public static final WreckerVariant MOON = new WreckerVariant(() -> SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)), name("moon"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/moon_glow.png")));
 
     @Override

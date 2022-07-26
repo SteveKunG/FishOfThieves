@@ -7,18 +7,18 @@ import java.util.function.Supplier;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biomes;
 
 public record BattlegillVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
     public static final BattlegillVariant JADE = create(SpawnSelectors.always(), name("jade"));
     public static final BattlegillVariant SKY = create(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater), name("sky"));
     public static final BattlegillVariant RUM = create(SpawnSelectors.always(), name("rum"));
-    public static final BattlegillVariant SAND = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN))), name("sand"));
+    public static final BattlegillVariant SAND = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.biomes(FOTTags.SPAWNS_SAND_BATTLEGILLS))), name("sand"));
     public static final BattlegillVariant BITTERSWEET = new BattlegillVariant(SpawnSelectors::nightAndSeeSky, name("bittersweet"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png")));
 
     @Override

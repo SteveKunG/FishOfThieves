@@ -408,6 +408,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE);
 
             this.getOrCreateTagBuilder(FOTTags.DEVILFISH_CANNOT_SPAWN).add(Biomes.LUSH_CAVES, Biomes.DEEP_DARK);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_SAND_BATTLEGILLS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_MOSS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_WILD_STORMFISH).add(Biomes.SPARSE_JUNGLE);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_CORAL_WILDSPLASH).add(Biomes.WARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_SNOW_WRECKERS).add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN);
         }
     }
 

@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
@@ -70,19 +69,6 @@ public final class SpawnSelectors
             for (TagKey<Structure> structure : structures)
             {
                 return TerrainUtils.isInFeature(context.level(), context.blockPos(), structure);
-            }
-            return false;
-        };
-    }
-
-    @SafeVarargs
-    public static Predicate<SpawnConditionContext> includeByKey(ResourceKey<Biome>... keys)
-    {
-        return context ->
-        {
-            for (var key : keys)
-            {
-                return context.level().getBiome(context.blockPos()).is(key);
             }
             return false;
         };
