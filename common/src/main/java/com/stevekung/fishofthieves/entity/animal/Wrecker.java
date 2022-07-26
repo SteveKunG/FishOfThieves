@@ -293,7 +293,7 @@ public class Wrecker extends AbstractThievesFish
     {
         ROSE(SpawnSelectors.always()),
         SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
-        BLACKCLOUD(SpawnSelectors.simpleSpawn(SpawnSelectors.thunderingAndSeeSky())),
+        BLACKCLOUD(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability).and(SpawnSelectors.thunderingAndSeeSky()))),
         SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
         MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
 
