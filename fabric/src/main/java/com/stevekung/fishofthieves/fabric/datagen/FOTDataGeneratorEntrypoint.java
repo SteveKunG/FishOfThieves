@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variants.*;
@@ -599,11 +600,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             for (var item : FISH_BUCKETS)
             {
-                for (var variant : BUCKET_TO_VARIANTS_MAP.get(item).entrySet())
+                for (var variant : Sets.newTreeSet(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
                 {
-                    builder.addCriterion(variant.getKey().location().getPath() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
+                    builder.addCriterion(variant.getPath() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                     {
-                        compound.putString(ThievesFish.VARIANT_TAG, variant.getKey().location().toString());
+                        compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
                         compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
                     })).build()));
                 }
