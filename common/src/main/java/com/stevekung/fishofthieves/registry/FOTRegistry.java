@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.variants.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.fabric.datagen.variants;
 
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
