@@ -61,30 +61,14 @@ public final class SpawnSelectors
         return FishOfThieves.CONFIG.general.simpleSpawningCondition ? probability(probability) : complex;
     }
 
-    @SafeVarargs
-    public static Predicate<SpawnConditionContext> features(TagKey<Structure>... structures)
+    public static Predicate<SpawnConditionContext> structureTag(TagKey<Structure> tagKey)
     {
-        return context ->
-        {
-            for (TagKey<Structure> structure : structures)
-            {
-                return TerrainUtils.isInFeature(context.level(), context.blockPos(), structure);
-            }
-            return false;
-        };
+        return context -> TerrainUtils.isInFeature(context.level(), context.blockPos(), tagKey);
     }
 
-    @SafeVarargs
-    public static Predicate<SpawnConditionContext> biomes(TagKey<Biome>... biomes)
+    public static Predicate<SpawnConditionContext> biomeTag(TagKey<Biome> tagKey)
     {
-        return context ->
-        {
-            for (TagKey<Biome> biome : biomes)
-            {
-                return context.biomeTag().is(biome);
-            }
-            return false;
-        };
+        return context -> context.biomeTag().is(tagKey);
     }
 
     public static Predicate<SpawnConditionContext> continentalness(Continentalness... continentalnesses)

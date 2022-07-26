@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.StructureTags;
 
 public record PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
@@ -23,7 +22,7 @@ public record PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condit
         return time >= 0.75F && time <= 0.9F;
     })), name("amber"));
     public static final PlentifinVariant CLOUDY = create(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky()), name("cloudy"));
-    public static final PlentifinVariant BONEDUST = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0))), name("bonedust"));
+    public static final PlentifinVariant BONEDUST = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.structureTag(FOTTags.BONEDUST_PLENTIFINS_SPAWN_IN).and(context -> context.random().nextInt(10) == 0))), name("bonedust"));
     public static final PlentifinVariant WATERY = new PlentifinVariant(SpawnSelectors::nightAndSeeSky, name("watery"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/watery_glow.png")));
 
     @Override

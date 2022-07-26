@@ -34,7 +34,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 
 public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 {
@@ -167,7 +166,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        var waterRules = (TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.MONUMENTS) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.PILLAGER_OUTPOSTS)) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var waterRules = TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.BATTLEGILLS_SPAWN_IN) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
         var inFeatures = levelAccessor.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) levelAccessor).isRaided(blockPos);
         return waterRules || inFeatures;
     }

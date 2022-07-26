@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 public record IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
     public static final IslehopperVariant STONE = create(SpawnSelectors.always(), name("stone"));
-    public static final IslehopperVariant MOSS = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(FOTTags.SPAWNS_MOSS_ISLEHOPPERS)), name("moss"));
+    public static final IslehopperVariant MOSS = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_MOSS_ISLEHOPPERS)), name("moss"));
     public static final IslehopperVariant HONEY = create(SpawnSelectors.simpleSpawn(context ->
     {
         var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->

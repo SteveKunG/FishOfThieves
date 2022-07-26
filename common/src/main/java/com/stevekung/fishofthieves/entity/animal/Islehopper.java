@@ -3,7 +3,10 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -19,7 +22,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -147,14 +149,8 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var biome = levelAccessor.getBiome(blockPos);
         var continentalness = TerrainUtils.getContinentalness((ServerLevel) levelAccessor, blockPos);
         var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) levelAccessor, blockPos);
-
-        if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
-        {
-            return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules;
-        }
-        return biome.is(FOTTags.IS_CAVES) && blockPos.getY() <= 0 || waterRules;
+        return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules || waterRules && blockPos.getY() <= 0;
     }
 }

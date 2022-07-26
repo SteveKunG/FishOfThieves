@@ -12,14 +12,13 @@ import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.StructureTags;
 
 public record AncientscaleVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
     public static final AncientscaleVariant ALMOND = create(SpawnSelectors.always(), name("almond"));
     public static final AncientscaleVariant SAPPHIRE = create(SpawnSelectors.always(), name("sapphire"));
     public static final AncientscaleVariant SMOKE = create(SpawnSelectors.always(), name("smoke"));
-    public static final AncientscaleVariant BONE = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.features(StructureTags.MINESHAFT, FOTTags.STRONGHOLDS).and(context -> context.random().nextInt(10) == 0))), name("bone"));
+    public static final AncientscaleVariant BONE = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.boneAncientscaleProbability).or(SpawnSelectors.structureTag(FOTTags.BONE_ANCIENTSCALES_SPAWN_IN).and(context -> context.random().nextInt(10) == 0))), name("bone"));
     public static final AncientscaleVariant STARSHINE = new AncientscaleVariant(() -> SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F)), name("starshine"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/ancientscale/starshine_glow.png")));
 
     @Override

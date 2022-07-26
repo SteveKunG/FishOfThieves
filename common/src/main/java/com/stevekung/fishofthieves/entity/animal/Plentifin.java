@@ -3,29 +3,24 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.StructureTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
@@ -116,16 +111,5 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
         return this.isTrophy() ? 0.17F : 0.09F;
-    }
-
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
-    {
-        var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-
-        if (levelAccessor.getBiome(blockPos).is(FOTTags.IS_CAVES))
-        {
-            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.STRONGHOLDS);
-        }
-        return waterRules;
     }
 }

@@ -14,20 +14,14 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 
 public record WildsplashVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
 {
     public static final WildsplashVariant RUSSET = create(SpawnSelectors.always(), name("russet"));
-    public static final WildsplashVariant SANDY = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(BiomeTags.IS_BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST))), name("sandy"));
-    public static final WildsplashVariant OCEAN = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(BiomeTags.IS_OCEAN)), name("ocean"));
-    public static final WildsplashVariant MUDDY = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.biomes(BiomeTags.HAS_CLOSER_WATER_FOG))), name("muddy"));
-    public static final WildsplashVariant CORAL = new WildsplashVariant(() -> SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.biomes(FOTTags.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
-    {
-        var blockState = context.level().getBlockState(blockPos2);
-        return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);
-    }))), name("coral"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png")));
+    public static final WildsplashVariant SANDY = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_SANDY_WILDSPLASH).and(SpawnSelectors.continentalness(Continentalness.COAST))), name("sandy"));
+    public static final WildsplashVariant OCEAN = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_OCEAN_WILDSPLASH)), name("ocean"));
+    public static final WildsplashVariant MUDDY = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_MUDDY_WILDSPLASH))), name("muddy"));
+    public static final WildsplashVariant CORAL = new WildsplashVariant(() -> SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos -> context.level().getBlockState(blockPos).is(FOTTags.CORAL_WILDSPLASH_SPAWNABLE_ON)))), name("coral"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/coral_glow.png")));
 
     @Override
     public Predicate<SpawnConditionContext> getCondition()

@@ -18,7 +18,7 @@ public record BattlegillVariant(Supplier<Predicate<SpawnConditionContext>> condi
     public static final BattlegillVariant JADE = create(SpawnSelectors.always(), name("jade"));
     public static final BattlegillVariant SKY = create(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater), name("sky"));
     public static final BattlegillVariant RUM = create(SpawnSelectors.always(), name("rum"));
-    public static final BattlegillVariant SAND = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.biomes(FOTTags.SPAWNS_SAND_BATTLEGILLS))), name("sand"));
+    public static final BattlegillVariant SAND = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_SAND_BATTLEGILLS))), name("sand"));
     public static final BattlegillVariant BITTERSWEET = new BattlegillVariant(SpawnSelectors::nightAndSeeSky, name("bittersweet"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/bittersweet_glow.png")));
 
     @Override

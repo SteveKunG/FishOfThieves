@@ -19,7 +19,7 @@ public record StormfishVariant(Supplier<Predicate<SpawnConditionContext>> condit
 {
     public static final StormfishVariant ANCIENT = create(SpawnSelectors.always(), name("ancient"));
     public static final StormfishVariant SHORES = create(SpawnSelectors.simpleSpawn(SpawnSelectors.continentalness(Continentalness.COAST)), name("shores"));
-    public static final StormfishVariant WILD = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomes(FOTTags.SPAWNS_WILD_STORMFISH)), name("wild"));
+    public static final StormfishVariant WILD = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_WILD_STORMFISH)), name("wild"));
     public static final StormfishVariant SHADOW = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4)), name("shadow"));
     public static final StormfishVariant TWILIGHT = new StormfishVariant(() -> SpawnSelectors.simpleSpawn(true, context -> context.level().getSkyDarken() >= 9), name("twilight"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/stormfish/twilight_glow.png")));
 

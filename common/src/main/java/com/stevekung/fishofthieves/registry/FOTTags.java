@@ -16,14 +16,13 @@ public class FOTTags
     public static final TagKey<Item> COOKED_THIEVES_FISH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "cooked_thieves_fish"));
 
     public static final TagKey<Block> FIRELIGHT_DEVILFISH_WARM_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "firelight_devilfish_warm_blocks"));
+    public static final TagKey<Block> CORAL_WILDSPLASH_SPAWNABLE_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "coral_wildsplash_spawnable_on"));
 
     public static final TagKey<EntityType<?>> THIEVES_FISH = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
-    public static final TagKey<Structure> STRONGHOLDS = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "strongholds"));
-    public static final TagKey<Structure> MONUMENTS = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "monuments"));
-    public static final TagKey<Structure> PILLAGER_OUTPOSTS = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "pillager_outposts"));
-
-    public static final TagKey<Biome> IS_CAVES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "is_caves"));
+    public static final TagKey<Structure> BONE_ANCIENTSCALES_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bone_ancientscales_spawn_in"));
+    public static final TagKey<Structure> BONEDUST_PLENTIFINS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bonedust_plentifins_spawn_in"));
+    public static final TagKey<Structure> BATTLEGILLS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "battlegills_spawn_in"));
 
     public static final TagKey<Biome> SPAWNS_SPLASHTAILS = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_splashtails"));
     public static final TagKey<Biome> SPAWNS_PONDIES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_pondies"));
@@ -42,4 +41,7 @@ public class FOTTags
     public static final TagKey<Biome> SPAWNS_WILD_STORMFISH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_wild_stormfish"));
     public static final TagKey<Biome> SPAWNS_CORAL_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_coral_wildsplash"));
     public static final TagKey<Biome> SPAWNS_SNOW_WRECKERS = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_snow_wreckers"));
+    public static final TagKey<Biome> SPAWNS_SANDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_sandy_wildsplash"));
+    public static final TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_ocean_wildsplash"));
+    public static final TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
 }
