@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -26,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
 public class Stormfish extends AbstractThievesFish
@@ -110,7 +110,7 @@ public class Stormfish extends AbstractThievesFish
     {
         ANCIENT(SpawnSelectors.always()),
         SHORES(SpawnSelectors.simpleSpawn(context -> context.continentalness() == Continentalness.COAST)),
-        WILD(SpawnSelectors.simpleSpawn(SpawnSelectors.includeByKey(Biomes.SPARSE_JUNGLE))),
+        WILD(SpawnSelectors.simpleSpawn(SpawnSelectors.tags(FOTTags.SPAWNS_WILD_STORMFISH))),
         SHADOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.shadowStormfishProbability).and(context -> context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= 4))),
         TWILIGHT(SpawnSelectors.simpleSpawn(true, context -> context.level().getSkyDarken() >= 9));
 

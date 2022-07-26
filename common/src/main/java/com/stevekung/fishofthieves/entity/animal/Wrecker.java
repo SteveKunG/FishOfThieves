@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -43,7 +44,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
@@ -294,7 +294,7 @@ public class Wrecker extends AbstractThievesFish
         ROSE(SpawnSelectors.always()),
         SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
         BLACKCLOUD(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability).and(SpawnSelectors.thunderingAndSeeSky()))),
-        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.includeByKey(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)))),
+        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.tags(FOTTags.SPAWNS_SNOW_WRECKERS)))),
         MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -35,7 +36,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
@@ -163,7 +163,7 @@ public class Battlegill extends AbstractSchoolingThievesFish
         JADE(SpawnSelectors.always()),
         SKY(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)),
         RUM(SpawnSelectors.always()),
-        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN)))),
+        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.tags(FOTTags.SPAWNS_SAND_BATTLEGILLS)))),
         BITTERSWEET(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

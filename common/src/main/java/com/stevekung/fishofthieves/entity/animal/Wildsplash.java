@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -29,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 
 public class Wildsplash extends AbstractSchoolingThievesFish
 {
@@ -109,7 +109,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
         var biome = levelAccessor.getBiome(blockPos);
-        return biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.WARM_OCEAN) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        return biome.is(FOTTags.SPAWNS_WILDSPLASH) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
     }
 
     public enum Variant implements FishVariant
@@ -118,7 +118,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish
         SANDY(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST)))),
         OCEAN(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN))),
         MUDDY(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP)))),
-        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.includeByKey(Biomes.WARM_OCEAN)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
+        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.tags(FOTTags.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
             return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);

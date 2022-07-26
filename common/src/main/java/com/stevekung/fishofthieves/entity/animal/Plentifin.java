@@ -102,7 +102,6 @@ public class Plentifin extends AbstractSchoolingThievesFish
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var category = levelAccessor.getBiome(blockPos).value().getBiomeCategory();
 
         if (levelAccessor.getBiome(blockPos).is(FOTTags.IS_CAVES))
         {

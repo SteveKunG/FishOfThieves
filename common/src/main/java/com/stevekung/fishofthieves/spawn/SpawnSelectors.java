@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
@@ -78,7 +79,7 @@ public final class SpawnSelectors
     }
 
     @SafeVarargs
-    public static Predicate<SpawnConditionContext> includeByKey(ResourceKey<Biome>... keys)
+    public static Predicate<SpawnConditionContext> tags(TagKey<Biome>... keys)
     {
         return context ->
         {
