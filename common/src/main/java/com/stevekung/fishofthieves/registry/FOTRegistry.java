@@ -31,6 +31,6 @@ public class FOTRegistry
 
     private static <T> ResourceKey<Registry<T>> createRegistryKey(String registryName)
     {
-        return ResourceKey.createRegistryKey(new ResourceLocation(FishOfThieves.MOD_ID, registryName));
+        return ResourceKey.createRegistryKey(new ResourceLocation(registryName));
     }
 }
