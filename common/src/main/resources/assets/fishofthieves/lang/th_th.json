@@ -1,13 +1,9 @@
 {
   "text.autoconfig.fishofthieves.title": "การตั้งค่าฟิชออฟธีฟ",
   "text.autoconfig.fishofthieves.category.general": "ทั่วไป",
-  "text.autoconfig.fishofthieves.category.drop_rate": "อัตราการดรอป",
   "text.autoconfig.fishofthieves.category.spawn_rate": "อัตราการเกิด",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "ค่าพลังชีวิตสูงสุดของปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "เงื่อนไขการเกิดแบบเรียบง่าย",
-  "text.autoconfig.fishofthieves.option.dropRate.earthwormsDropRate": "อัตราการดรอปของไส้เดือน",
-  "text.autoconfig.fishofthieves.option.dropRate.grubsDropRate": "อัตราการดรอปของด้วง",
-  "text.autoconfig.fishofthieves.option.dropRate.leechesDropRate": "อัตราการดรอปของปลิง",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "ค่าความน่าจะเป็นของปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "ค่าความน่าจะเป็นของปลาสแปลชเทลน้ำตาลแดง",
   "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "ค่าความน่าจะเป็นของปลากะพงบึงสว่างจ้า",

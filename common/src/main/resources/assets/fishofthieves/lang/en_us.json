@@ -1,13 +1,9 @@
 {
   "text.autoconfig.fishofthieves.title": "Fish of Thieves Config",
   "text.autoconfig.fishofthieves.category.general": "General",
-  "text.autoconfig.fishofthieves.category.drop_rate": "Drop Rate",
   "text.autoconfig.fishofthieves.category.spawn_rate": "Spawn Rate",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "Trophy Max Health",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "Simple Spawning Condition",
-  "text.autoconfig.fishofthieves.option.dropRate.earthwormsDropRate": "Earthworms Drop Rate",
-  "text.autoconfig.fishofthieves.option.dropRate.grubsDropRate": "Grubs Drop Rate",
-  "text.autoconfig.fishofthieves.option.dropRate.leechesDropRate": "Leeches Drop Rate",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Trophy Probability",
   "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "Umber Splashtail Probability",
   "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "Bright Pondie Probability",

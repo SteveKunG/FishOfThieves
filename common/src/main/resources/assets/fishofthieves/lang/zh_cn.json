@@ -1,13 +1,9 @@
 {
   "text.autoconfig.fishofthieves.title": "盗贼之鱼配置",
   "text.autoconfig.fishofthieves.category.general": "常规",
-  "text.autoconfig.fishofthieves.category.drop_rate": "Drop Rate",
   "text.autoconfig.fishofthieves.category.spawn_rate": "生成率",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "奖杯鱼最大生命",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "Simple Spawning Condition",
-  "text.autoconfig.fishofthieves.option.dropRate.earthwormsDropRate": "Earthworms Drop Rate",
-  "text.autoconfig.fishofthieves.option.dropRate.grubsDropRate": "Grubs Drop Rate",
-  "text.autoconfig.fishofthieves.option.dropRate.leechesDropRate": "Leeches Drop Rate",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "奖杯鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "琥珀浪尾鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "明亮小池鱼概率",
