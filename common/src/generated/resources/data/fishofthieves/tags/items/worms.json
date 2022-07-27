@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#fishofthieves:earthworms_food",
+    "#fishofthieves:grubs_food",
+    "#fishofthieves:leeches_food"
+  ]
+}

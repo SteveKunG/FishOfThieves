@@ -26,7 +26,7 @@
           "items": [
             "fishofthieves:splashtail_bucket"
           ],
-          "nbt": "{Name:\"ruby\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"ruby\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -37,7 +37,7 @@
           "items": [
             "fishofthieves:splashtail_bucket"
           ],
-          "nbt": "{Name:\"sunny\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"sunny\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -48,7 +48,7 @@
           "items": [
             "fishofthieves:splashtail_bucket"
           ],
-          "nbt": "{Name:\"indigo\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"indigo\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -59,7 +59,7 @@
           "items": [
             "fishofthieves:splashtail_bucket"
           ],
-          "nbt": "{Name:\"umber\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"umber\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -70,7 +70,7 @@
           "items": [
             "fishofthieves:splashtail_bucket"
           ],
-          "nbt": "{Name:\"seafoam\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"seafoam\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -81,7 +81,7 @@
           "items": [
             "fishofthieves:pondie_bucket"
           ],
-          "nbt": "{Name:\"charcoal\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"charcoal\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -92,7 +92,7 @@
           "items": [
             "fishofthieves:pondie_bucket"
           ],
-          "nbt": "{Name:\"orchid\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"orchid\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -103,7 +103,7 @@
           "items": [
             "fishofthieves:pondie_bucket"
           ],
-          "nbt": "{Name:\"bronze\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"bronze\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -114,7 +114,7 @@
           "items": [
             "fishofthieves:pondie_bucket"
           ],
-          "nbt": "{Name:\"bright\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"bright\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -125,7 +125,7 @@
           "items": [
             "fishofthieves:pondie_bucket"
           ],
-          "nbt": "{Name:\"moonsky\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"moonsky\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -136,7 +136,7 @@
           "items": [
             "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"stone\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"stone\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -147,7 +147,7 @@
           "items": [
             "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"moss\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"moss\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -158,7 +158,7 @@
           "items": [
             "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"honey\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"honey\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -169,7 +169,7 @@
           "items": [
             "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"raven\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"raven\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -180,7 +180,7 @@
           "items": [
             "fishofthieves:islehopper_bucket"
           ],
-          "nbt": "{Name:\"amethyst\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"amethyst\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -191,7 +191,7 @@
           "items": [
             "fishofthieves:ancientscale_bucket"
           ],
-          "nbt": "{Name:\"almond\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"almond\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -202,7 +202,7 @@
           "items": [
             "fishofthieves:ancientscale_bucket"
           ],
-          "nbt": "{Name:\"sapphire\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"sapphire\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -213,7 +213,7 @@
           "items": [
             "fishofthieves:ancientscale_bucket"
           ],
-          "nbt": "{Name:\"smoke\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"smoke\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -224,7 +224,7 @@
           "items": [
             "fishofthieves:ancientscale_bucket"
           ],
-          "nbt": "{Name:\"bone\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"bone\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -235,7 +235,7 @@
           "items": [
             "fishofthieves:ancientscale_bucket"
           ],
-          "nbt": "{Name:\"starshine\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"starshine\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -246,7 +246,7 @@
           "items": [
             "fishofthieves:plentifin_bucket"
           ],
-          "nbt": "{Name:\"olive\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"olive\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -257,7 +257,7 @@
           "items": [
             "fishofthieves:plentifin_bucket"
           ],
-          "nbt": "{Name:\"amber\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"amber\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -268,7 +268,7 @@
           "items": [
             "fishofthieves:plentifin_bucket"
           ],
-          "nbt": "{Name:\"cloudy\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"cloudy\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -279,7 +279,7 @@
           "items": [
             "fishofthieves:plentifin_bucket"
           ],
-          "nbt": "{Name:\"bonedust\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"bonedust\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -290,7 +290,7 @@
           "items": [
             "fishofthieves:plentifin_bucket"
           ],
-          "nbt": "{Name:\"watery\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"watery\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -301,7 +301,7 @@
           "items": [
             "fishofthieves:wildsplash_bucket"
           ],
-          "nbt": "{Name:\"russet\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"russet\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -312,7 +312,7 @@
           "items": [
             "fishofthieves:wildsplash_bucket"
           ],
-          "nbt": "{Name:\"sandy\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"sandy\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -323,7 +323,7 @@
           "items": [
             "fishofthieves:wildsplash_bucket"
           ],
-          "nbt": "{Name:\"ocean\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"ocean\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -334,7 +334,7 @@
           "items": [
             "fishofthieves:wildsplash_bucket"
           ],
-          "nbt": "{Name:\"muddy\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"muddy\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -345,7 +345,7 @@
           "items": [
             "fishofthieves:wildsplash_bucket"
           ],
-          "nbt": "{Name:\"coral\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"coral\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -356,7 +356,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"ashen\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"ashen\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -367,7 +367,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"seashell\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"seashell\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -378,7 +378,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"lava\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"lava\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -389,7 +389,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"forsaken\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"forsaken\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -400,7 +400,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{Name:\"firelight\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"firelight\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -411,7 +411,7 @@
           "items": [
             "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"jade\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"jade\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -422,7 +422,7 @@
           "items": [
             "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"sky\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"sky\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -433,7 +433,7 @@
           "items": [
             "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"rum\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"rum\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -444,7 +444,7 @@
           "items": [
             "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"sand\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"sand\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -455,7 +455,7 @@
           "items": [
             "fishofthieves:battlegill_bucket"
           ],
-          "nbt": "{Name:\"bittersweet\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"bittersweet\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -466,7 +466,7 @@
           "items": [
             "fishofthieves:wrecker_bucket"
           ],
-          "nbt": "{Name:\"rose\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"rose\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -477,7 +477,7 @@
           "items": [
             "fishofthieves:wrecker_bucket"
           ],
-          "nbt": "{Name:\"sun\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"sun\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -488,7 +488,7 @@
           "items": [
             "fishofthieves:wrecker_bucket"
           ],
-          "nbt": "{Name:\"blackcloud\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"blackcloud\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -499,7 +499,7 @@
           "items": [
             "fishofthieves:wrecker_bucket"
           ],
-          "nbt": "{Name:\"snow\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"snow\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -510,7 +510,7 @@
           "items": [
             "fishofthieves:wrecker_bucket"
           ],
-          "nbt": "{Name:\"moon\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"moon\",Trophy:1b,Variant:4}"
         }
       }
     },
@@ -521,7 +521,7 @@
           "items": [
             "fishofthieves:stormfish_bucket"
           ],
-          "nbt": "{Name:\"ancient\",Trophy:1b,Variant:0}"
+          "nbt": "{HasFed:0b,Name:\"ancient\",Trophy:1b,Variant:0}"
         }
       }
     },
@@ -532,7 +532,7 @@
           "items": [
             "fishofthieves:stormfish_bucket"
           ],
-          "nbt": "{Name:\"shores\",Trophy:1b,Variant:1}"
+          "nbt": "{HasFed:0b,Name:\"shores\",Trophy:1b,Variant:1}"
         }
       }
     },
@@ -543,7 +543,7 @@
           "items": [
             "fishofthieves:stormfish_bucket"
           ],
-          "nbt": "{Name:\"wild\",Trophy:1b,Variant:2}"
+          "nbt": "{HasFed:0b,Name:\"wild\",Trophy:1b,Variant:2}"
         }
       }
     },
@@ -554,7 +554,7 @@
           "items": [
             "fishofthieves:stormfish_bucket"
           ],
-          "nbt": "{Name:\"shadow\",Trophy:1b,Variant:3}"
+          "nbt": "{HasFed:0b,Name:\"shadow\",Trophy:1b,Variant:3}"
         }
       }
     },
@@ -565,7 +565,7 @@
           "items": [
             "fishofthieves:stormfish_bucket"
           ],
-          "nbt": "{Name:\"twilight\",Trophy:1b,Variant:4}"
+          "nbt": "{HasFed:0b,Name:\"twilight\",Trophy:1b,Variant:4}"
         }
       }
     }

@@ -359,8 +359,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS);
             this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN,
                     FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL, FOTItems.WRECKER, FOTItems.COOKED_WRECKER, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
             this.getOrCreateTagBuilder(FOTTags.COOKED_THIEVES_FISH).add(cookedFishes);
+            this.getOrCreateTagBuilder(FOTTags.WORMS).forceAddTag(FOTTags.EARTHWORMS_FOOD).forceAddTag(FOTTags.GRUBS_FOOD).forceAddTag(FOTTags.LEECHES_FOOD);
+            this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_FOOD).add(FOTItems.EARTHWORMS);
+            this.getOrCreateTagBuilder(FOTTags.GRUBS_FOOD).add(FOTItems.GRUBS);
+            this.getOrCreateTagBuilder(FOTTags.LEECHES_FOOD).add(FOTItems.LEECHES);
 
             // Fabric
             this.getOrCreateTagBuilder(RAW_FISHES).add(rawFishes);
@@ -623,6 +628,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                         compound.putInt(ThievesFish.VARIANT_TAG, variant.getId());
                         compound.putString(ThievesFish.NAME_TAG, variant.getName());
                         compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+
+                        if (trophy)
+                        {
+                            compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
+                        }
                     })).build()));
                 }
             }

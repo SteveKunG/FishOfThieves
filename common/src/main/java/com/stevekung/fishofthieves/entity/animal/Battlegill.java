@@ -28,11 +28,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -54,6 +56,7 @@ public class Battlegill extends AbstractSchoolingThievesFish
     {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, GRUBS_FOOD, false));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
     }
 
@@ -120,6 +123,12 @@ public class Battlegill extends AbstractSchoolingThievesFish
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
         super.setTrophy(trophy);
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return GRUBS_FOOD.test(itemStack);
     }
 
     @Override

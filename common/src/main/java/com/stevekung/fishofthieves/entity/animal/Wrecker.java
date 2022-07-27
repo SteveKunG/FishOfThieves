@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -70,6 +71,7 @@ public class Wrecker extends AbstractThievesFish
     {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, EARTHWORMS_FOOD, false));
         this.goalSelector.addGoal(5, new SwimToShipwreckGoal(this));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
         this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
@@ -139,6 +141,12 @@ public class Wrecker extends AbstractThievesFish
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
         }
         super.setTrophy(trophy);
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return EARTHWORMS_FOOD.test(itemStack);
     }
 
     @Override

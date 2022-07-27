@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -12,11 +13,19 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public interface ThievesFish extends GlowFish, PartyFish
 {
+    Ingredient WORMS = Ingredient.of(FOTTags.WORMS);
+    Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.EARTHWORMS_FOOD);
+    Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.GRUBS_FOOD);
+    Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.LEECHES_FOOD);
+
     String VARIANT_TAG = "Variant";
     String TROPHY_TAG = "Trophy";
+    String HAS_FED_TAG = "HasFed";
     String NAME_TAG = "Name";
 
     FishVariant getVariant();
@@ -28,6 +37,12 @@ public interface ThievesFish extends GlowFish, PartyFish
     boolean isTrophy();
 
     void setTrophy(boolean trophy);
+
+    boolean hasFed();
+
+    void setHasFed(boolean hasFed);
+
+    boolean isFood(ItemStack itemStack);
 
     default void saveToBucket(CompoundTag compound)
     {
