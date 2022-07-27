@@ -14,8 +14,8 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.data.loot.EntityLoot;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -42,6 +42,10 @@ public class FishOfThievesFabric implements ModInitializer
         FOTEntities.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
+
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.EARTHWORMS, 0.4F);
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.LEECHES, 0.4F);
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, FishOfThieves::getTierOneTrades);
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, FishOfThieves::getTierTwoTrades);

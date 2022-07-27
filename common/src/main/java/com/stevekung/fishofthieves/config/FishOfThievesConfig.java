@@ -14,6 +14,10 @@ public final class FishOfThievesConfig implements ConfigData
     @ConfigEntry.Gui.TransitiveObject
     public General general;
 
+    @ConfigEntry.Category("drop_rate")
+    @ConfigEntry.Gui.TransitiveObject
+    public DropRate dropRate;
+
     @ConfigEntry.Category("spawn_rate")
     @ConfigEntry.Gui.TransitiveObject
     public SpawnRate spawnRate;
@@ -21,6 +25,7 @@ public final class FishOfThievesConfig implements ConfigData
     public FishOfThievesConfig()
     {
         this.general = new General();
+        this.dropRate = new DropRate();
         this.spawnRate = new SpawnRate();
     }
 
@@ -31,6 +36,13 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.RequiresRestart
         @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still work")
         public boolean simpleSpawningCondition;
+    }
+
+    public static class DropRate
+    {
+        public float earthwormsDropRate = 0.05F;
+        public float grubsDropRate = 0.05F;
+        public float leechesDropRate = 0.05F;
     }
 
     public static class SpawnRate

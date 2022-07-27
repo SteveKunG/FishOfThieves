@@ -22,6 +22,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -60,6 +61,9 @@ public class CommonProxyForge
 
     public void commonSetup(FMLCommonSetupEvent event)
     {
+        ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.GRUBS, 0.4F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
     }
 
     public void clientSetup(FMLClientSetupEvent event)

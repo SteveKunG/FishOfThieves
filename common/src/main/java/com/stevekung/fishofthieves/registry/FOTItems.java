@@ -3,6 +3,9 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +15,12 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
 {
+    public static final FoodProperties WORMS = new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).fast().effect(new MobEffectInstance(MobEffects.CONFUSION, 400), 0.5F).build();
+
+    public static final Item EARTHWORMS = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(WORMS));
+    public static final Item GRUBS = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(WORMS));
+    public static final Item LEECHES = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(WORMS));
+
     public static final Item SPLASHTAIL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.SALMON));
     public static final Item PONDIE = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.COD));
     public static final Item ISLEHOPPER = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(Foods.COD));
@@ -71,6 +80,10 @@ public class FOTItems
 
     public static void init()
     {
+        register("earthworms", EARTHWORMS);
+        register("grubs", GRUBS);
+        register("leeches", LEECHES);
+
         register("splashtail", SPLASHTAIL);
         register("pondie", PONDIE);
         register("islehopper", ISLEHOPPER);

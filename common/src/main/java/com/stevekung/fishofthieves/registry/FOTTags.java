@@ -17,6 +17,9 @@ public class FOTTags
     public static final TagKey<EntityType<?>> THIEVES_FISH = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
     public static final TagKey<Block> FIRELIGHT_DEVILFISH_WARM_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "firelight_devilfish_warm_blocks"));
+    public static final TagKey<Block> EARTHWORMS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drops"));
+    public static final TagKey<Block> GRUBS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_drops"));
+    public static final TagKey<Block> LEECHES_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_drops"));
 
     public static final TagKey<Biome> IS_CAVES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "is_caves"));
 

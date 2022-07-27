@@ -112,6 +112,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateItemModels(ItemModelGenerators generator)
         {
+            generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.SPLASHTAIL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.SPLASHTAIL_BUCKET, ModelTemplates.FLAT_ITEM);
@@ -334,6 +337,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         protected void generateTags()
         {
             this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
+            this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
+            this.getOrCreateTagBuilder(FOTTags.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
+            this.getOrCreateTagBuilder(FOTTags.LEECHES_DROPS).forceAddTag(BlockTags.SAND);
         }
     }
 
