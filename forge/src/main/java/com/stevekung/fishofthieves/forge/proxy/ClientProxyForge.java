@@ -60,7 +60,7 @@ public class ClientProxyForge extends CommonProxyForge
 
         if (itemStack.getItem() instanceof MobBucketItemAccessor mobBucketItem)
         {
-            if (mobBucketItem.invokeGetFishType().is(FOTTags.THIEVES_FISH) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
+            if (mobBucketItem.invokeGetFishType().is(FOTTags.THIEVES_FISH_ENTITY_TYPE) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_INT))
             {
                 var type = new TranslatableComponent("entity.fishofthieves.%s.%s".formatted(ForgeRegistries.ENTITIES.getKey(mobBucketItem.invokeGetFishType()).getPath(), compoundTag.getString(ThievesFish.NAME_TAG))).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 

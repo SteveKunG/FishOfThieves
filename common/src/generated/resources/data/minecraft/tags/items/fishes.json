@@ -1,25 +1,7 @@
 {
   "replace": false,
   "values": [
-    "fishofthieves:splashtail",
-    "fishofthieves:cooked_splashtail",
-    "fishofthieves:pondie",
-    "fishofthieves:cooked_pondie",
-    "fishofthieves:islehopper",
-    "fishofthieves:cooked_islehopper",
-    "fishofthieves:ancientscale",
-    "fishofthieves:cooked_ancientscale",
-    "fishofthieves:plentifin",
-    "fishofthieves:cooked_plentifin",
-    "fishofthieves:wildsplash",
-    "fishofthieves:cooked_wildsplash",
-    "fishofthieves:devilfish",
-    "fishofthieves:cooked_devilfish",
-    "fishofthieves:battlegill",
-    "fishofthieves:cooked_battlegill",
-    "fishofthieves:wrecker",
-    "fishofthieves:cooked_wrecker",
-    "fishofthieves:stormfish",
-    "fishofthieves:cooked_stormfish"
+    "#fishofthieves:thieves_fish",
+    "#fishofthieves:cooked_thieves_fish"
   ]
 }

@@ -12,13 +12,14 @@ import net.minecraft.world.level.block.Block;
 public class FOTTags
 {
     public static final TagKey<Item> THIEVES_FISH_BUCKET = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish_bucket"));
+    public static final TagKey<Item> THIEVES_FISH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
     public static final TagKey<Item> COOKED_THIEVES_FISH = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "cooked_thieves_fish"));
     public static final TagKey<Item> WORMS = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "worms"));
     public static final TagKey<Item> EARTHWORMS_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_food"));
     public static final TagKey<Item> GRUBS_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_food"));
     public static final TagKey<Item> LEECHES_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_food"));
 
-    public static final TagKey<EntityType<?>> THIEVES_FISH = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
+    public static final TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
 
     public static final TagKey<Block> FIRELIGHT_DEVILFISH_WARM_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "firelight_devilfish_warm_blocks"));
     public static final TagKey<Block> EARTHWORMS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drops"));
