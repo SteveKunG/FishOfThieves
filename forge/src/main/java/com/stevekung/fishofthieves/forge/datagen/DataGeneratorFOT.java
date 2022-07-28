@@ -5,12 +5,8 @@ import java.nio.file.Path;
 import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -89,11 +85,8 @@ public class DataGeneratorFOT
 
     private static abstract class FishingRealProvider implements DataProvider
     {
-        private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
         private final Map<ResourceLocation, FishingRealBuilder> builders = Maps.newLinkedHashMap();
-        private static final Logger LOGGER = LogUtils.getLogger();
-
-        protected final DataGenerator dataGenerator;
+        private final DataGenerator dataGenerator;
 
         public FishingRealProvider(DataGenerator dataGenerator)
         {
@@ -127,9 +120,9 @@ public class DataGeneratorFOT
                 {
                     DataProvider.saveStable(cachedOutput, jsonObject, path);
                 }
-                catch (IOException iOException)
+                catch (IOException e)
                 {
-                    LOGGER.error("Couldn't save FishingReal to {}", path, iOException);
+                    FishOfThieves.LOGGER.error("Couldn't save FishingReal to {}", path, e);
                 }
             });
         }

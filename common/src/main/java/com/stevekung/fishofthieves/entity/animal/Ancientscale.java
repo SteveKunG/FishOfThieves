@@ -19,6 +19,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -38,6 +39,13 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void registerGoals()
+    {
+        super.registerGoals();
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, LEECHES_FOOD, false));
     }
 
     @Override
@@ -111,5 +119,11 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
         return this.isTrophy() ? 0.3575F : 0.18F;
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return LEECHES_FOOD.test(itemStack);
     }
 }

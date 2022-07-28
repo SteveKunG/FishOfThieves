@@ -123,6 +123,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateItemModels(ItemModelGenerators generator)
         {
+            generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.SPLASHTAIL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.SPLASHTAIL_BUCKET, ModelTemplates.FLAT_ITEM);
@@ -346,6 +349,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
+            this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
+            this.getOrCreateTagBuilder(FOTTags.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
+            this.getOrCreateTagBuilder(FOTTags.LEECHES_DROPS).forceAddTag(BlockTags.SAND);
         }
     }
 
@@ -363,17 +369,22 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var cookedFishes = new Item[] {FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH};
 
             this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS);
-            this.tag(ItemTags.FISHES).add(FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL, FOTItems.PONDIE, FOTItems.COOKED_PONDIE, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN,
-                    FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL, FOTItems.WRECKER, FOTItems.COOKED_WRECKER, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+            this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.THIEVES_FISH).forceAddTag(FOTTags.COOKED_THIEVES_FISH);
+
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
+            this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(rawFishes);
             this.getOrCreateTagBuilder(FOTTags.COOKED_THIEVES_FISH).add(cookedFishes);
+            this.getOrCreateTagBuilder(FOTTags.WORMS).forceAddTag(FOTTags.EARTHWORMS_FOOD).forceAddTag(FOTTags.GRUBS_FOOD).forceAddTag(FOTTags.LEECHES_FOOD);
+            this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_FOOD).add(FOTItems.EARTHWORMS);
+            this.getOrCreateTagBuilder(FOTTags.GRUBS_FOOD).add(FOTItems.GRUBS);
+            this.getOrCreateTagBuilder(FOTTags.LEECHES_FOOD).add(FOTItems.LEECHES);
 
             // Fabric
-            this.getOrCreateTagBuilder(RAW_FISHES).add(rawFishes);
-            this.getOrCreateTagBuilder(COOKED_FISHES).add(cookedFishes);
+            this.getOrCreateTagBuilder(RAW_FISHES).forceAddTag(FOTTags.THIEVES_FISH);
+            this.getOrCreateTagBuilder(COOKED_FISHES).forceAddTag(FOTTags.COOKED_THIEVES_FISH);
 
             // Croptopia compatibility
-            this.getOrCreateTagBuilder(CROPTOPIA_FISHES).add(rawFishes);
+            this.getOrCreateTagBuilder(CROPTOPIA_FISHES).forceAddTag(FOTTags.THIEVES_FISH);
         }
     }
 
@@ -390,11 +401,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var neutralFishes = new EntityType<?>[] {FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER};
             var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
-            this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH).add(ArrayUtils.addAll(fishes, neutralFishes));
+            this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
 
             // Immersive Weathering compatibility
-            this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.THIEVES_FISH);
-            this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).forceAddTag(FOTTags.THIEVES_FISH);
+            this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.THIEVES_FISH_ENTITY_TYPE);
+            this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).forceAddTag(FOTTags.THIEVES_FISH_ENTITY_TYPE);
         }
     }
 
@@ -558,7 +569,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                             ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
-                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH).build())))
+                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(FOTTags.THIEVES_FISH_ENTITY_TYPE).build())))
                     .addCriterion("play_jukebox_near_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
@@ -606,6 +617,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     {
                         compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
                         compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+
+                        if (trophy)
+                        {
+                            compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
+                        }
                     })).build()));
                 }
             }

@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.Util;
@@ -16,14 +17,22 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
 {
+    Ingredient WORMS = Ingredient.of(FOTTags.WORMS);
+    Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.EARTHWORMS_FOOD);
+    Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.GRUBS_FOOD);
+    Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.LEECHES_FOOD);
+
     String OLD_VARIANT_TAG = "Variant";
     String OLD_NAME_TAG = "Name";
 
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
+    String HAS_FED_TAG = "HasFed";
 
     T getVariant();
 
@@ -38,6 +47,12 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
     boolean isTrophy();
 
     void setTrophy(boolean trophy);
+
+    boolean hasFed();
+
+    void setHasFed(boolean hasFed);
+
+    boolean isFood(ItemStack itemStack);
 
     default void saveToBucket(CompoundTag compound)
     {

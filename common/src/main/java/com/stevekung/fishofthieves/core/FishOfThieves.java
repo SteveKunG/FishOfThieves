@@ -75,29 +75,29 @@ public class FishOfThieves
 
     public static void getTierOneTrades(List<VillagerTrades.ItemListing> list)
     {
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.SPLASHTAIL, 6, FOTItems.COOKED_SPLASHTAIL, 6, 16, 5));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PONDIE, 4, FOTItems.COOKED_PONDIE, 4, 13, 3));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ISLEHOPPER, 8, FOTItems.COOKED_ISLEHOPPER, 2, 6, 4));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ANCIENTSCALE, 10, FOTItems.COOKED_ANCIENTSCALE, 2, 4, 6));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PLENTIFIN, 9, FOTItems.COOKED_PLENTIFIN, 3, 5, 8));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WILDSPLASH, 5, FOTItems.COOKED_WILDSPLASH, 2, 6, 10));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.DEVILFISH, 2, FOTItems.COOKED_DEVILFISH, 8, 4, 15));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.BATTLEGILL, 2, FOTItems.COOKED_BATTLEGILL, 12, 4, 18));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WRECKER, 1, FOTItems.COOKED_WRECKER, 14, 4, 20));
-        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.STORMFISH, 1, FOTItems.COOKED_STORMFISH, 20, 5, 30));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.SPLASHTAIL, 6, FOTItems.COOKED_SPLASHTAIL, 6, 8, 1));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PONDIE, 6, FOTItems.COOKED_PONDIE, 6, 8, 1));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ISLEHOPPER, 2, 2, FOTItems.COOKED_ISLEHOPPER, 2, 8, 2));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ANCIENTSCALE, 3, FOTItems.COOKED_ANCIENTSCALE, 3, 5, 3));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PLENTIFIN, 3, 2, FOTItems.COOKED_PLENTIFIN, 3, 5, 3));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WILDSPLASH, 4, 2, FOTItems.COOKED_WILDSPLASH, 4, 6, 3));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.DEVILFISH, 4, 3, FOTItems.COOKED_DEVILFISH, 4, 6, 4));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.BATTLEGILL, 4, 3, FOTItems.COOKED_BATTLEGILL, 4, 6, 4));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WRECKER, 5, 5, FOTItems.COOKED_WRECKER, 5, 8, 5));
+        list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.STORMFISH, 5, 5, FOTItems.COOKED_STORMFISH, 5, 8, 8));
     }
 
     public static void getTierTwoTrades(List<VillagerTrades.ItemListing> list)
     {
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.SPLASHTAIL, 13, 16, 20));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.PONDIE, 10, 12, 16));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.ISLEHOPPER, 16, 8, 25));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.ANCIENTSCALE, 16, 4, 28));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 12, 6, 25));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 10, 4, 26));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 12, 2, 30));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 14, 2, 30));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 15, 1, 30));
-        list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 20, 1, 30));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.SPLASHTAIL, 12, 8, 12));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.PONDIE, 12, 8, 12));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.ISLEHOPPER, 8, 8, 15));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.ANCIENTSCALE, 8, 9, 15));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 6, 10, 20));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 5, 12, 25));
+        list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 5, 12, 25));
     }
 }

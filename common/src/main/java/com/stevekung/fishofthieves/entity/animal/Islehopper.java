@@ -28,6 +28,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -49,6 +50,13 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void registerGoals()
+    {
+        super.registerGoals();
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, WORMS, false));
     }
 
     @Override
@@ -144,6 +152,12 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     public float getGlowBrightness(float ageInTicks)
     {
         return Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return WORMS.test(itemStack);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)

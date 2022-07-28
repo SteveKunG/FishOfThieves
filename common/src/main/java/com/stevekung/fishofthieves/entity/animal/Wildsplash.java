@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,6 +41,13 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    protected void registerGoals()
+    {
+        super.registerGoals();
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, EARTHWORMS_FOOD, false));
     }
 
     @Override
@@ -119,6 +127,12 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
         return this.isTrophy() ? 0.38F : 0.2F;
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return EARTHWORMS_FOOD.test(itemStack);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)

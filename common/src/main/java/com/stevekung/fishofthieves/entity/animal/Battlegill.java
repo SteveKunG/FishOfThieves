@@ -26,6 +26,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Enemy;
@@ -59,6 +60,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, GRUBS_FOOD, false));
         this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
     }
 
@@ -162,6 +164,12 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
         super.setTrophy(trophy);
+    }
+
+    @Override
+    public boolean isFood(ItemStack itemStack)
+    {
+        return GRUBS_FOOD.test(itemStack);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
