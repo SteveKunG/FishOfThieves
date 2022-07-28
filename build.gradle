@@ -89,6 +89,9 @@ if (project.hasProperty("version_lib_dir")) {
             }
         }
 
+        if (jsonElement."${mc_version}" == null) {
+            jsonElement."${mc_version}" = new groovy.json.JsonSlurper().parseText("{ \"${mod_version}\": \"\"}")
+        }
         jsonElement."${mc_version}"."${mod_version}" = formattedList.join("\n")
         versionFile.text = jsonBuilder.toPrettyString()
     }
