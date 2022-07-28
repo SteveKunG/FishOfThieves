@@ -8,12 +8,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -98,7 +96,6 @@ public class DataGeneratorFOT
     {
         private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
         private final Map<ResourceLocation, FishingRealBuilder> builders = Maps.newLinkedHashMap();
-        private static final Logger LOGGER = LogUtils.getLogger();
 
         protected final DataGenerator dataGenerator;
 
@@ -146,9 +143,9 @@ public class DataGeneratorFOT
                     }
                     cache.putNew(path, string2);
                 }
-                catch (IOException iOException)
+                catch (IOException e)
                 {
-                    LOGGER.error("Couldn't save FishingReal to {}", path, iOException);
+                    FishOfThieves.LOGGER.error("Couldn't save FishingReal to {}", path, e);
                 }
             });
         }
