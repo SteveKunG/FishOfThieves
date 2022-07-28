@@ -16,6 +16,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -36,32 +37,37 @@ public class FOTLootManager
     {
         var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(FluidTags.WATER).build());
         var noSilkTouch = BlockLoot.HAS_NO_SILK_TOUCH.build().test(lootContext);
-        var shouldDrop = BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f).build().test(lootContext);
         var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
                 .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(-1, 0, 0)))
                 .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, 1)))
                 .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
                 .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0))).build().test(lootContext);
         var coastBeach = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).build().test(lootContext);
-        var shouldDropLeeches = waterSurrounded && coastBeach;
+        var isMangrove = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(FOTTags.ALWAYS_DROP_LEECHES)).build().test(lootContext);
+        var shouldDropLeeches = (waterSurrounded && coastBeach) || isMangrove;
 
         if (!noSilkTouch)
         {
             return;
         }
 
-        if (shouldDrop && blockState.is(FOTTags.EARTHWORMS_DROPS))
+        if (shouldDrop(lootContext) && blockState.is(FOTTags.EARTHWORMS_DROPS) && !waterSurrounded && !blockState.is(FOTTags.EARTHWORMS_DROP_BLACKLIST))
         {
             droppedList.add(new ItemStack(FOTItems.EARTHWORMS));
         }
-        if (shouldDrop && blockState.is(FOTTags.GRUBS_DROPS) && !waterSurrounded)
+        if (shouldDrop(lootContext) && blockState.is(FOTTags.GRUBS_DROPS) && !waterSurrounded)
         {
             droppedList.add(new ItemStack(FOTItems.GRUBS));
         }
-        if (shouldDrop && blockState.is(FOTTags.LEECHES_DROPS) && shouldDropLeeches)
+        if (shouldDrop(lootContext) && blockState.is(FOTTags.LEECHES_DROPS) && shouldDropLeeches)
         {
             droppedList.add(new ItemStack(FOTItems.LEECHES));
         }
+    }
+
+    private static boolean shouldDrop(LootContext lootContext)
+    {
+        return BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f).build().test(lootContext);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)

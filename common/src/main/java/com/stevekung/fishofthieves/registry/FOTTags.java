@@ -27,6 +27,7 @@ public class FOTTags
     public static final TagKey<Block> EARTHWORMS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drops"));
     public static final TagKey<Block> GRUBS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_drops"));
     public static final TagKey<Block> LEECHES_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_drops"));
+    public static final TagKey<Block> EARTHWORMS_DROP_BLACKLIST = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drop_blacklist"));
 
     public static final TagKey<Structure> BONE_ANCIENTSCALES_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bone_ancientscales_spawn_in"));
     public static final TagKey<Structure> BONEDUST_PLENTIFINS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bonedust_plentifins_spawn_in"));
@@ -52,4 +53,6 @@ public class FOTTags
     public static final TagKey<Biome> SPAWNS_SANDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_sandy_wildsplash"));
     public static final TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_ocean_wildsplash"));
     public static final TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
+
+    public static final TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "always_drop_leeches"));
 }

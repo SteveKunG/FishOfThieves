@@ -351,7 +351,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
             this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
             this.getOrCreateTagBuilder(FOTTags.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
-            this.getOrCreateTagBuilder(FOTTags.LEECHES_DROPS).forceAddTag(BlockTags.SAND);
+            this.getOrCreateTagBuilder(FOTTags.LEECHES_DROPS).forceAddTag(BlockTags.SAND).add(Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
+            this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROP_BLACKLIST).add(Blocks.MOSS_BLOCK, Blocks.COARSE_DIRT, Blocks.MYCELIUM, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
         }
     }
 
@@ -439,6 +440,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_SANDY_WILDSPLASH).forceAddTag(BiomeTags.IS_BEACH);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_OCEAN_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_MUDDY_WILDSPLASH).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG);
+            this.getOrCreateTagBuilder(FOTTags.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
         }
     }
 
