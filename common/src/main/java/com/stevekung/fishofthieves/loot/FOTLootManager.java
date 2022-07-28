@@ -50,7 +50,7 @@ public class FOTLootManager
             return;
         }
 
-        if (shouldDrop && blockState.is(FOTTags.EARTHWORMS_DROPS))
+        if (shouldDrop && blockState.is(FOTTags.EARTHWORMS_DROPS) && !waterSurrounded)
         {
             droppedList.add(new ItemStack(FOTItems.EARTHWORMS));
         }
