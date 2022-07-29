@@ -24,7 +24,7 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
 {
     protected static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {
