@@ -6,9 +6,11 @@ import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -51,6 +53,12 @@ public class FishOfThievesForge
         {
             Aquaculture2.init();
         }
+    }
+
+    @SubscribeEvent
+    public void registerLootItemCondition(RegistryEvent.Register<Biome> event)
+    {
+        FOTLootItemConditions.init();
     }
 
     @SubscribeEvent
