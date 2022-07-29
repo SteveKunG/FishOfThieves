@@ -10,12 +10,16 @@ import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variants.*;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
+import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
+import com.stevekung.fishofthieves.utils.Continentalness;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
@@ -25,7 +29,9 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
@@ -43,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -56,9 +63,12 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 {
@@ -91,7 +101,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(ModelProvider::new);
 
         dataGenerator.addProvider(RecipeProvider::new);
-        dataGenerator.addProvider(LootProvider::new);
+        dataGenerator.addProvider(BlockLootProvider::new);
+        dataGenerator.addProvider(EntityLootProvider::new);
         dataGenerator.addProvider(BlockTagsProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
@@ -202,11 +213,57 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class LootProvider extends SimpleFabricLootTableProvider
+    private static class BlockLootProvider extends SimpleFabricLootTableProvider
+    {
+        private BlockLootProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator, LootContextParamSets.BLOCK);
+        }
+
+        @Override
+        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        {
+            var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(FluidTags.WATER).build());
+            var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
+                    .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(-1, 0, 0)))
+                    .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, 1)))
+                    .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
+                    .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0)));
+
+            consumer.accept(FOTLootManager.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+                    .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                    .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                    .when(waterSurrounded.invert())
+            ));
+
+            consumer.accept(FOTLootManager.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+                    .add(LootItem.lootTableItem(FOTItems.GRUBS)
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                    .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                    .when(waterSurrounded.invert())
+            ));
+
+            consumer.accept(FOTLootManager.LEECHES_DROPS, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .add(LootItem.lootTableItem(FOTItems.LEECHES)
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                            .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)))
+                            .when(waterSurrounded))
+                    .withPool(LootPool.lootPool()
+                            .add(LootItem.lootTableItem(FOTItems.LEECHES)
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                            .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.ALWAYS_DROP_LEECHES)))));
+        }
+    }
+
+    private static class EntityLootProvider extends SimpleFabricLootTableProvider
     {
         private static final EntityPredicate.Builder TROPHY = EntityPredicate.Builder.entity().nbt(new NbtPredicate(Util.make(new CompoundTag(), tag -> tag.putBoolean(ThievesFish.TROPHY_TAG, true))));
 
-        private LootProvider(FabricDataGenerator dataGenerator)
+        private EntityLootProvider(FabricDataGenerator dataGenerator)
         {
             super(dataGenerator, LootContextParamSets.ENTITY);
         }
@@ -220,7 +277,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -232,7 +289,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.PONDIE)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -244,7 +301,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -256,7 +313,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -268,7 +325,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -280,7 +337,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -292,7 +349,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -304,7 +361,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -316,7 +373,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.WRECKER)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -328,7 +385,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.STORMFISH)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))

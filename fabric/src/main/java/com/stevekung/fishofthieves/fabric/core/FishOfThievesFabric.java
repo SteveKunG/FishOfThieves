@@ -21,7 +21,6 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
 
 public class FishOfThievesFabric implements ModInitializer
 {
@@ -50,38 +49,7 @@ public class FishOfThievesFabric implements ModInitializer
             }
             else if (id.equals(BuiltInLootTables.FISHING_FISH))
             {
-                tableBuilder.modifyPools(builder -> builder
-                        .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                                .setWeight(25)
-                                .when(FOTLootItemConditions.IN_OCEAN))
-                        .add(LootItem.lootTableItem(FOTItems.PONDIE)
-                                .setWeight(25)
-                                .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
-                        .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                                .setWeight(30)
-                                .when(FOTLootItemConditions.COAST))
-                        .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                                .setWeight(30)
-                                .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
-                        .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
-                                .setWeight(35)
-                                .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
-                        .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
-                                .setWeight(35)
-                                .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
-                        .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
-                                .setWeight(40)
-                                .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
-                        .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
-                                .setWeight(40)
-                                .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.RAID_ACTIVE)))
-                        .add(LootItem.lootTableItem(FOTItems.WRECKER)
-                                .setWeight(50)
-                                .when(FOTLootItemConditions.IN_SHIPWRECKS))
-                        .add(LootItem.lootTableItem(FOTItems.STORMFISH)
-                                .setWeight(50)
-                                .when(FOTLootItemConditions.THUNDERING))
-                        .build());
+                tableBuilder.modifyPools(FOTLootManager::getFishingLoot);
             }
             // Entity Loot
             else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))

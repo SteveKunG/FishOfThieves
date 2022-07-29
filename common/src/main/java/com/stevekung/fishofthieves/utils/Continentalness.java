@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.utils;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public enum Continentalness implements StringRepresentable
     @Override
     public String getSerializedName()
     {
-        return this.name;
+        return this.name().toLowerCase(Locale.ROOT);
     }
 
     public static Continentalness byName(String name)

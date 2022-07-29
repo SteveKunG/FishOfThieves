@@ -14,7 +14,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.biome.Biome;
 
-public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continentalness, Boolean raidActive)
+public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continentalness, Boolean hasRaids)
 {
     public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null, null);
 
@@ -23,7 +23,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var isRaided = level.isRaided(blockPos);
-        return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.raidActive == null || loaded && this.raidActive == isRaided);
+        return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.hasRaids == null || loaded && this.hasRaids == isRaided);
     }
 
     public JsonElement serializeToJson()
@@ -43,9 +43,9 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
         {
             jsonObject.addProperty("continentalness", this.continentalness.getSerializedName());
         }
-        if (this.raidActive != null)
+        if (this.hasRaids != null)
         {
-            jsonObject.addProperty("raidActive", this.raidActive);
+            jsonObject.addProperty("hasRaids", this.hasRaids);
         }
         return jsonObject;
     }
@@ -60,7 +60,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
         TagKey<Biome> biome = null;
         Continentalness continentalness = null;
-        Boolean raidActive = null;
+        Boolean hasRaids = null;
 
         if (jsonObject.has("biome"))
         {
@@ -75,11 +75,11 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
         {
             continentalness = Continentalness.byName(GsonHelper.getAsString(jsonObject, "continentalness"));
         }
-        if (jsonObject.has("raidActive"))
+        if (jsonObject.has("hasRaids"))
         {
-            raidActive = GsonHelper.getAsBoolean(jsonObject, "raidActive");
+            hasRaids = GsonHelper.getAsBoolean(jsonObject, "hasRaids");
         }
-        return new FOTLocationPredicate(biome, continentalness, raidActive);
+        return new FOTLocationPredicate(biome, continentalness, hasRaids);
     }
 
     public static class Builder
@@ -89,14 +89,14 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
         @Nullable
         private Continentalness continentalness;
         @Nullable
-        private Boolean raidActive;
+        private Boolean hasRaids;
 
         public static Builder location()
         {
             return new Builder();
         }
 
-        public Builder setBiomeCategory(@Nullable TagKey<Biome> biome)
+        public Builder setBiome(@Nullable TagKey<Biome> biome)
         {
             this.biome = biome;
             return this;
@@ -108,15 +108,15 @@ public record FOTLocationPredicate(TagKey<Biome> biome, Continentalness continen
             return this;
         }
 
-        public Builder hasRaids(@Nullable Boolean raidActive)
+        public Builder hasRaids()
         {
-            this.raidActive = raidActive;
+            this.hasRaids = true;
             return this;
         }
 
         public FOTLocationPredicate build()
         {
-            return new FOTLocationPredicate(this.biome, this.continentalness, this.raidActive);
+            return new FOTLocationPredicate(this.biome, this.continentalness, this.hasRaids);
         }
     }
 }

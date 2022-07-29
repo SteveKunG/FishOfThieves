@@ -2,72 +2,52 @@ package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
 
-import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
-import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.utils.Continentalness;
-import net.minecraft.advancements.critereon.FluidPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.core.BlockPos;
-import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTLootManager
 {
-    public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootContext lootContext)
+    public static final ResourceLocation EARTHWORMS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/earthworms_drops");
+    public static final ResourceLocation GRUBS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/grubs_drops");
+    public static final ResourceLocation LEECHES_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/leeches_drops");
+
+    public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
-        var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(FluidTags.WATER).build());
-        var noSilkTouch = BlockLoot.HAS_NO_SILK_TOUCH.build().test(lootContext);
-        var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
-                .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(-1, 0, 0)))
-                .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, 1)))
-                .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
-                .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0))).build().test(lootContext);
-        var coastBeach = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).build().test(lootContext);
-        var isMangrove = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(FOTTags.ALWAYS_DROP_LEECHES)).build().test(lootContext);
-        var shouldDropLeeches = (waterSurrounded && coastBeach) || isMangrove;
-
-        if (!noSilkTouch)
+        if (blockState.is(FOTTags.EARTHWORMS_DROPS) && !blockState.is(FOTTags.EARTHWORMS_DROP_BLACKLIST))
         {
-            return;
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.EARTHWORMS_DROPS)));
         }
-
-        if (shouldDrop(lootContext) && blockState.is(FOTTags.EARTHWORMS_DROPS) && !waterSurrounded && !blockState.is(FOTTags.EARTHWORMS_DROP_BLACKLIST))
+        if (blockState.is(FOTTags.GRUBS_DROPS))
         {
-            droppedList.add(new ItemStack(FOTItems.EARTHWORMS));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.GRUBS_DROPS)));
         }
-        if (shouldDrop(lootContext) && blockState.is(FOTTags.GRUBS_DROPS) && !waterSurrounded)
+        if (blockState.is(FOTTags.LEECHES_DROPS))
         {
-            droppedList.add(new ItemStack(FOTItems.GRUBS));
-        }
-        if (shouldDrop(lootContext) && blockState.is(FOTTags.LEECHES_DROPS) && shouldDropLeeches)
-        {
-            droppedList.add(new ItemStack(FOTItems.LEECHES));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.LEECHES_DROPS)));
         }
     }
 
-    private static boolean shouldDrop(LootContext lootContext)
+    private static List<ItemStack> getAlternateLootStack(LootContext lootContext, LootTable lootTable)
     {
-        return BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f).build().test(lootContext);
+        return lootTable.getRandomItems(lootContext);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)
@@ -82,6 +62,40 @@ public class FOTLootManager
                 .add(LootItem.lootTableItem(FOTItems.BATTLEGILL))
                 .add(LootItem.lootTableItem(FOTItems.WRECKER))
                 .add(LootItem.lootTableItem(FOTItems.STORMFISH));
+    }
+
+    public static LootPool.Builder getFishingLoot(LootPool.Builder builder)
+    {
+        return builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                        .setWeight(25)
+                        .when(FOTLootItemConditions.IN_OCEAN))
+                .add(LootItem.lootTableItem(FOTItems.PONDIE)
+                        .setWeight(25)
+                        .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
+                .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
+                        .setWeight(30)
+                        .when(FOTLootItemConditions.COAST))
+                .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                        .setWeight(30)
+                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
+                .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                        .setWeight(35)
+                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
+                .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
+                        .setWeight(35)
+                        .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
+                .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
+                        .setWeight(40)
+                        .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
+                .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
+                        .setWeight(40)
+                        .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
+                .add(LootItem.lootTableItem(FOTItems.WRECKER)
+                        .setWeight(50)
+                        .when(FOTLootItemConditions.IN_SHIPWRECKS))
+                .add(LootItem.lootTableItem(FOTItems.STORMFISH)
+                        .setWeight(50)
+                        .when(FOTLootItemConditions.THUNDERING));
     }
 
     public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder)

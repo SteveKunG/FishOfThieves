@@ -1,0 +1,148 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "enchantments": [
+                {
+                  "enchantment": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "condition": "fishofthieves:fot_location_check",
+          "predicate": {
+            "biome": "minecraft:is_beach",
+            "continentalness": "coast"
+          }
+        },
+        {
+          "condition": "minecraft:alternative",
+          "terms": [
+            {
+              "condition": "minecraft:location_check",
+              "offsetX": 1,
+              "predicate": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "offsetX": -1,
+              "predicate": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "offsetZ": 1,
+              "predicate": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "offsetZ": -1,
+              "predicate": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "offsetY": 1,
+              "predicate": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chances": [
+                0.1,
+                0.14285715,
+                0.25,
+                0.5
+              ],
+              "condition": "minecraft:table_bonus",
+              "enchantment": "minecraft:fortune"
+            }
+          ],
+          "name": "fishofthieves:leeches"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "enchantments": [
+                {
+                  "enchantment": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "condition": "fishofthieves:fot_location_check",
+          "predicate": {
+            "biome": "fishofthieves:always_drop_leeches"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chances": [
+                0.1,
+                0.14285715,
+                0.25,
+                0.5
+              ],
+              "condition": "minecraft:table_bonus",
+              "enchantment": "minecraft:fortune"
+            }
+          ],
+          "name": "fishofthieves:leeches"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

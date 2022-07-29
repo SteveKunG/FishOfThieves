@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -75,5 +76,6 @@ public class FishOfThievesForge
     {
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
+        event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
     }
 }

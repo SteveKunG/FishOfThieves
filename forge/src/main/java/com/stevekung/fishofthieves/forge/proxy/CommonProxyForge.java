@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
-import com.stevekung.fishofthieves.forge.registry.FOTLootItemConditionsForge;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
@@ -61,52 +59,21 @@ public class CommonProxyForge
         // Gameplay
         if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
         {
-            inject(table, "main", FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
         }
         else if (id.equals(BuiltInLootTables.FISHING_FISH))
         {
-            var pool = LootPool.lootPool()
-                    .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                            .setWeight(25)
-                            .when(FOTLootItemConditionsForge.IN_OCEAN))
-                    .add(LootItem.lootTableItem(FOTItems.PONDIE)
-                            .setWeight(25)
-                            .when(FOTLootItemConditionsForge.IN_RIVER.or(FOTLootItemConditionsForge.IN_FOREST)))
-                    .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                            .setWeight(30)
-                            .when(FOTLootItemConditionsForge.COAST))
-                    .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                            .setWeight(30)
-                            .when(FOTLootItemConditionsForge.IN_LUKEWARM_OCEAN.or(FOTLootItemConditionsForge.IN_DEEP_LUKEWARM_OCEAN)))
-                    .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
-                            .setWeight(35)
-                            .when(FOTLootItemConditionsForge.IN_LUKEWARM_OCEAN.or(FOTLootItemConditionsForge.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditionsForge.IN_WARM_OCEAN)))
-                    .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
-                            .setWeight(35)
-                            .when(FOTLootItemConditionsForge.IN_LUSH_CAVES.or(FOTLootItemConditionsForge.IN_JUNGLE)))
-                    .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
-                            .setWeight(40)
-                            .when(FOTLootItemConditionsForge.IN_DRIPSTONE_CAVES))
-                    .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
-                            .setWeight(40)
-                            .when(FOTLootItemConditionsForge.IN_OCEAN_MONUMENTS.or(FOTLootItemConditionsForge.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditionsForge.RAID_ACTIVE)))
-                    .add(LootItem.lootTableItem(FOTItems.WRECKER)
-                            .setWeight(50)
-                            .when(FOTLootItemConditionsForge.IN_SHIPWRECKS))
-                    .add(LootItem.lootTableItem(FOTItems.STORMFISH)
-                            .setWeight(50)
-                            .when(FOTLootItemConditionsForge.THUNDERING));
-            inject(table, "main", pool.entries);
+            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
         }
         // Entity Loot
         else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
         {
-            inject(table, "main", FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
         }
         // Chests
         else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
         {
-            inject(table, "main", FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
         }
         else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
         {
@@ -138,9 +105,9 @@ public class CommonProxyForge
         event.put(FOTEntities.STORMFISH, AbstractFish.createAttributes().build());
     }
 
-    private static void inject(LootTable table, String poolName, List<LootPoolEntryContainer> entries)
+    private static void injectLoot(LootTable table, List<LootPoolEntryContainer> entries)
     {
-        var pool = table.getPool(poolName);
+        var pool = table.getPool("main");
         pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
     }
 }
