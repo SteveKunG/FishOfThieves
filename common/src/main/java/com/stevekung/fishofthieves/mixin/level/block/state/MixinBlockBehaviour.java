@@ -22,6 +22,6 @@ public class MixinBlockBehaviour
     @Inject(method = "getDrops", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void fishofthieves$addWormDrops(BlockState blockState, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> info, ResourceLocation lootTableId, LootContext lootContext, ServerLevel serverLevel, LootTable lootTable)
     {
-        FOTLootManager.dropWorms(info.getReturnValue(), blockState, lootContext);
+        FOTLootManager.dropWorms(info.getReturnValue(), blockState, serverLevel.getServer().getLootTables(), lootContext);
     }
 }

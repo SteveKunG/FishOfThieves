@@ -1,0 +1,98 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:table_bonus",
+              "enchantment": "minecraft:fortune",
+              "chances": [
+                0.1,
+                0.14285715,
+                0.25,
+                0.5
+              ]
+            }
+          ],
+          "name": "fishofthieves:grubs"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "enchantments": [
+                {
+                  "enchantment": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:alternative",
+            "terms": [
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "fluid": {
+                    "tag": "minecraft:water"
+                  }
+                },
+                "offsetX": 1
+              },
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "fluid": {
+                    "tag": "minecraft:water"
+                  }
+                },
+                "offsetX": -1
+              },
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "fluid": {
+                    "tag": "minecraft:water"
+                  }
+                },
+                "offsetZ": 1
+              },
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "fluid": {
+                    "tag": "minecraft:water"
+                  }
+                },
+                "offsetZ": -1
+              },
+              {
+                "condition": "minecraft:location_check",
+                "predicate": {
+                  "fluid": {
+                    "tag": "minecraft:water"
+                  }
+                },
+                "offsetY": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
