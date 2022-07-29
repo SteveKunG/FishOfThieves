@@ -74,7 +74,7 @@ public class FishOfThievesFabric implements ModInitializer
                                 .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
                         .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
                                 .setWeight(40)
-                                .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.RAID_ACTIVE)))
+                                .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
                         .add(LootItem.lootTableItem(FOTItems.WRECKER)
                                 .setWeight(50)
                                 .when(FOTLootItemConditions.IN_SHIPWRECKS))

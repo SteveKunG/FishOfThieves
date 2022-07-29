@@ -98,7 +98,7 @@ public class CommonProxyForge
                             .when(FOTLootItemConditionsForge.IN_DRIPSTONE_CAVES))
                     .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
                             .setWeight(40)
-                            .when(FOTLootItemConditionsForge.IN_OCEAN_MONUMENTS.or(FOTLootItemConditionsForge.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditionsForge.RAID_ACTIVE)))
+                            .when(FOTLootItemConditionsForge.IN_OCEAN_MONUMENTS.or(FOTLootItemConditionsForge.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditionsForge.HAS_RAIDS)))
                     .add(LootItem.lootTableItem(FOTItems.WRECKER)
                             .setWeight(50)
                             .when(FOTLootItemConditionsForge.IN_SHIPWRECKS))

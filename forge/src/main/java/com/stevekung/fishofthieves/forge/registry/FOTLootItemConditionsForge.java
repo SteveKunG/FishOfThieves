@@ -43,7 +43,7 @@ public class FOTLootItemConditionsForge
 
     public static final LootItemCondition.Builder COAST = FOTLocationCheckForge.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
 
-    public static final LootItemCondition.Builder RAID_ACTIVE = FOTLocationCheckForge.checkLocation(FOTLocationPredicate.Builder.location().hasRaids(true));
+    public static final LootItemCondition.Builder HAS_RAIDS = FOTLocationCheckForge.checkLocation(FOTLocationPredicate.Builder.location().hasRaids());
 
     @SubscribeEvent
     public static void onRegisterAny(RegistryEvent.Register<Block> event)

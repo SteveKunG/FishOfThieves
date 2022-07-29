@@ -38,7 +38,7 @@ public class FOTLootItemConditions
 
     public static final LootItemCondition.Builder COAST = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
 
-    public static final LootItemCondition.Builder RAID_ACTIVE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().hasRaids(true));
+    public static final LootItemCondition.Builder HAS_RAIDS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().hasRaids());
 
     public static void init()
     {
