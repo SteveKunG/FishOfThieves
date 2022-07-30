@@ -302,7 +302,7 @@ public class Wrecker extends AbstractThievesFish
         ROSE(SpawnSelectors.always()),
         SUN(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())),
         BLACKCLOUD(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.blackcloudWreckerProbability).and(SpawnSelectors.thunderingAndSeeSky()))),
-        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.tags(FOTTags.SPAWNS_SNOW_WRECKERS)))),
+        SNOW(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.snowWreckerProbability).and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_SNOW_WRECKERS)))),
         MOON(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F)));
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

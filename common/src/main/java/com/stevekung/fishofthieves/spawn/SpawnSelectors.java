@@ -78,24 +78,9 @@ public final class SpawnSelectors
         };
     }
 
-    @SafeVarargs
-    public static Predicate<SpawnConditionContext> tags(TagKey<Biome>... keys)
+    public static Predicate<SpawnConditionContext> biomeTag(TagKey<Biome> tagKey)
     {
-        return context ->
-        {
-            for (var key : keys)
-            {
-                return context.level().getBiome(context.blockPos()).is(key);
-            }
-            return false;
-        };
-    }
-
-    public static Predicate<SpawnConditionContext> categories(Biome.BiomeCategory... categories)
-    {
-        Set<Biome.BiomeCategory> categorySet = EnumSet.noneOf(Biome.BiomeCategory.class);
-        Collections.addAll(categorySet, categories);
-        return context -> categorySet.stream().anyMatch(category -> context.biomeCategory() == category);
+        return context ->  context.level().getBiome(context.blockPos()).is(tagKey);
     }
 
     public static Predicate<SpawnConditionContext> continentalness(Continentalness... continentalnesses)
@@ -109,6 +94,6 @@ public final class SpawnSelectors
     {
         var level = (ServerLevel) livingEntity.level;
         var blockPos = livingEntity.blockPosition();
-        return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), TerrainUtils.getBiomeCategory(level, blockPos), TerrainUtils.getContinentalness(level, blockPos));
+        return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), level.getBiome(blockPos), TerrainUtils.getContinentalness(level, blockPos));
     }
 }

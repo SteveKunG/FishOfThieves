@@ -237,7 +237,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .add(LootItem.lootTableItem(FOTItems.LEECHES)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLoot.HAS_NO_SILK_TOUCH)
-                    .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomeCategory(Biome.BiomeCategory.BEACH).setContinentalness(Continentalness.COAST)))
+                    .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)))
                     .when(waterSurrounded)
             ));
         }
@@ -479,6 +479,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_WILD_STORMFISH).add(Biomes.SPARSE_JUNGLE);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_CORAL_WILDSPLASH).add(Biomes.WARM_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_SNOW_WRECKERS).add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_SANDY_WILDSPLASH).forceAddTag(BiomeTags.IS_BEACH);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_OCEAN_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_MUDDY_WILDSPLASH).add(Biomes.SWAMP);
         }
 
         @Override

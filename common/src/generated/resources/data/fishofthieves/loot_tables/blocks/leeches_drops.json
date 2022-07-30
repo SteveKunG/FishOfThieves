@@ -42,7 +42,7 @@
         {
           "condition": "fishofthieves:fot_location_check",
           "predicate": {
-            "biomeCategory": "beach",
+            "biome": "minecraft:is_beach",
             "continentalness": "coast"
           }
         },

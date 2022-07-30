@@ -34,7 +34,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
 public class Islehopper extends AbstractThievesFish
@@ -158,7 +157,7 @@ public class Islehopper extends AbstractThievesFish
     public enum Variant implements FishVariant
     {
         STONE(SpawnSelectors.always()),
-        MOSS(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.SWAMP).or(SpawnSelectors.tags(FOTTags.SPAWNS_MOSS_ISLEHOPPERS)))),
+        MOSS(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_MOSS_ISLEHOPPERS))),
         HONEY(SpawnSelectors.simpleSpawn(context ->
         {
             var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->

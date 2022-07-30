@@ -30,7 +30,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 
 public class Wildsplash extends AbstractSchoolingThievesFish
 {
@@ -129,10 +128,10 @@ public class Wildsplash extends AbstractSchoolingThievesFish
     public enum Variant implements FishVariant
     {
         RUSSET(SpawnSelectors.always()),
-        SANDY(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.BEACH).and(SpawnSelectors.continentalness(Continentalness.COAST)))),
-        OCEAN(SpawnSelectors.simpleSpawn(SpawnSelectors.categories(Biome.BiomeCategory.OCEAN))),
-        MUDDY(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.categories(Biome.BiomeCategory.SWAMP)))),
-        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.tags(FOTTags.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
+        SANDY(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_SANDY_WILDSPLASH).and(SpawnSelectors.continentalness(Continentalness.COAST)))),
+        OCEAN(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_OCEAN_WILDSPLASH))),
+        MUDDY(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.muddyWildsplashProbability).and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_CORAL_WILDSPLASH)))),
+        CORAL(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos2 ->
         {
             var blockState = context.level().getBlockState(blockPos2);
             return blockState.is(BlockTags.CORALS) || blockState.is(BlockTags.CORAL_BLOCKS) || blockState.is(BlockTags.WALL_CORALS);

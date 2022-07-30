@@ -34,7 +34,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -172,7 +171,7 @@ public class Battlegill extends AbstractSchoolingThievesFish
         JADE(SpawnSelectors.always()),
         SKY(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)),
         RUM(SpawnSelectors.always()),
-        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.tags(FOTTags.SPAWNS_SAND_BATTLEGILLS)))),
+        SAND(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.biomeTag(FOTTags.SPAWNS_SAND_BATTLEGILLS)))),
         BITTERSWEET(SpawnSelectors.nightAndSeeSky());
 
         public static final Variant[] BY_ID = Stream.of(values()).sorted(Comparator.comparingInt(Variant::getId)).toArray(Variant[]::new);

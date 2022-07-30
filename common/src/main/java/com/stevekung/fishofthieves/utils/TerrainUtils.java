@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.biome.TerrainShaper;
@@ -34,11 +33,6 @@ public class TerrainUtils
     public static boolean isInFeature(ServerLevel level, BlockPos blockPos, ResourceKey<ConfiguredStructureFeature<?, ?>> structureFeature)
     {
         return level.structureFeatureManager().getStructureWithPieceAt(blockPos, structureFeature).isValid();
-    }
-
-    public static Biome.BiomeCategory getBiomeCategory(ServerLevel level, BlockPos blockPos)
-    {
-        return level.getBiome(blockPos).value().getBiomeCategory();
     }
 
     public static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)

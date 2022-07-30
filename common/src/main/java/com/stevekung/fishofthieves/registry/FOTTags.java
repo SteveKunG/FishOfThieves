@@ -46,4 +46,7 @@ public class FOTTags
     public static final TagKey<Biome> SPAWNS_WILD_STORMFISH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_wild_stormfish"));
     public static final TagKey<Biome> SPAWNS_CORAL_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_coral_wildsplash"));
     public static final TagKey<Biome> SPAWNS_SNOW_WRECKERS = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_snow_wreckers"));
+    public static final TagKey<Biome> SPAWNS_SANDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_sandy_wildsplash"));
+    public static final TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_ocean_wildsplash"));
+    public static final TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
 }
