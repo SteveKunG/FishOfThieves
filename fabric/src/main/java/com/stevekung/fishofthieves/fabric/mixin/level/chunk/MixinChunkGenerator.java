@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.WeightedRandomList;
@@ -13,7 +14,6 @@ import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 @Mixin(ChunkGenerator.class)
 public class MixinChunkGenerator
@@ -23,19 +23,19 @@ public class MixinChunkGenerator
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_RUIN_WARM).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_RUIN_COLD).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.ANCIENTSCALES_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.ANCIENTSCALES);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.MINESHAFT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.STRONGHOLD).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.PLENTIFINS_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.PLENTIFINS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_MONUMENT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.PILLAGER_OUTPOST).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.BATTLEGILLS_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.BATTLEGILLS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.SHIPWRECK).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.WRECKERS_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.WRECKERS);
             }

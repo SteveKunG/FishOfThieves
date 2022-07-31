@@ -6,5 +6,5 @@
     "minCount": 2,
     "weight": 5
   },
-  "structures": "minecraft:pillager_outpost"
+  "structure": "#fishofthieves:battlegills_spawn_in"
 }

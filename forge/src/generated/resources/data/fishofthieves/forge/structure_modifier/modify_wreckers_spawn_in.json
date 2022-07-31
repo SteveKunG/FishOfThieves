@@ -6,5 +6,5 @@
     "minCount": 4,
     "weight": 50
   },
-  "structures": "minecraft:shipwreck"
+  "structure": "#fishofthieves:wreckers_spawn_in"
 }

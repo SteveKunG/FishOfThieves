@@ -6,10 +6,7 @@ import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.WreckerVariant;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -24,7 +21,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.StructureTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -203,7 +199,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.SHIPWRECK) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
+        return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.WRECKERS_SPAWN_IN) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -243,11 +239,11 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
                 this.stuck = false;
                 this.wrecker.getNavigation().stop();
                 var blockPos = this.wrecker.blockPosition();
-                var blockPos2 = serverLevel.findNearestMapStructure(StructureTags.SHIPWRECK, blockPos, 32, false);
+                var blockPos2 = serverLevel.findNearestMapStructure(FOTTags.WRECKERS_LOCATED, blockPos, 32, false);
 
                 if (blockPos2 == null)
                 {
-                    var blockPos3 = serverLevel.findNearestMapStructure(StructureTags.SHIPWRECK, blockPos, 32, false);
+                    var blockPos3 = serverLevel.findNearestMapStructure(FOTTags.WRECKERS_LOCATED, blockPos, 32, false);
 
                     if (blockPos3 == null)
                     {

@@ -32,6 +32,10 @@ public class FOTTags
     public static final TagKey<Structure> BONE_ANCIENTSCALES_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bone_ancientscales_spawn_in"));
     public static final TagKey<Structure> BONEDUST_PLENTIFINS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "bonedust_plentifins_spawn_in"));
     public static final TagKey<Structure> BATTLEGILLS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "battlegills_spawn_in"));
+    public static final TagKey<Structure> ANCIENTSCALES_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "ancientscales_spawn_in"));
+    public static final TagKey<Structure> PLENTIFINS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "plentifins_spawn_in"));
+    public static final TagKey<Structure> WRECKERS_SPAWN_IN = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "wreckers_spawn_in"));
+    public static final TagKey<Structure> WRECKERS_LOCATED = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "wreckers_located"));
 
     public static final TagKey<Biome> SPAWNS_SPLASHTAILS = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_splashtails"));
     public static final TagKey<Biome> SPAWNS_PONDIES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_pondies"));

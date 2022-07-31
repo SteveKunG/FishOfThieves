@@ -514,6 +514,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.BONE_ANCIENTSCALES_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.BONEDUST_PLENTIFINS_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.BATTLEGILLS_SPAWN_IN).add(BuiltinStructures.OCEAN_MONUMENT, BuiltinStructures.PILLAGER_OUTPOST);
+            this.getOrCreateTagBuilder(FOTTags.ANCIENTSCALES_SPAWN_IN).forceAddTag(StructureTags.OCEAN_RUIN);
+            this.getOrCreateTagBuilder(FOTTags.PLENTIFINS_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
+            this.getOrCreateTagBuilder(FOTTags.WRECKERS_SPAWN_IN).add(BuiltinStructures.SHIPWRECK);
+            this.getOrCreateTagBuilder(FOTTags.WRECKERS_LOCATED).add(BuiltinStructures.SHIPWRECK);
         }
     }
 

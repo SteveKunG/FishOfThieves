@@ -6,8 +6,5 @@
     "minCount": 4,
     "weight": 12
   },
-  "structures": [
-    "minecraft:mineshaft",
-    "minecraft:mineshaft_mesa"
-  ]
+  "structure": "#fishofthieves:plentifins_spawn_in"
 }
