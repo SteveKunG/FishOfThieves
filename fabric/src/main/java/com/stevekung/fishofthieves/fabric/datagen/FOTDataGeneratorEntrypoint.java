@@ -193,23 +193,23 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
-            addCookingRecipes(consumer, 200, 100, 600, 0.35F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
-            addCookingRecipes(consumer, 200, 100, 600, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
-            addCookingRecipes(consumer, 200, 100, 600, 0.4F, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
-            addCookingRecipes(consumer, 200, 100, 600, 0.45F, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE);
-            addCookingRecipes(consumer, 200, 100, 600, 0.4F, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN);
-            addCookingRecipes(consumer, 200, 100, 600, 0.45F, FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH);
-            addCookingRecipes(consumer, 200, 100, 600, 0.5F, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH);
-            addCookingRecipes(consumer, 200, 100, 600, 0.5F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
-            addCookingRecipes(consumer, 200, 100, 600, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
-            addCookingRecipes(consumer, 200, 100, 600, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+            addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
+            addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
+            addCookingRecipes(consumer, 0.3F, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
+            addCookingRecipes(consumer, 0.3F, FOTItems.ANCIENTSCALE, FOTItems.COOKED_ANCIENTSCALE);
+            addCookingRecipes(consumer, 0.3F, FOTItems.PLENTIFIN, FOTItems.COOKED_PLENTIFIN);
+            addCookingRecipes(consumer, 0.4F, FOTItems.WILDSPLASH, FOTItems.COOKED_WILDSPLASH);
+            addCookingRecipes(consumer, 0.4F, FOTItems.DEVILFISH, FOTItems.COOKED_DEVILFISH);
+            addCookingRecipes(consumer, 0.45F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
+            addCookingRecipes(consumer, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
+            addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
         }
 
-        private static void addCookingRecipes(Consumer<FinishedRecipe> consumer, int smeltingTime, int smokingTime, int campfireTime, float xp, ItemLike rawFood, ItemLike cookedFood)
+        private static void addCookingRecipes(Consumer<FinishedRecipe> consumer, float xp, ItemLike rawFood, ItemLike cookedFood)
         {
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), cookedFood, xp, smeltingTime).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
-            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, smokingTime, rawFood, cookedFood, xp);
-            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, campfireTime, rawFood, cookedFood, xp);
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), cookedFood, xp, 200).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
+            simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, rawFood, cookedFood, xp);
+            simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, rawFood, cookedFood, xp);
         }
     }
 
@@ -607,8 +607,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.lightning_straight_to_my_fish.title"),
                             Component.translatable("advancements.fot.lightning_straight_to_my_fish.description"),
                             null, FrameType.TASK, true, true, false)
-                    .addCriterion("lightning_strike_at_stormfish", fireCountAndBystander(MinMaxBounds.Ints.exactly(0),
-                            EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
+                    .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LighthingBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build(), EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
                     .save(consumer, this.get("lightning_straight_to_my_fish"));
 
             Advancement.Builder.advancement().parent(advancement)
@@ -616,7 +615,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.spyglass_at_plentifins.title"),
                             Component.translatable("advancements.fot.spyglass_at_plentifins.description"),
                             null, FrameType.TASK, true, true, false)
-                    .addCriterion("spyglass_at_plentifins", lookAtThroughItem(FOTEntities.PLENTIFIN, Items.SPYGLASS))
+                    .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(FOTEntities.PLENTIFIN).build()).build()), ItemPredicate.Builder.item().of(Items.SPYGLASS)))
                     .save(consumer, this.get("spyglass_at_plentifins"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
@@ -685,16 +684,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                 }
             }
             return builder;
-        }
-
-        private static LightningStrikeTrigger.TriggerInstance fireCountAndBystander(MinMaxBounds.Ints blocksSetOnFire, EntityPredicate bystander)
-        {
-            return LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LighthingBoltPredicate.blockSetOnFire(blocksSetOnFire)).build(), bystander);
-        }
-
-        private static UsingItemTrigger.TriggerInstance lookAtThroughItem(EntityType<?> lookedAtEntityType, Item lookedThroughItem)
-        {
-            return UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(lookedAtEntityType).build()).build()), ItemPredicate.Builder.item().of(lookedThroughItem));
         }
     }
 }

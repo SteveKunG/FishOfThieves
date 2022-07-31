@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "cookingtime": 200,
-  "experience": 0.4,
+  "experience": 0.3,
   "ingredient": {
     "item": "fishofthieves:islehopper"
   },

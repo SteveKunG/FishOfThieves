@@ -1,7 +1,7 @@
 {
   "type": "minecraft:campfire_cooking",
   "cookingtime": 600,
-  "experience": 0.45,
+  "experience": 0.4,
   "ingredient": {
     "item": "fishofthieves:wildsplash"
   },
