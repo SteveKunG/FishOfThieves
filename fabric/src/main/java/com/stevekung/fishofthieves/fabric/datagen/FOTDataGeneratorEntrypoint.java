@@ -409,7 +409,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var rawFishes = new Item[] { FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH };
             var cookedFishes = new Item[] { FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH };
 
-            this.tag(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS);
+            this.getOrCreateTagBuilder(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS).forceAddTag(FOTTags.WORMS);
             this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.THIEVES_FISH).forceAddTag(FOTTags.COOKED_THIEVES_FISH);
 
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);

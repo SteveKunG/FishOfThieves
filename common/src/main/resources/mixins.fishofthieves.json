@@ -16,6 +16,7 @@
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "animal.MixinCat",
+    "animal.MixinChicken",
     "animal.MixinOcelot",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
