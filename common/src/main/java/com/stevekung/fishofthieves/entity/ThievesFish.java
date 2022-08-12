@@ -48,6 +48,7 @@ public interface ThievesFish extends GlowFish, PartyFish
     {
         compound.putInt(VARIANT_TAG, this.getVariant().getId());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
+        compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putString(NAME_TAG, this.getVariant().getName());
     }
 
@@ -60,6 +61,10 @@ public interface ThievesFish extends GlowFish, PartyFish
         if (compound.contains(TROPHY_TAG))
         {
             this.setTrophy(compound.getBoolean(TROPHY_TAG));
+        }
+        if (compound.contains(HAS_FED_TAG))
+        {
+            this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         }
     }
 
