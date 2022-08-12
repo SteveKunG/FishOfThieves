@@ -148,6 +148,7 @@ public abstract class AbstractThievesFish extends AbstractFish implements Thieve
         {
             this.setTrophy(true);
             this.setHasFed(true);
+            this.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
     }
