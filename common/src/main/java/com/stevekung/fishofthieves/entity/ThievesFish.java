@@ -59,6 +59,7 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
         var variant = this.getRegistry().getKey(this.getVariant());
         compound.putString(VARIANT_TAG, variant.toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
+        compound.putBoolean(HAS_FED_TAG, this.hasFed());
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -77,6 +78,10 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
         if (compound.contains(TROPHY_TAG))
         {
             this.setTrophy(compound.getBoolean(TROPHY_TAG));
+        }
+        if (compound.contains(HAS_FED_TAG))
+        {
+            this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         }
     }
 
