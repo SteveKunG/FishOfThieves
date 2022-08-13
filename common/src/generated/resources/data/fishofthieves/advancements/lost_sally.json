@@ -35,11 +35,24 @@
           }
         ]
       }
+    },
+    "salmon_bucket": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "minecraft:water",
+        "item": {
+          "items": [
+            "minecraft:salmon_bucket"
+          ],
+          "nbt": "{display:{Name:\u0027{\"text\":\"Sally\"}\u0027}}"
+        }
+      }
     }
   },
   "requirements": [
     [
-      "name_tag"
+      "name_tag",
+      "salmon_bucket"
     ]
   ]
 }
