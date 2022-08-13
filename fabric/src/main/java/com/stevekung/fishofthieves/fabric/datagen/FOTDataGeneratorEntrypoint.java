@@ -545,6 +545,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateAdvancement(Consumer<Advancement> consumer)
         {
+            var sallyName = Util.make(new CompoundTag(), compound ->
+            {
+                var displayCompound = new CompoundTag();
+                displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(Component.literal("Sally")));
+                compound.put(ItemStack.TAG_DISPLAY, displayCompound);
+            });
+
             var advancement = Advancement.Builder.advancement()
                     .display(FOTItems.SPLASHTAIL,
                             Component.translatable("advancements.fot.root.title"),
@@ -579,7 +586,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .save(consumer, this.get("legendary_fish_collectors"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
-                            PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
+                            PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
                                     ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariant.LAVA).toString()))),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
                     .display(FOTItems.DEVILFISH,
@@ -639,15 +646,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS).build())))
                     .save(consumer, this.get("play_jukebox_near_fish"));
 
-            Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(),
-                            PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.create(),
-                                    ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(Util.make(new CompoundTag(), compound ->
-                                    {
-                                        var displayCompound = new CompoundTag();
-                                        displayCompound.putString(ItemStack.TAG_DISPLAY_NAME, Component.Serializer.toJson(Component.literal("Sally")));
-                                        compound.put(ItemStack.TAG_DISPLAY, displayCompound);
-                                    })),
+            Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
+                    .addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
+                                    ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(sallyName),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
+                    .addCriterion(Registry.ITEM.getKey(Items.SALMON_BUCKET).getPath(), new PlacedBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Blocks.WATER, StatePropertiesPredicate.ANY, LocationPredicate.ANY, ItemPredicate.Builder.item().of(Items.SALMON_BUCKET).hasNbt(sallyName).build()))
                     .display(Items.SALMON,
                             Component.translatable("advancements.fot.lost_sally.title"),
                             Component.translatable("advancements.fot.lost_sally.description"),
