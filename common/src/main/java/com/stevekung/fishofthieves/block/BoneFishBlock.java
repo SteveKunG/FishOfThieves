@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -30,15 +31,34 @@ public class BoneFishBlock extends HorizontalDirectionalBlock
     }
 
     @Override
+    public BlockBehaviour.OffsetType getOffsetType()
+    {
+        return BlockBehaviour.OffsetType.XYZ;
+    }
+
+    @Override
+    public float getMaxHorizontalOffset()
+    {
+        return 0.2f;
+    }
+
+    @Override
+    public float getMaxVerticalOffset()
+    {
+        return 0.05f;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter level, BlockPos blockPos, CollisionContext context)
     {
+        var vec3 = blockState.getOffset(level, blockPos);
         var direction = blockState.getValue(FACING);
 
         if (direction.getAxis() == Direction.Axis.X)
         {
-            return X_SHAPE;
+            return X_SHAPE.move(vec3.x, vec3.y, vec3.z);
         }
-        return Y_SHAPE;
+        return Y_SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override
