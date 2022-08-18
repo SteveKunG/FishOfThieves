@@ -2,16 +2,21 @@ package com.stevekung.fishofthieves.fabric.core;
 
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.renderer.RenderType;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
 {
     @Override
     public void onInitializeClient()
     {
+        BlockRenderLayerMap.INSTANCE.putBlock(FOTBlocks.BONE_FISH, RenderType.cutoutMipped());
+
         EntityRendererRegistry.register(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
         EntityRendererRegistry.register(FOTEntities.PONDIE, PondieRenderer::new);
         EntityRendererRegistry.register(FOTEntities.ISLEHOPPER, IslehopperRenderer::new);

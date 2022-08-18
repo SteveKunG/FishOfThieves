@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FOTPlatform
@@ -30,6 +31,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void registerBlock(String key, Block block)
     {
         throw new AssertionError();
     }

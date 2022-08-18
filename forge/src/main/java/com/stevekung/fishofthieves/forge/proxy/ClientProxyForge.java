@@ -5,10 +5,13 @@ import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.client.ConfigGuiHandler;
@@ -44,6 +47,7 @@ public class ClientProxyForge extends CommonProxyForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         super.clientSetup(event);
+        ItemBlockRenderTypes.setRenderLayer(FOTBlocks.BONE_FISH, RenderType.cutoutMipped());
     }
 
     @SubscribeEvent

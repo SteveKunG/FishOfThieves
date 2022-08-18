@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -35,9 +36,11 @@ import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -166,10 +169,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.STORMFISH_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
+
+            generator.generateFlatItem(FOTBlocks.BONE_FISH.asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         @Override
-        public void generateBlockStateModels(BlockModelGenerators generator) {}
+        public void generateBlockStateModels(BlockModelGenerators generator)
+        {
+            var boneFish = FOTBlocks.BONE_FISH;
+            generator.skipAutoItemBlock(boneFish);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(boneFish, ModelLocationUtils.getModelLocation(boneFish)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+        }
     }
 
     private static class RecipeProvider extends FabricRecipeProvider
@@ -182,6 +192,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
+            ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.BONE_FISH).group("bonemeal").unlockedBy(getHasName(FOTBlocks.BONE_FISH), has(FOTBlocks.BONE_FISH)).save(consumer);
+
             addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
             addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
             addCookingRecipes(consumer, 0.3F, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
@@ -240,6 +252,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)))
                     .when(waterSurrounded)
             ));
+
+            consumer.accept(FOTBlocks.BONE_FISH.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.BONE_FISH));
         }
     }
 
@@ -388,6 +402,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.BONE_FISH);
+
             this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
             this.getOrCreateTagBuilder(FOTTags.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
