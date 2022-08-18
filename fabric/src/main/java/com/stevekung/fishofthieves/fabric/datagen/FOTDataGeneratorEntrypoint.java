@@ -76,6 +76,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 {
+    //@formatter:off
     private static final Item[] FISH_BUCKETS = {
             FOTItems.SPLASHTAIL_BUCKET,
             FOTItems.PONDIE_BUCKET,
@@ -88,6 +89,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             FOTItems.WRECKER_BUCKET,
             FOTItems.STORMFISH_BUCKET
     };
+    //@formatter:on
 
     // Fabric Tags
     private static final TagKey<Item> RAW_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", "raw_fishes"));
@@ -221,6 +223,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator, LootContextParamSets.BLOCK);
         }
 
+        //@formatter:off
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
@@ -255,6 +258,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             consumer.accept(FOTBlocks.BONE_FISH.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.BONE_FISH));
         }
+        //@formatter:on
     }
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
@@ -266,6 +270,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator, LootContextParamSets.ENTITY);
         }
 
+        //@formatter:off
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
@@ -391,6 +396,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
         }
     }
+    //@formatter:on
 
     private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
@@ -422,8 +428,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            var rawFishes = new Item[] { FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH };
-            var cookedFishes = new Item[] { FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH };
+            var rawFishes = new Item[] {FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH};
+            var cookedFishes = new Item[] {FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH};
 
             this.getOrCreateTagBuilder(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS).forceAddTag(FOTTags.WORMS);
             this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.THIEVES_FISH).forceAddTag(FOTTags.COOKED_THIEVES_FISH);
@@ -455,8 +461,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
-            var neutralFishes = new EntityType<?>[] { FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER };
-            var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
+            var neutralFishes = new EntityType<?>[] {FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER};
+            var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
 
@@ -506,6 +512,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             return this.generator.getOutputFolder().resolve("data/%s/%s/%s.json".formatted(id.getNamespace(), "tags/worldgen/biome", id.getPath()));
         }
 
+        //@formatter:off
         private void addOverworldBiomesToTag(TagKey<Biome> tag)
         {
             this.getOrCreateTagBuilder(tag)
@@ -531,6 +538,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .add(Biomes.STONY_PEAKS).add(Biomes.MUSHROOM_FIELDS).add(Biomes.DRIPSTONE_CAVES)
                     .add(Biomes.LUSH_CAVES).add(Biomes.SNOWY_BEACH).add(Biomes.SWAMP).add(Biomes.STONY_SHORE);
         }
+        //@formatter:on
     }
 
     private static class AdvancementProvider extends FabricAdvancementProvider
@@ -554,6 +562,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator);
         }
 
+        //@formatter:off
         @Override
         public void generateAdvancement(Consumer<Advancement> consumer)
         {
@@ -676,6 +685,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             null, FrameType.TASK, true, true, true)
                     .save(consumer, this.get("lost_sally"));
         }
+        //@formatter:on
 
         private String get(String name)
         {

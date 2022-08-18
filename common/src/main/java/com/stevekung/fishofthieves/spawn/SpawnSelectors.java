@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.spawn;
 
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
@@ -80,12 +79,12 @@ public final class SpawnSelectors
 
     public static Predicate<SpawnConditionContext> biomeTag(TagKey<Biome> tagKey)
     {
-        return context ->  context.level().getBiome(context.blockPos()).is(tagKey);
+        return context -> context.level().getBiome(context.blockPos()).is(tagKey);
     }
 
     public static Predicate<SpawnConditionContext> continentalness(Continentalness... continentalnesses)
     {
-        Set<Continentalness> continentalnessSet = EnumSet.noneOf(Continentalness.class);
+        var continentalnessSet = EnumSet.noneOf(Continentalness.class);
         Collections.addAll(continentalnessSet, continentalnesses);
         return context -> continentalnessSet.stream().anyMatch(continentalness -> context.continentalness() == continentalness);
     }

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Pufferfish;
 import net.minecraft.world.entity.animal.TropicalFish;
 
+//@formatter:off
 @Mixin(value = {
         CodModel.class,
         SalmonModel.class,
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.animal.TropicalFish;
         TropicalFishModelA.class,
         TropicalFishModelB.class
 })
+//@formatter:on
 public class MixinVanillaFishesModel<T extends Entity> implements ScaleableModel<T>
 {
     @Override

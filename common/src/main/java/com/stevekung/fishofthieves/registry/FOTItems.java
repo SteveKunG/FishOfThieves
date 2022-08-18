@@ -59,6 +59,7 @@ public class FOTItems
     public static final Item WRECKER_SPAWN_EGG = new SpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties().tab(FishOfThieves.FOT_TAB));
     public static final Item STORMFISH_SPAWN_EGG = new SpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties().tab(FishOfThieves.FOT_TAB));
 
+    //@formatter:off
     public static final ItemStack[] CAT_FOODS = {
             new ItemStack(FOTItems.SPLASHTAIL),
             new ItemStack(FOTItems.PONDIE),
@@ -71,6 +72,7 @@ public class FOTItems
             new ItemStack(FOTItems.WRECKER),
             new ItemStack(FOTItems.STORMFISH)
     };
+    //@formatter:on
 
     public static void init()
     {

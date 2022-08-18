@@ -11,12 +11,14 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.world.entity.Mob;
 
+//@formatter:off
 @Mixin(value = {
         CodRenderer.class,
         SalmonRenderer.class,
         PufferfishRenderer.class,
         TropicalFishRenderer.class
 })
+//@formatter:on
 public abstract class MixinVanillaFishesRenderer<T extends Mob & PartyFish, M extends EntityModel<T> & ScaleableModel<T>> extends MobRenderer<T, M>
 {
     MixinVanillaFishesRenderer()
