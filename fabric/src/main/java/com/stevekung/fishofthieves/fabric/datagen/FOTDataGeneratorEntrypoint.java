@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.fabric.datagen.variants.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
@@ -35,9 +36,11 @@ import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -72,6 +75,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 {
+    //@formatter:off
     private static final Item[] FISH_BUCKETS = {
             FOTItems.SPLASHTAIL_BUCKET,
             FOTItems.PONDIE_BUCKET,
@@ -84,6 +88,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             FOTItems.WRECKER_BUCKET,
             FOTItems.STORMFISH_BUCKET
     };
+    //@formatter:on
 
     // Fabric Tags
     private static final TagKey<Item> RAW_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", "raw_fishes"));
@@ -177,10 +182,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.STORMFISH_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
+
+            generator.generateFlatItem(FOTBlocks.BONE_FISH.asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         @Override
-        public void generateBlockStateModels(BlockModelGenerators generator) {}
+        public void generateBlockStateModels(BlockModelGenerators generator)
+        {
+            var boneFish = FOTBlocks.BONE_FISH;
+            generator.skipAutoItemBlock(boneFish);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(boneFish, ModelLocationUtils.getModelLocation(boneFish)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+        }
     }
 
     private static class RecipeProvider extends FabricRecipeProvider
@@ -193,6 +205,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
+            ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.BONE_FISH).group("bonemeal").unlockedBy(getHasName(FOTBlocks.BONE_FISH), has(FOTBlocks.BONE_FISH)).save(consumer);
+
             addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
             addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
             addCookingRecipes(consumer, 0.3F, FOTItems.ISLEHOPPER, FOTItems.COOKED_ISLEHOPPER);
@@ -220,6 +234,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator, LootContextParamSets.BLOCK);
         }
 
+        //@formatter:off
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
@@ -256,7 +271,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                             .when(BlockLoot.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.ALWAYS_DROP_LEECHES)))));
+
+            consumer.accept(FOTBlocks.BONE_FISH.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.BONE_FISH));
         }
+        //@formatter:on
     }
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
@@ -268,6 +286,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator, LootContextParamSets.ENTITY);
         }
 
+        //@formatter:off
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
@@ -393,6 +412,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(LootItemRandomChanceCondition.randomChance(0.05F))));
         }
     }
+    //@formatter:on
 
     private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
@@ -404,6 +424,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateTags()
         {
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.BONE_FISH);
+
             this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
             this.getOrCreateTagBuilder(FOTTags.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
@@ -542,6 +564,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             super(dataGenerator);
         }
 
+        //@formatter:off
         @Override
         public void generateAdvancement(Consumer<Advancement> consumer)
         {
@@ -657,6 +680,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             null, FrameType.TASK, true, true, true)
                     .save(consumer, this.get("lost_sally"));
         }
+        //@formatter:on
 
         private String get(String name)
         {

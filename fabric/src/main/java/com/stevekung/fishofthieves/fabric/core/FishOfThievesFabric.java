@@ -5,10 +5,7 @@ import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
-import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -28,6 +25,7 @@ public class FishOfThievesFabric implements ModInitializer
     public void onInitialize()
     {
         FishOfThieves.init();
+        FOTBlocks.init();
         FOTItems.init();
         FOTEntities.init();
         FishOfThieves.initCommon();

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bonemeal",
+  "ingredients": [
+    {
+      "item": "fishofthieves:bone_fish"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bone_meal",
+    "count": 4
+  }
+}

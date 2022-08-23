@@ -1,14 +1,17 @@
 package com.stevekung.fishofthieves.utils.forge;
 
+import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FOTPlatformImpl
@@ -38,6 +41,12 @@ public class FOTPlatformImpl
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
         FishOfThievesForge.ENTITY.register(key, () -> type);
+    }
+
+    public static void registerBlock(String key, Block block)
+    {
+        FishOfThievesForge.BLOCK.register(key, () -> block);
+        registerItem(key, new BlockItem(block, new Item.Properties().tab(FishOfThieves.FOT_TAB)));
     }
 
     public static void registerItem(String key, Item item)

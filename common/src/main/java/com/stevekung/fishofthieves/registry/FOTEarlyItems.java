@@ -4,6 +4,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class FOTEarlyItems
 {
+    //@formatter:off
     public static final ItemStack[] CAT_FOODS = {
             new ItemStack(FOTItems.SPLASHTAIL),
             new ItemStack(FOTItems.PONDIE),
@@ -16,4 +17,5 @@ public class FOTEarlyItems
             new ItemStack(FOTItems.WRECKER),
             new ItemStack(FOTItems.STORMFISH)
     };
+    //@formatter:on
 }

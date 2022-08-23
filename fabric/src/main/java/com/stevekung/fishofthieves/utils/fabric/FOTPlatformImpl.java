@@ -11,9 +11,11 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FOTPlatformImpl
@@ -36,6 +38,12 @@ public class FOTPlatformImpl
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
         Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+    }
+
+    public static void registerBlock(String key, Block block)
+    {
+        Registry.register(Registry.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, key), block);
+        registerItem(key, new BlockItem(block, new Item.Properties().tab(FishOfThieves.FOT_TAB)));
     }
 
     public static void registerItem(String key, Item item)
