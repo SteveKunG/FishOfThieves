@@ -2,6 +2,33 @@
 
 ### Please report if you found the issues!
 
-* Backport - All fish can now control biome to spawn by datapack
-* [Forge] Fix using wrong `Lists` class, closed #12
-* [Fabric] Required Fabric API 0.57.x
+* Added Earthworms, Grubs, Leeches
+* Added Bone Fish Block/Item (WIP for textures)
+* Added Immersive Weathering compatibility, closed #13
+* Added Simple Spawning Condition config
+* Added more glowing layers for Wrecker
+* Added customizable fish variant spawn in specific biome tags
+* Added Firelight devilfish warm blocks tag
+* Added Thai translation
+* Added Chinese translation
+* Added Russian translation
+* Blackcloud Wrecker is now a rare variant
+* Fishes are now follow the players if holding any worms
+* Worms can now feed to fishes, depends on their type
+* Worms can be used to breed Chickens and Axolotls
+* Trophy fish size can be produce by worms
+* Trophy fish now drop 2-4 items
+* Balanced food stats
+* Balanced villager trades
+* Balanced all chests/entities loot
+* Balanced smelting EXP
+* All models are now using RGBA to the renderer
+* Update advancements description
+* Update all fish model for more Minecrafty style
+* Fix "fishes" for config, datapack
+* Fix Wrecker mouth animation when it isn't in the water
+* Fix too many fish in Buried Treasure Chest loot, closed #14
+* Fix "Lost Sally" advancement with a Salmon Bucket
+
+### [Forge]
+* Aquaculture fish fillet balanced
