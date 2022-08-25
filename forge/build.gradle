@@ -1,3 +1,7 @@
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+}
+
 architectury {
     platformSetupLoomIde()
     forge()
@@ -102,7 +106,7 @@ remapSourcesJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = "forge"
+    archiveClassifier = "forge" + (project.experimental ? "-experimental" : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
 }
@@ -139,7 +143,7 @@ curseforge {
         id = "568372"
         changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
-        releaseType = "beta"
+        releaseType = project.experimental ? "alpha" : "beta"
         addGameVersion "Forge"
         addGameVersion "Java 17"
         addGameVersion project.mc_version
@@ -170,7 +174,7 @@ modrinth {
     changelog = rootProject.file("CHANGE_LOG.md").text
     versionName = "[Forge] Fish of Thieves " + "v${mod_version}" + " for Minecraft " + project.mc_version
     versionNumber = project.mod_version + "-forge"
-    versionType = "release"
+    versionType = project.experimental ? "alpha" : "release"
     uploadFile = remapJar
     additionalFiles = [shadowJar, remapSourcesJar]
     gameVersions = ["${mc_version}"]

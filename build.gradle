@@ -14,7 +14,6 @@ subprojects {
     apply plugin: "dev.architectury.loom"
     apply plugin: "com.github.johnrengelman.shadow"
     apply plugin: "com.matthewprenger.cursegradle"
-    apply plugin: "com.modrinth.minotaur"
 
     loom {
         silentMojangMappingsLicense()
@@ -71,10 +70,13 @@ task curseforgeModrinth(dependsOn: [
         ":forge:curseforge"
 ], group: "upload")
 
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 if (project.hasProperty("version_lib_dir")) {
     task updateVersionLib(group: "upload") {
         def versionFile = file("${version_lib_dir}/fish_of_thieves.json")
-        def jsonBuilder = new groovy.json.JsonBuilder(new groovy.json.JsonSlurper().parseText(versionFile.text))
+        def jsonBuilder = new JsonBuilder(new JsonSlurper().parseText(versionFile.text))
         def jsonElement = jsonBuilder.content
         def formattedList = []
 
@@ -90,7 +92,7 @@ if (project.hasProperty("version_lib_dir")) {
         }
 
         if (jsonElement."${mc_version}" == null) {
-            jsonElement."${mc_version}" = new groovy.json.JsonSlurper().parseText("{ \"${mod_version}\": \"\"}")
+            jsonElement."${mc_version}" = new JsonSlurper().parseText("{ \"${mod_version}\": \"\"}")
         }
         jsonElement."${mc_version}"."${mod_version}" = formattedList.join("\n")
         versionFile.text = jsonBuilder.toPrettyString()
