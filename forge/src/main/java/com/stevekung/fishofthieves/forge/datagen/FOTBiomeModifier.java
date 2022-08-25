@@ -29,6 +29,7 @@ public class FOTBiomeModifier
         var existingFileHelper = event.getExistingFileHelper();
         var ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.BUILTIN.get());
 
+        //@formatter:off
         dataGenerator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(dataGenerator, existingFileHelper, FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, Map.of(
                 new ResourceLocation(FishOfThieves.MOD_ID, "add_splashtails"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 15, 4, 8), FOTTags.SPAWNS_SPLASHTAILS),
                 new ResourceLocation(FishOfThieves.MOD_ID, "add_pondies"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 15, 2, 4), FOTTags.SPAWNS_PONDIES),
@@ -41,6 +42,7 @@ public class FOTBiomeModifier
                 new ResourceLocation(FishOfThieves.MOD_ID, "add_wreckers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8), FOTTags.SPAWNS_WRECKERS),
                 new ResourceLocation(FishOfThieves.MOD_ID, "add_stormfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8), FOTTags.SPAWNS_STORMFISH))
         ));
+        //@formatter:on
     }
 
     private static BiomeModifier spawn(RegistryOps<JsonElement> ops, MobSpawnSettings.SpawnerData spawnerData, TagKey<Biome> tagKey)
