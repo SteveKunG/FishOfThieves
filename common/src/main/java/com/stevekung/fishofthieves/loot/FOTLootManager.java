@@ -28,6 +28,7 @@ public class FOTLootManager
     public static final ResourceLocation EARTHWORMS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/earthworms_drops");
     public static final ResourceLocation GRUBS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/grubs_drops");
     public static final ResourceLocation LEECHES_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/leeches_drops");
+    public static final ResourceLocation BONE_FISH_DROP = new ResourceLocation(FishOfThieves.MOD_ID, "entities/bone_fish_drop");
 
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {

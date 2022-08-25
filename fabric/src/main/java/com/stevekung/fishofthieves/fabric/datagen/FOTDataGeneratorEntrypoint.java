@@ -67,10 +67,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -274,6 +271,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
+            consumer.accept(FOTLootManager.BONE_FISH_DROP, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
+
             consumer.accept(FOTEntities.SPLASHTAIL.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -285,7 +288,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.PONDIE.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -297,7 +304,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.ISLEHOPPER.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -309,7 +320,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.ANCIENTSCALE.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -321,7 +336,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.PLENTIFIN.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -333,7 +352,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.WILDSPLASH.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -345,7 +368,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.DEVILFISH.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -357,7 +384,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.BATTLEGILL.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -369,7 +400,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.WRECKER.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -381,7 +416,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
             consumer.accept(FOTEntities.STORMFISH.getDefaultLootTable(), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -393,7 +432,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F))));
+                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0f))
+                            .add(LootItem.lootTableItem(FOTBlocks.BONE_FISH))
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
         }
     }
     //@formatter:on
@@ -465,6 +508,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
             this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
+            this.getOrCreateTagBuilder(FOTTags.BONE_FISH_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
 
             // Immersive Weathering compatibility
             this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.THIEVES_FISH_ENTITY_TYPE);
