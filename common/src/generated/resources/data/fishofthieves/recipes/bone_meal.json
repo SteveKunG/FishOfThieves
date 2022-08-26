@@ -3,11 +3,11 @@
   "group": "bonemeal",
   "ingredients": [
     {
-      "item": "fishofthieves:bone_fish"
+      "item": "fishofthieves:fish_bone"
     }
   ],
   "result": {
-    "item": "minecraft:bone_meal",
-    "count": 4
+    "count": 4,
+    "item": "minecraft:bone_meal"
   }
 }

@@ -1,34 +1,34 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "minecraft:bone_meal"
-    ]
-  },
   "criteria": {
-    "has_bone_fish": {
-      "trigger": "minecraft:inventory_changed",
+    "has_fish_bone": {
       "conditions": {
         "items": [
           {
             "items": [
-              "fishofthieves:bone_fish"
+              "fishofthieves:fish_bone"
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "minecraft:bone_meal"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_bone_fish",
+      "has_fish_bone",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:bone_meal"
+    ]
+  }
 }

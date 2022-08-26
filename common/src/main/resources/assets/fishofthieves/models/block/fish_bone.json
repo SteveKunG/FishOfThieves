@@ -1,0 +1,42 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "fishofthieves:block/fish_bone",
+		"fish_bone": "fishofthieves:block/fish_bone"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 5],
+			"to": [16, 3, 11],
+			"faces": {
+				"north": {"uv": [6, 3, 14, 6], "texture": "#fish_bone"},
+				"east": {"uv": [0, 8, 6, 11], "texture": "#fish_bone"},
+				"south": {"uv": [6, 0, 14, 3], "texture": "#fish_bone"},
+				"west": {"uv": [0, 11, 6, 14], "texture": "#fish_bone"},
+				"up": {"uv": [6, 8, 0, 0], "rotation": 90, "texture": "#fish_bone"},
+				"down": {"uv": [6, 0, 0, 8], "rotation": 270, "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [5, 0, 4],
+			"to": [8, 1, 12],
+			"faces": {
+				"north": {"uv": [13, 6, 16, 7], "texture": "#fish_bone"},
+				"south": {"uv": [13, 6, 16, 7], "texture": "#fish_bone"},
+				"up": {"uv": [14, 9, 6, 6], "rotation": 90, "texture": "#fish_bone"},
+				"down": {"uv": [14, 6, 6, 9], "rotation": 270, "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [0, 0, 5],
+			"to": [5, 1, 10],
+			"faces": {
+				"north": {"uv": [11, 9, 16, 10], "texture": "#fish_bone"},
+				"south": {"uv": [11, 10, 16, 11], "texture": "#fish_bone"},
+				"west": {"uv": [11, 11, 16, 12], "texture": "#fish_bone"},
+				"up": {"uv": [11, 14, 6, 9], "rotation": 90, "texture": "#fish_bone"},
+				"down": {"uv": [11, 9, 6, 14], "rotation": 270, "texture": "#fish_bone"}
+			}
+		}
+	]
+}

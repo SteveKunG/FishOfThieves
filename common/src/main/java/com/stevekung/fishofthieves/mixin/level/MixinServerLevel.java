@@ -1,12 +1,13 @@
 package com.stevekung.fishofthieves.mixin.level;
 
-import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import com.stevekung.fishofthieves.entity.animal.Stormfish;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -33,10 +34,10 @@ public abstract class MixinServerLevel extends Level
     {
         var blockPos = this.findNearestStormfish(this.getBlockRandomPos(x, 0, z, 15));
 
-        if (blockPos != null && isRaining && this.isThundering() && this.random.nextInt(5000) == 0 && this.isRainingAtFromBelowWater(blockPos))
+        if (blockPos.isPresent() && isRaining && this.isThundering() && this.random.nextInt(5000) == 0)
         {
             var lightningBolt = EntityType.LIGHTNING_BOLT.create(this);
-            lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
+            lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos.get()));
             this.addFreshEntity(lightningBolt);
         }
     }
@@ -51,17 +52,10 @@ public abstract class MixinServerLevel extends Level
         return biome.getPrecipitation() == Biome.Precipitation.RAIN && biome.warmEnoughToRain(blockPos);
     }
 
-    @Nullable
-    private BlockPos findNearestStormfish(BlockPos blockPos)
+    private Optional<BlockPos> findNearestStormfish(BlockPos blockPos)
     {
         var blockPos2 = this.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos);
-        var aabb = new AABB(blockPos2, new BlockPos(blockPos2.getX(), this.getMaxBuildHeight(), blockPos2.getZ())).inflate(16.0D);
-        var stormfish = this.getEntitiesOfClass(Stormfish.class, aabb, living -> living != null && living.isAlive() && this.canSeeSkyFromBelowWater(blockPos2));
-
-        if (!stormfish.isEmpty())
-        {
-            return stormfish.get(this.random.nextInt(stormfish.size())).blockPosition();
-        }
-        return null;
+        var aabb = new AABB(blockPos2, new BlockPos(blockPos2.getX(), this.getMaxBuildHeight(), blockPos2.getZ())).inflate(8.0D);
+        return Optional.of(this.getEntities(FOTEntities.STORMFISH, aabb, living -> living != null && living.isAlive() && this.isRainingAtFromBelowWater(blockPos2))).filter(stormfish -> !stormfish.isEmpty()).map(stormfish -> stormfish.get(this.random.nextInt(stormfish.size())).blockPosition());
     }
 }

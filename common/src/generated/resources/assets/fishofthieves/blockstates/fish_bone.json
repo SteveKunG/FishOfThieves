@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "fishofthieves:block/fish_bone",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "fishofthieves:block/fish_bone",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "fishofthieves:block/fish_bone"
+    },
+    "facing=west": {
+      "model": "fishofthieves:block/fish_bone",
+      "y": 90
+    }
+  }
+}

@@ -21,6 +21,7 @@ public class FOTTags
     public static final TagKey<Item> LEECHES_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_food"));
 
     public static final TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
+    public static final TagKey<EntityType<?>> FISH_BONE_DROP = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "fish_bone_drop"));
 
     public static final TagKey<Block> FIRELIGHT_DEVILFISH_WARM_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "firelight_devilfish_warm_blocks"));
     public static final TagKey<Block> CORAL_WILDSPLASH_SPAWNABLE_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "coral_wildsplash_spawnable_on"));
