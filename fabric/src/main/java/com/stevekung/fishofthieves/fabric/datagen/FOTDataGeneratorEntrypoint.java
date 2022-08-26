@@ -175,9 +175,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateBlockStateModels(BlockModelGenerators generator)
         {
-            var boneFish = FOTBlocks.FISH_BONE;
-            generator.skipAutoItemBlock(boneFish);
-            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(boneFish, ModelLocationUtils.getModelLocation(boneFish)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+            var fishBone = FOTBlocks.FISH_BONE;
+            generator.skipAutoItemBlock(fishBone);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
         }
     }
 

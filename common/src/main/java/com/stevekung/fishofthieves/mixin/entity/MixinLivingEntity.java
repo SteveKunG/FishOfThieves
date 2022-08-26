@@ -25,7 +25,7 @@ public abstract class MixinLivingEntity extends Entity
     }
 
     @Inject(method = "dropFromLootTable", at = @At("TAIL"))
-    private void fishofthieves$dropBoneFish(DamageSource damageSource, boolean hitByPlayer, CallbackInfo info)
+    private void fishofthieves$dropFishBone(DamageSource damageSource, boolean hitByPlayer, CallbackInfo info)
     {
         if (this.getType().is(FOTTags.FISH_BONE_DROP))
         {

@@ -19,13 +19,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class BoneFishBlock extends HorizontalDirectionalBlock
+public class FishBoneBlock extends HorizontalDirectionalBlock
 {
     private static final VoxelShape X_SHAPE = Block.box(4, 0, 0, 12, 3, 16);
     private static final VoxelShape Y_SHAPE = Block.box(0, 0, 4, 16, 3, 12);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public BoneFishBlock(Properties properties)
+    public FishBoneBlock(Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
