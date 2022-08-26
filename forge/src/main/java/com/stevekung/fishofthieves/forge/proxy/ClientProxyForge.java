@@ -47,7 +47,7 @@ public class ClientProxyForge extends CommonProxyForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         super.clientSetup(event);
-        ItemBlockRenderTypes.setRenderLayer(FOTBlocks.BONE_FISH, RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(FOTBlocks.FISH_BONE, RenderType.cutoutMipped());
     }
 
     @SubscribeEvent

@@ -67,7 +67,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "fishofthieves:bone_fish"
+          "name": "fishofthieves:fish_bone"
         }
       ],
       "conditions": [

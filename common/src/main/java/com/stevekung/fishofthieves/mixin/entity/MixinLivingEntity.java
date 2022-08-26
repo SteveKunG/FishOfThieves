@@ -27,9 +27,9 @@ public abstract class MixinLivingEntity extends Entity
     @Inject(method = "dropFromLootTable", at = @At("TAIL"))
     private void fishofthieves$dropBoneFish(DamageSource damageSource, boolean hitByPlayer, CallbackInfo info)
     {
-        if (this.getType().is(FOTTags.BONE_FISH_DROP))
+        if (this.getType().is(FOTTags.FISH_BONE_DROP))
         {
-            var lootTable = this.level.getServer().getLootTables().get(FOTLootManager.BONE_FISH_DROP);
+            var lootTable = this.level.getServer().getLootTables().get(FOTLootManager.FISH_BONE_DROP);
             var builder = this.createLootContext(hitByPlayer, damageSource);
             lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
         }

@@ -15,7 +15,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        BlockRenderLayerMap.INSTANCE.putBlock(FOTBlocks.BONE_FISH, RenderType.cutoutMipped());
+        BlockRenderLayerMap.INSTANCE.putBlock(FOTBlocks.FISH_BONE, RenderType.cutoutMipped());
 
         EntityRendererRegistry.register(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
         EntityRendererRegistry.register(FOTEntities.PONDIE, PondieRenderer::new);

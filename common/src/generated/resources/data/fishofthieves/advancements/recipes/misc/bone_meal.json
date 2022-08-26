@@ -6,13 +6,13 @@
     ]
   },
   "criteria": {
-    "has_bone_fish": {
+    "has_fish_bone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "fishofthieves:bone_fish"
+              "fishofthieves:fish_bone"
             ]
           }
         ]
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_bone_fish",
+      "has_fish_bone",
       "has_the_recipe"
     ]
   ]

@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:entity",
+  "type": "minecraft:block",
   "pools": [
     {
       "rolls": 1.0,
@@ -7,14 +7,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "fishofthieves:bone_fish"
+          "name": "fishofthieves:fish_bone"
         }
       ],
       "conditions": [
         {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.025,
-          "looting_multiplier": 0.01
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }
