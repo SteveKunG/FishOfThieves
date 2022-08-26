@@ -12,6 +12,7 @@
 * Added Thai translation
 * Added Chinese translation
 * Added Russian translation
+* Added Fish Bone drop to fishes
 * Blackcloud Wrecker is now a rare variant
 * Fishes are now follow the players if holding any worms
 * Worms can now feed to fishes, depends on their type
@@ -29,6 +30,8 @@
 * Fix Wrecker mouth animation when it isn't in the water
 * Fix too many fish in Buried Treasure Chest loot, closed #14
 * Fix "Lost Sally" advancement with a Salmon Bucket
+* Fix item names to match vanilla convention, closed #20
+* Fix Stormfish performance issue during thunderstorm, hopefully fixes #21
 
 ### [Forge]
 * Aquaculture fish fillet balanced
