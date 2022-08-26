@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout_mipped",
 	"textures": {
 		"particle": "fishofthieves:block/fish_bone",
 		"fish_bone": "fishofthieves:block/fish_bone"
