@@ -3,7 +3,7 @@
 ### Please report if you found the issues!
 
 * Added Earthworms, Grubs, Leeches
-* Added Bone Fish Block/Item (WIP for textures)
+* Added Fish Bone Block/Item (WIP for textures)
 * Added Immersive Weathering compatibility, closed #13
 * Added Simple Spawning Condition config
 * Added more glowing layers for Wrecker
