@@ -191,7 +191,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
-            ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer);
+            ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
             addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
             addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
@@ -627,7 +627,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             LocationPredicate.Builder.location()
                                     .setFluid(FluidPredicate.Builder.fluid()
                                             .of(FluidTags.WATER).build()).build()))
-                    .save(consumer, this.get("root"));
+                    .save(consumer, this.mod("root"));
 
             var advancement2 = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
                     .display(FOTItems.SPLASHTAIL_BUCKET,
@@ -635,7 +635,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(250))
-                    .save(consumer, this.get("fish_collectors"));
+                    .save(consumer, this.mod("fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
                     .display(FOTItems.SPLASHTAIL_BUCKET,
@@ -643,7 +643,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.master_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(1000))
-                    .save(consumer, this.get("master_fish_collectors"));
+                    .save(consumer, this.mod("master_fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
                     .display(FOTItems.SPLASHTAIL_BUCKET,
@@ -651,7 +651,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.legendary_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(2000))
-                    .save(consumer, this.get("legendary_fish_collectors"));
+                    .save(consumer, this.mod("legendary_fish_collectors"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
@@ -665,7 +665,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
                             new TranslatableComponent("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
                             null, FrameType.TASK, true, true, false)
-                    .save(consumer, this.get("feed_axolotl_with_lava_devilfish"));
+                    .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
             var battlegill = Registry.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
@@ -683,7 +683,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.so_chill.title"),
                             new TranslatableComponent("advancements.fot.so_chill.description"),
                             null, FrameType.TASK, true, true, false)
-                    .save(consumer, this.get("so_chill"));
+                    .save(consumer, this.mod("so_chill"));
 
             Advancement.Builder.advancement().parent(advancement)
                     .display(FOTItems.STORMFISH,
@@ -691,7 +691,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.lightning_straight_to_my_fish.description"),
                             null, FrameType.TASK, true, true, false)
                     .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).lighthingBolt(LighthingBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build(), EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
-                    .save(consumer, this.get("lightning_straight_to_my_fish"));
+                    .save(consumer, this.mod("lightning_straight_to_my_fish"));
 
             Advancement.Builder.advancement().parent(advancement)
                     .display(Items.SPYGLASS,
@@ -699,7 +699,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.spyglass_at_plentifins.description"),
                             null, FrameType.TASK, true, true, false)
                     .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().player(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(FOTEntities.PLENTIFIN).build()).build()), ItemPredicate.Builder.item().of(Items.SPYGLASS)))
-                    .save(consumer, this.get("spyglass_at_plentifins"));
+                    .save(consumer, this.mod("spyglass_at_plentifins"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .display(Items.JUKEBOX,
@@ -716,7 +716,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX).build()),
                             ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
                             EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS).build())))
-                    .save(consumer, this.get("play_jukebox_near_fish"));
+                    .save(consumer, this.mod("play_jukebox_near_fish"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
@@ -727,13 +727,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             new TranslatableComponent("advancements.fot.lost_sally.title"),
                             new TranslatableComponent("advancements.fot.lost_sally.description"),
                             null, FrameType.TASK, true, true, true)
-                    .save(consumer, this.get("lost_sally"));
+                    .save(consumer, this.mod("lost_sally"));
         }
         //@formatter:on
 
-        private String get(String name)
+        private String mod(String name)
         {
-            return FishOfThieves.MOD_ID + ":" + name;
+            return FishOfThieves.MOD_RESOURCES + name;
         }
 
         private Advancement.Builder addFishBuckets(Advancement.Builder builder)

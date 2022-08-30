@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "minecraft:bone_meal"
+      "fishofthieves:bonemeals_from_fish_bone"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:bone_meal"
+        "recipe": "fishofthieves:bonemeals_from_fish_bone"
       }
     }
   },
