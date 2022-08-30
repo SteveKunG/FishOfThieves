@@ -10,8 +10,8 @@
 * Added customizable fish variant spawn in specific biome tags
 * Added Firelight devilfish warm blocks tag
 * Added Thai translation
-* Added Chinese translation
-* Added Russian translation
+* Added Chinese translation, Thanks to deluxghost
+* Added Russian translation, Thanks to Telezhka-the-First
 * Added Fish Bone drop to fishes
 * Blackcloud Wrecker is now a rare variant
 * Fishes are now follow the players if holding any worms
