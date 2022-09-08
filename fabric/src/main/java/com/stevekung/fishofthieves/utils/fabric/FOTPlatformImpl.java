@@ -22,7 +22,7 @@ public class FOTPlatformImpl
 {
     public static CreativeModeTab createCreativeTab()
     {
-        return FabricItemGroupBuilder.build(new ResourceLocation(FishOfThieves.MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL_BUCKET));
+        return FabricItemGroupBuilder.build(new ResourceLocation(FishOfThieves.MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
