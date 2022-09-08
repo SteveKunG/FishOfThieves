@@ -23,7 +23,7 @@ public class FOTPlatformImpl
             @Override
             public ItemStack makeIcon()
             {
-                return new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
+                return new ItemStack(FOTItems.SPLASHTAIL);
             }
         };
     }

@@ -2,9 +2,21 @@
   "criteria": {
     "in_water": {
       "conditions": {
-        "block": "minecraft:water"
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "fluid": {
+                  "tag": "minecraft:water"
+                }
+              }
+            }
+          }
+        ]
       },
-      "trigger": "minecraft:enter_block"
+      "trigger": "minecraft:location"
     }
   },
   "display": {

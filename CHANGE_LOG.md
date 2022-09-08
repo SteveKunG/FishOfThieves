@@ -3,7 +3,7 @@
 ### Please report if you found the issues!
 
 * Added Earthworms, Grubs, Leeches
-* Added Bone Fish Block/Item (WIP for textures)
+* Added Fish Bone Block/Item (WIP for textures)
 * Added Immersive Weathering compatibility, closed #13
 * Added Simple Spawning Condition config
 * Added more glowing layers for Wrecker
@@ -11,8 +11,8 @@
 * Added Firelight devilfish warm blocks tag
 * Added more customizable tag for structures
 * Added Thai translation
-* Added Chinese translation
-* Added Russian translation
+* Added Chinese translation, Thanks to deluxghost
+* Added Russian translation, Thanks to Telezhka-the-First
 * Added Fish Bone drop to fishes
 * Allow modders to add their own fish variant
 * Blackcloud Wrecker is now a rare variant

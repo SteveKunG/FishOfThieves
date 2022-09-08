@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:bone_meal"
+        "recipe": "fishofthieves:bonemeals_from_fish_bone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:bone_meal"
+      "fishofthieves:bonemeals_from_fish_bone"
     ]
   }
 }

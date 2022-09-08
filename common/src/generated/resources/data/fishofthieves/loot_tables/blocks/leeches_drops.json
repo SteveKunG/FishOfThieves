@@ -21,11 +21,22 @@
           }
         },
         {
-          "condition": "fishofthieves:fot_location_check",
-          "predicate": {
-            "biome": "minecraft:is_beach",
-            "continentalness": "coast"
-          }
+          "condition": "minecraft:alternative",
+          "terms": [
+            {
+              "condition": "fishofthieves:fot_location_check",
+              "predicate": {
+                "biome": "minecraft:is_beach",
+                "continentalness": "coast"
+              }
+            },
+            {
+              "condition": "fishofthieves:fot_location_check",
+              "predicate": {
+                "biome": "minecraft:is_river"
+              }
+            }
+          ]
         },
         {
           "condition": "minecraft:alternative",
