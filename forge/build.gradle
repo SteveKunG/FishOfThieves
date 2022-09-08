@@ -60,7 +60,7 @@ repositories {
 dependencies {
     forge "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    api "com.teammetallurgy.aquaculture:aquaculture2_1.19:1.19-${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
 
     modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
