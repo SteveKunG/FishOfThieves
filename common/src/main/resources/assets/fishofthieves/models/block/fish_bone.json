@@ -6,36 +6,99 @@
 	},
 	"elements": [
 		{
-			"from": [8, 0, 5],
-			"to": [16, 3, 11],
+			"from": [8.95, 0.05, 6.95],
+			"to": [12.05, 3.15, 11.05],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [9, 0, 9.5]},
 			"faces": {
-				"north": {"uv": [6, 3, 14, 6], "texture": "#fish_bone"},
-				"east": {"uv": [0, 8, 6, 11], "texture": "#fish_bone"},
-				"south": {"uv": [6, 0, 14, 3], "texture": "#fish_bone"},
-				"west": {"uv": [0, 11, 6, 14], "texture": "#fish_bone"},
-				"up": {"uv": [6, 8, 0, 0], "rotation": 90, "texture": "#fish_bone"},
-				"down": {"uv": [6, 0, 0, 8], "rotation": 270, "texture": "#fish_bone"}
+				"east": {"uv": [1.5, 3, 3.5, 4.5], "texture": "#fish_bone"},
+				"south": {"uv": [2, 4.5, 3.5, 6], "texture": "#fish_bone"},
+				"west": {"uv": [0, 4.5, 2, 6], "texture": "#fish_bone"},
+				"up": {"uv": [1.5, 4.5, 0, 2.5], "texture": "#fish_bone"},
+				"down": {"uv": [1.5, 2.5, 0, 4.5], "texture": "#fish_bone"}
 			}
 		},
 		{
-			"from": [5, 0, 4],
-			"to": [8, 1, 12],
+			"from": [8.25, 0.1, 4.65],
+			"to": [12.25, 3.1, 9.65],
+			"rotation": {"angle": -45, "axis": "y", "origin": [12.25, 0, 9.75]},
 			"faces": {
-				"north": {"uv": [13, 6, 16, 7], "texture": "#fish_bone"},
-				"south": {"uv": [13, 6, 16, 7], "texture": "#fish_bone"},
-				"up": {"uv": [14, 9, 6, 6], "rotation": 90, "texture": "#fish_bone"},
-				"down": {"uv": [14, 6, 6, 9], "rotation": 270, "texture": "#fish_bone"}
+				"north": {"uv": [2, 1.5, 4, 3], "texture": "#fish_bone"},
+				"east": {"uv": [2, 0, 4.5, 1.5], "texture": "#fish_bone"},
+				"south": {"uv": [4, 1.5, 2, 3], "texture": "#fish_bone"},
+				"up": {"uv": [2, 2.5, 0, 0], "texture": "#fish_bone"},
+				"down": {"uv": [2, 0, 0, 2.5], "texture": "#fish_bone"}
 			}
 		},
 		{
-			"from": [0, 0, 5],
-			"to": [5, 1, 10],
+			"from": [10, 0.6, 6.35],
+			"to": [15, 2.6, 8.35],
+			"rotation": {"angle": 45, "axis": "y", "origin": [10, 0, 7]},
 			"faces": {
-				"north": {"uv": [11, 9, 16, 10], "texture": "#fish_bone"},
-				"south": {"uv": [11, 10, 16, 11], "texture": "#fish_bone"},
-				"west": {"uv": [11, 11, 16, 12], "texture": "#fish_bone"},
-				"up": {"uv": [11, 14, 6, 9], "rotation": 90, "texture": "#fish_bone"},
-				"down": {"uv": [11, 9, 6, 14], "rotation": 270, "texture": "#fish_bone"}
+				"north": {"uv": [8, 0, 10.5, 1], "texture": "#fish_bone"},
+				"east": {"uv": [7, 0, 8, 1], "texture": "#fish_bone"},
+				"south": {"uv": [11.5, 0, 14, 1], "texture": "#fish_bone"},
+				"west": {"uv": [10.5, 0, 11.5, 1], "texture": "#fish_bone"},
+				"up": {"uv": [7, 1, 4.5, 0], "texture": "#fish_bone"},
+				"down": {"uv": [7, 0, 4.5, 1], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [3, 1.1, 8.75],
+			"to": [12, 2.1, 9.75],
+			"faces": {
+				"north": {"uv": [0, 6.5, 4.5, 7], "texture": "#fish_bone"},
+				"east": {"uv": [4, 6.5, 4.5, 7], "texture": "#fish_bone"},
+				"south": {"uv": [0, 6, 4.5, 6.5], "texture": "#fish_bone"},
+				"west": {"uv": [4, 6.5, 4.5, 7], "texture": "#fish_bone"},
+				"up": {"uv": [4.5, 6.5, 0, 6], "texture": "#fish_bone"},
+				"down": {"uv": [4.5, 6, 0, 6.5], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [4, 0.1, 8.75],
+			"to": [9, 3.1, 8.75],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [4, 1.5, 6.5, 3], "texture": "#fish_bone"},
+				"south": {"uv": [4, 1.5, 6.5, 3], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [4, 0.1, 6],
+			"to": [9, 0.1, 9],
+			"shade": false,
+			"faces": {
+				"up": {"uv": [9, 3, 6.5, 1.5], "texture": "#fish_bone"},
+				"down": {"uv": [9, 1.5, 6.5, 3], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [4, 3.1, 5.75],
+			"to": [9, 3.1, 8.75],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 9]},
+			"faces": {
+				"up": {"uv": [9, 3, 6.5, 1.5], "texture": "#fish_bone"},
+				"down": {"uv": [9, 1.5, 6.5, 3], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [4, 1.6, 9.75],
+			"to": [11, 1.6, 12.75],
+			"shade": false,
+			"faces": {
+				"up": {"uv": [7.5, 4.5, 4, 3], "texture": "#fish_bone"},
+				"down": {"uv": [7.5, 3, 4, 4.5], "texture": "#fish_bone"}
+			}
+		},
+		{
+			"from": [0.25, 1.6, 6.25],
+			"to": [3.25, 1.6, 11.25],
+			"shade": false,
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [2, 0, 9.5]},
+			"faces": {
+				"up": {"uv": [9, 5.5, 7.5, 3], "texture": "#fish_bone"},
+				"down": {"uv": [9, 3, 7.5, 5.5], "texture": "#fish_bone"}
 			}
 		}
 	]

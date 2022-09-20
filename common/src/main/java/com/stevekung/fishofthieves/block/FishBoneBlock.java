@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -32,21 +31,15 @@ public class FishBoneBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public BlockBehaviour.OffsetType getOffsetType()
+    public OffsetType getOffsetType()
     {
-        return BlockBehaviour.OffsetType.XYZ;
+        return OffsetType.XZ;
     }
 
     @Override
     public float getMaxHorizontalOffset()
     {
         return 0.2f;
-    }
-
-    @Override
-    public float getMaxVerticalOffset()
-    {
-        return 0.05f;
     }
 
     @Override
