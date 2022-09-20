@@ -10,7 +10,7 @@ import net.minecraft.world.level.material.MaterialColor;
 
 public class FOTBlocks
 {
-    public static final Block FISH_BONE = new FishBoneBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XYZ).sound(SoundType.BONE_BLOCK));
+    public static final Block FISH_BONE = new FishBoneBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.BONE_BLOCK));
 
     public static void init()
     {

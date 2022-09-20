@@ -37,12 +37,6 @@ public class FishBoneBlock extends HorizontalDirectionalBlock
     }
 
     @Override
-    public float getMaxVerticalOffset()
-    {
-        return 0.05f;
-    }
-
-    @Override
     public PushReaction getPistonPushReaction(BlockState state)
     {
         return PushReaction.DESTROY;
