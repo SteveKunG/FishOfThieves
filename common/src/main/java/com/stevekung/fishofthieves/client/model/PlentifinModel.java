@@ -57,7 +57,7 @@ public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implemen
         var backRotation = 1.0f;
         var backRotSpeed = 1.0f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

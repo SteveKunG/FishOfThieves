@@ -17,14 +17,15 @@ public class DevilfishRenderer extends ThievesFishRenderer<DevilfishVariant, Dev
     }
 
     @Override
-    protected void setupRotations(Devilfish devilfish, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(Devilfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
-        super.setupRotations(devilfish, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        var inWater = entity.isInWater() || entity.isNoFlip();
         var bodyRotBase = 1.0f;
-        var baseDegree = devilfish.isPartying() ? -20.0f : 4.0f;
-        var bodyRotSpeed = devilfish.isPartying() ? devilfish.isInWater() ? 2.0f : 1.0f : 0.6f;
+        var baseDegree = entity.isPartying() ? -20.0f : 4.0f;
+        var bodyRotSpeed = entity.isPartying() ? inWater ? 2.0f : 1.0f : 0.6f;
 
-        if (!devilfish.isInWater())
+        if (!inWater)
         {
             bodyRotBase = 1.7f;
         }
@@ -32,7 +33,7 @@ public class DevilfishRenderer extends ThievesFishRenderer<DevilfishVariant, Dev
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
-        if (!devilfish.isInWater())
+        if (!inWater)
         {
             poseStack.translate(0.175f, 0.1f, 0.0f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));

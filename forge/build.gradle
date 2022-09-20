@@ -106,7 +106,7 @@ remapSourcesJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = "forge" + (project.experimental ? "-experimental" : "")
+    archiveClassifier = "forge" + (project.release_type != "release" ? "-" + project.release_type : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
 }
@@ -143,7 +143,7 @@ curseforge {
         id = "568372"
         changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
-        releaseType = project.experimental ? "alpha" : "beta"
+        releaseType = project.release_type
         addGameVersion "Forge"
         addGameVersion "Java 17"
         addGameVersion project.mc_version
@@ -174,7 +174,7 @@ modrinth {
     changelog = rootProject.file("CHANGE_LOG.md").text
     versionName = "[Forge] Fish of Thieves " + "v${mod_version}" + " for Minecraft " + project.mc_version
     versionNumber = project.mod_version + "-forge"
-    versionType = project.experimental ? "alpha" : "release"
+    versionType = project.release_type
     uploadFile = remapJar
     additionalFiles = [shadowJar, remapSourcesJar]
     gameVersions = ["${mc_version}"]

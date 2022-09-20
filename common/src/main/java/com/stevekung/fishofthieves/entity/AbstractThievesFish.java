@@ -26,6 +26,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
+    // Debug Visual
+    private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
+
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {
         super(entityType, level);
@@ -38,6 +41,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         super.defineSynchedData();
         this.entityData.define(TROPHY, false);
         this.entityData.define(HAS_FED, false);
+
+        // Debug Visual
+        this.entityData.define(NO_FLIP, false);
     }
 
     @Override
@@ -47,6 +53,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
+
+        // Debug Visual
+        compound.putBoolean(ThievesFish.NO_FLIP, this.isTrophy());
     }
 
     @Override
@@ -64,6 +73,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
+
+        // Debug Visual
+        this.setNoFlip(compound.getBoolean(ThievesFish.NO_FLIP));
     }
 
     @Override
@@ -137,6 +149,18 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     public void setHasFed(boolean hasFed)
     {
         this.entityData.set(HAS_FED, hasFed);
+    }
+
+    @Override
+    public void setNoFlip(boolean noFlip)
+    {
+        this.entityData.set(NO_FLIP, noFlip);
+    }
+
+    @Override
+    public boolean isNoFlip()
+    {
+        return this.entityData.get(NO_FLIP);
     }
 
     private void growUp(Player player, ItemStack itemStack)

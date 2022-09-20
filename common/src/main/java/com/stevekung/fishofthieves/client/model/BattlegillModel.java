@@ -62,7 +62,7 @@ public class BattlegillModel<T extends Battlegill> extends EntityModel<T> implem
         var backRotSpeed = 1.0f;
         var mouthSpeed = 0.4f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

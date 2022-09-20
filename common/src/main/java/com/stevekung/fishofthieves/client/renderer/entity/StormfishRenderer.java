@@ -17,14 +17,15 @@ public class StormfishRenderer extends ThievesFishRenderer<StormfishVariant, Sto
     }
 
     @Override
-    protected void setupRotations(Stormfish stormfish, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(Stormfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
-        super.setupRotations(stormfish, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        var inWater = entity.isInWater() || entity.isNoFlip();
         var bodyRotBase = 1.0f;
-        var baseDegree = stormfish.isPartying() ? -20.0f : 5.0f;
-        var bodyRotSpeed = stormfish.isPartying() ? stormfish.isInWater() ? 2.0f : 1.0f : 0.65f;
+        var baseDegree = entity.isPartying() ? -20.0f : 5.0f;
+        var bodyRotSpeed = entity.isPartying() ? inWater ? 2.0f : 1.0f : 0.65f;
 
-        if (!stormfish.isInWater())
+        if (!inWater)
         {
             bodyRotBase = 1.7f;
         }
@@ -32,7 +33,7 @@ public class StormfishRenderer extends ThievesFishRenderer<StormfishVariant, Sto
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
-        if (!stormfish.isInWater())
+        if (!inWater)
         {
             poseStack.translate(0.2f, 0.1f, 0.0f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));

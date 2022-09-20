@@ -34,6 +34,14 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
 
+    // Start Debug Visual
+    String NO_FLIP = "NoFlip";
+
+    void setNoFlip(boolean noFlip);
+
+    boolean isNoFlip();
+    // End Debug Visual
+
     T getVariant();
 
     void setVariant(T variant);
