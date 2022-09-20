@@ -63,7 +63,7 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implem
         var backRotation = 1.0f;
         var backRotSpeed = 1.0f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

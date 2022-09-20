@@ -57,7 +57,7 @@ public class PondieModel<T extends Pondie> extends EntityModel<T> implements Sca
         var backRotSpeed = 1.0f;
         var mouthSpeed = 0.15f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

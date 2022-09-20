@@ -60,7 +60,7 @@ public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implemen
         var backRotSpeed = 1.0f;
         var mouthSpeed = 0.4f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

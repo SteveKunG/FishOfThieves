@@ -66,7 +66,7 @@ public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements S
         var mouthSpeed = 0.4f;
         var bulbSpeed = 0.1f;
 
-        if (!entity.isInWater())
+        if (!entity.isInWater() && !entity.isNoFlip())
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;

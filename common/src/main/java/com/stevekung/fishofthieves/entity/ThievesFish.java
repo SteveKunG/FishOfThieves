@@ -28,6 +28,14 @@ public interface ThievesFish extends GlowFish, PartyFish
     String HAS_FED_TAG = "HasFed";
     String NAME_TAG = "Name";
 
+    // Start Debug Visual
+    String NO_FLIP = "NoFlip";
+
+    void setNoFlip(boolean noFlip);
+
+    boolean isNoFlip();
+    // End Debug Visual
+
     FishVariant getVariant();
 
     int getSpawnVariantId(boolean bucket);

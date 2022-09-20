@@ -28,14 +28,15 @@ public class WildsplashRenderer extends ThievesFishRenderer<Wildsplash, Wildspla
     }
 
     @Override
-    protected void setupRotations(Wildsplash wildsplash, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(Wildsplash entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
-        super.setupRotations(wildsplash, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        var inWater = entity.isInWater() || entity.isNoFlip();
         var bodyRotBase = 1.0f;
-        var baseDegree = wildsplash.isPartying() ? -20.0f : 5.0f;
-        var bodyRotSpeed = wildsplash.isPartying() ? wildsplash.isInWater() ? 2.0f : 1.0f : 0.7f;
+        var baseDegree = entity.isPartying() ? -20.0f : 5.0f;
+        var bodyRotSpeed = entity.isPartying() ? inWater ? 2.0f : 1.0f : 0.7f;
 
-        if (!wildsplash.isInWater())
+        if (!inWater)
         {
             bodyRotBase = 1.8f;
         }
@@ -43,7 +44,7 @@ public class WildsplashRenderer extends ThievesFishRenderer<Wildsplash, Wildspla
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
-        if (!wildsplash.isInWater())
+        if (!inWater)
         {
             poseStack.translate(0.165f, 0.1f, 0.05f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));

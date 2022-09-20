@@ -28,14 +28,15 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
     }
 
     @Override
-    protected void setupRotations(Islehopper islehopper, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(Islehopper entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
     {
-        super.setupRotations(islehopper, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        var inWater = entity.isInWater() || entity.isNoFlip();
         var bodyRotBase = 1.0f;
-        var baseDegree = islehopper.isPartying() ? -20.0f : 4.0f;
-        var bodyRotSpeed = islehopper.isPartying() ? islehopper.isInWater() ? 2.0f : 1.0f : 0.6f;
+        var baseDegree = entity.isPartying() ? -20.0f : 4.0f;
+        var bodyRotSpeed = entity.isPartying() ? inWater ? 2.0f : 1.0f : 0.6f;
 
-        if (!islehopper.isInWater())
+        if (!inWater)
         {
             bodyRotBase = 1.7f;
         }
@@ -44,7 +45,7 @@ public class IslehopperRenderer extends ThievesFishRenderer<Islehopper, Islehopp
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
         poseStack.translate(0.0f, Mth.cos(ageInTicks * 0.1f) * 0.01f, 0.0f);
 
-        if (!islehopper.isInWater())
+        if (!inWater)
         {
             poseStack.translate(0.15f, 0.1f, 0.0f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
