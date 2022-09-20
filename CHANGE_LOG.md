@@ -13,6 +13,7 @@
 * Added Chinese translation, Thanks to deluxghost
 * Added Russian translation, Thanks to Telezhka-the-First
 * Added Fish Bone drop to fishes
+* Added NoFlip Tag
 * Blackcloud Wrecker is now a rare variant
 * Fishes are now follow the players if holding any worms
 * Worms can now feed to fishes, depends on their type
@@ -24,6 +25,7 @@
 * Balanced all chests/entities loot
 * Balanced smelting EXP
 * All models are now using RGBA to the renderer
+* Change Creative Tabs icon to Splashtail
 * Update advancements description
 * Update all fish model for more Minecrafty style
 * Fix "fishes" for config, datapack
