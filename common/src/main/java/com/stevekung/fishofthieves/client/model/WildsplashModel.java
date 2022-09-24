@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements ScaleableModel<T>
+public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "wildsplash"), "main");
     private final ModelPart head;
@@ -42,7 +42,7 @@ public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implem
         head.addOrReplaceChild("right_barbel_r1", CubeListBuilder.create().texOffs(2, 19).addBox(0.0F, 0.0F, -6.0F, 0.0F, 3.0F, 1.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-2.5F, -2.0F, 0.0F, 0.0F, 0.0F, 0.1745F));
         head.addOrReplaceChild("left_barbel_r1", CubeListBuilder.create().texOffs(0, 19).addBox(0.0F, 0.0F, -6.0F, 0.0F, 3.0F, 1.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(2.5F, -2.0F, 0.0F, 0.0F, 0.0F, -0.1745F));
         head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 28).addBox(-2.0F, 0.0F, -3.0F, 4.0F, 1.0F, 3.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(0.0F, -1.5F, -4.5F, -0.5672F, 0.0F, 0.0F));
-        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(0, 19).addBox(-2.5F, -2.26F, -3.3F, 5.0F, 4.0F, 5.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, -4.75F, -4.25F, 0.9163F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(0, 19).addBox(-2.5F, -2.254F, -3.294F, 5.0F, 4.0F, 5.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, -4.756F, -4.256F, 0.9163F, 0.0F, 0.0F));
         var body_main = partDefinition.addOrReplaceChild("body_main", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -1.5F, -3.0F, 5.0F, 5.0F, 6.0F, new CubeDeformation(0.01F)).texOffs(22, 1).addBox(0.0F, -2.5F, -2.0F, 0.0F, 1.0F, 5.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 18.0F, -2.0F));
         body_main.addOrReplaceChild("right_fin_r1", CubeListBuilder.create().texOffs(0, 11).addBox(-3.5F, -5.5F, 0.5F, 3.0F, 4.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-2.25F, 6.0F, -0.5F, 0.0F, 0.7854F, 0.0F));
         body_main.addOrReplaceChild("left_fin_r1", CubeListBuilder.create().texOffs(16, 11).addBox(0.5F, -5.5F, 0.5F, 3.0F, 4.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(2.25F, 6.0F, -0.5F, 0.0F, -0.7854F, 0.0F));

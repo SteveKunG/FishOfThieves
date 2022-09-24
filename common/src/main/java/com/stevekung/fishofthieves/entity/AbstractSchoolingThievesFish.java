@@ -55,7 +55,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
 
         // Debug Visual
-        compound.putBoolean(ThievesFish.NO_FLIP, this.isTrophy());
+        compound.putBoolean(ThievesFish.NO_FLIP, this.isNoFlip());
     }
 
     @Override

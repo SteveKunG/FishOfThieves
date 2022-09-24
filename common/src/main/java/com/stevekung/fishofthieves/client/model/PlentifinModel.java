@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implements ScaleableModel<T>
+public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "plentifin"), "main");
     private final ModelPart head;
@@ -39,8 +39,8 @@ public class PlentifinModel<T extends Plentifin> extends EntityModel<T> implemen
         var partDefinition = meshDefinition.getRoot();
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
-        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(9, 14).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.005F)), PartPose.offsetAndRotation(0.0F, -1.0F, -4.25F, -0.3054F, 0.0F, 0.0F));
-        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(14, 0).addBox(-1.0F, -1.85F, -3.0F, 2.0F, 3.0F, 5.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, -3.5F, -3.55F, 1.1781F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(9, 14).addBox(-1.0F, -0.07F, -1.97F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.005F)), PartPose.offsetAndRotation(0.0F, -1.0F, -4.25F, -0.3054F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(14, 0).addBox(-1.0F, -1.835F, -2.975F, 2.0F, 3.0F, 5.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, -3.515F, -3.575F, 1.1781F, 0.0F, 0.0F));
         var body_main = partDefinition.addOrReplaceChild("body_main", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -6.1F, -4.5F, 2.0F, 6.0F, 5.0F, CubeDeformation.NONE).texOffs(0, 7).addBox(0.0F, -8.65F, -3.5F, 0.0F, 3.0F, 4.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 24.0F, 0.0F));
         body_main.addOrReplaceChild("right_fin_r1", CubeListBuilder.create().texOffs(14, 20).addBox(-0.75F, -3.65F, -3.5F, 3.0F, 3.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(0.75F, 0.0F, 2.0F, 0.0F, 0.9599F, 0.0F));
         body_main.addOrReplaceChild("left_fin_r1", CubeListBuilder.create().texOffs(14, 17).addBox(0.0F, -3.65F, 0.0F, 3.0F, 3.0F, 0.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(0.75F, 0.0F, -2.0F, 0.0F, -0.9599F, 0.0F));

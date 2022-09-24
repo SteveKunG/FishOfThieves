@@ -41,4 +41,9 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
     {
         this.headphone.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
+
+    public interface Scaleable<T extends Entity>
+    {
+        void scale(T entity, PoseStack poseStack);
+    }
 }

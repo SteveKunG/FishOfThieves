@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
-import com.stevekung.fishofthieves.client.model.ScaleableModel;
+import com.stevekung.fishofthieves.client.model.HeadphoneModel.Scaleable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.client.model.EntityModel;
@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 
-public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends EntityModel<T> & ScaleableModel<T>> extends RenderLayer<T, M>
+public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends RenderLayer<T, M>
 {
     private static final ResourceLocation TEXTURE = new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/headphone.png");
     private final HeadphoneModel<T> model;

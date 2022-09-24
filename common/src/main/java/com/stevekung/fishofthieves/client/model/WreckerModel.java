@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements ScaleableModel<T>
+public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "wrecker"), "main");
     private final ModelPart head;
@@ -41,7 +41,7 @@ public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements S
         var partDefinition = meshDefinition.getRoot();
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offsetAndRotation(0.0F, 19.5F, -3.55F, 0.1745F, 0.0F, 0.0F));
-        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.2F, -2.275F, 5.0F, 5.0F, 4.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, 0.45F, 0.45F, 0.3054F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -2.21F, -2.27F, 5.0F, 5.0F, 4.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, 0.46F, 0.445F, 0.3054F, 0.0F, 0.0F));
         head.addOrReplaceChild("bulb", CubeListBuilder.create().texOffs(18, 1).addBox(0.0F, -4.0F, -2.5F, 0.0F, 5.0F, 3.0F, CubeDeformation.NONE).texOffs(27, 19).addBox(-0.5F, -2.95F, -3.6F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.1F)), PartPose.offsetAndRotation(0.0F, -2.3F, 0.7F, 0.3054F, 0.0F, 0.0F));
         var mouth = head.addOrReplaceChild("mouth", CubeListBuilder.create(), PartPose.offset(0.0F, 3.5F, 0.3F));
         mouth.addOrReplaceChild("mouth_r1", CubeListBuilder.create().texOffs(0, 25).addBox(0.1F, -2.0F, 0.0F, 0.0F, 2.0F, 5.0F, CubeDeformation.NONE), PartPose.offsetAndRotation(-2.7F, -4.5F, -2.75F, -1.0472F, -0.1134F, -0.0654F));
