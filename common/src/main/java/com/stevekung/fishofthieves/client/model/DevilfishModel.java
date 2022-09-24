@@ -39,8 +39,8 @@ public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implemen
         var partDefinition = meshDefinition.getRoot();
 
         var head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 18.5F, -3.5F));
-        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(18, 7).addBox(-2.0F, -2.225F, -0.17F, 4.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, 1.375F, -1.48F, 0.7854F, 0.0F, 0.0F));
-        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(18, 0).addBox(-2.0F, -2.6F, -0.35F, 4.0F, 5.0F, 2.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, 0.6F, -0.15F, 0.5149F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(18, 7).addBox(-2.0F, -2.25F, -0.175F, 4.0F, 5.0F, 2.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, 1.4F, -1.475F, 0.7854F, 0.0F, 0.0F));
+        head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(18, 0).addBox(-2.0F, -2.63F, -0.35F, 4.0F, 5.0F, 2.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, 0.63F, -0.15F, 0.5149F, 0.0F, 0.0F));
         var mouth = head.addOrReplaceChild("mouth", CubeListBuilder.create(), PartPose.offset(0.0F, 3.0F, 0.25F));
         mouth.addOrReplaceChild("mouth_r1", CubeListBuilder.create().texOffs(12, 17).addBox(-2.0F, -1.0F, -4.0F, 4.0F, 1.0F, 3.0F, new CubeDeformation(0.1F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.6109F, 0.0F, 0.0F));
         mouth.addOrReplaceChild("mouth_r2", CubeListBuilder.create().texOffs(0, 11).addBox(-2.0F, 0.0F, -5.25F, 4.0F, 1.0F, 5.0F, new CubeDeformation(0.05F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.5F, -0.6109F, 0.0F, 0.0F));
