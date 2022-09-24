@@ -64,7 +64,7 @@ dependencies {
 
     modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
-    modRuntimeOnly "curse.maven:lazy-dfu-forge-460819:3544496"
+    modRuntimeOnly "curse.maven:lazy-dfu-forge-460819:3831644"
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
