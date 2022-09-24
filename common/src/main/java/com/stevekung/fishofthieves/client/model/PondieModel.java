@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class PondieModel<T extends Pondie> extends EntityModel<T> implements ScaleableModel<T>
+public class PondieModel<T extends Pondie> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "pondie"), "main");
     private final ModelPart head;

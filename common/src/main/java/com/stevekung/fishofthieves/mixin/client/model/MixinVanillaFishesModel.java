@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.mixin.client.model;
 
 import org.spongepowered.asm.mixin.Mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stevekung.fishofthieves.client.model.ScaleableModel;
+import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import net.minecraft.client.model.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,7 +20,7 @@ import net.minecraft.world.entity.animal.TropicalFish;
         TropicalFishModelB.class
 })
 //@formatter:on
-public class MixinVanillaFishesModel<T extends Entity> implements ScaleableModel<T>
+public class MixinVanillaFishesModel<T extends Entity> implements HeadphoneModel.Scaleable<T>
 {
     @Override
     public void scale(T entity, PoseStack poseStack)

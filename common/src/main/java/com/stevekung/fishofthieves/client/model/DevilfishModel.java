@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implements ScaleableModel<T>
+public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "devilfish"), "main");
     private final ModelPart head;
