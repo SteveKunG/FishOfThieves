@@ -16,7 +16,6 @@
 * Added Fish Bone drop to fishes
 * Allow modders to add their own fish variant
 * Added NoFlip Tag
-* Blackcloud Wrecker is now a rare variant
 * Fishes are now follow the players if holding any worms
 * Worms can now feed to fishes, depends on their type
 * Worms can be used to breed Chickens and Axolotls
