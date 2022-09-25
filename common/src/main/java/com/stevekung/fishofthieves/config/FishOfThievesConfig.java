@@ -55,8 +55,6 @@ public final class FishOfThievesConfig implements ConfigData
         public float sandBattlegillProbability = 0.1F;
         @Comment("Chance to spawn Snow variant of Wreckers.")
         public float snowWreckerProbability = 0.1F;
-        @Comment("Chance to spawn Blackcloud variant of Wreckers.")
-        public float blackcloudWreckerProbability = 0.1F;
         @Comment("Chance to spawn Shadow variant of Stormfish.")
         public float shadowStormfishProbability = 0.1F;
     }
