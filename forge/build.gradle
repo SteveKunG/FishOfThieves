@@ -173,6 +173,7 @@ modrinth {
     token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
     projectId = "fish-of-thieves"
     changelog = rootProject.file("CHANGE_LOG.md").text
+    syncBodyFrom = rootProject.file("README.md").text
     versionName = "[Forge] Fish of Thieves " + "v${mod_version}" + " for Minecraft " + project.mc_version
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
