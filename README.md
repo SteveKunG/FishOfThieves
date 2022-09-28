@@ -6,7 +6,7 @@ Ahoy pirates! Have you ever imagined what it would be like if the fish from Sea 
 This mod adds fish from Sea of Thieves with Minecrafty feels. Who doesn't want those fish in Minecraft?
 
 ### **Wiki**
-Can be found by [click here](https://github.com/SteveKunG/FishOfThieves/wiki).
+Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ### **Screenshots**
 ![](https://i.imgur.com/jkdmCjN.png)
