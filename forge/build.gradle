@@ -150,11 +150,11 @@ curseforge {
         addGameVersion project.mc_version
 
         mainArtifact(remapJar.archiveFile) {
-            displayName = "[Forge] " + fileName + "-v${mod_version}"
+            it.displayName = "[Forge] " + fileName + "-v${mod_version}"
         }
         relations {
-            requiredDependency "cloth-config"
-            optionalDependency "configured"
+            it.requiredDependency "cloth-config"
+            it.optionalDependency "configured"
         }
         afterEvaluate {
             uploadTask.dependsOn(remapJar)

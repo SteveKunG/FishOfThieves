@@ -2,7 +2,7 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "com.github.johnrengelman.shadow" version "7.1.2"
     id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
-    id "com.matthewprenger.cursegradle" version "1.4.0" apply false
+    id "io.github.CDAGaming.cursegradle" version "1.6.0" apply false
     id "com.modrinth.minotaur" version "2.+" apply false
 }
 
@@ -83,8 +83,8 @@ if (project.hasProperty("version_lib_dir")) {
         jsonElement.promos."${mc_version}-latest" = project.mod_version
         jsonElement.promos."${mc_version}-recommended" = project.mod_version
 
-        def reader = new BufferedReader(new FileReader(rootProject.file("CHANGE_LOG.md")));
-        def line;
+        def reader = new BufferedReader(new FileReader(rootProject.file("CHANGE_LOG.md")))
+        def line
         for (int ln = 0; (line = reader.readLine()) != null; ln++) {
             if (ln >= 4) {
                 formattedList.add(line)
