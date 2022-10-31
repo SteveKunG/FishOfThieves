@@ -143,13 +143,13 @@ curseforge {
         addGameVersion project.mc_version
 
         mainArtifact(remapJar.archiveFile) {
-            displayName = "[Fabric] " + fileName + "-v${mod_version}"
+            it.displayName = "[Fabric] " + fileName + "-v${mod_version}"
         }
         relations {
-            requiredDependency "fabric-api"
-            requiredDependency "cloth-config"
-            optionalDependency "modmenu"
-            optionalDependency "canvas-renderer"
+            it.requiredDependency "fabric-api"
+            it.requiredDependency "cloth-config"
+            it.optionalDependency "modmenu"
+            it.optionalDependency "canvas-renderer"
         }
         afterEvaluate {
             uploadTask.dependsOn(remapJar)

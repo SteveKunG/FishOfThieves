@@ -25,7 +25,7 @@ public abstract class MixinChicken extends Animal
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void fishofthieves$addNewTempt(CallbackInfo info)
     {
-        this.goalSelector.addGoal(3, new TemptGoal((Chicken) (Object) this, 1.0, WORM_FOOD_ITEMS, false));
+        this.goalSelector.addGoal(3, new TemptGoal(Chicken.class.cast(this), 1.0, WORM_FOOD_ITEMS, false));
     }
 
     @Inject(method = "isFood", cancellable = true, at = @At("HEAD"))

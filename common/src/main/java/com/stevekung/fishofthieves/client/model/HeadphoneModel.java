@@ -29,7 +29,6 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
         var partDefinition = meshDefinition.getRoot();
 
         partDefinition.addOrReplaceChild("headphone", CubeListBuilder.create().texOffs(0, 3).addBox(1.5F, -7.5F, -1.0F, 1.0F, 2.0F, 2.0F).texOffs(0, 3).addBox(-2.5F, -7.5F, -1.0F, 1.0F, 2.0F, 2.0F).texOffs(0, 0).addBox(-2.0F, -9.5F, -0.5F, 4.0F, 2.0F, 1.0F), PartPose.offset(0.0F, 24.0F, 0.0F));
-
         return LayerDefinition.create(meshDefinition, 16, 16);
     }
 
