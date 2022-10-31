@@ -1,12 +1,20 @@
 ![](https://i.imgur.com/jOGOs3T.png)
 
+[![](https://img.shields.io/discord/356400329086205953?color=00dabc&label=discord&logo=discord&logoColor=00dabc&style=for-the-badge)](https://discord.gg/4bAj4mkGag)
+
+---
+
 ### **About**
 Ahoy pirates! Have you ever imagined what it would be like if the fish from Sea of Thieves were brought into Minecraft? Here we are!
 
 This mod adds fish from Sea of Thieves with Minecrafty feels. Who doesn't want those fish in Minecraft?
 
+---
+
 ### **Wiki**
 Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
+
+---
 
 ### **Screenshots**
 ![](https://i.imgur.com/jkdmCjN.png)
@@ -18,6 +26,8 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 ![](https://i.imgur.com/dNVnNgy.png)
 
 ![](https://i.imgur.com/VwyAl67.png)
+
+---
 
 ### **FAQ**
 **Can I use this mod into my modpack?**
@@ -36,5 +46,9 @@ Yes, **IF** I have my free time to do so.
 
 Simply, No.
 
+---
+
 ### **Disclaimer**
-I'm not affiliated with Rare Ltd or Microsoft. This is a fan creation.
+I'm not affiliated with Rare Ltd. or Microsoft. This is a fan creation.
+
+All fish names and appearances are belong to Rare Ltd.
