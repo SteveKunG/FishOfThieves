@@ -3,11 +3,12 @@ package com.stevekung.fishofthieves.utils;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FOTPlatform
 {
@@ -49,12 +50,6 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerSoundEvent(SoundEvent soundEvent)
-    {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static <T extends Mob> void registerSpawnPlacements(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> spawnPredicate)
     {
         throw new AssertionError();
     }

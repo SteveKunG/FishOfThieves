@@ -5,19 +5,18 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FishOfThieves
 {
@@ -61,17 +60,6 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
-
-        FOTPlatform.registerSpawnPlacements(FOTEntities.SPLASHTAIL, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.PONDIE, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.ISLEHOPPER, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Islehopper::checkSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.ANCIENTSCALE, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.PLENTIFIN, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.WILDSPLASH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wildsplash::checkSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.DEVILFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Devilfish::checkSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.BATTLEGILL, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Battlegill::checkSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.WRECKER, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wrecker::checkSpawnRules);
-        FOTPlatform.registerSpawnPlacements(FOTEntities.STORMFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stormfish::checkSpawnRules);
     }
 
     public static void getTierOneTrades(List<VillagerTrades.ItemListing> list)

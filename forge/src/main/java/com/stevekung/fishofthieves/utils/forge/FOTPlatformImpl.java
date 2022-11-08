@@ -6,13 +6,15 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class FOTPlatformImpl
 {
@@ -57,10 +59,5 @@ public class FOTPlatformImpl
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
         FishOfThievesForge.SOUND_EVENTS.register(soundEvent.getLocation().getPath(), () -> soundEvent);
-    }
-
-    public static <T extends Mob> void registerSpawnPlacements(EntityType<T> type, SpawnPlacements.Type location, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> spawnPredicate)
-    {
-        SpawnPlacements.register(type, location, heightmap, spawnPredicate);
     }
 }
