@@ -35,7 +35,7 @@ public class MixinChunkGenerator
             {
                 info.setReturnValue(FOTEntities.BATTLEGILLS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.SHIPWRECK).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.SHIPWRECK).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.RUINED_PORTAL_OCEAN).isValid())
             {
                 info.setReturnValue(FOTEntities.WRECKERS);
             }

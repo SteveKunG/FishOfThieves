@@ -28,6 +28,7 @@ public class FOTLootItemConditions
     public static final LootItemCondition.Builder IN_OCEAN_MONUMENTS = LocationCheck.checkLocation(LocationPredicate.Builder.location().setFeature(BuiltinStructures.OCEAN_MONUMENT));
     public static final LootItemCondition.Builder IN_PILLAGER_OUTPOSTS = LocationCheck.checkLocation(LocationPredicate.Builder.location().setFeature(BuiltinStructures.PILLAGER_OUTPOST));
     public static final LootItemCondition.Builder IN_SHIPWRECKS = LocationCheck.checkLocation(LocationPredicate.Builder.location().setFeature(BuiltinStructures.SHIPWRECK));
+    public static final LootItemCondition.Builder IN_RUINED_PORTAL_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setFeature(BuiltinStructures.RUINED_PORTAL_OCEAN));
 
     public static final LootItemCondition.Builder THUNDERING = WeatherCheck.weather().setThundering(true);
 

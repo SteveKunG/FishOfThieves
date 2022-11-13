@@ -162,7 +162,7 @@ public class CommonProxyForge
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.BATTLEGILLS.unwrap());
         }
-        if (event.getStructure() == StructureFeature.SHIPWRECK)
+        if (event.getStructure() == StructureFeature.SHIPWRECK || event.getStructure() == StructureFeature.RUINED_PORTAL)
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.WRECKERS.unwrap());
         }
