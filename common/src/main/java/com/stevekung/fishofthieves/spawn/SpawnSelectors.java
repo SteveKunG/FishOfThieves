@@ -38,7 +38,7 @@ public final class SpawnSelectors
 
     public static Predicate<SpawnConditionContext> thunderingAndSeeSky()
     {
-        return context -> context.isThundering() && context.seeSkyInWater();
+        return context -> context.isRaining() && context.isThundering() && context.seeSkyInWater();
     }
 
     public static Predicate<SpawnConditionContext> probability(float probability)
