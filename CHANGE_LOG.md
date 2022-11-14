@@ -3,7 +3,7 @@
 ### Please report if you found the issues!
 
 * Added Earthworms, Grubs, Leeches
-* Added Fish Bone Block/Item (WIP for textures)
+* Added Fish Bone Block/Item
 * Added Immersive Weathering compatibility, closed #13
 * Added Simple Spawning Condition config
 * Added more glowing layers for Wrecker
@@ -16,7 +16,11 @@
 * Added Fish Bone drop to fishes
 * Allow modders to add their own fish variant
 * Added NoFlip Tag
+* Ancientscales and Plentifins spawning inside structures improvement
+* Wreckers now spawns at Ocean Ruined Portal and swim around it
 * Fishes are now follow the players if holding any worms
+* Amber Plentifin spawning now require to see sky
+* Use POI for Honey Islehopper spawning, now requires Bee Nest/Hive within 8 blocks
 * Worms can now feed to fishes, depends on their type
 * Worms can be used to breed Chickens and Axolotls
 * Trophy fish size can be produce by worms
@@ -27,6 +31,7 @@
 * Balanced smelting EXP
 * All models are now using RGBA to the renderer
 * Change Creative Tabs icon to Splashtail
+* Update Config description
 * Update advancements description
 * Update all fish model for more Minecrafty style
 * Fix "fishes" for config, datapack
@@ -35,6 +40,7 @@
 * Fix "Lost Sally" advancement with a Salmon Bucket
 * Fix item names to match vanilla convention, closed #20
 * Fix Stormfish performance issue during thunderstorm, hopefully fixes #21
+* Fix Stormfish can spawn without raining
 
 ### [Forge]
 * Aquaculture fish fillet balanced

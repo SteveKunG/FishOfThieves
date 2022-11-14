@@ -40,6 +40,12 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
+    public float getMaxVerticalOffset()
+    {
+        return 0.05f;
+    }
+
+    @Override
     public PushReaction getPistonPushReaction(BlockState state)
     {
         return PushReaction.DESTROY;
