@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
-import com.stevekung.fishofthieves.client.model.HeadphoneModel.Scaleable;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.client.model.EntityModel;

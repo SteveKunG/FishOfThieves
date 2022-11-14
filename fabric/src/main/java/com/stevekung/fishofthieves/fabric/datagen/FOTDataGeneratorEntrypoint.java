@@ -542,7 +542,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_SPLASHTAILS).forceAddTag(BiomeTags.IS_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_PONDIES).forceAddTag(BiomeTags.IS_RIVER).forceAddTag(BiomeTags.IS_FOREST);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
-            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ANCIENTSCALES).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.SPAWNS_ANCIENTSCALES).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_PLENTIFINS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES, Biomes.WARM_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_DEVILFISH).forceAddTag(BiomeTags.IS_OVERWORLD);
@@ -576,10 +576,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.BONE_ANCIENTSCALES_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.BONEDUST_PLENTIFINS_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.BATTLEGILLS_SPAWN_IN).add(BuiltinStructures.OCEAN_MONUMENT, BuiltinStructures.PILLAGER_OUTPOST);
-            this.getOrCreateTagBuilder(FOTTags.ANCIENTSCALES_SPAWN_IN).forceAddTag(StructureTags.OCEAN_RUIN);
+            this.getOrCreateTagBuilder(FOTTags.ANCIENTSCALES_SPAWN_IN).forceAddTag(StructureTags.OCEAN_RUIN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.PLENTIFINS_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
-            this.getOrCreateTagBuilder(FOTTags.WRECKERS_SPAWN_IN).add(BuiltinStructures.SHIPWRECK);
-            this.getOrCreateTagBuilder(FOTTags.WRECKERS_LOCATED).add(BuiltinStructures.SHIPWRECK);
+            this.getOrCreateTagBuilder(FOTTags.WRECKERS_SPAWN_IN).add(BuiltinStructures.SHIPWRECK, BuiltinStructures.RUINED_PORTAL_OCEAN);
+            this.getOrCreateTagBuilder(FOTTags.WRECKERS_LOCATED).add(BuiltinStructures.SHIPWRECK, BuiltinStructures.RUINED_PORTAL_OCEAN);
         }
     }
 

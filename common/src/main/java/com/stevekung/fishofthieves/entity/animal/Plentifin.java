@@ -9,19 +9,28 @@ import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
+import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.StructureTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
@@ -125,5 +134,11 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return EARTHWORMS_FOOD.test(itemStack);
+    }
+
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    {
+        var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
+        return waterRules || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, StructureTags.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
     }
 }

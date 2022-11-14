@@ -29,7 +29,7 @@ public final class FishOfThievesConfig implements ConfigData
         public float trophyMaxHealth = 5.0F;
 
         @ConfigEntry.Gui.RequiresRestart
-        @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still work")
+        @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still working regardless of this option.")
         public boolean simpleSpawningCondition;
     }
 

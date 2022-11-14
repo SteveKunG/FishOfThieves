@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.StructureManager;
@@ -23,19 +24,19 @@ public class MixinChunkGenerator
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
-            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.ANCIENTSCALES_SPAWN_IN).isValid())
+            if (structureFeatureManager.getStructureWithPieceAt(pos, StructureTags.OCEAN_RUIN).isValid())
             {
                 info.setReturnValue(FOTEntities.ANCIENTSCALES);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.PLENTIFINS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.ANCIENTSCALES_SPAWN_IN).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.PLENTIFINS_SPAWN_IN).isValid())
             {
-                info.setReturnValue(FOTEntities.PLENTIFINS);
+                info.setReturnValue(FOTEntities.ANCIENTSCALES_AND_PLENTIFINS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.BATTLEGILLS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.BATTLEGILLS_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.BATTLEGILLS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.WRECKERS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.WRECKERS_SPAWN_IN).isValid())
             {
                 info.setReturnValue(FOTEntities.WRECKERS);
             }

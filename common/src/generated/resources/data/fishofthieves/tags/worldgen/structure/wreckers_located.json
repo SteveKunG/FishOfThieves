@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:shipwreck"
+    "minecraft:shipwreck",
+    "minecraft:ruined_portal_ocean"
   ]
 }

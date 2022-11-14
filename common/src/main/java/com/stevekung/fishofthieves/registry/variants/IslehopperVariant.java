@@ -14,6 +14,8 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
 public record IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
@@ -22,12 +24,15 @@ public record IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condi
     public static final IslehopperVariant MOSS = create(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_MOSS_ISLEHOPPERS)), name("moss"));
     public static final IslehopperVariant HONEY = create(SpawnSelectors.simpleSpawn(context ->
     {
-        var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
+        var poiManager = context.level().getPoiManager();
+        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), context.blockPos(), 9, PoiManager.Occupancy.ANY);
+
+        if (optional.isPresent())
         {
-            var blockState = context.level().getBlockState(blockPos2);
-            return blockState.is(BlockTags.BEEHIVES) && BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
-        });
-        return optional.isPresent();
+            var blockState = context.level().getBlockState(optional.get());
+            return BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
+        }
+        return false;
     }), name("honey"));
     public static final IslehopperVariant RAVEN = create(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0)), name("raven"));
     public static final IslehopperVariant AMETHYST = new IslehopperVariant(() -> SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS))), name("amethyst"), Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/islehopper/amethyst_glow.png")));

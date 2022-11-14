@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.QuartPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Climate;
@@ -33,6 +34,11 @@ public class TerrainUtils
     public static boolean isInFeature(ServerLevel level, BlockPos blockPos, TagKey<Structure> tagKey)
     {
         return level.structureManager().getStructureWithPieceAt(blockPos, tagKey).isValid();
+    }
+
+    public static boolean isInFeature(ServerLevel level, BlockPos blockPos, ResourceKey<Structure> resourceKey)
+    {
+        return level.structureManager().getStructureWithPieceAt(blockPos, resourceKey).isValid();
     }
 
     public static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)

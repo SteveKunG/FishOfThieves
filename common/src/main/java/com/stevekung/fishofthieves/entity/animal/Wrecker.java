@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.EnumSet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -16,7 +15,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -27,11 +25,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -39,12 +37,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
-    private static final EntityDataAccessor<BlockPos> SHIPWRECK_POS = SynchedEntityData.defineId(Wrecker.class, EntityDataSerializers.BLOCK_POS);
     private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
     private static final EntityDataAccessor<WreckerVariant> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
@@ -66,11 +62,11 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, EARTHWORMS_FOOD, false));
-        this.goalSelector.addGoal(5, new SwimToShipwreckGoal(this));
-        this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-        this.targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
+        this.goalSelector.addGoal(2, new SwimToNearbyWreckageGoal(this, 1.25d));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25d, EARTHWORMS_FOOD, false));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
     }
 
     @Override
@@ -78,7 +74,6 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     {
         super.defineSynchedData();
         this.entityData.define(VARIANT, WreckerVariant.ROSE);
-        this.entityData.define(SHIPWRECK_POS, BlockPos.ZERO);
     }
 
     @Override
@@ -176,27 +171,6 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         return EARTHWORMS_FOOD.test(itemStack);
     }
 
-    public void setShipwreckPos(BlockPos pos)
-    {
-        this.entityData.set(SHIPWRECK_POS, pos);
-    }
-
-    public BlockPos getShipwreckPos()
-    {
-        return this.entityData.get(SHIPWRECK_POS);
-    }
-
-    private boolean closeToNextPos()
-    {
-        var blockPos = this.getNavigation().getTargetPos();
-
-        if (blockPos != null)
-        {
-            return blockPos.closerToCenterThan(this.position(), 12.0);
-        }
-        return false;
-    }
-
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.WRECKERS_SPAWN_IN) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
@@ -207,96 +181,28 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.5).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
 
-    static class SwimToShipwreckGoal extends Goal
+    static class SwimToNearbyWreckageGoal extends RandomStrollGoal
     {
-        private final Wrecker wrecker;
-        private boolean stuck;
-
-        SwimToShipwreckGoal(Wrecker wrecker)
+        SwimToNearbyWreckageGoal(Wrecker wrecker, double speedModifier)
         {
-            this.wrecker = wrecker;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            super(wrecker, speedModifier);
         }
 
         @Override
-        public boolean canUse()
+        @Nullable
+        protected Vec3 getPosition()
         {
-            return this.wrecker.random.nextInt(50) == 0;
-        }
+            var wreckagePos = ((ServerLevel) this.mob.level).findNearestMapStructure(FOTTags.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
 
-        @Override
-        public boolean canContinueToUse()
-        {
-            var blockPos = new BlockPos(this.wrecker.getShipwreckPos().getX(), this.wrecker.getY(), this.wrecker.getShipwreckPos().getZ());
-            return !blockPos.closerToCenterThan(this.wrecker.position(), 4.0D) && !this.stuck;
-        }
-
-        @Override
-        public void start()
-        {
-            if (this.wrecker.level instanceof ServerLevel serverLevel)
+            if (this.mob.level.random.nextFloat() < 0.3f)
             {
-                this.stuck = false;
-                this.wrecker.getNavigation().stop();
-                var blockPos = this.wrecker.blockPosition();
-                var blockPos2 = serverLevel.findNearestMapStructure(FOTTags.WRECKERS_LOCATED, blockPos, 32, false);
-
-                if (blockPos2 == null)
-                {
-                    var blockPos3 = serverLevel.findNearestMapStructure(FOTTags.WRECKERS_LOCATED, blockPos, 32, false);
-
-                    if (blockPos3 == null)
-                    {
-                        this.stuck = true;
-                        return;
-                    }
-                    this.wrecker.setShipwreckPos(blockPos3);
-                }
-                else
-                {
-                    this.wrecker.setShipwreckPos(blockPos2);
-                }
+                return LandRandomPos.getPos(this.mob, 10, 7);
             }
-        }
-
-        @Override
-        public void stop()
-        {
-            var blockPos = new BlockPos(this.wrecker.getShipwreckPos().getX(), this.wrecker.getY(), this.wrecker.getShipwreckPos().getZ());
-
-            if (blockPos.closerToCenterThan(this.wrecker.position(), 4.0) || this.stuck)
+            if (wreckagePos != null)
             {
-                this.wrecker.getNavigation().stop();
+                return Vec3.atCenterOf(wreckagePos);
             }
-        }
-
-        @Override
-        public void tick()
-        {
-            var level = this.wrecker.level;
-
-            if (this.wrecker.closeToNextPos() || this.wrecker.getNavigation().isDone())
-            {
-                BlockPos blockPos;
-                var vec3 = Vec3.atCenterOf(this.wrecker.getShipwreckPos());
-                var vec32 = DefaultRandomPos.getPosTowards(this.wrecker, 16, 1, vec3, 0.3926991f);
-
-                if (vec32 == null)
-                {
-                    vec32 = DefaultRandomPos.getPosTowards(this.wrecker, 8, 4, vec3, 1.5707963705062866);
-                }
-                if (!(vec32 == null || level.getFluidState(blockPos = new BlockPos(vec32)).is(FluidTags.WATER) && level.getBlockState(blockPos).isPathfindable(level, blockPos, PathComputationType.WATER)))
-                {
-                    vec32 = DefaultRandomPos.getPosTowards(this.wrecker, 8, 5, vec3, 1.5707963705062866);
-                }
-                if (vec32 == null)
-                {
-                    this.stuck = true;
-                    return;
-                }
-                this.wrecker.getLookControl().setLookAt(vec32.x, vec32.y, vec32.z, this.wrecker.getMaxHeadYRot() + 20, this.wrecker.getMaxHeadXRot());
-                this.wrecker.getNavigation().moveTo(vec32.x, vec32.y, vec32.z, 1.3D);
-            }
+            return super.getPosition();
         }
     }
 }
