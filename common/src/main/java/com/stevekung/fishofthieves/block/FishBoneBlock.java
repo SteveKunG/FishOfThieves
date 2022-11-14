@@ -36,13 +36,19 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     @Override
     public OffsetType getOffsetType()
     {
-        return OffsetType.XZ;
+        return OffsetType.XYZ;
     }
 
     @Override
     public float getMaxHorizontalOffset()
     {
         return 0.2f;
+    }
+
+    @Override
+    public float getMaxVerticalOffset()
+    {
+        return 0.05f;
     }
 
     @Override
