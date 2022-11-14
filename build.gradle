@@ -64,10 +64,10 @@ allprojects {
 }
 
 task curseforgeModrinth(dependsOn: [
-        ":fabric:modrinth",
-        ":fabric:curseforge",
         ":forge:modrinth",
-        ":forge:curseforge"
+        ":forge:curseforge",
+        ":fabric:modrinth",
+        ":fabric:curseforge"
 ], group: "upload")
 
 import groovy.json.JsonBuilder
