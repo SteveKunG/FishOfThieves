@@ -4,6 +4,7 @@
     "minecraft:warm_ocean",
     "minecraft:lukewarm_ocean",
     "minecraft:deep_lukewarm_ocean",
-    "#fishofthieves:is_caves"
+    "minecraft:lush_caves",
+    "minecraft:dripstone_caves"
   ]
 }

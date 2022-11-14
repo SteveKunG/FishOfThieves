@@ -257,7 +257,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                             .when(BlockLoot.HAS_NO_SILK_TOUCH)
-                            .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)))
+                            .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER))))
                             .when(waterSurrounded))
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
