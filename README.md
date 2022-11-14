@@ -2,12 +2,20 @@
 
 [![](https://img.shields.io/discord/356400329086205953?color=00dabc&label=discord&logo=discord&logoColor=00dabc&style=for-the-badge)](https://discord.gg/4bAj4mkGag)
 
+[![](https://cf.way2muchnoise.eu/versions/568372.svg)](https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves)
+[![](https://cf.way2muchnoise.eu/full_568372_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves)
+
+[![](https://modrinth-utils.vercel.app/api/badge/versions?id=BzOTnuqM)](https://modrinth.com/mod/fish-of-thieves)
+[![](https://modrinth-utils.vercel.app/api/badge/downloads?id=BzOTnuqM&logo=true)](https://modrinth.com/mod/fish-of-thieves)
+
 ---
 
 ### **About**
 Ahoy pirates! Have you ever imagined what it would be like if the fish from Sea of Thieves were brought into Minecraft? Here we are!
 
 This mod adds fish from Sea of Thieves with Minecrafty feels. Who doesn't want those fish in Minecraft?
+
+If you are Sea of Thieves player and know a lot about fish lore, Feedbacks are welcome!
 
 ---
 
