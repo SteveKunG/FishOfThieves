@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.registry;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.util.random.WeightedRandomList;
