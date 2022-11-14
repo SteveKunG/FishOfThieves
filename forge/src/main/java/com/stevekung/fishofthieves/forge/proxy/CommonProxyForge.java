@@ -154,15 +154,15 @@ public class CommonProxyForge
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.ANCIENTSCALES.unwrap());
         }
-        if (event.getStructure() == StructureFeature.MINESHAFT || event.getStructure() == StructureFeature.STRONGHOLD)
+        else if (event.getStructure() == StructureFeature.MINESHAFT || event.getStructure() == StructureFeature.STRONGHOLD)
         {
-            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.PLENTIFINS.unwrap());
+            event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.ANCIENTSCALES_AND_PLENTIFINS.unwrap());
         }
-        if (event.getStructure() == StructureFeature.OCEAN_MONUMENT || event.getStructure() == StructureFeature.PILLAGER_OUTPOST)
+        else if (event.getStructure() == StructureFeature.OCEAN_MONUMENT || event.getStructure() == StructureFeature.PILLAGER_OUTPOST)
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.BATTLEGILLS.unwrap());
         }
-        if (event.getStructure() == StructureFeature.SHIPWRECK || event.getStructure() == StructureFeature.RUINED_PORTAL)
+        else if (event.getStructure() == StructureFeature.SHIPWRECK || event.getStructure() == StructureFeature.RUINED_PORTAL)
         {
             event.addEntitySpawns(MobCategory.WATER_AMBIENT, FOTEntities.WRECKERS.unwrap());
         }

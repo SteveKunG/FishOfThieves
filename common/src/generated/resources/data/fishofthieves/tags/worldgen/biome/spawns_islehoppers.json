@@ -4,8 +4,7 @@
     "#minecraft:is_ocean",
     "#minecraft:is_beach",
     "#minecraft:is_jungle",
-    "minecraft:swamp",
-    "minecraft:lush_caves",
-    "minecraft:dripstone_caves"
+    "#fishofthieves:is_caves",
+    "minecraft:swamp"
   ]
 }

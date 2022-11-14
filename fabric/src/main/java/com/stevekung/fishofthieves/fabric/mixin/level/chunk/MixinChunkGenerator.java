@@ -27,15 +27,15 @@ public class MixinChunkGenerator
             {
                 info.setReturnValue(FOTEntities.ANCIENTSCALES);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.MINESHAFT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.STRONGHOLD).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.MINESHAFT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.STRONGHOLD).isValid())
             {
-                info.setReturnValue(FOTEntities.PLENTIFINS);
+                info.setReturnValue(FOTEntities.ANCIENTSCALES_AND_PLENTIFINS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_MONUMENT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.PILLAGER_OUTPOST).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.OCEAN_MONUMENT).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.PILLAGER_OUTPOST).isValid())
             {
                 info.setReturnValue(FOTEntities.BATTLEGILLS);
             }
-            if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.SHIPWRECK).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.RUINED_PORTAL_OCEAN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.SHIPWRECK).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, BuiltinStructures.RUINED_PORTAL_OCEAN).isValid())
             {
                 info.setReturnValue(FOTEntities.WRECKERS);
             }

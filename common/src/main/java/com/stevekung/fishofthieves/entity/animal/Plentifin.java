@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.entity.FishVariant;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -116,12 +115,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
         var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-
-        if (levelAccessor.getBiome(blockPos).is(FOTTags.IS_CAVES))
-        {
-            return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
-        }
-        return waterRules;
+        return waterRules || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
     }
 
     public enum Variant implements FishVariant
@@ -131,7 +125,7 @@ public class Plentifin extends AbstractSchoolingThievesFish
         {
             var time = context.level().getTimeOfDay(1.0F);
             return time >= 0.75F && time <= 0.9F;
-        }))),
+        }).and(SpawnConditionContext::seeSkyInWater))),
         CLOUDY(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())),
         BONEDUST(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.features(BuiltinStructures.MINESHAFT, BuiltinStructures.STRONGHOLD).and(context -> context.random().nextInt(10) == 0)))),
         WATERY(SpawnSelectors.nightAndSeeSky());
