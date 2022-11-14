@@ -30,6 +30,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -160,12 +162,15 @@ public class Islehopper extends AbstractThievesFish
         MOSS(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.SPAWNS_MOSS_ISLEHOPPERS))),
         HONEY(SpawnSelectors.simpleSpawn(context ->
         {
-            var optional = TerrainUtils.lookForBlock(context.blockPos(), 5, blockPos2 ->
+            var poiManager = context.level().getPoiManager();
+            var optional = poiManager.findClosest(type -> type == PoiType.BEEHIVE || type == PoiType.BEE_NEST, context.blockPos(), 9, PoiManager.Occupancy.ANY);
+
+            if (optional.isPresent())
             {
-                var blockState = context.level().getBlockState(blockPos2);
-                return blockState.is(BlockTags.BEEHIVES) && BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
-            });
-            return optional.isPresent();
+                var blockState = context.level().getBlockState(optional.get());
+                return BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
+            }
+            return false;
         })),
         RAVEN(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))),
         AMETHYST(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS))));
