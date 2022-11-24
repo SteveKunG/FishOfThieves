@@ -115,9 +115,11 @@ public class Stormfish extends AbstractThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        return levelAccessor.getLevelData().isRaining() && levelAccessor.getLevelData().isThundering() && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER) && levelAccessor.canSeeSkyFromBelowWater(blockPos);
+        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var levelData = level.getLevelData();
+        return isWater && levelData.isRaining() && levelData.isThundering() && level.canSeeSkyFromBelowWater(blockPos);
     }
 
     public enum Variant implements FishVariant

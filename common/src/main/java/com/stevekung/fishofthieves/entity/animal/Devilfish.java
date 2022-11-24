@@ -152,9 +152,10 @@ public class Devilfish extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        return blockPos.getY() <= 0 && !levelAccessor.getBiome(blockPos).is(FOTTags.DEVILFISH_CANNOT_SPAWN) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        return isWater && blockPos.getY() <= 0 && !level.getBiome(blockPos).is(FOTTags.DEVILFISH_CANNOT_SPAWN);
     }
 
     public static AttributeSupplier.Builder createAttributes()

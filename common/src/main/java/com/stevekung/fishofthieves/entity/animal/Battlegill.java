@@ -154,11 +154,11 @@ public class Battlegill extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        var waterRules = (TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.OCEAN_MONUMENT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.PILLAGER_OUTPOST)) && levelAccessor.getFluidState(blockPos.below()).is(FluidTags.WATER) && levelAccessor.getBlockState(blockPos.above()).is(Blocks.WATER);
-        var inFeatures = levelAccessor.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) levelAccessor).isRaided(blockPos);
-        return waterRules || inFeatures;
+        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var isRaided = level.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) level).isRaided(blockPos);
+        return isWater && (isRaided || TerrainUtils.isInFeature((ServerLevel) level, blockPos, BuiltinStructures.OCEAN_MONUMENT) || TerrainUtils.isInFeature((ServerLevel) level, blockPos, BuiltinStructures.PILLAGER_OUTPOST));
     }
 
     public static AttributeSupplier.Builder createAttributes()

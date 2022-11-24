@@ -17,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -28,6 +29,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Ancientscale extends AbstractSchoolingThievesFish
@@ -112,10 +114,11 @@ public class Ancientscale extends AbstractSchoolingThievesFish
         return GLOW_BY_TYPE;
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, Random random)
     {
-        var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        return waterRules || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, BuiltinStructures.STRONGHOLD);
+        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
+        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        return isSurfaceWater || isWater && (TerrainUtils.isInFeature((ServerLevel) level, blockPos, BuiltinStructures.MINESHAFT) || TerrainUtils.isInFeature((ServerLevel) level, blockPos, BuiltinStructures.STRONGHOLD));
     }
 
     public enum Variant implements FishVariant
