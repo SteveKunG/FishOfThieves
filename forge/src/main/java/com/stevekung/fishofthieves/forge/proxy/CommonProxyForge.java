@@ -39,6 +39,7 @@ public class CommonProxyForge
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSpawnPlacement);
     }
 
     public void commonSetup(FMLCommonSetupEvent event)
@@ -52,7 +53,6 @@ public class CommonProxyForge
     {
     }
 
-    @SubscribeEvent
     public void registerSpawnPlacement(SpawnPlacementRegisterEvent event)
     {
         event.register(FOTEntities.SPLASHTAIL, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.OR);
