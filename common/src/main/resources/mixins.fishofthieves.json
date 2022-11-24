@@ -19,6 +19,7 @@
     "animal.MixinChicken",
     "animal.MixinOcelot",
     "entity.MixinLivingEntity",
+    "entity.monster.MixinGuardian",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour"
