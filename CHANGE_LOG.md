@@ -19,6 +19,7 @@
 * Ancientscales and Plentifins spawning inside structures improvement
 * Wreckers now spawns at Ocean Ruined Portal and swim around it
 * Fishes are now follow the players if holding any worms
+* Guardians now attacks Battlegills
 * Amber Plentifin spawning now require to see sky
 * Use POI for Honey Islehopper spawning, now requires Bee Nest/Hive within 8 blocks
 * Worms can now feed to fishes, depends on their type

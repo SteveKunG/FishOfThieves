@@ -18,7 +18,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
@@ -171,9 +171,10 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         return EARTHWORMS_FOOD.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        return TerrainUtils.isInFeature((ServerLevel) levelAccessor, blockPos, FOTTags.WRECKERS_SPAWN_IN) && levelAccessor.getFluidState(blockPos).is(FluidTags.WATER);
+        var isWater = level.getBlockState(blockPos).is(Blocks.WATER);
+        return isWater && (TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.WRECKERS_SPAWN_IN));
     }
 
     public static AttributeSupplier.Builder createAttributes()

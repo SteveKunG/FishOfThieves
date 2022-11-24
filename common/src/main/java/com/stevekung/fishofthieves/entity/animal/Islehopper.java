@@ -22,6 +22,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,6 +35,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
@@ -160,11 +163,18 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         return WORMS.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        var waterRules = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, levelAccessor, mobSpawnType, blockPos, random);
-        var continentalness = TerrainUtils.getContinentalness((ServerLevel) levelAccessor, blockPos);
-        var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) levelAccessor, blockPos);
-        return (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN) && waterRules || waterRules && blockPos.getY() <= 0;
+        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
+        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var biome = level.getBiome(blockPos);
+        var continentalness = TerrainUtils.getContinentalness((ServerLevel) level, blockPos);
+        var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) level, blockPos);
+
+        if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
+        {
+            return isSurfaceWater && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN);
+        }
+        return isWater && blockPos.getY() <= 0;
     }
 }
