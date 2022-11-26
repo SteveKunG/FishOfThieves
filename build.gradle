@@ -1,3 +1,6 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "com.github.johnrengelman.shadow" version "7.1.2"
@@ -72,9 +75,6 @@ task curseforgeModrinthForge(dependsOn: [
         ":forge:modrinth",
         ":forge:curseforge"
 ], group: "publishing")
-
-import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
 
 if (project.hasProperty("version_lib_dir")) {
     task updateVersionLib(group: "publishing") {

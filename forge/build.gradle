@@ -33,8 +33,8 @@ loom {
 
     runs {
         client {
-            vmArg("-Dmixin.debug.export=true")
-            vmArg("-Dmixin.hotSwap=true")
+            property "mixin.debug.export", "true"
+            property "mixin.hotSwap", "true"
         }
         data {
             name "Forge Data Generation"
@@ -76,6 +76,10 @@ processResources {
 
     filesMatching("META-INF/mods.toml") {
         expand "version": rootProject.mod_version
+    }
+
+    doLast {
+        project(":common").minifyJson(outputs)
     }
 }
 
