@@ -1,3 +1,6 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
 architectury {
     common(project.enabled_platforms.split(","))
 }
@@ -10,14 +13,6 @@ loom {
     }
 }
 
-dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-}
-
 sourceSets {
     main {
         resources {
@@ -26,6 +21,27 @@ sourceSets {
     }
 }
 
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
+}
+
+processResources {
+    doLast {
+        minifyJson(outputs)
+    }
+}
+
 jar {
     exclude ".cache"
+}
+
+def minifyJson(TaskOutputs outputs) {
+    fileTree(dir: outputs.files.asPath, include: ["**/*.json", "**/*.mcmeta"]).each {
+        def file -> file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+    }
 }

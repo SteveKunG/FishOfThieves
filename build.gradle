@@ -1,3 +1,6 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "com.github.johnrengelman.shadow" version "7.1.2" apply false
@@ -63,18 +66,18 @@ allprojects {
     }
 }
 
-task curseforgeModrinth(dependsOn: [
-        ":forge:modrinth",
-        ":forge:curseforge",
+task curseforgeModrinthFabric(dependsOn: [
         ":fabric:modrinth",
         ":fabric:curseforge"
-], group: "upload")
+], group: "publishing")
 
-import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
+task curseforgeModrinthForge(dependsOn: [
+        ":forge:modrinth",
+        ":forge:curseforge"
+], group: "publishing")
 
 if (project.hasProperty("version_lib_dir")) {
-    task updateVersionLib(group: "upload") {
+    task updateVersionLib(group: "publishing") {
         def versionFile = file("${version_lib_dir}/fish_of_thieves.json")
         def jsonBuilder = new JsonBuilder(new JsonSlurper().parseText(versionFile.text))
         def jsonElement = jsonBuilder.content
