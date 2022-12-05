@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -19,6 +20,7 @@ import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigge
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.Util;
 import net.minecraft.advancements.Advancement;
@@ -27,15 +29,19 @@ import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
-import net.minecraft.data.loot.BlockLoot;
-import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.packs.VanillaBlockLoot;
+import net.minecraft.data.loot.packs.VanillaEntityLoot;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
@@ -84,49 +90,51 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     //@formatter:on
 
     // Fabric Tags
-    private static final TagKey<Item> RAW_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", "raw_fishes"));
-    private static final TagKey<Item> COOKED_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("fabric", "cooked_fishes"));
+    private static final TagKey<Item> RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("fabric", "raw_fishes"));
+    private static final TagKey<Item> COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("fabric", "cooked_fishes"));
 
     // Croptopia
-    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("croptopia", "fishes"));
+    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("croptopia", "fishes"));
 
     // Immersive Weathering
-    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
+    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
-        dataGenerator.addProvider(ModelProvider::new);
+        var pack = dataGenerator.createPack();
+        pack.addProvider(ModelProvider::new);
 
-        dataGenerator.addProvider(RecipeProvider::new);
-        dataGenerator.addProvider(BlockLootProvider::new);
-        dataGenerator.addProvider(EntityLootProvider::new);
-        dataGenerator.addProvider(BlockTagsProvider::new);
-        dataGenerator.addProvider(ItemTagsProvider::new);
-        dataGenerator.addProvider(EntityTagsProvider::new);
-        dataGenerator.addProvider(BiomeTagsProvider::new);
-        dataGenerator.addProvider(StructureTagsProvider::new);
-        dataGenerator.addProvider(AdvancementProvider::new);
+        pack.addProvider(RecipeProvider::new);
+        pack.addProvider(BlockLootProvider::new);
+        pack.addProvider(CustomBlockLootProvider::new);
+        pack.addProvider(EntityLootProvider::new);
+        pack.addProvider(BlockTagsProvider::new);
+        pack.addProvider(ItemTagsProvider::new);
+        pack.addProvider(EntityTagsProvider::new);
+        pack.addProvider(BiomeTagsProvider::new);
+        pack.addProvider(StructureTagsProvider::new);
+        pack.addProvider(AdvancementProvider::new);
 
-        dataGenerator.addProvider(SplashtailVariantTagsProvider::new);
-        dataGenerator.addProvider(PondieVariantTagsProvider::new);
-        dataGenerator.addProvider(IslehopperVariantTagsProvider::new);
-        dataGenerator.addProvider(AncientscaleVariantTagsProvider::new);
-        dataGenerator.addProvider(PlentifinVariantTagsProvider::new);
-        dataGenerator.addProvider(WildsplashVariantTagsProvider::new);
-        dataGenerator.addProvider(DevilfishVariantTagsProvider::new);
-        dataGenerator.addProvider(BattlegillVariantTagsProvider::new);
-        dataGenerator.addProvider(WreckerVariantTagsProvider::new);
-        dataGenerator.addProvider(StormfishVariantTagsProvider::new);
+        pack.addProvider(SplashtailVariantTagsProvider::new);
+        pack.addProvider(PondieVariantTagsProvider::new);
+        pack.addProvider(IslehopperVariantTagsProvider::new);
+        pack.addProvider(AncientscaleVariantTagsProvider::new);
+        pack.addProvider(PlentifinVariantTagsProvider::new);
+        pack.addProvider(WildsplashVariantTagsProvider::new);
+        pack.addProvider(DevilfishVariantTagsProvider::new);
+        pack.addProvider(BattlegillVariantTagsProvider::new);
+        pack.addProvider(WreckerVariantTagsProvider::new);
+        pack.addProvider(StormfishVariantTagsProvider::new);
     }
 
     private static class ModelProvider extends FabricModelProvider
     {
         private static final ModelTemplate SPAWN_EGG = ModelTemplates.createItem("template_spawn_egg");
 
-        private ModelProvider(FabricDataGenerator dataGenerator)
+        private ModelProvider(FabricDataOutput dataOutput)
         {
-            super(dataGenerator);
+            super(dataOutput);
         }
 
         @Override
@@ -190,15 +198,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class RecipeProvider extends FabricRecipeProvider
     {
-        private RecipeProvider(FabricDataGenerator dataGenerator)
+        private RecipeProvider(FabricDataOutput dataOutput)
         {
-            super(dataGenerator);
+            super(dataOutput);
         }
 
         @Override
-        protected void generateRecipes(Consumer<FinishedRecipe> consumer)
+        public void buildRecipes(Consumer<FinishedRecipe> consumer)
         {
-            ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
             addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
             addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
@@ -214,17 +222,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         private static void addCookingRecipes(Consumer<FinishedRecipe> consumer, float xp, ItemLike rawFood, ItemLike cookedFood)
         {
-            SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), cookedFood, xp, 200).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
+            SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), RecipeCategory.FOOD, cookedFood, xp, 200).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
             simpleCookingRecipe(consumer, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, rawFood, cookedFood, xp);
             simpleCookingRecipe(consumer, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, rawFood, cookedFood, xp);
         }
     }
 
-    private static class BlockLootProvider extends SimpleFabricLootTableProvider
+    private static class CustomBlockLootProvider extends SimpleFabricLootTableProvider
     {
-        private BlockLootProvider(FabricDataGenerator dataGenerator)
+        private CustomBlockLootProvider(FabricDataOutput dataOutput)
         {
-            super(dataGenerator, LootContextParamSets.BLOCK);
+            super(dataOutput, LootContextParamSets.BLOCK);
         }
 
         //@formatter:off
@@ -241,14 +249,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             consumer.accept(FOTLootManager.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                    .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                    .when(VanillaBlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
             consumer.accept(FOTLootManager.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.GRUBS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                    .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                    .when(VanillaBlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
@@ -256,27 +264,45 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                            .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                            .when(VanillaBlockLoot.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER))))
                             .when(waterSurrounded))
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                            .when(BlockLoot.HAS_NO_SILK_TOUCH)
+                            .when(VanillaBlockLoot.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.ALWAYS_DROP_LEECHES)))));
-
-            consumer.accept(FOTBlocks.FISH_BONE.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.FISH_BONE));
         }
         //@formatter:on
+    }
+
+    private static class BlockLootProvider extends FabricBlockLootTableProvider
+    {
+        private BlockLootProvider(FabricDataOutput dataOutput)
+        {
+            super(dataOutput);
+        }
+
+        @Override
+        public void generate()
+        {
+            this.add(FOTBlocks.FISH_BONE, this.createSingleItemTable(FOTBlocks.FISH_BONE));
+        }
+
+        @Override
+        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        {
+            super.generate(consumer);
+        }
     }
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
     {
         private static final EntityPredicate.Builder TROPHY = EntityPredicate.Builder.entity().nbt(new NbtPredicate(Util.make(new CompoundTag(), tag -> tag.putBoolean(ThievesFish.TROPHY_TAG, true))));
 
-        private EntityLootProvider(FabricDataGenerator dataGenerator)
+        private EntityLootProvider(FabricDataOutput dataOutput)
         {
-            super(dataGenerator, LootContextParamSets.ENTITY);
+            super(dataOutput, LootContextParamSets.ENTITY);
         }
 
         //@formatter:off
@@ -294,7 +320,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -310,7 +336,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.PONDIE)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -326,7 +352,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -342,7 +368,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -358,7 +384,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -374,7 +400,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -390,7 +416,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -406,7 +432,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -422,7 +448,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.WRECKER)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -438,7 +464,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTItems.STORMFISH)
                                     .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, VanillaEntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
                     .withPool(LootPool.lootPool()
@@ -455,15 +481,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
-        private BlockTagsProvider(FabricDataGenerator dataGenerator)
+        private BlockTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator);
+            super(dataOutput, provider);
         }
 
         @Override
-        protected void generateTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
-            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
+            this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
 
             this.getOrCreateTagBuilder(FOTTags.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
@@ -476,13 +502,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     {
-        private ItemTagsProvider(FabricDataGenerator dataGenerator)
+        private ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator);
+            super(dataOutput, provider);
         }
 
         @Override
-        protected void generateTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
             var rawFishes = new Item[] {FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH};
             var cookedFishes = new Item[] {FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH};
@@ -509,17 +535,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
     {
-        private EntityTagsProvider(FabricDataGenerator dataGenerator)
+        private EntityTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator);
+            super(dataOutput, provider);
         }
 
         @Override
-        protected void generateTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
             var neutralFishes = new EntityType<?>[] {FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER};
             var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
-            this.tag(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
+            this.getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
 
@@ -529,15 +555,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class BiomeTagsProvider extends FabricTagProvider.DynamicRegistryTagProvider<Biome>
+    private static class BiomeTagsProvider extends FabricTagProvider<Biome>
     {
-        public BiomeTagsProvider(FabricDataGenerator dataGenerator)
+        public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator, Registry.BIOME_REGISTRY);
+            super(dataOutput, Registries.BIOME, provider);
         }
 
         @Override
-        protected void generateTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_SPLASHTAILS).forceAddTag(BiomeTags.IS_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.SPAWNS_PONDIES).forceAddTag(BiomeTags.IS_RIVER).forceAddTag(BiomeTags.IS_FOREST);
@@ -563,15 +589,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class StructureTagsProvider extends FabricTagProvider.DynamicRegistryTagProvider<Structure>
+    private static class StructureTagsProvider extends FabricTagProvider<Structure>
     {
-        public StructureTagsProvider(FabricDataGenerator dataGenerator)
+        public StructureTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator, Registry.STRUCTURE_REGISTRY);
+            super(dataOutput, Registries.STRUCTURE, provider);
         }
 
         @Override
-        protected void generateTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
             this.getOrCreateTagBuilder(FOTTags.BONE_ANCIENTSCALES_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
             this.getOrCreateTagBuilder(FOTTags.BONEDUST_PLENTIFINS_SPAWN_IN).add(BuiltinStructures.STRONGHOLD).forceAddTag(StructureTags.MINESHAFT);
@@ -599,9 +625,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             map.put(FOTItems.STORMFISH_BUCKET, FOTRegistry.STORMFISH_VARIANT);
         });
 
-        private AdvancementProvider(FabricDataGenerator dataGenerator)
+        private AdvancementProvider(FabricDataOutput dataOutput)
         {
-            super(dataGenerator);
+            super(dataOutput);
         }
 
         //@formatter:off
@@ -651,7 +677,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .rewards(AdvancementRewards.Builder.experience(2000))
                     .save(consumer, this.mod("legendary_fish_collectors"));
 
-            Advancement.Builder.advancement().parent(advancement).addCriterion(Registry.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
+            Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
                                     ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariant.LAVA).toString()))),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
@@ -661,7 +687,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             null, FrameType.TASK, true, true, false)
                     .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
-            var battlegill = Registry.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
+            var battlegill = BuiltInRegistries.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .addCriterion(battlegill + "_village_plains",
                             FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_PLAINS)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
@@ -713,10 +739,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .save(consumer, this.mod("play_jukebox_near_fish"));
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
-                    .addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
+                    .addCriterion(BuiltInRegistries.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
                                     ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(sallyName),
                                     EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
-                    .addCriterion(Registry.ITEM.getKey(Items.SALMON_BUCKET).getPath(), new PlacedBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Blocks.WATER, StatePropertiesPredicate.ANY, LocationPredicate.ANY, ItemPredicate.Builder.item().of(Items.SALMON_BUCKET).hasNbt(sallyName).build()))
+                    .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), new PlacedBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Blocks.WATER, StatePropertiesPredicate.ANY, LocationPredicate.ANY, ItemPredicate.Builder.item().of(Items.SALMON_BUCKET).hasNbt(sallyName).build()))
                     .display(Items.SALMON,
                             Component.translatable("advancements.fot.lost_sally.title"),
                             Component.translatable("advancements.fot.lost_sally.description"),
@@ -734,7 +760,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             for (var item : FISH_BUCKETS)
             {
-                builder.addCriterion(Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).build()));
+                builder.addCriterion(BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).build()));
             }
             return builder;
         }
@@ -745,7 +771,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             {
                 for (var variant : Sets.newTreeSet(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
                 {
-                    builder.addCriterion(variant.getPath() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
+                    builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                     {
                         compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
                         compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);

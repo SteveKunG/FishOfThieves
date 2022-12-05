@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
@@ -43,6 +44,6 @@ public class FOTLootItemConditions
 
     public static void init()
     {
-        Registry.register(Registry.LOOT_CONDITION_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "fot_location_check"), FOT_LOCATION_CHECK);
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "fot_location_check"), FOT_LOCATION_CHECK);
     }
 }

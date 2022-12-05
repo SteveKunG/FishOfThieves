@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.DevilfishModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
@@ -31,12 +31,12 @@ public class DevilfishRenderer extends ThievesFishRenderer<DevilfishVariant, Dev
         }
 
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+        poseStack.mulPose(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)
         {
             poseStack.translate(0.175f, 0.1f, 0.0f);
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
     }
 }

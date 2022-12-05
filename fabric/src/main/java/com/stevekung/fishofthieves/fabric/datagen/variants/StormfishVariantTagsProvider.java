@@ -1,21 +1,24 @@
 package com.stevekung.fishofthieves.fabric.datagen.variants;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.StormfishVariant;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.core.HolderLookup;
 
 public class StormfishVariantTagsProvider extends FabricTagProvider<StormfishVariant>
 {
-    public StormfishVariantTagsProvider(FabricDataGenerator dataGenerator)
+    public StormfishVariantTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
-        super(dataGenerator, FOTRegistry.STORMFISH_VARIANT);
+        super(dataOutput, FOTRegistry.STORMFISH_VARIANT_REGISTRY, provider);
     }
 
     @Override
-    protected void generateTags()
+    protected void addTags(HolderLookup.Provider provider)
     {
-        this.tag(FishVariantTags.DEFAULT_STORMFISH_SPAWNS).add(StormfishVariant.ANCIENT, StormfishVariant.SHORES, StormfishVariant.WILD, StormfishVariant.SHADOW, StormfishVariant.TWILIGHT);
+        this.getOrCreateTagBuilder(FishVariantTags.DEFAULT_STORMFISH_SPAWNS).add(StormfishVariant.ANCIENT, StormfishVariant.SHORES, StormfishVariant.WILD, StormfishVariant.SHADOW, StormfishVariant.TWILIGHT);
     }
 }

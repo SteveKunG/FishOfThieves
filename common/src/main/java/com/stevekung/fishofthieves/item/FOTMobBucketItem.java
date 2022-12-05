@@ -8,7 +8,7 @@ import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -48,7 +48,7 @@ public class FOTMobBucketItem extends MobBucketItem
 
         if (this.entityType.is(FOTTags.THIEVES_FISH_ENTITY_TYPE) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
         {
-            var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(compoundTag.getString(ThievesFish.VARIANT_TAG)).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+            var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(compoundTag.getString(ThievesFish.VARIANT_TAG)).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 
             if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
             {

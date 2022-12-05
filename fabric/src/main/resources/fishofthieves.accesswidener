@@ -1,12 +1,13 @@
 accessWidener v1 named
-accessible field net/minecraft/data/loot/EntityLoot ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
+accessible field net/minecraft/data/loot/EntityLootSubProvider ENTITY_ON_FIRE Lnet/minecraft/advancements/critereon/EntityPredicate$Builder;
 accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
-accessible field net/minecraft/data/loot/BlockLoot HAS_NO_SILK_TOUCH Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
+accessible field net/minecraft/data/loot/BlockLootSubProvider HAS_NO_SILK_TOUCH Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
 
 accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
-accessible method net/minecraft/core/Registry registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry$RegistryBootstrap;)Lnet/minecraft/core/Registry;
-accessible method net/minecraft/core/Registry createRegistryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/core/registries/Registries createRegistryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
 accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
-accessible class net/minecraft/core/Registry$RegistryBootstrap
+accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
+accessible class net/minecraft/world/item/CreativeModeTab$Output

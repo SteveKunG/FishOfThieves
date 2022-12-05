@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.AncientscaleModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Ancientscale;
@@ -31,12 +31,12 @@ public class AncientscaleRenderer extends ThievesFishRenderer<AncientscaleVarian
         }
 
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+        poseStack.mulPose(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)
         {
             poseStack.translate(0.165f, 0.1f, 0.1f);
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
     }
 }

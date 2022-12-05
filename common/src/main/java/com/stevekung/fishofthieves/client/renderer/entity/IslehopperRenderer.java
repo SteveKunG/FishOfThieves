@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.IslehopperModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Islehopper;
@@ -31,13 +31,13 @@ public class IslehopperRenderer extends ThievesFishRenderer<IslehopperVariant, I
         }
 
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
+        poseStack.mulPose(Axis.YP.rotationDegrees(degree));
         poseStack.translate(0.0f, Mth.cos(ageInTicks * 0.1f) * 0.01f, 0.0f);
 
         if (!inWater)
         {
             poseStack.translate(0.15f, 0.1f, 0.0f);
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
     }
 }

@@ -8,7 +8,7 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -25,7 +25,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         var blockPos = new BlockPos(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var isRaided = level.isRaided(blockPos);
-        var structureFeatureHolderSet = level.registryAccess().registryOrThrow(Registry.STRUCTURE_REGISTRY).getTag(this.structure);
+        var structureFeatureHolderSet = level.registryAccess().registryOrThrow(Registries.STRUCTURE).getTag(this.structure);
         return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.structure == null || structureFeatureHolderSet.isEmpty() || structureFeatureHolderSet.isPresent() && loaded && this.structureMatched(level, blockPos, structureFeatureHolderSet.get())) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.hasRaids == null || loaded && this.hasRaids == isRaided);
     }
 
@@ -82,12 +82,12 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         if (jsonObject.has("biome"))
         {
             var string = GsonHelper.getAsString(jsonObject, "biome");
-            biome = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(string));
+            biome = TagKey.create(Registries.BIOME, new ResourceLocation(string));
         }
         if (jsonObject.has("structure"))
         {
             var string = GsonHelper.getAsString(jsonObject, "structure");
-            structure = TagKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(string));
+            structure = TagKey.create(Registries.STRUCTURE, new ResourceLocation(string));
         }
         if (jsonObject.has("continentalness"))
         {

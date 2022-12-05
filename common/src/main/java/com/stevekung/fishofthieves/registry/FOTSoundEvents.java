@@ -74,7 +74,7 @@ public class FOTSoundEvents
 
     private static SoundEvent create(String key)
     {
-        return new SoundEvent(new ResourceLocation(FishOfThieves.MOD_ID, key));
+        return SoundEvent.createVariableRangeEvent(new ResourceLocation(FishOfThieves.MOD_ID, key));
     }
 
     private static void register(SoundEvent soundEvent)

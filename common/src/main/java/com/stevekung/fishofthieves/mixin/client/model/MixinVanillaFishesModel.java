@@ -66,9 +66,9 @@ public class MixinVanillaFishesModel<T extends Entity> implements HeadphoneModel
         }
         else if (entity instanceof TropicalFish tropicalFish)
         {
-            var baseVariant = tropicalFish.getBaseVariant();
+            var baseVariant = tropicalFish.getVariant().base();
 
-            if (baseVariant == 0)
+            if (baseVariant == TropicalFish.Base.SMALL)
             {
                 y = 0.275f;
                 z = -0.08f;

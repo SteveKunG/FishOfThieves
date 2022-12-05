@@ -1,21 +1,24 @@
 package com.stevekung.fishofthieves.fabric.datagen.variants;
 
+import java.util.concurrent.CompletableFuture;
+
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.core.HolderLookup;
 
 public class DevilfishVariantTagsProvider extends FabricTagProvider<DevilfishVariant>
 {
-    public DevilfishVariantTagsProvider(FabricDataGenerator dataGenerator)
+    public DevilfishVariantTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
-        super(dataGenerator, FOTRegistry.DEVILFISH_VARIANT);
+        super(dataOutput, FOTRegistry.DEVILFISH_VARIANT_REGISTRY, provider);
     }
 
     @Override
-    protected void generateTags()
+    protected void addTags(HolderLookup.Provider provider)
     {
-        this.tag(FishVariantTags.DEFAULT_DEVILFISH_SPAWNS).add(DevilfishVariant.ASHEN, DevilfishVariant.SEASHELL, DevilfishVariant.LAVA, DevilfishVariant.FORSAKEN, DevilfishVariant.FIRELIGHT);
+        this.getOrCreateTagBuilder(FishVariantTags.DEFAULT_DEVILFISH_SPAWNS).add(DevilfishVariant.ASHEN, DevilfishVariant.SEASHELL, DevilfishVariant.LAVA, DevilfishVariant.FORSAKEN, DevilfishVariant.FIRELIGHT);
     }
 }
