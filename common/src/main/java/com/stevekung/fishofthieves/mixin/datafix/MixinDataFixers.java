@@ -46,6 +46,28 @@ public class MixinDataFixers
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_battlegill", "fishofthieves:recipes/food/cooked_battlegill")
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_wrecker", "fishofthieves:recipes/food/cooked_wrecker")
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_stormfish", "fishofthieves:recipes/food/cooked_stormfish")
+
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_splashtail_from_smoking", "fishofthieves:recipes/food/cooked_splashtail_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_pondie_from_smoking", "fishofthieves:recipes/food/cooked_pondie_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_islehopper_from_smoking", "fishofthieves:recipes/food/cooked_islehopper_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_plentifin_from_smoking", "fishofthieves:recipes/food/cooked_plentifin_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_ancientscale_from_smoking", "fishofthieves:recipes/food/cooked_ancientscale_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_wildsplash_from_smoking", "fishofthieves:recipes/food/cooked_wildsplash_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_devilfish_from_smoking", "fishofthieves:recipes/food/cooked_devilfish_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_battlegill_from_smoking", "fishofthieves:recipes/food/cooked_battlegill_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_wrecker_from_smoking", "fishofthieves:recipes/food/cooked_wrecker_from_smoking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_stormfish_from_smoking", "fishofthieves:recipes/food/cooked_stormfish_from_smoking")
+
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_splashtail_from_campfire_cooking", "fishofthieves:recipes/food/cooked_splashtail_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_pondie_from_campfire_cooking", "fishofthieves:recipes/food/cooked_pondie_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_islehopper_from_campfire_cooking", "fishofthieves:recipes/food/cooked_islehopper_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_plentifin_from_campfire_cooking", "fishofthieves:recipes/food/cooked_plentifin_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_ancientscale_from_campfire_cooking", "fishofthieves:recipes/food/cooked_ancientscale_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_wildsplash_from_campfire_cooking", "fishofthieves:recipes/food/cooked_wildsplash_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_devilfish_from_campfire_cooking", "fishofthieves:recipes/food/cooked_devilfish_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_battlegill_from_campfire_cooking", "fishofthieves:recipes/food/cooked_battlegill_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_wrecker_from_campfire_cooking", "fishofthieves:recipes/food/cooked_wrecker_from_campfire_cooking")
+                .put("fishofthieves:recipes/fishofthieves.main/cooked_stormfish_from_campfire_cooking", "fishofthieves:recipes/food/cooked_stormfish_from_campfire_cooking")
                 .build())));
         //@formatter:on
     }
