@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variants.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -104,6 +105,58 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
+        event.register(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
+
+        event.register(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, helper ->
+        {
+            SplashtailVariant.init();
+            FOTRegistry.SPLASHTAIL_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, registry -> SplashtailVariant.RUBY);
+        });
+        event.register(FOTRegistries.PONDIE_VARIANT_REGISTRY, helper ->
+        {
+            PondieVariant.init();
+            FOTRegistry.PONDIE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.PONDIE_VARIANT_REGISTRY, registry -> PondieVariant.CHARCOAL);
+        });
+        event.register(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, helper ->
+        {
+            PondieVariant.init();
+            FOTRegistry.ISLEHOPPER_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, registry -> IslehopperVariant.STONE);
+        });
+        event.register(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, helper ->
+        {
+            AncientscaleVariant.init();
+            FOTRegistry.ANCIENTSCALE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, registry -> AncientscaleVariant.ALMOND);
+        });
+        event.register(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, helper ->
+        {
+            PlentifinVariant.init();
+            FOTRegistry.PLENTIFIN_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, registry -> PlentifinVariant.OLIVE);
+        });
+        event.register(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, helper ->
+        {
+            WildsplashVariant.init();
+            FOTRegistry.WILDSPLASH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, registry -> WildsplashVariant.RUSSET);
+        });
+        event.register(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, helper ->
+        {
+            DevilfishVariant.init();
+            FOTRegistry.DEVILFISH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, registry -> DevilfishVariant.ASHEN);
+        });
+        event.register(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, helper ->
+        {
+            BattlegillVariant.init();
+            FOTRegistry.BATTLEGILL_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, registry -> BattlegillVariant.JADE);
+        });
+        event.register(FOTRegistries.WRECKER_VARIANT_REGISTRY, helper ->
+        {
+            WreckerVariant.init();
+            FOTRegistry.WRECKER_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.WRECKER_VARIANT_REGISTRY, registry -> WreckerVariant.ROSE);
+        });
+        event.register(FOTRegistries.STORMFISH_VARIANT_REGISTRY, helper ->
+        {
+            StormfishVariant.init();
+            FOTRegistry.STORMFISH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.STORMFISH_VARIANT_REGISTRY, registry -> StormfishVariant.ANCIENT);
+        });
     }
 
     @SubscribeEvent

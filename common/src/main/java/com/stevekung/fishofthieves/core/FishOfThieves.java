@@ -5,10 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variants.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -32,19 +29,6 @@ public class FishOfThieves
 
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
-
-        SplashtailVariant.init();
-        PondieVariant.init();
-        IslehopperVariant.init();
-        AncientscaleVariant.init();
-        PlentifinVariant.init();
-        WildsplashVariant.init();
-        DevilfishVariant.init();
-        BattlegillVariant.init();
-        WreckerVariant.init();
-        StormfishVariant.init();
-
-        FOTDataSerializers.init();
     }
 
     public static void initCommon()

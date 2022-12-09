@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variants.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -34,6 +35,20 @@ public class FishOfThievesFabric implements ModInitializer
         FOTEntities.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
+
+        FOTRegistry.init();
+        FOTDataSerializers.init();
+
+        SplashtailVariant.init();
+        PondieVariant.init();
+        IslehopperVariant.init();
+        AncientscaleVariant.init();
+        PlentifinVariant.init();
+        WildsplashVariant.init();
+        DevilfishVariant.init();
+        BattlegillVariant.init();
+        WreckerVariant.init();
+        StormfishVariant.init();
 
         FishOfThieves.FOT_TAB = FabricItemGroup.builder(new ResourceLocation(FishOfThieves.MOD_ID, "main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems).build();
 
