@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen.variants;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.PondieVariant;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -13,7 +13,7 @@ public class PondieVariantTagsProvider extends FabricTagProvider<PondieVariant>
 {
     public PondieVariantTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
-        super(dataOutput, FOTRegistry.PONDIE_VARIANT_REGISTRY, provider);
+        super(dataOutput, FOTRegistries.PONDIE_VARIANT_REGISTRY, provider);
     }
 
     @Override

@@ -6,11 +6,10 @@ import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.core.Registry;
+import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.resources.ResourceLocation;
 
 public record AncientscaleVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
@@ -50,7 +49,7 @@ public record AncientscaleVariant(Supplier<Predicate<SpawnConditionContext>> con
 
     private static void register(String key, AncientscaleVariant variant)
     {
-        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        FOTPlatform.registerAncientscaleVariant(key, variant);
     }
 
     private static AncientscaleVariant create(Predicate<SpawnConditionContext> condition, ResourceLocation texture)

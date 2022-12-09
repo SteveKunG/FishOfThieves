@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.variants.*;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -28,14 +27,12 @@ public class FishOfThieves
 
     public static void init()
     {
-        FOTSoundEvents.init();
-        FOTCriteriaTriggers.init();
         AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
         FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
-    }
 
-    public static void initCommon()
-    {
+        FOTSoundEvents.init();
+        FOTCriteriaTriggers.init();
+
         SplashtailVariant.init();
         PondieVariant.init();
         IslehopperVariant.init();
@@ -48,7 +45,10 @@ public class FishOfThieves
         StormfishVariant.init();
 
         FOTDataSerializers.init();
+    }
 
+    public static void initCommon()
+    {
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);

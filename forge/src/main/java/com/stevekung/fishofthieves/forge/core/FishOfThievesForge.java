@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variants.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -38,6 +39,17 @@ public class FishOfThievesForge
     public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
+    public static final DeferredRegister<SplashtailVariant> SPLASHTAIL_VARIANT = DeferredRegister.create(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<PondieVariant> PONDIE_VARIANT = DeferredRegister.create(FOTRegistries.PONDIE_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<IslehopperVariant> ISLEHOPPER_VARIANT = DeferredRegister.create(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<AncientscaleVariant> ANCIENTSCALE_VARIANT = DeferredRegister.create(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<PlentifinVariant> PLENTIFIN_VARIANT = DeferredRegister.create(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<WildsplashVariant> WILDSPLASH_VARIANT = DeferredRegister.create(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<DevilfishVariant> DEVILFISH_VARIANT = DeferredRegister.create(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<BattlegillVariant> BATTLEGILL_VARIANT = DeferredRegister.create(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<WreckerVariant> WRECKER_VARIANT = DeferredRegister.create(FOTRegistries.WRECKER_VARIANT_REGISTRY, "minecraft");
+    public static final DeferredRegister<StormfishVariant> STORMFISH_VARIANT = DeferredRegister.create(FOTRegistries.STORMFISH_VARIANT_REGISTRY, "minecraft");
+
     public static CommonProxyForge PROXY;
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -54,6 +66,16 @@ public class FishOfThievesForge
         SOUND_EVENTS.register(modEventBus);
         BIOME_MODIFIERS.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
+        SPLASHTAIL_VARIANT.register(modEventBus);
+        PONDIE_VARIANT.register(modEventBus);
+        ISLEHOPPER_VARIANT.register(modEventBus);
+        ANCIENTSCALE_VARIANT.register(modEventBus);
+        PLENTIFIN_VARIANT.register(modEventBus);
+        WILDSPLASH_VARIANT.register(modEventBus);
+        DEVILFISH_VARIANT.register(modEventBus);
+        BATTLEGILL_VARIANT.register(modEventBus);
+        WRECKER_VARIANT.register(modEventBus);
+        STORMFISH_VARIANT.register(modEventBus);
 
         FishOfThieves.init();
 

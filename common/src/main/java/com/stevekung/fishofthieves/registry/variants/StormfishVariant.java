@@ -6,12 +6,11 @@ import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import net.minecraft.core.Registry;
+import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LightLayer;
 
@@ -52,7 +51,7 @@ public record StormfishVariant(Supplier<Predicate<SpawnConditionContext>> condit
 
     private static void register(String key, StormfishVariant variant)
     {
-        Registry.register(FOTRegistry.STORMFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        FOTPlatform.registerStormfishVariant(key, variant);
     }
 
     private static StormfishVariant create(Predicate<SpawnConditionContext> condition, ResourceLocation texture)

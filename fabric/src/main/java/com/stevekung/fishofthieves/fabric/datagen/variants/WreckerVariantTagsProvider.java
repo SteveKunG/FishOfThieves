@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen.variants;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.WreckerVariant;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -13,7 +13,7 @@ public class WreckerVariantTagsProvider extends FabricTagProvider<WreckerVariant
 {
     public WreckerVariantTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
-        super(dataOutput, FOTRegistry.WRECKER_VARIANT_REGISTRY, provider);
+        super(dataOutput, FOTRegistries.WRECKER_VARIANT_REGISTRY, provider);
     }
 
     @Override

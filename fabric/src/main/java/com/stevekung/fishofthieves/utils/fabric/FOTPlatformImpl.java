@@ -1,9 +1,8 @@
 package com.stevekung.fishofthieves.utils.fabric;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.registry.FOTDisplayItems;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.variants.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.CriteriaAccessor;
 import net.minecraft.advancements.CriterionTrigger;
@@ -16,13 +15,12 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 public class FOTPlatformImpl
 {
+    @SuppressWarnings("UnstableApiUsage")
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
         CriteriaAccessor.callRegister(trigger);
@@ -52,5 +50,55 @@ public class FOTPlatformImpl
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
         Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.getLocation().getPath(), soundEvent);
+    }
+
+    public static void registerSplashtailVariant(String key, SplashtailVariant variant)
+    {
+        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerPondieVariant(String key, PondieVariant variant)
+    {
+        Registry.register(FOTRegistry.PONDIE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerIslehopperVariant(String key, IslehopperVariant variant)
+    {
+        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerAncientscaleVariant(String key, AncientscaleVariant variant)
+    {
+        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerPlentifinVariant(String key, PlentifinVariant variant)
+    {
+        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerWildsplashVariant(String key, WildsplashVariant variant)
+    {
+        Registry.register(FOTRegistry.WILDSPLASH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerDevilfishVariant(String key, DevilfishVariant variant)
+    {
+        Registry.register(FOTRegistry.DEVILFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerBattlegillVariant(String key, BattlegillVariant variant)
+    {
+        Registry.register(FOTRegistry.BATTLEGILL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerWreckerVariant(String key, WreckerVariant variant)
+    {
+        Registry.register(FOTRegistry.WRECKER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+    }
+
+    public static void registerStormfishVariant(String key, StormfishVariant variant)
+    {
+        Registry.register(FOTRegistry.STORMFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
     }
 }
