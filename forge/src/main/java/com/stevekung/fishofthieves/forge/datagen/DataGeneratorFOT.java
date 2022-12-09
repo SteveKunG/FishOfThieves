@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.forge.datagen;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
@@ -10,12 +10,13 @@ import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
-import net.minecraft.core.Registry;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -30,27 +31,29 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(modid = FishOfThieves.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGeneratorFOT
 {
-    private static final TagKey<Item> RAW_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", "raw_fishes"));
-    private static final TagKey<Item> COOKED_FISHES = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", "cooked_fishes"));
+    private static final TagKey<Item> RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "raw_fishes"));
+    private static final TagKey<Item> COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "cooked_fishes"));
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event)
     {
         var dataGenerator = event.getGenerator();
+        var packOutput = dataGenerator.getPackOutput();
+        var provider = event.getLookupProvider();
         var helper = event.getExistingFileHelper();
-        dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(dataGenerator, FishOfThieves.MOD_ID, helper));
-        dataGenerator.addProvider(event.includeServer(), new FishingReal(dataGenerator));
+        dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(packOutput, provider, FishOfThieves.MOD_ID, helper));
+        dataGenerator.addProvider(event.includeServer(), new FishingReal(packOutput, provider));
     }
 
     private static class ForgeItemTags extends ItemTagsProvider
     {
-        public ForgeItemTags(DataGenerator dataGenerator, String modId, @Nullable ExistingFileHelper existingFileHelper)
+        public ForgeItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, String modId, @Nullable ExistingFileHelper existingFileHelper)
         {
-            super(dataGenerator, new BlockTagsProvider(dataGenerator, modId, existingFileHelper), modId, existingFileHelper);
+            super(output, provider, new VanillaBlockTagsProvider(output, provider), modId, existingFileHelper);
         }
 
         @Override
-        protected void addTags()
+        protected void addTags(HolderLookup.Provider provider)
         {
             var rawFishes = new Item[] {FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH};
             var cookedFishes = new Item[] {FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH};
@@ -62,9 +65,9 @@ public class DataGeneratorFOT
 
     private static class FishingReal extends FishingRealProvider
     {
-        public FishingReal(DataGenerator dataGenerator)
+        public FishingReal(PackOutput output, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataGenerator);
+            super(output, provider);
         }
 
         @Override
@@ -86,11 +89,13 @@ public class DataGeneratorFOT
     private static abstract class FishingRealProvider implements DataProvider
     {
         private final Map<ResourceLocation, FishingRealBuilder> builders = Maps.newLinkedHashMap();
-        private final DataGenerator dataGenerator;
+        private final PackOutput output;
+        private final CompletableFuture<HolderLookup.Provider> provider;
 
-        public FishingRealProvider(DataGenerator dataGenerator)
+        public FishingRealProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider)
         {
-            this.dataGenerator = dataGenerator;
+            this.output = output;
+            this.provider = provider;
         }
 
         public abstract void addFishingReal();
@@ -107,23 +112,17 @@ public class DataGeneratorFOT
         }
 
         @Override
-        public void run(CachedOutput cachedOutput)
+        public CompletableFuture<?> run(CachedOutput cachedOutput)
         {
-            this.builders.clear();
-            this.addFishingReal();
-            this.builders.forEach((resourceLocation, builder) ->
+            return this.provider.thenCompose(provider ->
             {
-                var jsonObject = builder.serializeToJson();
-                var path = this.getPath(resourceLocation);
-
-                try
-                {
-                    DataProvider.saveStable(cachedOutput, jsonObject, path);
-                }
-                catch (IOException e)
-                {
-                    FishOfThieves.LOGGER.error("Couldn't save FishingReal to {}", path, e);
-                }
+                this.builders.clear();
+                this.addFishingReal();
+                return CompletableFuture.allOf((CompletableFuture<?>) this.builders.entrySet().stream().map(entry -> {
+                    var jsonObject = entry.getValue().serializeToJson();
+                    var path = this.getPath(entry.getKey());
+                    return DataProvider.saveStable(cachedOutput, jsonObject, path);
+                }));
             });
         }
 
@@ -135,7 +134,7 @@ public class DataGeneratorFOT
 
         private Path getPath(ResourceLocation id)
         {
-            return this.dataGenerator.getOutputFolder().resolve("data/fishingreal/fishing/" + id.getPath() + ".json");
+            return this.output.getOutputFolder().resolve("data/fishingreal/fishing/" + id.getPath() + ".json");
         }
 
         record FishingRealBuilder(Item item, EntityType<?> entityType, @Nullable CompoundTag compoundTag)

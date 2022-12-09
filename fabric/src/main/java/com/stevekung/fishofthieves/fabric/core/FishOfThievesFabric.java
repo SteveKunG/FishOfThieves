@@ -7,15 +7,18 @@ import com.stevekung.fishofthieves.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -31,6 +34,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTEntities.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
+
+        FishOfThieves.FOT_TAB = FabricItemGroup.builder(new ResourceLocation(FishOfThieves.MOD_ID, "main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems).build();
 
         CompostingChanceRegistry.INSTANCE.add(FOTItems.EARTHWORMS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);

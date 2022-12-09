@@ -1,8 +1,6 @@
 package com.stevekung.fishofthieves.utils.forge;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
@@ -11,25 +9,11 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 public class FOTPlatformImpl
 {
-    public static CreativeModeTab createCreativeTab()
-    {
-        return new CreativeModeTab("fishofthieves.main")
-        {
-            @Override
-            public ItemStack makeIcon()
-            {
-                return new ItemStack(FOTItems.SPLASHTAIL);
-            }
-        };
-    }
-
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
         CriteriaTriggers.register(trigger);
@@ -48,7 +32,7 @@ public class FOTPlatformImpl
     public static void registerBlock(String key, Block block)
     {
         FishOfThievesForge.BLOCK.register(key, () -> block);
-        registerItem(key, new BlockItem(block, new Item.Properties().tab(FishOfThieves.FOT_TAB)));
+        registerItem(key, new BlockItem(block, new Item.Properties()));
     }
 
     public static void registerItem(String key, Item item)

@@ -7,17 +7,17 @@ import com.stevekung.fishofthieves.forge.datagen.FOTBiomeModifier;
 import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
+import com.stevekung.fishofthieves.registry.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.StructureModifier;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -82,5 +82,15 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
+    }
+
+    @SubscribeEvent
+    public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event)
+    {
+        FishOfThieves.FOT_TAB = event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), builder -> builder
+                .icon(() -> new ItemStack(FOTItems.SPLASHTAIL))
+                .title(Component.translatable("itemGroup.fishofthieves.main"))
+                .withLabelColor(0x00FF00)
+                .displayItems(FOTDisplayItems::displayItems));
     }
 }

@@ -13,12 +13,6 @@ import net.minecraft.world.level.block.Block;
 public class FOTPlatform
 {
     @ExpectPlatform
-    public static CreativeModeTab createCreativeTab()
-    {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
         throw new AssertionError();

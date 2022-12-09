@@ -23,11 +23,6 @@ import net.minecraft.world.level.block.Block;
 
 public class FOTPlatformImpl
 {
-    public static CreativeModeTab createCreativeTab()
-    {
-        return FabricItemGroup.builder(new ResourceLocation(FishOfThieves.MOD_ID, "main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems).build();
-    }
-
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
         CriteriaAccessor.callRegister(trigger);
