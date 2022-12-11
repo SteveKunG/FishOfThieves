@@ -165,7 +165,6 @@ public class FishOfThievesForge
         FishOfThieves.FOT_TAB = event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), builder -> builder
                 .icon(() -> new ItemStack(FOTItems.SPLASHTAIL))
                 .title(Component.translatable("itemGroup.fishofthieves.main"))
-                .withLabelColor(0x00FF00)
                 .displayItems(FOTDisplayItems::displayItems));
     }
 }

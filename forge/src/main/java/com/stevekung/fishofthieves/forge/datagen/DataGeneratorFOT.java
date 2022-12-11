@@ -118,11 +118,13 @@ public class DataGeneratorFOT
             {
                 this.builders.clear();
                 this.addFishingReal();
-                return CompletableFuture.allOf((CompletableFuture<?>) this.builders.entrySet().stream().map(entry -> {
+
+                return CompletableFuture.allOf(this.builders.entrySet().stream().map(entry ->
+                {
                     var jsonObject = entry.getValue().serializeToJson();
                     var path = this.getPath(entry.getKey());
                     return DataProvider.saveStable(cachedOutput, jsonObject, path);
-                }));
+                }).toArray(CompletableFuture[]::new));
             });
         }
 
