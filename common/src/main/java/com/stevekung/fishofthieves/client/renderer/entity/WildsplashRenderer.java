@@ -22,8 +22,8 @@ public class WildsplashRenderer extends ThievesFishRenderer<WildsplashVariant, W
         super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
         var inWater = entity.isInWater() || entity.isNoFlip();
         var bodyRotBase = 1.0f;
-        var baseDegree = entity.isPartying() ? -20.0f : 5.0f;
-        var bodyRotSpeed = entity.isPartying() ? inWater ? 2.0f : 1.0f : 0.7f;
+        var baseDegree = entity.isDancing() ? -20.0f : 5.0f;
+        var bodyRotSpeed = entity.isDancing() ? inWater ? 2.0f : 1.0f : 0.7f;
 
         if (!inWater)
         {
