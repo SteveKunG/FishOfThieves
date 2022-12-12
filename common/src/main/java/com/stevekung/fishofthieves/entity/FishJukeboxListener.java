@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
+import net.minecraft.world.phys.Vec3;
 
 public class FishJukeboxListener implements GameEventListener
 {
@@ -32,16 +33,16 @@ public class FishJukeboxListener implements GameEventListener
     }
 
     @Override
-    public boolean handleGameEvent(ServerLevel level, GameEvent.Message message)
+    public boolean handleGameEvent(ServerLevel serverLevel, GameEvent gameEvent, GameEvent.Context context, Vec3 vec3)
     {
-        if (message.gameEvent() == GameEvent.JUKEBOX_PLAY)
+        if (gameEvent == GameEvent.JUKEBOX_PLAY)
         {
-            this.fish.setJukeboxPlaying(new BlockPos(message.source()), true);
+            this.fish.setJukeboxPlaying(new BlockPos(vec3), true);
             return true;
         }
-        if (message.gameEvent() == GameEvent.JUKEBOX_STOP_PLAY)
+        if (gameEvent == GameEvent.JUKEBOX_STOP_PLAY)
         {
-            this.fish.setJukeboxPlaying(new BlockPos(message.source()), false);
+            this.fish.setJukeboxPlaying(new BlockPos(vec3), false);
             return true;
         }
         return false;
