@@ -65,25 +65,24 @@ public class FOTItems
         register("leeches", LEECHES);
 
         register("splashtail", SPLASHTAIL);
-        register("pondie", PONDIE);
-        register("islehopper", ISLEHOPPER);
-        register("ancientscale", ANCIENTSCALE);
-        register("plentifin", PLENTIFIN);
-        register("wildsplash", WILDSPLASH);
-        register("devilfish", DEVILFISH);
-        register("battlegill", BATTLEGILL);
-        register("wrecker", WRECKER);
-        register("stormfish", STORMFISH);
-
         register("cooked_splashtail", COOKED_SPLASHTAIL);
+        register("pondie", PONDIE);
         register("cooked_pondie", COOKED_PONDIE);
+        register("islehopper", ISLEHOPPER);
         register("cooked_islehopper", COOKED_ISLEHOPPER);
+        register("ancientscale", ANCIENTSCALE);
         register("cooked_ancientscale", COOKED_ANCIENTSCALE);
+        register("plentifin", PLENTIFIN);
         register("cooked_plentifin", COOKED_PLENTIFIN);
+        register("wildsplash", WILDSPLASH);
         register("cooked_wildsplash", COOKED_WILDSPLASH);
+        register("devilfish", DEVILFISH);
         register("cooked_devilfish", COOKED_DEVILFISH);
+        register("battlegill", BATTLEGILL);
         register("cooked_battlegill", COOKED_BATTLEGILL);
+        register("wrecker", WRECKER);
         register("cooked_wrecker", COOKED_WRECKER);
+        register("stormfish", STORMFISH);
         register("cooked_stormfish", COOKED_STORMFISH);
 
         register("splashtail_bucket", SPLASHTAIL_BUCKET);
