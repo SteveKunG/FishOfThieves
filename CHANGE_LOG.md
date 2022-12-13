@@ -2,6 +2,7 @@
 
 ### Please report if you found the issues!
 
+* Now support only 1.19.2
 * Added Earthworms, Grubs, Leeches
 * Added Fish Bone Block/Item
 * Added Immersive Weathering compatibility, closed #13
@@ -16,6 +17,7 @@
 * Added Fish Bone drop to fishes
 * Allow modders to add their own fish variant
 * Added NoFlip Tag
+* Group raw fish and cooked fish together
 * Ancientscales and Plentifins spawning inside structures improvement
 * Wreckers now spawns at Ocean Ruined Portal and swim around it
 * Fishes are now follow the players if holding any worms

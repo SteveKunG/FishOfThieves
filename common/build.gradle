@@ -1,5 +1,6 @@
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
+import groovy.json.StringEscapeUtils
 
 architectury {
     common(project.enabled_platforms.split(","))
@@ -42,6 +43,6 @@ jar {
 
 def minifyJson(TaskOutputs outputs) {
     fileTree(dir: outputs.files.asPath, include: ["**/*.json", "**/*.mcmeta"]).each {
-        def file -> file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+        file -> file.text = StringEscapeUtils.unescapeJavaScript(JsonOutput.toJson(new JsonSlurper().parse(file)))
     }
 }
