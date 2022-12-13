@@ -2,7 +2,7 @@
 
 ### Please report if you found the issues!
 
-* Now support only 1.19.2
+* Now support only 1.19.3
 * Added Earthworms, Grubs, Leeches
 * Added Fish Bone Block/Item
 * Added Immersive Weathering compatibility, closed #13
