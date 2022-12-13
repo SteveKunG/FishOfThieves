@@ -5,12 +5,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.*;
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
+import com.stevekung.fishofthieves.registry.FOTDisplayItems;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
 
@@ -24,9 +28,6 @@ public class FishOfThieves
 
     public static void init()
     {
-        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
-        FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
-
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
     }
@@ -44,6 +45,12 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
+    }
+
+    public static void registerConfig()
+    {
+        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
+        FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
     }
 
     public static void getTierOneTrades(List<VillagerTrades.ItemListing> list)
@@ -72,5 +79,10 @@ public class FishOfThieves
         list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 6, 10, 20));
         list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 5, 12, 25));
         list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 5, 12, 25));
+    }
+
+    public static CreativeModeTab.Builder getCreativeTabBuilder(CreativeModeTab.Builder builder)
+    {
+        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems);
     }
 }

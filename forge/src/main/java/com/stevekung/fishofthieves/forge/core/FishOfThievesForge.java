@@ -8,8 +8,6 @@ import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.*;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -40,17 +38,6 @@ public class FishOfThievesForge
     public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
-    public static final DeferredRegister<SplashtailVariant> SPLASHTAIL_VARIANT = DeferredRegister.create(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<PondieVariant> PONDIE_VARIANT = DeferredRegister.create(FOTRegistries.PONDIE_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<IslehopperVariant> ISLEHOPPER_VARIANT = DeferredRegister.create(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<AncientscaleVariant> ANCIENTSCALE_VARIANT = DeferredRegister.create(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<PlentifinVariant> PLENTIFIN_VARIANT = DeferredRegister.create(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<WildsplashVariant> WILDSPLASH_VARIANT = DeferredRegister.create(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<DevilfishVariant> DEVILFISH_VARIANT = DeferredRegister.create(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<BattlegillVariant> BATTLEGILL_VARIANT = DeferredRegister.create(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<WreckerVariant> WRECKER_VARIANT = DeferredRegister.create(FOTRegistries.WRECKER_VARIANT_REGISTRY, "minecraft");
-    public static final DeferredRegister<StormfishVariant> STORMFISH_VARIANT = DeferredRegister.create(FOTRegistries.STORMFISH_VARIANT_REGISTRY, "minecraft");
-
     public static CommonProxyForge PROXY;
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -67,16 +54,6 @@ public class FishOfThievesForge
         SOUND_EVENTS.register(modEventBus);
         BIOME_MODIFIERS.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
-        SPLASHTAIL_VARIANT.register(modEventBus);
-        PONDIE_VARIANT.register(modEventBus);
-        ISLEHOPPER_VARIANT.register(modEventBus);
-        ANCIENTSCALE_VARIANT.register(modEventBus);
-        PLENTIFIN_VARIANT.register(modEventBus);
-        WILDSPLASH_VARIANT.register(modEventBus);
-        DEVILFISH_VARIANT.register(modEventBus);
-        BATTLEGILL_VARIANT.register(modEventBus);
-        WRECKER_VARIANT.register(modEventBus);
-        STORMFISH_VARIANT.register(modEventBus);
 
         FishOfThieves.init();
 
@@ -105,66 +82,11 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
-        event.register(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
-
-        event.register(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, helper ->
-        {
-            SplashtailVariant.init();
-            FOTRegistry.SPLASHTAIL_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, registry -> SplashtailVariant.RUBY);
-        });
-        event.register(FOTRegistries.PONDIE_VARIANT_REGISTRY, helper ->
-        {
-            PondieVariant.init();
-            FOTRegistry.PONDIE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.PONDIE_VARIANT_REGISTRY, registry -> PondieVariant.CHARCOAL);
-        });
-        event.register(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, helper ->
-        {
-            PondieVariant.init();
-            FOTRegistry.ISLEHOPPER_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, registry -> IslehopperVariant.STONE);
-        });
-        event.register(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, helper ->
-        {
-            AncientscaleVariant.init();
-            FOTRegistry.ANCIENTSCALE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, registry -> AncientscaleVariant.ALMOND);
-        });
-        event.register(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, helper ->
-        {
-            PlentifinVariant.init();
-            FOTRegistry.PLENTIFIN_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, registry -> PlentifinVariant.OLIVE);
-        });
-        event.register(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, helper ->
-        {
-            WildsplashVariant.init();
-            FOTRegistry.WILDSPLASH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, registry -> WildsplashVariant.RUSSET);
-        });
-        event.register(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, helper ->
-        {
-            DevilfishVariant.init();
-            FOTRegistry.DEVILFISH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, registry -> DevilfishVariant.ASHEN);
-        });
-        event.register(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, helper ->
-        {
-            BattlegillVariant.init();
-            FOTRegistry.BATTLEGILL_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, registry -> BattlegillVariant.JADE);
-        });
-        event.register(FOTRegistries.WRECKER_VARIANT_REGISTRY, helper ->
-        {
-            WreckerVariant.init();
-            FOTRegistry.WRECKER_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.WRECKER_VARIANT_REGISTRY, registry -> WreckerVariant.ROSE);
-        });
-        event.register(FOTRegistries.STORMFISH_VARIANT_REGISTRY, helper ->
-        {
-            StormfishVariant.init();
-            FOTRegistry.STORMFISH_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.STORMFISH_VARIANT_REGISTRY, registry -> StormfishVariant.ANCIENT);
-        });
     }
 
     @SubscribeEvent
     public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event)
     {
-        FishOfThieves.FOT_TAB = event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), builder -> builder
-                .icon(() -> new ItemStack(FOTItems.SPLASHTAIL))
-                .title(Component.translatable("itemGroup.fishofthieves.main"))
-                .displayItems(FOTDisplayItems::displayItems));
+        FishOfThieves.FOT_TAB = event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), FishOfThieves::getCreativeTabBuilder);
     }
 }

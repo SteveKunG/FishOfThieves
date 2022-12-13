@@ -4,6 +4,7 @@
   "package": "com.stevekung.fishofthieves.forge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinBuiltInRegistries"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,9 +6,10 @@ import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
 public record SplashtailVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
@@ -48,7 +49,7 @@ public record SplashtailVariant(Supplier<Predicate<SpawnConditionContext>> condi
 
     private static void register(String key, SplashtailVariant variant)
     {
-        FOTPlatform.registerSplashtailVariant(key, variant);
+        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
     }
 
     private static SplashtailVariant create(Predicate<SpawnConditionContext> condition, ResourceLocation texture)

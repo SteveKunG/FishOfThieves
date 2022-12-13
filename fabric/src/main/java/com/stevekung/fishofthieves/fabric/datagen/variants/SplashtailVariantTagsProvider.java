@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen.variants;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.registry.FOTRegistries;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
 import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -13,7 +13,7 @@ public class SplashtailVariantTagsProvider extends FabricTagProvider<SplashtailV
 {
     public SplashtailVariantTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
-        super(dataOutput, FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, provider);
+        super(dataOutput, FOTRegistry.SPLASHTAIL_VARIANT_REGISTRY, provider);
     }
 
     @Override

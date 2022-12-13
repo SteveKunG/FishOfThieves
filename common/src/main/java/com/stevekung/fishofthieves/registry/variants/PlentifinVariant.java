@@ -6,10 +6,11 @@ import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishData;
+import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
 public record PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, Optional<ResourceLocation> glowTexture) implements FishData
@@ -53,7 +54,7 @@ public record PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condit
 
     private static void register(String key, PlentifinVariant variant)
     {
-        FOTPlatform.registerPlentifinVariant(key, variant);
+        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
     }
 
     private static PlentifinVariant create(Predicate<SpawnConditionContext> condition, ResourceLocation texture)
