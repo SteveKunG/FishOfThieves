@@ -14,6 +14,7 @@
 * Added Russian translation, Thanks to Telezhka-the-First
 * Added Fish Bone drop to fishes
 * Added NoFlip Tag
+* Group raw fish and cooked fish together
 * Ancientscales and Plentifins spawning inside structures improvement
 * Wreckers now spawns at Ocean Ruined Portal and swim around it
 * Fishes are now follow the players if holding any worms
