@@ -26,6 +26,7 @@ public class FOTPlatformImpl
         return FabricItemGroupBuilder.build(new ResourceLocation(FishOfThieves.MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
         CriteriaAccessor.callRegister(trigger);
