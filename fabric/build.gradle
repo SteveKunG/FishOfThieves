@@ -49,10 +49,16 @@ repositories {
     maven {
         name "ModMenu Maven"
         url "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup "com.terraformersmc"
+        }
     }
     maven {
         name "Modrinth Maven"
         url "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
 }
 
@@ -79,10 +85,6 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand "version": rootProject.mod_version
-    }
-
-    doLast {
-        project(":common").minifyJson(outputs)
     }
 }
 
@@ -121,7 +123,7 @@ components.java {
     }
 }
 
-tasks.getByName("configureLaunch") {
+tasks.named("configureLaunch") {
     doFirst {
         loom {
             runs {

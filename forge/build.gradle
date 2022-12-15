@@ -54,6 +54,9 @@ repositories {
     maven {
         name "Aquaculture 2"
         url "https://girafi.dk/maven/"
+        content {
+            includeGroup "com.teammetallurgy.aquaculture"
+        }
     }
 }
 
@@ -77,10 +80,6 @@ processResources {
 
     filesMatching("META-INF/mods.toml") {
         expand "version": rootProject.mod_version
-    }
-
-    doLast {
-        project(":common").minifyJson(outputs)
     }
 }
 
