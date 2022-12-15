@@ -26,6 +26,9 @@ subprojects {
         maven {
             name "ParchmentMC"
             url "https://maven.parchmentmc.org"
+            content {
+                includeGroup "org.parchmentmc.data"
+            }
         }
     }
 
@@ -56,9 +59,11 @@ allprojects {
         }
     }
 
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-        options.release = 17
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = "UTF-8"
+            options.release = 17
+        }
     }
 
     java {
@@ -66,18 +71,21 @@ allprojects {
     }
 }
 
-task curseforgeModrinthFabric(dependsOn: [
-        ":fabric:modrinth",
-        ":fabric:curseforge"
-], group: "publishing")
+tasks.register("curseforgeModrinthFabric") {
+    group "publishing"
+    dependsOn ":fabric:modrinth"
+    dependsOn ":fabric:curseforge"
+}
 
-task curseforgeModrinthForge(dependsOn: [
-        ":forge:modrinth",
-        ":forge:curseforge"
-], group: "publishing")
+tasks.register("curseforgeModrinthForge") {
+    group "publishing"
+    dependsOn ":forge:modrinth"
+    dependsOn ":forge:curseforge"
+}
 
 if (project.hasProperty("version_lib_dir")) {
-    task updateVersionLib(group: "publishing") {
+    tasks.register("updateVersionLib") {
+        group "publishing"
         def versionFile = file("${version_lib_dir}/fish_of_thieves.json")
         def jsonBuilder = new JsonBuilder(new JsonSlurper().parseText(versionFile.text))
         def jsonElement = jsonBuilder.content

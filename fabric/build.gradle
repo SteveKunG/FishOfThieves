@@ -49,10 +49,16 @@ repositories {
     maven {
         name "ModMenu Maven"
         url "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup "com.terraformersmc"
+        }
     }
     maven {
         name "Modrinth Maven"
         url "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
 }
 
@@ -121,7 +127,7 @@ components.java {
     }
 }
 
-tasks.getByName("configureLaunch") {
+tasks.named("configureLaunch") {
     doFirst {
         loom {
             runs {

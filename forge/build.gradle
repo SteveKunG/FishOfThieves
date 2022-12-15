@@ -54,6 +54,9 @@ repositories {
     maven {
         name "Aquaculture 2"
         url "https://girafi.dk/maven/"
+        content {
+            includeGroup "com.teammetallurgy.aquaculture"
+        }
     }
 }
 
