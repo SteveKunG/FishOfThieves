@@ -10,16 +10,11 @@ architectury {
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
-    launches {
-        if (project.hasProperty("username") && project.hasProperty("uuid")) {
-            client {
-                arg "--username", "${username}", "--uuid", "${uuid}"
-            }
-        }
-    }
-
     runs {
         client {
+            if (project.hasProperty("username") && project.hasProperty("uuid")) {
+                programArgs "--username=${username}", "--uuid=${uuid}"
+            }
             property "mixin.debug.export", "true"
             property "mixin.hotSwap", "true"
         }
