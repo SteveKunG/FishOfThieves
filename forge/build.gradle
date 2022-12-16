@@ -20,23 +20,16 @@ loom {
         }
     }
 
-    launches {
-        if (project.hasProperty("username") && project.hasProperty("uuid")) {
-            client {
-                arg "--username", "${username}", "--uuid", "${uuid}"
-            }
-        }
-        data {
-            arg "--existing", project(":common").file("src/main/resources/").absolutePath
-        }
-    }
-
     runs {
         client {
+            if (project.hasProperty("username") && project.hasProperty("uuid")) {
+                programArgs "--username=${username}", "--uuid=${uuid}"
+            }
             property "mixin.debug.export", "true"
             property "mixin.hotSwap", "true"
         }
         data {
+            programArg "--existing=" + project(":common").file("src/main/resources/").absolutePath
             name "Forge Data Generation"
         }
     }
