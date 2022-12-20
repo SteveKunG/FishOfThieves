@@ -16,7 +16,7 @@ authors = "SteveKunG, PloyiinGz"
 [[dependencies.fishofthieves]]
 modId = "forge"
 mandatory = true
-versionRange = "[44.0.18,)"
+versionRange = "[44.0.37,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -31,5 +31,12 @@ side = "BOTH"
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19.3,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
+modId = "aquaculture"
+mandatory = false
+versionRange = "[2.4.9,)"
 ordering = "NONE"
 side = "BOTH"
