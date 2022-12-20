@@ -1,24 +1,26 @@
 package com.stevekung.fishofthieves.forge.datagen;
 
-import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.RegistryOps;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.world.ModifiableStructureInfo;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -28,26 +30,41 @@ import net.minecraftforge.registries.RegistryObject;
 public class FOTStructureModifiers
 {
     private static final Codec<TagKey<Structure>> STRUCTURE_LIST_CODEC = TagKey.hashedCodec(Registries.STRUCTURE);
+    private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder().add(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, context ->
+    {
+        context.register(key("ancientscales_spawn_in"), addStructureSpawns(FOTEntities.ANCIENTSCALES.unwrap().get(0), FOTTags.ANCIENTSCALES_SPAWN_IN));
+        context.register(key("plentifins_spawn_in"), addStructureSpawns(FOTEntities.PLENTIFINS.unwrap().get(0), FOTTags.PLENTIFINS_SPAWN_IN));
+        context.register(key("wreckers_spawn_in"), addStructureSpawns(FOTEntities.WRECKERS.unwrap().get(0), FOTTags.WRECKERS_SPAWN_IN));
+        context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.BATTLEGILLS.unwrap().get(0), FOTTags.BATTLEGILLS_SPAWN_IN));
+    });
 
     public static void generateStructureModifiers(GatherDataEvent event)
     {
-        //TODO
-//        var generator = event.getGenerator();
-//        var ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.BUILTIN.get());
-//
-//        //@formatter:off
-//        generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(generator, event.getExistingFileHelper(), FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.STRUCTURE_MODIFIERS, Map.of(
-//                new ResourceLocation(FishOfThieves.MOD_ID, "ancientscales_spawn_in"), addStructureSpawns(FOTEntities.ANCIENTSCALES.unwrap().get(0), FOTTags.ANCIENTSCALES_SPAWN_IN),
-//                new ResourceLocation(FishOfThieves.MOD_ID, "plentifins_spawn_in"), addStructureSpawns(FOTEntities.PLENTIFINS.unwrap().get(0), FOTTags.PLENTIFINS_SPAWN_IN),
-//                new ResourceLocation(FishOfThieves.MOD_ID, "wreckers_spawn_in"), addStructureSpawns(FOTEntities.WRECKERS.unwrap().get(0), FOTTags.WRECKERS_SPAWN_IN),
-//                new ResourceLocation(FishOfThieves.MOD_ID, "battlegills_spawn_in"), addStructureSpawns(FOTEntities.BATTLEGILLS.unwrap().get(0), FOTTags.BATTLEGILLS_SPAWN_IN)
-//        )));
-//        //@formatter:on
+        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<StructureModifiers>) output -> new StructureModifiers(output, event.getLookupProvider()));
+    }
+
+    private static class StructureModifiers extends DatapackBuiltinEntriesProvider
+    {
+        public StructureModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
+        {
+            super(output, registries, BUILDER, Set.of(FishOfThieves.MOD_ID));
+        }
+
+        @Override
+        public String getName()
+        {
+            return "Structure Modifier Registries: " + FishOfThieves.MOD_ID;
+        }
     }
 
     private static StructureModifier addStructureSpawns(MobSpawnSettings.SpawnerData spawnerData, TagKey<Structure> structureTagKey)
     {
         return new Modifier(structureTagKey, spawnerData);
+    }
+
+    private static ResourceKey<StructureModifier> key(String key)
+    {
+        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, new ResourceLocation(FishOfThieves.MOD_ID, key));
     }
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier
