@@ -5,7 +5,7 @@ import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.PlentifinModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Plentifin;
-import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
+import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

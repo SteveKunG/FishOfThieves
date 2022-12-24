@@ -32,15 +32,15 @@ public class FOTLootManager
 
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
-        if (blockState.is(FOTTags.EARTHWORMS_DROPS) && !blockState.is(FOTTags.EARTHWORMS_DROP_BLACKLIST))
+        if (blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.EARTHWORMS_DROPS)));
         }
-        if (blockState.is(FOTTags.GRUBS_DROPS))
+        if (blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.GRUBS_DROPS)));
         }
-        if (blockState.is(FOTTags.LEECHES_DROPS))
+        if (blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.LEECHES_DROPS)));
         }
@@ -171,11 +171,11 @@ public class FOTLootManager
 
     public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder)
     {
-        return builder.add(TagEntry.expandTag(FOTTags.THIEVES_FISH).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.add(TagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
     }
 
     public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder)
     {
-        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(FOTTags.COOKED_THIEVES_FISH).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(FOTTags.Items.COOKED_THIEVES_FISH).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
     }
 }

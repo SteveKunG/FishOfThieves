@@ -72,7 +72,7 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
-def fabricExcludes = [".cache", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json"]
+def fabricExcludes = [".cache", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]

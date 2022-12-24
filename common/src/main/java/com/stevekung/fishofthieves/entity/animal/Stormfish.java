@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.StormfishVariant;
+import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -57,7 +54,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, StormfishVariant.ANCIENT);
+        this.entityData.define(VARIANT, StormfishVariants.ANCIENT);
     }
 
     @Override
@@ -81,7 +78,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     public Holder<StormfishVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_STORMFISH_SPAWNS, StormfishVariant.ANCIENT, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_STORMFISH_SPAWNS, StormfishVariants.ANCIENT, fromBucket);
     }
 
     @Override

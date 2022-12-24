@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class PlentifinVariantTagsProvider extends FabricTagProvider<PlentifinVar
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_PLENTIFIN_SPAWNS).add(PlentifinVariant.OLIVE, PlentifinVariant.AMBER, PlentifinVariant.CLOUDY, PlentifinVariant.BONEDUST, PlentifinVariant.WATERY);
+        this.tag(FOTTags.FishVariant.DEFAULT_PLENTIFIN_SPAWNS).add(PlentifinVariants.OLIVE, PlentifinVariants.AMBER, PlentifinVariants.CLOUDY, PlentifinVariants.BONEDUST, PlentifinVariants.WATERY);
     }
 }

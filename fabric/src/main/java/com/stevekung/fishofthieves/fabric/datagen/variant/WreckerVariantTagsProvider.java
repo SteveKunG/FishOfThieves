@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.WreckerVariant;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class WreckerVariantTagsProvider extends FabricTagProvider<WreckerVariant
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_WRECKER_SPAWNS).add(WreckerVariant.ROSE, WreckerVariant.SUN, WreckerVariant.BLACKCLOUD, WreckerVariant.SNOW, WreckerVariant.MOON);
+        this.tag(FOTTags.FishVariant.DEFAULT_WRECKER_SPAWNS).add(WreckerVariants.ROSE, WreckerVariants.SUN, WreckerVariants.BLACKCLOUD, WreckerVariants.SNOW, WreckerVariants.MOON);
     }
 }

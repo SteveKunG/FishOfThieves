@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.PondieVariant;
+import com.stevekung.fishofthieves.entity.variant.PondieVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.PondieVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -52,7 +49,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, PondieVariant.CHARCOAL);
+        this.entityData.define(VARIANT, PondieVariants.CHARCOAL);
     }
 
     @Override
@@ -76,7 +73,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     @Override
     public Holder<PondieVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_PONDIE_SPAWNS, PondieVariant.CHARCOAL, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PONDIE_SPAWNS, PondieVariants.CHARCOAL, fromBucket);
     }
 
     @Override

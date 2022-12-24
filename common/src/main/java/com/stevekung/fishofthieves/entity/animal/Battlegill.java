@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.BattlegillVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -69,7 +69,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, BattlegillVariant.JADE);
+        this.entityData.define(VARIANT, BattlegillVariants.JADE);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     @Override
     public Holder<BattlegillVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_BATTLEGILL_SPAWNS, BattlegillVariant.JADE, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_BATTLEGILL_SPAWNS, BattlegillVariants.JADE, fromBucket);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var isRaided = level.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) level).isRaided(blockPos);
-        return isWater && (isRaided || TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.BATTLEGILLS_SPAWN_IN));
+        return isWater && (isRaided || TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
     }
 
     public static AttributeSupplier.Builder createAttributes()

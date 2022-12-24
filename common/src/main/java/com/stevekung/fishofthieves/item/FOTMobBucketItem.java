@@ -46,7 +46,7 @@ public class FOTMobBucketItem extends MobBucketItem
     {
         var compoundTag = itemStack.getTag();
 
-        if (this.entityType.is(FOTTags.THIEVES_FISH_ENTITY_TYPE) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
+        if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
         {
             var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(compoundTag.getString(ThievesFish.VARIANT_TAG)).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
 

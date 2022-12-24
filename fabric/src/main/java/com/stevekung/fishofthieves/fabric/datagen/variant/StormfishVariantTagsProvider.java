@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.StormfishVariant;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class StormfishVariantTagsProvider extends FabricTagProvider<StormfishVar
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_STORMFISH_SPAWNS).add(StormfishVariant.ANCIENT, StormfishVariant.SHORES, StormfishVariant.WILD, StormfishVariant.SHADOW, StormfishVariant.TWILIGHT);
+        this.tag(FOTTags.FishVariant.DEFAULT_STORMFISH_SPAWNS).add(StormfishVariants.ANCIENT, StormfishVariants.SHORES, StormfishVariants.WILD, StormfishVariants.SHADOW, StormfishVariants.TWILIGHT);
     }
 }

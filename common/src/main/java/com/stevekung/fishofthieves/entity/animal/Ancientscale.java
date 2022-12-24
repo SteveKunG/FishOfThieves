@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -63,7 +60,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, AncientscaleVariant.ALMOND);
+        this.entityData.define(VARIANT, AncientscaleVariants.ALMOND);
     }
 
     @Override
@@ -87,7 +84,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     public Holder<AncientscaleVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_ANCIENTSCALE_SPAWNS, AncientscaleVariant.ALMOND, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ANCIENTSCALE_SPAWNS, AncientscaleVariants.ALMOND, fromBucket);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class MixinAxolotl
     @Inject(method = "usePlayerItem", at = @At("HEAD"))
     private void fishofthieves$fixReturnBucketItem(Player player, InteractionHand interactionHand, ItemStack itemStack, CallbackInfo info)
     {
-        if (itemStack.is(FOTTags.THIEVES_FISH_BUCKET) && !player.getAbilities().instabuild)
+        if (itemStack.is(FOTTags.Items.THIEVES_FISH_BUCKET) && !player.getAbilities().instabuild)
         {
             player.setItemInHand(interactionHand, new ItemStack(Items.WATER_BUCKET));
         }

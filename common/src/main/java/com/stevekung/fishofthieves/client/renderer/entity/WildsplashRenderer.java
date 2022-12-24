@@ -5,7 +5,7 @@ import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.WildsplashModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Wildsplash;
-import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
+import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

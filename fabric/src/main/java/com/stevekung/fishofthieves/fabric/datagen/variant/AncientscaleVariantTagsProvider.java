@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class AncientscaleVariantTagsProvider extends FabricTagProvider<Ancientsc
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_ANCIENTSCALE_SPAWNS).add(AncientscaleVariant.ALMOND, AncientscaleVariant.SAPPHIRE, AncientscaleVariant.SMOKE, AncientscaleVariant.BONE, AncientscaleVariant.STARSHINE);
+        this.tag(FOTTags.FishVariant.DEFAULT_ANCIENTSCALE_SPAWNS).add(AncientscaleVariants.ALMOND, AncientscaleVariants.SAPPHIRE, AncientscaleVariants.SMOKE, AncientscaleVariants.BONE, AncientscaleVariants.STARSHINE);
     }
 }

@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class DevilfishVariantTagsProvider extends FabricTagProvider<DevilfishVar
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_DEVILFISH_SPAWNS).add(DevilfishVariant.ASHEN, DevilfishVariant.SEASHELL, DevilfishVariant.LAVA, DevilfishVariant.FORSAKEN, DevilfishVariant.FIRELIGHT);
+        this.tag(FOTTags.FishVariant.DEFAULT_DEVILFISH_SPAWNS).add(DevilfishVariants.ASHEN, DevilfishVariants.SEASHELL, DevilfishVariants.LAVA, DevilfishVariants.FORSAKEN, DevilfishVariants.FIRELIGHT);
     }
 }

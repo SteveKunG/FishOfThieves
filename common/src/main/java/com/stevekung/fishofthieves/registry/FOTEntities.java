@@ -21,11 +21,14 @@ public class FOTEntities
     public static final EntityType<Wrecker> WRECKER = FOTPlatform.createEntityType(Wrecker::new, EntityDimensions.fixed(0.5F, 0.5F));
     public static final EntityType<Stormfish> STORMFISH = FOTPlatform.createEntityType(Stormfish::new, EntityDimensions.fixed(0.75F, 0.55F));
 
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALES = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 12, 4, 8));
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFINS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALES_AND_PLENTIFINS = WeightedRandomList.create(ANCIENTSCALES.unwrap().get(0), PLENTIFINS.unwrap().get(0));
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> BATTLEGILLS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
-    public static final WeightedRandomList<MobSpawnSettings.SpawnerData> WRECKERS = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8));
+    public interface SpawnData
+    {
+        WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 12, 4, 8));
+        WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
+        WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE_AND_PLENTIFIN = WeightedRandomList.create(ANCIENTSCALE.unwrap().get(0), PLENTIFIN.unwrap().get(0));
+        WeightedRandomList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
+        WeightedRandomList<MobSpawnSettings.SpawnerData> WRECKER = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8));
+    }
 
     public static void init()
     {

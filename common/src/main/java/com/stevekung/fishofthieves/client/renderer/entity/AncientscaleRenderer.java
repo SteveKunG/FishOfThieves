@@ -5,7 +5,7 @@ import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.AncientscaleModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Ancientscale;
-import com.stevekung.fishofthieves.registry.variants.AncientscaleVariant;
+import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

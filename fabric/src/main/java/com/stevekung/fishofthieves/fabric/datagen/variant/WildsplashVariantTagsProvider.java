@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class WildsplashVariantTagsProvider extends FabricTagProvider<WildsplashV
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_WILDSPLASH_SPAWNS).add(WildsplashVariant.RUSSET, WildsplashVariant.SANDY, WildsplashVariant.OCEAN, WildsplashVariant.MUDDY, WildsplashVariant.CORAL);
+        this.tag(FOTTags.FishVariant.DEFAULT_WILDSPLASH_SPAWNS).add(WildsplashVariants.RUSSET, WildsplashVariants.SANDY, WildsplashVariants.OCEAN, WildsplashVariants.MUDDY, WildsplashVariants.CORAL);
     }
 }

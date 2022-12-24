@@ -86,12 +86,14 @@ shadowJar {
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
+    exclude("architectury.common.json")
 }
 
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
+    exclude("architectury.common.json")
 }
 
 remapSourcesJar {

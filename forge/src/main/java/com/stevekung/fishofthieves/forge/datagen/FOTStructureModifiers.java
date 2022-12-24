@@ -35,10 +35,10 @@ public class FOTStructureModifiers
 
         //@formatter:off
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(generator, event.getExistingFileHelper(), FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.STRUCTURE_MODIFIERS, Map.of(
-                new ResourceLocation(FishOfThieves.MOD_ID, "ancientscales_spawn_in"), addStructureSpawns(FOTEntities.ANCIENTSCALES.unwrap().get(0), FOTTags.ANCIENTSCALES_SPAWN_IN),
-                new ResourceLocation(FishOfThieves.MOD_ID, "plentifins_spawn_in"), addStructureSpawns(FOTEntities.PLENTIFINS.unwrap().get(0), FOTTags.PLENTIFINS_SPAWN_IN),
-                new ResourceLocation(FishOfThieves.MOD_ID, "wreckers_spawn_in"), addStructureSpawns(FOTEntities.WRECKERS.unwrap().get(0), FOTTags.WRECKERS_SPAWN_IN),
-                new ResourceLocation(FishOfThieves.MOD_ID, "battlegills_spawn_in"), addStructureSpawns(FOTEntities.BATTLEGILLS.unwrap().get(0), FOTTags.BATTLEGILLS_SPAWN_IN)
+                new ResourceLocation(FishOfThieves.MOD_ID, "ancientscales_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.ANCIENTSCALE.unwrap().get(0), FOTTags.Structures.ANCIENTSCALES_SPAWN_IN),
+                new ResourceLocation(FishOfThieves.MOD_ID, "plentifins_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.PLENTIFIN.unwrap().get(0), FOTTags.Structures.PLENTIFINS_SPAWN_IN),
+                new ResourceLocation(FishOfThieves.MOD_ID, "wreckers_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.WRECKER.unwrap().get(0), FOTTags.Structures.WRECKERS_SPAWN_IN),
+                new ResourceLocation(FishOfThieves.MOD_ID, "battlegills_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.BATTLEGILL.unwrap().get(0), FOTTags.Structures.BATTLEGILLS_SPAWN_IN)
         )));
         //@formatter:on
     }

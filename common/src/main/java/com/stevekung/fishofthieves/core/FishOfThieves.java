@@ -9,7 +9,7 @@ import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTDataSerializers;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.*;
+import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -36,16 +36,16 @@ public class FishOfThieves
 
     public static void initCommon()
     {
-        SplashtailVariant.init();
-        PondieVariant.init();
-        IslehopperVariant.init();
-        AncientscaleVariant.init();
-        PlentifinVariant.init();
-        WildsplashVariant.init();
-        DevilfishVariant.init();
-        BattlegillVariant.init();
-        WreckerVariant.init();
-        StormfishVariant.init();
+        SplashtailVariants.init();
+        PondieVariants.init();
+        IslehopperVariants.init();
+        AncientscaleVariants.init();
+        PlentifinVariants.init();
+        WildsplashVariants.init();
+        DevilfishVariants.init();
+        BattlegillVariants.init();
+        WreckerVariants.init();
+        StormfishVariants.init();
 
         FOTDataSerializers.init();
 

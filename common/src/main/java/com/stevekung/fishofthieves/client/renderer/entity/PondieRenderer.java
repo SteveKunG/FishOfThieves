@@ -5,7 +5,7 @@ import com.mojang.math.Vector3f;
 import com.stevekung.fishofthieves.client.model.PondieModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Pondie;
-import com.stevekung.fishofthieves.registry.variants.PondieVariant;
+import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

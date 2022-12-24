@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.fabric.datagen.variants;
+package com.stevekung.fishofthieves.fabric.datagen.variant;
 
+import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.variants.BattlegillVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
@@ -16,6 +17,6 @@ public class BattlegillVariantTagsProvider extends FabricTagProvider<BattlegillV
     @Override
     protected void generateTags()
     {
-        this.tag(FishVariantTags.DEFAULT_BATTLEGILL_SPAWNS).add(BattlegillVariant.JADE, BattlegillVariant.SKY, BattlegillVariant.RUM, BattlegillVariant.SAND, BattlegillVariant.BITTERSWEET);
+        this.tag(FOTTags.FishVariant.DEFAULT_BATTLEGILL_SPAWNS).add(BattlegillVariants.JADE, BattlegillVariants.SKY, BattlegillVariants.RUM, BattlegillVariants.SAND, BattlegillVariants.BITTERSWEET);
     }
 }

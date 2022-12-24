@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
+import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -52,7 +49,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, SplashtailVariant.RUBY);
+        this.entityData.define(VARIANT, SplashtailVariants.RUBY);
     }
 
     @Override
@@ -76,7 +73,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     @Override
     public Holder<SplashtailVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariant.RUBY, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariants.RUBY, fromBucket);
     }
 
     @Override

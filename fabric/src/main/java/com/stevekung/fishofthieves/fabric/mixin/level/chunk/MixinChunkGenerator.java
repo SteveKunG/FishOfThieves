@@ -26,19 +26,19 @@ public class MixinChunkGenerator
         {
             if (structureFeatureManager.getStructureWithPieceAt(pos, StructureTags.OCEAN_RUIN).isValid())
             {
-                info.setReturnValue(FOTEntities.ANCIENTSCALES);
+                info.setReturnValue(FOTEntities.SpawnData.ANCIENTSCALE);
             }
-            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.ANCIENTSCALES_SPAWN_IN).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.PLENTIFINS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN).isValid() || structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.Structures.PLENTIFINS_SPAWN_IN).isValid())
             {
-                info.setReturnValue(FOTEntities.ANCIENTSCALES_AND_PLENTIFINS);
+                info.setReturnValue(FOTEntities.SpawnData.ANCIENTSCALE_AND_PLENTIFIN);
             }
-            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.BATTLEGILLS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN).isValid())
             {
-                info.setReturnValue(FOTEntities.BATTLEGILLS);
+                info.setReturnValue(FOTEntities.SpawnData.BATTLEGILL);
             }
-            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.WRECKERS_SPAWN_IN).isValid())
+            else if (structureFeatureManager.getStructureWithPieceAt(pos, FOTTags.Structures.WRECKERS_SPAWN_IN).isValid())
             {
-                info.setReturnValue(FOTEntities.WRECKERS);
+                info.setReturnValue(FOTEntities.SpawnData.WRECKER);
             }
         }
     }

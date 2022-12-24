@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.IslehopperVariant;
+import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -66,7 +63,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, IslehopperVariant.STONE);
+        this.entityData.define(VARIANT, IslehopperVariants.STONE);
     }
 
     @Override
@@ -90,7 +87,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public Holder<IslehopperVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariant.STONE, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariants.STONE, fromBucket);
     }
 
     @Override
