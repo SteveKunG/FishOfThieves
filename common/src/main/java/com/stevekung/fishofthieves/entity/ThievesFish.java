@@ -20,12 +20,12 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
+public interface ThievesFish<T extends FishData> extends PartyFish
 {
-    Ingredient WORMS = Ingredient.of(FOTTags.WORMS);
-    Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.EARTHWORMS_FOOD);
-    Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.GRUBS_FOOD);
-    Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.LEECHES_FOOD);
+    Ingredient WORMS = Ingredient.of(FOTTags.Items.WORMS);
+    Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.Items.EARTHWORMS_FOOD);
+    Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.Items.GRUBS_FOOD);
+    Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.Items.LEECHES_FOOD);
 
     String OLD_VARIANT_TAG = "Variant";
     String OLD_NAME_TAG = "Name";
@@ -61,6 +61,11 @@ public interface ThievesFish<T extends FishData> extends GlowFish, PartyFish
     void setHasFed(boolean hasFed);
 
     boolean isFood(ItemStack itemStack);
+
+    default float getGlowBrightness(float ageInTicks)
+    {
+        return 1.0F;
+    }
 
     default void saveToBucket(CompoundTag compound)
     {

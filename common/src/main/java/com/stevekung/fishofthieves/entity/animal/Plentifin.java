@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.PlentifinVariant;
+import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
+import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -63,7 +60,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, PlentifinVariant.OLIVE);
+        this.entityData.define(VARIANT, PlentifinVariants.OLIVE);
     }
 
     @Override
@@ -87,7 +84,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     @Override
     public Holder<PlentifinVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_PLENTIFIN_SPAWNS, PlentifinVariant.OLIVE, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PLENTIFIN_SPAWNS, PlentifinVariants.OLIVE, fromBucket);
     }
 
     @Override

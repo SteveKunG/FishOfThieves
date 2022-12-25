@@ -32,10 +32,10 @@ public class FOTStructureModifiers
     private static final Codec<TagKey<Structure>> STRUCTURE_LIST_CODEC = TagKey.hashedCodec(Registries.STRUCTURE);
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder().add(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, context ->
     {
-        context.register(key("ancientscales_spawn_in"), addStructureSpawns(FOTEntities.ANCIENTSCALES.unwrap().get(0), FOTTags.ANCIENTSCALES_SPAWN_IN));
-        context.register(key("plentifins_spawn_in"), addStructureSpawns(FOTEntities.PLENTIFINS.unwrap().get(0), FOTTags.PLENTIFINS_SPAWN_IN));
-        context.register(key("wreckers_spawn_in"), addStructureSpawns(FOTEntities.WRECKERS.unwrap().get(0), FOTTags.WRECKERS_SPAWN_IN));
-        context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.BATTLEGILLS.unwrap().get(0), FOTTags.BATTLEGILLS_SPAWN_IN));
+        context.register(key("ancientscales_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.ANCIENTSCALE.unwrap().get(0), FOTTags.Structures.ANCIENTSCALES_SPAWN_IN));
+        context.register(key("plentifins_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.PLENTIFIN.unwrap().get(0), FOTTags.Structures.PLENTIFINS_SPAWN_IN));
+        context.register(key("wreckers_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.WRECKER.unwrap().get(0), FOTTags.Structures.WRECKERS_SPAWN_IN));
+        context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.BATTLEGILL.unwrap().get(0), FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
     });
 
     public static void generateStructureModifiers(GatherDataEvent event)

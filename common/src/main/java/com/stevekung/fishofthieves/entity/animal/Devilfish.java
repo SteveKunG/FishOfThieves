@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
+import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -67,7 +67,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, DevilfishVariant.ASHEN);
+        this.entityData.define(VARIANT, DevilfishVariants.ASHEN);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public Holder<DevilfishVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_DEVILFISH_SPAWNS, DevilfishVariant.ASHEN, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_DEVILFISH_SPAWNS, DevilfishVariants.ASHEN, fromBucket);
     }
 
     @Override
@@ -174,7 +174,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        return isWater && blockPos.getY() <= 0 && !level.getBiome(blockPos).is(FOTTags.DEVILFISH_CANNOT_SPAWN);
+        return isWater && blockPos.getY() <= 0 && !level.getBiome(blockPos).is(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN);
     }
 
     public static AttributeSupplier.Builder createAttributes()

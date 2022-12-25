@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 @Mixin(Chicken.class)
 public abstract class MixinChicken extends Animal
 {
-    private static final Ingredient WORM_FOOD_ITEMS = Ingredient.of(FOTTags.WORMS);
+    private static final Ingredient WORM_FOOD_ITEMS = Ingredient.of(FOTTags.Items.WORMS);
 
     MixinChicken()
     {

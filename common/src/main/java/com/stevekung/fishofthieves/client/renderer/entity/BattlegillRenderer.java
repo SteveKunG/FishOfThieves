@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.BattlegillModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
-import com.stevekung.fishofthieves.registry.variants.BattlegillVariant;
+import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

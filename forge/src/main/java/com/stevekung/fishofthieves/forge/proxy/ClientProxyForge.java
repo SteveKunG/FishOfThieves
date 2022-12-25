@@ -37,7 +37,7 @@ public class ClientProxyForge extends CommonProxyForge
         super.clientSetup(event);
     }
 
-    public void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
+    private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
     {
         event.registerEntityRenderer(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
         event.registerEntityRenderer(FOTEntities.PONDIE, PondieRenderer::new);
@@ -51,7 +51,7 @@ public class ClientProxyForge extends CommonProxyForge
         event.registerEntityRenderer(FOTEntities.STORMFISH, StormfishRenderer::new);
     }
 
-    public void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event)
+    private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
         event.registerLayerDefinition(SplashtailModel.LAYER, SplashtailModel::createBodyLayer);
         event.registerLayerDefinition(PondieModel.LAYER, PondieModel::createBodyLayer);

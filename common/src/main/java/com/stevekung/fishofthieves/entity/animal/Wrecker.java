@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.WreckerVariant;
+import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -73,7 +73,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, WreckerVariant.ROSE);
+        this.entityData.define(VARIANT, WreckerVariants.ROSE);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public Holder<WreckerVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_WRECKER_SPAWNS, WreckerVariant.ROSE, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_WRECKER_SPAWNS, WreckerVariants.ROSE, fromBucket);
     }
 
     @Override
@@ -174,7 +174,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getBlockState(blockPos).is(Blocks.WATER);
-        return isWater && (TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.WRECKERS_SPAWN_IN));
+        return isWater && (TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.Structures.WRECKERS_SPAWN_IN));
     }
 
     public static AttributeSupplier.Builder createAttributes()
@@ -193,7 +193,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         @Nullable
         protected Vec3 getPosition()
         {
-            var wreckagePos = ((ServerLevel) this.mob.level).findNearestMapStructure(FOTTags.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
+            var wreckagePos = ((ServerLevel) this.mob.level).findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
 
             if (this.mob.level.random.nextFloat() < 0.3f)
             {

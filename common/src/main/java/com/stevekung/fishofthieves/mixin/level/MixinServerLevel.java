@@ -49,7 +49,7 @@ public abstract class MixinServerLevel extends Level
             return false;
         }
         var biome = this.getBiome(blockPos).value();
-        return biome.getPrecipitation() == Biome.Precipitation.RAIN && biome.warmEnoughToRain(blockPos);
+        return (biome.getPrecipitation() == Biome.Precipitation.RAIN || biome.getPrecipitation() == Biome.Precipitation.SNOW) && biome.warmEnoughToRain(blockPos);
     }
 
     private Optional<BlockPos> findNearestStormfish(BlockPos blockPos)

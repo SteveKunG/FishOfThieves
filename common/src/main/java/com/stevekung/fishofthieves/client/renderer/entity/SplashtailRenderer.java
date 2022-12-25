@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.SplashtailModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
-import com.stevekung.fishofthieves.registry.variants.SplashtailVariant;
+import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

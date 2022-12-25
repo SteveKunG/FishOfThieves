@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.DevilfishModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
-import com.stevekung.fishofthieves.registry.variants.DevilfishVariant;
+import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

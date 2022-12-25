@@ -1,5 +1,6 @@
-package com.stevekung.fishofthieves.entity;
+package com.stevekung.fishofthieves.entity.listener;
 
+import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.gameevent.GameEvent;

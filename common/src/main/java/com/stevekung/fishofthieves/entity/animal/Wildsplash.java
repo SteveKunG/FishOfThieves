@@ -3,9 +3,9 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variants.FishVariantTags;
-import com.stevekung.fishofthieves.registry.variants.WildsplashVariant;
+import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -56,7 +56,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     protected void defineSynchedData()
     {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, WildsplashVariant.RUSSET);
+        this.entityData.define(VARIANT, WildsplashVariants.RUSSET);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     @Override
     public Holder<WildsplashVariant> getSpawnVariant(boolean fromBucket)
     {
-        return this.getSpawnVariant(this, FishVariantTags.DEFAULT_WILDSPLASH_SPAWNS, WildsplashVariant.RUSSET, fromBucket);
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_WILDSPLASH_SPAWNS, WildsplashVariants.RUSSET, fromBucket);
     }
 
     @Override
@@ -142,6 +142,6 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var biome = level.getBiome(blockPos);
-        return isWater && biome.is(FOTTags.SPAWNS_WILDSPLASH) || isSurfaceWater;
+        return isWater && biome.is(FOTTags.Biomes.SPAWNS_WILDSPLASH) || isSurfaceWater;
     }
 }

@@ -45,6 +45,11 @@
       "links": {
         "modmenu.discord": "https://discord.gg/4bAj4mkGag"
       }
+    },
+    "loom:injected_interfaces": {
+      "net/minecraft/class_1422": [
+        "com/stevekung/fishofthieves/entity/PartyFish"
+      ]
     }
   }
 }

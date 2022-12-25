@@ -4,7 +4,6 @@ accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGIST
 accessible field net/minecraft/data/loot/BlockLootSubProvider HAS_NO_SILK_TOUCH Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
 
 accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
-accessible method net/minecraft/core/registries/Registries createRegistryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
