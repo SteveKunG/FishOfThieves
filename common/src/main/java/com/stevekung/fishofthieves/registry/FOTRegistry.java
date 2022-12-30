@@ -33,7 +33,5 @@ public class FOTRegistry
         BattlegillVariants.init();
         WreckerVariants.init();
         StormfishVariants.init();
-
-        FOTDataSerializers.init();
     }
 }

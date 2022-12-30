@@ -5,10 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
-import com.stevekung.fishofthieves.registry.FOTDisplayItems;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.network.chat.Component;
@@ -30,6 +27,7 @@ public class FishOfThieves
     {
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
+        FOTDataSerializers.init();
     }
 
     public static void initCommon()

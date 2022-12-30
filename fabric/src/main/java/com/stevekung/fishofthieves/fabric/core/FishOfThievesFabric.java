@@ -47,8 +47,6 @@ public class FishOfThievesFabric implements ModInitializer
         WreckerVariants.init();
         StormfishVariants.init();
 
-        FOTDataSerializers.init();
-
         FishOfThieves.FOT_TAB = FishOfThieves.getCreativeTabBuilder(FabricItemGroup.builder(new ResourceLocation(FishOfThieves.MOD_ID, "main"))).build();
 
         CompostingChanceRegistry.INSTANCE.add(FOTItems.EARTHWORMS, 0.4F);
