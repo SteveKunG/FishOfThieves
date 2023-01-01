@@ -2,4 +2,4 @@
 
 ### Please report if you found the issues!
 
-* Re-enabled Aquaculture mod compatibility
+* Fix Aquaculture 2 mod version requirement, now requires 2.4.10
