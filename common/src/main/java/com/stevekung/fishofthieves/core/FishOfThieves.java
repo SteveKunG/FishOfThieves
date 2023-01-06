@@ -19,7 +19,6 @@ public class FishOfThieves
 {
     public static final String MOD_ID = "fishofthieves";
     public static final String MOD_RESOURCES = MOD_ID + ":";
-    public static CreativeModeTab FOT_TAB;
     public static final Logger LOGGER = LogUtils.getLogger();
     public static FishOfThievesConfig CONFIG;
 

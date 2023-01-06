@@ -85,6 +85,6 @@ public class FishOfThievesForge
     @SubscribeEvent
     public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event)
     {
-        FishOfThieves.FOT_TAB = event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), FishOfThieves::getCreativeTabBuilder);
+        event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), FishOfThieves::getCreativeTabBuilder);
     }
 }
