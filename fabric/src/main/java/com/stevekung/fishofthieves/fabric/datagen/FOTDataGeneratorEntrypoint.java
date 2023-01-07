@@ -177,6 +177,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
 
             generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         @Override
@@ -185,6 +186,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             var fishBone = FOTBlocks.FISH_BONE;
             generator.skipAutoItemBlock(fishBone);
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+
+            var fishPlaque = FOTBlocks.FISH_PLAQUE;
+            generator.skipAutoItemBlock(fishPlaque);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishPlaque, ModelLocationUtils.getModelLocation(fishPlaque)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
         }
     }
 
@@ -266,6 +271,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.Biomes.ALWAYS_DROP_LEECHES)))));
 
             consumer.accept(FOTBlocks.FISH_BONE.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.FISH_BONE));
+            consumer.accept(FOTBlocks.FISH_PLAQUE.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.FISH_PLAQUE));
         }
         //@formatter:on
     }
@@ -464,6 +470,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         protected void generateTags()
         {
             this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(FOTBlocks.FISH_PLAQUE);
 
             this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
@@ -497,6 +504,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Items.EARTHWORMS_FOOD).add(FOTItems.EARTHWORMS);
             this.getOrCreateTagBuilder(FOTTags.Items.GRUBS_FOOD).add(FOTItems.GRUBS);
             this.getOrCreateTagBuilder(FOTTags.Items.LEECHES_FOOD).add(FOTItems.LEECHES);
+            this.getOrCreateTagBuilder(FOTTags.Items.FISH_PLAQUE_BLACKLIST);
 
             // Fabric
             this.getOrCreateTagBuilder(RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
@@ -714,8 +722,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                     .addCriterion(Registry.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(EntityPredicate.Composite.ANY,
-                                    ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(sallyName),
-                                    EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
+                            ItemPredicate.Builder.item().of(Items.NAME_TAG).hasNbt(sallyName),
+                            EntityPredicate.Composite.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
                     .addCriterion(Registry.ITEM.getKey(Items.SALMON_BUCKET).getPath(), new PlacedBlockTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Blocks.WATER, StatePropertiesPredicate.ANY, LocationPredicate.ANY, ItemPredicate.Builder.item().of(Items.SALMON_BUCKET).hasNbt(sallyName).build()))
                     .display(Items.SALMON,
                             Component.translatable("advancements.fot.lost_sally.title"),

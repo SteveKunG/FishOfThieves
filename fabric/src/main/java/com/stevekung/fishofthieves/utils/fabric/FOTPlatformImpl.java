@@ -13,14 +13,23 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTPlatformImpl
 {
+    public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
+    {
+        return bucket.type;
+    }
+
+    public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
+    {
+        return bucket.emptySound;
+    }
+
     public static CreativeModeTab createCreativeTab()
     {
         return FabricItemGroupBuilder.build(new ResourceLocation(FishOfThieves.MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
@@ -32,9 +41,19 @@ public class FOTPlatformImpl
         CriteriaAccessor.callRegister(trigger);
     }
 
+    public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)
+    {
+        return BlockEntityType.Builder.<T>of(factory, validBlocks).build(null);
+    }
+
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
         return FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, entityFactory).dimensions(dimensions).trackRangeBlocks(4).build();
+    }
+
+    public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
+    {
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
     }
 
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)

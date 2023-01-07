@@ -7,15 +7,13 @@ import com.stevekung.fishofthieves.forge.datagen.FOTBiomeModifier;
 import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
+import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +31,7 @@ public class FishOfThievesForge
 {
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Item> ITEM = DeferredRegister.create(ForgeRegistries.ITEMS, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
@@ -50,6 +49,7 @@ public class FishOfThievesForge
         modEventBus.addListener(this::commonSetup);
         BLOCK.register(modEventBus);
         ITEM.register(modEventBus);
+        BLOCK_ENTITY_TYPE.register(modEventBus);
         ENTITY.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
         BIOME_MODIFIERS.register(modEventBus);
@@ -80,6 +80,7 @@ public class FishOfThievesForge
     {
         event.register(ForgeRegistries.Keys.BLOCKS, helper -> FOTBlocks.init());
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
+        event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityType.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
     }

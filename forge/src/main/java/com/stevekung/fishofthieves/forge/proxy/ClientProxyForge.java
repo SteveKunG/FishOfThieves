@@ -1,10 +1,13 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
 import com.stevekung.fishofthieves.client.model.*;
+import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityType;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +38,7 @@ public class ClientProxyForge extends CommonProxyForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         super.clientSetup(event);
+        BlockEntityRenderers.register(FOTBlockEntityType.FISH_PLAQUE, FishPlaqueRenderer::new);
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
