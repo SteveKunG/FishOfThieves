@@ -80,7 +80,7 @@ public class FishOfThievesForge
     {
         event.register(ForgeRegistries.Keys.BLOCKS, helper -> FOTBlocks.init());
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
-        event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityType.init());
+        event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
     }

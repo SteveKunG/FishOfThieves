@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.blockentity;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.registry.FOTBlockEntityType;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -23,7 +23,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
     public FishPlaqueBlockEntity(BlockPos blockPos, BlockState blockState)
     {
-        super(FOTBlockEntityType.FISH_PLAQUE, blockPos, blockState);
+        super(FOTBlockEntityTypes.FISH_PLAQUE, blockPos, blockState);
     }
 
     @Override

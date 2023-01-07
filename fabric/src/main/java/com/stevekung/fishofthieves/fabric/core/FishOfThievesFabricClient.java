@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.fabric.core;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
-import com.stevekung.fishofthieves.registry.FOTBlockEntityType;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,7 +20,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     {
         BlockRenderLayerMap.INSTANCE.putBlock(FOTBlocks.FISH_BONE, RenderType.cutoutMipped());
 
-        BlockEntityRenderers.register(FOTBlockEntityType.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
 
         EntityRendererRegistry.register(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
         EntityRendererRegistry.register(FOTEntities.PONDIE, PondieRenderer::new);
