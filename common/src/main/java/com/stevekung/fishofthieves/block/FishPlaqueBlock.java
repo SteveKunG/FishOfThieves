@@ -48,11 +48,12 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
 
     public FishPlaqueBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
     }
 
     @Override
@@ -94,10 +95,13 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                         player.setItemInHand(hand, itemStack3);
                         fishPlaque.clearDisplayEntity();
-                        return InteractionResult.sidedSuccess(level.isClientSide);
                     }
                 }
-                return InteractionResult.PASS;
+                else
+                {
+                    level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_CLIENTS);
+                }
+                return InteractionResult.sidedSuccess(level.isClientSide);
             }
 
             if (item instanceof MobBucketItem bucket)
@@ -217,7 +221,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(FACING, WATERLOGGED);
+        builder.add(FACING, WATERLOGGED, ROTATION);
     }
 
     private void spawnFish(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity)

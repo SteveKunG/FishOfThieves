@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.phys.Vec3;
 
 public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEntity>
@@ -31,8 +30,10 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
         {
             var blockState = blockEntity.getBlockState();
             var facing = blockState.getValue(FishPlaqueBlock.FACING);
+            var rotation = blockState.getValue(FishPlaqueBlock.ROTATION) - 1;
             var scale = 0.53125F;
-            var vec3 = new Vec3(facing.getStepX() * 0.4F, -scale, facing.getStepZ() * 0.4F);
+            var stepMultiplier = 0.4f;
+            var vec3 = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
             var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
             var yDegree = -facing.toYRot() + 90f;
 
@@ -42,8 +43,12 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             }
 
             poseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
+
+            // rotate by facing state
             poseStack.mulPose(Vector3f.YP.rotationDegrees(yDegree));
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
+
             poseStack.scale(scale, scale, scale);
             this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, 0.0f, poseStack, bufferSource, packedLight);
         }

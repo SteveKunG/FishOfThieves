@@ -70,9 +70,23 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     default void saveToBucket(CompoundTag compound)
     {
         var variant = this.getRegistry().getKey(this.getVariant());
-        compound.putString(VARIANT_TAG, variant.toString());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putBoolean(HAS_FED_TAG, this.hasFed());
+
+        if (variant != null)
+        {
+            compound.putString(VARIANT_TAG, variant.toString());
+        }
+        if (this.isTrophy())
+        {
+            compound.putBoolean(TROPHY_TAG, this.isTrophy());
+        }
+        if (this.hasFed())
+        {
+            compound.putBoolean(HAS_FED_TAG, this.hasFed());
+        }
+        if (this.isNoFlip())
+        {
+            compound.putBoolean(NO_FLIP, this.isNoFlip());
+        }
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -95,6 +109,10 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         if (compound.contains(HAS_FED_TAG))
         {
             this.setHasFed(compound.getBoolean(HAS_FED_TAG));
+        }
+        if (compound.contains(NO_FLIP))
+        {
+            this.setNoFlip(compound.getBoolean(NO_FLIP));
         }
     }
 
@@ -130,7 +148,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     {
         if (compound.contains(OLD_VARIANT_TAG, Tag.TAG_INT))
         {
-            int variant = compound.getInt(OLD_VARIANT_TAG);
+            var variant = compound.getInt(OLD_VARIANT_TAG);
             var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
             compound.remove(OLD_VARIANT_TAG);
             compound.putString(VARIANT_TAG, oldMap.get(variant));
