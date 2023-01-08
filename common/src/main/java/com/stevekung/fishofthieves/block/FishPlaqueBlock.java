@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.core.BlockPos;
@@ -99,6 +100,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 }
                 else
                 {
+                    level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_CLIENTS);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
