@@ -141,7 +141,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.25F : 0.125F;
+        return this.isTrophy() ? 0.3F : 0.14F;
     }
 
     @Override

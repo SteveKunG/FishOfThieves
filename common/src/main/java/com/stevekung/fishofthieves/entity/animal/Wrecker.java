@@ -139,7 +139,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.35F : 0.175F;
+        return this.isTrophy() ? 0.34F : 0.175F;
     }
 
     @Override

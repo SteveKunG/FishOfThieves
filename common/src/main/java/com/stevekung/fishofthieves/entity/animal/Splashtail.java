@@ -121,7 +121,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.325F : 0.165F;
+        return this.isTrophy() ? 0.3F : 0.15F;
     }
 
     @Override

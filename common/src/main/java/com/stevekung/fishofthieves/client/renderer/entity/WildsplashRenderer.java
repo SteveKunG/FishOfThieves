@@ -21,21 +21,15 @@ public class WildsplashRenderer extends ThievesFishRenderer<WildsplashVariant, W
     {
         super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
         var inWater = entity.isInWater() || entity.isNoFlip();
-        var bodyRotBase = 1.0f;
+        var bodyRotBase = inWater ? 1.0f : 1.8f;
         var baseDegree = entity.isDancing() ? -20.0f : 5.0f;
         var bodyRotSpeed = entity.isDancing() ? inWater ? 2.0f : 1.0f : 0.7f;
-
-        if (!inWater)
-        {
-            bodyRotBase = 1.8f;
-        }
-
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Vector3f.YP.rotationDegrees(degree));
 
         if (!inWater)
         {
-            poseStack.translate(0.165f, 0.1f, 0.05f);
+            poseStack.translate(entity.isTrophy() ? 0.275f : 0.15f, 0.1f, 0.05f);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0f));
         }
     }

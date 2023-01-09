@@ -139,7 +139,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.375F : 0.185F;
+        return this.isTrophy() ? 0.375F : 0.18F;
     }
 
     @Override
