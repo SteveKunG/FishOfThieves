@@ -5,10 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -48,6 +45,7 @@ public class FishOfThieves
         StormfishVariants.init();
 
         FOTDataSerializers.init();
+        FOTStructures.init();
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
