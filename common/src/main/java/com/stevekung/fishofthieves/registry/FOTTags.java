@@ -39,6 +39,7 @@ public interface FOTTags
     {
         TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
         TagKey<EntityType<?>> FISH_BONE_DROP = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "fish_bone_drop"));
+        TagKey<EntityType<?>> HORIZONTAL_MOB_RENDER = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "horizontal_mob_render"));
     }
 
     interface Structures
