@@ -10,6 +10,8 @@ import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -35,7 +37,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -46,6 +52,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 4.5, 14.0, 16.0, 12.5, 16.0), Direction.SOUTH, Block.box(0.0, 4.5, 0.0, 16.0, 12.5, 2.0), Direction.EAST, Block.box(0.0, 4.5, 0.0, 2.0, 12.5, 16.0), Direction.WEST, Block.box(14.0, 4.5, 0.0, 16.0, 12.5, 16.0)));
+    private static final Map<EntityType<?>, FishPlaqueTagConverter> FISH_PLAQUE_TAG_CONVERTER_REGISTRY = Util.make(new Object2ObjectOpenHashMap<>(), object2ObjectOpenHashMap -> object2ObjectOpenHashMap.defaultReturnValue(FishPlaqueTagConverter.NOOP));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -55,6 +62,11 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
+    }
+
+    public static void registerConverter(EntityType<?> entityType, FishPlaqueTagConverter converter)
+    {
+        FISH_PLAQUE_TAG_CONVERTER_REGISTRY.put(entityType, converter);
     }
 
     @Override
@@ -96,6 +108,9 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                         player.setItemInHand(hand, itemStack3);
                         fishPlaque.clearDisplayEntity();
+                        blockEntity.setChanged();
+                        level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                        level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                     }
                 }
                 else
@@ -108,10 +123,21 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
             if (item instanceof MobBucketItem bucket)
             {
-                var tag = itemStack.getOrCreateTag();
-                tag.putString("id", Registry.ENTITY_TYPE.getKey(FOTPlatform.getMobInBucketItem(bucket)).toString());
+                var tag = itemStack.copy().getOrCreateTag();
+                var entityType = FOTPlatform.getMobInBucketItem(bucket);
+                var converter = FISH_PLAQUE_TAG_CONVERTER_REGISTRY.get(entityType);
+                tag.putString("id", Registry.ENTITY_TYPE.getKey(entityType).toString());
+
+                if (converter != FishPlaqueTagConverter.NOOP)
+                {
+                    converter.convert(tag);
+                }
+
                 level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.NEUTRAL, 1.0F, 1.0F);
                 fishPlaque.setPlaqueData(tag);
+                blockEntity.setChanged();
+                level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 
                 if (!player.getAbilities().instabuild)
                 {
