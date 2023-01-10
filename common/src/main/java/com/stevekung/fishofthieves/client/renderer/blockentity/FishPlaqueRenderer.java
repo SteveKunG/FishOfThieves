@@ -37,13 +37,12 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             var stepMultiplier = isHorizontal ? 0.3f : 0.4f;
             var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
             var yDegree = -facing.toYRot() + 90f;
+            var vec3 = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
 
             if (maxScale > 1.0f)
             {
                 scale /= maxScale;
             }
-
-            var vec3 = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
 
             poseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
 
