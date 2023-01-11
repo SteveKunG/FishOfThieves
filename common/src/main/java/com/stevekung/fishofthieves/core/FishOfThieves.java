@@ -45,6 +45,7 @@ public class FishOfThieves
         StormfishVariants.init();
 
         FOTDataSerializers.init();
+        FOTLootItemFunctions.init();
         FOTStructures.init();
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);

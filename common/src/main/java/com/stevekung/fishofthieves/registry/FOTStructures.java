@@ -5,8 +5,8 @@ import java.util.Locale;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.structure.SeaPostPieces;
-import com.stevekung.fishofthieves.structure.SeaPostStructure;
+import com.stevekung.fishofthieves.structure.SeapostPieces;
+import com.stevekung.fishofthieves.structure.SeapostStructure;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 
 public class FOTStructures
 {
-    public static final Holder<Structure> SEA_POST = register(Key.SEA_POST, new SeaPostStructure(Structures.structure(FOTTags.Biomes.HAS_SEA_POST, TerrainAdjustment.BEARD_BOX)));
+    public static final Holder<Structure> SEAPOST = register(Key.SEAPOST, new SeapostStructure(Structures.structure(FOTTags.Biomes.HAS_SEAPOST, TerrainAdjustment.BEARD_BOX)));
 
     public static void init()
     {
@@ -41,14 +41,14 @@ public class FOTStructures
     public interface Sets
     {
         static void init() {}
-        Holder<StructureSet> SEA_POSTS = StructureSets.register(Key.SEA_POSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEA_POST)), new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 165745269)));
+        Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 165745269)));
     }
 
     public interface Type
     {
         static void init() {}
 
-        StructureType<SeaPostStructure> SEA_POST = register("sea_post", SeaPostStructure.CODEC);
+        StructureType<SeapostStructure> SEAPOST = register("seapost", SeapostStructure.CODEC);
 
         private static <S extends Structure> StructureType<S> register(String name, Codec<S> codec)
         {
@@ -58,8 +58,8 @@ public class FOTStructures
 
     public interface Key
     {
-        ResourceKey<Structure> SEA_POST = registerStructure("sea_post");
-        ResourceKey<StructureSet> SEA_POSTS = registerStructureSet("sea_post");
+        ResourceKey<Structure> SEAPOST = registerStructure("seapost");
+        ResourceKey<StructureSet> SEAPOSTS = registerStructureSet("seapost");
 
         private static ResourceKey<Structure> registerStructure(String name)
         {
@@ -75,7 +75,7 @@ public class FOTStructures
     public interface PieceType
     {
         static void init() {}
-        StructurePieceType SEA_POST_PIECE = setFullContextPieceId(SeaPostPieces.SeaPostPiece::new, "SeaPost");
+        StructurePieceType SEAPOST_PIECE = setFullContextPieceId(SeapostPieces.SeapostPiece::new, "Seapost");
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
         {

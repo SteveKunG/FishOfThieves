@@ -11,11 +11,11 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 
-public class SeaPostStructure extends Structure
+public class SeapostStructure extends Structure
 {
-    public static final Codec<SeaPostStructure> CODEC = simpleCodec(SeaPostStructure::new);
+    public static final Codec<SeapostStructure> CODEC = simpleCodec(SeapostStructure::new);
 
-    public SeaPostStructure(Structure.StructureSettings structureSettings)
+    public SeapostStructure(Structure.StructureSettings structureSettings)
     {
         super(structureSettings);
     }
@@ -29,13 +29,13 @@ public class SeaPostStructure extends Structure
     private void generatePieces(StructurePiecesBuilder structurePiecesBuilder, Structure.GenerationContext generationContext)
     {
         Rotation rotation = Rotation.getRandom(generationContext.random());
-        BlockPos blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), generationContext.chunkGenerator().getSeaLevel(), generationContext.chunkPos().getMinBlockZ());
-        SeaPostPieces.addPieces(generationContext.structureTemplateManager(), blockPos, rotation, structurePiecesBuilder);
+        BlockPos blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), generationContext.chunkGenerator().getSeaLevel() - 13, generationContext.chunkPos().getMinBlockZ());
+        SeapostPieces.addPieces(generationContext.structureTemplateManager(), blockPos, rotation, structurePiecesBuilder);
     }
 
     @Override
     public StructureType<?> type()
     {
-        return FOTStructures.Type.SEA_POST;
+        return FOTStructures.Type.SEAPOST;
     }
 }

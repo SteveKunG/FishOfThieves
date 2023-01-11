@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.structure;
 
 import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,28 +28,27 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 
-public class SeaPostPieces
+public class SeapostPieces
 {
     static final BlockPos PIVOT = new BlockPos(-5, 0, 10);
-    private static final ResourceLocation SEA_POST = new ResourceLocation(FishOfThieves.MOD_ID, "sea_post");
+    private static final ResourceLocation SEAPOST = new ResourceLocation(FishOfThieves.MOD_ID, "seapost");
 
     public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor pieces)
     {
-        pieces.addPiece(new SeaPostPiece(structureTemplateManager, SEA_POST, pos, rotation));
+        pieces.addPiece(new SeapostPiece(structureTemplateManager, SEAPOST, pos, rotation));
     }
 
-    public static class SeaPostPiece extends TemplateStructurePiece
+    public static class SeapostPiece extends TemplateStructurePiece
     {
-        public SeaPostPiece(StructureTemplateManager structureTemplateManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation)
+        public SeapostPiece(StructureTemplateManager structureTemplateManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation)
         {
-            super(FOTStructures.PieceType.SEA_POST_PIECE, 0, structureTemplateManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation), blockPos);
+            super(FOTStructures.PieceType.SEAPOST_PIECE, 0, structureTemplateManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation), blockPos);
         }
 
-        public SeaPostPiece(StructureTemplateManager structureTemplateManager, CompoundTag compoundTag)
+        public SeapostPiece(StructureTemplateManager structureTemplateManager, CompoundTag compoundTag)
         {
-            super(FOTStructures.PieceType.SEA_POST_PIECE, compoundTag, structureTemplateManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
+            super(FOTStructures.PieceType.SEAPOST_PIECE, compoundTag, structureTemplateManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot"))));
         }
 
         @Override
@@ -60,7 +60,23 @@ public class SeaPostPieces
 
         private static StructurePlaceSettings makeSettings(Rotation rotation)
         {
-            return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).setRotationPivot(SeaPostPieces.PIVOT).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
+            return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).setRotationPivot(SeapostPieces.PIVOT).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
+        }
+
+        private ResourceLocation getRandomLootTables(RandomSource random)
+        {
+            if (random.nextFloat() < 0.35f)
+            {
+                return FOTLootManager.SEAPOST_BARREL_FIREWORK;
+            }
+            else if (random.nextFloat() < 0.2f)
+            {
+                return FOTLootManager.SEAPOST_BARREL_COMBAT;
+            }
+            else
+            {
+                return FOTLootManager.SEAPOST_BARREL_SUPPLY;
+            }
         }
 
         @Override
@@ -68,9 +84,9 @@ public class SeaPostPieces
         {
             switch (name)
             {
-                case "sea_post_barrel" ->
-                        RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), BuiltInLootTables.SHIPWRECK_SUPPLY);
-                case "sea_post_leather_worker" ->
+                case "seapost_barrel" ->
+                        RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), this.getRandomLootTables(random));
+                case "seapost_leather_worker" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel());
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 3));
@@ -80,7 +96,7 @@ public class SeaPostPieces
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
                 }
-                case "sea_post_villager" ->
+                case "seapost_villager" ->
                 {
                     //TODO New villager profession
                     var villager = EntityType.VILLAGER.create(level.getLevel());

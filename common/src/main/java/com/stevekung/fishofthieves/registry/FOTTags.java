@@ -73,7 +73,7 @@ public interface FOTTags
         TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_ocean_wildsplash"));
         TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "always_drop_leeches"));
-        TagKey<Biome> HAS_SEA_POST = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "has_sea_post"));
+        TagKey<Biome> HAS_SEAPOST = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "has_seapost"));
     }
 
     interface FishVariant
