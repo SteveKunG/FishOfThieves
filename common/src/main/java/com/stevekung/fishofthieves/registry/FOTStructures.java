@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 
 public class FOTStructures
 {
-    public static final Holder<Structure> SEAPOST = register(Key.SEAPOST, new SeapostStructure(Structures.structure(FOTTags.Biomes.HAS_SEAPOST, TerrainAdjustment.BEARD_BOX)));
+    public static final Holder<Structure> SEAPOST = register(Key.SEAPOST, new SeapostStructure(Structures.structure(FOTTags.Biomes.HAS_SEAPOST, TerrainAdjustment.BEARD_THIN)));
 
     public static void init()
     {
@@ -41,7 +41,7 @@ public class FOTStructures
     public interface Sets
     {
         static void init() {}
-        Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 165745269)));
+        Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(32, 16, RandomSpreadType.LINEAR, 26384127)));
     }
 
     public interface Type
