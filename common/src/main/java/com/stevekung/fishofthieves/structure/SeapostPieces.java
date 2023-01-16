@@ -1,11 +1,14 @@
 package com.stevekung.fishofthieves.structure;
 
+import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTStructures;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,8 +39,9 @@ public class SeapostPieces
 {
     private static final ResourceLocation SEAPOST = new ResourceLocation(FishOfThieves.MOD_ID, "seapost");
     private static final ResourceLocation SEAPOST_BASE = new ResourceLocation(FishOfThieves.MOD_ID, "seapost_base");
-    private static final Map<ResourceLocation, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-3, 0, 13));
+    private static final Map<ResourceLocation, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-5, 0, 11));
     private static final Map<ResourceLocation, BlockPos> OFFSETS = ImmutableMap.of(SEAPOST, new BlockPos(0, 8, 0), SEAPOST_BASE, BlockPos.ZERO);
+    private static final List<Block> POTTED_BLOCKS = ImmutableList.of(Blocks.POTTED_POPPY, Blocks.POTTED_DANDELION, Blocks.POTTED_AZURE_BLUET, Blocks.POTTED_DEAD_BUSH, Blocks.POTTED_MANGROVE_PROPAGULE, Blocks.POTTED_AZALEA, Blocks.POTTED_FLOWERING_AZALEA);
 
     public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor pieces)
     {
@@ -66,7 +70,7 @@ public class SeapostPieces
 
         private static StructurePlaceSettings makeSettings(Rotation rotation, ResourceLocation location)
         {
-            return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).setRotationPivot(PIVOTS.get(location)).addProcessor(BlockIgnoreProcessor.STRUCTURE_AND_AIR);
+            return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).setRotationPivot(PIVOTS.get(location)).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
         }
 
         private static BlockPos makePosition(ResourceLocation location, BlockPos pos, int down)
@@ -78,11 +82,11 @@ public class SeapostPieces
         {
             if (random.nextFloat() < 0.35f)
             {
-                return FOTLootManager.SEAPOST_BARREL_FIREWORK;
+                return FOTLootManager.SEAPOST_BARREL_COMBAT;
             }
             else if (random.nextFloat() < 0.2f)
             {
-                return FOTLootManager.SEAPOST_BARREL_COMBAT;
+                return FOTLootManager.SEAPOST_BARREL_FIREWORK;
             }
             else
             {
@@ -97,10 +101,15 @@ public class SeapostPieces
             {
                 case "seapost_barrel" ->
                         RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), this.getRandomLootTables(random));
+                case "seapost_barrel_with_flower_pot" ->
+                {
+                    RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), this.getRandomLootTables(random));
+                    level.setBlock(pos, Util.getRandom(POTTED_BLOCKS, random).defaultBlockState(), Block.UPDATE_CLIENTS);
+                }
                 case "seapost_leather_worker" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel());
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 3));
+                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 0));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);
@@ -109,9 +118,8 @@ public class SeapostPieces
                 }
                 case "seapost_villager" ->
                 {
-                    //TODO New villager profession
                     var villager = EntityType.VILLAGER.create(level.getLevel());
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 3));
+                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 0));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);

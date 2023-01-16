@@ -28,8 +28,8 @@ public class SeapostStructure extends Structure
 
     private void generatePieces(StructurePiecesBuilder structurePiecesBuilder, Structure.GenerationContext generationContext)
     {
-        Rotation rotation = Rotation.getRandom(generationContext.random());
-        BlockPos blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), generationContext.chunkGenerator().getSeaLevel() - 4, generationContext.chunkPos().getMinBlockZ());
+        var rotation = Rotation.getRandom(generationContext.random());
+        var blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), generationContext.chunkGenerator().getSeaLevel() - 4, generationContext.chunkPos().getMinBlockZ());
         SeapostPieces.addPieces(generationContext.structureTemplateManager(), blockPos, rotation, structurePiecesBuilder);
     }
 

@@ -18,7 +18,7 @@
             }
           ],
           "name": "minecraft:gunpowder",
-          "weight": 3
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -34,7 +34,7 @@
             }
           ],
           "name": "minecraft:fire_charge",
-          "weight": 2
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -49,12 +49,13 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:tnt"
+          "name": "minecraft:tnt",
+          "weight": 2
         }
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 4.0,
+        "max": 6.0,
         "min": 2.0
       }
     }

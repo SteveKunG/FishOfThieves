@@ -506,18 +506,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             consumer.accept(FOTLootManager.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
-                            .setRolls(UniformGenerator.between(2.0F, 4.0F))
-                            .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(3)
+                            .setRolls(UniformGenerator.between(2.0F, 6.0F))
+                            .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(5)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
-                            .add(LootItem.lootTableItem(Items.FIRE_CHARGE).setWeight(2)
+                            .add(LootItem.lootTableItem(Items.FIRE_CHARGE).setWeight(4)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                            .add(LootItem.lootTableItem(Items.TNT).setWeight(1)
+                            .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
 
             consumer.accept(FOTLootManager.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 4.0F))
-                            .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(5)
+                            .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(3)
                                     .apply(SetRandomFireworkFunction.builder()
                                             .withColor(DyeColor.RED)
                                             .withColor(DyeColor.ORANGE)

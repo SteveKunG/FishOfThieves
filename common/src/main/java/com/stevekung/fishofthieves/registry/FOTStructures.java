@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
 import java.util.List;
-import java.util.Locale;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.core.FishOfThieves;
@@ -75,11 +74,11 @@ public class FOTStructures
     public interface PieceType
     {
         static void init() {}
-        StructurePieceType SEAPOST_PIECE = setFullContextPieceId(SeapostPieces.SeapostPiece::new, "Seapost");
+        StructurePieceType SEAPOST_PIECE = setFullContextPieceId(SeapostPieces.SeapostPiece::new, "seapost");
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
         {
-            return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(FishOfThieves.MOD_ID, pieceId.toLowerCase(Locale.ROOT)), pieceType);
+            return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(FishOfThieves.MOD_ID, pieceId), pieceType);
         }
     }
 }
