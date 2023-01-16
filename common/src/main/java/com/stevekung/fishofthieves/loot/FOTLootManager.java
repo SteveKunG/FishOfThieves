@@ -30,6 +30,10 @@ public class FOTLootManager
     public static final ResourceLocation LEECHES_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/leeches_drops");
     public static final ResourceLocation FISH_BONE_DROP = new ResourceLocation(FishOfThieves.MOD_ID, "entities/fish_bone_drop");
 
+    public static final ResourceLocation SEAPOST_BARREL_SUPPLY = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_supply");
+    public static final ResourceLocation SEAPOST_BARREL_COMBAT = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_combat");
+    public static final ResourceLocation SEAPOST_BARREL_FIREWORK = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_firework");
+
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
         if (blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
