@@ -6,7 +6,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -82,15 +82,15 @@ public class SeapostPieces
         {
             if (random.nextFloat() < 0.35f)
             {
-                return FOTLootManager.SEAPOST_BARREL_COMBAT;
+                return FOTLootTables.Chests.SEAPOST_BARREL_COMBAT;
             }
             else if (random.nextFloat() < 0.2f)
             {
-                return FOTLootManager.SEAPOST_BARREL_FIREWORK;
+                return FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK;
             }
             else
             {
-                return FOTLootManager.SEAPOST_BARREL_SUPPLY;
+                return FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY;
             }
         }
 

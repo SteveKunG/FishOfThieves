@@ -2,12 +2,11 @@ package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
+import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.data.loot.EntityLoot;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -25,28 +24,19 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTLootManager
 {
-    public static final ResourceLocation EARTHWORMS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/earthworms_drops");
-    public static final ResourceLocation GRUBS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/grubs_drops");
-    public static final ResourceLocation LEECHES_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/leeches_drops");
-    public static final ResourceLocation FISH_BONE_DROP = new ResourceLocation(FishOfThieves.MOD_ID, "entities/fish_bone_drop");
-
-    public static final ResourceLocation SEAPOST_BARREL_SUPPLY = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_supply");
-    public static final ResourceLocation SEAPOST_BARREL_COMBAT = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_combat");
-    public static final ResourceLocation SEAPOST_BARREL_FIREWORK = new ResourceLocation(FishOfThieves.MOD_ID, "chests/seapost_barrel_firework");
-
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
         if (blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.EARTHWORMS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
         }
         if (blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.GRUBS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.GRUBS_DROPS)));
         }
         if (blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.LEECHES_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.LEECHES_DROPS)));
         }
     }
 

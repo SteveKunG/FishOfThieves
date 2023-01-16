@@ -10,7 +10,6 @@ import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.loot.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
@@ -246,21 +245,21 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0)));
 
-            consumer.accept(FOTLootManager.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(FOTLootTables.Blocks.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootManager.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(FOTLootTables.Blocks.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.GRUBS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootManager.LEECHES_DROPS, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Blocks.LEECHES_DROPS, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
@@ -291,7 +290,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootManager.FISH_BONE_DROP, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
@@ -472,7 +471,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootManager.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(4.0F, 12.0F))
                             .add(LootItem.lootTableItem(Items.SUSPICIOUS_STEW).setWeight(10)
@@ -504,7 +503,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                             .setZoom((byte)1)
                                             .setSkipKnownStructures(false)))));
 
-            consumer.accept(FOTLootManager.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 6.0F))
                             .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(5)
@@ -514,7 +513,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
 
-            consumer.accept(FOTLootManager.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 4.0F))
                             .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(3)
