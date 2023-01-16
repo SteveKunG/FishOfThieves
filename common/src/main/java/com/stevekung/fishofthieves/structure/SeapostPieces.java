@@ -109,7 +109,7 @@ public class SeapostPieces
                 case "seapost_leather_worker" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel());
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 0));
+                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);
@@ -119,7 +119,7 @@ public class SeapostPieces
                 case "seapost_villager" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel());
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 0));
+                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);
