@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
-import com.stevekung.fishofthieves.block.FishPlaqueBlock;
+import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTDataSerializers;
@@ -53,7 +53,7 @@ public class FishOfThieves
 
         FOTDataSerializers.init();
 
-        FishPlaqueBlock.registerConverter(EntityType.TROPICAL_FISH, compoundTag ->
+        FishPlaqueRegistry.register(EntityType.TROPICAL_FISH, compoundTag ->
         {
             if (compoundTag.contains(TropicalFish.BUCKET_VARIANT_TAG, Tag.TAG_INT))
             {

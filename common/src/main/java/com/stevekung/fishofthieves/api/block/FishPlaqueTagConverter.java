@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.block;
+package com.stevekung.fishofthieves.api.block;
 
 import net.minecraft.nbt.CompoundTag;
 

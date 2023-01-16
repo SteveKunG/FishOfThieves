@@ -6,12 +6,12 @@ import java.util.function.Function;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
+import com.stevekung.fishofthieves.api.block.FishPlaqueTagConverter;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -52,7 +52,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 4.5, 14.0, 16.0, 12.5, 16.0), Direction.SOUTH, Block.box(0.0, 4.5, 0.0, 16.0, 12.5, 2.0), Direction.EAST, Block.box(0.0, 4.5, 0.0, 2.0, 12.5, 16.0), Direction.WEST, Block.box(14.0, 4.5, 0.0, 16.0, 12.5, 16.0)));
-    private static final Map<EntityType<?>, FishPlaqueTagConverter> FISH_PLAQUE_TAG_CONVERTER_REGISTRY = Util.make(new Object2ObjectOpenHashMap<>(), object2ObjectOpenHashMap -> object2ObjectOpenHashMap.defaultReturnValue(FishPlaqueTagConverter.NOOP));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -62,11 +61,6 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
-    }
-
-    public static void registerConverter(EntityType<?> entityType, FishPlaqueTagConverter converter)
-    {
-        FISH_PLAQUE_TAG_CONVERTER_REGISTRY.put(entityType, converter);
     }
 
     @Override
@@ -125,7 +119,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
-                var converter = FISH_PLAQUE_TAG_CONVERTER_REGISTRY.get(entityType);
+                var converter = FishPlaqueRegistry.get(entityType);
                 tag.putString("id", Registry.ENTITY_TYPE.getKey(entityType).toString());
 
                 if (converter != FishPlaqueTagConverter.NOOP)
