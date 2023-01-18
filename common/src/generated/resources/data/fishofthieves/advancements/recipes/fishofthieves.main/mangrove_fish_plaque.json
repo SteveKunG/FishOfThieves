@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:fish_plaque"
+        "recipe": "fishofthieves:mangrove_fish_plaque"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "fishofthieves:fish_plaque"
+      "fishofthieves:mangrove_fish_plaque"
     ]
   }
 }

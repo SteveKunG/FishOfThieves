@@ -4,20 +4,17 @@
     "F": {
       "item": "minecraft:item_frame"
     },
-    "I": {
-      "item": "minecraft:iron_nugget"
-    },
     "P": {
-      "tag": "minecraft:planks"
+      "item": "minecraft:birch_planks"
     }
   },
   "pattern": [
     "PPP",
-    "IFI",
+    "PFP",
     "PPP"
   ],
   "result": {
-    "count": 4,
-    "item": "fishofthieves:fish_plaque"
+    "count": 6,
+    "item": "fishofthieves:birch_fish_plaque"
   }
 }

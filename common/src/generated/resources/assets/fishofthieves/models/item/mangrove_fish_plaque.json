@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/fish_plaque"
+    "layer0": "fishofthieves:item/mangrove_fish_plaque"
   }
 }

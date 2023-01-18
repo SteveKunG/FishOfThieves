@@ -53,6 +53,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -101,6 +102,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         dataGenerator.addProvider(RecipeProvider::new);
         dataGenerator.addProvider(BlockLootProvider::new);
+        dataGenerator.addProvider(CustomBlockLootProvider::new);
         dataGenerator.addProvider(EntityLootProvider::new);
         dataGenerator.addProvider(BlockTagsProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
@@ -178,7 +180,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
 
             generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTBlocks.FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         @Override
@@ -188,9 +198,21 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.skipAutoItemBlock(fishBone);
             generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
 
-            var fishPlaque = FOTBlocks.FISH_PLAQUE;
-            generator.skipAutoItemBlock(fishPlaque);
-            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishPlaque, ModelLocationUtils.getModelLocation(fishPlaque)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+            this.createFishPlaque(FOTBlocks.OAK_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.SPRUCE_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.BIRCH_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.JUNGLE_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.ACACIA_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.DARK_OAK_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.MANGROVE_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.CRIMSON_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.WARPED_FISH_PLAQUE, generator);
+        }
+
+        private void createFishPlaque(Block block, BlockModelGenerators generator)
+        {
+            generator.skipAutoItemBlock(block);
+            generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, new ResourceLocation(FishOfThieves.MOD_ID, "block/fish_plaque")).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
         }
     }
 
@@ -204,8 +226,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void generateRecipes(Consumer<FinishedRecipe> consumer)
         {
-            ShapedRecipeBuilder.shaped(FOTBlocks.FISH_PLAQUE, 4).define('P', ItemTags.PLANKS).define('I', Items.IRON_NUGGET).define('F', Items.ITEM_FRAME).pattern("PPP").pattern("IFI").pattern("PPP").unlockedBy(getHasName(Items.ITEM_FRAME), has(Items.ITEM_FRAME)).save(consumer);
             ShapelessRecipeBuilder.shapeless(Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
+
+            addFishPlaqueRecipe(FOTBlocks.OAK_FISH_PLAQUE, Items.OAK_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.SPRUCE_FISH_PLAQUE, Items.SPRUCE_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.BIRCH_FISH_PLAQUE, Items.BIRCH_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.JUNGLE_FISH_PLAQUE, Items.JUNGLE_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.ACACIA_FISH_PLAQUE, Items.ACACIA_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.DARK_OAK_FISH_PLAQUE, Items.DARK_OAK_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.MANGROVE_FISH_PLAQUE, Items.MANGROVE_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.CRIMSON_FISH_PLAQUE, Items.CRIMSON_PLANKS, consumer);
+            addFishPlaqueRecipe(FOTBlocks.WARPED_FISH_PLAQUE, Items.WARPED_PLANKS, consumer);
 
             addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
             addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
@@ -219,6 +250,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
         }
 
+        private static void addFishPlaqueRecipe(Block block, ItemLike baseMaterial, Consumer<FinishedRecipe> consumer)
+        {
+            ShapedRecipeBuilder.shaped(block, 6).define('P', baseMaterial).define('F', Items.ITEM_FRAME).pattern("PPP").pattern("PFP").pattern("PPP").unlockedBy(getHasName(Items.ITEM_FRAME), has(Items.ITEM_FRAME)).save(consumer);
+        }
+
         private static void addCookingRecipes(Consumer<FinishedRecipe> consumer, float xp, ItemLike rawFood, ItemLike cookedFood)
         {
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), cookedFood, xp, 200).unlockedBy(getHasName(rawFood), has(rawFood)).save(consumer);
@@ -227,9 +263,32 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         }
     }
 
-    private static class BlockLootProvider extends SimpleFabricLootTableProvider
+    private static class BlockLootProvider extends FabricBlockLootTableProvider
     {
         private BlockLootProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator);
+        }
+
+        @Override
+        protected void generateBlockLootTables()
+        {
+            this.add(FOTBlocks.FISH_BONE, createSingleItemTable(FOTBlocks.FISH_BONE));
+            this.add(FOTBlocks.OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.SPRUCE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.SPRUCE_FISH_PLAQUE));
+            this.add(FOTBlocks.BIRCH_FISH_PLAQUE, createSingleItemTable(FOTBlocks.BIRCH_FISH_PLAQUE));
+            this.add(FOTBlocks.JUNGLE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.JUNGLE_FISH_PLAQUE));
+            this.add(FOTBlocks.ACACIA_FISH_PLAQUE, createSingleItemTable(FOTBlocks.ACACIA_FISH_PLAQUE));
+            this.add(FOTBlocks.DARK_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.DARK_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.MANGROVE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.MANGROVE_FISH_PLAQUE));
+            this.add(FOTBlocks.CRIMSON_FISH_PLAQUE, createSingleItemTable(FOTBlocks.CRIMSON_FISH_PLAQUE));
+            this.add(FOTBlocks.WARPED_FISH_PLAQUE, createSingleItemTable(FOTBlocks.WARPED_FISH_PLAQUE));
+        }
+    }
+
+    private static class CustomBlockLootProvider extends SimpleFabricLootTableProvider
+    {
+        private CustomBlockLootProvider(FabricDataGenerator dataGenerator)
         {
             super(dataGenerator, LootContextParamSets.BLOCK);
         }
@@ -271,9 +330,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                             .when(BlockLoot.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.Biomes.ALWAYS_DROP_LEECHES)))));
-
-            consumer.accept(FOTBlocks.FISH_BONE.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.FISH_BONE));
-            consumer.accept(FOTBlocks.FISH_PLAQUE.getLootTable(), BlockLoot.createSingleItemTable(FOTBlocks.FISH_PLAQUE));
         }
         //@formatter:on
     }
@@ -472,7 +528,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         protected void generateTags()
         {
             this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
-            this.tag(BlockTags.MINEABLE_WITH_AXE).add(FOTBlocks.FISH_PLAQUE);
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
 
             this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
             this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
