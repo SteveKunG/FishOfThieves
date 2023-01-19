@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
+import com.stevekung.fishofthieves.api.block.FishPlaqueTagConverter;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTDataSerializers;
@@ -14,9 +15,7 @@ import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
@@ -53,14 +52,7 @@ public class FishOfThieves
 
         FOTDataSerializers.init();
 
-        FishPlaqueRegistry.register(EntityType.TROPICAL_FISH, compoundTag ->
-        {
-            if (compoundTag.contains(TropicalFish.BUCKET_VARIANT_TAG, Tag.TAG_INT))
-            {
-                compoundTag.putInt("Variant", compoundTag.getInt(TropicalFish.BUCKET_VARIANT_TAG));
-                compoundTag.remove(TropicalFish.BUCKET_VARIANT_TAG);
-            }
-        });
+        FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);

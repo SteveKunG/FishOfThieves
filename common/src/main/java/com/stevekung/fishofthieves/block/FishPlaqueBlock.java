@@ -119,7 +119,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
-                var converter = FishPlaqueRegistry.get(entityType);
+                var converter = FishPlaqueRegistry.getTagConverter(entityType);
                 tag.putString("id", Registry.ENTITY_TYPE.getKey(entityType).toString());
 
                 if (converter != FishPlaqueTagConverter.NOOP)
