@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.loot.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
@@ -43,7 +43,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.*;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,11 +59,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
@@ -104,6 +110,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         dataGenerator.addProvider(BlockLootProvider::new);
         dataGenerator.addProvider(CustomBlockLootProvider::new);
         dataGenerator.addProvider(EntityLootProvider::new);
+        dataGenerator.addProvider(ChestLootProvider::new);
         dataGenerator.addProvider(BlockTagsProvider::new);
         dataGenerator.addProvider(ItemTagsProvider::new);
         dataGenerator.addProvider(EntityTagsProvider::new);
@@ -441,21 +448,21 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0)));
 
-            consumer.accept(FOTLootManager.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(FOTLootTables.Blocks.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootManager.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(FOTLootTables.Blocks.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.GRUBS)
                             .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLoot.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootManager.LEECHES_DROPS, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Blocks.LEECHES_DROPS, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                     .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
@@ -484,7 +491,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootManager.FISH_BONE_DROP, LootTable.lootTable()
+            consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
@@ -654,6 +661,81 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     }
     //@formatter:on
 
+    private static class ChestLootProvider extends SimpleFabricLootTableProvider
+    {
+        private ChestLootProvider(FabricDataGenerator dataGenerator)
+        {
+            super(dataGenerator, LootContextParamSets.CHEST);
+        }
+
+        //@formatter:off
+        @Override
+        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        {
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(4.0F, 12.0F))
+                            .add(LootItem.lootTableItem(Items.SUSPICIOUS_STEW).setWeight(10)
+                                    .apply(SetStewEffectFunction.stewEffect()
+                                            .withEffect(MobEffects.NIGHT_VISION, UniformGenerator.between(7.0F, 10.0F))
+                                            .withEffect(MobEffects.JUMP, UniformGenerator.between(7.0F, 10.0F))
+                                            .withEffect(MobEffects.WEAKNESS, UniformGenerator.between(6.0F, 8.0F))
+                                            .withEffect(MobEffects.BLINDNESS, UniformGenerator.between(5.0F, 7.0F))
+                                            .withEffect(MobEffects.POISON, UniformGenerator.between(10.0F, 20.0F))
+                                            .withEffect(MobEffects.SATURATION, UniformGenerator.between(7.0F, 10.0F))))
+                            .add(LootItem.lootTableItem(Items.APPLE).setWeight(9)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))))
+                            .add(LootItem.lootTableItem(Items.CARROT).setWeight(9)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                            .add(LootItem.lootTableItem(Items.POTATO).setWeight(9)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                            .add(LootItem.lootTableItem(Items.OAK_LOG).setWeight(8)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+                            .add(LootItem.lootTableItem(Items.BAMBOO).setWeight(7)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 24.0F))))
+                            .add(TagEntry.expandTag(FOTTags.Items.WORMS).setWeight(5)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
+                            .add(TagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                            .add(LootItem.lootTableItem(Items.MAP).setWeight(1)
+                                    .apply(ExplorationMapFunction.makeExplorationMap()
+                                            .setDestination(StructureTags.ON_TREASURE_MAPS)
+                                            .setMapDecoration(MapDecoration.Type.RED_X)
+                                            .setZoom((byte)1)
+                                            .setSkipKnownStructures(false)))));
+
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(2.0F, 6.0F))
+                            .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(5)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                            .add(LootItem.lootTableItem(Items.FIRE_CHARGE).setWeight(4)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                            .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
+
+            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(2.0F, 4.0F))
+                            .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(3)
+                                    .apply(SetRandomFireworkFunction.builder()
+                                            .withColor(DyeColor.RED)
+                                            .withColor(DyeColor.ORANGE)
+                                            .withColor(DyeColor.YELLOW)
+                                            .withColor(DyeColor.LIME)
+                                            .withColor(DyeColor.BLUE)
+                                            .withColor(DyeColor.CYAN)
+                                            .withColor(DyeColor.LIGHT_BLUE)
+                                            .withColor(DyeColor.PURPLE)
+                                            .withColor(DyeColor.MAGENTA)
+                                            .withColor(DyeColor.WHITE)
+                                            .withColor(6942120) // athena
+                                    )
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))));
+        }
+        //@formatter:on
+    }
+
     private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
         private BlockTagsProvider(FabricDataGenerator dataGenerator)
@@ -768,6 +850,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG);
             this.getOrCreateTagBuilder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
+            this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
         }
     }
 
