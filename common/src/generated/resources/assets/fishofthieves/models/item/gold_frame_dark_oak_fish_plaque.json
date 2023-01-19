@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fishofthieves:item/gold_frame_dark_oak_fish_plaque"
+  }
+}

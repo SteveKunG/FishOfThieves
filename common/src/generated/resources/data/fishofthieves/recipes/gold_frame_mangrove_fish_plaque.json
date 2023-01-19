@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "gold_frame_fish_plaque",
+  "key": {
+    "F": {
+      "item": "fishofthieves:mangrove_fish_plaque"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GFG",
+    "GGG"
+  ],
+  "result": {
+    "item": "fishofthieves:gold_frame_mangrove_fish_plaque"
+  }
+}

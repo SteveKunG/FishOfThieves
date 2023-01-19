@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "gilded_fish_plaque",
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "F": {
+      "item": "fishofthieves:acacia_fish_plaque"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "GEG",
+    "RFR",
+    "GEG"
+  ],
+  "result": {
+    "item": "fishofthieves:gilded_acacia_fish_plaque"
+  }
+}
