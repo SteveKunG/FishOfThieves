@@ -110,6 +110,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 else
                 {
                     level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                    level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                     level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_CLIENTS);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
