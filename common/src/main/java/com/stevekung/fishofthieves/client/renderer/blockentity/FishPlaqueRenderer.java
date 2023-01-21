@@ -54,7 +54,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             {
                 switch (rotation)
                 {
-                    // better solution for this??
+                    // TODO better solution for this??
                     case 0 -> poseStack.translate(-0.1, 0, 0);
                     case 1 -> poseStack.translate(-0.083125, 0, -0.1);
                     case 2 -> poseStack.translate(0, 0, -scale * 0.22);

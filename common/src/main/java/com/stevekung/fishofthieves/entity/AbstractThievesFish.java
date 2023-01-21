@@ -25,8 +25,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
-
-    // Debug Visual
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
@@ -41,8 +39,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         super.defineSynchedData();
         this.entityData.define(TROPHY, false);
         this.entityData.define(HAS_FED, false);
-
-        // Debug Visual
         this.entityData.define(NO_FLIP, false);
     }
 
@@ -53,9 +49,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
-
-        // Debug Visual
-        compound.putBoolean(ThievesFish.NO_FLIP, this.isNoFlip());
+        compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
     }
 
     @Override
@@ -73,9 +67,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
-
-        // Debug Visual
-        this.setNoFlip(compound.getBoolean(ThievesFish.NO_FLIP));
+        this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
     }
 
     @Override

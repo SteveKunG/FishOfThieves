@@ -33,14 +33,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
-
-    // Start Debug Visual
-    String NO_FLIP = "NoFlip";
-
-    void setNoFlip(boolean noFlip);
-
-    boolean isNoFlip();
-    // End Debug Visual
+    String NO_FLIP_TAG = "NoFlip";
 
     T getVariant();
 
@@ -61,6 +54,10 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     void setHasFed(boolean hasFed);
 
     boolean isFood(ItemStack itemStack);
+
+    void setNoFlip(boolean noFlip);
+
+    boolean isNoFlip();
 
     default float getGlowBrightness(float ageInTicks)
     {
@@ -85,7 +82,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         }
         if (this.isNoFlip())
         {
-            compound.putBoolean(NO_FLIP, this.isNoFlip());
+            compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
         }
     }
 
@@ -110,9 +107,9 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         {
             this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         }
-        if (compound.contains(NO_FLIP))
+        if (compound.contains(NO_FLIP_TAG))
         {
-            this.setNoFlip(compound.getBoolean(NO_FLIP));
+            this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
         }
     }
 

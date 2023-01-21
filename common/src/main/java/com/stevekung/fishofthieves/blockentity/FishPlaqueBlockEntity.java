@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class FishPlaqueBlockEntity extends BlockEntity
 {
+    public static final String PLAQUE_DATA_TAG = "PlaqueData";
+
     @Nullable
     private Entity displayEntity;
 
@@ -30,7 +32,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public void load(CompoundTag tag)
     {
         super.load(tag);
-        var plaqueData = tag.getCompound("PlaqueData");
+        var plaqueData = tag.getCompound(PLAQUE_DATA_TAG);
 
         if (plaqueData != null)
         {
@@ -45,7 +47,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
         if (this.plaqueData != null)
         {
-            tag.put("PlaqueData", this.plaqueData);
+            tag.put(PLAQUE_DATA_TAG, this.plaqueData);
         }
     }
 
