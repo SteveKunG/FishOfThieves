@@ -116,7 +116,7 @@ public class SeapostPieces
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
                 }
-                case "seapost_villager" ->
+                case "seapost_fisherman" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel());
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 1));
