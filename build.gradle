@@ -33,6 +33,7 @@ subprojects {
             // Indentation string
             ind = "    "
         }
+        quiltflowerVersion = "1.9.0"
     }
 
     repositories {
