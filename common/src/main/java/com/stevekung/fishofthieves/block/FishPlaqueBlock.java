@@ -96,10 +96,10 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
                     if (entity instanceof Bucketable bucketable)
                     {
-                        ItemStack itemStack2 = bucketable.getBucketItemStack();
+                        var itemStack2 = bucketable.getBucketItemStack();
                         bucketable.saveToBucketTag(itemStack2);
                         level.playSound(player, pos, bucketable.getPickupSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
-                        ItemStack itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
+                        var itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                         player.setItemInHand(hand, itemStack3);
                         fishPlaque.clearDisplayEntity();
                         blockEntity.setChanged();
