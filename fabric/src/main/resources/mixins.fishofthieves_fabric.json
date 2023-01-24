@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8.5",
   "package": "com.stevekung.fishofthieves.fabric.mixin",
+  "plugin": "com.stevekung.fishofthieves.fabric.core.FOTMixinConfigPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
   ],

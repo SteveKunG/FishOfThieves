@@ -142,6 +142,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateItemModels(ItemModelGenerators generator)
         {
+            //TODO Waiting for textures
+            /*ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL, List.of("sunny_splashtail", "indigo_splashtail", "umber_splashtail", "seaform_splashtail"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE, List.of("orchid_pondie", "bronze_pondie", "bright_pondie", "moonsky_pondie"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER, List.of("moss_islehopper", "honey_islehopper", "raven_islehopper", "amethyst_islehopper"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE, List.of("sapphire_ancientscale", "smoke_ancientscale", "bone_ancientscale", "starshine_ancientscale"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN, List.of("amber_plentifin", "cloudy_plentifin", "bonedust_plentifin", "watery_plentifin"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH, List.of("sandy_wildsplash", "ocean_wildsplash", "muddy_wildsplash", "coral_wildsplash"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH, List.of("seashell_devilfish", "lava_devilfish", "forsaken_devilfish", "firelight_devilfish"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL, List.of("sky_battlegill", "rum_battlegill", "sand_battlegill", "bittersweet_battlegill"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER, List.of("sun_wrecker", "blackcloud_wrecker", "snow_wrecker", "moon_wrecker"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH, List.of("shores_stormfish", "wild_stormfish", "shadow_stormfish", "twilight_stormfish"), generator.output);*/
+
             generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
@@ -755,10 +767,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Blocks.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
             this.getOrCreateTagBuilder(FOTTags.Blocks.LEECHES_DROPS).forceAddTag(BlockTags.SAND).add(Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
             this.getOrCreateTagBuilder(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST).add(Blocks.MOSS_BLOCK, Blocks.COARSE_DIRT, Blocks.MYCELIUM, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
+            //@formatter:off
             this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE, FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.GOLD_FRAME_OAK_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.GOLD_FRAME_WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE, FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+            //@formatter:on
         }
     }
 
