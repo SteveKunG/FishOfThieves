@@ -30,7 +30,7 @@ public abstract class MixinModelTemplate implements ExtendedModelTemplate
     abstract Map<TextureSlot, ResourceLocation> createMap(TextureMapping textureMapping);
 
     @Override
-    public void create(ResourceLocation modelLocation, TextureMapping textureMapping, List<String> overrides, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput)
+    public void create(ResourceLocation modelLocation, TextureMapping textureMapping, List<String> overrides, String suffixes, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput)
     {
         var map = this.createMap(textureMapping);
 
@@ -56,7 +56,7 @@ public abstract class MixinModelTemplate implements ExtendedModelTemplate
                 {
                     var customModelDataPredicate = new JsonObject();
                     var customModelData = new JsonObject();
-                    var customModel = getCustomModelLocation(modelLocation.getNamespace(), override);
+                    var customModel = getCustomModelLocation(modelLocation.getNamespace(), override + suffixes);
                     customModelData.addProperty("custom_model_data", index++);
                     customModelDataPredicate.add("predicate", customModelData);
                     customModelDataPredicate.addProperty("model", customModel.toString());
@@ -69,7 +69,7 @@ public abstract class MixinModelTemplate implements ExtendedModelTemplate
 
         for (var override : overrides)
         {
-            var customModel = getCustomModelLocation(modelLocation.getNamespace(), override);
+            var customModel = getCustomModelLocation(modelLocation.getNamespace(), override + suffixes);
             ModelTemplate.class.cast(this).create(customModel, TextureMapping.layer0(customModel), modelOutput);
         }
     }

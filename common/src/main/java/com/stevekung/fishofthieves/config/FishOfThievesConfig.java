@@ -31,6 +31,9 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.RequiresRestart
         @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still working regardless of this option.")
         public boolean simpleSpawningCondition;
+
+        @Comment("Display all fish variant in Creative Tab. HIGHLY EXPERIMENTAL!")
+        public boolean displayAllFishVariantInCreativeTab;
     }
 
     public static class SpawnRate

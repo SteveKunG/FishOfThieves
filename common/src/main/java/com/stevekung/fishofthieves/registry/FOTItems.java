@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.sounds.SoundEvents;
@@ -15,16 +16,16 @@ public class FOTItems
     public static final Item GRUBS = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WORMS));
     public static final Item LEECHES = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WORMS));
 
-    public static final Item SPLASHTAIL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.SPLASHTAIL));
-    public static final Item PONDIE = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.PONDIE));
-    public static final Item ISLEHOPPER = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.ISLEHOPPER));
-    public static final Item ANCIENTSCALE = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.ANCIENTSCALE));
-    public static final Item PLENTIFIN = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.PLENTIFIN));
-    public static final Item WILDSPLASH = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WILDSPLASH));
-    public static final Item DEVILFISH = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.DEVILFISH));
-    public static final Item BATTLEGILL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.BATTLEGILL));
-    public static final Item WRECKER = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WRECKER));
-    public static final Item STORMFISH = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.STORMFISH));
+    public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.SPLASHTAIL));
+    public static final Item PONDIE = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.PONDIE));
+    public static final Item ISLEHOPPER = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.ISLEHOPPER));
+    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.ANCIENTSCALE));
+    public static final Item PLENTIFIN = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.PLENTIFIN));
+    public static final Item WILDSPLASH = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WILDSPLASH));
+    public static final Item DEVILFISH = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.DEVILFISH));
+    public static final Item BATTLEGILL = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.BATTLEGILL));
+    public static final Item WRECKER = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.WRECKER));
+    public static final Item STORMFISH = new FOTItem(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.STORMFISH));
 
     public static final Item COOKED_SPLASHTAIL = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.COOKED_SPLASHTAIL));
     public static final Item COOKED_PONDIE = new Item(new Item.Properties().tab(FishOfThieves.FOT_TAB).food(FOTFoodProperties.COOKED_PONDIE));

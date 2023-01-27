@@ -1,5 +1,31 @@
 {
   "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "fishofthieves:item/orchid_pondie_bucket",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "fishofthieves:item/bronze_pondie_bucket",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "fishofthieves:item/bright_pondie_bucket",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "fishofthieves:item/moonsky_pondie_bucket",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    }
+  ],
   "textures": {
     "layer0": "fishofthieves:item/pondie_bucket"
   }

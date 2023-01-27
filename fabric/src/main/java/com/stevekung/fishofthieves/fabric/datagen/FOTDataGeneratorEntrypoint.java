@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -141,39 +142,40 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         public void generateItemModels(ItemModelGenerators generator)
         {
             //TODO Waiting for textures
-            /*ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL, List.of("sunny_splashtail", "indigo_splashtail", "umber_splashtail", "seaform_splashtail"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE, List.of("orchid_pondie", "bronze_pondie", "bright_pondie", "moonsky_pondie"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER, List.of("moss_islehopper", "honey_islehopper", "raven_islehopper", "amethyst_islehopper"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE, List.of("sapphire_ancientscale", "smoke_ancientscale", "bone_ancientscale", "starshine_ancientscale"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN, List.of("amber_plentifin", "cloudy_plentifin", "bonedust_plentifin", "watery_plentifin"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH, List.of("sandy_wildsplash", "ocean_wildsplash", "muddy_wildsplash", "coral_wildsplash"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH, List.of("seashell_devilfish", "lava_devilfish", "forsaken_devilfish", "firelight_devilfish"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL, List.of("sky_battlegill", "rum_battlegill", "sand_battlegill", "bittersweet_battlegill"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER, List.of("sun_wrecker", "blackcloud_wrecker", "snow_wrecker", "moon_wrecker"), generator.output);
-            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH, List.of("shores_stormfish", "wild_stormfish", "shadow_stormfish", "twilight_stormfish"), generator.output);*/
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL, List.of("sunny", "indigo", "umber", "seafoam"), "_splashtail", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE, List.of("orchid", "bronze", "bright", "moonsky"), "_pondie", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER, List.of("moss", "honey", "raven", "amethyst"), "_islehopper", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE, List.of("sapphire", "smoke", "bone", "starshine"), "_ancientscale", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN, List.of("amber", "cloudy", "bonedust", "watery"), "_plentifin", generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH, List.of("shores", "wild", "shadow", "twilight"), generator.output);
+
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL_BUCKET, List.of("sunny", "indigo", "umber", "seafoam"), "_splashtail_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE_BUCKET, List.of("orchid", "bronze", "bright", "moonsky"), "_pondie_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER_BUCKET, List.of("moss", "honey", "raven", "amethyst"), "_islehopper_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE_BUCKET, List.of("sapphire", "smoke", "bone", "starshine"), "_ancientscale_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN_BUCKET, List.of("amber", "cloudy", "bonedust", "watery"), "_plentifin_bucket", generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH_BUCKET, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH_BUCKET, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL_BUCKET, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER_BUCKET, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
+            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH_BUCKET, List.of("shores", "wild", "shadow", "twilight"), generator.output);
 
             generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.SPLASHTAIL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.SPLASHTAIL_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.PONDIE, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.PONDIE_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.ISLEHOPPER, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.ISLEHOPPER_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.ANCIENTSCALE_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.PLENTIFIN, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.PLENTIFIN_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, SPAWN_EGG);
             generator.generateFlatItem(FOTItems.WILDSPLASH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
