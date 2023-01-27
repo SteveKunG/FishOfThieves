@@ -1,4 +1,6 @@
 {
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"fish_plaque": "fishofthieves:block/golden_frame_fish_plaque",
 		"particle": "#planks"

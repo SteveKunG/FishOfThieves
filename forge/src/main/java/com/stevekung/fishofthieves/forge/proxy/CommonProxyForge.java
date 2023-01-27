@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -25,6 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -51,6 +53,17 @@ public class CommonProxyForge
 
     public void clientSetup(FMLClientSetupEvent event)
     {
+    }
+
+    @SubscribeEvent
+    public void onFuelBurnTime(FurnaceFuelBurnTimeEvent event)
+    {
+        var itemStack = event.getItemStack();
+
+        if (itemStack.is(FOTTags.Items.WOODEN_FISH_PLAQUE))
+        {
+            event.setBurnTime(300);
+        }
     }
 
     @SubscribeEvent
