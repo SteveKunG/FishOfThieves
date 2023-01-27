@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.fabric.core;
+package com.stevekung.fishofthieves.fabric;
 
 import java.util.List;
 import java.util.Set;

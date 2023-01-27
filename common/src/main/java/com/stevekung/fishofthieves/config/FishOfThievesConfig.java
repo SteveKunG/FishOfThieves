@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.config;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;

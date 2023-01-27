@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.trigger;
 
 import com.google.gson.JsonObject;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;

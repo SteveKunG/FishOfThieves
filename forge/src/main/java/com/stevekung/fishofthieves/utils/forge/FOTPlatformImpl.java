@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.utils.forge;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.forge.FishOfThievesForge;
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.advancements.CriteriaTriggers;

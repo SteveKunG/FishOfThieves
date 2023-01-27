@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;

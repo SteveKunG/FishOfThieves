@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.server.level.ServerLevel;

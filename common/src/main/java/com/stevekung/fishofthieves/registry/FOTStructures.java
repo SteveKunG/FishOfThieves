@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.structure.SeapostPieces;
 import com.stevekung.fishofthieves.structure.SeapostStructure;
 import net.minecraft.core.Holder;
@@ -40,6 +40,7 @@ public class FOTStructures
     public interface Sets
     {
         static void init() {}
+
         Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(32, 16, RandomSpreadType.LINEAR, 26384127)));
     }
 
@@ -74,6 +75,7 @@ public class FOTStructures
     public interface PieceType
     {
         static void init() {}
+
         StructurePieceType SEAPOST_PIECE = setFullContextPieceId(SeapostPieces.SeapostPiece::new, "seapost");
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)

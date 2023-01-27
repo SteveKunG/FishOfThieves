@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.entity;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;

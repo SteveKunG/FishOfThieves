@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

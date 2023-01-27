@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.core;
+package com.stevekung.fishofthieves;
 
 import java.util.List;
 

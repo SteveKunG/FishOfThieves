@@ -1,7 +1,7 @@
-package com.stevekung.fishofthieves.forge.core;
+package com.stevekung.fishofthieves.forge;
 
 import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.datagen.FOTBiomeModifier;
 import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;

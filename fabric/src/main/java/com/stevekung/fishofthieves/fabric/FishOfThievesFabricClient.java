@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.fabric.core;
+package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;

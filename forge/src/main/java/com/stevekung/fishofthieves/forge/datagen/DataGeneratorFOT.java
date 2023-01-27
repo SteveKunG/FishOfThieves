@@ -7,7 +7,7 @@ import java.util.Map;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.Registry;

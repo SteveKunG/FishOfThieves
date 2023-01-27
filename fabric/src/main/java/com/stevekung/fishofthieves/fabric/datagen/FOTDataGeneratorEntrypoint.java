@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
 import com.stevekung.fishofthieves.loot.SetRandomFireworkFunction;

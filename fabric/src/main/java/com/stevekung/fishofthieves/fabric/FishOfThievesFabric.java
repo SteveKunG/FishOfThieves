@@ -1,6 +1,6 @@
-package com.stevekung.fishofthieves.fabric.core;
+package com.stevekung.fishofthieves.fabric;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;

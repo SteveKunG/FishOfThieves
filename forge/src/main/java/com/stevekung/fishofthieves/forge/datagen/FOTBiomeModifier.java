@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.HolderSet;

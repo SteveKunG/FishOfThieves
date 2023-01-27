@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.utils.FOTPlatform;

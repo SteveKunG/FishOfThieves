@@ -18,10 +18,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabric"
+      "com.stevekung.fishofthieves.fabric.FishOfThievesFabric"
     ],
     "client": [
-      "com.stevekung.fishofthieves.fabric.core.FishOfThievesFabricClient"
+      "com.stevekung.fishofthieves.fabric.FishOfThievesFabricClient"
     ],
     "fabric-datagen": [
       "com.stevekung.fishofthieves.fabric.datagen.FOTDataGeneratorEntrypoint"
