@@ -22,7 +22,8 @@ public interface FOTTags
         TagKey<Item> EARTHWORMS_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_food"));
         TagKey<Item> GRUBS_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_food"));
         TagKey<Item> LEECHES_FOOD = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_food"));
-        TagKey<Item> FISH_PLAQUE_BLACKLIST = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque_blacklist"));
+        TagKey<Item> FISH_PLAQUE_BUCKET_BLACKLIST = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque_bucket_blacklist"));
+        TagKey<Item> WOODEN_FISH_PLAQUE = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "wooden_fish_plaque"));
     }
 
     interface Blocks

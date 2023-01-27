@@ -1,19 +1,19 @@
 {
   "variants": {
     "facing=east": {
-      "model": "fishofthieves:block/fish_plaque",
-      "y": 270
+      "model": "fishofthieves:block/gilded_dark_oak_fish_plaque",
+      "y": 90
     },
     "facing=north": {
-      "model": "fishofthieves:block/fish_plaque",
-      "y": 180
+      "model": "fishofthieves:block/gilded_dark_oak_fish_plaque"
     },
     "facing=south": {
-      "model": "fishofthieves:block/fish_plaque"
+      "model": "fishofthieves:block/gilded_dark_oak_fish_plaque",
+      "y": 180
     },
     "facing=west": {
-      "model": "fishofthieves:block/fish_plaque",
-      "y": 90
+      "model": "fishofthieves:block/gilded_dark_oak_fish_plaque",
+      "y": 270
     }
   }
 }

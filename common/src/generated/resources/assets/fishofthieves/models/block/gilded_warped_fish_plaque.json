@@ -1,0 +1,6 @@
+{
+  "parent": "fishofthieves:block/template_gilded_fish_plaque",
+  "textures": {
+    "planks": "minecraft:block/warped_planks"
+  }
+}

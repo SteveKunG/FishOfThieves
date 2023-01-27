@@ -45,21 +45,23 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
-    private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 4.5, 14.0, 16.0, 12.5, 16.0), Direction.SOUTH, Block.box(0.0, 4.5, 0.0, 16.0, 12.5, 2.0), Direction.EAST, Block.box(0.0, 4.5, 0.0, 2.0, 12.5, 16.0), Direction.WEST, Block.box(14.0, 4.5, 0.0, 16.0, 12.5, 16.0)));
-
+    private final Map<Direction, VoxelShape> aabb;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
 
-    public FishPlaqueBlock(BlockBehaviour.Properties properties)
+    public FishPlaqueBlock(BlockBehaviour.Properties properties, Type type)
     {
         super(properties);
+        this.aabb = type.aabb;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
     }
 
@@ -72,7 +74,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return AABBS.get(state.getValue(FACING));
+        return this.aabb.get(state.getValue(FACING));
     }
 
     @Override
@@ -82,7 +84,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         var item = itemStack.getItem();
         var blockEntity = level.getBlockEntity(pos);
 
-        if (!(blockEntity instanceof FishPlaqueBlockEntity fishPlaque) || itemStack.is(FOTTags.Items.FISH_PLAQUE_BLACKLIST))
+        if (!(blockEntity instanceof FishPlaqueBlockEntity fishPlaque) || itemStack.is(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST))
         {
             return InteractionResult.PASS;
         }
@@ -262,6 +264,21 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             entity.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state.getValue(FACING).toYRot(), 0.0f);
             entity.setDeltaMovement(level.random.nextDouble() * 0.2, 0.4, level.random.nextDouble() * 0.2);
             level.addFreshEntity(entity);
+        }
+    }
+
+    public enum Type
+    {
+        WOODEN(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 4, 14.0, 16.0, 12, 16.0), Direction.SOUTH, Block.box(0.0, 4, 0.0, 16.0, 12, 2.0), Direction.EAST, Block.box(0.0, 4, 0.0, 2.0, 12, 16.0), Direction.WEST, Block.box(14.0, 4, 0.0, 16.0, 12, 16.0)))),
+        IRON(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0, 3, 13, 16, 13, 16), Direction.SOUTH, Block.box(0, 3, 0, 16, 13, 3), Direction.EAST, Block.box(0, 3, 0, 3, 13, 16), Direction.WEST, Block.box(13, 3, 0, 16, 13, 16)))),
+        GOLDEN(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0, 3, 13, 16, 13, 16), Direction.SOUTH, Block.box(0, 3, 0, 16, 13, 3), Direction.EAST, Block.box(0, 3, 0, 3, 13, 16), Direction.WEST, Block.box(13, 3, 0, 16, 13, 16)))),
+        GILDED(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Shapes.join(Block.box(0, 3, 13, 16, 13, 16), Block.box(1, 13, 14, 15, 15, 16), BooleanOp.OR), Direction.SOUTH, Shapes.join(Block.box(0, 3, 0, 16, 13, 3), Block.box(1, 13, 0, 15, 15, 2), BooleanOp.OR), Direction.EAST, Shapes.join(Block.box(0, 3, 0, 3, 13, 16), Block.box(0, 13, 1, 2, 15, 15), BooleanOp.OR), Direction.WEST, Shapes.join(Block.box(13, 3, 0, 16, 13, 16), Block.box(14, 13, 1, 16, 15, 15), BooleanOp.OR))));
+
+        private final Map<Direction, VoxelShape> aabb;
+
+        Type(Map<Direction, VoxelShape> aabb)
+        {
+            this.aabb = aabb;
         }
     }
 }

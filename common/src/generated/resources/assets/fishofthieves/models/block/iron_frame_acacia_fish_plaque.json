@@ -1,0 +1,6 @@
+{
+  "parent": "fishofthieves:block/template_iron_frame_fish_plaque",
+  "textures": {
+    "planks": "minecraft:block/acacia_planks"
+  }
+}

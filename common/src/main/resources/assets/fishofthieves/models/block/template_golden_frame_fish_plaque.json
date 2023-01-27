@@ -1,0 +1,88 @@
+{
+	"textures": {
+		"fish_plaque": "fishofthieves:block/golden_frame_fish_plaque",
+		"particle": "#planks"
+	},
+	"elements": [
+		{
+			"from": [15, 4, 13],
+			"to": [16, 12, 14],
+			"faces": {
+				"north": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque"},
+				"east": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque", "cullface": "east"},
+				"west": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [0, 12, 13],
+			"to": [16, 13, 14],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#fish_plaque"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#fish_plaque", "cullface": "east"},
+				"west": {"uv": [15, 0, 16, 1], "texture": "#fish_plaque", "cullface": "west"},
+				"up": {"uv": [16, 0, 0, 1], "texture": "#fish_plaque"},
+				"down": {"uv": [16, 0, 0, 1], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [0, 4, 13],
+			"to": [1, 12, 14],
+			"faces": {
+				"north": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque"},
+				"east": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque"},
+				"west": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque", "cullface": "west"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [0, 3, 13],
+			"to": [16, 4, 14],
+			"faces": {
+				"north": {"uv": [0, 9, 16, 10], "texture": "#fish_plaque"},
+				"east": {"uv": [0, 9, 1, 10], "texture": "#fish_plaque", "cullface": "east"},
+				"west": {"uv": [15, 9, 16, 10], "texture": "#fish_plaque", "cullface": "west"},
+				"up": {"uv": [16, 9, 0, 10], "texture": "#fish_plaque"},
+				"down": {"uv": [16, 9, 0, 10], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [-0.5, 7, 12.75],
+			"to": [1.5, 9, 14.75],
+			"faces": {
+				"north": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque"},
+				"east": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
+				"south": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque"},
+				"west": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
+				"up": {"uv": [4, 10, 2, 12], "texture": "#fish_plaque"},
+				"down": {"uv": [6, 10, 4, 12], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [14.501, 7.001, 12.751],
+			"to": [16.499, 8.999, 14.749],
+			"faces": {
+				"north": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
+				"east": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque", "cullface": "east"},
+				"south": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
+				"west": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque"},
+				"up": {"uv": [2, 10, 4, 12], "texture": "#fish_plaque"},
+				"down": {"uv": [4, 10, 6, 12], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [0, 3, 14],
+			"to": [16, 13, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 10], "texture": "#planks"},
+				"east": {"uv": [16, 2, 14, 12], "texture": "#planks", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 10], "texture": "#planks", "cullface": "south"},
+				"west": {"uv": [14, 2, 16, 12], "texture": "#planks", "cullface": "west"},
+				"up": {"uv": [0, 10, 16, 12], "texture": "#planks"},
+				"down": {"uv": [0, 12, 16, 10], "texture": "#planks"}
+			}
+		}
+	]
+}
