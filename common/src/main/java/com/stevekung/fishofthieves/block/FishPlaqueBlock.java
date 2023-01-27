@@ -114,7 +114,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                    level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_CLIENTS);
+                    level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_ALL);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
@@ -187,6 +187,21 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving)
+    {
+        if (!state.is(newState.getBlock()))
+        {
+            var blockEntity = level.getBlockEntity(pos);
+
+            if (blockEntity instanceof FishPlaqueBlockEntity)
+            {
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
+            super.onRemove(state, level, pos, newState, isMoving);
+        }
+    }
+
+    @Override
     public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience)
     {
         super.spawnAfterBreak(state, level, pos, stack, dropExperience);
@@ -224,6 +239,24 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     public boolean isPossibleToRespawnInThis()
     {
         return true;
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos)
+    {
+        var blockEntity = level.getBlockEntity(pos);
+
+        if (blockEntity instanceof FishPlaqueBlockEntity fishPlaque && fishPlaque.hasPlaqueData())
+        {
+            return state.getValue(FishPlaqueBlock.ROTATION);
+        }
+        return 0;
     }
 
     @Override
