@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "golden_frame_fish_plaque",
+  "key": {
+    "F": {
+      "item": "fishofthieves:oak_fish_plaque"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GFG",
+    "GGG"
+  ],
+  "result": {
+    "item": "fishofthieves:golden_frame_oak_fish_plaque"
+  }
+}

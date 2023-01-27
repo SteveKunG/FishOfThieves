@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fishofthieves:golden_frame_warped_fish_plaque"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_warped_fish_plaque": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:warped_fish_plaque"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_warped_fish_plaque",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fishofthieves:golden_frame_warped_fish_plaque"
+    ]
+  }
+}
