@@ -1,5 +1,31 @@
 {
   "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "fishofthieves:item/seashell_devilfish",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "fishofthieves:item/lava_devilfish",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "fishofthieves:item/forsaken_devilfish",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "fishofthieves:item/firelight_devilfish",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    }
+  ],
   "textures": {
     "layer0": "fishofthieves:item/devilfish"
   }
