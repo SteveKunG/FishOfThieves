@@ -29,6 +29,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
 
@@ -39,6 +40,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
 
@@ -49,6 +51,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
 
