@@ -85,6 +85,11 @@ public class FishPlaqueBlockEntity extends BlockEntity
         return this.plaqueData != null && this.plaqueData.contains("id");
     }
 
+    public String getEntityKeyFromPlaqueData()
+    {
+        return this.plaqueData.getString("id");
+    }
+
     public void clearDisplayEntity()
     {
         this.plaqueData = null;
@@ -100,8 +105,14 @@ public class FishPlaqueBlockEntity extends BlockEntity
         }
         if (this.displayEntity == null)
         {
-            this.displayEntity = EntityType.loadEntityRecursive(this.plaqueData, level, Function.identity());
+            this.displayEntity = FishPlaqueBlockEntity.createEntity(this, level);
         }
         return this.displayEntity;
+    }
+
+    @Nullable
+    public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
+    {
+        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, Function.identity());
     }
 }

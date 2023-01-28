@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.block;
 
 import java.util.Map;
-import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
@@ -20,12 +19,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -92,10 +89,11 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         {
             if (fishPlaque.hasPlaqueData())
             {
-                if (item == Items.WATER_BUCKET)
-                {
-                    var entity = EntityType.loadEntityRecursive(fishPlaque.getPlaqueData(), level, Function.identity());
+                var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
+                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) : FishPlaqueRegistry.getInteractionItemByType(entity.getType());
 
+                if (itemStack.is(interactItem))
+                {
                     if (entity instanceof Bucketable bucketable)
                     {
                         var itemStack2 = bucketable.getBucketItemStack();
@@ -123,8 +121,10 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
+                var entityKey = Registry.ENTITY_TYPE.getKey(entityType).toString();
+                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) : FishPlaqueRegistry.getInteractionItemByType(entityType);
                 var converter = FishPlaqueRegistry.getTagConverter(entityType);
-                tag.putString("id", Registry.ENTITY_TYPE.getKey(entityType).toString());
+                tag.putString("id", entityKey);
 
                 if (converter != FishPlaqueTagConverter.NOOP)
                 {
@@ -139,7 +139,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
                 if (!player.getAbilities().instabuild)
                 {
-                    player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
+                    player.setItemInHand(hand, new ItemStack(interactItem));
                 }
                 if (!level.isClientSide)
                 {
@@ -287,7 +287,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     {
         if (blockEntity instanceof FishPlaqueBlockEntity fishPlaque && fishPlaque.hasPlaqueData())
         {
-            var entity = EntityType.loadEntityRecursive(fishPlaque.getPlaqueData(), level, Function.identity());
+            var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
 
             if (!state.getValue(WATERLOGGED))
             {
