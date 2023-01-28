@@ -58,7 +58,7 @@ public class FishOfThieves
         {
             FishPlaqueRegistry.registerInteractionItem("naturalist:snail", Items.BUCKET);
         }
-        // Alex's Mob compatibility
+        // Alex's Mobs compatibility
         if (FOTPlatform.isModLoaded("alexsmobs"))
         {
             FishPlaqueRegistry.registerInteractionItem("alexsmobs:cosmic_cod", Items.BUCKET);
