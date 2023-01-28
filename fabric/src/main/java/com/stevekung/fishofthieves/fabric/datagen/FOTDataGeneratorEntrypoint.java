@@ -153,28 +153,27 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         public void generateItemModels(ItemModelGenerators generator)
         {
-            //TODO Waiting for textures
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL, List.of("sunny", "indigo", "umber", "seafoam"), "_splashtail", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE, List.of("orchid", "bronze", "bright", "moonsky"), "_pondie", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER, List.of("moss", "honey", "raven", "amethyst"), "_islehopper", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE, List.of("sapphire", "smoke", "bone", "starshine"), "_ancientscale", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN, List.of("amber", "cloudy", "bonedust", "watery"), "_plentifin", generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH, List.of("shores", "wild", "shadow", "twilight"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH, List.of("sandy", "ocean", "muddy", "coral"), "_wildsplash", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH, List.of("seashell", "lava", "forsaken", "firelight"), "_devilfish", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL, List.of("sky", "rum", "sand", "bittersweet"), "_battlegill", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER, List.of("sun", "blackcloud", "snow", "moon"), "_wrecker", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH, List.of("shores", "wild", "shadow", "twilight"), "_stormfish", generator.output);
 
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.SPLASHTAIL_BUCKET, List.of("sunny", "indigo", "umber", "seafoam"), "_splashtail_bucket", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PONDIE_BUCKET, List.of("orchid", "bronze", "bright", "moonsky"), "_pondie_bucket", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ISLEHOPPER_BUCKET, List.of("moss", "honey", "raven", "amethyst"), "_islehopper_bucket", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.ANCIENTSCALE_BUCKET, List.of("sapphire", "smoke", "bone", "starshine"), "_ancientscale_bucket", generator.output);
             ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.PLENTIFIN_BUCKET, List.of("amber", "cloudy", "bonedust", "watery"), "_plentifin_bucket", generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH_BUCKET, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH_BUCKET, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL_BUCKET, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER_BUCKET, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
-            //            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH_BUCKET, List.of("shores", "wild", "shadow", "twilight"), generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WILDSPLASH_BUCKET, List.of("sandy", "ocean", "muddy", "coral"), "_wildsplash_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.DEVILFISH_BUCKET, List.of("seashell", "lava", "forsaken", "firelight"), "_devilfish_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.BATTLEGILL_BUCKET, List.of("sky", "rum", "sand", "bittersweet"), "_battlegill_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.WRECKER_BUCKET, List.of("sun", "blackcloud", "snow", "moon"), "_wrecker_bucket", generator.output);
+            ExtendedModelTemplate.generateFlatItemWithCustomModelData(FOTItems.STORMFISH_BUCKET, List.of("shores", "wild", "shadow", "twilight"), "_stormfish_bucket", generator.output);
 
             generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
@@ -189,25 +188,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, SPAWN_EGG);
             generator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.WILDSPLASH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.WILDSPLASH_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.DEVILFISH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_DEVILFISH, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.DEVILFISH_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.BATTLEGILL, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_BATTLEGILL, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.BATTLEGILL_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.WRECKER, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_WRECKER, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.WRECKER_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, SPAWN_EGG);
-            generator.generateFlatItem(FOTItems.STORMFISH, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
-            generator.generateFlatItem(FOTItems.STORMFISH_BUCKET, ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
 
             generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
