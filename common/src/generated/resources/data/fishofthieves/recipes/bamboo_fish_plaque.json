@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_fish_plaque",
+  "key": {
+    "F": {
+      "item": "minecraft:item_frame"
+    },
+    "P": {
+      "item": "minecraft:bamboo_planks"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PFP",
+    "PPP"
+  ],
+  "result": {
+    "count": 6,
+    "item": "fishofthieves:bamboo_fish_plaque"
+  }
+}

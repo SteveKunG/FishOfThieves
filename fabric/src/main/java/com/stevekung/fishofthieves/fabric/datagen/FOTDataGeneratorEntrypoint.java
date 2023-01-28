@@ -219,6 +219,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             generator.generateFlatItem(FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+            generator.generateFlatItem(FOTBlocks.BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTBlocks.CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
             generator.generateFlatItem(FOTBlocks.WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
 
@@ -267,6 +268,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.createFishPlaque(FOTBlocks.ACACIA_FISH_PLAQUE, Blocks.ACACIA_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
             this.createFishPlaque(FOTBlocks.DARK_OAK_FISH_PLAQUE, Blocks.DARK_OAK_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
             this.createFishPlaque(FOTBlocks.MANGROVE_FISH_PLAQUE, Blocks.MANGROVE_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
+            this.createFishPlaque(FOTBlocks.BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
             this.createFishPlaque(FOTBlocks.CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
             this.createFishPlaque(FOTBlocks.WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
 
@@ -334,6 +336,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             addWoodenFishPlaqueRecipe(FOTBlocks.ACACIA_FISH_PLAQUE, Items.ACACIA_PLANKS, consumer);
             addWoodenFishPlaqueRecipe(FOTBlocks.DARK_OAK_FISH_PLAQUE, Items.DARK_OAK_PLANKS, consumer);
             addWoodenFishPlaqueRecipe(FOTBlocks.MANGROVE_FISH_PLAQUE, Items.MANGROVE_PLANKS, consumer);
+            addWoodenFishPlaqueRecipe(FOTBlocks.BAMBOO_FISH_PLAQUE, Items.BAMBOO_PLANKS, consumer);
             addWoodenFishPlaqueRecipe(FOTBlocks.CRIMSON_FISH_PLAQUE, Items.CRIMSON_PLANKS, consumer);
             addWoodenFishPlaqueRecipe(FOTBlocks.WARPED_FISH_PLAQUE, Items.WARPED_PLANKS, consumer);
 
@@ -419,45 +422,46 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             this.add(FOTBlocks.FISH_BONE, this.createSingleItemTable(FOTBlocks.FISH_BONE));
 
-            this.add(FOTBlocks.OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.SPRUCE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.SPRUCE_FISH_PLAQUE));
-            this.add(FOTBlocks.BIRCH_FISH_PLAQUE, createSingleItemTable(FOTBlocks.BIRCH_FISH_PLAQUE));
-            this.add(FOTBlocks.JUNGLE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.JUNGLE_FISH_PLAQUE));
-            this.add(FOTBlocks.ACACIA_FISH_PLAQUE, createSingleItemTable(FOTBlocks.ACACIA_FISH_PLAQUE));
-            this.add(FOTBlocks.DARK_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.DARK_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.MANGROVE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.MANGROVE_FISH_PLAQUE));
-            this.add(FOTBlocks.CRIMSON_FISH_PLAQUE, createSingleItemTable(FOTBlocks.CRIMSON_FISH_PLAQUE));
-            this.add(FOTBlocks.WARPED_FISH_PLAQUE, createSingleItemTable(FOTBlocks.WARPED_FISH_PLAQUE));
+            this.add(FOTBlocks.OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.SPRUCE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.SPRUCE_FISH_PLAQUE));
+            this.add(FOTBlocks.BIRCH_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.BIRCH_FISH_PLAQUE));
+            this.add(FOTBlocks.JUNGLE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.JUNGLE_FISH_PLAQUE));
+            this.add(FOTBlocks.ACACIA_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.ACACIA_FISH_PLAQUE));
+            this.add(FOTBlocks.DARK_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.DARK_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.MANGROVE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.MANGROVE_FISH_PLAQUE));
+            this.add(FOTBlocks.BAMBOO_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.BAMBOO_FISH_PLAQUE));
+            this.add(FOTBlocks.CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.CRIMSON_FISH_PLAQUE));
+            this.add(FOTBlocks.WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.WARPED_FISH_PLAQUE));
 
-            this.add(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE));
-            this.add(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, createSingleItemTable(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE));
+            this.add(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE));
 
-            this.add(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE));
-            this.add(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE));
+            this.add(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE));
 
-            this.add(FOTBlocks.GILDED_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE));
-            this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE));
+            this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
         }
 
         @Override
@@ -792,7 +796,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Blocks.LEECHES_DROPS).forceAddTag(BlockTags.SAND).add(Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
             this.getOrCreateTagBuilder(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST).add(Blocks.MOSS_BLOCK, Blocks.COARSE_DIRT, Blocks.MYCELIUM, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
             //@formatter:off
-            this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE)
+            this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE, FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE)
                     .add(FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE, FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
@@ -824,7 +828,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Items.GRUBS_FOOD).add(FOTItems.GRUBS);
             this.getOrCreateTagBuilder(FOTTags.Items.LEECHES_FOOD).add(FOTItems.LEECHES);
             this.getOrCreateTagBuilder(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST);
-            this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE.asItem(), FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.CRIMSON_FISH_PLAQUE.asItem(), FOTBlocks.WARPED_FISH_PLAQUE.asItem());
+            this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE.asItem(), FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.BAMBOO_FISH_PLAQUE.asItem());
 
             // Fabric
             this.getOrCreateTagBuilder(RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);

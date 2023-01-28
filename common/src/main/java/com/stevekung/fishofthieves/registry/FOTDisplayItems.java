@@ -18,6 +18,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.ACACIA_FISH_PLAQUE);
         output.accept(FOTBlocks.DARK_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.WARPED_FISH_PLAQUE);
 
