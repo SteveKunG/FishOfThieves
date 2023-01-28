@@ -15,9 +15,15 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.fml.ModList;
 
 public class FOTPlatformImpl
 {
+    public static boolean isModLoaded(String modId)
+    {
+        return ModList.get().isLoaded(modId);
+    }
+
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
         return ((MobBucketItemAccessor) bucket).invokeGetFishType();

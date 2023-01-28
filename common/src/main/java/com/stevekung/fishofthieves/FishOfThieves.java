@@ -54,7 +54,10 @@ public class FishOfThieves
         FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
 
         // Naturalist compatibility
-        FishPlaqueRegistry.registerInteractionItem("naturalist:snail", Items.BUCKET);
+        if (FOTPlatform.isModLoaded("naturalist"))
+        {
+            FishPlaqueRegistry.registerInteractionItem("naturalist:snail", Items.BUCKET);
+        }
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);

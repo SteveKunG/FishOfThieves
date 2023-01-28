@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.CriteriaAccessor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +21,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTPlatformImpl
 {
+    public static boolean isModLoaded(String modId)
+    {
+        return FabricLoader.getInstance().isModLoaded(modId);
+    }
+
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
         return bucket.type;

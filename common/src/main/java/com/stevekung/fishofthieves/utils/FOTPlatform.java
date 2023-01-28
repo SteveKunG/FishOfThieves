@@ -16,6 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public class FOTPlatform
 {
     @ExpectPlatform
+    public static boolean isModLoaded(String modId)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
         throw new AssertionError();
