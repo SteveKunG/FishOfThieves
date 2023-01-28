@@ -62,6 +62,7 @@ public class FishOfThieves
         if (FOTPlatform.isModLoaded("alexsmobs"))
         {
             FishPlaqueRegistry.registerInteractionItem("alexsmobs:cosmic_cod", Items.BUCKET);
+            FishPlaqueRegistry.registerInteractionItem("alexsmobs:stradpole", Items.LAVA_BUCKET);
         }
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
