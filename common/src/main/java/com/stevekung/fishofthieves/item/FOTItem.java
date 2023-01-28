@@ -18,7 +18,7 @@ public class FOTItem extends Item
     {
         super.fillItemCategory(tab, items);
 
-        if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+        if (this.allowedIn(tab) && FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {
             for (var i = 1; i < 5; i++)
             {
