@@ -69,15 +69,15 @@ public class FOTDisplayItems
         output.accept(FOTItems.COOKED_ANCIENTSCALE);
         FOTItem.addFishVariants(output, FOTItems.PLENTIFIN);
         output.accept(FOTItems.COOKED_PLENTIFIN);
-        output.accept(FOTItems.WILDSPLASH);
+        FOTItem.addFishVariants(output, FOTItems.WILDSPLASH);
         output.accept(FOTItems.COOKED_WILDSPLASH);
-        output.accept(FOTItems.DEVILFISH);
+        FOTItem.addFishVariants(output, FOTItems.DEVILFISH);
         output.accept(FOTItems.COOKED_DEVILFISH);
-        output.accept(FOTItems.BATTLEGILL);
+        FOTItem.addFishVariants(output, FOTItems.BATTLEGILL);
         output.accept(FOTItems.COOKED_BATTLEGILL);
-        output.accept(FOTItems.WRECKER);
+        FOTItem.addFishVariants(output, FOTItems.WRECKER);
         output.accept(FOTItems.COOKED_WRECKER);
-        output.accept(FOTItems.STORMFISH);
+        FOTItem.addFishVariants(output, FOTItems.STORMFISH);
         output.accept(FOTItems.COOKED_STORMFISH);
 
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.SPLASHTAIL_BUCKET);
@@ -85,11 +85,11 @@ public class FOTDisplayItems
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ISLEHOPPER_BUCKET);
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ANCIENTSCALE_BUCKET);
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.PLENTIFIN_BUCKET);
-        output.accept(FOTItems.WILDSPLASH_BUCKET);
-        output.accept(FOTItems.DEVILFISH_BUCKET);
-        output.accept(FOTItems.BATTLEGILL_BUCKET);
-        output.accept(FOTItems.WRECKER_BUCKET);
-        output.accept(FOTItems.STORMFISH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.WILDSPLASH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.DEVILFISH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.BATTLEGILL_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.WRECKER_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.STORMFISH_BUCKET);
 
         output.accept(FOTItems.SPLASHTAIL_SPAWN_EGG);
         output.accept(FOTItems.PONDIE_SPAWN_EGG);
