@@ -126,7 +126,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.3575F : 0.18F;
+        return this.isTrophy() ? 0.35F : 0.17F;
     }
 
     @Override

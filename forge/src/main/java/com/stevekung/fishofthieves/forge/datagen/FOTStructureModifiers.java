@@ -5,8 +5,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.core.FishOfThieves;
-import com.stevekung.fishofthieves.forge.core.FishOfThievesForge;
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.forge.FishOfThievesForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.Holder;

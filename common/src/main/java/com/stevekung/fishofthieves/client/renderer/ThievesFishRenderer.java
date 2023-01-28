@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -16,9 +17,16 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
 {
     protected ThievesFishRenderer(EntityRendererProvider.Context context, M entityModel)
     {
-        super(context, entityModel, 0.2f);
+        super(context, entityModel, 0.15f);
         this.addLayer(new GlowFishLayer<>(this));
         this.addLayer(new HeadphoneLayer<>(this, context));
+    }
+
+    @Override
+    public void render(T livingEntity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight)
+    {
+        this.shadowRadius = livingEntity.isTrophy() ? 0.25f : 0.15f;
+        super.render(livingEntity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
     @Override

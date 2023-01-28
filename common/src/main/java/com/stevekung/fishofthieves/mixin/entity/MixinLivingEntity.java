@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +29,7 @@ public abstract class MixinLivingEntity extends Entity
     {
         if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {
-            var lootTable = this.level.getServer().getLootTables().get(FOTLootManager.FISH_BONE_DROP);
+            var lootTable = this.level.getServer().getLootTables().get(FOTLootTables.Entities.FISH_BONE_DROP);
             var builder = this.createLootContext(hitByPlayer, damageSource);
             lootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
         }

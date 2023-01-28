@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fishofthieves:item/gilded_acacia_fish_plaque"
+  }
+}

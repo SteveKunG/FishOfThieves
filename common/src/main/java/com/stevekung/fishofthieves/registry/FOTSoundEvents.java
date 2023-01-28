@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -38,6 +38,8 @@ public class FOTSoundEvents
     public static final SoundEvent STORMFISH_FLOP = create("entity.stormfish.flop");
     public static final SoundEvent STORMFISH_HURT = create("entity.stormfish.hurt");
 
+    public static final SoundEvent FISH_PLAQUE_ROTATE = create("block.fish_plaque.rotate");
+
     public static void init()
     {
         register(SPLASHTAIL_DEATH);
@@ -70,6 +72,7 @@ public class FOTSoundEvents
         register(STORMFISH_DEATH);
         register(STORMFISH_FLOP);
         register(STORMFISH_HURT);
+        register(FISH_PLAQUE_ROTATE);
     }
 
     private static SoundEvent create(String key)

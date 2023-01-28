@@ -22,7 +22,9 @@
     "entity.monster.MixinGuardian",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
-    "level.block.state.MixinBlockBehaviour"
+    "level.block.state.MixinBlockBehaviour",
+    "worldgen.MixinStructures",
+    "worldgen.MixinStructureSets"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "iron_frame_fish_plaque",
+  "key": {
+    "F": {
+      "item": "fishofthieves:crimson_fish_plaque"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NFN",
+    "NNN"
+  ],
+  "result": {
+    "item": "fishofthieves:iron_frame_crimson_fish_plaque"
+  }
+}

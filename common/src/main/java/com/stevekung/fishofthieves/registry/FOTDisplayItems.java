@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.item.FOTItem;
+import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.CreativeModeTab;
 
@@ -9,19 +11,59 @@ public class FOTDisplayItems
     {
         output.accept(FOTBlocks.FISH_BONE);
 
+        output.accept(FOTBlocks.OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.WARPED_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.GILDED_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+
         output.accept(FOTItems.EARTHWORMS);
         output.accept(FOTItems.GRUBS);
         output.accept(FOTItems.LEECHES);
 
-        output.accept(FOTItems.SPLASHTAIL);
+        FOTItem.addFishVariants(output, FOTItems.SPLASHTAIL);
         output.accept(FOTItems.COOKED_SPLASHTAIL);
-        output.accept(FOTItems.PONDIE);
+        FOTItem.addFishVariants(output, FOTItems.PONDIE);
         output.accept(FOTItems.COOKED_PONDIE);
-        output.accept(FOTItems.ISLEHOPPER);
+        FOTItem.addFishVariants(output, FOTItems.ISLEHOPPER);
         output.accept(FOTItems.COOKED_ISLEHOPPER);
-        output.accept(FOTItems.ANCIENTSCALE);
+        FOTItem.addFishVariants(output, FOTItems.ANCIENTSCALE);
         output.accept(FOTItems.COOKED_ANCIENTSCALE);
-        output.accept(FOTItems.PLENTIFIN);
+        FOTItem.addFishVariants(output, FOTItems.PLENTIFIN);
         output.accept(FOTItems.COOKED_PLENTIFIN);
         output.accept(FOTItems.WILDSPLASH);
         output.accept(FOTItems.COOKED_WILDSPLASH);
@@ -34,11 +76,11 @@ public class FOTDisplayItems
         output.accept(FOTItems.STORMFISH);
         output.accept(FOTItems.COOKED_STORMFISH);
 
-        output.accept(FOTItems.SPLASHTAIL_BUCKET);
-        output.accept(FOTItems.PONDIE_BUCKET);
-        output.accept(FOTItems.ISLEHOPPER_BUCKET);
-        output.accept(FOTItems.ANCIENTSCALE_BUCKET);
-        output.accept(FOTItems.PLENTIFIN_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.SPLASHTAIL_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.PONDIE_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ISLEHOPPER_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ANCIENTSCALE_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.PLENTIFIN_BUCKET);
         output.accept(FOTItems.WILDSPLASH_BUCKET);
         output.accept(FOTItems.DEVILFISH_BUCKET);
         output.accept(FOTItems.BATTLEGILL_BUCKET);

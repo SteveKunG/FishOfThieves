@@ -120,7 +120,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.2F : 0.11F;
+        return this.isTrophy() ? 0.225F : 0.11F;
     }
 
     @Override

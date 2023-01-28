@@ -1,0 +1,6 @@
+{
+  "parent": "fishofthieves:block/template_wooden_fish_plaque",
+  "textures": {
+    "planks": "minecraft:block/jungle_planks"
+  }
+}

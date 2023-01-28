@@ -126,7 +126,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
     {
-        return this.isTrophy() ? 0.17F : 0.09F;
+        return this.isTrophy() ? 0.18F : 0.09F;
     }
 
     @Override

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "fishofthieves:block/iron_frame_oak_fish_plaque",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "fishofthieves:block/iron_frame_oak_fish_plaque"
+    },
+    "facing=south": {
+      "model": "fishofthieves:block/iron_frame_oak_fish_plaque",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fishofthieves:block/iron_frame_oak_fish_plaque",
+      "y": 270
+    }
+  }
+}

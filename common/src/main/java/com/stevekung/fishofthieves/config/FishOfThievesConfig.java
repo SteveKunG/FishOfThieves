@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.config;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -31,6 +31,10 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.RequiresRestart
         @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still working regardless of this option.")
         public boolean simpleSpawningCondition;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @Comment("Display all fish variant in Creative Tab. HIGHLY EXPERIMENTAL!")
+        public boolean displayAllFishVariantInCreativeTab;
     }
 
     public static class SpawnRate

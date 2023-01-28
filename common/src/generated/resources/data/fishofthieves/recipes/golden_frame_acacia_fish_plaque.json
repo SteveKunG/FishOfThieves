@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "golden_frame_fish_plaque",
+  "key": {
+    "F": {
+      "item": "fishofthieves:acacia_fish_plaque"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GFG",
+    "GGG"
+  ],
+  "result": {
+    "item": "fishofthieves:golden_frame_acacia_fish_plaque"
+  }
+}

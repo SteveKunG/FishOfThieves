@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Lists;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
-import net.minecraft.Util;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -25,6 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -51,6 +52,17 @@ public class CommonProxyForge
 
     public void clientSetup(FMLClientSetupEvent event)
     {
+    }
+
+    @SubscribeEvent
+    public void onFuelBurnTime(FurnaceFuelBurnTimeEvent event)
+    {
+        var itemStack = event.getItemStack();
+
+        if (itemStack.is(FOTTags.Items.WOODEN_FISH_PLAQUE))
+        {
+            event.setBurnTime(300);
+        }
     }
 
     @SubscribeEvent
@@ -89,8 +101,12 @@ public class CommonProxyForge
     {
         if (event.getType() == VillagerProfession.FISHERMAN)
         {
-            event.getTrades().put(1, Util.make(Lists.newArrayList(), FishOfThieves::getTierOneTrades));
-            event.getTrades().put(2, Util.make(Lists.newArrayList(), FishOfThieves::getTierTwoTrades));
+            var trades = event.getTrades();
+            trades.get(1).addAll(FishOfThieves.getFishermanTradesByLevel(1, Lists.newArrayList()));
+            trades.get(2).addAll(FishOfThieves.getFishermanTradesByLevel(2, Lists.newArrayList()));
+            trades.get(3).addAll(FishOfThieves.getFishermanTradesByLevel(3, Lists.newArrayList()));
+            trades.get(4).addAll(FishOfThieves.getFishermanTradesByLevel(4, Lists.newArrayList()));
+            trades.get(5).addAll(FishOfThieves.getFishermanTradesByLevel(5, Lists.newArrayList()));
         }
     }
 

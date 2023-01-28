@@ -1,0 +1,63 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
+	"textures": {
+		"fish_plaque": "fishofthieves:block/wooden_fish_plaque",
+		"particle": "#planks"
+	},
+	"elements": [
+		{
+			"from": [0, 5, 13.9],
+			"to": [16, 11, 13.9],
+			"faces": {
+				"north": {"uv": [0, 5, 16, 11], "texture": "#fish_plaque"}
+			}
+		},
+		{
+			"from": [1.01, 3.01, 15.01],
+			"to": [10.99, 4.99, 15.99],
+			"faces": {
+				"north": {"uv": [0, 11, 10, 13], "texture": "#planks"},
+				"east": {"uv": [0, 11, 1, 13], "texture": "#planks"},
+				"south": {"uv": [10, 11, 0, 13], "texture": "#planks", "cullface": "south"},
+				"west": {"uv": [9, 11, 10, 13], "texture": "#planks"},
+				"down": {"uv": [10, 12, 0, 13], "texture": "#planks"}
+			}
+		},
+		{
+			"from": [8, 4, 14],
+			"to": [16, 11, 16],
+			"faces": {
+				"north": {"uv": [0, 2, 8, 9], "texture": "#planks"},
+				"east": {"uv": [1, 2, 3, 9], "texture": "#planks"},
+				"south": {"uv": [8, 2, 16, 9], "texture": "#planks", "cullface": "south"},
+				"west": {"uv": [6, 2, 8, 9], "texture": "#planks", "cullface": "west"},
+				"up": {"uv": [8, 2, 0, 0], "texture": "#planks"},
+				"down": {"uv": [8, 9, 0, 11], "texture": "#planks"}
+			}
+		},
+		{
+			"from": [0, 5, 14],
+			"to": [8, 12, 16],
+			"faces": {
+				"north": {"uv": [8, 2, 16, 9], "texture": "#planks"},
+				"east": {"uv": [8, 2, 10, 9], "texture": "#planks"},
+				"south": {"uv": [0, 2, 8, 9], "texture": "#planks", "cullface": "south"},
+				"west": {"uv": [13, 2, 15, 9], "texture": "#planks", "cullface": "west"},
+				"up": {"uv": [16, 2, 8, 0], "texture": "#planks"},
+				"down": {"uv": [16, 9, 8, 11], "texture": "#planks"}
+			}
+		},
+		{
+			"from": [5.01, 11.01, 15.01],
+			"to": [14.99, 12.99, 15.99],
+			"faces": {
+				"north": {"uv": [0, 14, 10, 16], "texture": "#planks"},
+				"east": {"uv": [0, 14, 1, 16], "texture": "#planks"},
+				"south": {"uv": [10, 14, 0, 16], "texture": "#planks", "cullface": "south"},
+				"west": {"uv": [9, 14, 10, 16], "texture": "#planks"},
+				"up": {"uv": [10, 15, 0, 14], "texture": "#planks"}
+			}
+		}
+	]
+}

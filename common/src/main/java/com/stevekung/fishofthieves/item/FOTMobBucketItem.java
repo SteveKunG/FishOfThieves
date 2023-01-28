@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -15,10 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
@@ -56,5 +55,28 @@ public class FOTMobBucketItem extends MobBucketItem
             }
             tooltipComponents.add(type);
         }
+    }
+
+    public static void addFishVariantsBucket(CreativeModeTab.Output output, Item item)
+    {
+        output.accept(item);
+
+        if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+        {
+            for (var i = 1; i < 5; i++)
+            {
+                output.accept(create(item, ((FOTMobBucketItem)item).dataFixMap, i));
+            }
+        }
+    }
+
+    private static ItemStack create(Item item, Consumer<Int2ObjectOpenHashMap<String>> dataFixMap, int index)
+    {
+        var itemStack = new ItemStack(item);
+        var compoundTag = itemStack.getOrCreateTag();
+        var variant = Util.make(new Int2ObjectOpenHashMap<>(), dataFixMap);
+        compoundTag.putInt("CustomModelData", index);
+        compoundTag.putString(ThievesFish.VARIANT_TAG, variant.get(index));
+        return itemStack;
     }
 }

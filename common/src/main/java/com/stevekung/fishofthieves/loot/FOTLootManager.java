@@ -2,12 +2,11 @@ package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
+import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.data.loot.EntityLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -25,24 +24,19 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTLootManager
 {
-    public static final ResourceLocation EARTHWORMS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/earthworms_drops");
-    public static final ResourceLocation GRUBS_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/grubs_drops");
-    public static final ResourceLocation LEECHES_DROPS = new ResourceLocation(FishOfThieves.MOD_ID, "blocks/leeches_drops");
-    public static final ResourceLocation FISH_BONE_DROP = new ResourceLocation(FishOfThieves.MOD_ID, "entities/fish_bone_drop");
-
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
         if (blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.EARTHWORMS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
         }
         if (blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.GRUBS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.GRUBS_DROPS)));
         }
         if (blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootManager.LEECHES_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.LEECHES_DROPS)));
         }
     }
 
@@ -71,34 +65,34 @@ public class FOTLootManager
     {
         //@formatter:off
         return builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                        .setWeight(25)
+                        .setWeight(50)
                         .when(FOTLootItemConditions.IN_OCEAN))
                 .add(LootItem.lootTableItem(FOTItems.PONDIE)
-                        .setWeight(25)
+                        .setWeight(50)
                         .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
                 .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                        .setWeight(30)
+                        .setWeight(40)
                         .when(FOTLootItemConditions.COAST))
                 .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                        .setWeight(30)
+                        .setWeight(40)
                         .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
                 .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
-                        .setWeight(35)
+                        .setWeight(45)
                         .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
                 .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
-                        .setWeight(35)
+                        .setWeight(45)
                         .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
                 .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
-                        .setWeight(40)
+                        .setWeight(35)
                         .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
                 .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
-                        .setWeight(40)
+                        .setWeight(35)
                         .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
                 .add(LootItem.lootTableItem(FOTItems.WRECKER)
-                        .setWeight(50)
+                        .setWeight(20)
                         .when(FOTLootItemConditions.IN_SHIPWRECKS.or(FOTLootItemConditions.IN_RUINED_PORTAL_OCEAN)))
                 .add(LootItem.lootTableItem(FOTItems.STORMFISH)
-                        .setWeight(50)
+                        .setWeight(20)
                         .when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }

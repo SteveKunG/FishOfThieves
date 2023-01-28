@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,8 +25,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
-
-    // Debug Visual
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
@@ -41,8 +39,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         super.defineSynchedData();
         this.entityData.define(TROPHY, false);
         this.entityData.define(HAS_FED, false);
-
-        // Debug Visual
         this.entityData.define(NO_FLIP, false);
     }
 
@@ -53,9 +49,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
-
-        // Debug Visual
-        compound.putBoolean(ThievesFish.NO_FLIP, this.isNoFlip());
+        compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
     }
 
     @Override
@@ -73,9 +67,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
-
-        // Debug Visual
-        this.setNoFlip(compound.getBoolean(ThievesFish.NO_FLIP));
+        this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
     }
 
     @Override

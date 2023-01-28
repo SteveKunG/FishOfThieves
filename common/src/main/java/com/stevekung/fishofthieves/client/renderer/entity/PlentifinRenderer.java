@@ -21,21 +21,15 @@ public class PlentifinRenderer extends ThievesFishRenderer<PlentifinVariant, Ple
     {
         super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
         var inWater = entity.isInWater() || entity.isNoFlip();
-        var bodyRotBase = 1.0f;
+        var bodyRotBase = inWater ? 1.0f : 1.7f;
         var baseDegree = entity.isDancing() ? -20.0f : 5.0f;
         var bodyRotSpeed = entity.isDancing() ? inWater ? 2.0f : 1.0f : 0.65f;
-
-        if (!inWater)
-        {
-            bodyRotBase = 1.7f;
-        }
-
         var degree = baseDegree * Mth.sin(bodyRotBase * bodyRotSpeed * ageInTicks);
         poseStack.mulPose(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)
         {
-            poseStack.translate(0.15f, 0.1f, 0.0f);
+            poseStack.translate(entity.isTrophy() ? 0.265f : 0.135f, 0.1f, 0.0f);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
     }

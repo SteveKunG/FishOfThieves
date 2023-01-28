@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +22,8 @@ public interface FOTTags
         TagKey<Item> EARTHWORMS_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_food"));
         TagKey<Item> GRUBS_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_food"));
         TagKey<Item> LEECHES_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_food"));
+        TagKey<Item> FISH_PLAQUE_BUCKET_BLACKLIST = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque_bucket_blacklist"));
+        TagKey<Item> WOODEN_FISH_PLAQUE = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "wooden_fish_plaque"));
     }
 
     interface Blocks
@@ -32,12 +34,14 @@ public interface FOTTags
         TagKey<Block> GRUBS_DROPS = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_drops"));
         TagKey<Block> LEECHES_DROPS = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_drops"));
         TagKey<Block> EARTHWORMS_DROP_BLACKLIST = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drop_blacklist"));
+        TagKey<Block> FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque"));
     }
 
     interface EntityTypes
     {
         TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "thieves_fish"));
         TagKey<EntityType<?>> FISH_BONE_DROP = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "fish_bone_drop"));
+        TagKey<EntityType<?>> HORIZONTAL_MOB_RENDER = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "horizontal_mob_render"));
     }
 
     interface Structures
@@ -73,6 +77,7 @@ public interface FOTTags
         TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registries.BIOME, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_ocean_wildsplash"));
         TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registries.BIOME, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registries.BIOME, new ResourceLocation(FishOfThieves.MOD_ID, "always_drop_leeches"));
+        TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, new ResourceLocation(FishOfThieves.MOD_ID, "has_seapost"));
     }
 
     interface FishVariant

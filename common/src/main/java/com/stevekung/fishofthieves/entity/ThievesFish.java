@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.entity;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -33,14 +33,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
-
-    // Start Debug Visual
-    String NO_FLIP = "NoFlip";
-
-    void setNoFlip(boolean noFlip);
-
-    boolean isNoFlip();
-    // End Debug Visual
+    String NO_FLIP_TAG = "NoFlip";
 
     T getVariant();
 
@@ -62,6 +55,10 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     boolean isFood(ItemStack itemStack);
 
+    void setNoFlip(boolean noFlip);
+
+    boolean isNoFlip();
+
     default float getGlowBrightness(float ageInTicks)
     {
         return 1.0F;
@@ -70,9 +67,23 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     default void saveToBucket(CompoundTag compound)
     {
         var variant = this.getRegistry().getKey(this.getVariant());
-        compound.putString(VARIANT_TAG, variant.toString());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putBoolean(HAS_FED_TAG, this.hasFed());
+
+        if (variant != null)
+        {
+            compound.putString(VARIANT_TAG, variant.toString());
+        }
+        if (this.isTrophy())
+        {
+            compound.putBoolean(TROPHY_TAG, this.isTrophy());
+        }
+        if (this.hasFed())
+        {
+            compound.putBoolean(HAS_FED_TAG, this.hasFed());
+        }
+        if (this.isNoFlip())
+        {
+            compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
+        }
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -95,6 +106,10 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         if (compound.contains(HAS_FED_TAG))
         {
             this.setHasFed(compound.getBoolean(HAS_FED_TAG));
+        }
+        if (compound.contains(NO_FLIP_TAG))
+        {
+            this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
         }
     }
 
@@ -130,7 +145,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     {
         if (compound.contains(OLD_VARIANT_TAG, Tag.TAG_INT))
         {
-            int variant = compound.getInt(OLD_VARIANT_TAG);
+            var variant = compound.getInt(OLD_VARIANT_TAG);
             var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
             compound.remove(OLD_VARIANT_TAG);
             compound.putString(VARIANT_TAG, oldMap.get(variant));

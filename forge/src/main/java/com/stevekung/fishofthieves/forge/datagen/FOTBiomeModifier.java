@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.forge.datagen;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.core.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.HolderLookup;
