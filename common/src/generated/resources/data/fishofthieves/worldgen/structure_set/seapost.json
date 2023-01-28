@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 26384127,
+    "separation": 16,
+    "spacing": 32
+  },
+  "structures": [
+    {
+      "structure": "fishofthieves:seapost",
+      "weight": 1
+    }
+  ]
+}

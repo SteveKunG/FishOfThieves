@@ -32,6 +32,7 @@ import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -103,6 +104,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
 
     @Override
+    public void buildRegistry(RegistrySetBuilder builder)
+    {
+        builder.add(Registries.STRUCTURE, FOTStructures::bootstrap);
+        builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
+    }
+
+    @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
         var pack = dataGenerator.createPack();
@@ -119,6 +127,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
+        pack.addProvider(StructureProvider::new);
 
         pack.addProvider(SplashtailVariantTagsProvider::new);
         pack.addProvider(PondieVariantTagsProvider::new);
@@ -1079,6 +1088,28 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                 }
             }
             return builder;
+        }
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private static class StructureProvider extends FabricDynamicRegistryProvider
+    {
+        public StructureProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
+        {
+            super(output, registriesFuture);
+        }
+
+        @Override
+        protected void configure(HolderLookup.Provider registries, Entries entries)
+        {
+            entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE));
+            entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
+        }
+
+        @Override
+        public String getName()
+        {
+            return "Fish of Thieves Structure";
         }
     }
 }

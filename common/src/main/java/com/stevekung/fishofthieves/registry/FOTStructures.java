@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.structure.SeapostPieces;
 import com.stevekung.fishofthieves.structure.SeapostStructure;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -14,7 +13,6 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -27,7 +25,7 @@ public class FOTStructures
 {
     public static void bootstrap(BootstapContext<Structure> context)
     {
-        HolderGetter<Biome> holderGetter = context.lookup(Registries.BIOME);
+        var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(Structures.structure(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST), TerrainAdjustment.BEARD_THIN)));
     }
 
@@ -41,7 +39,7 @@ public class FOTStructures
     {
         static void bootstrap(BootstapContext<StructureSet> context)
         {
-            HolderGetter<Structure> holderGetter = context.lookup(Registries.STRUCTURE);
+            var holderGetter = context.lookup(Registries.STRUCTURE);
             context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(32, 16, RandomSpreadType.LINEAR, 26384127)));
         }
     }
