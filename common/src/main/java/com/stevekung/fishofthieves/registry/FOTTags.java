@@ -24,6 +24,9 @@ public interface FOTTags
         TagKey<Item> LEECHES_FOOD = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_food"));
         TagKey<Item> FISH_PLAQUE_BUCKET_BLACKLIST = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque_bucket_blacklist"));
         TagKey<Item> WOODEN_FISH_PLAQUE = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "wooden_fish_plaque"));
+        TagKey<Item> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "iron_frame_fish_plaque"));
+        TagKey<Item> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "golden_frame_fish_plaque"));
+        TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, "gilded_frame_fish_plaque"));
     }
 
     interface Blocks
@@ -35,6 +38,10 @@ public interface FOTTags
         TagKey<Block> LEECHES_DROPS = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_drops"));
         TagKey<Block> EARTHWORMS_DROP_BLACKLIST = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drop_blacklist"));
         TagKey<Block> FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "fish_plaque"));
+        TagKey<Block> WOODEN_FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "wooden_fish_plaque"));
+        TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "iron_frame_fish_plaque"));
+        TagKey<Block> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "golden_frame_fish_plaque"));
+        TagKey<Block> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, "gilded_frame_fish_plaque"));
     }
 
     interface EntityTypes
