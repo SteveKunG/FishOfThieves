@@ -11,6 +11,7 @@ import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
+import com.stevekung.fishofthieves.loot.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
@@ -614,7 +615,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))
-                    .apply(SetNbtFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant))))
+                    .apply(SetNbtFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant)))
+                            .when(FishVariantLootConfigCondition.configEnabled()))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate)));
         }
     }
