@@ -20,11 +20,11 @@ public class WildsplashVariants
 
     public static void init()
     {
-        register("russet", RUSSET);
-        register("sandy", SANDY);
-        register("ocean", OCEAN);
-        register("muddy", MUDDY);
-        register("coral", CORAL);
+        register("russet", WildsplashVariants.RUSSET);
+        register("sandy", WildsplashVariants.SANDY);
+        register("ocean", WildsplashVariants.OCEAN);
+        register("muddy", WildsplashVariants.MUDDY);
+        register("coral", WildsplashVariants.CORAL);
     }
 
     private static void register(String key, WildsplashVariant variant)

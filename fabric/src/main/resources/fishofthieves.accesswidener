@@ -4,6 +4,7 @@ accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGIST
 accessible field net/minecraft/data/loot/BlockLoot HAS_NO_SILK_TOUCH Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition$Builder;
 accessible field net/minecraft/world/item/MobBucketItem type Lnet/minecraft/world/entity/EntityType;
 accessible field net/minecraft/world/item/MobBucketItem emptySound Lnet/minecraft/sounds/SoundEvent;
+mutable field net/minecraft/advancements/critereon/EntitySubPredicate$Types TYPES Lcom/google/common/collect/BiMap;
 
 accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
 accessible method net/minecraft/core/Registry registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Registry$RegistryBootstrap;)Lnet/minecraft/core/Registry;

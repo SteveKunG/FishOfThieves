@@ -20,11 +20,11 @@ public class StormfishVariants
 
     public static void init()
     {
-        register("ancient", ANCIENT);
-        register("shores", SHORES);
-        register("wild", WILD);
-        register("shadow", SHADOW);
-        register("twilight", TWILIGHT);
+        register("ancient", StormfishVariants.ANCIENT);
+        register("shores", StormfishVariants.SHORES);
+        register("wild", StormfishVariants.WILD);
+        register("shadow", StormfishVariants.SHADOW);
+        register("twilight", StormfishVariants.TWILIGHT);
     }
 
     private static void register(String key, StormfishVariant variant)

@@ -18,11 +18,11 @@ public class WreckerVariants
 
     public static void init()
     {
-        register("rose", ROSE);
-        register("sun", SUN);
-        register("blackcloud", BLACKCLOUD);
-        register("snow", SNOW);
-        register("moon", MOON);
+        register("rose", WreckerVariants.ROSE);
+        register("sun", WreckerVariants.SUN);
+        register("blackcloud", WreckerVariants.BLACKCLOUD);
+        register("snow", WreckerVariants.SNOW);
+        register("moon", WreckerVariants.MOON);
     }
 
     private static void register(String key, WreckerVariant variant)

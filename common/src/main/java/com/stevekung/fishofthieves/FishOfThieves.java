@@ -50,6 +50,7 @@ public class FishOfThieves
         FOTDataSerializers.init();
         FOTLootItemFunctions.init();
         FOTStructures.init();
+        FOTEntitySubPredicate.init();
 
         FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
 

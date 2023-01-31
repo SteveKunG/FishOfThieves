@@ -15,7 +15,7 @@ import com.stevekung.fishofthieves.loot.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
 import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
+import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -63,11 +63,9 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
-import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
-import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -506,14 +504,98 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                             .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
 
-            consumer.accept(FOTEntities.SPLASHTAIL.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
+            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
+                    FOTEntitySubPredicate.variant(SplashtailVariants.RUBY),
+                    FOTEntitySubPredicate.variant(SplashtailVariants.SUNNY),
+                    FOTEntitySubPredicate.variant(SplashtailVariants.INDIGO),
+                    FOTEntitySubPredicate.variant(SplashtailVariants.UMBER),
+                    FOTEntitySubPredicate.variant(SplashtailVariants.SEAFOAM));
+
+            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
+                    FOTEntitySubPredicate.variant(PondieVariants.CHARCOAL),
+                    FOTEntitySubPredicate.variant(PondieVariants.ORCHID),
+                    FOTEntitySubPredicate.variant(PondieVariants.BRONZE),
+                    FOTEntitySubPredicate.variant(PondieVariants.BRIGHT),
+                    FOTEntitySubPredicate.variant(PondieVariants.MOONSKY));
+
+            simpleFishLoot(FOTEntities.ISLEHOPPER, FOTItems.ISLEHOPPER, consumer,
+                    FOTEntitySubPredicate.variant(IslehopperVariants.STONE),
+                    FOTEntitySubPredicate.variant(IslehopperVariants.MOSS),
+                    FOTEntitySubPredicate.variant(IslehopperVariants.HONEY),
+                    FOTEntitySubPredicate.variant(IslehopperVariants.RAVEN),
+                    FOTEntitySubPredicate.variant(IslehopperVariants.AMETHYST));
+
+            simpleFishLoot(FOTEntities.ANCIENTSCALE, FOTItems.ANCIENTSCALE, consumer,
+                    FOTEntitySubPredicate.variant(AncientscaleVariants.ALMOND),
+                    FOTEntitySubPredicate.variant(AncientscaleVariants.SAPPHIRE),
+                    FOTEntitySubPredicate.variant(AncientscaleVariants.SMOKE),
+                    FOTEntitySubPredicate.variant(AncientscaleVariants.BONE),
+                    FOTEntitySubPredicate.variant(AncientscaleVariants.STARSHINE));
+
+            simpleFishLoot(FOTEntities.PLENTIFIN, FOTItems.PLENTIFIN, consumer,
+                    FOTEntitySubPredicate.variant(PlentifinVariants.OLIVE),
+                    FOTEntitySubPredicate.variant(PlentifinVariants.AMBER),
+                    FOTEntitySubPredicate.variant(PlentifinVariants.CLOUDY),
+                    FOTEntitySubPredicate.variant(PlentifinVariants.BONEDUST),
+                    FOTEntitySubPredicate.variant(PlentifinVariants.WATERY));
+
+            simpleFishLoot(FOTEntities.WILDSPLASH, FOTItems.WILDSPLASH, consumer,
+                    FOTEntitySubPredicate.variant(WildsplashVariants.RUSSET),
+                    FOTEntitySubPredicate.variant(WildsplashVariants.SANDY),
+                    FOTEntitySubPredicate.variant(WildsplashVariants.OCEAN),
+                    FOTEntitySubPredicate.variant(WildsplashVariants.MUDDY),
+                    FOTEntitySubPredicate.variant(WildsplashVariants.CORAL));
+
+            simpleFishLoot(FOTEntities.DEVILFISH, FOTItems.DEVILFISH, consumer,
+                    FOTEntitySubPredicate.variant(DevilfishVariants.ASHEN),
+                    FOTEntitySubPredicate.variant(DevilfishVariants.SEASHELL),
+                    FOTEntitySubPredicate.variant(DevilfishVariants.LAVA),
+                    FOTEntitySubPredicate.variant(DevilfishVariants.FORSAKEN),
+                    FOTEntitySubPredicate.variant(DevilfishVariants.FIRELIGHT));
+
+            simpleFishLoot(FOTEntities.BATTLEGILL, FOTItems.BATTLEGILL, consumer,
+                    FOTEntitySubPredicate.variant(BattlegillVariants.JADE),
+                    FOTEntitySubPredicate.variant(BattlegillVariants.SKY),
+                    FOTEntitySubPredicate.variant(BattlegillVariants.RUM),
+                    FOTEntitySubPredicate.variant(BattlegillVariants.SAND),
+                    FOTEntitySubPredicate.variant(BattlegillVariants.BITTERSWEET));
+
+            simpleFishLoot(FOTEntities.WRECKER, FOTItems.WRECKER, consumer,
+                    FOTEntitySubPredicate.variant(WreckerVariants.ROSE),
+                    FOTEntitySubPredicate.variant(WreckerVariants.SUN),
+                    FOTEntitySubPredicate.variant(WreckerVariants.BLACKCLOUD),
+                    FOTEntitySubPredicate.variant(WreckerVariants.SNOW),
+                    FOTEntitySubPredicate.variant(WreckerVariants.MOON));
+
+            simpleFishLoot(FOTEntities.STORMFISH, FOTItems.STORMFISH, consumer,
+                    FOTEntitySubPredicate.variant(StormfishVariants.ANCIENT),
+                    FOTEntitySubPredicate.variant(StormfishVariants.SHORES),
+                    FOTEntitySubPredicate.variant(StormfishVariants.WILD),
+                    FOTEntitySubPredicate.variant(StormfishVariants.SHADOW),
+                    FOTEntitySubPredicate.variant(StormfishVariants.TWILIGHT));
+        }
+
+        private static void simpleFishLoot(EntityType<?> entityType, Item item, BiConsumer<ResourceLocation, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
+        {
+            consumer.accept(entityType.getDefaultLootTable(), simpleFishLoot(item, entityType, subPredicate));
+        }
+
+        private static LootTable.Builder simpleFishLoot(Item item, EntityType<?> entityType, EntitySubPredicate... subPredicate)
+        {
+            return LootTable.lootTable().withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                            .add(LootItem.lootTableItem(item)
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))
+                                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate[0])))
+                            )
+                            .add(dropWithVariant(item, entityType, 1, subPredicate[1]))
+                            .add(dropWithVariant(item, entityType, 2, subPredicate[2]))
+                            .add(dropWithVariant(item, entityType, 3, subPredicate[3]))
+                            .add(dropWithVariant(item, entityType, 4, subPredicate[4]))
+                    )
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(Items.BONE_MEAL))
@@ -521,151 +603,19 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.PONDIE.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.PONDIE)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.ISLEHOPPER.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.ANCIENTSCALE.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.PLENTIFIN.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.WILDSPLASH.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.DEVILFISH.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.BATTLEGILL.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.WRECKER.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.WRECKER)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-            consumer.accept(FOTEntities.STORMFISH.getDefaultLootTable(), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTItems.STORMFISH)
-                                    .apply(SmeltItemFunction.smelted()
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                            .when(LootItemRandomChanceCondition.randomChance(0.05F)))
-                    .withPool(LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0f))
-                            .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
+                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F)));
+        }
+
+        @SuppressWarnings("deprecation")
+        private static LootPoolSingletonContainer.Builder<?> dropWithVariant(Item item, EntityType<?> entityType, int variant, EntitySubPredicate subPredicate)
+        {
+            return LootItem.lootTableItem(item)
+                    .apply(SmeltItemFunction.smelted()
+                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLoot.ENTITY_ON_FIRE)))
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
+                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))
+                    .apply(SetNbtFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant))))
+                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate)));
         }
     }
     //@formatter:on
