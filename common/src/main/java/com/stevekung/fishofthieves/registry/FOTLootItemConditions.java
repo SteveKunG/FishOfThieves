@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.loot.FishVariantLootConfigCondition;
-import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
-import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.core.Registry;

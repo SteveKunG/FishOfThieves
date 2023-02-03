@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.loot;
+package com.stevekung.fishofthieves.loot.function;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;

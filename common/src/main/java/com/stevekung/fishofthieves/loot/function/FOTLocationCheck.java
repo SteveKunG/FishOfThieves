@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.predicates;
+package com.stevekung.fishofthieves.loot.function;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.GsonHelper;
