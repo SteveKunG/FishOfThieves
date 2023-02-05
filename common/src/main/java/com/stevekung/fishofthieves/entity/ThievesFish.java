@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -70,6 +72,17 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
         if (variant != null)
         {
+            if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+            {
+                var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
+                var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+                var customModelData = swapped.get(variant.toString());
+
+                if (customModelData > 0)
+                {
+                    compound.putInt("CustomModelData", customModelData);
+                }
+            }
             compound.putString(VARIANT_TAG, variant.toString());
         }
         if (this.isTrophy())
