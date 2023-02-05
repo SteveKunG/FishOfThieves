@@ -23,6 +23,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -90,7 +91,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             if (fishPlaque.hasPlaqueData())
             {
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
-                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) : FishPlaqueRegistry.getInteractionItemByType(entity.getType());
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.BUCKET);
 
                 if (itemStack.is(interactItem))
                 {
@@ -122,7 +123,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
                 var entityKey = Registry.ENTITY_TYPE.getKey(entityType).toString();
-                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) : FishPlaqueRegistry.getInteractionItemByType(entityType);
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.BUCKET);
                 var converter = FishPlaqueRegistry.getTagConverter(entityType);
                 tag.putString("id", entityKey);
 
