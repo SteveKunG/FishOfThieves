@@ -91,7 +91,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             if (fishPlaque.hasPlaqueData())
             {
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
-                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.BUCKET);
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.WATER_BUCKET);
 
                 if (itemStack.is(interactItem))
                 {
@@ -123,7 +123,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
                 var entityKey = Registry.ENTITY_TYPE.getKey(entityType).toString();
-                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.BUCKET);
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
                 var converter = FishPlaqueRegistry.getTagConverter(entityType);
                 tag.putString("id", entityKey);
 
