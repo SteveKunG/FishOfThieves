@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -62,11 +63,15 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
         this.goalSelector.addGoal(2, new SwimToNearbyWreckageGoal(this, 1.25d));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25d, EARTHWORMS_FOOD, false));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
+
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
+        {
+            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
+            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+            this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
+        }
     }
 
     @Override

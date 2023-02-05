@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -58,9 +59,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, LEECHES_FOOD, false));
-        this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
+        {
+            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
+            this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+        }
     }
 
     @Override

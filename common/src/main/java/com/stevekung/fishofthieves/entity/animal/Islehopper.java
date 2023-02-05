@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.function.Consumer;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -123,15 +124,18 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public boolean skipAttackInteraction(Entity entity)
     {
-        var multiplier = this.isTrophy() ? 2 : 1;
-
-        if (entity instanceof ServerPlayer serverPlayer && entity.hurt(DamageSource.mobAttack(this), multiplier))
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
         {
-            if (!this.isSilent())
+            var multiplier = this.isTrophy() ? 2 : 1;
+
+            if (entity instanceof ServerPlayer serverPlayer && entity.hurt(DamageSource.mobAttack(this), multiplier))
             {
-                serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0f));
+                if (!this.isSilent())
+                {
+                    serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0f));
+                }
+                serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
             }
-            serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
         }
         return false;
     }
