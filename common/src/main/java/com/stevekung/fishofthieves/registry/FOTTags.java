@@ -33,6 +33,7 @@ public interface FOTTags
     {
         TagKey<Block> FIRELIGHT_DEVILFISH_WARM_BLOCKS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "firelight_devilfish_warm_blocks"));
         TagKey<Block> CORAL_WILDSPLASH_SPAWNABLE_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "coral_wildsplash_spawnable_on"));
+        TagKey<Block> AMETHYST_ISLEHOPPER_SPAWNABLE_ON = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "amethyst_islehopper_spawnable_on"));
         TagKey<Block> EARTHWORMS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "earthworms_drops"));
         TagKey<Block> GRUBS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "grubs_drops"));
         TagKey<Block> LEECHES_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "leeches_drops"));
@@ -85,6 +86,7 @@ public interface FOTTags
         TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "spawns_muddy_wildsplash"));
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "always_drop_leeches"));
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "has_seapost"));
+        TagKey<Biome> ISLEHOPPER_SPAWN_AT_COAST = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, "islehopper_spawn_at_coast"));
     }
 
     interface FishVariant

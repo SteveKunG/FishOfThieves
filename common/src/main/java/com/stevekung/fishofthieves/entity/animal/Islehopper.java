@@ -17,10 +17,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -168,11 +166,10 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        var biome = level.getBiome(blockPos);
         var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
         var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);
 
-        if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
+        if (level.getBiome(blockPos).is(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST))
         {
             return isSurfaceWater && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN);
         }

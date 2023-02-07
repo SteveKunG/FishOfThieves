@@ -15,7 +15,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.StructureTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -28,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
@@ -138,6 +136,6 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        return isSurfaceWater || isWater && (TerrainUtils.isInFeature(level.getLevel(), blockPos, StructureTags.MINESHAFT) || TerrainUtils.isInFeature(level.getLevel(), blockPos, BuiltinStructures.STRONGHOLD));
+        return isSurfaceWater || isWater && (TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.PLENTIFINS_SPAWN_IN));
     }
 }
