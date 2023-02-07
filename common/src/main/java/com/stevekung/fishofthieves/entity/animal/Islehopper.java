@@ -32,7 +32,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
@@ -164,13 +164,13 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         return WORMS.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var biome = level.getBiome(blockPos);
-        var continentalness = TerrainUtils.getContinentalness((ServerLevel) level, blockPos);
-        var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) level, blockPos);
+        var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
+        var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);
 
         if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
         {
