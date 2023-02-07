@@ -51,6 +51,6 @@ public class FOTLootItemConditions
 
     private static void register(String key, LootItemConditionType type)
     {
-        Registry.register(Registry.LOOT_CONDITION_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+        Registry.register(Registry.LOOT_CONDITION_TYPE, FishOfThieves.res(key), type);
     }
 }

@@ -33,6 +33,6 @@ public class DevilfishVariants
 
     private static void register(String key, DevilfishVariant variant)
     {
-        Registry.register(FOTRegistry.DEVILFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.DEVILFISH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

@@ -26,6 +26,6 @@ public class PondieVariants
 
     private static void register(String key, PondieVariant variant)
     {
-        Registry.register(FOTRegistry.PONDIE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.PONDIE_VARIANT, FishOfThieves.res(key), variant);
     }
 }

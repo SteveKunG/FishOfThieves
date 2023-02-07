@@ -57,7 +57,7 @@ public class WildsplashVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wildsplash/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/wildsplash/%s.png".formatted(name));
         }
     }
 }

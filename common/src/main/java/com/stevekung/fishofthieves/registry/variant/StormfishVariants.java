@@ -29,6 +29,6 @@ public class StormfishVariants
 
     private static void register(String key, StormfishVariant variant)
     {
-        Registry.register(FOTRegistry.STORMFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.STORMFISH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

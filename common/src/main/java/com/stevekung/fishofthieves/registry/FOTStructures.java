@@ -52,7 +52,7 @@ public class FOTStructures
 
         private static <S extends Structure> StructureType<S> register(String name, Codec<S> codec)
         {
-            return Registry.register(Registry.STRUCTURE_TYPES, new ResourceLocation(FishOfThieves.MOD_ID, name), () -> codec);
+            return Registry.register(Registry.STRUCTURE_TYPES, FishOfThieves.res(name), () -> codec);
         }
     }
 
@@ -63,12 +63,12 @@ public class FOTStructures
 
         private static ResourceKey<Structure> registerStructure(String name)
         {
-            return ResourceKey.create(Registry.STRUCTURE_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, name));
+            return ResourceKey.create(Registry.STRUCTURE_REGISTRY, FishOfThieves.res(name));
         }
 
         private static ResourceKey<StructureSet> registerStructureSet(String name)
         {
-            return ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, new ResourceLocation(FishOfThieves.MOD_ID, name));
+            return ResourceKey.create(Registry.STRUCTURE_SET_REGISTRY, FishOfThieves.res(name));
         }
     }
 
@@ -80,7 +80,7 @@ public class FOTStructures
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
         {
-            return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(FishOfThieves.MOD_ID, pieceId), pieceType);
+            return Registry.register(Registry.STRUCTURE_PIECE, FishOfThieves.res(pieceId), pieceType);
         }
     }
 }

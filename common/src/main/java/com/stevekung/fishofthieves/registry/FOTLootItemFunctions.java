@@ -12,6 +12,6 @@ public class FOTLootItemFunctions
 
     public static void init()
     {
-        Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "set_random_firework"), SET_RANDOM_FIREWORK);
+        Registry.register(Registry.LOOT_FUNCTION_TYPE, FishOfThieves.res("set_random_firework"), SET_RANDOM_FIREWORK);
     }
 }

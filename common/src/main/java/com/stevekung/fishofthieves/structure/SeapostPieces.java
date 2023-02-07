@@ -37,8 +37,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 public class SeapostPieces
 {
-    private static final ResourceLocation SEAPOST = new ResourceLocation(FishOfThieves.MOD_ID, "seapost");
-    private static final ResourceLocation SEAPOST_BASE = new ResourceLocation(FishOfThieves.MOD_ID, "seapost_base");
+    private static final ResourceLocation SEAPOST = FishOfThieves.res("seapost");
+    private static final ResourceLocation SEAPOST_BASE = FishOfThieves.res("seapost_base");
     private static final Map<ResourceLocation, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-5, 0, 11));
     private static final Map<ResourceLocation, BlockPos> OFFSETS = ImmutableMap.of(SEAPOST, new BlockPos(0, 8, 0), SEAPOST_BASE, BlockPos.ZERO);
     private static final List<Block> POTTED_BLOCKS = ImmutableList.of(Blocks.POTTED_POPPY, Blocks.POTTED_DANDELION, Blocks.POTTED_AZURE_BLUET, Blocks.POTTED_DEAD_BUSH, Blocks.POTTED_MANGROVE_PROPAGULE, Blocks.POTTED_AZALEA, Blocks.POTTED_FLOWERING_AZALEA);

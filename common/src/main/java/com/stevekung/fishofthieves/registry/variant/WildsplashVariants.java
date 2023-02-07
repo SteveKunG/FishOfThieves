@@ -29,6 +29,6 @@ public class WildsplashVariants
 
     private static void register(String key, WildsplashVariant variant)
     {
-        Registry.register(FOTRegistry.WILDSPLASH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.WILDSPLASH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

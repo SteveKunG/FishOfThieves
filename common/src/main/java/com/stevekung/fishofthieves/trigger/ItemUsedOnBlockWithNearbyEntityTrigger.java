@@ -14,7 +14,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 
 public class ItemUsedOnBlockWithNearbyEntityTrigger extends SimpleCriterionTrigger<ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance>
 {
-    static final ResourceLocation ID = new ResourceLocation(FishOfThieves.MOD_ID, "item_used_on_block_with_nearby_entity");
+    static final ResourceLocation ID = FishOfThieves.res("item_used_on_block_with_nearby_entity");
 
     @Override
     public ResourceLocation getId()

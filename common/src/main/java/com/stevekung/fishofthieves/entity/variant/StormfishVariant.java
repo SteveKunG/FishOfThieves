@@ -57,7 +57,7 @@ public class StormfishVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/stormfish/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/stormfish/%s.png".formatted(name));
         }
     }
 }

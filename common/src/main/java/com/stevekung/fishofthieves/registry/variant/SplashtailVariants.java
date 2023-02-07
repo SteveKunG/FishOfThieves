@@ -26,6 +26,6 @@ public class SplashtailVariants
 
     private static void register(String key, SplashtailVariant variant)
     {
-        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, FishOfThieves.res(key), variant);
     }
 }

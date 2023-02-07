@@ -38,7 +38,7 @@ public class FOTPlatformImpl
 
     public static CreativeModeTab createCreativeTab()
     {
-        return FabricItemGroupBuilder.build(new ResourceLocation(FishOfThieves.MOD_ID, "main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
+        return FabricItemGroupBuilder.build(FishOfThieves.res("main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
     }
 
     @SuppressWarnings("UnstableApiUsage")
@@ -59,23 +59,23 @@ public class FOTPlatformImpl
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, FishOfThieves.res(key), type);
     }
 
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
-        Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+        Registry.register(Registry.ENTITY_TYPE, FishOfThieves.res(key), type);
     }
 
     public static void registerBlock(String key, Block block)
     {
-        Registry.register(Registry.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, key), block);
+        Registry.register(Registry.BLOCK, FishOfThieves.res(key), block);
         registerItem(key, new BlockItem(block, new Item.Properties().tab(FishOfThieves.FOT_TAB)));
     }
 
     public static void registerItem(String key, Item item)
     {
-        Registry.register(Registry.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, key), item);
+        Registry.register(Registry.ITEM, FishOfThieves.res(key), item);
     }
 
     public static void registerSoundEvent(SoundEvent soundEvent)

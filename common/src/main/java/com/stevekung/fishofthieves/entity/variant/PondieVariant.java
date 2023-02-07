@@ -57,7 +57,7 @@ public class PondieVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/pondie/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/pondie/%s.png".formatted(name));
         }
     }
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.entity.Entity;
 
 public class HeadphoneModel<T extends Entity> extends EntityModel<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "headphone"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("headphone"), "main");
     private final ModelPart headphone;
 
     public HeadphoneModel(ModelPart part)

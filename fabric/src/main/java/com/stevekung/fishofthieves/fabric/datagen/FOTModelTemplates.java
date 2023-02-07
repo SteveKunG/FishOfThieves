@@ -17,6 +17,6 @@ public class FOTModelTemplates
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
-        return new ModelTemplate(Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "block/" + blockModelLocation)), Optional.empty(), requiredSlots);
+        return new ModelTemplate(Optional.of(FishOfThieves.res("block/" + blockModelLocation)), Optional.empty(), requiredSlots);
     }
 }

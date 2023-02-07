@@ -34,6 +34,6 @@ public class PlentifinVariants
 
     private static void register(String key, PlentifinVariant variant)
     {
-        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, FishOfThieves.res(key), variant);
     }
 }

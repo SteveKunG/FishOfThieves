@@ -57,7 +57,7 @@ public class DevilfishVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/devilfish/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/devilfish/%s.png".formatted(name));
         }
     }
 }

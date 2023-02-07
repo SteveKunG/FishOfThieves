@@ -31,16 +31,16 @@ public class FOTBiomeModifier
 
         //@formatter:off
         dataGenerator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(dataGenerator, existingFileHelper, FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, Map.of(
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_splashtails"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 15, 4, 8), FOTTags.Biomes.SPAWNS_SPLASHTAILS),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_pondies"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 15, 2, 4), FOTTags.Biomes.SPAWNS_PONDIES),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_islehoppers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, 8, 2, 4), FOTTags.Biomes.SPAWNS_ISLEHOPPERS),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_ancientscales"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 8, 4, 8), FOTTags.Biomes.SPAWNS_ANCIENTSCALES),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_plentifins"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8), FOTTags.Biomes.SPAWNS_PLENTIFINS),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_wildsplash"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, 10, 2, 4), FOTTags.Biomes.SPAWNS_WILDSPLASH),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_devilfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, 4, 1, 2), FOTTags.Biomes.SPAWNS_DEVILFISH),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_battlegills"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4), FOTTags.Biomes.SPAWNS_BATTLEGILLS),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_wreckers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8), FOTTags.Biomes.SPAWNS_WRECKERS),
-                new ResourceLocation(FishOfThieves.MOD_ID, "add_stormfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8), FOTTags.Biomes.SPAWNS_STORMFISH))
+                FishOfThieves.res("add_splashtails"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 15, 4, 8), FOTTags.Biomes.SPAWNS_SPLASHTAILS),
+                FishOfThieves.res("add_pondies"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 15, 2, 4), FOTTags.Biomes.SPAWNS_PONDIES),
+                FishOfThieves.res("add_islehoppers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, 8, 2, 4), FOTTags.Biomes.SPAWNS_ISLEHOPPERS),
+                FishOfThieves.res("add_ancientscales"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 8, 4, 8), FOTTags.Biomes.SPAWNS_ANCIENTSCALES),
+                FishOfThieves.res("add_plentifins"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8), FOTTags.Biomes.SPAWNS_PLENTIFINS),
+                FishOfThieves.res("add_wildsplash"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, 10, 2, 4), FOTTags.Biomes.SPAWNS_WILDSPLASH),
+                FishOfThieves.res("add_devilfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, 4, 1, 2), FOTTags.Biomes.SPAWNS_DEVILFISH),
+                FishOfThieves.res("add_battlegills"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4), FOTTags.Biomes.SPAWNS_BATTLEGILLS),
+                FishOfThieves.res("add_wreckers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8), FOTTags.Biomes.SPAWNS_WRECKERS),
+                FishOfThieves.res("add_stormfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8), FOTTags.Biomes.SPAWNS_STORMFISH))
         ));
         //@formatter:on
     }

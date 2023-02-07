@@ -27,6 +27,6 @@ public class WreckerVariants
 
     private static void register(String key, WreckerVariant variant)
     {
-        Registry.register(FOTRegistry.WRECKER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.WRECKER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

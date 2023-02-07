@@ -27,6 +27,6 @@ public class AncientscaleVariants
 
     private static void register(String key, AncientscaleVariant variant)
     {
-        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, FishOfThieves.res(key), variant);
     }
 }

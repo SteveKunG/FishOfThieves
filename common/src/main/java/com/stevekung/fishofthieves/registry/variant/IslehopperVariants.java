@@ -42,6 +42,6 @@ public class IslehopperVariants
 
     private static void register(String key, IslehopperVariant variant)
     {
-        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

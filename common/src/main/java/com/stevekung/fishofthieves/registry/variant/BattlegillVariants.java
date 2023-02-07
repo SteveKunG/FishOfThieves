@@ -28,6 +28,6 @@ public class BattlegillVariants
 
     private static void register(String key, BattlegillVariant variant)
     {
-        Registry.register(FOTRegistry.BATTLEGILL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.BATTLEGILL_VARIANT, FishOfThieves.res(key), variant);
     }
 }
