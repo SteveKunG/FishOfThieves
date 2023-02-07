@@ -35,8 +35,11 @@ public final class FishOfThievesConfig implements ConfigData
         @Comment("Enable neutral behavior for fishes.\nThis includes Battlegill, Devilfish, Islehopper and Wrecker.")
         public boolean neutralFishBehavior = false;
 
-        @Comment("Display all fish variant in Creative Tab. HIGHLY EXPERIMENTAL!")
+        @Comment("Display all fish variant in Creative Tab. Including Raw Fishes and Buckets")
         public boolean displayAllFishVariantInCreativeTab = false;
+
+        @Comment("All fish will drop with their variant and fish picked up will get their variant on a bucket as well.")
+        public boolean dropAndPickFishesWithVariant = false;
     }
 
     public static class SpawnRate

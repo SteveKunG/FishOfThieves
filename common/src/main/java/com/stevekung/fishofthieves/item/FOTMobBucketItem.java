@@ -15,6 +15,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -46,15 +47,26 @@ public class FOTMobBucketItem extends MobBucketItem
     {
         var compoundTag = itemStack.getTag();
 
-        if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE) && itemStack.hasTag() && compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
+        if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE))
         {
-            var type = Component.translatable("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(compoundTag.getString(ThievesFish.VARIANT_TAG)).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
-
-            if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+            if (itemStack.hasTag())
             {
-                type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                if (compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
+                {
+                    var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG));
+
+                    if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                    {
+                        type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                    }
+                    tooltipComponents.add(type);
+                }
             }
-            tooltipComponents.add(type);
+            else if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+            {
+                var variantMap = Util.make(new Int2ObjectOpenHashMap<>(), this.dataFixMap);
+                tooltipComponents.add(this.createTooltip(variantMap.get(0)));
+            }
         }
     }
 
@@ -70,6 +82,11 @@ public class FOTMobBucketItem extends MobBucketItem
                 items.add(create(this, this.dataFixMap, i));
             }
         }
+    }
+
+    private MutableComponent createTooltip(String location)
+    {
+        return Component.translatable("entity.fishofthieves.%s.%s".formatted(Registry.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
     private static ItemStack create(Item item, Consumer<Int2ObjectOpenHashMap<String>> dataFixMap, int index)
