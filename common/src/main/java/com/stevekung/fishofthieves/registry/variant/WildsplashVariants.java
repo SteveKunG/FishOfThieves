@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class WildsplashVariants
 {

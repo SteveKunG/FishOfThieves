@@ -78,6 +78,7 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
     {
         private final List<Integer> fireworkColors = Lists.newArrayList();
 
+        @Override
         protected Builder getThis()
         {
             return this;

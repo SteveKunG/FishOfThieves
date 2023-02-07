@@ -30,13 +30,13 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.RequiresRestart
         @Comment("Each fish and each variant has special spawning conditions requirement.\nIf enabled, special conditions won't be applied and set to always spawn.\nIncluding rare variants and night variants as well.\nNote: Night Time or Probability still working regardless of this option.")
-        public boolean simpleSpawningCondition;
+        public boolean simpleSpawningCondition = false;
 
         @Comment("Enable neutral behavior for fishes.\nThis includes Battlegill, Devilfish, Islehopper and Wrecker.")
-        public boolean neutralFishBehavior;
+        public boolean neutralFishBehavior = false;
 
         @Comment("Display all fish variant in Creative Tab. HIGHLY EXPERIMENTAL!")
-        public boolean displayAllFishVariantInCreativeTab;
+        public boolean displayAllFishVariantInCreativeTab = false;
     }
 
     public static class SpawnRate

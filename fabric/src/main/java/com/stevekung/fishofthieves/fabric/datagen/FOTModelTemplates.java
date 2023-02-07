@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.resources.ResourceLocation;
 
 public class FOTModelTemplates
 {
