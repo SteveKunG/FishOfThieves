@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
 import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.function.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
@@ -656,7 +657,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 24.0F))))
                             .add(TagEntry.expandTag(FOTTags.Items.WORMS).setWeight(5)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
-                            .add(TagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
+                            .add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
                             .add(LootItem.lootTableItem(Items.MAP).setWeight(1)
                                     .apply(ExplorationMapFunction.makeExplorationMap()

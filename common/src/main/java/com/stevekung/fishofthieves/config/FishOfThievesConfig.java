@@ -38,7 +38,7 @@ public final class FishOfThievesConfig implements ConfigData
         @Comment("Display all fish variant in Creative Tab. Including Raw Fishes and Buckets")
         public boolean displayAllFishVariantInCreativeTab = false;
 
-        @Comment("All fish will drop with their variant and fish picked up will get their variant on a bucket as well.")
+        @Comment("All fish will drop item with their variant, when picked up will applies to bucket. It also applies to loot tables.")
         public boolean dropAndPickFishesWithVariant = false;
     }
 

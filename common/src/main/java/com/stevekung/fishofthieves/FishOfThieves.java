@@ -55,6 +55,7 @@ public class FishOfThieves
 
         FOTDataSerializers.init();
         FOTLootItemFunctions.init();
+        FOTLootPoolEntries.init();
         FOTStructures.init();
         FOTEntitySubPredicate.init();
 
