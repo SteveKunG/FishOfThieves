@@ -23,6 +23,7 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -90,7 +91,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             if (fishPlaque.hasPlaqueData())
             {
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
-                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(fishPlaque.getEntityKeyFromPlaqueData()) : FishPlaqueRegistry.getInteractionItemByType(entity.getType());
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.WATER_BUCKET);
 
                 if (itemStack.is(interactItem))
                 {
@@ -122,7 +123,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
                 var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
-                var interactItem = FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) != null ? FishPlaqueRegistry.getInteractionItemByEntityKey(entityKey) : FishPlaqueRegistry.getInteractionItemByType(entityType);
+                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
                 var converter = FishPlaqueRegistry.getTagConverter(entityType);
                 tag.putString("id", entityKey);
 
@@ -288,14 +289,16 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         if (blockEntity instanceof FishPlaqueBlockEntity fishPlaque && fishPlaque.hasPlaqueData())
         {
             var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
+            var direction = state.getValue(FACING);
+            var random = level.random.nextDouble() * 0.1 + 0.2;
 
             if (!state.getValue(WATERLOGGED))
             {
                 entity.setAirSupply(100);
             }
 
-            entity.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, state.getValue(FACING).toYRot(), 0.0f);
-            entity.setDeltaMovement(level.random.nextDouble() * 0.2, 0.4, level.random.nextDouble() * 0.2);
+            entity.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, direction.toYRot(), 0.0f);
+            entity.setDeltaMovement(level.random.triangle(direction.getStepX() * random, 0.0172275), 0.4, level.random.triangle(direction.getStepZ() * random, 0.0172275));
             level.addFreshEntity(entity);
         }
     }

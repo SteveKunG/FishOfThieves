@@ -57,7 +57,7 @@ public class BattlegillVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/battlegill/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/battlegill/%s.png".formatted(name));
         }
     }
 }

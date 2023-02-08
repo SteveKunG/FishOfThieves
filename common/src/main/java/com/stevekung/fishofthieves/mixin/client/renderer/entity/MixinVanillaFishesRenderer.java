@@ -16,7 +16,8 @@ import net.minecraft.world.entity.Mob;
         CodRenderer.class,
         SalmonRenderer.class,
         PufferfishRenderer.class,
-        TropicalFishRenderer.class
+        TropicalFishRenderer.class,
+        TadpoleRenderer.class
 })
 //@formatter:on
 public abstract class MixinVanillaFishesRenderer<T extends Mob & PartyFish, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends MobRenderer<T, M>

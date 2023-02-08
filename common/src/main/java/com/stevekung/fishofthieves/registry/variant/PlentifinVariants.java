@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class PlentifinVariants
 {
@@ -34,6 +33,6 @@ public class PlentifinVariants
 
     private static void register(String key, PlentifinVariant variant)
     {
-        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, FishOfThieves.res(key), variant);
     }
 }

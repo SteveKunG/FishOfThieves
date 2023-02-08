@@ -39,7 +39,7 @@ public class FishOfThievesForge
     public static CommonProxyForge PROXY;
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
-    public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = new ResourceLocation(FishOfThieves.MOD_ID, THIEVES_FISH_SPAWNS_IN_STRUCTURE);
+    public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.res(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
 
     public FishOfThievesForge()
     {
@@ -86,6 +86,6 @@ public class FishOfThievesForge
     @SubscribeEvent
     public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event)
     {
-        event.registerCreativeModeTab(new ResourceLocation(FishOfThieves.MOD_ID, "main"), FishOfThieves::getCreativeTabBuilder);
+        event.registerCreativeModeTab(FishOfThieves.res("main"), FishOfThieves::getCreativeTabBuilder);
     }
 }

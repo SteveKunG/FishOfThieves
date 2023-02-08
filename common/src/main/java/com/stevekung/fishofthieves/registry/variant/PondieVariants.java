@@ -5,7 +5,6 @@ import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class PondieVariants
 {
@@ -26,6 +25,6 @@ public class PondieVariants
 
     private static void register(String key, PondieVariant variant)
     {
-        Registry.register(FOTRegistry.PONDIE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.PONDIE_VARIANT, FishOfThieves.res(key), variant);
     }
 }

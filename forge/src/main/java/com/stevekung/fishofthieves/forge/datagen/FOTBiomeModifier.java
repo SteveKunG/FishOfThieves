@@ -13,7 +13,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -60,7 +59,7 @@ public class FOTBiomeModifier
 
     private static ResourceKey<BiomeModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(FishOfThieves.MOD_ID, key));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.res(key));
     }
 
     private static BiomeModifier spawn(BootstapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)

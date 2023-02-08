@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 
 public class DevilfishVariants
@@ -33,6 +32,6 @@ public class DevilfishVariants
 
     private static void register(String key, DevilfishVariant variant)
     {
-        Registry.register(FOTRegistry.DEVILFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.DEVILFISH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

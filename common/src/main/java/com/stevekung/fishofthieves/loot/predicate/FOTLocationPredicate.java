@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.predicates;
+package com.stevekung.fishofthieves.loot.predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.gson.JsonElement;

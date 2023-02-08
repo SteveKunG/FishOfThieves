@@ -2,18 +2,16 @@ package com.stevekung.fishofthieves.api.block;
 
 import java.util.Map;
 
-import org.jetbrains.annotations.Nullable;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.Util;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 public class FishPlaqueRegistry
 {
     private static final Map<EntityType<?>, FishPlaqueTagConverter> CONVERTERS = Util.make(new Object2ObjectOpenHashMap<>(), map -> map.defaultReturnValue(FishPlaqueTagConverter.NOOP));
-    private static final Map<EntityType<?>, Item> INTERACT_ITEMS_BY_TYPE = Util.make(new Object2ObjectOpenHashMap<>(), map -> map.defaultReturnValue(Items.WATER_BUCKET));
-    private static final Map<String, Item> INTERACT_ITEMS_BY_KEY = new Object2ObjectOpenHashMap<>();
+    private static final Map<String, Item> INTERACT_ITEMS = new Object2ObjectOpenHashMap<>();
 
     public static void registerTagConverter(EntityType<?> entityType, FishPlaqueTagConverter converter)
     {
@@ -27,22 +25,16 @@ public class FishPlaqueRegistry
 
     public static void registerInteractionItem(EntityType<?> entityType, Item item)
     {
-        INTERACT_ITEMS_BY_TYPE.put(entityType, item);
+        INTERACT_ITEMS.put(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString(), item);
     }
 
     public static void registerInteractionItem(String key, Item item)
     {
-        INTERACT_ITEMS_BY_KEY.put(key, item);
+        INTERACT_ITEMS.put(key, item);
     }
 
-    public static Item getInteractionItemByType(EntityType<?> type)
+    public static Map<String, Item> getInteractionItem()
     {
-        return INTERACT_ITEMS_BY_TYPE.get(type);
-    }
-
-    @Nullable
-    public static Item getInteractionItemByEntityKey(String key)
-    {
-        return INTERACT_ITEMS_BY_KEY.get(key);
+        return INTERACT_ITEMS;
     }
 }

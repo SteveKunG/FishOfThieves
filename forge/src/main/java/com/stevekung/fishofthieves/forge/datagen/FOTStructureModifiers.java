@@ -16,7 +16,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -64,7 +63,7 @@ public class FOTStructureModifiers
 
     private static ResourceKey<StructureModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, new ResourceLocation(FishOfThieves.MOD_ID, key));
+        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.res(key));
     }
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier

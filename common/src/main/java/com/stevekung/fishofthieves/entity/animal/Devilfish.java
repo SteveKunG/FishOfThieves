@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -31,7 +32,6 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
@@ -58,9 +58,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, LEECHES_FOOD, false));
-        this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
+        {
+            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
+            this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+        }
     }
 
     @Override
@@ -171,7 +175,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         return LEECHES_FOOD.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         return isWater && blockPos.getY() <= 0 && !level.getBiome(blockPos).is(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN);

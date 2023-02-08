@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.resources.ResourceLocation;
 
 public class FOTModelTemplates
 {
@@ -17,6 +16,6 @@ public class FOTModelTemplates
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
-        return new ModelTemplate(Optional.of(new ResourceLocation(FishOfThieves.MOD_ID, "block/" + blockModelLocation)), Optional.empty(), requiredSlots);
+        return new ModelTemplate(Optional.of(FishOfThieves.res("block/" + blockModelLocation)), Optional.empty(), requiredSlots);
     }
 }

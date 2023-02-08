@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,6 +26,11 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static FishOfThievesConfig CONFIG;
+
+    public static ResourceLocation res(String path)
+    {
+        return new ResourceLocation(MOD_ID, path);
+    }
 
     public static void init()
     {
@@ -43,7 +49,9 @@ public class FishOfThieves
     {
         FOTDataSerializers.init();
         FOTLootItemFunctions.init();
+        FOTLootPoolEntries.init();
         FOTStructures.init();
+        FOTEntitySubPredicate.init();
 
         FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
 

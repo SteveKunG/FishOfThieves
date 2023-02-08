@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class AncientscaleVariants
 {
@@ -27,6 +26,6 @@ public class AncientscaleVariants
 
     private static void register(String key, AncientscaleVariant variant)
     {
-        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.ANCIENTSCALE_VARIANT, FishOfThieves.res(key), variant);
     }
 }

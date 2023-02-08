@@ -2,6 +2,8 @@ package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
 
+import com.stevekung.fishofthieves.loot.function.FOTLootItem;
+import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
@@ -13,7 +15,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -48,50 +49,50 @@ public class FOTLootManager
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)
     {
         //@formatter:off
-        return builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL))
-                .add(LootItem.lootTableItem(FOTItems.PONDIE))
-                .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER))
-                .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE))
-                .add(LootItem.lootTableItem(FOTItems.PLENTIFIN))
-                .add(LootItem.lootTableItem(FOTItems.WILDSPLASH))
-                .add(LootItem.lootTableItem(FOTItems.DEVILFISH))
-                .add(LootItem.lootTableItem(FOTItems.BATTLEGILL))
-                .add(LootItem.lootTableItem(FOTItems.WRECKER))
-                .add(LootItem.lootTableItem(FOTItems.STORMFISH));
+        return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL))
+                .add(FOTLootItem.lootTableItem(FOTItems.PONDIE))
+                .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER))
+                .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE))
+                .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN))
+                .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH))
+                .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH))
+                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL))
+                .add(FOTLootItem.lootTableItem(FOTItems.WRECKER))
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH));
         //@formatter:on
     }
 
     public static LootPool.Builder getFishingLoot(LootPool.Builder builder)
     {
         //@formatter:off
-        return builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
+        return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .setWeight(50)
                         .when(FOTLootItemConditions.IN_OCEAN))
-                .add(LootItem.lootTableItem(FOTItems.PONDIE)
+                .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
                         .setWeight(50)
                         .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
-                .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
+                .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
                         .setWeight(40)
                         .when(FOTLootItemConditions.COAST))
-                .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .setWeight(40)
                         .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
-                .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .setWeight(45)
                         .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
-                .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
+                .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .setWeight(45)
                         .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
-                .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
+                .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
                         .setWeight(35)
                         .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
-                .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
+                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .setWeight(35)
                         .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
-                .add(LootItem.lootTableItem(FOTItems.WRECKER)
+                .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
                         .when(FOTLootItemConditions.IN_SHIPWRECKS.or(FOTLootItemConditions.IN_RUINED_PORTAL_OCEAN)))
-                .add(LootItem.lootTableItem(FOTItems.STORMFISH)
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
                         .when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
@@ -100,61 +101,61 @@ public class FOTLootManager
     public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder)
     {
         //@formatter:off
-        return builder.add(LootItem.lootTableItem(FOTItems.SPLASHTAIL)
+        return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(10)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.PONDIE)
+                .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(1)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.ISLEHOPPER)
+                .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(8)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.PLENTIFIN)
+                .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.WILDSPLASH)
+                .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.DEVILFISH)
+                .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(1)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.BATTLEGILL)
+                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(1)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.WRECKER)
+                .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))))
-                .add(LootItem.lootTableItem(FOTItems.STORMFISH)
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(5)
@@ -165,7 +166,7 @@ public class FOTLootManager
 
     public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder)
     {
-        return builder.add(TagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
     }
 
     public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder)

@@ -4,10 +4,12 @@
   "package": "com.stevekung.fishofthieves.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.model.MixinTadpoleModel",
     "client.model.MixinVanillaFishesModel",
     "client.renderer.entity.MixinCodRenderer",
     "client.renderer.entity.MixinPufferfishRenderer",
     "client.renderer.entity.MixinSalmonRenderer",
+    "client.renderer.entity.MixinTadpoleRenderer",
     "client.renderer.entity.MixinTropicalFishRenderer",
     "client.renderer.entity.MixinVanillaFishesRenderer"
   ],

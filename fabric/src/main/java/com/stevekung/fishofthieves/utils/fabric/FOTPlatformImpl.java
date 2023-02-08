@@ -7,7 +7,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -55,23 +54,23 @@ public class FOTPlatformImpl
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
-        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.res(key), type);
     }
 
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
-        Registry.register(BuiltInRegistries.ENTITY_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, key), type);
+        Registry.register(BuiltInRegistries.ENTITY_TYPE, FishOfThieves.res(key), type);
     }
 
     public static void registerBlock(String key, Block block)
     {
-        Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(FishOfThieves.MOD_ID, key), block);
+        Registry.register(BuiltInRegistries.BLOCK, FishOfThieves.res(key), block);
         registerItem(key, new BlockItem(block, new Item.Properties()));
     }
 
     public static void registerItem(String key, Item item)
     {
-        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(FishOfThieves.MOD_ID, key), item);
+        Registry.register(BuiltInRegistries.ITEM, FishOfThieves.res(key), item);
     }
 
     public static void registerSoundEvent(SoundEvent soundEvent)

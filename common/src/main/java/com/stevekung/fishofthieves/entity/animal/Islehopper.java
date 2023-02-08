@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.function.Consumer;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -16,10 +17,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -31,7 +30,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
@@ -123,15 +122,18 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public boolean skipAttackInteraction(Entity entity)
     {
-        var multiplier = this.isTrophy() ? 2 : 1;
-
-        if (entity instanceof ServerPlayer serverPlayer && entity.hurt(DamageSource.mobAttack(this), multiplier))
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
         {
-            if (!this.isSilent())
+            var multiplier = this.isTrophy() ? 2 : 1;
+
+            if (entity instanceof ServerPlayer serverPlayer && entity.hurt(DamageSource.mobAttack(this), multiplier))
             {
-                serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0f));
+                if (!this.isSilent())
+                {
+                    serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0f));
+                }
+                serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
             }
-            serverPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 60 * multiplier, 0), this);
         }
         return false;
     }
@@ -160,15 +162,14 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         return WORMS.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        var biome = level.getBiome(blockPos);
-        var continentalness = TerrainUtils.getContinentalness((ServerLevel) level, blockPos);
-        var peakTypes = TerrainUtils.getPeakTypes((ServerLevel) level, blockPos);
+        var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
+        var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);
 
-        if (biome.is(BiomeTags.IS_OCEAN) || biome.is(BiomeTags.IS_BEACH))
+        if (level.getBiome(blockPos).is(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST))
         {
             return isSurfaceWater && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN);
         }

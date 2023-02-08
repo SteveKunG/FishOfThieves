@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.*;
@@ -16,7 +17,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -33,7 +33,6 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 
@@ -60,9 +59,13 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, GRUBS_FOOD, false));
-        this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+
+        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
+        {
+            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0f, true));
+            this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+        }
     }
 
     @Override
@@ -173,11 +176,11 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         return GRUBS_FOOD.test(itemStack);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        var isRaided = level.canSeeSkyFromBelowWater(blockPos) && ((ServerLevel) level).isRaided(blockPos);
-        return isWater && (isRaided || TerrainUtils.isInFeature((ServerLevel) level, blockPos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
+        var isRaided = level.canSeeSkyFromBelowWater(blockPos) && level.getLevel().isRaided(blockPos);
+        return isWater && (isRaided || TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
     }
 
     public static AttributeSupplier.Builder createAttributes()

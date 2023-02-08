@@ -57,7 +57,7 @@ public class PlentifinVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/plentifin/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/plentifin/%s.png".formatted(name));
         }
     }
 }

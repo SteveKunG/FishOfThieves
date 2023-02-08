@@ -13,12 +13,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "splashtail"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("splashtail"), "main");
     private final ModelPart head;
     private final ModelPart body_main;
     private final ModelPart body_back;

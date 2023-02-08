@@ -57,7 +57,7 @@ public class SplashtailVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/splashtail/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/splashtail/%s.png".formatted(name));
         }
     }
 }

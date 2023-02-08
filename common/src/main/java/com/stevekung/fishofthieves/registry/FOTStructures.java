@@ -12,7 +12,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -52,7 +51,7 @@ public class FOTStructures
 
         private static <S extends Structure> StructureType<S> register(String name, Codec<S> codec)
         {
-            return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, name), () -> codec);
+            return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, FishOfThieves.res(name), () -> codec);
         }
     }
 
@@ -63,12 +62,12 @@ public class FOTStructures
 
         private static ResourceKey<Structure> registerStructure(String name)
         {
-            return ResourceKey.create(Registries.STRUCTURE, new ResourceLocation(FishOfThieves.MOD_ID, name));
+            return ResourceKey.create(Registries.STRUCTURE, FishOfThieves.res(name));
         }
 
         private static ResourceKey<StructureSet> registerStructureSet(String name)
         {
-            return ResourceKey.create(Registries.STRUCTURE_SET, new ResourceLocation(FishOfThieves.MOD_ID, name));
+            return ResourceKey.create(Registries.STRUCTURE_SET, FishOfThieves.res(name));
         }
     }
 
@@ -80,7 +79,7 @@ public class FOTStructures
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
         {
-            return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, new ResourceLocation(FishOfThieves.MOD_ID, pieceId), pieceType);
+            return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.res(pieceId), pieceType);
         }
     }
 }

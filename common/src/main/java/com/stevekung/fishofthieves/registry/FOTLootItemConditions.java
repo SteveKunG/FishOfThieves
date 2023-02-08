@@ -1,13 +1,13 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.predicates.FOTLocationCheck;
-import com.stevekung.fishofthieves.predicates.FOTLocationPredicate;
+import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 public class FOTLootItemConditions
 {
     public static final LootItemConditionType FOT_LOCATION_CHECK = new LootItemConditionType(new FOTLocationCheck.Serializer());
+    public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(new FishVariantLootConfigCondition.Serializer());
 
     public static final LootItemCondition.Builder IN_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.LUKEWARM_OCEAN));
     public static final LootItemCondition.Builder IN_DEEP_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.DEEP_LUKEWARM_OCEAN));
@@ -44,6 +45,12 @@ public class FOTLootItemConditions
 
     public static void init()
     {
-        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, new ResourceLocation(FishOfThieves.MOD_ID, "fot_location_check"), FOT_LOCATION_CHECK);
+        register("fot_location_check", FOT_LOCATION_CHECK);
+        register("fish_variant_loot_config", FISH_VARIANT_LOOT_CONFIG);
+    }
+
+    private static void register(String key, LootItemConditionType type)
+    {
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, FishOfThieves.res(key), type);
     }
 }

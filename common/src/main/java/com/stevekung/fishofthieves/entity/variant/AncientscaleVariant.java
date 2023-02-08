@@ -57,7 +57,7 @@ public class AncientscaleVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/ancientscale/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/ancientscale/%s.png".formatted(name));
         }
     }
 }

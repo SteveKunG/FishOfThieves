@@ -57,7 +57,7 @@ public class WreckerVariant extends AbstractFishVariant
 
         private ResourceLocation createTexture(String name)
         {
-            return new ResourceLocation(FishOfThieves.MOD_ID, "textures/entity/wrecker/%s.png".formatted(name));
+            return FishOfThieves.res("textures/entity/wrecker/%s.png".formatted(name));
         }
     }
 }

@@ -10,12 +10,11 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class HeadphoneModel<T extends Entity> extends EntityModel<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(new ResourceLocation(FishOfThieves.MOD_ID, "headphone"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("headphone"), "main");
     private final ModelPart headphone;
 
     public HeadphoneModel(ModelPart part)

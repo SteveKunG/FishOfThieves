@@ -5,7 +5,6 @@ import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class SplashtailVariants
 {
@@ -26,6 +25,6 @@ public class SplashtailVariants
 
     private static void register(String key, SplashtailVariant variant)
     {
-        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.SPLASHTAIL_VARIANT, FishOfThieves.res(key), variant);
     }
 }

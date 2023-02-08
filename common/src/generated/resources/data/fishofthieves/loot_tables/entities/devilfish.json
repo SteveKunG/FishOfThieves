@@ -6,6 +6,19 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:devilfish",
+                "type_specific": {
+                  "type": "devilfish",
+                  "variant": "fishofthieves:ashen"
+                }
+              }
+            }
+          ],
           "functions": [
             {
               "conditions": [
@@ -38,6 +51,246 @@
                 "min": 2.0
               },
               "function": "minecraft:set_count"
+            }
+          ],
+          "name": "fishofthieves:devilfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:devilfish",
+                "type_specific": {
+                  "type": "devilfish",
+                  "variant": "fishofthieves:seashell"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "nbt": "{Trophy:1b}"
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:1}"
+            }
+          ],
+          "name": "fishofthieves:devilfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:devilfish",
+                "type_specific": {
+                  "type": "devilfish",
+                  "variant": "fishofthieves:lava"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "nbt": "{Trophy:1b}"
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:2}"
+            }
+          ],
+          "name": "fishofthieves:devilfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:devilfish",
+                "type_specific": {
+                  "type": "devilfish",
+                  "variant": "fishofthieves:forsaken"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "nbt": "{Trophy:1b}"
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:3}"
+            }
+          ],
+          "name": "fishofthieves:devilfish"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:devilfish",
+                "type_specific": {
+                  "type": "devilfish",
+                  "variant": "fishofthieves:firelight"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "nbt": "{Trophy:1b}"
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{CustomModelData:4}"
             }
           ],
           "name": "fishofthieves:devilfish"

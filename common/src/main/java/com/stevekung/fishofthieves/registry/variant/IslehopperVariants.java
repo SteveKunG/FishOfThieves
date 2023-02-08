@@ -7,8 +7,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
@@ -30,7 +28,7 @@ public class IslehopperVariants
         return false;
     })).texture("honey").build();
     public static final IslehopperVariant RAVEN = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))).texture("raven").build();
-    public static final IslehopperVariant AMETHYST = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(BlockTags.CRYSTAL_SOUND_BLOCKS)))).texture("amethyst").glowTexture("amethyst_glow").build();
+    public static final IslehopperVariant AMETHYST = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)))).texture("amethyst").glowTexture("amethyst_glow").build();
 
     public static void init()
     {
@@ -43,6 +41,6 @@ public class IslehopperVariants
 
     private static void register(String key, IslehopperVariant variant)
     {
-        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class WreckerVariants
 {
@@ -18,15 +17,15 @@ public class WreckerVariants
 
     public static void init()
     {
-        register("rose", ROSE);
-        register("sun", SUN);
-        register("blackcloud", BLACKCLOUD);
-        register("snow", SNOW);
-        register("moon", MOON);
+        register("rose", WreckerVariants.ROSE);
+        register("sun", WreckerVariants.SUN);
+        register("blackcloud", WreckerVariants.BLACKCLOUD);
+        register("snow", WreckerVariants.SNOW);
+        register("moon", WreckerVariants.MOON);
     }
 
     private static void register(String key, WreckerVariant variant)
     {
-        Registry.register(FOTRegistry.WRECKER_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.WRECKER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LightLayer;
 
 public class StormfishVariants
@@ -20,15 +19,15 @@ public class StormfishVariants
 
     public static void init()
     {
-        register("ancient", ANCIENT);
-        register("shores", SHORES);
-        register("wild", WILD);
-        register("shadow", SHADOW);
-        register("twilight", TWILIGHT);
+        register("ancient", StormfishVariants.ANCIENT);
+        register("shores", StormfishVariants.SHORES);
+        register("wild", StormfishVariants.WILD);
+        register("shadow", StormfishVariants.SHADOW);
+        register("twilight", StormfishVariants.TWILIGHT);
     }
 
     private static void register(String key, StormfishVariant variant)
     {
-        Registry.register(FOTRegistry.STORMFISH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.STORMFISH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

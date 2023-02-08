@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 
 public class WildsplashVariants
 {
@@ -20,15 +19,15 @@ public class WildsplashVariants
 
     public static void init()
     {
-        register("russet", RUSSET);
-        register("sandy", SANDY);
-        register("ocean", OCEAN);
-        register("muddy", MUDDY);
-        register("coral", CORAL);
+        register("russet", WildsplashVariants.RUSSET);
+        register("sandy", WildsplashVariants.SANDY);
+        register("ocean", WildsplashVariants.OCEAN);
+        register("muddy", WildsplashVariants.MUDDY);
+        register("coral", WildsplashVariants.CORAL);
     }
 
     private static void register(String key, WildsplashVariant variant)
     {
-        Registry.register(FOTRegistry.WILDSPLASH_VARIANT, new ResourceLocation(FishOfThieves.MOD_ID, key), variant);
+        Registry.register(FOTRegistry.WILDSPLASH_VARIANT, FishOfThieves.res(key), variant);
     }
 }
