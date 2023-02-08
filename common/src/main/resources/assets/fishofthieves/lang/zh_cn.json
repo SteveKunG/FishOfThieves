@@ -6,6 +6,7 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "Simple Spawning Condition",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Neutral Fish Behavior",
   "text.autoconfig.fishofthieves.option.general.displayAllFishVariantInCreativeTab": "Display all Fish Variant in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "Drop and Pick fishes with variant",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "奖杯鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.umberSplashtailProbability": "琥珀浪尾鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.brightPondieProbability": "明亮小池鱼概率",
