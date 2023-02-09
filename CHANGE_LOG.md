@@ -2,15 +2,14 @@
 
 ### Please report if you found the issues!
 
-* Added New Block - Fish Plaques: with 4 variants (Wooden, Iron Frame, Golden Frame and Gilded)
-* Added New Structure - Sea Posts
-* Added fish bucket trades to Fisherman
-* Added Worms to Emerald trades to Fisherman
-* Added new config "displayAllFishVariantInCreativeTab" - Display all fish variant in Creative Tab
-* Added Naturalist and Alex's Mobs compatibility
-* Fishing Loot weight balanced
-* Villager trades balanced
-* Minor fish bone model optimization
-* Update Raw Splashtail, Cooked Splashtail and Bucket of Splashtail textures
-* Fixed shadow size for trophy fish
-* [Forge] - Fix villager trades
+* Added Neutral Fish Behavior config
+* Added Drop and Pick fishes with variants config
+* Added block and item tags for all fish plaques
+* Added more spawn control by tags
+* All Fish now drop item with their variants (Configurated)
+* All Fish picked up in the bucket will display their variants (Configurated)
+* All Fish loot tables now generate with their variants (Configurated)
+* Update entity movement to matches block facing when break fish plaque
+* Fixed 1 pixel error on Wrecker Bucket
+* Tadpole Update :D
+* Remove unused fish plaque item texture
