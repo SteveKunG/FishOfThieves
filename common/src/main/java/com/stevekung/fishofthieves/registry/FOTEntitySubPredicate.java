@@ -1,11 +1,15 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.Maps;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.advancements.critereon.EntityVariantPredicate;
 
@@ -21,21 +25,26 @@ public class FOTEntitySubPredicate
     public static final EntityVariantPredicate<BattlegillVariant> BATTLEGILL = EntityVariantPredicate.create(FOTRegistry.BATTLEGILL_VARIANT, entity -> entity instanceof Battlegill battlegill ? Optional.of(battlegill.getVariant()) : Optional.empty());
     public static final EntityVariantPredicate<WreckerVariant> WRECKER = EntityVariantPredicate.create(FOTRegistry.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty());
     public static final EntityVariantPredicate<StormfishVariant> STORMFISH = EntityVariantPredicate.create(FOTRegistry.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty());
+    public static final EntitySubPredicate.Type TROPHY = TrophyFishPredicate::fromJson;
 
     public static void init()
     {
-        var map = Maps.newLinkedHashMap(EntitySubPredicate.Types.TYPES);
-        map.put("splashtail", SPLASHTAIL.type());
-        map.put("pondie", PONDIE.type());
-        map.put("islehopper", ISLEHOPPER.type());
-        map.put("ancientscale", ANCIENTSCALE.type());
-        map.put("plentifin", PLENTIFIN.type());
-        map.put("wildsplash", WILDSPLASH.type());
-        map.put("devilfish", DEVILFISH.type());
-        map.put("battlegill", BATTLEGILL.type());
-        map.put("wrecker", WRECKER.type());
-        map.put("stormfish", STORMFISH.type());
-        EntitySubPredicate.Types.TYPES = ImmutableBiMap.copyOf(map);
+        var newSubPredicates = Maps.<String, EntitySubPredicate.Type>newLinkedHashMap();
+        newSubPredicates.put("splashtail", SPLASHTAIL.type());
+        newSubPredicates.put("pondie", PONDIE.type());
+        newSubPredicates.put("islehopper", ISLEHOPPER.type());
+        newSubPredicates.put("ancientscale", ANCIENTSCALE.type());
+        newSubPredicates.put("plentifin", PLENTIFIN.type());
+        newSubPredicates.put("wildsplash", WILDSPLASH.type());
+        newSubPredicates.put("devilfish", DEVILFISH.type());
+        newSubPredicates.put("battlegill", BATTLEGILL.type());
+        newSubPredicates.put("wrecker", WRECKER.type());
+        newSubPredicates.put("stormfish", STORMFISH.type());
+        newSubPredicates.put("trophy", TROPHY);
+
+        var modifyMap = Maps.newLinkedHashMap(EntitySubPredicate.Types.TYPES);
+        modifyMap.putAll(newSubPredicates.entrySet().stream().collect(Collectors.toMap(e -> FishOfThieves.MOD_RESOURCES + e.getKey(), Map.Entry::getValue)));
+        EntitySubPredicate.Types.TYPES = ImmutableBiMap.copyOf(modifyMap);
     }
 
     public static EntitySubPredicate variant(SplashtailVariant variant)

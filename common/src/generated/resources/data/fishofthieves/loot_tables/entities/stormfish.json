@@ -13,7 +13,7 @@
               "predicate": {
                 "type": "fishofthieves:stormfish",
                 "type_specific": {
-                  "type": "stormfish",
+                  "type": "fishofthieves:stormfish",
                   "variant": "fishofthieves:ancient"
                 }
               }
@@ -41,7 +41,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "nbt": "{Trophy:1b}"
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
                   }
                 }
               ],
@@ -64,7 +67,7 @@
               "predicate": {
                 "type": "fishofthieves:stormfish",
                 "type_specific": {
-                  "type": "stormfish",
+                  "type": "fishofthieves:stormfish",
                   "variant": "fishofthieves:shores"
                 }
               }
@@ -92,7 +95,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "nbt": "{Trophy:1b}"
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
                   }
                 }
               ],
@@ -124,7 +130,7 @@
               "predicate": {
                 "type": "fishofthieves:stormfish",
                 "type_specific": {
-                  "type": "stormfish",
+                  "type": "fishofthieves:stormfish",
                   "variant": "fishofthieves:wild"
                 }
               }
@@ -152,7 +158,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "nbt": "{Trophy:1b}"
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
                   }
                 }
               ],
@@ -184,7 +193,7 @@
               "predicate": {
                 "type": "fishofthieves:stormfish",
                 "type_specific": {
-                  "type": "stormfish",
+                  "type": "fishofthieves:stormfish",
                   "variant": "fishofthieves:shadow"
                 }
               }
@@ -212,7 +221,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "nbt": "{Trophy:1b}"
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
                   }
                 }
               ],
@@ -244,7 +256,7 @@
               "predicate": {
                 "type": "fishofthieves:stormfish",
                 "type_specific": {
-                  "type": "stormfish",
+                  "type": "fishofthieves:stormfish",
                   "variant": "fishofthieves:twilight"
                 }
               }
@@ -272,7 +284,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "nbt": "{Trophy:1b}"
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
                   }
                 }
               ],

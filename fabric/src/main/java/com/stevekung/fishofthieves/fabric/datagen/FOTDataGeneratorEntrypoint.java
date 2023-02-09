@@ -18,6 +18,7 @@ import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.function.SetRandomFireworkFunction;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
+import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
@@ -527,8 +528,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
     {
-        private static final EntityPredicate.Builder TROPHY = EntityPredicate.Builder.entity().nbt(new NbtPredicate(Util.make(new CompoundTag(), tag -> tag.putBoolean(ThievesFish.TROPHY_TAG, true))));
-
         private EntityLootProvider(FabricDataOutput dataOutput)
         {
             super(dataOutput, LootContextParamSets.ENTITY);
@@ -628,7 +627,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .apply(SmeltItemFunction.smelted()
                                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))
+                                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TrophyFishPredicate.trophy(true)))))
                                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate[0])))
                             )
                             .add(dropWithVariant(item, entityType, 1, subPredicate[1]))
@@ -653,7 +652,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .apply(SmeltItemFunction.smelted()
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, TROPHY)))
+                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TrophyFishPredicate.trophy(true)))))
                     .apply(SetNbtFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant)))
                             .when(FishVariantLootConfigCondition.configEnabled()))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate)));
