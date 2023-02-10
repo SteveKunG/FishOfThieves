@@ -11,5 +11,6 @@
 * All Fish loot tables now generate with their variants (Configurated)
 * Update entity movement to matches block facing when break fish plaque
 * Fixed 1 pixel error on Wrecker Bucket
+* Fixed Fish Plaque block data update from command
 * Tadpole Update :D
 * Remove unused fish plaque item texture
