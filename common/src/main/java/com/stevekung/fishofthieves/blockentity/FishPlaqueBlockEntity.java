@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -38,6 +39,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
         {
             this.setPlaqueData(plaqueData);
         }
+        this.displayEntity = null;
     }
 
     @Override
@@ -60,6 +62,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Override
     public CompoundTag getUpdateTag()
     {
+        this.displayEntity = null;
         return this.saveWithoutMetadata();
     }
 
@@ -82,7 +85,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
     public boolean hasPlaqueData()
     {
-        return this.plaqueData != null && this.plaqueData.contains("id");
+        return this.plaqueData != null && this.plaqueData.contains("id", Tag.TAG_STRING);
     }
 
     public String getEntityKeyFromPlaqueData()
