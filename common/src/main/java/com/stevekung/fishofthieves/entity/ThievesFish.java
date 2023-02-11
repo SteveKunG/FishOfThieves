@@ -87,11 +87,8 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         }
         if (this.isTrophy())
         {
-            compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        }
-        if (this.hasFed())
-        {
             compound.putBoolean(HAS_FED_TAG, this.hasFed());
+            compound.putBoolean(TROPHY_TAG, this.isTrophy());
         }
         if (this.isNoFlip())
         {

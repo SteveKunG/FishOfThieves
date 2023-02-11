@@ -1009,10 +1009,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     builder.addCriterion(variant.getPath() + "_" + Registry.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                     {
                         compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
-                        compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
 
                         if (trophy)
                         {
+                            compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
                             compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
                         }
                     })).build()));
