@@ -720,6 +720,9 @@
     ]
   ],
   "rewards": {
-    "experience": 2000
+    "experience": 2000,
+    "loot": [
+      "fishofthieves:rewards/legendary_fish_collectors"
+    ]
   }
 }

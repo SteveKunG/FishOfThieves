@@ -720,6 +720,9 @@
     ]
   ],
   "rewards": {
-    "experience": 1000
+    "experience": 1000,
+    "loot": [
+      "fishofthieves:rewards/master_fish_collectors"
+    ]
   }
 }
