@@ -23,4 +23,11 @@ public interface FOTLootTables
         ResourceLocation SEAPOST_BARREL_COMBAT = FishOfThieves.res("chests/seapost_barrel_combat");
         ResourceLocation SEAPOST_BARREL_FIREWORK = FishOfThieves.res("chests/seapost_barrel_firework");
     }
+
+    interface Advancements
+    {
+        ResourceLocation FISH_COLLECTORS = FishOfThieves.res("rewards/fish_collectors");
+        ResourceLocation MASTER_FISH_COLLECTORS = FishOfThieves.res("rewards/master_fish_collectors");
+        ResourceLocation LEGENDARY_FISH_COLLECTORS = FishOfThieves.res("rewards/legendary_fish_collectors");
+    }
 }

@@ -122,6 +122,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(CustomBlockLootProvider::new);
         pack.addProvider(EntityLootProvider::new);
         pack.addProvider(ChestLootProvider::new);
+        pack.addProvider(AdvancementRewardProvider::new);
         var blockTagsProvider = new AtomicReference<BlockTagsProvider>();
         pack.addProvider((dataOutput, provider) ->
         {
@@ -696,7 +697,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
                             .add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
-                            .add(LootItem.lootTableItem(Items.MAP).setWeight(1)
+                            .add(LootItem.lootTableItem(Items.MAP)
                                     .apply(ExplorationMapFunction.makeExplorationMap()
                                             .setDestination(StructureTags.ON_TREASURE_MAPS)
                                             .setMapDecoration(MapDecoration.Type.RED_X)
@@ -731,6 +732,38 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                             .withColor(6942120) // athena
                                     )
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))));
+        }
+        //@formatter:on
+    }
+
+    private static class AdvancementRewardProvider extends SimpleFabricLootTableProvider
+    {
+        private AdvancementRewardProvider(FabricDataOutput dataOutput)
+        {
+            super(dataOutput, LootContextParamSets.ADVANCEMENT_REWARD);
+        }
+
+        //@formatter:off
+        @Override
+        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        {
+            consumer.accept(FOTLootTables.Advancements.FISH_COLLECTORS, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(2.0F, 4.0F))
+                            .add(TagEntry.expandTag(FOTTags.Items.WOODEN_FISH_PLAQUE))));
+
+            consumer.accept(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(2.0F, 4.0F))
+                            .add(TagEntry.expandTag(FOTTags.Items.IRON_FRAME_FISH_PLAQUE)))
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(4.0F, 8.0F))
+                            .add(TagEntry.expandTag(FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE))));
+
+            consumer.accept(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(UniformGenerator.between(4.0F, 8.0F))
+                            .add(TagEntry.expandTag(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE))));
         }
         //@formatter:on
     }
@@ -928,7 +961,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.fish_collectors.title"),
                             Component.translatable("advancements.fot.fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(250))
+                    .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
                     .save(consumer, this.mod("fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
@@ -936,7 +969,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.master_fish_collectors.title"),
                             Component.translatable("advancements.fot.master_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(1000))
+                    .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
                     .save(consumer, this.mod("master_fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
@@ -944,7 +977,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.legendary_fish_collectors.title"),
                             Component.translatable("advancements.fot.legendary_fish_collectors.description"),
                             null, FrameType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(2000))
+                    .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                     .save(consumer, this.mod("legendary_fish_collectors"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
@@ -1044,10 +1077,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                     {
                         compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
-                        compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
 
                         if (trophy)
                         {
+                            compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
                             compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
                         }
                     })).build()));

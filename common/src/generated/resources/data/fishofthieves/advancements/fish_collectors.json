@@ -150,6 +150,9 @@
     ]
   ],
   "rewards": {
-    "experience": 250
+    "experience": 250,
+    "loot": [
+      "fishofthieves:rewards/fish_collectors"
+    ]
   }
 }

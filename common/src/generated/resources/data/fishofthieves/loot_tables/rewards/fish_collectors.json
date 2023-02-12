@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:advancement_reward",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "fishofthieves:wooden_fish_plaque"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4.0,
+        "min": 2.0
+      }
+    }
+  ]
+}

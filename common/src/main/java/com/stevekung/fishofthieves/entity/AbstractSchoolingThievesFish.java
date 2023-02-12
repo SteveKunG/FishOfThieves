@@ -91,7 +91,11 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
 
         if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed())
         {
-            this.growUp(player, itemStack);
+            if (!this.level.isClientSide)
+            {
+                this.growUp(player, itemStack);
+            }
+            this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(player, hand);
@@ -167,6 +171,5 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             this.setHasFed(true);
             this.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
     }
 }
