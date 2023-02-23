@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.fabric.datagen;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -123,13 +122,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(EntityLootProvider::new);
         pack.addProvider(ChestLootProvider::new);
         pack.addProvider(AdvancementRewardProvider::new);
-        var blockTagsProvider = new AtomicReference<BlockTagsProvider>();
-        pack.addProvider((dataOutput, provider) ->
-        {
-            blockTagsProvider.set(new BlockTagsProvider(dataOutput, provider));
-            return blockTagsProvider.get();
-        });
-        pack.addProvider((dataOutput, provider) -> new ItemTagsProvider(dataOutput, provider, blockTagsProvider.get()));
+        var blockTagsProvider = pack.addProvider(BlockTagsProvider::new);
+        pack.addProvider((dataOutput, provider) -> new ItemTagsProvider(dataOutput, provider, blockTagsProvider));
         pack.addProvider(EntityTagsProvider::new);
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
