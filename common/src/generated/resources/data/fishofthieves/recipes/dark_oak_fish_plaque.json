@@ -18,5 +18,6 @@
   "result": {
     "count": 6,
     "item": "fishofthieves:dark_oak_fish_plaque"
-  }
+  },
+  "show_notification": true
 }

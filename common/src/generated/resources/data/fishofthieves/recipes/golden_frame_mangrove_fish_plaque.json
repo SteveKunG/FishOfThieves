@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "fishofthieves:golden_frame_mangrove_fish_plaque"
-  }
+  },
+  "show_notification": true
 }

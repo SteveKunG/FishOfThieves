@@ -23,5 +23,6 @@
   ],
   "result": {
     "item": "fishofthieves:gilded_mangrove_fish_plaque"
-  }
+  },
+  "show_notification": true
 }

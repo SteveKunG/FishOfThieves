@@ -26,7 +26,7 @@ public abstract class MixinServerLevel extends Level
 {
     MixinServerLevel()
     {
-        super(null, null, null, null, false, false, 0, 0);
+        super(null, null, null, null, null, false, false, 0, 0);
     }
 
     @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
@@ -49,7 +49,7 @@ public abstract class MixinServerLevel extends Level
             return false;
         }
         var biome = this.getBiome(blockPos).value();
-        return (biome.getPrecipitation() == Biome.Precipitation.RAIN || biome.getPrecipitation() == Biome.Precipitation.SNOW) && biome.warmEnoughToRain(blockPos);
+        return biome.getPrecipitationAt(blockPos) == Biome.Precipitation.RAIN;
     }
 
     private Optional<BlockPos> findNearestStormfish(BlockPos blockPos)

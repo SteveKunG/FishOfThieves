@@ -2,12 +2,11 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class FOTDisplayItems
 {
-    public static void displayItems(FeatureFlagSet featureFlagSet, CreativeModeTab.Output output, boolean hasOp)
+    public static void displayItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
     {
         output.accept(FOTBlocks.FISH_BONE);
 

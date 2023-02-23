@@ -23,5 +23,6 @@
   ],
   "result": {
     "item": "fishofthieves:gilded_bamboo_fish_plaque"
-  }
+  },
+  "show_notification": true
 }

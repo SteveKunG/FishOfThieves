@@ -22,7 +22,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
 
     public boolean matches(ServerLevel level, double x, double y, double z)
     {
-        var blockPos = new BlockPos(x, y, z);
+        var blockPos = BlockPos.containing(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var isRaided = level.isRaided(blockPos);
         var structureFeatureHolderSet = level.registryAccess().registryOrThrow(Registries.STRUCTURE).getTag(this.structure);

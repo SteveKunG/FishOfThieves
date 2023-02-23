@@ -38,12 +38,12 @@ public class FishJukeboxListener implements GameEventListener
     {
         if (gameEvent == GameEvent.JUKEBOX_PLAY)
         {
-            this.fish.setJukeboxPlaying(new BlockPos(vec3), true);
+            this.fish.setJukeboxPlaying(BlockPos.containing(vec3), true);
             return true;
         }
         if (gameEvent == GameEvent.JUKEBOX_STOP_PLAY)
         {
-            this.fish.setJukeboxPlaying(new BlockPos(vec3), false);
+            this.fish.setJukeboxPlaying(BlockPos.containing(vec3), false);
             return true;
         }
         return false;

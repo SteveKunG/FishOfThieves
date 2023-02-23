@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "fishofthieves:iron_frame_spruce_fish_plaque"
-  }
+  },
+  "show_notification": true
 }

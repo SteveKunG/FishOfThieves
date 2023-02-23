@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "fishofthieves:iron_frame_bamboo_fish_plaque"
-  }
+  },
+  "show_notification": true
 }
