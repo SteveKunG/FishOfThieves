@@ -29,6 +29,12 @@ loom {
     }
 }
 
+sourceSets.main {
+    resources {
+        srcDirs += "src/generated/resources/"
+    }
+}
+
 configurations {
     common
     shadowCommon
