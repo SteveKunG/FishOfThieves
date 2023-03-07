@@ -10,10 +10,6 @@ loom {
         mixin {
             defaultRefmapName = "mixins.fishofthieves_forge.refmap.json"
         }
-
-        dataGen {
-            mod "fishofthieves"
-        }
     }
 
     runs {
@@ -25,7 +21,9 @@ loom {
             property "mixin.hotSwap", "true"
         }
         data {
-            programArg "--existing=" + project(":common").file("src/main/resources/").absolutePath
+            forgeTemplate("data")
+            environment "data"
+            programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
             name "Forge Data Generation"
         }
     }
