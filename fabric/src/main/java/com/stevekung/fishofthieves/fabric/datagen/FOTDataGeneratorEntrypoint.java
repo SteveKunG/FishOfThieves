@@ -109,6 +109,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     {
         builder.add(Registries.STRUCTURE, FOTStructures::bootstrap);
         builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
     }
 
     @Override
@@ -128,7 +130,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
-        pack.addProvider(StructureProvider::new);
+        pack.addProvider(DynamicRegistryProvider::new);
 
         pack.addProvider(SplashtailVariantTagsProvider::new);
         pack.addProvider(PondieVariantTagsProvider::new);
@@ -883,6 +885,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
             this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH);
+            this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_FISH_BONE).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
         }
     }
 
@@ -1085,9 +1088,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     }
 
     @SuppressWarnings("UnstableApiUsage")
-    private static class StructureProvider extends FabricDynamicRegistryProvider
+    private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
     {
-        public StructureProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
+        public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
         {
             super(output, registriesFuture);
         }
@@ -1097,12 +1100,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE));
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
+            entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+            entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
         }
 
         @Override
         public String getName()
         {
-            return "Fish of Thieves Structure";
+            return "Fish of Thieves Dynamic Registries";
         }
     }
 }

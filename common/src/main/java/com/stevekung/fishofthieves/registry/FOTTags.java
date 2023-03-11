@@ -86,6 +86,7 @@ public interface FOTTags
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registries.BIOME, FishOfThieves.res("always_drop_leeches"));
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.res("has_seapost"));
         TagKey<Biome> ISLEHOPPER_SPAWN_AT_COAST = TagKey.create(Registries.BIOME, FishOfThieves.res("islehopper_spawn_at_coast"));
+        TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.res("has_fish_bone"));
     }
 
     interface FishVariant
