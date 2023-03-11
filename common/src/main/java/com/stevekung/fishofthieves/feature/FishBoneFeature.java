@@ -39,7 +39,6 @@ public class FishBoneFeature extends Feature<NoneFeatureConfiguration>
 
             if (blockState2.canSurvive(level, blockPos2))
             {
-                System.out.println(blockPos2);
                 level.setBlock(blockPos2, blockState2.setValue(FishBoneBlock.WATERLOGGED, level.getFluidState(blockPos2).is(Fluids.WATER)).setValue(FishBoneBlock.FACING, Direction.Plane.HORIZONTAL.getRandomDirection(randomSource)), Block.UPDATE_CLIENTS);
                 place = true;
             }
