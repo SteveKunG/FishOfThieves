@@ -54,25 +54,89 @@ public final class FishOfThievesConfig implements ConfigData
     {
         @Comment("Chance to spawn Trophy fish size.")
         public float trophyProbability = 0.15F;
-        @Comment("Chance to spawn Umber variant of Splashtails.")
-        public float umberSplashtailProbability = 0.1F;
-        @Comment("Chance to spawn Bright variant of Pondies.")
-        public float brightPondieProbability = 0.1F;
-        @Comment("Chance to spawn Raven variant of Islehoppers.")
-        public float ravenIslehopperProbability = 0.1F;
-        @Comment("Chance to spawn Bone variant of Ancientscales.")
-        public float boneAncientscaleProbability = 0.1F;
-        @Comment("Chance to spawn Bonedust variant of Plentifins.")
-        public float bonedustPlentifinProbability = 0.1F;
-        @Comment("Chance to spawn Muddy variant of Wildsplash.")
-        public float muddyWildsplashProbability = 0.1F;
-        @Comment("Chance to spawn Forsaken variant of Devilfish.")
-        public float forsakenDevilfishProbability = 0.1F;
-        @Comment("Chance to spawn Sand variant of Battlegills.")
-        public float sandBattlegillProbability = 0.1F;
-        @Comment("Chance to spawn Snow variant of Wreckers.")
-        public float snowWreckerProbability = 0.1F;
-        @Comment("Chance to spawn Shadow variant of Stormfish.")
-        public float shadowStormfishProbability = 0.1F;
+
+        @Comment("Change fish variants probability.")
+        @ConfigEntry.Gui.CollapsibleObject
+        public Variant variant = new Variant();
+
+        @Comment("Change fish spawn weight.")
+        @ConfigEntry.Gui.CollapsibleObject
+        public FishWeight fishWeight = new FishWeight();
+
+        public static class Variant
+        {
+            @Comment("Chance to spawn Umber variant of Splashtails.")
+            public float umberSplashtailProbability = 0.1F;
+
+            @Comment("Chance to spawn Bright variant of Pondies.")
+            public float brightPondieProbability = 0.1F;
+
+            @Comment("Chance to spawn Raven variant of Islehoppers.")
+            public float ravenIslehopperProbability = 0.1F;
+
+            @Comment("Chance to spawn Bone variant of Ancientscales.")
+            public float boneAncientscaleProbability = 0.1F;
+
+            @Comment("Chance to spawn Bonedust variant of Plentifins.")
+            public float bonedustPlentifinProbability = 0.1F;
+
+            @Comment("Chance to spawn Muddy variant of Wildsplash.")
+            public float muddyWildsplashProbability = 0.1F;
+
+            @Comment("Chance to spawn Forsaken variant of Devilfish.")
+            public float forsakenDevilfishProbability = 0.1F;
+
+            @Comment("Chance to spawn Sand variant of Battlegills.")
+            public float sandBattlegillProbability = 0.1F;
+
+            @Comment("Chance to spawn Snow variant of Wreckers.")
+            public float snowWreckerProbability = 0.1F;
+
+            @Comment("Chance to spawn Shadow variant of Stormfish.")
+            public float shadowStormfishProbability = 0.1F;
+        }
+
+        public static class FishWeight
+        {
+            @Comment("Weight of Splashtails spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int splashtail = 15;
+
+            @Comment("Weight of Pondies spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int pondie = 15;
+
+            @Comment("Weight of Islehoppers spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int islehopper = 8;
+
+            @Comment("Weight of Ancientscales spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int ancientscale = 8;
+
+            @Comment("Weight of Plentifins spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int plentifin = 12;
+
+            @Comment("Weight of Wildsplash spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int wildsplash = 10;
+
+            @Comment("Weight of Devilfish spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int devilfish = 4;
+
+            @Comment("Weight of Battlegills spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int battlegill = 5;
+
+            @Comment("Weight of Wreckers spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int wrecker = 50;
+
+            @Comment("Weight of Stormfish spawning.")
+            @ConfigEntry.Gui.RequiresRestart
+            public int stormfish = 12;
+        }
     }
 }

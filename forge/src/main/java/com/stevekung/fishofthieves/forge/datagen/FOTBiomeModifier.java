@@ -30,16 +30,16 @@ public class FOTBiomeModifier
 
         //@formatter:off
         dataGenerator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(dataGenerator, existingFileHelper, FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.BIOME_MODIFIERS, Map.of(
-                FishOfThieves.res("add_splashtails"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 15, 4, 8), FOTTags.Biomes.SPAWNS_SPLASHTAILS),
-                FishOfThieves.res("add_pondies"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 15, 2, 4), FOTTags.Biomes.SPAWNS_PONDIES),
-                FishOfThieves.res("add_islehoppers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, 8, 2, 4), FOTTags.Biomes.SPAWNS_ISLEHOPPERS),
-                FishOfThieves.res("add_ancientscales"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 8, 4, 8), FOTTags.Biomes.SPAWNS_ANCIENTSCALES),
-                FishOfThieves.res("add_plentifins"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8), FOTTags.Biomes.SPAWNS_PLENTIFINS),
-                FishOfThieves.res("add_wildsplash"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, 10, 2, 4), FOTTags.Biomes.SPAWNS_WILDSPLASH),
-                FishOfThieves.res("add_devilfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, 4, 1, 2), FOTTags.Biomes.SPAWNS_DEVILFISH),
-                FishOfThieves.res("add_battlegills"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4), FOTTags.Biomes.SPAWNS_BATTLEGILLS),
-                FishOfThieves.res("add_wreckers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8), FOTTags.Biomes.SPAWNS_WRECKERS),
-                FishOfThieves.res("add_stormfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 12, 4, 8), FOTTags.Biomes.SPAWNS_STORMFISH))
+                FishOfThieves.res("add_splashtails"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, FishOfThieves.CONFIG.spawnRate.fishWeight.splashtail, 4, 8), FOTTags.Biomes.SPAWNS_SPLASHTAILS),
+                FishOfThieves.res("add_pondies"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, FishOfThieves.CONFIG.spawnRate.fishWeight.pondie, 2, 4), FOTTags.Biomes.SPAWNS_PONDIES),
+                FishOfThieves.res("add_islehoppers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, FishOfThieves.CONFIG.spawnRate.fishWeight.islehopper, 2, 4), FOTTags.Biomes.SPAWNS_ISLEHOPPERS),
+                FishOfThieves.res("add_ancientscales"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, FishOfThieves.CONFIG.spawnRate.fishWeight.ancientscale, 4, 8), FOTTags.Biomes.SPAWNS_ANCIENTSCALES),
+                FishOfThieves.res("add_plentifins"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, FishOfThieves.CONFIG.spawnRate.fishWeight.plentifin, 4, 8), FOTTags.Biomes.SPAWNS_PLENTIFINS),
+                FishOfThieves.res("add_wildsplash"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, FishOfThieves.CONFIG.spawnRate.fishWeight.wildsplash, 2, 4), FOTTags.Biomes.SPAWNS_WILDSPLASH),
+                FishOfThieves.res("add_devilfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.devilfish, 1, 2), FOTTags.Biomes.SPAWNS_DEVILFISH),
+                FishOfThieves.res("add_battlegills"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, FishOfThieves.CONFIG.spawnRate.fishWeight.battlegill, 2, 4), FOTTags.Biomes.SPAWNS_BATTLEGILLS),
+                FishOfThieves.res("add_wreckers"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8), FOTTags.Biomes.SPAWNS_WRECKERS),
+                FishOfThieves.res("add_stormfish"), spawn(ops, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8), FOTTags.Biomes.SPAWNS_STORMFISH))
         ));
         //@formatter:on
     }

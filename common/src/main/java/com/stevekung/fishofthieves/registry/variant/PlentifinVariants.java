@@ -19,7 +19,7 @@ public class PlentifinVariants
         return time >= 0.75F && time <= 0.9F;
     }).and(SpawnConditionContext::seeSkyInWater))).texture("amber").build();
     public static final PlentifinVariant CLOUDY = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())).texture("cloudy").build();
-    public static final PlentifinVariant BONEDUST = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.bonedustPlentifinProbability).or(SpawnSelectors.structureTag(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(context -> context.random().nextInt(10) == 0)))).texture("bonedust").build();
+    public static final PlentifinVariant BONEDUST = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.bonedustPlentifinProbability).or(SpawnSelectors.structureTag(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(context -> context.random().nextInt(10) == 0)))).texture("bonedust").build();
     public static final PlentifinVariant WATERY = PlentifinVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("watery").glowTexture("watery_glow").build();
 
     public static void init()
