@@ -73,10 +73,10 @@ public final class FishOfThievesConfig implements ConfigData
             @Comment("Chance to spawn Bonedust variant of Plentifins.")
             public float bonedustPlentifinProbability = 0.1F;
 
-            @Comment("Chance to spawn Muddy variant of Wildsplash.")
+            @Comment("Chance to spawn Muddy variant of Wildsplashes.")
             public float muddyWildsplashProbability = 0.1F;
 
-            @Comment("Chance to spawn Forsaken variant of Devilfish.")
+            @Comment("Chance to spawn Forsaken variant of Devilfishes.")
             public float forsakenDevilfishProbability = 0.1F;
 
             @Comment("Chance to spawn Sand variant of Battlegills.")
@@ -85,7 +85,7 @@ public final class FishOfThievesConfig implements ConfigData
             @Comment("Chance to spawn Snow variant of Wreckers.")
             public float snowWreckerProbability = 0.1F;
 
-            @Comment("Chance to spawn Shadow variant of Stormfish.")
+            @Comment("Chance to spawn Shadow variant of Stormfishes.")
             public float shadowStormfishProbability = 0.1F;
         }
 
@@ -111,11 +111,11 @@ public final class FishOfThievesConfig implements ConfigData
             @ConfigEntry.Gui.RequiresRestart
             public int plentifin = 12;
 
-            @Comment("Weight of Wildsplash spawning.")
+            @Comment("Weight of Wildsplashes spawning.")
             @ConfigEntry.Gui.RequiresRestart
             public int wildsplash = 10;
 
-            @Comment("Weight of Devilfish spawning.")
+            @Comment("Weight of Devilfishes spawning.")
             @ConfigEntry.Gui.RequiresRestart
             public int devilfish = 4;
 
@@ -127,7 +127,7 @@ public final class FishOfThievesConfig implements ConfigData
             @ConfigEntry.Gui.RequiresRestart
             public int wrecker = 50;
 
-            @Comment("Weight of Stormfish spawning.")
+            @Comment("Weight of Stormfishes spawning.")
             @ConfigEntry.Gui.RequiresRestart
             public int stormfish = 12;
         }
