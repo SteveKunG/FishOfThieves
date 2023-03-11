@@ -13,7 +13,7 @@ public class BattlegillVariants
     public static final BattlegillVariant JADE = BattlegillVariant.builder().condition(SpawnSelectors.always()).texture("jade").build();
     public static final BattlegillVariant SKY = BattlegillVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnConditionContext::seeSkyInWater)).texture("sky").build();
     public static final BattlegillVariant RUM = BattlegillVariant.builder().condition(SpawnSelectors.always()).texture("rum").build();
-    public static final BattlegillVariant SAND = BattlegillVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.sandBattlegillProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS)))).texture("sand").build();
+    public static final BattlegillVariant SAND = BattlegillVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.sandBattlegillProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS)))).texture("sand").build();
     public static final BattlegillVariant BITTERSWEET = BattlegillVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("bittersweet").glowTexture("bittersweet_glow").build();
 
     public static void init()

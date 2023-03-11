@@ -11,6 +11,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class FOTPlatform
 {
@@ -76,6 +77,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerSoundEvent(SoundEvent soundEvent)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void registerFeature(String key, Feature<?> feature)
     {
         throw new AssertionError();
     }

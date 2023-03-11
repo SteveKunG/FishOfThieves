@@ -18,6 +18,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class FOTPlatformImpl
 {
@@ -76,5 +77,10 @@ public class FOTPlatformImpl
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
         Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.getLocation().getPath(), soundEvent);
+    }
+
+    public static void registerFeature(String key, Feature<?> feature)
+    {
+        Registry.register(BuiltInRegistries.FEATURE, FishOfThieves.res(key), feature);
     }
 }

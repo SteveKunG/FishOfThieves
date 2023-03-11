@@ -27,7 +27,7 @@ public class IslehopperVariants
         }
         return false;
     })).texture("honey").build();
-    public static final IslehopperVariant RAVEN = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))).texture("raven").build();
+    public static final IslehopperVariant RAVEN = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))).texture("raven").build();
     public static final IslehopperVariant AMETHYST = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)))).texture("amethyst").glowTexture("amethyst_glow").build();
 
     public static void init()
