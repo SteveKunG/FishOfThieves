@@ -29,6 +29,14 @@ public final class FishOfThievesConfig implements ConfigData
         public float trophyMaxHealth = 5.0F;
 
         @ConfigEntry.Gui.RequiresRestart
+        @Comment("Average distance between Seapost generation.\nLower value = More closer.")
+        public int seapostSpacing = 32;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @Comment("Minimum distance (in chunks) between Seapost.\nAnd be not bigger than 'Seapost Spacing'.")
+        public int seapostSeparation = 16;
+
+        @ConfigEntry.Gui.RequiresRestart
         @Comment("Allows for easy spawning of all fish variants, regardless of their special conditions.\nIf enabled, spawning will always occur, including for rare and night variants.\nNote: night time and rare variant probability settings still apply.")
         public boolean simpleSpawningCondition = false;
 

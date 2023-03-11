@@ -40,7 +40,7 @@ public class FOTStructures
     {
         static void init() {}
 
-        Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(32, 16, RandomSpreadType.LINEAR, 26384127)));
+        Holder<StructureSet> SEAPOSTS = StructureSets.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(FOTStructures.SEAPOST)), new RandomSpreadStructurePlacement(FishOfThieves.CONFIG.general.seapostSpacing, FishOfThieves.CONFIG.general.seapostSeparation, RandomSpreadType.LINEAR, 26384127)));
     }
 
     public interface Type
