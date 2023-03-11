@@ -15,6 +15,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.fml.ModList;
 
 public class FOTPlatformImpl
@@ -85,5 +86,10 @@ public class FOTPlatformImpl
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
         FishOfThievesForge.SOUND_EVENTS.register(soundEvent.getLocation().getPath(), () -> soundEvent);
+    }
+
+    public static void registerFeature(String key, Feature<?> feature)
+    {
+        FishOfThievesForge.FEATURES.register(key, () -> feature);
     }
 }

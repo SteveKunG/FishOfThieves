@@ -30,7 +30,7 @@ public class FOTStructureModifiers
     public static void generateStructureModifiers(GatherDataEvent event)
     {
         var generator = event.getGenerator();
-        var ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.BUILTIN.get());
+        var ops = RegistryOps.create(JsonOps.INSTANCE, RegistryAccess.builtinCopy());
 
         //@formatter:off
         generator.addProvider(event.includeServer(), JsonCodecProvider.forDatapackRegistry(generator, event.getExistingFileHelper(), FishOfThieves.MOD_ID, ops, ForgeRegistries.Keys.STRUCTURE_MODIFIERS, Map.of(

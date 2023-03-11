@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,6 +35,7 @@ public class FishOfThievesForge
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
@@ -41,6 +43,8 @@ public class FishOfThievesForge
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
     public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.res(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
+    private static final String ADD_FISH_BONE = "add_fish_bone";
+    public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.res(ADD_FISH_BONE);
 
     public FishOfThievesForge()
     {
@@ -52,6 +56,7 @@ public class FishOfThievesForge
         BLOCK_ENTITY_TYPE.register(modEventBus);
         ENTITY.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
+        FEATURES.register(modEventBus);
         BIOME_MODIFIERS.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
 
@@ -83,5 +88,6 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
+        event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
     }
 }

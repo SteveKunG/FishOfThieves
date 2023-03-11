@@ -57,6 +57,7 @@ public class FishOfThieves
         FOTLootItemFunctions.init();
         FOTLootPoolEntries.init();
         FOTStructures.init();
+        FOTPlacements.init();
         FOTEntitySubPredicate.init();
 
         FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
