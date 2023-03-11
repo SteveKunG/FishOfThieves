@@ -7,8 +7,6 @@
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "พฤติกรรมของปลาที่เป็นกลาง",
   "text.autoconfig.fishofthieves.option.general.displayAllFishVariantInCreativeTab": "แสดงพันธุ์ปลาทั้งหมดในหน้าต่างโหมดสร้างสรรค์",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "ดรอปและเก็บปลาด้วยพันธุ์ปลา",
-  "text.autoconfig.fishofthieves.option.general.seapostSpacing": "ระยะห่างของ Seapost",
-  "text.autoconfig.fishofthieves.option.general.seapostSeparation": "ระยะการแยกของ Seapost",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "ค่าความน่าจะเป็นของปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "ความน่าจะเป็นของพันธุ์ปลาต่าง ๆ",
   "text.autoconfig.fishofthieves.option.spawnRate.variant.umberSplashtailProbability": "ค่าความน่าจะเป็นของปลาสแปลชเทลน้ำตาลแดง",

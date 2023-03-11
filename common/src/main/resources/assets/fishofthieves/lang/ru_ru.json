@@ -7,8 +7,6 @@
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Neutral Fish Behavior",
   "text.autoconfig.fishofthieves.option.general.displayAllFishVariantInCreativeTab": "Display all Fish Variant in Creative Tab",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "Drop and Pick fishes with variant",
-  "text.autoconfig.fishofthieves.option.general.seapostSpacing": "Seapost Spacing",
-  "text.autoconfig.fishofthieves.option.general.seapostSeparation": "Seapost Separation",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Вероятность трофея",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "Fish Variants Probability",
   "text.autoconfig.fishofthieves.option.spawnRate.variant.umberSplashtailProbability": "Вероятность мраморного брызгохвоста",
