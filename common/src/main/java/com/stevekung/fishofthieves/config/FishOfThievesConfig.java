@@ -28,6 +28,12 @@ public final class FishOfThievesConfig implements ConfigData
     {
         public float trophyMaxHealth = 5.0F;
 
+        public boolean enableEarthwormsDrop = true;
+
+        public boolean enableGrubsDrop = true;
+
+        public boolean enableLeechesDrop = true;
+
         @ConfigEntry.Gui.RequiresRestart
         @Comment("Average distance between Seapost generation.\nLower value = More closer.")
         public int seapostSpacing = 32;

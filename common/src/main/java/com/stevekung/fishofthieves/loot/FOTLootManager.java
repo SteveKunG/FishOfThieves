@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -27,15 +28,15 @@ public class FOTLootManager
 {
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
     {
-        if (blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
+        if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
         }
-        if (blockState.is(FOTTags.Blocks.GRUBS_DROPS))
+        if (FishOfThieves.CONFIG.general.enableGrubsDrop && blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.GRUBS_DROPS)));
         }
-        if (blockState.is(FOTTags.Blocks.LEECHES_DROPS))
+        if (FishOfThieves.CONFIG.general.enableLeechesDrop && blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
             droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.LEECHES_DROPS)));
         }
