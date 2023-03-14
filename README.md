@@ -5,8 +5,8 @@
 [![](https://cf.way2muchnoise.eu/versions/568372.svg)](https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves)
 [![](https://cf.way2muchnoise.eu/full_568372_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves)
 
-[![](https://modrinth-utils.vercel.app/api/badge/versions?id=BzOTnuqM)](https://modrinth.com/mod/fish-of-thieves)
-[![](https://modrinth-utils.vercel.app/api/badge/downloads?id=BzOTnuqM&logo=true)](https://modrinth.com/mod/fish-of-thieves)
+[![](https://img.shields.io/modrinth/game-versions/fish-of-thieves?label=Available%20for)](https://modrinth.com/mod/fish-of-thieves)
+[![](https://img.shields.io/modrinth/dt/fish-of-thieves)](https://modrinth.com/mod/fish-of-thieves)
 
 ---
 
@@ -34,6 +34,19 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 ![](https://i.imgur.com/dNVnNgy.png)
 
 ![](https://i.imgur.com/VwyAl67.png)
+
+---
+
+### **Installation**
+
+**Fabric**
+
+- [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are required
+- Install [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) (optional, for in-game configuration)
+
+**Forge**
+
+- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are required
 
 ---
 
