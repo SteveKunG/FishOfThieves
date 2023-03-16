@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -113,7 +114,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                     level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                    level.setBlock(pos, state.cycle(ROTATION), Block.UPDATE_ALL);
+                    level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
@@ -301,6 +302,16 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             entity.setDeltaMovement(level.random.triangle(direction.getStepX() * random, 0.0172275), 0.4, level.random.triangle(direction.getStepZ() * random, 0.0172275));
             level.addFreshEntity(entity);
         }
+    }
+
+    private static BlockState cycleRotation(BlockState state, boolean backwards)
+    {
+        return state.setValue(FishPlaqueBlock.ROTATION, getRelative(FishPlaqueBlock.ROTATION.getPossibleValues(), state.getValue(FishPlaqueBlock.ROTATION), backwards));
+    }
+
+    private static <T> T getRelative(Iterable<T> allowedValues, @Nullable T currentValue, boolean backwards)
+    {
+        return backwards ? Util.findPreviousInIterable(allowedValues, currentValue) : Util.findNextInIterable(allowedValues, currentValue);
     }
 
     public enum Type

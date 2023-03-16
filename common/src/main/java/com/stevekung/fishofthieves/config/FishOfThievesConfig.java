@@ -4,7 +4,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 @Config(name = FishOfThieves.MOD_ID)
 @Config.Gui.Background("minecraft:textures/block/prismarine_bricks.png")
@@ -28,113 +27,119 @@ public final class FishOfThievesConfig implements ConfigData
     {
         public float trophyMaxHealth = 5.0F;
 
-        @ConfigEntry.Gui.RequiresRestart
-        @Comment("Average distance between Seapost generation.\nLower value = More closer.")
-        public int seapostSpacing = 32;
+        public boolean enableEarthwormsDrop = true;
+
+        public boolean enableGrubsDrop = true;
+
+        public boolean enableLeechesDrop = true;
 
         @ConfigEntry.Gui.RequiresRestart
-        @Comment("Minimum distance (in chunks) between Seapost.\nAnd be not bigger than 'Seapost Spacing'.")
-        public int seapostSeparation = 16;
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public int seapostSpacing = 128;
 
         @ConfigEntry.Gui.RequiresRestart
-        @Comment("Allows for easy spawning of all fish variants, regardless of their special conditions.\nIf enabled, spawning will always occur, including for rare and night variants.\nNote: night time and rare variant probability settings still apply.")
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public int seapostSeparation = 64;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean simpleSpawningCondition = false;
 
-        @Comment("Enable neutral behavior for fishes.\nThis includes Battlegill, Devilfish, Islehopper and Wrecker.")
+        @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
 
-        @Comment("Display all fish variant in Creative Tab. Including Raw Fishes and Buckets")
+        @ConfigEntry.Gui.Tooltip
         public boolean displayAllFishVariantInCreativeTab = false;
 
-        @Comment("All fish will drop item with their variant, when picked up will applies to bucket and it also applies to loot tables.")
+        @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean dropAndPickFishesWithVariant = false;
     }
 
     public static class SpawnRate
     {
-        @Comment("Chance to spawn Trophy fish size.")
+        @ConfigEntry.Gui.Tooltip
         public float trophyProbability = 0.15F;
 
-        @Comment("Change fish variants probability.")
         @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
         public Variant variant = new Variant();
 
-        @Comment("Change fish spawn weight.")
         @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
         public FishWeight fishWeight = new FishWeight();
 
         public static class Variant
         {
-            @Comment("Chance to spawn Umber variant of Splashtails.")
+            @ConfigEntry.Gui.Tooltip
             public float umberSplashtailProbability = 0.1F;
 
-            @Comment("Chance to spawn Bright variant of Pondies.")
+            @ConfigEntry.Gui.Tooltip
             public float brightPondieProbability = 0.1F;
 
-            @Comment("Chance to spawn Raven variant of Islehoppers.")
+            @ConfigEntry.Gui.Tooltip
             public float ravenIslehopperProbability = 0.1F;
 
-            @Comment("Chance to spawn Bone variant of Ancientscales.")
+            @ConfigEntry.Gui.Tooltip
             public float boneAncientscaleProbability = 0.1F;
 
-            @Comment("Chance to spawn Bonedust variant of Plentifins.")
+            @ConfigEntry.Gui.Tooltip
             public float bonedustPlentifinProbability = 0.1F;
 
-            @Comment("Chance to spawn Muddy variant of Wildsplashes.")
+            @ConfigEntry.Gui.Tooltip
             public float muddyWildsplashProbability = 0.1F;
 
-            @Comment("Chance to spawn Forsaken variant of Devilfishes.")
+            @ConfigEntry.Gui.Tooltip
             public float forsakenDevilfishProbability = 0.1F;
 
-            @Comment("Chance to spawn Sand variant of Battlegills.")
+            @ConfigEntry.Gui.Tooltip
             public float sandBattlegillProbability = 0.1F;
 
-            @Comment("Chance to spawn Snow variant of Wreckers.")
+            @ConfigEntry.Gui.Tooltip
             public float snowWreckerProbability = 0.1F;
 
-            @Comment("Chance to spawn Shadow variant of Stormfishes.")
+            @ConfigEntry.Gui.Tooltip
             public float shadowStormfishProbability = 0.1F;
         }
 
         public static class FishWeight
         {
-            @Comment("Weight of Splashtails spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int splashtail = 15;
 
-            @Comment("Weight of Pondies spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int pondie = 15;
 
-            @Comment("Weight of Islehoppers spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int islehopper = 8;
 
-            @Comment("Weight of Ancientscales spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int ancientscale = 8;
 
-            @Comment("Weight of Plentifins spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int plentifin = 12;
 
-            @Comment("Weight of Wildsplashes spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int wildsplash = 10;
 
-            @Comment("Weight of Devilfishes spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int devilfish = 4;
 
-            @Comment("Weight of Battlegills spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int battlegill = 5;
 
-            @Comment("Weight of Wreckers spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int wrecker = 50;
 
-            @Comment("Weight of Stormfishes spawning.")
+            @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             public int stormfish = 12;
         }
