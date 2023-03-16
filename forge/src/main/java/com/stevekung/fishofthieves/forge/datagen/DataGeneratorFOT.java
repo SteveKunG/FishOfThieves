@@ -49,7 +49,7 @@ public class DataGeneratorFOT
     {
         public ForgeItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, String modId, @Nullable ExistingFileHelper existingFileHelper)
         {
-            super(output, provider, new VanillaBlockTagsProvider(output, provider), modId, existingFileHelper);
+            super(output, provider, new VanillaBlockTagsProvider(output, provider).contentsGetter(), modId, existingFileHelper);
         }
 
         @Override
