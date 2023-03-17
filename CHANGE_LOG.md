@@ -1,19 +1,13 @@
 # Change Log
 
-### Please report if you found the issues!
-
-* Added Neutral Fish Behavior config
-* Added Drop and Pick fishes with variants config
-* Added block and item tags for all fish plaques
-* Added more spawn control by tags
-* Added rewards for fish collectors advancements
-* All Fish now drop item with their variants (Configurated)
-* All Fish picked up in the bucket will display their variants (Configurated)
-* All Fish loot tables now generate with their variants (Configurated)
-* Update entity movement to matches block facing when break fish plaque
-* Fixed 1 pixel error on Wrecker Bucket
-* Fixed Fish Plaque block data update from command
-* Fixed feeding fish with worms not working properly on server side
-* Fixed master fish collectors advancement not working
-* Tadpole Update :D
-* Remove unused fish plaque item texture
+* Update to 1.19.4
+* Added fish spawn weight configs
+* Added Fish Bone world gen feature
+* Added configs to disable worms drop
+* Added ability to shift right-click on the Fish Plaque to cycle backwards rotation
+* Reduce Seaposts structure generation spawn rate
+* Translate config tooltips
+* Disable Ambient Occlusion for Fish Bone model
+* Update `ru_ru.json` (#31)
+* Update `zh_cn.json` (#33)
+* Remove unnecessary `isRainingAt` patch

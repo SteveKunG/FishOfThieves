@@ -109,10 +109,10 @@ if (project.hasProperty("version_lib_dir")) {
         jsonElement.promos."${mc_version}-recommended" = project.mod_version
 
         def reader = new BufferedReader(new FileReader(rootProject.file("CHANGE_LOG.md")))
-        def line
-        for (int ln = 0; (line = reader.readLine()) != null; ln++) {
-            if (ln >= 4) {
-                formattedList.add(line)
+        def currentLine
+        for (int lineIndex = 0; (currentLine = reader.readLine()) != null; lineIndex++) {
+            if (lineIndex >= 2) {
+                formattedList.add(currentLine)
             }
         }
 
