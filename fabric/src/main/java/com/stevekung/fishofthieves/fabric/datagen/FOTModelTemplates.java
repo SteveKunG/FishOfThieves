@@ -8,7 +8,7 @@ import net.minecraft.data.models.model.TextureSlot;
 
 public class FOTModelTemplates
 {
-    public static final TextureSlot PLANKS = new TextureSlot("planks", null);
+    public static final TextureSlot PLANKS = TextureSlot.create("planks");
     public static final ModelTemplate WOODEN_FISH_PLAQUE = create("template_wooden_fish_plaque", PLANKS);
     public static final ModelTemplate IRON_FRAME_FISH_PLAQUE = create("template_iron_frame_fish_plaque", PLANKS);
     public static final ModelTemplate GOLDEN_FRAME_FISH_PLAQUE = create("template_golden_frame_fish_plaque", PLANKS);
