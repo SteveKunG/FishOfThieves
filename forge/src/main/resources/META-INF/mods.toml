@@ -16,7 +16,7 @@ authors = "SteveKunG, PloyiinGz"
 [[dependencies.fishofthieves]]
 modId = "forge"
 mandatory = true
-versionRange = "[44.0.37,)"
+versionRange = "[44.1.0,)"
 ordering = "NONE"
 side = "BOTH"
 

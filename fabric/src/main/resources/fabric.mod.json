@@ -35,10 +35,10 @@
     "mixins.fishofthieves_fabric.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.10",
-    "fabric": ">=0.68",
+    "fabricloader": ">=0.14.14",
+    "fabric": ">=0.73",
     "cloth-config": ">=9.0",
-    "minecraft": ">=1.19.3"
+    "minecraft": "1.19.3"
   },
   "custom": {
     "modmenu": {
