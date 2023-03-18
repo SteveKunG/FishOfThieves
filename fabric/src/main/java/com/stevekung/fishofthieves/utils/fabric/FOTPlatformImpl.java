@@ -4,8 +4,8 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.mixin.object.builder.CriteriaAccessor;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
@@ -41,10 +41,9 @@ public class FOTPlatformImpl
         return FabricItemGroupBuilder.build(FishOfThieves.res("main"), () -> new ItemStack(FOTItems.SPLASHTAIL));
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
     {
-        CriteriaAccessor.callRegister(trigger);
+        CriteriaTriggers.register(trigger);
     }
 
     public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)
