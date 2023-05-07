@@ -26,13 +26,6 @@ subprojects {
     }
 
     quiltflower {
-        preferences {
-            // Max line length before formatting
-            pll = 32767
-
-            // Indentation string
-            ind = "    "
-        }
         quiltflowerVersion = "1.9.0"
     }
 
@@ -69,6 +62,13 @@ allprojects {
             url "https://www.cursemaven.com/"
             content {
                 includeGroup "curse.maven"
+            }
+        }
+        maven {
+            name "Modrinth Maven"
+            url "https://api.modrinth.com/maven"
+            content {
+                includeGroup "maven.modrinth"
             }
         }
     }

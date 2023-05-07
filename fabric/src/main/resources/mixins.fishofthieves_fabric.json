@@ -6,7 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "level.chunk.MixinChunkGenerator"
+    "world.level.MixinNaturalSpawner"
   ],
   "injectors": {
     "defaultRequire": 1
