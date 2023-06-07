@@ -60,7 +60,7 @@ dependencies {
 
     modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
-    modImplementation "maven.modrinth:cloth-config:${cloth_config_version}+forge"
+    modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }

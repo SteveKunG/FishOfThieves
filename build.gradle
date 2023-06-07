@@ -7,7 +7,7 @@ plugins {
     id "dev.architectury.loom" version "1.2-SNAPSHOT" apply false
     id "io.github.CDAGaming.cursegradle" version "1.6.0" apply false
     id "com.modrinth.minotaur" version "2.+" apply false
-    id "io.github.juuxel.loom-quiltflower" version "1.9.0" apply false
+    id "io.github.juuxel.loom-quiltflower" version "1.10.0" apply false
 }
 
 architectury {
