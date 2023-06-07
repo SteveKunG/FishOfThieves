@@ -522,12 +522,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.add(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE));
             this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
         }
-
-        @Override
-        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            super.generate(consumer);
-        }
     }
 
     private static class CustomBlockLootProvider extends SimpleFabricLootTableProvider
@@ -539,7 +533,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
             var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(FluidTags.WATER).build());
             var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
@@ -587,7 +581,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
             consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -721,7 +715,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
             consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -796,7 +790,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
         {
             consumer.accept(FOTLootTables.Advancements.FISH_COLLECTORS, LootTable.lootTable()
                     .withPool(LootPool.lootPool()
