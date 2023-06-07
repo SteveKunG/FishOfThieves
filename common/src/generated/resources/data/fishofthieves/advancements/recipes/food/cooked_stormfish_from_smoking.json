@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:cooked_stormfish_from_smoking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

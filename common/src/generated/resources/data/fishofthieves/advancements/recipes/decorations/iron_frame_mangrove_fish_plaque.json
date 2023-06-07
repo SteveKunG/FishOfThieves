@@ -30,5 +30,6 @@
     "recipes": [
       "fishofthieves:iron_frame_mangrove_fish_plaque"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

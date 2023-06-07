@@ -724,5 +724,6 @@
     "loot": [
       "fishofthieves:rewards/legendary_fish_collectors"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

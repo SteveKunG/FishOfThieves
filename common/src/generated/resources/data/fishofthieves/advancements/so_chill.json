@@ -130,5 +130,6 @@
       "battlegill_village_snowy",
       "battlegill_village_taiga"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:cooked_wrecker_from_campfire_cooking"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

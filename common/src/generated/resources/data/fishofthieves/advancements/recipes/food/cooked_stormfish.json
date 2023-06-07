@@ -30,5 +30,6 @@
     "recipes": [
       "fishofthieves:cooked_stormfish"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

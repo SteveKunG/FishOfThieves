@@ -30,5 +30,6 @@
     "recipes": [
       "fishofthieves:bonemeals_from_fish_bone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

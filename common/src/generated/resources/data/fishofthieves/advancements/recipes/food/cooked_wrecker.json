@@ -30,5 +30,6 @@
     "recipes": [
       "fishofthieves:cooked_wrecker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

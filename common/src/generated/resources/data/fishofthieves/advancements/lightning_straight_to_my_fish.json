@@ -52,5 +52,6 @@
     [
       "lightning_strike_at_stormfish"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

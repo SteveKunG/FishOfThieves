@@ -154,5 +154,6 @@
     "loot": [
       "fishofthieves:rewards/fish_collectors"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

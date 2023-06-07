@@ -39,5 +39,6 @@
     [
       "in_water"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

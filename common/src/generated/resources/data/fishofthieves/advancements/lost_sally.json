@@ -23,15 +23,29 @@
     },
     "salmon_bucket": {
       "conditions": {
-        "block": "minecraft:water",
-        "item": {
-          "items": [
-            "minecraft:salmon_bucket"
-          ],
-          "nbt": "{display:{Name:'{\"text\":\"Sally\"}'}}"
-        }
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "minecraft:water"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:salmon_bucket"
+              ],
+              "nbt": "{display:{Name:'{\"text\":\"Sally\"}'}}"
+            }
+          }
+        ]
       },
-      "trigger": "minecraft:placed_block"
+      "trigger": "minecraft:item_used_on_block"
     }
   },
   "display": {
@@ -54,5 +68,6 @@
       "name_tag",
       "salmon_bucket"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }
