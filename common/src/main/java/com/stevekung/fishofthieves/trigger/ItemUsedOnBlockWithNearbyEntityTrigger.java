@@ -23,38 +23,38 @@ public class ItemUsedOnBlockWithNearbyEntityTrigger extends SimpleCriterionTrigg
     }
 
     @Override
-    public TriggerInstance createInstance(JsonObject json, EntityPredicate.Composite entityPredicate, DeserializationContext conditionsParser)
+    public TriggerInstance createInstance(JsonObject json, ContextAwarePredicate contextAwarePredicate, DeserializationContext conditionsParser)
     {
         var locationPredicate = LocationPredicate.fromJson(json.get("location"));
         var itemPredicate = ItemPredicate.fromJson(json.get("item"));
-        var composite = EntityPredicate.Composite.fromJson(json, "entity", conditionsParser);
-        return new TriggerInstance(entityPredicate, locationPredicate, itemPredicate, composite);
+        var composite = EntityPredicate.fromJson(json, "entity", conditionsParser);
+        return new TriggerInstance(contextAwarePredicate, locationPredicate, itemPredicate, composite);
     }
 
     public void trigger(ServerPlayer player, BlockPos pos, ItemStack stack, Entity entity)
     {
-        var blockState = player.getLevel().getBlockState(pos);
+        var blockState = player.level().getBlockState(pos);
         var lootContext = EntityPredicate.createContext(player, entity);
-        this.trigger(player, triggerInstance -> triggerInstance.matches(blockState, player.getLevel(), pos, stack, lootContext));
+        this.trigger(player, triggerInstance -> triggerInstance.matches(blockState, player.serverLevel(), pos, stack, lootContext));
     }
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance
     {
         private final LocationPredicate location;
         private final ItemPredicate item;
-        private final EntityPredicate.Composite entity;
+        private final ContextAwarePredicate entity;
 
-        public TriggerInstance(EntityPredicate.Composite composite, LocationPredicate locationPredicate, ItemPredicate itemPredicate, EntityPredicate.Composite entity)
+        public TriggerInstance(ContextAwarePredicate contextAwarePredicate, LocationPredicate locationPredicate, ItemPredicate itemPredicate, ContextAwarePredicate entity)
         {
-            super(ID, composite);
+            super(ID, contextAwarePredicate);
             this.location = locationPredicate;
             this.item = itemPredicate;
             this.entity = entity;
         }
 
-        public static TriggerInstance itemUsedOnBlock(LocationPredicate.Builder locationBuilder, ItemPredicate.Builder stackBuilder, EntityPredicate.Composite entity)
+        public static TriggerInstance itemUsedOnBlock(LocationPredicate.Builder locationBuilder, ItemPredicate.Builder stackBuilder, ContextAwarePredicate entity)
         {
-            return new TriggerInstance(EntityPredicate.Composite.ANY, locationBuilder.build(), stackBuilder.build(), entity);
+            return new TriggerInstance(ContextAwarePredicate.ANY, locationBuilder.build(), stackBuilder.build(), entity);
         }
 
         public boolean matches(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, LootContext lootContext)

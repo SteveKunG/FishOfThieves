@@ -12,10 +12,7 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -26,25 +23,25 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTLootManager
 {
-    public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootTables lootTables, LootContext lootContext)
+    public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, LootDataManager lootDataManager, LootParams lootParams)
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
         }
         if (FishOfThieves.CONFIG.general.enableGrubsDrop && blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.GRUBS_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.GRUBS_DROPS)));
         }
         if (FishOfThieves.CONFIG.general.enableLeechesDrop && blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootContext, lootTables.get(FOTLootTables.Blocks.LEECHES_DROPS)));
+            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.LEECHES_DROPS)));
         }
     }
 
-    private static List<ItemStack> getAlternateLootStack(LootContext lootContext, LootTable lootTable)
+    private static List<ItemStack> getAlternateLootStack(LootParams lootParams, LootTable lootTable)
     {
-        return lootTable.getRandomItems(lootContext);
+        return lootTable.getRandomItems(lootParams);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)

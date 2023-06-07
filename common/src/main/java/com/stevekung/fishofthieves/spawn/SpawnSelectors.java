@@ -79,7 +79,7 @@ public final class SpawnSelectors
 
     public static SpawnConditionContext get(LivingEntity livingEntity)
     {
-        var level = (ServerLevel) livingEntity.level;
+        var level = (ServerLevel) livingEntity.level();
         var blockPos = livingEntity.blockPosition();
         return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), level.getBiome(blockPos), TerrainUtils.getContinentalness(level, blockPos));
     }

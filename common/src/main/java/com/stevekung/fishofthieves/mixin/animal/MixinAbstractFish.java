@@ -68,7 +68,7 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
     @Override
     public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> consumer)
     {
-        if (this.level instanceof ServerLevel serverLevel)
+        if (this.level() instanceof ServerLevel serverLevel)
         {
             consumer.accept(this.dynamicJukeboxListener, serverLevel);
         }
@@ -100,7 +100,7 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
 
     private void setDancing(boolean dancing)
     {
-        if (this.level.isClientSide)
+        if (this.level().isClientSide)
         {
             return;
         }
@@ -109,6 +109,6 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
 
     private boolean shouldStopDancing()
     {
-        return this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan(this.position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !this.level.getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX);
+        return this.jukeboxPos == null || !this.jukeboxPos.closerToCenterThan(this.position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()) || !this.level().getBlockState(this.jukeboxPos).is(Blocks.JUKEBOX);
     }
 }

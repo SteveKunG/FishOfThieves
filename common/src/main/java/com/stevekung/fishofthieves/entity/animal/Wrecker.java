@@ -198,9 +198,9 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         @Nullable
         protected Vec3 getPosition()
         {
-            var wreckagePos = ((ServerLevel) this.mob.level).findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
+            var wreckagePos = ((ServerLevel) this.mob.level()).findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
 
-            if (this.mob.level.random.nextFloat() < 0.3f)
+            if (this.mob.level().random.nextFloat() < 0.3f)
             {
                 return LandRandomPos.getPos(this.mob, 10, 7);
             }

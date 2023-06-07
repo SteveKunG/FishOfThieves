@@ -13,15 +13,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 @Mixin(BlockBehaviour.class)
 public class MixinBlockBehaviour
 {
     @Inject(method = "getDrops", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    private void fishofthieves$addWormDrops(BlockState blockState, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> info, ResourceLocation lootTableId, LootContext lootContext, ServerLevel serverLevel, LootTable lootTable)
+    private void fishofthieves$addWormDrops(BlockState blockState, LootParams.Builder builder, CallbackInfoReturnable<List<ItemStack>> info, ResourceLocation lootTableId, LootParams lootParams, ServerLevel serverLevel, LootTable lootTable)
     {
-        FOTLootManager.dropWorms(info.getReturnValue(), blockState, serverLevel.getServer().getLootTables(), lootContext);
+        FOTLootManager.dropWorms(info.getReturnValue(), blockState, serverLevel.getServer().getLootData(), lootParams);
     }
 }
