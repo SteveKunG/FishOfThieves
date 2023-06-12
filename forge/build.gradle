@@ -139,7 +139,7 @@ curseforge {
         addGameVersion project.mc_version
 
         mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[Forge] " + fileName + "-v${mod_version}"
+            it.displayName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
         }
         relations {
             it.requiredDependency "cloth-config"
@@ -163,7 +163,7 @@ modrinth {
     projectId = "fish-of-thieves"
     changelog = rootProject.file("CHANGE_LOG.md").text
     syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[Forge] Fish of Thieves " + "v${mod_version}" + " for Minecraft " + project.mc_version
+    versionName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
     uploadFile = remapJar
@@ -172,6 +172,5 @@ modrinth {
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"
-        // optional.project "configured" TODO Enable when "Configured" mod is on Modrinth, Thank you Emmaffle!
     }
 }
