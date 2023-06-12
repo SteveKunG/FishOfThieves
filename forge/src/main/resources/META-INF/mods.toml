@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[45,)"
+loaderVersion = "[46,)"
 license = "MIT"
 issueTrackerURL = "https://github.com/SteveKunG/FishOfThieves/issues"
 
@@ -16,21 +16,21 @@ authors = "SteveKunG, PloyiinGz"
 [[dependencies.fishofthieves]]
 modId = "forge"
 mandatory = true
-versionRange = "[45.1.0,)"
+versionRange = "[46.0.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "cloth_config"
 mandatory = true
-versionRange = "[10.0,)"
+versionRange = "[11.0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.4,)"
+versionRange = "[1.20,)"
 ordering = "NONE"
 side = "BOTH"
 
