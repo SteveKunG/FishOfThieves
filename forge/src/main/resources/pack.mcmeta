@@ -1,8 +1,8 @@
 {
   "pack": {
-    "pack_format": 13,
+    "pack_format": 15,
     "description": "Pack for Fish of Thieves Mod",
-    "forge:resource_pack_format": 13,
-    "forge:data_pack_format": 12
+    "forge:resource_pack_format": 15,
+    "forge:data_pack_format": 15
   }
 }

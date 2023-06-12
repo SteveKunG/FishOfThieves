@@ -8,15 +8,17 @@ import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.world.StructureModifier;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -71,6 +73,7 @@ public class FishOfThievesForge
     private void commonSetup(FMLCommonSetupEvent event)
     {
         FishOfThieves.initCommon();
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build());
 
         if (ModList.get().isLoaded("aquaculture"))
         {
@@ -87,11 +90,5 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
-    }
-
-    @SubscribeEvent
-    public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event)
-    {
-        event.registerCreativeModeTab(FishOfThieves.res("main"), FishOfThieves::getCreativeTabBuilder);
     }
 }
