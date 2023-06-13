@@ -137,7 +137,7 @@ curseforge {
         addGameVersion "Forge"
         addGameVersion "Java 17"
         addGameVersion project.mc_version
-        addGameVersion "1.20.1"
+        addGameVersion "1.20"
 
         mainArtifact(remapJar.archiveFile) {
             it.displayName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
@@ -169,7 +169,7 @@ modrinth {
     versionType = project.release_type
     uploadFile = remapJar
     additionalFiles = [shadowJar, remapSourcesJar]
-    gameVersions = ["${mc_version}", "1.20.1"]
+    gameVersions = ["${mc_version}", "1.20"]
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"
