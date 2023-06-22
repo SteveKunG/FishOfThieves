@@ -1,4 +1,5 @@
 # Change Log
 
-* Update to support 1.20/1.20.1
-* [Forge] Temporary disable following features. Loot Tables/Aquaculture 2
+* [Forge] Require Forge 47.0.16
+* [Forge] Re-enable Loot Table injections
+* [Forge] Temporary disable Aquaculture 2 compatibility

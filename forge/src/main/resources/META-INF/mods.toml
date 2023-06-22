@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[46,)"
+loaderVersion = "[47,)"
 license = "MIT"
 issueTrackerURL = "https://github.com/SteveKunG/FishOfThieves/issues"
 
@@ -16,7 +16,7 @@ authors = "SteveKunG, PloyiinGz"
 [[dependencies.fishofthieves]]
 modId = "forge"
 mandatory = true
-versionRange = "[46.0.1,)"
+versionRange = "[47.0.16,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -30,7 +30,7 @@ side = "BOTH"
 [[dependencies.fishofthieves]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.20,)"
+versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 

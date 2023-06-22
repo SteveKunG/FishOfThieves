@@ -107,6 +107,7 @@
           "name": "fishofthieves:leeches"
         }
       ],
+      "name": "main",
       "rolls": 1.0
     },
     {
@@ -153,6 +154,7 @@
           "name": "fishofthieves:leeches"
         }
       ],
+      "name": "main",
       "rolls": 1.0
     }
   ]

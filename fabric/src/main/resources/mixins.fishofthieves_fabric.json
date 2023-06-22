@@ -2,10 +2,13 @@
   "required": true,
   "minVersion": "0.8.5",
   "package": "com.stevekung.fishofthieves.fabric.mixin",
+  "plugin": "com.stevekung.fishofthieves.fabric.FOTMixinConfigPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
   ],
   "mixins": [
+    "MixinLootPool_Serializer",
+
     "world.level.MixinNaturalSpawner"
   ],
   "injectors": {

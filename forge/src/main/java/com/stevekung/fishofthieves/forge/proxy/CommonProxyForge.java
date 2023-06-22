@@ -92,7 +92,7 @@ public class CommonProxyForge
         }
         else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
         {
-//            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());TODO
+            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
         }
     }
 
@@ -140,7 +140,7 @@ public class CommonProxyForge
 
     private static void injectLoot(LootTable table, List<LootPoolEntryContainer> entries)
     {
-//        var pool = table.getPool("main");TODO
-//        pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
+        var pool = table.getPool("main");
+        pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
     }
 }

@@ -10,6 +10,7 @@
           "name": "fishofthieves:iron_frame_fish_plaque"
         }
       ],
+      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4.0,
@@ -25,6 +26,7 @@
           "name": "fishofthieves:golden_frame_fish_plaque"
         }
       ],
+      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 8.0,
