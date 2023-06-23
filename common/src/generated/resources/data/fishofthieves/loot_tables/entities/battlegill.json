@@ -311,7 +311,6 @@
           "name": "fishofthieves:battlegill"
         }
       ],
-      "name": "main",
       "rolls": 1.0
     },
     {
@@ -328,7 +327,6 @@
           "name": "minecraft:bone_meal"
         }
       ],
-      "name": "main",
       "rolls": 1.0
     },
     {
@@ -346,7 +344,6 @@
           "name": "fishofthieves:fish_bone"
         }
       ],
-      "name": "main",
       "rolls": 1.0
     }
   ]

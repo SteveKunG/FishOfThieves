@@ -10,7 +10,6 @@
           "name": "fishofthieves:wooden_fish_plaque"
         }
       ],
-      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4.0,

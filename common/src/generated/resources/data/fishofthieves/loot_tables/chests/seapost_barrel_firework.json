@@ -37,7 +37,6 @@
           "weight": 3
         }
       ],
-      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4.0,

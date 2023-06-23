@@ -191,7 +191,6 @@
           "name": "minecraft:map"
         }
       ],
-      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 12.0,

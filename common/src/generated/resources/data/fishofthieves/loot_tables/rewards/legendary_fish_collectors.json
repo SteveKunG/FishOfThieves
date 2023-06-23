@@ -10,7 +10,6 @@
           "name": "fishofthieves:gilded_frame_fish_plaque"
         }
       ],
-      "name": "main",
       "rolls": {
         "type": "minecraft:uniform",
         "max": 8.0,
