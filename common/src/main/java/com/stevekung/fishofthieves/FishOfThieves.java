@@ -17,6 +17,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.DispenserBlock;
 
 public class FishOfThieves
@@ -85,6 +87,8 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
+
+        PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
