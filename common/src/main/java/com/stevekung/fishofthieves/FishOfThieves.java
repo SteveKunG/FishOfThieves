@@ -67,13 +67,13 @@ public class FishOfThieves
         // Naturalist compatibility
         if (FOTPlatform.isModLoaded("naturalist"))
         {
-            FishPlaqueRegistry.registerInteractionItem("naturalist:snail", Items.BUCKET);
+            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "naturalist:snail");
         }
         // Alex's Mobs compatibility
         if (FOTPlatform.isModLoaded("alexsmobs"))
         {
-            FishPlaqueRegistry.registerInteractionItem("alexsmobs:cosmic_cod", Items.BUCKET);
-            FishPlaqueRegistry.registerInteractionItem("alexsmobs:stradpole", Items.LAVA_BUCKET);
+            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "alexsmobs:cosmic_cod");
+            FishPlaqueRegistry.registerInteractionItem(Items.LAVA_BUCKET, "alexsmobs:stradpole");
         }
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
