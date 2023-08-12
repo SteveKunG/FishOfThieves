@@ -136,6 +136,6 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        return isSurfaceWater || isWater && (TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.PLENTIFINS_SPAWN_IN));
+        return isSurfaceWater || isWater && TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.PLENTIFINS_SPAWN_IN);
     }
 }
