@@ -12,20 +12,19 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -111,10 +110,50 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 }
                 else
                 {
-                    level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                    level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
-                    level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                    level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
+                    if (fishPlaque.isWaxed())
+                    {
+                        if (item instanceof AxeItem)
+                        {
+                            fishPlaque.setWaxed(false);
+                            blockEntity.setChanged();
+
+                            if (player instanceof ServerPlayer serverPlayer)
+                            {
+                                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+                            }
+
+                            level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
+                            level.levelEvent(player, 3004, pos, 0);
+                            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
+                            itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+                            return InteractionResult.sidedSuccess(level.isClientSide);
+                        }
+                    }
+                    else
+                    {
+                        if (item == Items.HONEYCOMB)
+                        {
+                            fishPlaque.setWaxed(true);
+                            blockEntity.setChanged();
+
+                            if (player instanceof ServerPlayer serverPlayer)
+                            {
+                                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, itemStack);
+                            }
+
+                            if (!player.getAbilities().instabuild)
+                            {
+                                itemStack.shrink(1);
+                            }
+                            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
+                            level.levelEvent(player, 3003, pos, 0);
+                            return InteractionResult.sidedSuccess(level.isClientSide);
+                        }
+                        level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                        level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                        level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
+                    }
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             }
