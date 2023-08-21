@@ -95,6 +95,20 @@ sourcesJar {
     excludes = fabricExcludes
 }
 
+tasks.register("apiJar", Jar) {
+    group "build"
+    from project(":common").sourceSets.main.allJava
+    from project(":common").sourceSets.main.output
+    include "com/stevekung/fishofthieves/api/**/*"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    archiveClassifier = "api"
+}
+
+artifacts {
+    archives apiJar
+}
+
 remapSourcesJar {
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
@@ -151,6 +165,7 @@ curseforge {
         }
         addArtifact shadowJar
         addArtifact remapSourcesJar
+        addArtifact apiJar
     }
     options {
         debug uploadDebug
@@ -168,7 +183,7 @@ modrinth {
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
     uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar]
+    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
     gameVersions = ["${mc_version}"]
     loaders = ["forge"]
     dependencies {
