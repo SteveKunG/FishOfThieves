@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
@@ -26,7 +28,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,10 +54,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    protected void registerGoals()
+    protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, WORMS, false));
+        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
     }
 
     @Override
