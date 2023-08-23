@@ -4,8 +4,10 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.ai.WreckerAi;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
@@ -24,21 +26,17 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.Vec3;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
@@ -54,24 +52,78 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         map.put(4, "fishofthieves:moon");
     };
 
+    //@formatter:off
+    private static final ImmutableList<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES,
+            SensorType.NEAREST_PLAYERS,
+            SensorType.HURT_BY,
+            FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS,
+            FOTSensorTypes.NEAREST_SHIPWRECK
+    );
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+            // Common AI
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.NEAREST_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.PATH,
+
+            FOTMemoryModuleTypes.NEAREST_SHIPWRECK,
+
+            // Tempting AI
+            MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+            MemoryModuleType.IS_TEMPTED,
+            MemoryModuleType.TEMPTING_PLAYER,
+            MemoryModuleType.BREED_TARGET,
+            MemoryModuleType.IS_PANICKING
+    );
+    //@formatter:on
+
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
         super(entityType, level);
     }
 
     @Override
+    protected Brain.Provider<Wrecker> brainProvider()
+    {
+        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return WreckerAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<Wrecker> getBrain()
+    {
+        return (Brain<Wrecker>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        this.level.getProfiler().push("wreckerBrain");
+        this.getBrain().tick((ServerLevel) this.level, this);
+        this.level.getProfiler().popPush("wreckerActivityUpdate");
+        WreckerAi.updateActivity(this);
+        this.level.getProfiler().pop();
+        super.customServerAiStep();
+    }
+
+    @Override
     protected void registerGoals()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(2, new SwimToNearbyWreckageGoal(this, 1.25d));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25d, EARTHWORMS_FOOD, false));
-
-        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
-        {
-            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
-            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-            this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
-        }
+        //        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
+        //        {
+        //            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
+        //            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
+        //            this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
+        //        }
     }
 
     @Override
@@ -187,28 +239,9 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.5).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
 
-    static class SwimToNearbyWreckageGoal extends RandomStrollGoal
+    @Nullable
+    public static BlockPos getNearestShipwreckPos(ServerLevel level, BlockPos pos)
     {
-        SwimToNearbyWreckageGoal(Wrecker wrecker, double speedModifier)
-        {
-            super(wrecker, speedModifier);
-        }
-
-        @Override
-        @Nullable
-        protected Vec3 getPosition()
-        {
-            var wreckagePos = ((ServerLevel) this.mob.level).findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, this.mob.blockPosition(), 32, false);
-
-            if (this.mob.level.random.nextFloat() < 0.3f)
-            {
-                return LandRandomPos.getPos(this.mob, 10, 7);
-            }
-            if (wreckagePos != null)
-            {
-                return Vec3.atCenterOf(wreckagePos);
-            }
-            return super.getPosition();
-        }
+        return level.findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, pos, 32, false);
     }
 }

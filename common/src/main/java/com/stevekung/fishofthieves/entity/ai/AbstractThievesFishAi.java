@@ -1,11 +1,11 @@
-package com.stevekung.fishofthieves.entity;
-
-import java.util.function.Predicate;
+package com.stevekung.fishofthieves.entity.ai;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -34,7 +34,7 @@ public class AbstractThievesFishAi
 
     public static void updateActivity(AbstractThievesFish<?> fish)
     {
-        fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.IDLE, Activity.AVOID));
+        fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
     }
 
     public static Ingredient getCommonTemptations()
@@ -45,6 +45,11 @@ public class AbstractThievesFishAi
     public static Ingredient getLeechesTemptations()
     {
         return ThievesFish.LEECHES_FOOD;
+    }
+
+    public static Ingredient getEarthwormsTemptations()
+    {
+        return ThievesFish.EARTHWORMS_FOOD;
     }
 
     //@formatter:off
@@ -62,11 +67,11 @@ public class AbstractThievesFishAi
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RunSometimes<>(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), UniformInt.of(30, 60))),
-                Pair.of(1, new FollowTemptation(livingEntity -> 1.25F)),
-                Pair.of(2, new RunIf<>(Predicate.not(AbstractThievesFishAi::isTempted), new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
+                Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1)))),
+                Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(new RandomSwim(0.5F), 2),
                         Pair.of(new SetWalkTargetFromLookTarget(0.5F, 3), 3),
-                        Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5)))))));
+                        Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5))))));
     }
 
     private static void initRetreatActivity(Brain<AbstractThievesFish<?>> brain)
@@ -86,22 +91,17 @@ public class AbstractThievesFishAi
                 Pair.of(new DoNothing(30, 60), 1)));
     }
 
-    private static RunIf<AbstractThievesFish<?>> createIdleMovementBehaviors()
+    private static RunOne<AbstractThievesFish<?>> createIdleMovementBehaviors()
     {
-        return new RunIf<>(Predicate.not(AbstractThievesFishAi::isTempted), new RunOne<>(ImmutableList.of(
+        return new RunOne<>(ImmutableList.of(
                 Pair.of(new RandomSwim(0.5F), 2),
-                Pair.of(new DoNothing(30, 60), 1))));
+                Pair.of(new DoNothing(30, 60), 1)));
     }
     //@formatter:on
 
     private static CopyMemoryWithExpiry<AbstractThievesFish<?>, LivingEntity> avoidPlayer()
     {
         return new CopyMemoryWithExpiry<>(AbstractThievesFishAi::isNearPlayer, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
-    }
-
-    private static boolean isTempted(AbstractThievesFish<?> fish)
-    {
-        return fish.getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED);
     }
 
     private static boolean wantsToStopFleeing(AbstractThievesFish<?> fish)

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
@@ -49,6 +51,30 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
     {
         return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<AbstractThievesFish<?>> getBrain()
+    {
+        return (Brain<AbstractThievesFish<?>>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        this.level.getProfiler().push("stormfishBrain");
+        this.getBrain().tick((ServerLevel) this.level, this);
+        this.level.getProfiler().popPush("stormfishActivityUpdate");
+        AbstractThievesFishAi.updateActivity(this);
+        this.level.getProfiler().pop();
+        super.customServerAiStep();
     }
 
     @Override

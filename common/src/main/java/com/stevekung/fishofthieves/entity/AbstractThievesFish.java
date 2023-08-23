@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -10,14 +9,12 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
@@ -73,34 +70,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     }
 
     @Override
-    protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
-    {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Brain<AbstractThievesFish<?>> getBrain()
-    {
-        return (Brain<AbstractThievesFish<?>>) super.getBrain();
-    }
-
-    @Override
-    protected void customServerAiStep()
-    {
-        this.level.getProfiler().push("thievesFishBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().popPush("thievesFishActivityUpdate");
-        AbstractThievesFishAi.updateActivity(this);
-        this.level.getProfiler().pop();
-        super.customServerAiStep();
-    }
+    protected void registerGoals() {}
 
     @Override
     protected void defineSynchedData()

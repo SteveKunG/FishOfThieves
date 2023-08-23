@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
@@ -19,6 +21,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -57,6 +60,30 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
     {
         return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<AbstractThievesFish<?>> getBrain()
+    {
+        return (Brain<AbstractThievesFish<?>>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        this.level.getProfiler().push("islehopperBrain");
+        this.getBrain().tick((ServerLevel) this.level, this);
+        this.level.getProfiler().popPush("islehopperActivityUpdate");
+        AbstractThievesFishAi.updateActivity(this);
+        this.level.getProfiler().pop();
+        super.customServerAiStep();
     }
 
     @Override
