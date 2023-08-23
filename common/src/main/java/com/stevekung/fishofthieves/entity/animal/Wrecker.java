@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
@@ -40,7 +39,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity.getMobType() != MobType.WATER && livingEntity.isInWater() && livingEntity.attackable();
     private static final EntityDataAccessor<WreckerVariant> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
@@ -58,7 +56,8 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             SensorType.NEAREST_PLAYERS,
             SensorType.HURT_BY,
             FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS,
-            FOTSensorTypes.NEAREST_SHIPWRECK
+            FOTSensorTypes.NEAREST_SHIPWRECK,
+            FOTSensorTypes.WRECKER_ATTACKABLES
     );
     private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
             // Common AI
@@ -70,6 +69,11 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             MemoryModuleType.PATH,
 
             FOTMemoryModuleTypes.NEAREST_SHIPWRECK,
+
+            // Attackable AI
+            MemoryModuleType.NEAREST_ATTACKABLE,
+            MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.ATTACK_COOLING_DOWN,
 
             // Tempting AI
             MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
@@ -116,14 +120,9 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Override
-    protected void registerGoals()
+    public double getMeleeAttackRangeSqr(LivingEntity entity)
     {
-        //        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
-        //        {
-        //            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.0d, true));
-        //            this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-        //            this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, 50, true, false, SELECTORS));
-        //        }
+        return 0.5 + (double) entity.getBbWidth() * 2.0;
     }
 
     @Override

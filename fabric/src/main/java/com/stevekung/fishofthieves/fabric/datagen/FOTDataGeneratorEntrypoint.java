@@ -814,6 +814,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
             this.getOrCreateTagBuilder(FOTTags.EntityTypes.HORIZONTAL_MOB_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
+            this.getOrCreateTagBuilder(FOTTags.EntityTypes.WRECKER_ATTACKABLE).add(EntityType.PLAYER, EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON);
 
             // Immersive Weathering compatibility
             this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
@@ -1046,7 +1047,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
                         if (trophy)
                         {
-                            compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+                            compound.putBoolean(ThievesFish.TROPHY_TAG, true);
                             compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
                         }
                     })).build()));
