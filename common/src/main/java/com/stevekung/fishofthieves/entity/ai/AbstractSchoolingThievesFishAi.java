@@ -4,8 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
-import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -17,11 +18,10 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.crafting.Ingredient;
 
-public class AbstractThievesFishAi
+public class AbstractSchoolingThievesFishAi
 {
-    public static Brain<?> makeBrain(Brain<AbstractThievesFish<?>> brain)
+    public static Brain<?> makeBrain(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         initCoreActivity(brain);
         initIdleActivity(brain);
@@ -32,58 +32,44 @@ public class AbstractThievesFishAi
         return brain;
     }
 
-    public static void updateActivity(AbstractThievesFish<?> fish)
+    public static void updateActivity(AbstractSchoolingThievesFish<?> fish)
     {
         fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
     }
 
-    public static Ingredient getCommonTemptations()
-    {
-        return ThievesFish.WORMS;
-    }
-
-    public static Ingredient getLeechesTemptations()
-    {
-        return ThievesFish.LEECHES_FOOD;
-    }
-
-    public static Ingredient getEarthwormsTemptations()
-    {
-        return ThievesFish.EARTHWORMS_FOOD;
-    }
-
     //@formatter:off
-    private static void initCoreActivity(Brain<AbstractThievesFish<?>> brain)
+    private static void initCoreActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
                 new AnimalPanic(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
                 avoidPlayer(),
-                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
     }
 
-    private static void initIdleActivity(Brain<AbstractThievesFish<?>> brain)
+    private static void initIdleActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RunSometimes<>(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), UniformInt.of(30, 60))),
-                Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1)))),
+                Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1), Pair.of(new FollowFlockLeader(livingEntity -> 1.25f), 2)))),
                 Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(new RandomSwim(1.0F), 2),
                         Pair.of(new SetWalkTargetFromLookTarget(0.5F, 3), 3),
                         Pair.of(new RunIf<>(Entity::isInWaterOrBubble, new DoNothing(30, 60)), 5))))));
     }
 
-    private static void initRetreatActivity(Brain<AbstractThievesFish<?>> brain)
+    private static void initRetreatActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(
                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 5.0F, 12, true),
                 createIdleLookBehaviors(),
                 createIdleMovementBehaviors(),
-                new EraseMemoryIf<>(AbstractThievesFishAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
+                new EraseMemoryIf<>(AbstractSchoolingThievesFishAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
-    private static RunOne<AbstractThievesFish<?>> createIdleLookBehaviors()
+    private static RunOne<AbstractSchoolingThievesFish<?>> createIdleLookBehaviors()
     {
         return new RunOne<>(ImmutableList.of(
                 Pair.of(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), 1),
@@ -91,7 +77,7 @@ public class AbstractThievesFishAi
                 Pair.of(new DoNothing(30, 60), 1)));
     }
 
-    private static RunOne<AbstractThievesFish<?>> createIdleMovementBehaviors()
+    private static RunOne<AbstractSchoolingThievesFish<?>> createIdleMovementBehaviors()
     {
         return new RunOne<>(ImmutableList.of(
                 Pair.of(new RandomSwim(1.0F), 2),
@@ -99,12 +85,12 @@ public class AbstractThievesFishAi
     }
     //@formatter:on
 
-    private static CopyMemoryWithExpiry<AbstractThievesFish<?>, LivingEntity> avoidPlayer()
+    private static CopyMemoryWithExpiry<AbstractSchoolingThievesFish<?>, LivingEntity> avoidPlayer()
     {
-        return new CopyMemoryWithExpiry<>(AbstractThievesFishAi::isNearPlayerNotCrouching, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
+        return new CopyMemoryWithExpiry<>(AbstractSchoolingThievesFishAi::isNearPlayerNotCrouching, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
     }
 
-    private static boolean wantsToStopFleeing(AbstractThievesFish<?> fish)
+    private static boolean wantsToStopFleeing(AbstractSchoolingThievesFish<?> fish)
     {
         var brain = fish.getBrain();
 
@@ -127,7 +113,7 @@ public class AbstractThievesFishAi
         }
     }
 
-    private static boolean isNearPlayerNotCrouching(AbstractThievesFish<?> fish)
+    private static boolean isNearPlayerNotCrouching(AbstractSchoolingThievesFish<?> fish)
     {
         var brain = fish.getBrain();
 

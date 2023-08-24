@@ -1,7 +1,10 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +18,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,10 +35,54 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
 
+    //@formatter:off
+    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractSchoolingThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES,
+            FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
+            FOTSensorTypes.FOLLOW_FLOCK_LEADER,
+            SensorType.HURT_BY
+    );
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+            // Common AI
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.NEAREST_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.PATH,
+
+            // Avoid Player AI
+            MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+            MemoryModuleType.AVOID_TARGET,
+
+            // Follow Flock AI
+            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER,
+            FOTMemoryModuleTypes.IS_FLOCK_LEADER,
+            FOTMemoryModuleTypes.NEAREST_FLOCK_LEADER,
+
+            // Tempting AI
+            MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+            MemoryModuleType.IS_TEMPTED,
+            MemoryModuleType.TEMPTING_PLAYER,
+            MemoryModuleType.BREED_TARGET,
+            MemoryModuleType.IS_PANICKING
+    );
+    //@formatter:on
+
     public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    @Override
+    @Deprecated//TODO DEBUG
+    public boolean canBeLeashed(Player player)
+    {
+        return true;
     }
 
     @Override

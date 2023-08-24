@@ -2,10 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
-import com.stevekung.fishofthieves.entity.ai.sensing.NonCreativePlayerSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.NearestShipwreckSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.TrophyFishSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.WreckerAttackablesSensor;
+import com.stevekung.fishofthieves.entity.ai.sensing.*;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -20,6 +17,7 @@ public class FOTSensorTypes
     public static final SensorType<NearestShipwreckSensor> NEAREST_SHIPWRECK = new SensorType<>(NearestShipwreckSensor::new);
     public static final SensorType<WreckerAttackablesSensor> WRECKER_ATTACKABLES = new SensorType<>(WreckerAttackablesSensor::new);
     public static final SensorType<NonCreativePlayerSensor> NON_CREATIVE_NEAREST_PLAYERS = new SensorType<>(NonCreativePlayerSensor::new);
+    public static final SensorType<FollowFlockLeaderSensor> FOLLOW_FLOCK_LEADER = new SensorType<>(FollowFlockLeaderSensor::new);
 
     public static void init()
     {
@@ -30,6 +28,7 @@ public class FOTSensorTypes
         register("nearest_shipwreck", NEAREST_SHIPWRECK);
         register("wrecker_attackables", WRECKER_ATTACKABLES);
         register("non_creative_nearest_players", NON_CREATIVE_NEAREST_PLAYERS);
+        register("follow_flock_leader", FOLLOW_FLOCK_LEADER);
     }
 
     private static <U extends Sensor<?>> void register(String key, SensorType<U> sensorType)
