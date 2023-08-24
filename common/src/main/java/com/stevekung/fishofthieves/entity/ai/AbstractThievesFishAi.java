@@ -101,7 +101,7 @@ public class AbstractThievesFishAi
 
     private static CopyMemoryWithExpiry<AbstractThievesFish<?>, LivingEntity> avoidPlayer()
     {
-        return new CopyMemoryWithExpiry<>(AbstractThievesFishAi::isNearPlayer, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
+        return new CopyMemoryWithExpiry<>(AbstractThievesFishAi::isNearPlayerNotCrouching, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
     }
 
     private static boolean wantsToStopFleeing(AbstractThievesFish<?> fish)
@@ -127,14 +127,14 @@ public class AbstractThievesFishAi
         }
     }
 
-    private static boolean isNearPlayer(AbstractThievesFish<?> fish)
+    private static boolean isNearPlayerNotCrouching(AbstractThievesFish<?> fish)
     {
         var brain = fish.getBrain();
 
         if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER))
         {
             var player = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).get();
-            return fish.closerThan(player, 6.0);
+            return !player.isCrouching() && fish.closerThan(player, 6.0);
         }
         else
         {

@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.entity;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,7 +37,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     //@formatter:off
     protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            SensorType.NEAREST_PLAYERS,
+            FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(

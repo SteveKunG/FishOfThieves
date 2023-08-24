@@ -53,7 +53,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     //@formatter:off
     private static final ImmutableList<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            SensorType.NEAREST_PLAYERS,
+            FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY,
             FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS,
             FOTSensorTypes.NEAREST_SHIPWRECK,
