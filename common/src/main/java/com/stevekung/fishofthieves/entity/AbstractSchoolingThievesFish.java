@@ -1,8 +1,11 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.stream.Stream;
+
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,6 +23,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.FollowFlockLeaderGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -39,7 +43,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractSchoolingThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
-            FOTSensorTypes.FOLLOW_FLOCK_LEADER,
+            FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
             SensorType.HURT_BY
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -55,11 +59,15 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
             MemoryModuleType.AVOID_TARGET,
 
+            FOTMemoryModuleTypes.school_size,
+            FOTMemoryModuleTypes.leader,
+            FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH,
+
             // Follow Flock AI
-            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
-            FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER,
-            FOTMemoryModuleTypes.IS_FLOCK_LEADER,
-            FOTMemoryModuleTypes.NEAREST_FLOCK_LEADER,
+//            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
+//            FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER,
+//            FOTMemoryModuleTypes.IS_FLOCK_LEADER,
+//            FOTMemoryModuleTypes.NEAREST_FLOCK_LEADER,
 
             // Tempting AI
             MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
@@ -76,6 +84,54 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         this.refreshDimensions();
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    @Override
+    protected void registerGoals() {
+    }
+
+    @Override
+    public boolean isFollower() {
+        var leader = this.getBrain().getMemory(FOTMemoryModuleTypes.leader);
+        return leader.isPresent() && leader.get().isAlive();
+    }
+
+    @SuppressWarnings("rawtypes")
+    public AbstractSchoolingThievesFish startFollowingThievesFish(AbstractSchoolingThievesFish leader) {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.leader, leader);
+        leader.addFollower();
+        return leader;
+    }
+
+    @Override
+    public void stopFollowing() {
+        var leader = this.getBrain().getMemory(FOTMemoryModuleTypes.leader).get();
+        leader.removeFollower();
+        this.getBrain().eraseMemory(FOTMemoryModuleTypes.leader);
+    }
+
+    private void addFollower() {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.school_size, this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() + 1);
+    }
+
+    private void removeFollower() {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.school_size, this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() - 1);
+    }
+
+    @Override
+    public boolean canBeFollowed() {
+        return this.hasFollowers() && this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() < this.getMaxSchoolSize();
+    }
+
+    @Override
+    public boolean hasFollowers() {
+        var schoolSize = this.getBrain().getMemory(FOTMemoryModuleTypes.school_size);
+        return schoolSize.isPresent() && schoolSize.get() > 1;
+    }
+
+    @SuppressWarnings("rawtypes")
+    public void addThievesFishFollowers(Stream<? extends AbstractSchoolingThievesFish> followers) {
+        followers.limit(this.getMaxSchoolSize() - this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get()).filter(abstractSchoolingFish -> abstractSchoolingFish != this).forEach(abstractSchoolingFish -> abstractSchoolingFish.startFollowingThievesFish(this));
     }
 
     @Override
@@ -157,7 +213,14 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        if (spawnData == null) {
+            spawnData = new ThievesFishSchoolSpawnGroupData<>(this);
+        } else {
+            //noinspection rawtypes
+            this.startFollowingThievesFish(((ThievesFishSchoolSpawnGroupData)spawnData).leader);
+        }
+        AbstractSchoolingThievesFishAi.initMemories(this);
         return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
     }
 
@@ -222,6 +285,14 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             this.setTrophy(true);
             this.setHasFed(true);
             this.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
+        }
+    }
+
+    public static class ThievesFishSchoolSpawnGroupData<T extends FishData> implements SpawnGroupData {
+        public final AbstractSchoolingThievesFish<T> leader;
+
+        public ThievesFishSchoolSpawnGroupData(AbstractSchoolingThievesFish<T> abstractSchoolingFish) {
+            this.leader = abstractSchoolingFish;
         }
     }
 }

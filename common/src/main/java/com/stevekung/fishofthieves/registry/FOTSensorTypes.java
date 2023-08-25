@@ -17,7 +17,8 @@ public class FOTSensorTypes
     public static final SensorType<NearestShipwreckSensor> NEAREST_SHIPWRECK = new SensorType<>(NearestShipwreckSensor::new);
     public static final SensorType<WreckerAttackablesSensor> WRECKER_ATTACKABLES = new SensorType<>(WreckerAttackablesSensor::new);
     public static final SensorType<NonCreativePlayerSensor> NON_CREATIVE_NEAREST_PLAYERS = new SensorType<>(NonCreativePlayerSensor::new);
-    public static final SensorType<FollowFlockLeaderSensor> FOLLOW_FLOCK_LEADER = new SensorType<>(FollowFlockLeaderSensor::new);
+//    public static final SensorType<FollowFlockLeaderSensor> FOLLOW_FLOCK_LEADER = new SensorType<>(FollowFlockLeaderSensor::new);
+    public static final SensorType<NearestSchoolingThievesFishSensor> NEAREST_SCHOOLING_THIEVES_FISH = new SensorType<>(NearestSchoolingThievesFishSensor::new);
 
     public static void init()
     {
@@ -28,7 +29,8 @@ public class FOTSensorTypes
         register("nearest_shipwreck", NEAREST_SHIPWRECK);
         register("wrecker_attackables", WRECKER_ATTACKABLES);
         register("non_creative_nearest_players", NON_CREATIVE_NEAREST_PLAYERS);
-        register("follow_flock_leader", FOLLOW_FLOCK_LEADER);
+//        register("follow_flock_leader", FOLLOW_FLOCK_LEADER);
+        register("nearest_schooling_thieves_fish", NEAREST_SCHOOLING_THIEVES_FISH);
     }
 
     private static <U extends Sensor<?>> void register(String key, SensorType<U> sensorType)

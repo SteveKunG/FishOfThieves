@@ -17,7 +17,7 @@ public class GoToClosestShipwreck extends Behavior<LivingEntity>
 
     public GoToClosestShipwreck(float speedModifier, int closeEnoughDistance)
     {
-        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_SHIPWRECK, MemoryStatus.REGISTERED));
+        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_SHIPWRECK, MemoryStatus.VALUE_PRESENT));
         this.speedModifier = speedModifier;
         this.closeEnoughDistance = closeEnoughDistance;
     }
