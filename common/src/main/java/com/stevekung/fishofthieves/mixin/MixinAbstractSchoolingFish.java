@@ -2,10 +2,13 @@ package com.stevekung.fishofthieves.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.Level;
 
 @Mixin(AbstractSchoolingFish.class)
@@ -23,6 +26,24 @@ public abstract class MixinAbstractSchoolingFish extends AbstractFish
     @Shadow
     abstract boolean hasFollowers();
 
+    private static String color(boolean cond)
+    {
+        var color = cond ? ChatFormatting.GREEN : ChatFormatting.RED;
+        return color.toString() + cond;
+    }
+
+    @Override
+    public void remove(Entity.RemovalReason reason) {
+        if (!this.level.isClientSide && this.isDeadOrDying()) {
+            var getThis = AbstractSchoolingFish.class.cast(this);
+            if (getThis.isFollower() && leader != null)
+            {
+                ((AbstractSchoolingFishAccessor)leader).callRemoveFollower();
+            }
+        }
+        super.remove(reason);
+    }
+
     @Override
     public void tick()
     {
@@ -32,24 +53,27 @@ public abstract class MixinAbstractSchoolingFish extends AbstractFish
         if (!this.level.isClientSide() && this.getType() == EntityType.TROPICAL_FISH)
         {
             var compo = Component.empty();
-
             var text = "";
 
             if (getThis.hasFollowers())
             {
-                text += " hasFollowers: " + getThis.hasFollowers();
+                text += " hasFollowers: " + color(getThis.hasFollowers());
+                text += ChatFormatting.RESET;
             }
             if (getThis.isFollower())
             {
-                text += " isFollower: " + getThis.isFollower();
+                text += " isFollower: " + color(getThis.isFollower());
+                text += ChatFormatting.RESET;
             }
 
-            text += " schoolSize: " + this.schoolSize;
+            text += " schoolSize: " + ChatFormatting.GOLD + this.schoolSize;
+            text += ChatFormatting.RESET;
             text += " uuid: " + this.getUUID().toString().split("-")[0];
 
             if (this.leader != null)
             {
-                text += " leader: " + this.leader.getUUID().toString().split("-")[0];
+                text += " leader: " + ChatFormatting.GOLD + this.leader.getUUID().toString().split("-")[0];
+                text += ChatFormatting.RESET;
             }
 
             compo = Component.literal(text);
