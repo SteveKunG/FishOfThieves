@@ -1,11 +1,12 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
@@ -16,20 +17,20 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -37,7 +38,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
-    private static final Predicate<LivingEntity> SELECTORS = livingEntity -> livingEntity instanceof Enemy && livingEntity.getMobType() == MobType.UNDEAD && livingEntity.isInWater() && livingEntity.attackable();
     private static final EntityDataAccessor<DevilfishVariant> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
@@ -49,22 +49,83 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         map.put(4, "fishofthieves:firelight");
     };
 
+    //@formatter:off
+    private static final ImmutableList<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES,
+            FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
+            SensorType.HURT_BY,
+            FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
+            FOTSensorTypes.GRUBS_THIEVES_FISH_TEMPTATIONS,
+            FOTSensorTypes.DEVILFISH_ATTACKABLES
+    );
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+            // Common AI
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.NEAREST_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.PATH,
+
+            // Attackable AI
+            MemoryModuleType.NEAREST_ATTACKABLE,
+            MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.ATTACK_COOLING_DOWN,
+
+            // Follow Flock AI
+            FOTMemoryModuleTypes.SCHOOL_SIZE,
+            FOTMemoryModuleTypes.FLOCK_LEADER,
+            FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH,
+            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
+
+            // Tempting AI
+            MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+            MemoryModuleType.IS_TEMPTED,
+            MemoryModuleType.TEMPTING_PLAYER,
+            MemoryModuleType.BREED_TARGET,
+            MemoryModuleType.IS_PANICKING
+    );
+    //@formatter:on
+
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {
         super(entityType, level);
     }
 
     @Override
-    protected void registerGoals()
+    protected Brain.Provider<Devilfish> brainProvider()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, LEECHES_FOOD, false));
+        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+    }
 
-        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
-        {
-            this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5f, true));
-            this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, Monster.class, 20, true, false, SELECTORS));
-        }
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return DevilfishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<Devilfish> getBrain()
+    {
+        return (Brain<Devilfish>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        this.level.getProfiler().push("devilfishBrain");
+        this.getBrain().tick((ServerLevel) this.level, this);
+        this.level.getProfiler().popPush("devilfishActivityUpdate");
+        DevilfishAi.updateActivity(this);
+        this.level.getProfiler().pop();
+        super.customServerAiStep();
+    }
+
+    @Override
+    public double getMeleeAttackRangeSqr(LivingEntity entity)
+    {
+        return 1.0 + (double) entity.getBbWidth() * 2.0;
     }
 
     @Override
@@ -172,7 +233,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return LEECHES_FOOD.test(itemStack);
+        return GRUBS_FOOD.test(itemStack);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)

@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import net.minecraft.core.Registry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -51,6 +53,21 @@ public class AbstractThievesFishAi
     public static Ingredient getEarthwormsTemptations()
     {
         return ThievesFish.EARTHWORMS_FOOD;
+    }
+
+    public static Ingredient getGrubsTemptations()
+    {
+        return ThievesFish.GRUBS_FOOD;
+    }
+
+    public static <T extends AbstractThievesFish<?>> void customServerAiStep(T fish, Brain<T> brain)
+    {
+        var name = Registry.ENTITY_TYPE.getKey(fish.getType()).getPath();
+        fish.level.getProfiler().push(name + "Brain");
+        brain.tick((ServerLevel) fish.level, fish);
+        fish.level.getProfiler().popPush(name + "ActivityUpdate");
+        AbstractThievesFishAi.updateActivity(fish);
+        fish.level.getProfiler().pop();
     }
 
     //@formatter:off

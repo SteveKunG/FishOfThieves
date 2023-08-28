@@ -21,7 +21,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -78,11 +77,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level.getProfiler().push("islehopperBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().popPush("islehopperActivityUpdate");
-        AbstractThievesFishAi.updateActivity(this);
-        this.level.getProfiler().pop();
+        AbstractThievesFishAi.customServerAiStep(this, this.getBrain());
         super.customServerAiStep();
     }
 

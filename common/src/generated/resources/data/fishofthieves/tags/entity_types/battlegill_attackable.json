@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "minecraft:player",
     "minecraft:drowned",
     "minecraft:zombie",
     "minecraft:skeleton",
     "minecraft:guardian",
-    "minecraft:elder_guardian"
+    "minecraft:elder_guardian",
+    "minecraft:pillager"
   ]
 }

@@ -49,6 +49,8 @@ public interface FOTTags
         TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("thieves_fish"));
         TagKey<EntityType<?>> FISH_BONE_DROP = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("fish_bone_drop"));
         TagKey<EntityType<?>> HORIZONTAL_MOB_RENDER = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("horizontal_mob_render"));
+        TagKey<EntityType<?>> BATTLEGILL_ATTACKABLE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("battlegill_attackable"));
+        TagKey<EntityType<?>> DEVILFISH_ATTACKABLE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("devilfish_attackable"));
         TagKey<EntityType<?>> WRECKER_ATTACKABLE = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, FishOfThieves.res("wrecker_attackable"));
     }
 

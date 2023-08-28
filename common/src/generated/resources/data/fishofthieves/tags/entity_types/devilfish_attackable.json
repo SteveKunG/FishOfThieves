@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:player",
     "minecraft:drowned",
     "minecraft:zombie",
     "minecraft:skeleton",

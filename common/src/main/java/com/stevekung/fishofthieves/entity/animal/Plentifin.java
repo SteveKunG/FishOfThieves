@@ -1,8 +1,12 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
@@ -21,7 +25,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -47,10 +51,29 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     }
 
     @Override
-    protected void registerGoals()
+    protected Brain.Provider<AbstractSchoolingThievesFish<?>> brainProvider()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, EARTHWORMS_FOOD, false));
+        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return AbstractSchoolingThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<AbstractSchoolingThievesFish<?>> getBrain()
+    {
+        return (Brain<AbstractSchoolingThievesFish<?>>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        AbstractSchoolingThievesFishAi.customServerAiStep(this, this.getBrain());
+        super.customServerAiStep();
     }
 
     @Override

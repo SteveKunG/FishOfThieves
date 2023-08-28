@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.ChatFormatting;
@@ -96,7 +95,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         super.tick();
 
         //TODO Remove debug
-        if (!this.level.isClientSide() && this.getType() == FOTEntities.SPLASHTAIL)
+        if (!this.level.isClientSide())
         {
             var compo = Component.empty();
             var text = "";

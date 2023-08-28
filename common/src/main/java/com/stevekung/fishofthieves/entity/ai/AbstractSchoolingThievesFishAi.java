@@ -8,6 +8,8 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+import net.minecraft.core.Registry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -45,6 +47,16 @@ public class AbstractSchoolingThievesFishAi
     public static void updateActivity(AbstractSchoolingThievesFish<?> fish)
     {
         fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
+    }
+
+    public static <T extends AbstractSchoolingThievesFish<?>> void customServerAiStep(T fish, Brain<T> brain)
+    {
+        var name = Registry.ENTITY_TYPE.getKey(fish.getType()).getPath();
+        fish.level.getProfiler().push(name + "Brain");
+        brain.tick((ServerLevel) fish.level, fish);
+        fish.level.getProfiler().popPush(name + "ActivityUpdate");
+        AbstractSchoolingThievesFishAi.updateActivity(fish);
+        fish.level.getProfiler().pop();
     }
 
     //@formatter:off

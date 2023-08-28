@@ -15,7 +15,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -65,11 +64,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level.getProfiler().push("splashtailBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().popPush("splashtailActivityUpdate");
-        AbstractSchoolingThievesFishAi.updateActivity(this);
-        this.level.getProfiler().pop();
+        AbstractSchoolingThievesFishAi.customServerAiStep(this, this.getBrain());
         super.customServerAiStep();
     }
 

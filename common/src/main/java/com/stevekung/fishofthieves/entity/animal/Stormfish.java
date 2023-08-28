@@ -69,11 +69,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level.getProfiler().push("stormfishBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().popPush("stormfishActivityUpdate");
-        AbstractThievesFishAi.updateActivity(this);
-        this.level.getProfiler().pop();
+        AbstractThievesFishAi.customServerAiStep(this, this.getBrain());
         super.customServerAiStep();
     }
 
