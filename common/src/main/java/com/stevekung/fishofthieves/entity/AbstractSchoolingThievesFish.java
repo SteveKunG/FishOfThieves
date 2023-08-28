@@ -319,17 +319,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
-        super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-
-        if (spawnData == null)
-        {
-            spawnData = new ThievesFishSchoolSpawnGroupData<>(this);
-        }
-        else
-        {
-            //noinspection rawtypes
-            this.startFollowingThievesFish(((ThievesFishSchoolSpawnGroupData) spawnData).leader);
-        }
+        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
         AbstractSchoolingThievesFishAi.initMemories(this);
         return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
     }
@@ -395,16 +385,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             this.setTrophy(true);
             this.setHasFed(true);
             this.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
-        }
-    }
-
-    public static class ThievesFishSchoolSpawnGroupData<T extends FishData> implements SpawnGroupData
-    {
-        public final AbstractSchoolingThievesFish<T> leader;
-
-        public ThievesFishSchoolSpawnGroupData(AbstractSchoolingThievesFish<T> abstractSchoolingFish)
-        {
-            this.leader = abstractSchoolingFish;
         }
     }
 }
