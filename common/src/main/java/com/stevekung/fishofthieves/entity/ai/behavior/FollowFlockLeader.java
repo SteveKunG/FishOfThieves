@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
@@ -16,6 +15,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 
+@SuppressWarnings("rawtypes")
 public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
 {
     private final Function<LivingEntity, Float> speedModifier;
@@ -27,9 +27,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
             var builder = ImmutableMap.<MemoryModuleType<?>, MemoryStatus>builder();
             builder.put(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED);
             builder.put(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED);
-//            builder.put(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT);
-//            builder.put(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER, MemoryStatus.REGISTERED);
-            builder.put(FOTMemoryModuleTypes.leader, MemoryStatus.VALUE_PRESENT);
+            builder.put(FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.VALUE_PRESENT);
             builder.put(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT);
             return builder.build();
         }));
@@ -43,12 +41,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
 
     private Optional<AbstractSchoolingThievesFish> getFlockLeader(AbstractSchoolingThievesFish entity)
     {
-        return entity.getBrain().getMemory(FOTMemoryModuleTypes.leader);
-    }
-
-    private int nextStartTick(AbstractSchoolingThievesFish entity)
-    {
-        return Mth.positiveCeilDiv(200 + entity.getRandom().nextInt(200) % 20, 2);
+        return entity.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
     }
 
     @Override
@@ -64,18 +57,9 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     }
 
     @Override
-    protected void start(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
-    {
-//        entity.getBrain().setMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER, true);
-    }
-
-    @Override
     protected void stop(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
     {
         var brain = entity.getBrain();
-
-//        brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, this.nextStartTick(entity));
-//        brain.setMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER, false);
         brain.eraseMemory(MemoryModuleType.WALK_TARGET);
         brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
     }

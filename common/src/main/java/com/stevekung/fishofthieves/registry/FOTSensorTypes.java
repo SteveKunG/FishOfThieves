@@ -2,7 +2,10 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
-import com.stevekung.fishofthieves.entity.ai.sensing.*;
+import com.stevekung.fishofthieves.entity.ai.sensing.NearestSchoolingThievesFishSensor;
+import com.stevekung.fishofthieves.entity.ai.sensing.NearestShipwreckSensor;
+import com.stevekung.fishofthieves.entity.ai.sensing.NonCreativePlayerSensor;
+import com.stevekung.fishofthieves.entity.ai.sensing.WreckerAttackablesSensor;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -13,11 +16,9 @@ public class FOTSensorTypes
     public static final SensorType<TemptingSensor> COMMON_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getCommonTemptations()));
     public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getLeechesTemptations()));
     public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getEarthwormsTemptations()));
-    public static final SensorType<TrophyFishSensor> TROPHY_FISH_SENSOR = new SensorType<>(TrophyFishSensor::new);
     public static final SensorType<NearestShipwreckSensor> NEAREST_SHIPWRECK = new SensorType<>(NearestShipwreckSensor::new);
     public static final SensorType<WreckerAttackablesSensor> WRECKER_ATTACKABLES = new SensorType<>(WreckerAttackablesSensor::new);
     public static final SensorType<NonCreativePlayerSensor> NON_CREATIVE_NEAREST_PLAYERS = new SensorType<>(NonCreativePlayerSensor::new);
-//    public static final SensorType<FollowFlockLeaderSensor> FOLLOW_FLOCK_LEADER = new SensorType<>(FollowFlockLeaderSensor::new);
     public static final SensorType<NearestSchoolingThievesFishSensor> NEAREST_SCHOOLING_THIEVES_FISH = new SensorType<>(NearestSchoolingThievesFishSensor::new);
 
     public static void init()
@@ -25,11 +26,9 @@ public class FOTSensorTypes
         register("common_thieves_fish_temptations", COMMON_THIEVES_FISH_TEMPTATIONS);
         register("leeches_thieves_fish_temptations", LEECHES_THIEVES_FISH_TEMPTATIONS);
         register("earthworms_thieves_fish_temptations", EARTHWORMS_THIEVES_FISH_TEMPTATIONS);
-        register("trophy_fish_sensor", TROPHY_FISH_SENSOR);
         register("nearest_shipwreck", NEAREST_SHIPWRECK);
         register("wrecker_attackables", WRECKER_ATTACKABLES);
         register("non_creative_nearest_players", NON_CREATIVE_NEAREST_PLAYERS);
-//        register("follow_flock_leader", FOLLOW_FLOCK_LEADER);
         register("nearest_schooling_thieves_fish", NEAREST_SCHOOLING_THIEVES_FISH);
     }
 

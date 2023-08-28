@@ -50,7 +50,7 @@ public abstract class MixinAbstractSchoolingFish extends AbstractFish
         super.tick();
         var getThis = AbstractSchoolingFish.class.cast(this);
 
-        if (!this.level.isClientSide() && this.getType() == EntityType.TROPICAL_FISH)
+        if (!this.level.isClientSide() && (this.getType() == EntityType.TROPICAL_FISH || this.getType() == EntityType.COD || this.getType() == EntityType.SALMON))
         {
             var compo = Component.empty();
             var text = "";

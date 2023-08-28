@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.mixin.AbstractSchoolingFishAccessor;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
@@ -63,15 +62,11 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
             MemoryModuleType.AVOID_TARGET,
 
-            FOTMemoryModuleTypes.school_size,
-            FOTMemoryModuleTypes.leader,
-            FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH,
-
             // Follow Flock AI
-            //            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
-            //            FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER,
-            //            FOTMemoryModuleTypes.IS_FLOCK_LEADER,
-            //            FOTMemoryModuleTypes.NEAREST_FLOCK_LEADER,
+            FOTMemoryModuleTypes.SCHOOL_SIZE,
+            FOTMemoryModuleTypes.FLOCK_LEADER,
+            FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH,
+            FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS,
 
             // Tempting AI
             MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
@@ -90,6 +85,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
+    @Deprecated //TODO Remove debug
     private static String color(boolean cond)
     {
         var color = cond ? ChatFormatting.GREEN : ChatFormatting.RED;
@@ -101,6 +97,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     {
         super.tick();
 
+        //TODO Remove debug
         if (!this.level.isClientSide() && this.getType() == FOTEntities.SPLASHTAIL)
         {
             var compo = Component.empty();
@@ -117,17 +114,17 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
                 text += ChatFormatting.RESET;
             }
 
-            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.school_size))
+            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE))
             {
-                text += " schoolSize: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get();
+                text += " schoolSize: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get();
                 text += ChatFormatting.RESET;
             }
 
             text += " uuid: " + this.getUUID().toString().split("-")[0];
 
-            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.leader))
+            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_LEADER))
             {
-                text += " leader: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.leader).get().getUUID().toString().split("-")[0];
+                text += " leader: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).get().getUUID().toString().split("-")[0];
                 text += ChatFormatting.RESET;
             }
 
@@ -135,6 +132,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             this.setCustomNameVisible(true);
             this.setCustomName(compo);
         }
+        //TODO Remove debug
 
         if (this.hasFollowers() && this.level.random.nextInt(200) == 1)
         {
@@ -152,8 +150,13 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     }
 
     @Override
-    public void remove(Entity.RemovalReason reason) {
-        if (!this.level.isClientSide && this.isDeadOrDying()) {
+    protected void registerGoals() {}
+
+    @Override
+    public void remove(Entity.RemovalReason reason)
+    {
+        if (!this.level.isClientSide && this.isDeadOrDying())
+        {
             if (this.isFollower() && this.hasLeader())
             {
                 this.getLeader().removeFollower();
@@ -163,72 +166,67 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     }
 
     @Override
-    protected void registerGoals() {
-    }
-
-    public boolean hasLeader()
+    public boolean isFollower()
     {
-        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.leader);
-    }
-
-    @SuppressWarnings("rawtypes")
-    public AbstractSchoolingThievesFish getLeader()
-    {
-        return this.getBrain().getMemory(FOTMemoryModuleTypes.leader).get();
-    }
-
-    @Override
-    public boolean isFollower() {
         return this.hasLeader() && this.getLeader().isAlive();
     }
 
-    @SuppressWarnings("rawtypes")
-    public AbstractSchoolingThievesFish startFollowingThievesFish(AbstractSchoolingThievesFish leader) {
-        this.getBrain().setMemory(FOTMemoryModuleTypes.leader, leader);
-        leader.addFollower();
-        return leader;
-    }
-
     @Override
-    public void stopFollowing() {
-        this.getLeader().removeFollower();
-        this.getBrain().eraseMemory(FOTMemoryModuleTypes.leader);
-    }
-
-    private void addFollower() {
-        this.getBrain().setMemory(FOTMemoryModuleTypes.school_size, this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() + 1);
-    }
-
-    private void removeFollower() {
-        this.getBrain().setMemory(FOTMemoryModuleTypes.school_size, this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() - 1);
-    }
-
-    @Override
-    public boolean canBeFollowed() {
-        return this.hasFollowers() && this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get() < this.getMaxSchoolSize();
-    }
-
-    @Override
-    public boolean hasFollowers() {
-        if (!this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.school_size))
-        {
-            return false;
-        }
-
-        var schoolSize = this.getBrain().getMemory(FOTMemoryModuleTypes.school_size);
-        return schoolSize.isPresent() && schoolSize.get() > 1;
-    }
-
-    @SuppressWarnings("rawtypes")
-    public void addThievesFishFollowers(Stream<? extends AbstractSchoolingThievesFish> followers) {
-        followers.limit(this.getMaxSchoolSize() - this.getBrain().getMemory(FOTMemoryModuleTypes.school_size).get()).filter(abstractSchoolingFish -> abstractSchoolingFish != this).forEach(abstractSchoolingFish -> abstractSchoolingFish.startFollowingThievesFish(this));
-    }
-
-    @Override
-    @Deprecated//TODO DEBUG
-    public boolean canBeLeashed(Player player)
+    public void stopFollowing()
     {
-        return true;
+        this.getLeader().removeFollower();
+        this.getBrain().eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
+    }
+
+    @Override
+    public boolean canBeFollowed()
+    {
+        return this.hasFollowers() && this.getSchoolSize() < this.getMaxSchoolSize();
+    }
+
+    @Override
+    public boolean hasFollowers()
+    {
+        return this.getSchoolSize() > 1;
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected void startFollowingThievesFish(AbstractSchoolingThievesFish leader)
+    {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, leader);
+        leader.addFollower();
+    }
+
+    @SuppressWarnings("rawtypes")
+    public void addThievesFishFollowers(Stream<? extends AbstractSchoolingThievesFish> followers)
+    {
+        followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).forEach(fish -> fish.startFollowingThievesFish(this));
+    }
+
+    private boolean hasLeader()
+    {
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_LEADER);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private AbstractSchoolingThievesFish getLeader()
+    {
+        return this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).get();
+    }
+
+    private void addFollower()
+    {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, this.getSchoolSize() + 1);
+    }
+
+    private void removeFollower()
+    {
+        this.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, this.getSchoolSize() - 1);
+    }
+
+    private int getSchoolSize()
+    {
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE) ? this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get() : 1;
     }
 
     @Override
@@ -306,11 +304,15 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        if (spawnData == null) {
+
+        if (spawnData == null)
+        {
             spawnData = new ThievesFishSchoolSpawnGroupData<>(this);
-        } else {
+        }
+        else
+        {
             //noinspection rawtypes
-            this.startFollowingThievesFish(((ThievesFishSchoolSpawnGroupData)spawnData).leader);
+            this.startFollowingThievesFish(((ThievesFishSchoolSpawnGroupData) spawnData).leader);
         }
         AbstractSchoolingThievesFishAi.initMemories(this);
         return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
@@ -380,10 +382,12 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         }
     }
 
-    public static class ThievesFishSchoolSpawnGroupData<T extends FishData> implements SpawnGroupData {
+    public static class ThievesFishSchoolSpawnGroupData<T extends FishData> implements SpawnGroupData
+    {
         public final AbstractSchoolingThievesFish<T> leader;
 
-        public ThievesFishSchoolSpawnGroupData(AbstractSchoolingThievesFish<T> abstractSchoolingFish) {
+        public ThievesFishSchoolSpawnGroupData(AbstractSchoolingThievesFish<T> abstractSchoolingFish)
+        {
             this.leader = abstractSchoolingFish;
         }
     }

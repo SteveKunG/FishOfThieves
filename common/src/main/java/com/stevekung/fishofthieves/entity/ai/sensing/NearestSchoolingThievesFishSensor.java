@@ -25,7 +25,7 @@ public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingT
     {
         var brain = entity.getBrain();
         Predicate<AbstractSchoolingThievesFish> predicate = fish -> fish.canBeFollowed() || !fish.isFollower();
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(8.0, 8.0, 8.0), predicate.and(AbstractSchoolingThievesFish::isAlive));
+        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), predicate.and(AbstractSchoolingThievesFish::isAlive));
         list.sort(Comparator.comparingDouble(entity::distanceToSqr));
         brain.setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, list);
     }

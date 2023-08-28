@@ -5,8 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
-import com.stevekung.fishofthieves.entity.ai.behavior.FormSchoolingFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -24,13 +24,14 @@ public class AbstractSchoolingThievesFishAi
 {
     public static void initMemories(AbstractSchoolingThievesFish<?> fish)
     {
-        fish.getBrain().setMemory(FOTMemoryModuleTypes.school_size, 1);
+        fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
+        fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish));
     }
 
     public static void resetMemories(AbstractSchoolingThievesFish<?> fish)
     {
-        fish.getBrain().setMemory(FOTMemoryModuleTypes.school_size, 1);
-        fish.getBrain().eraseMemory(FOTMemoryModuleTypes.leader);
+        initMemories(fish);
+        fish.getBrain().eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
     }
 
     public static Brain<?> makeBrain(Brain<AbstractSchoolingThievesFish<?>> brain)
@@ -57,14 +58,15 @@ public class AbstractSchoolingThievesFishAi
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
                 avoidPlayer(),
-                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
     }
 
     private static void initIdleActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RunSometimes<>(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), UniformInt.of(30, 60))),
-                Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1), Pair.of(new FormSchoolingFish(), 2), Pair.of(new FollowFlockLeader(livingEntity -> 1.25f), 3)))),
+                Pair.of(1, new RunOne<>(ImmutableList.of(Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1), Pair.of(new CreateFishFlock(), 2), Pair.of(new FollowFlockLeader(livingEntity -> 1.25f), 3)))),
                 Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(new RandomSwim(1.0F), 2),
                         Pair.of(new SetWalkTargetFromLookTarget(0.5F, 3), 3),
