@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -99,12 +100,12 @@ public class AbstractThievesFishAi
     }
     //@formatter:on
 
-    private static CopyMemoryWithExpiry<AbstractThievesFish<?>, LivingEntity> avoidPlayer()
+    public static <T extends AbstractFish> CopyMemoryWithExpiry<T, LivingEntity> avoidPlayer()
     {
         return new CopyMemoryWithExpiry<>(AbstractThievesFishAi::isNearPlayerNotCrouching, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
     }
 
-    private static boolean wantsToStopFleeing(AbstractThievesFish<?> fish)
+    public static <T extends AbstractFish> boolean wantsToStopFleeing(T fish)
     {
         var brain = fish.getBrain();
 
@@ -127,7 +128,7 @@ public class AbstractThievesFishAi
         }
     }
 
-    private static boolean isNearPlayerNotCrouching(AbstractThievesFish<?> fish)
+    public static <T extends AbstractFish> boolean isNearPlayerNotCrouching(T fish)
     {
         var brain = fish.getBrain();
 

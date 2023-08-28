@@ -20,10 +20,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
@@ -136,7 +134,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
 
         if (this.hasFollowers() && this.level.random.nextInt(200) == 1)
         {
-            var list = this.level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(8.0, 8.0, 8.0));
+            var list = this.level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(16));
 
             if (list.size() <= 1)
             {
@@ -155,9 +153,9 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Override
     public void remove(Entity.RemovalReason reason)
     {
-        if (!this.level.isClientSide && this.isDeadOrDying())
+        if (!this.level.isClientSide() && this.isDeadOrDying())
         {
-            if (this.isFollower() && this.hasLeader())
+            if (this.isFollower())
             {
                 this.getLeader().removeFollower();
             }
@@ -209,7 +207,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     }
 
     @SuppressWarnings("rawtypes")
-    private AbstractSchoolingThievesFish getLeader()
+    public AbstractSchoolingThievesFish getLeader()
     {
         return this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).get();
     }
@@ -219,7 +217,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         this.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, this.getSchoolSize() + 1);
     }
 
-    private void removeFollower()
+    public void removeFollower()
     {
         this.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, this.getSchoolSize() - 1);
     }
@@ -297,6 +295,25 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount)
+    {
+        var hurt = super.hurt(source, amount);
+
+        if (this.level.isClientSide())
+        {
+            return false;
+        }
+        else
+        {
+            if (hurt && source.getEntity() instanceof LivingEntity)
+            {
+                AbstractSchoolingThievesFishAi.wasHurtBy(this);
+            }
+            return hurt;
+        }
     }
 
     @Override

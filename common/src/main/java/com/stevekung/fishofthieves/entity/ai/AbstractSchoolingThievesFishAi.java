@@ -8,16 +8,13 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
-import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 
 public class AbstractSchoolingThievesFishAi
@@ -57,7 +54,7 @@ public class AbstractSchoolingThievesFishAi
                 new AnimalPanic(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
-                avoidPlayer(),
+                AbstractThievesFishAi.avoidPlayer(),
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
                 new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
     }
@@ -79,7 +76,7 @@ public class AbstractSchoolingThievesFishAi
                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 5.0F, 12, true),
                 createIdleLookBehaviors(),
                 createIdleMovementBehaviors(),
-                new EraseMemoryIf<>(AbstractSchoolingThievesFishAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
+                new EraseMemoryIf<>(AbstractThievesFishAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
     private static RunOne<AbstractSchoolingThievesFish<?>> createIdleLookBehaviors()
@@ -98,46 +95,15 @@ public class AbstractSchoolingThievesFishAi
     }
     //@formatter:on
 
-    private static CopyMemoryWithExpiry<AbstractSchoolingThievesFish<?>, LivingEntity> avoidPlayer()
-    {
-        return new CopyMemoryWithExpiry<>(AbstractSchoolingThievesFishAi::isNearPlayerNotCrouching, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.AVOID_TARGET, TimeUtil.rangeOfSeconds(5, 7));
-    }
-
-    private static boolean wantsToStopFleeing(AbstractSchoolingThievesFish<?> fish)
+    public static void wasHurtBy(AbstractSchoolingThievesFish<?> fish)
     {
         var brain = fish.getBrain();
 
-        if (!brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET))
+        if (fish.isFollower())
         {
-            return true;
-        }
-        else
-        {
-            var livingEntity = brain.getMemory(MemoryModuleType.AVOID_TARGET).get();
-
-            if (livingEntity instanceof Player player)
-            {
-                return !brain.isMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER, player);
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    private static boolean isNearPlayerNotCrouching(AbstractSchoolingThievesFish<?> fish)
-    {
-        var brain = fish.getBrain();
-
-        if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER))
-        {
-            var player = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).get();
-            return !player.isCrouching() && fish.closerThan(player, 6.0);
-        }
-        else
-        {
-            return false;
+            fish.getLeader().removeFollower();
+            brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish, 1200));
+            brain.eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
         }
     }
 }

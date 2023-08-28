@@ -37,14 +37,14 @@ public class CreateFishFlock extends Behavior<AbstractSchoolingThievesFish>
             var nearestFish = optional.get().stream().filter(canFollow.and(notFollower).and(lineOfSight)).findAny();
             var leader = DataFixUtils.orElse(nearestFish, entity);
 
-            // Select trophy to be leader first, then adds non-trophy or trophy to follower list
+            // Select trophy to be leader first, then adds non-trophy or trophy to the follower list
             if (leader.isTrophy())
             {
                 leader.addThievesFishFollowers(optional.get().stream().filter(notFollower.and(hasFollowers.negate()).and(trophy.negate().or(trophy))));
             }
             else
             {
-                // If leader is not trophy, tries to find new leader as trophy then add non-trophy to follower list
+                // If leader is not trophy, tries to find a new leader as trophy then add non-trophy to the follower list
                 Supplier<Stream<AbstractSchoolingThievesFish>> supplier = () -> optional.get().stream().filter(notFollower.and(hasFollowers.negate()));
                 supplier.get().filter(trophy).findAny().ifPresentOrElse(fish -> fish.addThievesFishFollowers(supplier.get()), () -> leader.addThievesFishFollowers(supplier.get())); // if it can't find a leader, form a flock
             }
@@ -60,6 +60,11 @@ public class CreateFishFlock extends Behavior<AbstractSchoolingThievesFish>
 
     public static int nextStartTick(AbstractSchoolingThievesFish entity)
     {
-        return Mth.positiveCeilDiv(200 + entity.getRandom().nextInt(200) % 20, 2);
+        return nextStartTick(entity, 200);
+    }
+
+    public static int nextStartTick(AbstractSchoolingThievesFish entity, int nextTicks)
+    {
+        return Mth.positiveCeilDiv(nextTicks + entity.getRandom().nextInt(nextTicks) % 20, 2);
     }
 }
