@@ -57,6 +57,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             SensorType.HURT_BY,
             FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS,
             FOTSensorTypes.NEAREST_SHIPWRECK,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.WRECKER_ATTACKABLES
     );
     private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -68,6 +69,10 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
 
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
+
+            // Find Shipwreck AI
             FOTMemoryModuleTypes.NEAREST_SHIPWRECK,
 
             // Attackable AI

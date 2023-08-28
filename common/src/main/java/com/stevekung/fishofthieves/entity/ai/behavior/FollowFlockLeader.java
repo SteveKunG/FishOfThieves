@@ -69,15 +69,20 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     {
         var flockLeader = this.getFlockLeader(owner).get();
         var brain = owner.getBrain();
+        var closeDistance = 2;
         brain.setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(flockLeader, true));
 
-        if (owner.distanceToSqr(flockLeader) < 2)
+        if (owner.distanceToSqr(flockLeader) < closeDistance)
         {
             brain.eraseMemory(MemoryModuleType.WALK_TARGET);
         }
+        else if (owner.distanceToSqr(flockLeader) > 6)
+        {
+            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner) * 3.0f, closeDistance));
+        }
         else
         {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner), 2));
+            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner), closeDistance));
         }
     }
 }

@@ -57,6 +57,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             SensorType.HURT_BY,
             FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
             FOTSensorTypes.GRUBS_THIEVES_FISH_TEMPTATIONS,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.BATTLEGILL_ATTACKABLES
     );
     private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -67,6 +68,9 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
+
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
 
             // Attackable AI
             MemoryModuleType.NEAREST_ATTACKABLE,

@@ -56,6 +56,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             SensorType.HURT_BY,
             FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
             FOTSensorTypes.GRUBS_THIEVES_FISH_TEMPTATIONS,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.DEVILFISH_ATTACKABLES
     );
     private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -66,6 +67,9 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
+
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
 
             // Attackable AI
             MemoryModuleType.NEAREST_ATTACKABLE,

@@ -37,6 +37,7 @@ public interface FOTTags
         TagKey<Block> GRUBS_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("grubs_drops"));
         TagKey<Block> LEECHES_DROPS = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("leeches_drops"));
         TagKey<Block> EARTHWORMS_DROP_BLACKLIST = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("earthworms_drop_blacklist"));
+        TagKey<Block> FISH_REPELLENTS = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("fish_repellents"));
         TagKey<Block> FISH_PLAQUE = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("fish_plaque"));
         TagKey<Block> WOODEN_FISH_PLAQUE = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("wooden_fish_plaque"));
         TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registry.BLOCK_REGISTRY, FishOfThieves.res("iron_frame_fish_plaque"));

@@ -3,7 +3,9 @@ package com.stevekung.fishofthieves.entity;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public abstract class AbstractThievesFish<T extends FishData> extends AbstractFish implements ThievesFish<T>
@@ -38,6 +41,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             SensorType.HURT_BY
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -48,6 +52,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
+
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
 
             // Avoid Player AI
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
@@ -122,6 +129,19 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     {
         super.loadFromBucketTag(compound);
         this.loadFromBucket(compound);
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos blockPos, LevelReader level)
+    {
+        if (AbstractThievesFishAi.isPosNearNearestRepellent(this, blockPos))
+        {
+            return -1.0F;
+        }
+        else
+        {
+            return super.getWalkTargetValue(blockPos, level);
+        }
     }
 
     @Override

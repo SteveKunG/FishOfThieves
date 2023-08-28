@@ -26,7 +26,7 @@ public class CreateFishFlock extends Behavior<AbstractSchoolingThievesFish>
     {
         var optional = entity.getBrain().getMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH);
 
-        if (optional.isPresent() && !(entity.isFollower() || entity.hasFollowers()))
+        if (!(entity.isFollower() || entity.hasFollowers()) && optional.isPresent())
         {
             Predicate<AbstractSchoolingThievesFish> canFollow = AbstractSchoolingThievesFish::canBeFollowed;
             Predicate<AbstractSchoolingThievesFish> hasFollowers = AbstractSchoolingThievesFish::hasFollowers;

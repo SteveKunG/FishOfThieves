@@ -6,9 +6,11 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -31,6 +33,7 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public abstract class AbstractSchoolingThievesFish<T extends FishData> extends AbstractSchoolingFish implements ThievesFish<T>
@@ -44,6 +47,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             SensorType.HURT_BY
     );
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -54,6 +58,9 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
+
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
 
             // Avoid Player AI
             MemoryModuleType.NEAREST_VISIBLE_PLAYER,
@@ -277,6 +284,19 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     {
         super.loadFromBucketTag(compound);
         this.loadFromBucket(compound);
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos blockPos, LevelReader level)
+    {
+        if (AbstractThievesFishAi.isPosNearNearestRepellent(this, blockPos))
+        {
+            return -1.0F;
+        }
+        else
+        {
+            return super.getWalkTargetValue(blockPos, level);
+        }
     }
 
     @Override

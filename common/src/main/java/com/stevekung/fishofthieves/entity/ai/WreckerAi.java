@@ -59,6 +59,7 @@ public class WreckerAi
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, new RunSometimes<>(new SetEntityLookTarget(EntityType.PLAYER, 6.0F), UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(ImmutableList.of(
+                        Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.15F), 1),
                         Pair.of(new GoToClosestShipwreck(1.15f, 8), 2)))),
                 Pair.of(2, new StartAttacking<>(WreckerAi::findNearestValidAttackTarget)),

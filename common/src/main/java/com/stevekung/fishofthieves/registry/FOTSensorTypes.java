@@ -2,10 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
-import com.stevekung.fishofthieves.entity.ai.sensing.NearestSchoolingThievesFishSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.NearestShipwreckSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.NonCreativePlayerSensor;
-import com.stevekung.fishofthieves.entity.ai.sensing.FishAttackablesSensor;
+import com.stevekung.fishofthieves.entity.ai.sensing.*;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -23,6 +20,7 @@ public class FOTSensorTypes
     public static final SensorType<FishAttackablesSensor> WRECKER_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.WRECKER_ATTACKABLE)));
     public static final SensorType<NonCreativePlayerSensor> NON_CREATIVE_NEAREST_PLAYERS = new SensorType<>(NonCreativePlayerSensor::new);
     public static final SensorType<NearestSchoolingThievesFishSensor> NEAREST_SCHOOLING_THIEVES_FISH = new SensorType<>(NearestSchoolingThievesFishSensor::new);
+    public static final SensorType<MagmaBlockSensor> NEAREST_MAGMA_BLOCK = new SensorType<>(MagmaBlockSensor::new);
 
     public static void init()
     {
@@ -36,6 +34,7 @@ public class FOTSensorTypes
         register("wrecker_attackables", WRECKER_ATTACKABLES);
         register("non_creative_nearest_players", NON_CREATIVE_NEAREST_PLAYERS);
         register("nearest_schooling_thieves_fish", NEAREST_SCHOOLING_THIEVES_FISH);
+        register("nearest_magma_block", NEAREST_MAGMA_BLOCK);
     }
 
     private static <U extends Sensor<?>> void register(String key, SensorType<U> sensorType)
