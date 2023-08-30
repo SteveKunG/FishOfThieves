@@ -21,6 +21,7 @@ public class FOTSensorTypes
     public static final SensorType<NonCreativePlayerSensor> NON_CREATIVE_NEAREST_PLAYERS = new SensorType<>(NonCreativePlayerSensor::new);
     public static final SensorType<NearestSchoolingThievesFishSensor> NEAREST_SCHOOLING_THIEVES_FISH = new SensorType<>(NearestSchoolingThievesFishSensor::new);
     public static final SensorType<MagmaBlockSensor> NEAREST_MAGMA_BLOCK = new SensorType<>(MagmaBlockSensor::new);
+    public static final SensorType<LowBrightnessSensor> LOW_BRIGHTNESS = new SensorType<>(LowBrightnessSensor::new);
 
     public static void init()
     {
@@ -35,6 +36,7 @@ public class FOTSensorTypes
         register("non_creative_nearest_players", NON_CREATIVE_NEAREST_PLAYERS);
         register("nearest_schooling_thieves_fish", NEAREST_SCHOOLING_THIEVES_FISH);
         register("nearest_magma_block", NEAREST_MAGMA_BLOCK);
+        register("low_brightness", LOW_BRIGHTNESS);
     }
 
     private static <U extends Sensor<?>> void register(String key, SensorType<U> sensorType)
