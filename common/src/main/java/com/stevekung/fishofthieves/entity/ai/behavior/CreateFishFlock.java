@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
@@ -55,16 +56,16 @@ public class CreateFishFlock extends Behavior<AbstractSchoolingThievesFish>
     protected void stop(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
     {
         var brain = entity.getBrain();
-        brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, nextStartTick(entity));
+        brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, nextStartTick(entity.getRandom()));
     }
 
-    public static int nextStartTick(AbstractSchoolingThievesFish entity)
+    public static int nextStartTick(RandomSource randomSource)
     {
-        return nextStartTick(entity, 200);
+        return nextStartTick(randomSource, 200);
     }
 
-    public static int nextStartTick(AbstractSchoolingThievesFish entity, int nextTicks)
+    public static int nextStartTick(RandomSource randomSource, int nextTicks)
     {
-        return Mth.positiveCeilDiv(nextTicks + entity.getRandom().nextInt(nextTicks) % 20, 2);
+        return Mth.positiveCeilDiv(nextTicks + randomSource.nextInt(nextTicks) % 20, 2);
     }
 }

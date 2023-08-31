@@ -53,7 +53,8 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     @Override
     protected boolean canStillUse(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
     {
-        return this.getFlockLeader(entity).isPresent() && !entity.getBrain().hasMemoryValue(MemoryModuleType.IS_PANICKING) && !entity.getBrain().hasMemoryValue(MemoryModuleType.AVOID_TARGET);
+        var brain = entity.getBrain();
+        return this.getFlockLeader(entity).isPresent() && !brain.hasMemoryValue(MemoryModuleType.IS_PANICKING) && !brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) && !brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
     }
 
     @Override

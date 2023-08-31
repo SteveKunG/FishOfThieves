@@ -24,7 +24,7 @@ public class AbstractSchoolingThievesFishAi
     public static void initMemories(AbstractSchoolingThievesFish<?> fish)
     {
         fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
-        fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish));
+        fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom()));
     }
 
     public static void resetMemories(AbstractSchoolingThievesFish<?> fish)
@@ -118,7 +118,7 @@ public class AbstractSchoolingThievesFishAi
         if (fish.isFollower())
         {
             fish.getLeader().removeFollower();
-            brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish, 1200));
+            brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom(), 1200));
             brain.eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
         }
     }
