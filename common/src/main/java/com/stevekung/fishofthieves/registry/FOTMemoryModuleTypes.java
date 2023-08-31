@@ -21,6 +21,13 @@ public class FOTMemoryModuleTypes
     public static final MemoryModuleType<Integer> SCHOOL_SIZE = new MemoryModuleType<>(Optional.of(Codec.INT));
     @SuppressWarnings("rawtypes")
     public static final MemoryModuleType<AbstractSchoolingThievesFish> FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
+    public static final MemoryModuleType<Boolean> IS_FLOCK_LEADER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
+    public static final MemoryModuleType<Boolean> IS_FLOCK_FOLLOWER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
+    public static final MemoryModuleType<Boolean> MERGE_FROM_OTHER_FLOCK = new MemoryModuleType<>(Optional.of(Codec.BOOL));
+    @SuppressWarnings("rawtypes")
+    public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> FLOCK_FOLLOWERS = new MemoryModuleType<>(Optional.empty());
+    @SuppressWarnings("rawtypes")
+    public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> NEAREST_VISIBLE_FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<BlockPos> NEAREST_LOW_BRIGHTNESS = new MemoryModuleType<>(Optional.empty());
 
     public static void init()
@@ -31,6 +38,11 @@ public class FOTMemoryModuleTypes
         register("follow_flock_cooldown_ticks", FOLLOW_FLOCK_COOLDOWN_TICKS);
         register("school_size", SCHOOL_SIZE);
         register("flock_leader", FLOCK_LEADER);
+        register("is_flock_leader", IS_FLOCK_LEADER);
+        register("is_flock_follower", IS_FLOCK_FOLLOWER);
+        register("merge_from_other_flock", MERGE_FROM_OTHER_FLOCK);
+        register("flock_followers", FLOCK_FOLLOWERS);
+        register("nearest_visible_flock_leader", NEAREST_VISIBLE_FLOCK_LEADER);
         register("nearest_low_brightness", NEAREST_LOW_BRIGHTNESS);
     }
 
