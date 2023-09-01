@@ -8,13 +8,12 @@ import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.entity.debug.SchoolingFishDebug;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -96,54 +95,11 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
-    @Deprecated //TODO Remove debug
-    private static String color(boolean cond)
-    {
-        var color = cond ? ChatFormatting.GREEN : ChatFormatting.RED;
-        return color.toString() + cond;
-    }
-
     @Override
     public void tick()
     {
         super.tick();
-
-        //TODO Remove debug
-        if (!this.level.isClientSide())
-        {
-            var compo = Component.empty();
-            var text = "";
-
-            if (this.hasFollowers())
-            {
-                text += " hasFollowers: " + color(this.hasFollowers());
-                text += ChatFormatting.RESET;
-            }
-            if (this.isFollower())
-            {
-                text += " isFollower: " + color(this.isFollower());
-                text += ChatFormatting.RESET;
-            }
-
-            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE))
-            {
-                text += " schoolSize: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get();
-                text += ChatFormatting.RESET;
-            }
-
-            text += " uuid: " + this.getUUID().toString().split("-")[0];
-
-            if (this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_LEADER))
-            {
-                text += " leader: " + ChatFormatting.GOLD + this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).get().getUUID().toString().split("-")[0];
-                text += ChatFormatting.RESET;
-            }
-
-            compo = Component.literal(text);
-            this.setCustomNameVisible(true);
-            this.setCustomName(compo);
-        }
-        //TODO Remove debug
+        SchoolingFishDebug.tick(this);
 
         if (this.hasFollowers() && this.level.random.nextInt(200) == 1)
         {
