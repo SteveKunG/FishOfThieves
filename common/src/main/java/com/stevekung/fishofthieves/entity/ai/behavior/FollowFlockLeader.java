@@ -44,18 +44,18 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     {
         var brain = entity.getBrain();
 
-        if (entity.getLeader().getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) && entity.getLeader().getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get())
-        {
-            return false;
-        }
-        else if (brain.hasMemoryValue(MemoryModuleType.IS_PANICKING) || brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) || brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET))
+        if (brain.hasMemoryValue(MemoryModuleType.IS_PANICKING) || brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) || brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET))
         {
             return false;
         }
         else
         {
-            return entity.hasLeader();
+            if (entity.hasLeader())
+            {
+                return !entity.getLeader().getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) || !entity.getLeader().getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get();
+            }
         }
+        return false;
     }
 
     @Override

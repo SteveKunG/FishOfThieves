@@ -32,11 +32,11 @@ public class SchoolingFishDebug
 
             text += "schoolSize: " + ChatFormatting.GOLD + fish.getSchoolSize() + " ";
             text += ChatFormatting.RESET;
-            text += "uuid: " + fish.getUUID().toString().split("-")[0] + " ";
+            text += "uuid: " + fish.getUUID().toString().split("-")[0];
 
             if (fish.hasLeader())
             {
-                text += "leader: " + ChatFormatting.GOLD + fish.getLeader().getUUID().toString().split("-")[0];
+                text += " leader: " + ChatFormatting.GOLD + fish.getLeader().getUUID().toString().split("-")[0];
                 text += ChatFormatting.RESET;
             }
 
