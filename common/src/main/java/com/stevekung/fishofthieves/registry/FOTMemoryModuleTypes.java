@@ -4,10 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
@@ -48,6 +47,6 @@ public class FOTMemoryModuleTypes
 
     private static void register(String key, MemoryModuleType<?> type)
     {
-        Registry.register(Registry.MEMORY_MODULE_TYPE, FishOfThieves.res(key), type);
+        FOTPlatform.registerMemoryModuleType(key, type);
     }
 }

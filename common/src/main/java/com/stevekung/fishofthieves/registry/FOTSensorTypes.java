@@ -1,9 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.ai.sensing.*;
-import net.minecraft.core.Registry;
+import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
@@ -43,6 +42,6 @@ public class FOTSensorTypes
 
     private static <U extends Sensor<?>> void register(String key, SensorType<U> sensorType)
     {
-        Registry.register(Registry.SENSOR_TYPE, FishOfThieves.res(key), sensorType);
+        FOTPlatform.registerSensorType(key, sensorType);
     }
 }
