@@ -17,14 +17,15 @@ public class MergeOtherFlock extends Behavior<AbstractSchoolingThievesFish>
         super(ImmutableMap.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.SCHOOL_SIZE, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, MemoryStatus.VALUE_ABSENT));
     }
 
-    //TODO Fix sometime flock not merged properly, they are swapped between flock ;-;
+    //TODO Fix merge small leader to trophy leader if found
     @Override
     protected void start(ServerLevel level, AbstractSchoolingThievesFish owner, long gameTime)
     {
         var brain = owner.getBrain();
+        var mergedFromOtherFlock = brain.hasMemoryValue(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK) && brain.getMemory(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK).get();
         var optional = brain.getMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER);
 
-        if (owner.isLeader() && optional.isPresent())
+        if (owner.isLeader() && !mergedFromOtherFlock && optional.isPresent())
         {
             Predicate<AbstractSchoolingThievesFish> isFlockLeader = AbstractSchoolingThievesFish::isLeader;
             Predicate<AbstractSchoolingThievesFish> notMergeFromOtherFlock = follower -> !follower.getBrain().hasMemoryValue(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK);
@@ -44,37 +45,30 @@ public class MergeOtherFlock extends Behavior<AbstractSchoolingThievesFish>
 
                     flockFollowersFromOtherLeader.ifPresent(list -> list.stream().filter(notMergeFromOtherFlock).forEach(follower ->
                     {
-                        // follower set leader to this owner (executor)
-                        follower.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, owner);
-
-                        // set a flag when merged from the other flock
+                        // set a flag to follower that already merged from the other flock
                         follower.getBrain().setMemory(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, true);
-
-                        // increased owner (executor) school size by 1
+                        // set leader to this (executor)
+                        follower.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, owner);
+                        // increased this (executor) school size by 1
                         owner.addFollower();
-
-                        // decreased the nearest leader school size by 1
-                        nearestLeader.removeFollower(false);
-
-                        // check if the nearest leader has school size equals 1
-                        if (nearestLeader.getSchoolSize() == 1)
-                        {
-                            // set the nearest leader school size to 1
-                            nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
-
-                            // owner (executor) increases school size by 1
-                            owner.addFollower();
-
-                            // set leader to this (executor)
-                            nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, owner);
-
-                            // set a flag when merged from the other flock
-                            nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, true);
-
-                            // erase IS_FLOCK_LEADER memory
-                            nearestLeader.getBrain().eraseMemory(FOTMemoryModuleTypes.IS_FLOCK_LEADER);
-                        }
+                        // add a follower to this (executor)
+                        brain.getMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS).get().add(follower);
                     }));
+
+                    // reset other flock leader school size to 1
+                    nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
+                    // set new leader to this (executor)
+                    nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, owner);
+                    // set is follower flag
+                    nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER, true);
+                    // set a flag that already merged from the other flock
+                    nearestLeader.getBrain().setMemory(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, true);
+                    // increased this (executor) school size by 1
+                    owner.addFollower();
+                    // add a follower to this (executor)
+                    brain.getMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS).get().add(nearestLeader);
+                    // erase is flock leader memory
+                    nearestLeader.getBrain().eraseMemory(FOTMemoryModuleTypes.IS_FLOCK_LEADER);
                 }
             }
         }
