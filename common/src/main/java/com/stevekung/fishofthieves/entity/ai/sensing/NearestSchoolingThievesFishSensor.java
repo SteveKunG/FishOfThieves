@@ -24,8 +24,8 @@ public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingT
     protected void doTick(ServerLevel level, AbstractSchoolingThievesFish entity)
     {
         var brain = entity.getBrain();
-        Predicate<AbstractSchoolingThievesFish> predicate = fish -> fish.canBeFollowed() || !fish.isFollower();
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), predicate.and(AbstractSchoolingThievesFish::isAlive));
+        Predicate<AbstractSchoolingThievesFish> predicate = fish -> (fish.canBeFollowed() || !fish.isFollower()) && fish.isAlive();
+        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), predicate);
         list.sort(Comparator.comparingDouble(entity::distanceToSqr));
         brain.setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, list);
     }

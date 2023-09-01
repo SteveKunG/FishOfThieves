@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 import com.google.common.collect.ImmutableMap;
@@ -34,16 +33,6 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
         this.speedModifier = function;
     }
 
-    private float getSpeedModifier(AbstractSchoolingThievesFish entity)
-    {
-        return this.speedModifier.apply(entity);
-    }
-
-    private Optional<AbstractSchoolingThievesFish> getFlockLeader(AbstractSchoolingThievesFish entity)
-    {
-        return entity.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
-    }
-
     @Override
     protected boolean timedOut(long gameTime)
     {
@@ -54,7 +43,19 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     protected boolean canStillUse(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
     {
         var brain = entity.getBrain();
-        return this.getFlockLeader(entity).isPresent() && !brain.hasMemoryValue(MemoryModuleType.IS_PANICKING) && !brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) && !brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+
+        if (entity.getLeader().getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) && entity.getLeader().getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get())
+        {
+            return false;
+        }
+        else if (brain.hasMemoryValue(MemoryModuleType.IS_PANICKING) || brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET) || brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET))
+        {
+            return false;
+        }
+        else
+        {
+            return entity.hasLeader();
+        }
     }
 
     @Override
@@ -68,7 +69,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     @Override
     protected void tick(ServerLevel level, AbstractSchoolingThievesFish owner, long gameTime)
     {
-        var flockLeader = this.getFlockLeader(owner).get();
+        var flockLeader = owner.getLeader();
         var brain = owner.getBrain();
         var closeDistance = 2;
         brain.setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(flockLeader, true));
@@ -85,5 +86,10 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
         {
             brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner), closeDistance));
         }
+    }
+
+    private float getSpeedModifier(AbstractSchoolingThievesFish entity)
+    {
+        return this.speedModifier.apply(entity);
     }
 }
