@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -170,16 +170,25 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     }
 
     @SuppressWarnings("rawtypes")
-    public void addThievesFishFollowers(Stream<? extends AbstractSchoolingThievesFish> followers)
+    public void addThievesFishFollowers(Stream<AbstractSchoolingThievesFish> followers)
     {
-        var list = Lists.<AbstractSchoolingThievesFish>newArrayList();
+        var list = followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
+        var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
 
-        followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).forEach(fish ->
+        list.forEach(fish ->
         {
             fish.startFollowingThievesFish(this);
-            list.add(fish);
+
+            if (hasFlockFollowerMem)
+            {
+                this.getFlockFollowers().add(fish);
+            }
         });
-        this.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS, list);
+
+        if (!list.isEmpty() && !hasFlockFollowerMem)
+        {
+            this.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS, list);
+        }
     }
 
     public boolean hasLeader()
