@@ -22,7 +22,7 @@ public class NearestFlockLeaderSensor extends Sensor<AbstractSchoolingThievesFis
     @Override
     protected void doTick(ServerLevel level, AbstractSchoolingThievesFish entity)
     {
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), fish -> fish.hasFollowers() && fish.isAlive());
+        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), fish -> fish.isLeader() && fish.isAlive());
         list.sort(Comparator.comparingDouble(entity::distanceToSqr));
         entity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, list);
     }

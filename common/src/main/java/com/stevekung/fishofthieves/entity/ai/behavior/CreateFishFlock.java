@@ -27,27 +27,27 @@ public class CreateFishFlock extends Behavior<AbstractSchoolingThievesFish>
     {
         var optional = entity.getBrain().getMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH);
 
-        if (!(entity.isFollower() || entity.hasFollowers()) && optional.isPresent())
+        if (!(entity.isFollower() || entity.isLeader()) && optional.isPresent())
         {
-            Predicate<AbstractSchoolingThievesFish> canFollow = AbstractSchoolingThievesFish::canBeFollowed;
-            Predicate<AbstractSchoolingThievesFish> hasFollowers = AbstractSchoolingThievesFish::hasFollowers;
+            Predicate<AbstractSchoolingThievesFish> canBeFollowed = AbstractSchoolingThievesFish::canBeFollowed;
+            Predicate<AbstractSchoolingThievesFish> hasNoFollowers = Predicate.not(AbstractSchoolingThievesFish::hasFollowers);
             Predicate<AbstractSchoolingThievesFish> notFollower = Predicate.not(AbstractSchoolingThievesFish::isFollower);
             Predicate<AbstractSchoolingThievesFish> lineOfSight = entity::hasLineOfSight;
             Predicate<AbstractSchoolingThievesFish> trophy = AbstractSchoolingThievesFish::isTrophy;
             Predicate<AbstractSchoolingThievesFish> noCooldown = fish -> !fish.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS);
 
-            var nearestFish = optional.get().stream().filter(lineOfSight.and(canFollow).and(notFollower)).findAny();
+            var nearestFish = optional.get().stream().filter(lineOfSight.and(canBeFollowed).and(notFollower)).findAny();
             var leader = DataFixUtils.orElse(nearestFish, entity);
 
             // Select trophy to be leader first, then adds non-trophy or trophy to the follower list
             if (leader.isTrophy())
             {
-                leader.addThievesFishFollowers(optional.get().stream().filter(fish -> leader.getType() == fish.getType()).filter(lineOfSight.and(notFollower).and(hasFollowers.negate()).and(noCooldown).and(trophy.negate().or(trophy))));
+                leader.addThievesFishFollowers(optional.get().stream().filter(fish -> leader.getType() == fish.getType()).filter(lineOfSight.and(notFollower).and(hasNoFollowers).and(noCooldown).and(trophy.negate().or(trophy))));
             }
             else
             {
                 // If leader is not trophy, tries to find a new leader as trophy then add non-trophy to the follower list
-                Supplier<Stream<AbstractSchoolingThievesFish>> supplier = () -> optional.get().stream().filter(lineOfSight.and(notFollower).and(hasFollowers.negate()));
+                Supplier<Stream<AbstractSchoolingThievesFish>> supplier = () -> optional.get().stream().filter(lineOfSight.and(notFollower).and(hasNoFollowers));
                 supplier.get().filter(trophy).findAny().ifPresentOrElse(fish -> fish.addThievesFishFollowers(supplier.get().filter(noCooldown).filter(fishx -> fish.getType() == fishx.getType())), () -> leader.addThievesFishFollowers(supplier.get().filter(noCooldown).filter(fish -> leader.getType() == fish.getType()))); // if it can't find a leader, form a flock
             }
         }

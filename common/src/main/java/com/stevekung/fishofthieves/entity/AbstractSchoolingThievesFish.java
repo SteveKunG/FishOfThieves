@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.commons.compress.utils.Lists;
@@ -101,16 +102,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         super.tick();
         SchoolingFishDebug.tick(this);
 
-        if (this.hasFollowers() && this.level.random.nextInt(200) == 1)
-        {
-            var list = this.level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(16));
-
-            if (list.size() <= 1)
-            {
-                AbstractSchoolingThievesFishAi.resetMemories(this);
-            }
-        }
-        if (this.hasLeader() && !this.getLeader().isAlive())
+        if (this.isFollower() && this.hasLeader() && !this.getLeader().isAlive())
         {
             AbstractSchoolingThievesFishAi.resetMemories(this);
         }
@@ -135,7 +127,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Override
     public boolean isFollower()
     {
-        return this.hasLeader() && this.getLeader().isAlive();
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER) && this.getBrain().getMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER).get();
     }
 
     @Override
@@ -148,18 +140,24 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Override
     public boolean canBeFollowed()
     {
-        return this.hasFollowers() && this.getSchoolSize() < this.getMaxSchoolSize();
+        return this.isLeader() && this.getSchoolSize() < this.getMaxSchoolSize();
     }
 
     @Override
     public boolean hasFollowers()
     {
-        return this.isFlockLeader() && this.getSchoolSize() > 1;
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS) && !this.getFlockFollowers().isEmpty() && this.getSchoolSize() > 1;
     }
 
-    public boolean isFlockLeader()
+    public boolean isLeader()
     {
-        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_FLOCK_LEADER);
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_FLOCK_LEADER) && this.getBrain().getMemory(FOTMemoryModuleTypes.IS_FLOCK_LEADER).get();
+    }
+
+    @SuppressWarnings("rawtypes")
+    public List<AbstractSchoolingThievesFish> getFlockFollowers()
+    {
+        return this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS).get();
     }
 
     @SuppressWarnings("rawtypes")
