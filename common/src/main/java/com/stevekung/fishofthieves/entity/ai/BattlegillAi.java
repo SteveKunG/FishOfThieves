@@ -67,7 +67,7 @@ public class BattlegillAi
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
                         Pair.of(new CreateFishFlock(), 2),
-                        Pair.of(new FollowFlockLeader(livingEntity -> 1.25f), 3)))),
+                        Pair.of(new FollowFlockLeader(1.25f), 3)))),
                 Pair.of(2, new StartAttackingIgnoreFlockLeader<>(BattlegillAi::findNearestValidAttackTarget)),
                 Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(new RandomSwim(1.0F), 2),

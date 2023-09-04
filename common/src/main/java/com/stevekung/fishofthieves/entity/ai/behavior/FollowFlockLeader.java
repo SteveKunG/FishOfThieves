@@ -1,13 +1,10 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
-import java.util.function.Function;
-
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -17,9 +14,9 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 @SuppressWarnings("rawtypes")
 public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
 {
-    private final Function<LivingEntity, Float> speedModifier;
+    private final float speedModifier;
 
-    public FollowFlockLeader(Function<LivingEntity, Float> function)
+    public FollowFlockLeader(float speedModifier)
     {
         super(Util.make(() ->
         {
@@ -30,7 +27,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
             builder.put(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT);
             return builder.build();
         }));
-        this.speedModifier = function;
+        this.speedModifier = speedModifier;
     }
 
     @Override
@@ -52,18 +49,11 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
         {
             if (entity.hasLeader())
             {
-                return !entity.getLeader().getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) || !entity.getLeader().getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get();
+                var leader = entity.getLeader();
+                return entity.hasLineOfSight(leader) && (!leader.getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) || !leader.getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get());
             }
         }
         return false;
-    }
-
-    @Override
-    protected void stop(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
-    {
-        var brain = entity.getBrain();
-        brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-        brain.eraseMemory(MemoryModuleType.LOOK_TARGET);
     }
 
     @Override
@@ -80,16 +70,11 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
         }
         else if (owner.distanceToSqr(flockLeader) > 6)
         {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner) * 3.0f, closeDistance));
+            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.speedModifier * 3.0f, closeDistance));
         }
         else
         {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.getSpeedModifier(owner), closeDistance));
+            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(flockLeader, false), this.speedModifier, closeDistance));
         }
-    }
-
-    private float getSpeedModifier(AbstractSchoolingThievesFish entity)
-    {
-        return this.speedModifier.apply(entity);
     }
 }
