@@ -100,11 +100,10 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
 
     private void setDancing(boolean dancing)
     {
-        if (this.level.isClientSide)
+        if (!this.level.isClientSide())
         {
-            return;
+            this.entityData.set(DATA_DANCING, dancing);
         }
-        this.entityData.set(DATA_DANCING, dancing);
     }
 
     private boolean shouldStopDancing()

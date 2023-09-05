@@ -4,10 +4,10 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
+import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
@@ -49,16 +49,16 @@ public class FOTItems
     public static final Item WRECKER_BUCKET = new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Wrecker.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
     public static final Item STORMFISH_BUCKET = new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Stormfish.DATA_FIX_MAP, new Item.Properties().stacksTo(1).tab(FishOfThieves.FOT_TAB));
 
-    public static final Item SPLASHTAIL_SPAWN_EGG = new SpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item PONDIE_SPAWN_EGG = new SpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item ISLEHOPPER_SPAWN_EGG = new SpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item ANCIENTSCALE_SPAWN_EGG = new SpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item PLENTIFIN_SPAWN_EGG = new SpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item WILDSPLASH_SPAWN_EGG = new SpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item DEVILFISH_SPAWN_EGG = new SpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item BATTLEGILL_SPAWN_EGG = new SpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item WRECKER_SPAWN_EGG = new SpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties().tab(FishOfThieves.FOT_TAB));
-    public static final Item STORMFISH_SPAWN_EGG = new SpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item SPLASHTAIL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item PONDIE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item ISLEHOPPER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item ANCIENTSCALE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item PLENTIFIN_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item WILDSPLASH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item DEVILFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item BATTLEGILL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item WRECKER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties().tab(FishOfThieves.FOT_TAB));
+    public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties().tab(FishOfThieves.FOT_TAB));
 
     public static void init()
     {
