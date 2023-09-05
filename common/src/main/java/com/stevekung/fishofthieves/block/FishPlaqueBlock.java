@@ -126,7 +126,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             level.levelEvent(player, 3004, pos, 0);
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
                             itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
-                            return InteractionResult.sidedSuccess(level.isClientSide);
+                            return InteractionResult.sidedSuccess(level.isClientSide());
                         }
                     }
                     else
@@ -147,7 +147,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             }
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
                             level.levelEvent(player, 3003, pos, 0);
-                            return InteractionResult.sidedSuccess(level.isClientSide);
+                            return InteractionResult.sidedSuccess(level.isClientSide());
                         }
                         level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
@@ -155,7 +155,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
                     }
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.sidedSuccess(level.isClientSide());
             }
 
             if (item instanceof MobBucketItem bucket)
@@ -182,11 +182,11 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 {
                     player.setItemInHand(hand, new ItemStack(interactItem));
                 }
-                if (!level.isClientSide)
+                if (!level.isClientSide())
                 {
                     player.awardStat(Stats.ITEM_USED.get(item));
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
         return InteractionResult.PASS;
@@ -254,7 +254,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
 
-        if (!level.isClientSide)
+        if (!level.isClientSide())
         {
             this.spawnFish(state, level, pos, blockEntity);
         }
