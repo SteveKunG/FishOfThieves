@@ -18,6 +18,7 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "掉落和拾取鱼符合对应变种",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "所有鱼会掉落对应变种的物品。",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "拾取时，会对应鱼桶的变种，也会影响战利品表。",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Display trophy and non-trophy fish spawn egg in Creative Tab.",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing": "海驿分布",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing.@Tooltip[0]": "海驿之间的平均生成距离。",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing.@Tooltip[1]": "更小的值 = 更接近。",

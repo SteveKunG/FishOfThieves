@@ -18,6 +18,7 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "ดรอปและเก็บปลาด้วยพันธุ์ปลา",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "ปลาทุกตัวจะดรอปไอเท็มพร้อมกับพันธุ์ปลา",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "เมื่อหยิบขึ้นมาจะมีผลกับถังและมีผลกับ Loot Table ด้วย",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "แสดงไข่เกิดปลาใหญ่ยักษ์และปลาตัวเล็กในแท็บสร้างสรรค์",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing": "ระยะห่างของ Seapost",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing.@Tooltip[0]": "ระยะทางเฉลี่ยระหว่างการเกิดของ Seapost",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing.@Tooltip[1]": "ค่ายิ่งต่ำ = ใกล้มากขึ้น",
