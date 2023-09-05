@@ -18,6 +18,7 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "Сохранять вариант рыбы после её гибели",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "Со всех рыб будет выпадать именно их вариант.",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "Применяется также к таблицам лута и при поимке ведром.",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Display Trophy Spawn Egg in Creative Tab",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Display trophy and non-trophy fish spawn egg in Creative Tab.",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing": "Разнесённость факторий",
   "text.autoconfig.fishofthieves.option.general.seapostSpacing.@Tooltip[0]": "Среднее расстоние между факториями.",
