@@ -5,13 +5,11 @@ import java.util.function.Predicate;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.world.level.block.Blocks;
 
-public class CreateFlockTestSuite implements FabricGameTest
+public class CreateFlockTestSuite implements FOTGameTest
 {
     @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
     public void fiveNonTrophyTest(GameTestHelper helper)
@@ -190,28 +188,5 @@ public class CreateFlockTestSuite implements FabricGameTest
                 helper.fail("Trophy follower should have 3 and Non-trophy follower should have only one!, got trophyFollowerCount:" + trophyFollowerCount + " and nonTrophyFollowerCount: " + nonTrophyFollowerCount);
             }
         }));
-    }
-
-    private void createFishTank(GameTestHelper helper)
-    {
-        var relative = 0;
-        var size = 8;
-
-        for (var x = relative; x < size; x++)
-        {
-            for (var y = 1; y < size; y++)
-            {
-                for (var z = relative; z < size; z++)
-                {
-                    if (x == relative || x == size - 1 || z == relative || z == size - 1)
-                    {
-                        helper.setBlock(new BlockPos(x, y, z), Blocks.GLASS.defaultBlockState());
-                        continue;
-                    }
-                    helper.setBlock(new BlockPos(x, 0, z), Blocks.GLASS.defaultBlockState());
-                    helper.setBlock(new BlockPos(x, y, z), Blocks.WATER.defaultBlockState());
-                }
-            }
-        }
     }
 }
