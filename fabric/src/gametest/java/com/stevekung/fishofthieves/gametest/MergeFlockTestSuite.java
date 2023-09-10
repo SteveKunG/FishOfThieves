@@ -27,7 +27,7 @@ public class MergeFlockTestSuite implements FOTGameTest
         this.removeTintedGlass(helper);
         var list = helper.getEntities(FOTEntities.PLENTIFIN, blockPos, 8.0d);
 
-        helper.runAtTickTime(300, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(300, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -36,9 +36,9 @@ public class MergeFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
+        });
 
-        helper.runAtTickTime(380, () -> helper.failIf(() ->
+        helper.runAtTickTime(380, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -51,7 +51,7 @@ public class MergeFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Followers should have 7 per flock!, got " + followerCount + " instead");
             }
-        }));
+        });
     }
 
     @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 400)
@@ -77,7 +77,7 @@ public class MergeFlockTestSuite implements FOTGameTest
         this.removeTintedGlass(helper);
         var list = helper.getEntities(FOTEntities.PLENTIFIN, blockPos, 8.0d);
 
-        helper.runAtTickTime(300, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(300, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -86,9 +86,9 @@ public class MergeFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
+        });
 
-        helper.runAtTickTime(380, () -> helper.failIf(() ->
+        helper.runAtTickTime(380, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -101,7 +101,7 @@ public class MergeFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Followers should have 7 per flock!, got " + followerCount + " instead");
             }
-        }));
+        });
     }
 
     @Override

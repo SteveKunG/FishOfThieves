@@ -25,7 +25,7 @@ public class CreateFlockTestSuite implements FOTGameTest
 
         var list = helper.getEntities(FOTEntities.SPLASHTAIL, blockPos, 8.0d);
 
-        helper.runAtTickTime(150, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(150, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -34,9 +34,8 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
-
-        helper.runAtTickTime(200, () -> helper.failIf(() ->
+        });
+        helper.runAtTickTime(200, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).count();
@@ -49,7 +48,7 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Followers should have 4 per flock!, got " + followerCount + " instead");
             }
-        }));
+        });
     }
 
     @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
@@ -67,7 +66,7 @@ public class CreateFlockTestSuite implements FOTGameTest
 
         var list = helper.getEntities(FOTEntities.SPLASHTAIL, blockPos, 8.0d);
 
-        helper.runAtTickTime(150, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(150, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(AbstractSchoolingThievesFish::isTrophy).count();
@@ -76,9 +75,9 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
+        });
 
-        helper.runAtTickTime(200, () -> helper.failIf(() ->
+        helper.runAtTickTime(200, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(AbstractSchoolingThievesFish::isTrophy).count();
@@ -91,7 +90,7 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Followers should have 4 per flock!, got " + followerCount + " instead");
             }
-        }));
+        });
     }
 
     @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
@@ -114,7 +113,7 @@ public class CreateFlockTestSuite implements FOTGameTest
 
         var list = helper.getEntities(FOTEntities.SPLASHTAIL, blockPos, 8.0d);
 
-        helper.runAtTickTime(150, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(150, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var followerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(Predicate.not(AbstractSchoolingThievesFish::isTrophy)).count();
@@ -123,13 +122,17 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
+        });
 
-        helper.runAtTickTime(200, () -> helper.failIf(() ->
+        helper.runAtTickTime(200, () ->
         {
             var leader = list.stream().filter(AbstractSchoolingThievesFish::isLeader).toList();
             var follower = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(Predicate.not(AbstractSchoolingThievesFish::isTrophy));
 
+            if (leader.isEmpty())
+            {
+                helper.fail("Leader is not found! Is it dead? :(");
+            }
             if (!leader.get(0).isTrophy())
             {
                 helper.fail("Leader is not trophy!");
@@ -138,7 +141,7 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Follower should not be a leader!");
             }
-        }));
+        });
     }
 
     @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
@@ -161,7 +164,7 @@ public class CreateFlockTestSuite implements FOTGameTest
 
         var list = helper.getEntities(FOTEntities.SPLASHTAIL, blockPos, 8.0d);
 
-        helper.runAtTickTime(150, () -> helper.succeedIf(() ->
+        helper.runAtTickTime(150, () ->
         {
             var leaderCount = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var trophyFollowerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(AbstractSchoolingThievesFish::isTrophy).count();
@@ -171,14 +174,18 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.succeed();
             }
-        }));
+        });
 
-        helper.runAtTickTime(200, () -> helper.failIf(() ->
+        helper.runAtTickTime(200, () ->
         {
             var leader = list.stream().filter(AbstractSchoolingThievesFish::isLeader).filter(AbstractSchoolingThievesFish::isTrophy).toList();
             var trophyFollowerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(AbstractSchoolingThievesFish::isTrophy).count();
             var nonTrophyFollowerCount = list.stream().filter(AbstractSchoolingThievesFish::isFollower).filter(Predicate.not(AbstractSchoolingThievesFish::isTrophy)).count();
 
+            if (leader.isEmpty())
+            {
+                helper.fail("Leader is not found! Is it dead? :(");
+            }
             if (!leader.get(0).isTrophy())
             {
                 helper.fail("Leader is not trophy!");
@@ -187,6 +194,6 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Trophy follower should have 3 and Non-trophy follower should have only one!, got trophyFollowerCount:" + trophyFollowerCount + " and nonTrophyFollowerCount: " + nonTrophyFollowerCount);
             }
-        }));
+        });
     }
 }
