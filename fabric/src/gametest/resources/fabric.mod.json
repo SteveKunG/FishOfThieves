@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "fishofthieves-gametest",
+  "version": "${version}",
+  "name": "Fish of Thieves Game Test",
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.stevekung.fishofthieves.gametest.CreateFlockTestSuite"
+    ]
+  },
+  "depends": {
+    "fishofthieves": "*"
+  }
+}

@@ -3,6 +3,13 @@ architectury {
     fabric()
 }
 
+sourceSets {
+    gametest {
+        runtimeClasspath += main.runtimeClasspath + main.output
+        compileClasspath += main.compileClasspath + main.output
+    }
+}
+
 loom {
     def commonVmArgs = [
             "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
@@ -24,6 +31,17 @@ loom {
         server {
             properties commonProperties
             vmArgs commonVmArgs
+        }
+        gametest {
+            if (project.hasProperty("username") && project.hasProperty("uuid")) {
+                programArgs "--username=${username}", "--uuid=${uuid}"
+            }
+            client()
+            name "Game Test Client"
+            source sourceSets.gametest
+            properties commonProperties
+            vmArgs commonVmArgs
+            vmArg "-Dfabric-api.gametest"
         }
         datagen {
             server()
@@ -74,20 +92,21 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
+def devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-    exclude("architectury.common.json")
+    excludes = devExcludes
 }
 
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
-    exclude("architectury.common.json")
+    excludes = devExcludes
 }
 
 tasks.register("apiJar", Jar) {
