@@ -10,6 +10,7 @@ loom {
             "-XX:HotswapAgent=fatjar",
             "-XX:+IgnoreUnrecognizedVMOptions"
     ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
     runs {
@@ -17,14 +18,12 @@ loom {
             if (project.hasProperty("username") && project.hasProperty("uuid")) {
                 programArgs "--username=${username}", "--uuid=${uuid}"
             }
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
-            vmArgs(commonVmArgs)
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         server {
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
-            vmArgs(commonVmArgs)
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         datagen {
             server()
@@ -50,7 +49,7 @@ configurations {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modApi("maven.modrinth:modmenu:${modmenu_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"

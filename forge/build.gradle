@@ -10,6 +10,7 @@ loom {
             "-XX:HotswapAgent=fatjar",
             "-XX:+IgnoreUnrecognizedVMOptions"
     ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
 
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
@@ -24,14 +25,12 @@ loom {
             if (project.hasProperty("username") && project.hasProperty("uuid")) {
                 programArgs "--username=${username}", "--uuid=${uuid}"
             }
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
-            vmArgs(commonVmArgs)
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         server {
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
-            vmArgs(commonVmArgs)
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         data {
             forgeTemplate("data")
