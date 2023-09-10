@@ -88,14 +88,14 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
-def fabricExcludes = [".cache", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+def commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-    excludes = fabricExcludes
+    excludes = commonExcludes
 }
 
 sourcesJar {
@@ -104,7 +104,7 @@ sourcesJar {
     commonSources.exclude ".cache"
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
     from commonSources.archiveFile.map { zipTree(it) }
-    excludes = fabricExcludes
+    excludes = commonExcludes
 }
 
 tasks.register("apiJar", Jar) {
