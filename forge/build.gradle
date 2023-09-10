@@ -4,6 +4,13 @@ architectury {
 }
 
 loom {
+    def commonVmArgs = [
+            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-XX:HotswapAgent=fatjar",
+            "-XX:+IgnoreUnrecognizedVMOptions"
+    ]
+
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
 
@@ -19,6 +26,12 @@ loom {
             }
             property "mixin.debug.export", "true"
             property "mixin.hotSwap", "true"
+            vmArgs(commonVmArgs)
+        }
+        server {
+            property "mixin.debug.export", "true"
+            property "mixin.hotSwap", "true"
+            vmArgs(commonVmArgs)
         }
         data {
             forgeTemplate("data")
