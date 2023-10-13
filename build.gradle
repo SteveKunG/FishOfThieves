@@ -26,7 +26,7 @@ subprojects {
     }
 
     vineflower {
-        toolVersion = "1.9.2"
+        toolVersion = "1.9.3"
     }
 
     repositories {
