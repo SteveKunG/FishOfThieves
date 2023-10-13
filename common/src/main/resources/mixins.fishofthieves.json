@@ -14,9 +14,6 @@
     "client.renderer.entity.MixinVanillaFishesRenderer"
   ],
   "mixins": [
-    "MixinAbstractSchoolingFish",
-    "MixinFollowFlockLeaderGoal",
-    "AbstractSchoolingFishAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "animal.MixinCat",

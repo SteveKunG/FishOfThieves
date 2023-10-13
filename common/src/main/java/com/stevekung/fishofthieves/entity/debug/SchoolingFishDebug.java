@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 
 public class SchoolingFishDebug
 {
-    public static final boolean ENABLE = true;
+    public static final boolean ENABLE = false;
 
     public static void tick(AbstractSchoolingThievesFish<?> fish)
     {
