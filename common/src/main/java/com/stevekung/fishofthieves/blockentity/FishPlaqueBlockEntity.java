@@ -17,6 +17,9 @@ import net.minecraft.world.level.block.state.BlockState;
 public class FishPlaqueBlockEntity extends BlockEntity
 {
     public static final String PLAQUE_DATA_TAG = "PlaqueData";
+    public static final String WAXED_TAG = "Waxed";
+
+    private boolean waxed;
 
     @Nullable
     private Entity displayEntity;
@@ -33,12 +36,12 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public void load(CompoundTag tag)
     {
         super.load(tag);
-        var plaqueData = tag.getCompound(PLAQUE_DATA_TAG);
 
-        if (plaqueData != null)
+        if (tag.contains(PLAQUE_DATA_TAG, Tag.TAG_COMPOUND))
         {
-            this.setPlaqueData(plaqueData);
+            this.setPlaqueData(tag.getCompound(PLAQUE_DATA_TAG));
         }
+        this.waxed = tag.getBoolean(WAXED_TAG);
         this.displayEntity = null;
     }
 
@@ -51,6 +54,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
         {
             tag.put(PLAQUE_DATA_TAG, this.plaqueData);
         }
+        tag.putBoolean(WAXED_TAG, this.waxed);
     }
 
     @Override
@@ -86,6 +90,16 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public boolean hasPlaqueData()
     {
         return this.plaqueData != null && this.plaqueData.contains("id", Tag.TAG_STRING);
+    }
+
+    public void setWaxed(boolean waxed)
+    {
+        this.waxed = waxed;
+    }
+
+    public boolean isWaxed()
+    {
+        return this.waxed;
     }
 
     public String getEntityKeyFromPlaqueData()

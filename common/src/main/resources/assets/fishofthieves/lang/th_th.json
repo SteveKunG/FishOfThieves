@@ -18,6 +18,8 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "ดรอปและเก็บปลาด้วยพันธุ์ปลา",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "ปลาทุกตัวจะดรอปไอเท็มพร้อมกับพันธุ์ปลา",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "เมื่อหยิบขึ้นมาจะมีผลกับถังและมีผลกับ Loot Table ด้วย",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "แสดงไข่เกิดปลาใหญ่ยักษ์ในแท็บสร้างสรรค์",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "แสดงไข่เกิดปลาใหญ่ยักษ์และปลาตัวเล็กในแท็บสร้างสรรค์",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "ค่าความน่าจะเป็นของปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "โอกาสที่จะเกิดขนาดปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "ความน่าจะเป็นของพันธุ์ปลาต่าง ๆ",

@@ -18,6 +18,8 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "掉落和拾取鱼符合对应变种",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "所有鱼会掉落对应变种的物品。",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "拾取时，会对应鱼桶的变种，也会影响战利品表。",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Display Trophy Spawn Egg in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Display trophy and non-trophy fish spawn egg in Creative Tab.",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "奖杯鱼概率",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "生成奖杯鱼的概率。",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "鱼类变种概率",

@@ -18,6 +18,8 @@
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant": "Drop and Pick fishes with variant",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[0]": "All fish will drop item with their variant.",
   "text.autoconfig.fishofthieves.option.general.dropAndPickFishesWithVariant.@Tooltip[1]": "When picked up will applies to bucket and it also applies to loot tables.",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Display Trophy Spawn Egg in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Display trophy and non-trophy fish spawn egg in Creative Tab.",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Trophy Probability",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "Chance to spawn Trophy fish size.",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "Fish Variants Probability",

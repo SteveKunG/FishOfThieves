@@ -1,7 +1,11 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,10 +19,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public abstract class AbstractThievesFish<T extends FishData> extends AbstractFish implements ThievesFish<T>
@@ -27,11 +37,48 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
+    //@formatter:off
+    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES,
+            FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
+            FOTSensorTypes.NEAREST_MAGMA_BLOCK,
+            SensorType.HURT_BY
+    );
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+            // Common AI
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.NEAREST_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.PATH,
+
+            // Avoid Repellent AI
+            MemoryModuleType.NEAREST_REPELLENT,
+
+            // Avoid Player AI
+            MemoryModuleType.NEAREST_VISIBLE_PLAYER,
+            MemoryModuleType.AVOID_TARGET,
+
+            // Tempting AI
+            MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
+            MemoryModuleType.IS_TEMPTED,
+            MemoryModuleType.TEMPTING_PLAYER,
+            MemoryModuleType.BREED_TARGET,
+            MemoryModuleType.IS_PANICKING
+    );
+    //@formatter:on
+
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
+
+    @Override
+    protected void registerGoals() {}
 
     @Override
     protected void defineSynchedData()
@@ -85,18 +132,31 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     }
 
     @Override
+    public float getWalkTargetValue(BlockPos blockPos, LevelReader level)
+    {
+        if (AbstractThievesFishAi.isPosNearNearestRepellent(this, blockPos))
+        {
+            return -1.0F;
+        }
+        else
+        {
+            return super.getWalkTargetValue(blockPos, level);
+        }
+    }
+
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand)
     {
         var itemStack = player.getItemInHand(hand);
 
         if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed())
         {
-            if (!this.level.isClientSide)
+            if (!this.level.isClientSide())
             {
                 this.growUp(player, itemStack);
             }
             this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level.isClientSide());
         }
         return super.mobInteract(player, hand);
     }
