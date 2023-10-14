@@ -5,14 +5,12 @@ import java.util.List;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
-import com.stevekung.fishofthieves.registry.FOTLootTables;
-import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -160,6 +158,11 @@ public class FOTLootManager
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))));
         //@formatter:on
+    }
+
+    public static LootPool.Builder getOceanRuinsArchaeologyLoot(LootPool.Builder builder)
+    {
+        return builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE));
     }
 
     public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder)

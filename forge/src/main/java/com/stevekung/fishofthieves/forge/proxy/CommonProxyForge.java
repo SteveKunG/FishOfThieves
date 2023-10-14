@@ -94,6 +94,11 @@ public class CommonProxyForge
         {
             table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
         }
+        // Archaeology
+        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
+        {
+            injectLoot(table, FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool()).entries);
+        }
     }
 
     @SubscribeEvent
