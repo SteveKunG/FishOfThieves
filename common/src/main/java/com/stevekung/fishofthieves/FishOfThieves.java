@@ -89,6 +89,7 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
 
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
+        PotionBrewing.addMix(Potions.AWKWARD, FOTItems.ISLEHOPPER, Potions.WATER_BREATHING);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
