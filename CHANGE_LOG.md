@@ -1,4 +1,3 @@
 # Change Log
 
-* [Technical] Clean up Access Wideners/Access Transformers
-* Fix `CriteriaTriggers.register` crash, Fixes #34
+* Move addFishSpawn for structures to NaturalSpawner class, closes #36

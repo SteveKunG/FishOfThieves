@@ -37,6 +37,7 @@ public interface FOTTags
         TagKey<Block> GRUBS_DROPS = TagKey.create(Registries.BLOCK, FishOfThieves.res("grubs_drops"));
         TagKey<Block> LEECHES_DROPS = TagKey.create(Registries.BLOCK, FishOfThieves.res("leeches_drops"));
         TagKey<Block> EARTHWORMS_DROP_BLACKLIST = TagKey.create(Registries.BLOCK, FishOfThieves.res("earthworms_drop_blacklist"));
+        TagKey<Block> FISH_REPELLENTS = TagKey.create(Registries.BLOCK, FishOfThieves.res("fish_repellents"));
         TagKey<Block> FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.res("fish_plaque"));
         TagKey<Block> WOODEN_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.res("wooden_fish_plaque"));
         TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.res("iron_frame_fish_plaque"));
@@ -49,6 +50,9 @@ public interface FOTTags
         TagKey<EntityType<?>> THIEVES_FISH_ENTITY_TYPE = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("thieves_fish"));
         TagKey<EntityType<?>> FISH_BONE_DROP = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("fish_bone_drop"));
         TagKey<EntityType<?>> HORIZONTAL_MOB_RENDER = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("horizontal_mob_render"));
+        TagKey<EntityType<?>> BATTLEGILL_ATTACKABLE = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("battlegill_attackable"));
+        TagKey<EntityType<?>> DEVILFISH_ATTACKABLE = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("devilfish_attackable"));
+        TagKey<EntityType<?>> WRECKER_ATTACKABLE = TagKey.create(Registries.ENTITY_TYPE, FishOfThieves.res("wrecker_attackable"));
     }
 
     interface Structures

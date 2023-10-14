@@ -4,6 +4,14 @@ architectury {
 }
 
 loom {
+    def commonVmArgs = [
+            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-XX:HotswapAgent=fatjar",
+            "-XX:+IgnoreUnrecognizedVMOptions"
+    ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
+
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
 
@@ -17,8 +25,12 @@ loom {
             if (project.hasProperty("username") && project.hasProperty("uuid")) {
                 programArgs "--username=${username}", "--uuid=${uuid}"
             }
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        server {
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         data {
             forgeTemplate("data")
@@ -61,7 +73,7 @@ dependencies {
     modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
     modRuntimeOnly "curse.maven:lazy-dfu-forge-460819:3831644"
-    modImplementation "maven.modrinth:cloth-config:${cloth_config_version}+forge"
+    modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
@@ -76,14 +88,14 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
-def fabricExcludes = [".cache", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+def commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-    excludes = fabricExcludes
+    excludes = commonExcludes
 }
 
 sourcesJar {
@@ -92,7 +104,21 @@ sourcesJar {
     commonSources.exclude ".cache"
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
     from commonSources.archiveFile.map { zipTree(it) }
-    excludes = fabricExcludes
+    excludes = commonExcludes
+}
+
+tasks.register("apiJar", Jar) {
+    group "build"
+    from project(":common").sourceSets.main.allJava
+    from project(":common").sourceSets.main.output
+    include "com/stevekung/fishofthieves/api/**/*"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    archiveClassifier = "api"
+}
+
+artifacts {
+    archives apiJar
 }
 
 remapSourcesJar {
@@ -140,7 +166,7 @@ curseforge {
         addGameVersion project.mc_version
 
         mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[Forge] " + fileName + "-v${mod_version}"
+            it.displayName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
         }
         relations {
             it.requiredDependency "cloth-config"
@@ -151,6 +177,7 @@ curseforge {
         }
         addArtifact shadowJar
         addArtifact remapSourcesJar
+        addArtifact apiJar
     }
     options {
         debug uploadDebug
@@ -164,15 +191,14 @@ modrinth {
     projectId = "fish-of-thieves"
     changelog = rootProject.file("CHANGE_LOG.md").text
     syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[Forge] Fish of Thieves " + "v${mod_version}" + " for Minecraft " + project.mc_version
+    versionName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
     uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar]
+    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
     gameVersions = ["${mc_version}"]
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"
-        // optional.project "configured" TODO Enable when "Configured" mod is on Modrinth, Thank you Emmaffle!
     }
 }

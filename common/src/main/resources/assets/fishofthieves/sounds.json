@@ -677,5 +677,37 @@
       "entity/itemframe/rotate_item4"
     ],
     "subtitle": "subtitles.block.fish_plaque.rotate"
+  },
+  "block.fish_plaque.wax_off": {
+    "sounds": [
+      "item/honeycomb/wax_on1",
+      {
+        "name": "item/honeycomb/wax_on1",
+        "pitch": 0.9
+      },
+      {
+        "name": "item/honeycomb/wax_on1",
+        "pitch": 1.1
+      },
+      "item/honeycomb/wax_on2",
+      {
+        "name": "item/honeycomb/wax_on2",
+        "pitch": 0.9
+      },
+      {
+        "name": "item/honeycomb/wax_on2",
+        "pitch": 1.1
+      },
+      "item/honeycomb/wax_on3",
+      {
+        "name": "item/honeycomb/wax_on3",
+        "pitch": 0.9
+      },
+      {
+        "name": "item/honeycomb/wax_on3",
+        "pitch": 1.1
+      }
+    ],
+    "subtitle": "subtitles.item.axe.wax_off"
   }
 }

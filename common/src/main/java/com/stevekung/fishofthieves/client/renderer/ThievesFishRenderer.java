@@ -62,9 +62,9 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
         poseStack.scale(scale, scale, scale);
     }
 
-    protected abstract RotationRenderData setupRotations(T entity, boolean inWater);
+    public abstract RotationRenderData setupRotations(T entity, boolean inWater);
 
-    protected record RotationRenderData(float bodyRotBase, float bodyRotSpeed, float baseDegree, Consumer<PoseStack> translateConsumer)
+    public record RotationRenderData(float bodyRotBase, float bodyRotSpeed, float baseDegree, Consumer<PoseStack> translateConsumer)
     {
         public static RotationRenderData create(float bodyRotBase, float bodyRotSpeed, float baseDegree, Consumer<PoseStack> translateConsumer)
         {
