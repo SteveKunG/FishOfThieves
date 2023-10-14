@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
+import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class FOTDisplayItems
@@ -94,15 +95,15 @@ public class FOTDisplayItems
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.WRECKER_BUCKET);
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.STORMFISH_BUCKET);
 
-        output.accept(FOTItems.SPLASHTAIL_SPAWN_EGG);
-        output.accept(FOTItems.PONDIE_SPAWN_EGG);
-        output.accept(FOTItems.ISLEHOPPER_SPAWN_EGG);
-        output.accept(FOTItems.ANCIENTSCALE_SPAWN_EGG);
-        output.accept(FOTItems.PLENTIFIN_SPAWN_EGG);
-        output.accept(FOTItems.WILDSPLASH_SPAWN_EGG);
-        output.accept(FOTItems.DEVILFISH_SPAWN_EGG);
-        output.accept(FOTItems.BATTLEGILL_SPAWN_EGG);
-        output.accept(FOTItems.WRECKER_SPAWN_EGG);
-        output.accept(FOTItems.STORMFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.SPLASHTAIL_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PONDIE_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ISLEHOPPER_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ANCIENTSCALE_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PLENTIFIN_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WILDSPLASH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.DEVILFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.BATTLEGILL_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WRECKER_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.STORMFISH_SPAWN_EGG);
     }
 }

@@ -42,26 +42,7 @@ public class FOTLootItem extends LootPoolSingletonContainer
         if (FishOfThieves.CONFIG.general.dropAndPickFishesWithVariant)
         {
             var isNight = !lootContext.getLevel().isDay();
-            var random = lootContext.getRandom();
-            var chance = random.nextDouble();
-            var data = 0;
-
-            if (chance < 0.7)
-            {
-                data = isNight && random.nextInt(3) == 0 ? 4 : 0;
-            }
-            else if (chance < 0.85)
-            {
-                data = 1;
-            }
-            else if (chance < 0.95)
-            {
-                data = 2;
-            }
-            else if (chance < 1.0)
-            {
-                data = 3;
-            }
+            var data = getData(lootContext, isNight);
 
             if (data > 0)
             {
@@ -70,6 +51,31 @@ public class FOTLootItem extends LootPoolSingletonContainer
         }
 
         stackConsumer.accept(itemStack);
+    }
+
+    private static int getData(LootContext lootContext, boolean isNight)
+    {
+        var random = lootContext.getRandom();
+        var chance = random.nextDouble();
+        var data = 0;
+
+        if (chance < 0.7)
+        {
+            data = isNight && random.nextInt(3) == 0 ? 4 : 0;
+        }
+        else if (chance < 0.85)
+        {
+            data = 1;
+        }
+        else if (chance < 0.95)
+        {
+            data = 2;
+        }
+        else if (chance < 1.0)
+        {
+            data = 3;
+        }
+        return data;
     }
 
     public static LootPoolSingletonContainer.Builder<?> lootTableItem(ItemLike item)

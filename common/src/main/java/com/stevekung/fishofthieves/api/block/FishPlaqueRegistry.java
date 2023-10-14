@@ -23,14 +23,20 @@ public class FishPlaqueRegistry
         return CONVERTERS.get(type);
     }
 
-    public static void registerInteractionItem(EntityType<?> entityType, Item item)
+    public static void registerInteractionItem(Item item, EntityType<?>... entityTypes)
     {
-        INTERACT_ITEMS.put(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString(), item);
+        for (var entityType : entityTypes)
+        {
+            INTERACT_ITEMS.put(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString(), item);
+        }
     }
 
-    public static void registerInteractionItem(String key, Item item)
+    public static void registerInteractionItem(Item item, String... keys)
     {
-        INTERACT_ITEMS.put(key, item);
+        for (var key : keys)
+        {
+            INTERACT_ITEMS.put(key, item);
+        }
     }
 
     public static Map<String, Item> getInteractionItem()

@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.function.Predicate;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
@@ -13,7 +11,7 @@ import net.minecraft.core.Registry;
 public class PlentifinVariants
 {
     public static final PlentifinVariant OLIVE = PlentifinVariant.builder().condition(SpawnSelectors.always()).texture("olive").build();
-    public static final PlentifinVariant AMBER = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(Predicate.not(SpawnSelectors.rainingAndSeeSky()).and(context ->
+    public static final PlentifinVariant AMBER = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky().negate().and(context ->
     {
         var time = context.level().getTimeOfDay(1.0F);
         return time >= 0.75F && time <= 0.9F;

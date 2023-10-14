@@ -3,7 +3,21 @@ architectury {
     fabric()
 }
 
+sourceSets {
+    gametest {
+        runtimeClasspath += main.runtimeClasspath + main.output
+        compileClasspath += main.compileClasspath + main.output
+    }
+}
+
 loom {
+    def commonVmArgs = [
+            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-XX:HotswapAgent=fatjar",
+            "-XX:+IgnoreUnrecognizedVMOptions"
+    ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
     runs {
@@ -11,8 +25,23 @@ loom {
             if (project.hasProperty("username") && project.hasProperty("uuid")) {
                 programArgs "--username=${username}", "--uuid=${uuid}"
             }
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        server {
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        gametest {
+            if (project.hasProperty("username") && project.hasProperty("uuid")) {
+                programArgs "--username=${username}", "--uuid=${uuid}"
+            }
+            client()
+            name "Game Test Client"
+            source sourceSets.gametest
+            properties commonProperties
+            vmArgs commonVmArgs
+            vmArg "-Dfabric-api.gametest"
         }
         datagen {
             server()
@@ -38,7 +67,7 @@ configurations {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modApi("maven.modrinth:modmenu:${modmenu_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
@@ -62,20 +91,35 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
+def devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-    exclude("architectury.common.json")
+    excludes = devExcludes
 }
 
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
-    exclude("architectury.common.json")
+    excludes = devExcludes
+}
+
+tasks.register("apiJar", Jar) {
+    group "build"
+    from project(":common").sourceSets.main.allJava
+    from project(":common").sourceSets.main.output
+    include "com/stevekung/fishofthieves/api/**/*"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    archiveClassifier = "api"
+}
+
+artifacts {
+    archives apiJar
 }
 
 remapSourcesJar {
@@ -137,6 +181,7 @@ curseforge {
         }
         addArtifact shadowJar
         addArtifact remapSourcesJar
+        addArtifact apiJar
     }
     options {
         debug uploadDebug
@@ -154,8 +199,8 @@ modrinth {
     versionNumber = project.mod_version + "-fabric"
     versionType = project.release_type
     uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar]
-    gameVersions = ["${mc_version}", "1.20"]
+    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
+    gameVersions = ["${mc_version}"]
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"

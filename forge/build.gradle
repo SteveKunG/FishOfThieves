@@ -4,6 +4,14 @@ architectury {
 }
 
 loom {
+    def commonVmArgs = [
+            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-XX:HotswapAgent=fatjar",
+            "-XX:+IgnoreUnrecognizedVMOptions"
+    ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
+
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
 
@@ -17,8 +25,12 @@ loom {
             if (project.hasProperty("username") && project.hasProperty("uuid")) {
                 programArgs "--username=${username}", "--uuid=${uuid}"
             }
-            property "mixin.debug.export", "true"
-            property "mixin.hotSwap", "true"
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        server {
+            properties commonProperties
+            vmArgs commonVmArgs
         }
         data {
             forgeTemplate("data")
@@ -75,14 +87,14 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${mc_version}"
-def fabricExcludes = [".cache", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+def commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-    excludes = fabricExcludes
+    excludes = commonExcludes
 }
 
 sourcesJar {
@@ -91,7 +103,21 @@ sourcesJar {
     commonSources.exclude ".cache"
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
     from commonSources.archiveFile.map { zipTree(it) }
-    excludes = fabricExcludes
+    excludes = commonExcludes
+}
+
+tasks.register("apiJar", Jar) {
+    group "build"
+    from project(":common").sourceSets.main.allJava
+    from project(":common").sourceSets.main.output
+    include "com/stevekung/fishofthieves/api/**/*"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    archiveClassifier = "api"
+}
+
+artifacts {
+    archives apiJar
 }
 
 remapSourcesJar {
@@ -151,6 +177,7 @@ curseforge {
         }
         addArtifact shadowJar
         addArtifact remapSourcesJar
+        addArtifact apiJar
     }
     options {
         debug uploadDebug
@@ -168,8 +195,8 @@ modrinth {
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
     uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar]
-    gameVersions = ["${mc_version}", "1.20"]
+    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
+    gameVersions = ["${mc_version}"]
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"

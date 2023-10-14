@@ -46,6 +46,9 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean dropAndPickFishesWithVariant = false;
+
+        @ConfigEntry.Gui.Tooltip
+        public boolean displayTrophySpawnEggInCreativeTab = false;
     }
 
     public static class SpawnRate

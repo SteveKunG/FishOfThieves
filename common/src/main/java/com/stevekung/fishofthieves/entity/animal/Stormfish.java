@@ -1,8 +1,12 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
+import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
+import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
@@ -18,7 +22,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -44,10 +48,29 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    protected void registerGoals()
+    protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
     {
-        super.registerGoals();
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25, LEECHES_FOOD, false));
+        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic)
+    {
+        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Brain<AbstractThievesFish<?>> getBrain()
+    {
+        return (Brain<AbstractThievesFish<?>>) super.getBrain();
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        AbstractThievesFishAi.customServerAiStep(this, this.getBrain());
+        super.customServerAiStep();
     }
 
     @Override

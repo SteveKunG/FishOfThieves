@@ -12,6 +12,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
@@ -81,5 +84,15 @@ public class FOTPlatformImpl
     public static void registerFeature(String key, Feature<?> feature)
     {
         Registry.register(BuiltInRegistries.FEATURE, FishOfThieves.res(key), feature);
+    }
+
+    public static <U extends Sensor<?>> void registerSensorType(String key, SensorType<U> sensorType)
+    {
+        Registry.register(BuiltInRegistries.SENSOR_TYPE, FishOfThieves.res(key), sensorType);
+    }
+
+    public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
+    {
+        Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.res(key), type);
     }
 }

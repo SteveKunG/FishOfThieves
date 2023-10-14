@@ -20,6 +20,8 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.DispenserBlock;
 
 public class FishOfThieves
@@ -61,13 +63,13 @@ public class FishOfThieves
         // Naturalist compatibility
         if (FOTPlatform.isModLoaded("naturalist"))
         {
-            FishPlaqueRegistry.registerInteractionItem("naturalist:snail", Items.BUCKET);
+            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "naturalist:snail");
         }
         // Alex's Mobs compatibility
         if (FOTPlatform.isModLoaded("alexsmobs"))
         {
-            FishPlaqueRegistry.registerInteractionItem("alexsmobs:cosmic_cod", Items.BUCKET);
-            FishPlaqueRegistry.registerInteractionItem("alexsmobs:stradpole", Items.LAVA_BUCKET);
+            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "alexsmobs:cosmic_cod");
+            FishPlaqueRegistry.registerInteractionItem(Items.LAVA_BUCKET, "alexsmobs:stradpole");
         }
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
@@ -81,6 +83,8 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
+
+        PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
