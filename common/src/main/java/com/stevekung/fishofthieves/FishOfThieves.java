@@ -27,7 +27,7 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final CreativeModeTab FOT_TAB = FOTPlatform.createCreativeTab();
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static FishOfThievesConfig CONFIG;
+    public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
 
     public static ResourceLocation res(String path)
     {
@@ -38,8 +38,6 @@ public class FishOfThieves
     {
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
-        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
-        FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
     }
 
     public static void initCommon()
