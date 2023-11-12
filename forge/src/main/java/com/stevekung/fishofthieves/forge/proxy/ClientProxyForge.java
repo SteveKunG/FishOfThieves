@@ -1,13 +1,21 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
+import java.util.function.Function;
+
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,6 +34,7 @@ public class ClientProxyForge extends CommonProxyForge
         MinecraftForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayerDefinitions);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayers);
     }
 
     @Override
@@ -69,5 +78,24 @@ public class ClientProxyForge extends CommonProxyForge
         event.registerLayerDefinition(StormfishModel.LAYER, StormfishModel::createBodyLayer);
 
         event.registerLayerDefinition(HeadphoneModel.LAYER, HeadphoneModel::createBodyLayer);
+    }
+
+    private void registerLayers(EntityRenderersEvent.AddLayers event)
+    {
+        addLayer(event, EntityType.COD, HeadphoneLayer::new);
+        addLayer(event, EntityType.SALMON, HeadphoneLayer::new);
+        addLayer(event, EntityType.PUFFERFISH, HeadphoneLayer::new);
+        addLayer(event, EntityType.TROPICAL_FISH, HeadphoneLayer::new);
+        addLayer(event, EntityType.TADPOLE, HeadphoneLayer::new);
+    }
+
+    private static <E extends LivingEntity, M extends EntityModel<E> & HeadphoneModel.Scaleable<E>> void addLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, Function<LivingEntityRenderer<E, M>, ? extends RenderLayer<E, M>> factory)
+    {
+        LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
+
+        if (renderer != null)
+        {
+            renderer.addLayer(factory.apply(renderer));
+        }
     }
 }

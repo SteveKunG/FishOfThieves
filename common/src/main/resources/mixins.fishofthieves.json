@@ -10,8 +10,7 @@
     "client.renderer.entity.MixinPufferfishRenderer",
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",
-    "client.renderer.entity.MixinTropicalFishRenderer",
-    "client.renderer.entity.MixinVanillaFishesRenderer"
+    "client.renderer.entity.MixinTropicalFishRenderer"
   ],
   "mixins": [
     "animal.MixinAbstractFish",

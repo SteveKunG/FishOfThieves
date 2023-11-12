@@ -5,10 +5,12 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -21,10 +23,19 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends Entity
     private static final ResourceLocation TEXTURE = FishOfThieves.res("textures/entity/headphone.png");
     private final HeadphoneModel<T> model;
 
-    public HeadphoneLayer(RenderLayerParent<T, M> renderLayerParent, EntityRendererProvider.Context context)
+    @SuppressWarnings("unchecked")
+    public HeadphoneLayer(LivingEntityRenderer<?, ?> renderLayerParent, EntityRendererProvider.Context context)
     {
-        super(renderLayerParent);
+        super((RenderLayerParent<T, M>) renderLayerParent);
         this.model = new HeadphoneModel<>(context.bakeLayer(HeadphoneModel.LAYER));
+    }
+
+    // FORGE
+    @SuppressWarnings("unchecked")
+    public HeadphoneLayer(LivingEntityRenderer<?, ?> renderLayerParent)
+    {
+        super((RenderLayerParent<T, M>) renderLayerParent);
+        this.model = new HeadphoneModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(HeadphoneModel.LAYER));
     }
 
     @Override
