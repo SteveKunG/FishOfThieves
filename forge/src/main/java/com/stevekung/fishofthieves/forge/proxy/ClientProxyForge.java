@@ -1,19 +1,17 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
-import java.util.function.Function;
-
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.entity.PartyFish;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -82,20 +80,20 @@ public class ClientProxyForge extends CommonProxyForge
 
     private void registerLayers(EntityRenderersEvent.AddLayers event)
     {
-        addLayer(event, EntityType.COD, HeadphoneLayer::new);
-        addLayer(event, EntityType.SALMON, HeadphoneLayer::new);
-        addLayer(event, EntityType.PUFFERFISH, HeadphoneLayer::new);
-        addLayer(event, EntityType.TROPICAL_FISH, HeadphoneLayer::new);
-        addLayer(event, EntityType.TADPOLE, HeadphoneLayer::new);
+        addHeadphoneLayer(event, EntityType.COD, HeadphoneModel.Scaleable.COD);
+        addHeadphoneLayer(event, EntityType.SALMON, HeadphoneModel.Scaleable.SALMON);
+        addHeadphoneLayer(event, EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH);
+        addHeadphoneLayer(event, EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH);
+        addHeadphoneLayer(event, EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE);
     }
 
-    private static <E extends LivingEntity, M extends EntityModel<E> & HeadphoneModel.Scaleable<E>> void addLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, Function<LivingEntityRenderer<E, M>, ? extends RenderLayer<E, M>> factory)
+    private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)
     {
         LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
 
         if (renderer != null)
         {
-            renderer.addLayer(factory.apply(renderer));
+            renderer.addLayer(new HeadphoneLayer<>(renderer, event.getEntityModels(), scaleable));
         }
     }
 }

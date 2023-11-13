@@ -44,9 +44,25 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) ->
         {
-            if (entityType == EntityType.COD || entityType == EntityType.SALMON || entityType == EntityType.PUFFERFISH || entityType == EntityType.TROPICAL_FISH || entityType == EntityType.TADPOLE)
+            if (entityType == EntityType.COD)
             {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context));
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.COD));
+            }
+            else if (entityType == EntityType.SALMON)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.SALMON));
+            }
+            else if (entityType == EntityType.PUFFERFISH)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.PUFFERFISH));
+            }
+            else if (entityType == EntityType.TROPICAL_FISH)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TROPICAL_FISH));
+            }
+            else if (entityType == EntityType.TADPOLE)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TADPOLE));
             }
         });
 

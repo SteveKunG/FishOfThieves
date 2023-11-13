@@ -23,7 +23,7 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
     {
         super(context, entityModel, 0.15f);
         this.addLayer(new GlowFishLayer<>(this));
-        this.addLayer(new HeadphoneLayer<>(this, context));
+        this.addLayer(new HeadphoneLayer<>(this, context.getModelSet(), entityModel));
     }
 
     @Override
