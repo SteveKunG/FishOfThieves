@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.datagen;
+package com.stevekung.fishofthieves.forge.level;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +27,7 @@ import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class FOTBiomeModifier
+public class FOTBiomeModifiers
 {
     private static final ResourceKey<BiomeModifier> ADD_FISH_BONE = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThievesForge.ADD_FISH_BONE_RL);
 
