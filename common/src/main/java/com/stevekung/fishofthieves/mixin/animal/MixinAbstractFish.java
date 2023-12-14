@@ -15,10 +15,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
 import net.minecraft.world.level.gameevent.EntityPositionSource;
@@ -42,8 +40,8 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
         super(null, null);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void fishofthieves$init(EntityType<? extends AbstractFish> entityType, Level level, CallbackInfo info)
+    @Inject(method = "<init>*", at = @At("TAIL"))
+    private void fishofthieves$init(CallbackInfo info)
     {
         var positionSource = new EntityPositionSource(this, this.getEyeHeight());
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new FishJukeboxListener(this, positionSource, GameEvent.JUKEBOX_PLAY.getNotificationRadius()));

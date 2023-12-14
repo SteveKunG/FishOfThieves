@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 import net.minecraft.core.Registry;
@@ -21,8 +20,6 @@ public class FOTRegistry
 
     public static void forge()
     {
-        FishOfThieves.registerConfig();
-
         SplashtailVariants.init();
         PondieVariants.init();
         IslehopperVariants.init();

@@ -29,7 +29,7 @@ public class FishOfThieves
     public static final String MOD_ID = "fishofthieves";
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static FishOfThievesConfig CONFIG;
+    public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
     public static final ResourceKey<CreativeModeTab> FOT = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.res("fot"));
 
     public static ResourceLocation res(String path)
@@ -42,12 +42,6 @@ public class FishOfThieves
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
         FOTDataSerializers.init();
-    }
-
-    public static void registerConfig()
-    {
-        AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new);
-        FishOfThieves.CONFIG = AutoConfig.getConfigHolder(FishOfThievesConfig.class).getConfig();
     }
 
     public static void initCommon()
@@ -85,6 +79,7 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
 
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
+        PotionBrewing.addMix(Potions.AWKWARD, FOTItems.ISLEHOPPER, Potions.WATER_BREATHING);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)

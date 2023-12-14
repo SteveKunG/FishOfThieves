@@ -4,9 +4,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.animal.TropicalFish;
 
+@FunctionalInterface
 public interface FishPlaqueTagConverter
 {
-    FishPlaqueTagConverter NOOP = compoundTag -> {};
+    FishPlaqueTagConverter NOOP = compoundTag ->
+    {};
 
     FishPlaqueTagConverter TROPICAL_FISH = compoundTag ->
     {
