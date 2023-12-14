@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -10,8 +11,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.entity.EntityType;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
 {
@@ -38,6 +41,30 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         EntityRendererRegistry.register(FOTEntities.BATTLEGILL, BattlegillRenderer::new);
         EntityRendererRegistry.register(FOTEntities.WRECKER, WreckerRenderer::new);
         EntityRendererRegistry.register(FOTEntities.STORMFISH, StormfishRenderer::new);
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) ->
+        {
+            if (entityType == EntityType.COD)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.COD));
+            }
+            else if (entityType == EntityType.SALMON)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.SALMON));
+            }
+            else if (entityType == EntityType.PUFFERFISH)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.PUFFERFISH));
+            }
+            else if (entityType == EntityType.TROPICAL_FISH)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TROPICAL_FISH));
+            }
+            else if (entityType == EntityType.TADPOLE)
+            {
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TADPOLE));
+            }
+        });
 
         EntityModelLayerRegistry.registerModelLayer(SplashtailModel.LAYER, SplashtailModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(PondieModel.LAYER, PondieModel::createBodyLayer);

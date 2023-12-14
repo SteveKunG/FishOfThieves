@@ -6,9 +6,10 @@ import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -16,15 +17,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 
-public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends RenderLayer<T, M>
+public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
     private static final ResourceLocation TEXTURE = FishOfThieves.res("textures/entity/headphone.png");
     private final HeadphoneModel<T> model;
+    private final HeadphoneModel.Scaleable<T> scaleable;
 
-    public HeadphoneLayer(RenderLayerParent<T, M> renderLayerParent, EntityRendererProvider.Context context)
+    @SuppressWarnings("unchecked")
+    public HeadphoneLayer(LivingEntityRenderer<?, ?> renderLayerParent, EntityModelSet entityModelSet, HeadphoneModel.Scaleable<T> scaleable)
     {
-        super(renderLayerParent);
-        this.model = new HeadphoneModel<>(context.bakeLayer(HeadphoneModel.LAYER));
+        super((RenderLayerParent<T, M>) renderLayerParent);
+        this.model = new HeadphoneModel<>(entityModelSet.bakeLayer(HeadphoneModel.LAYER));
+        this.scaleable = scaleable;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends Entity
         if (!livingEntity.isInvisible() && (livingEntity.getType() == EntityType.SALMON && livingEntity.hasCustomName() && ChatFormatting.stripFormatting(livingEntity.getName().getString()).equals("Sally") || livingEntity.isDancing()))
         {
             poseStack.pushPose();
-            this.getParentModel().scale(livingEntity, poseStack);
+            this.scaleable.scale(livingEntity, poseStack);
             this.model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
             poseStack.popPose();
         }

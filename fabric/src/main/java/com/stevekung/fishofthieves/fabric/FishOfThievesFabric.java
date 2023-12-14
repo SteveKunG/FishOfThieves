@@ -30,7 +30,6 @@ public class FishOfThievesFabric implements ModInitializer
     public void onInitialize()
     {
         FishOfThieves.init();
-        FishOfThieves.registerConfig();
         FOTBlocks.init();
         FOTItems.init();
         FOTBlockEntityTypes.init();

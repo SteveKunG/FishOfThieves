@@ -3,8 +3,8 @@ package com.stevekung.fishofthieves.forge;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
-import com.stevekung.fishofthieves.forge.datagen.FOTBiomeModifier;
-import com.stevekung.fishofthieves.forge.datagen.FOTStructureModifiers;
+import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
+import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
@@ -66,7 +66,7 @@ public class FishOfThievesForge
 
         FishOfThieves.init();
 
-        modEventBus.addListener(FOTBiomeModifier::generateBiomeModifiers);
+        modEventBus.addListener(FOTBiomeModifiers::generateBiomeModifiers);
         STRUCTURE_MODIFIERS.register(THIEVES_FISH_SPAWNS_IN_STRUCTURE, FOTStructureModifiers.Modifier::makeCodec);
         modEventBus.addListener(FOTStructureModifiers::generateStructureModifiers);
 
