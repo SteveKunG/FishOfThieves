@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.datagen;
+package com.stevekung.fishofthieves.forge.level;
 
 import java.util.Map;
 

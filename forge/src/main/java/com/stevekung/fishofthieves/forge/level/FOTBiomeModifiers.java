@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.datagen;
+package com.stevekung.fishofthieves.forge.level;
 
 import java.util.Map;
 
@@ -26,7 +26,7 @@ import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class FOTBiomeModifier
+public class FOTBiomeModifiers
 {
     public static void generateBiomeModifiers(GatherDataEvent event)
     {
