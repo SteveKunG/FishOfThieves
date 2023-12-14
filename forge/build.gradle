@@ -70,7 +70,7 @@ dependencies {
 
     api "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
 
-    modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
+    //modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
     modRuntimeOnly "curse.maven:lazy-dfu-forge-460819:3831644"
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
