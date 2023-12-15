@@ -1,4 +1,5 @@
 * 1.20: Add Fish Bone to Ocean Ruins Archaeology loot
+* Added Alex's Caves Radgill compatibility
 * New Brain AIs system for fishes
 * New AI: Combine a flock with another small flock
 * New AI: Avoid Magma Block and Bubble Column
