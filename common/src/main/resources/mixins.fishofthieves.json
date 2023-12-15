@@ -17,6 +17,7 @@
     "animal.MixinCat",
     "animal.MixinChicken",
     "animal.MixinOcelot",
+    "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "item.MixinRecordItem",

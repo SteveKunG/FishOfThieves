@@ -6,8 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
-import com.stevekung.fishofthieves.api.block.FishPlaqueTagConverter;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
+import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
@@ -22,6 +22,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -164,12 +166,20 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
                 var entityKey = Registry.ENTITY_TYPE.getKey(entityType).toString();
                 var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
-                var converter = FishPlaqueRegistry.getTagConverter(entityType);
                 tag.putString("id", entityKey);
 
-                if (converter != FishPlaqueTagConverter.NOOP)
+                if (level instanceof ServerLevel serverLevel)
                 {
-                    converter.convert(tag);
+                    var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
+                    entityToSave.saveWithoutId(tag);
+
+                    if (entityToSave instanceof Bucketable bucketable)
+                    {
+                        bucketable.loadFromBucketTag(tag);
+                        bucketable.setFromBucket(true);
+                    }
+
+                    tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
                 }
 
                 level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.NEUTRAL, 1.0F, 1.0F);
