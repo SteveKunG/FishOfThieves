@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
-import com.stevekung.fishofthieves.api.block.FishPlaqueTagConverter;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
@@ -16,7 +15,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -52,8 +50,6 @@ public class FishOfThieves
         FOTLootPoolEntries.init();
         FOTStructures.init();
         FOTEntitySubPredicate.init();
-
-        FishPlaqueRegistry.registerTagConverter(EntityType.TROPICAL_FISH, FishPlaqueTagConverter.TROPICAL_FISH);
 
         // Naturalist compatibility
         if (FOTPlatform.isModLoaded("naturalist"))
