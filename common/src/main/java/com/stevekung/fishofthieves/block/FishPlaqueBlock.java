@@ -172,13 +172,6 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 {
                     var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
                     entityToSave.saveWithoutId(tag);
-
-                    if (entityToSave instanceof Bucketable bucketable)
-                    {
-                        bucketable.loadFromBucketTag(tag);
-                        bucketable.setFromBucket(true);
-                    }
-
                     tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
                 }
 
