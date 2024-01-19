@@ -1,14 +1,14 @@
 package com.stevekung.fishofthieves.loot.function;
 
+import java.util.List;
 import java.util.function.Consumer;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -20,9 +20,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTLootItem extends LootPoolSingletonContainer
 {
-    final Item item;
+    private final Holder<Item> item;
+    public static final Codec<FOTLootItem> CODEC = RecordCodecBuilder.create(instance -> instance.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("name").forGetter(lootItem -> lootItem.item)).and(singletonFields(instance)).apply(instance, FOTLootItem::new));
 
-    FOTLootItem(Item item, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions)
+    FOTLootItem(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions)
     {
         super(weight, quality, conditions, functions);
         this.item = item;
@@ -78,34 +79,9 @@ public class FOTLootItem extends LootPoolSingletonContainer
         return data;
     }
 
+    @SuppressWarnings("deprecation")
     public static LootPoolSingletonContainer.Builder<?> lootTableItem(ItemLike item)
     {
-        return simpleBuilder((weight, quality, conditions, functions) -> new FOTLootItem(item.asItem(), weight, quality, conditions, functions));
-    }
-
-    public static class Serializer extends LootPoolSingletonContainer.Serializer<FOTLootItem>
-    {
-        @Override
-        public void serializeCustom(JsonObject object, FOTLootItem context, JsonSerializationContext conditions)
-        {
-            super.serializeCustom(object, context, conditions);
-            var resourceLocation = BuiltInRegistries.ITEM.getKey(context.item);
-
-            if (resourceLocation == null)
-            {
-                throw new IllegalArgumentException("Can't serialize unknown item " + context.item);
-            }
-            else
-            {
-                object.addProperty("name", resourceLocation.toString());
-            }
-        }
-
-        @Override
-        protected FOTLootItem deserialize(JsonObject object, JsonDeserializationContext context, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions)
-        {
-            var item = GsonHelper.getAsItem(object, "name");
-            return new FOTLootItem(item, weight, quality, conditions, functions);
-        }
+        return simpleBuilder((weight, quality, conditions, functions) -> new FOTLootItem(item.asItem().builtInRegistryHolder(), weight, quality, conditions, functions));
     }
 }

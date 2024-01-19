@@ -1,18 +1,16 @@
 package com.stevekung.fishofthieves.loot.function;
 
+import java.util.List;
 import java.util.function.Consumer;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -24,10 +22,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTTagEntry extends LootPoolSingletonContainer
 {
-    final TagKey<Item> tag;
-    final boolean expand;
+    public static final Codec<FOTTagEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(TagKey.codec(Registries.ITEM).fieldOf("name").forGetter(tagEntry -> tagEntry.tag), Codec.BOOL.fieldOf("expand").forGetter(tagEntry -> tagEntry.expand)).and(singletonFields(instance)).apply(instance, FOTTagEntry::new));
+    private final TagKey<Item> tag;
+    private final boolean expand;
 
-    FOTTagEntry(TagKey<Item> tagKey, boolean expand, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions)
+    FOTTagEntry(TagKey<Item> tagKey, boolean expand, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions)
     {
         super(weight, quality, conditions, functions);
         this.tag = tagKey;
@@ -121,25 +120,5 @@ public class FOTTagEntry extends LootPoolSingletonContainer
     public static LootPoolSingletonContainer.Builder<?> expandTag(TagKey<Item> tag)
     {
         return simpleBuilder((weight, quality, conditions, functions) -> new FOTTagEntry(tag, true, weight, quality, conditions, functions));
-    }
-
-    public static class Serializer extends LootPoolSingletonContainer.Serializer<FOTTagEntry>
-    {
-        @Override
-        public void serializeCustom(JsonObject object, FOTTagEntry context, JsonSerializationContext conditions)
-        {
-            super.serializeCustom(object, context, conditions);
-            object.addProperty("name", context.tag.location().toString());
-            object.addProperty("expand", context.expand);
-        }
-
-        @Override
-        protected FOTTagEntry deserialize(JsonObject object, JsonDeserializationContext context, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions)
-        {
-            var resourceLocation = new ResourceLocation(GsonHelper.getAsString(object, "name"));
-            var tagKey = TagKey.create(Registries.ITEM, resourceLocation);
-            var expand = GsonHelper.getAsBoolean(object, "expand");
-            return new FOTTagEntry(tagKey, expand, weight, quality, conditions, functions);
-        }
     }
 }

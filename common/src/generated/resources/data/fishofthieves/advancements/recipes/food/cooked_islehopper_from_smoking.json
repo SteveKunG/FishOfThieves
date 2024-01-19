@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_islehopper",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_islehopper"
     ]
   ],
   "rewards": {

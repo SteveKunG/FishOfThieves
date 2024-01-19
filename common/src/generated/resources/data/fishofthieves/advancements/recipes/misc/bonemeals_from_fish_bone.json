@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_fish_bone",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_fish_bone"
     ]
   ],
   "rewards": {

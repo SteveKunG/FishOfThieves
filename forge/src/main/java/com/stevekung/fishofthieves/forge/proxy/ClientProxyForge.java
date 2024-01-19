@@ -89,7 +89,7 @@ public class ClientProxyForge extends CommonProxyForge
 
     private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)
     {
-        LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
+        LivingEntityRenderer<E, M> renderer = event.getEntityRenderer(entityType);
 
         if (renderer != null)
         {

@@ -40,9 +40,9 @@ public class FOTPlatformImpl
         return bucket.emptySound;
     }
 
-    public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
+    public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
     {
-        CriteriaTriggers.register(trigger);
+        CriteriaTriggers.register(key, trigger);
     }
 
     public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)

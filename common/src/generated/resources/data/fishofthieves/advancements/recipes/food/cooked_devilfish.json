@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_devilfish",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_devilfish"
     ]
   ],
   "rewards": {

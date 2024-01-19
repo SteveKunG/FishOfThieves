@@ -128,12 +128,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    public double getMeleeAttackRangeSqr(LivingEntity entity)
-    {
-        return 1.0 + (double) entity.getBbWidth() * 2.0;
-    }
-
-    @Override
     protected void defineSynchedData()
     {
         super.defineSynchedData();

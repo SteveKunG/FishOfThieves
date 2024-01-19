@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class FOTLootItemFunctions
 {
-    public static final LootItemFunctionType SET_RANDOM_FIREWORK = new LootItemFunctionType(new SetRandomFireworkFunction.Serializer());
+    public static final LootItemFunctionType SET_RANDOM_FIREWORK = new LootItemFunctionType(SetRandomFireworkFunction.CODEC);
 
     public static void init()
     {

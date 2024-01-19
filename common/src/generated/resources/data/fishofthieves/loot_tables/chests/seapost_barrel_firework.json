@@ -8,7 +8,7 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "colors": [
+              "fireworkColors": [
                 11743532,
                 15435844,
                 14602026,

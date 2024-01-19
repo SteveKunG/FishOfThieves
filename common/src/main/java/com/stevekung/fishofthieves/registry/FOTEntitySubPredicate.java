@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
@@ -25,9 +24,9 @@ public class FOTEntitySubPredicate
     public static final EntityVariantPredicate<BattlegillVariant> BATTLEGILL = EntityVariantPredicate.create(FOTRegistry.BATTLEGILL_VARIANT, entity -> entity instanceof Battlegill battlegill ? Optional.of(battlegill.getVariant()) : Optional.empty());
     public static final EntityVariantPredicate<WreckerVariant> WRECKER = EntityVariantPredicate.create(FOTRegistry.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty());
     public static final EntityVariantPredicate<StormfishVariant> STORMFISH = EntityVariantPredicate.create(FOTRegistry.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty());
-    public static final EntitySubPredicate.Type TROPHY = TrophyFishPredicate::fromJson;
+    public static final EntitySubPredicate.Type TROPHY = new EntitySubPredicate.Type(TrophyFishPredicate.CODEC);
 
-    public static void init()
+    public static Map<String, EntitySubPredicate.Type> putNewSubPredicates()
     {
         var newSubPredicates = Maps.<String, EntitySubPredicate.Type>newLinkedHashMap();
         newSubPredicates.put("splashtail", SPLASHTAIL.type());
@@ -44,7 +43,7 @@ public class FOTEntitySubPredicate
 
         var modifyMap = Maps.newLinkedHashMap(EntitySubPredicate.Types.TYPES);
         modifyMap.putAll(newSubPredicates.entrySet().stream().collect(Collectors.toMap(e -> FishOfThieves.MOD_RESOURCES + e.getKey(), Map.Entry::getValue)));
-        EntitySubPredicate.Types.TYPES = ImmutableBiMap.copyOf(modifyMap);
+        return modifyMap;
     }
 
     public static EntitySubPredicate variant(SplashtailVariant variant)

@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_wildsplash",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_wildsplash"
     ]
   ],
   "rewards": {

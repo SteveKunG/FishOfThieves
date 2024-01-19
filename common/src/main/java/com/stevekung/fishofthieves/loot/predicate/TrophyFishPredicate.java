@@ -1,51 +1,27 @@
 package com.stevekung.fishofthieves.loot.predicate;
 
+import java.util.Optional;
+
 import org.jetbrains.annotations.Nullable;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTEntitySubPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-public class TrophyFishPredicate implements EntitySubPredicate
+public record TrophyFishPredicate(Optional<Boolean> trophy) implements EntitySubPredicate
 {
-    public static final TrophyFishPredicate ANY = new TrophyFishPredicate(false);
-    private static final String TROPHY_KEY = "trophy";
-    private final boolean trophy;
-
-    private TrophyFishPredicate(boolean trophy)
-    {
-        this.trophy = trophy;
-    }
+    public static final TrophyFishPredicate ANY = new TrophyFishPredicate(Optional.empty());
+    public static final MapCodec<TrophyFishPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ExtraCodecs.strictOptionalField(Codec.BOOL, "trophy").forGetter(TrophyFishPredicate::trophy)).apply(instance, TrophyFishPredicate::new));
 
     public static TrophyFishPredicate trophy(boolean trophy)
     {
-        return new TrophyFishPredicate(trophy);
-    }
-
-    public static TrophyFishPredicate fromJson(JsonObject json)
-    {
-        var jsonElement = json.get(TROPHY_KEY);
-        return jsonElement != null ? new TrophyFishPredicate(GsonHelper.convertToBoolean(jsonElement, TROPHY_KEY)) : ANY;
-    }
-
-    @Override
-    public JsonObject serializeCustomData()
-    {
-        if (this == ANY)
-        {
-            return new JsonObject();
-        }
-        else
-        {
-            var jsonObject = new JsonObject();
-            jsonObject.add(TROPHY_KEY, new JsonPrimitive(this.trophy));
-            return jsonObject;
-        }
+        return new TrophyFishPredicate(Optional.of(trophy));
     }
 
     @Override
@@ -67,7 +43,7 @@ public class TrophyFishPredicate implements EntitySubPredicate
         }
         else
         {
-            return this.trophy == thievesFish.isTrophy();
+            return this.trophy.get() == thievesFish.isTrophy();
         }
     }
 }

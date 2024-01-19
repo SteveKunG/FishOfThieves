@@ -71,34 +71,34 @@ public class CommonProxyForge
         var id = event.getName();
         var table = event.getTable();
 
-        // Gameplay
-        if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
-        {
-            injectLoot(table, FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
-        }
-        else if (id.equals(BuiltInLootTables.FISHING_FISH))
-        {
-            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
-        }
-        // Entity Loot
-        else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
-        {
-            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
-        }
-        // Chests
-        else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-        {
-            injectLoot(table, FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
-        }
-        else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-        {
-            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
-        }
-        // Archaeology
-        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-        {
-            injectLoot(table, FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool()).entries);
-        }
+//        // Gameplay TODO
+//        if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
+//        {
+//            injectLoot(table, FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
+//        }
+//        else if (id.equals(BuiltInLootTables.FISHING_FISH))
+//        {
+//            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
+//        }
+//        // Entity Loot
+//        else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
+//        {
+//            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
+//        }
+//        // Chests
+//        else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
+//        {
+//            injectLoot(table, FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
+//        }
+//        else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
+//        {
+//            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
+//        }
+//        // Archaeology
+//        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
+//        {
+//            injectLoot(table, FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool()).entries);
+//        }
     }
 
     @SubscribeEvent
@@ -145,7 +145,7 @@ public class CommonProxyForge
 
     private static void injectLoot(LootTable table, List<LootPoolEntryContainer> entries)
     {
-        var pool = table.getPool("main");
-        pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
+//        var pool = table.getPool("main");TODO
+//        pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
     }
 }

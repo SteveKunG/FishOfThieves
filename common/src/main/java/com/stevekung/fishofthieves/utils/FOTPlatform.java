@@ -37,7 +37,7 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
+    public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
     {
         throw new AssertionError();
     }

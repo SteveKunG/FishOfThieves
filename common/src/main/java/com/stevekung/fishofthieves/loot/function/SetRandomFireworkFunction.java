@@ -4,15 +4,12 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTLootItemFunctions;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
@@ -25,11 +22,12 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class SetRandomFireworkFunction extends LootItemConditionalFunction
 {
+    public static final Codec<SetRandomFireworkFunction> CODEC = RecordCodecBuilder.create(instance -> commonFields(instance).and(Codec.INT.listOf().fieldOf("fireworkColors").forGetter(copyBlockState -> copyBlockState.fireworkColors)).apply(instance, SetRandomFireworkFunction::new));
     private final List<Integer> fireworkColors;
 
-    SetRandomFireworkFunction(LootItemCondition[] lootItemConditions, List<Integer> fireworkColors)
+    SetRandomFireworkFunction(List<LootItemCondition> predicates, List<Integer> fireworkColors)
     {
-        super(lootItemConditions);
+        super(predicates);
         this.fireworkColors = ImmutableList.copyOf(fireworkColors);
     }
 
@@ -53,11 +51,11 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
 
             if (flicker)
             {
-                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_FLICKER, flicker);
+                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_FLICKER, true);
             }
             if (trail)
             {
-                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_TRAIL, trail);
+                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_TRAIL, true);
             }
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_COLORS, List.of(Util.getRandom(this.fireworkColors, random)));
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_FADECOLORS, List.of(DyeColor.WHITE.getFireworkColor()));
@@ -100,41 +98,6 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
         public LootItemFunction build()
         {
             return new SetRandomFireworkFunction(this.getConditions(), this.fireworkColors);
-        }
-    }
-
-    public static class Serializer extends LootItemConditionalFunction.Serializer<SetRandomFireworkFunction>
-    {
-        @Override
-        public void serialize(JsonObject json, SetRandomFireworkFunction value, JsonSerializationContext serializationContext)
-        {
-            super.serialize(json, value, serializationContext);
-
-            if (!value.fireworkColors.isEmpty())
-            {
-                var jsonArray = new JsonArray();
-
-                for (var fireworkColor : value.fireworkColors)
-                {
-                    jsonArray.add(serializationContext.serialize(fireworkColor));
-                }
-                json.add("colors", jsonArray);
-            }
-        }
-
-        @Override
-        public SetRandomFireworkFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions)
-        {
-            var fireworkColors = Lists.<Integer>newArrayList();
-
-            if (object.has("colors"))
-            {
-                for (var jsonElement : GsonHelper.getAsJsonArray(object, "colors"))
-                {
-                    fireworkColors.add(jsonElement.getAsInt());
-                }
-            }
-            return new SetRandomFireworkFunction(conditions, fireworkColors);
         }
     }
 }

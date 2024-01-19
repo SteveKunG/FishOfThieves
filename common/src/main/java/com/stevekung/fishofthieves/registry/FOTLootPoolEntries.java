@@ -9,8 +9,8 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 
 public class FOTLootPoolEntries
 {
-    public static final LootPoolEntryType FOT_ITEM = new LootPoolEntryType(new FOTLootItem.Serializer());
-    public static final LootPoolEntryType FOT_TAG = new LootPoolEntryType(new FOTTagEntry.Serializer());
+    public static final LootPoolEntryType FOT_ITEM = new LootPoolEntryType(FOTLootItem.CODEC);
+    public static final LootPoolEntryType FOT_TAG = new LootPoolEntryType(FOTTagEntry.CODEC);
 
     public static void init()
     {

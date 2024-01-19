@@ -30,7 +30,7 @@ public class MixinRecordItem
 
             for (var entity : list)
             {
-                FOTCriteriaTriggers.ITEM_USED_ON_BLOCK_WITH_NEARBY_ENTITY.trigger(serverPlayer, blockPos, itemStack, entity);
+                FOTCriteriaTriggers.ITEM_USED_ON_LOCATION_WITH_NEARBY_ENTITY.trigger(serverPlayer, blockPos, itemStack, entity);
             }
         }
     }

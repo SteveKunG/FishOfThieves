@@ -18,8 +18,8 @@ import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class FOTLootItemConditions
 {
-    public static final LootItemConditionType FOT_LOCATION_CHECK = new LootItemConditionType(new FOTLocationCheck.Serializer());
-    public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(new FishVariantLootConfigCondition.Serializer());
+    public static final LootItemConditionType FOT_LOCATION_CHECK = new LootItemConditionType(FOTLocationCheck.CODEC);
+    public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(FishVariantLootConfigCondition.CODEC);
 
     public static final LootItemCondition.Builder IN_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.LUKEWARM_OCEAN));
     public static final LootItemCondition.Builder IN_DEEP_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.DEEP_LUKEWARM_OCEAN));

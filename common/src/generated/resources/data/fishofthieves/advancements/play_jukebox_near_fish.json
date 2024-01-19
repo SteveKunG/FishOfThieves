@@ -3,7 +3,23 @@
   "criteria": {
     "play_jukebox_near_fish": {
       "conditions": {
-        "entity": [
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "minecraft:jukebox"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "minecraft:music_discs"
+            }
+          },
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
@@ -11,23 +27,29 @@
               "type": "#minecraft:axolotl_hunt_targets"
             }
           }
-        ],
-        "item": {
-          "tag": "minecraft:music_discs"
-        },
-        "location": {
-          "block": {
-            "blocks": [
-              "minecraft:jukebox"
-            ]
-          }
-        }
+        ]
       },
-      "trigger": "fishofthieves:item_used_on_block_with_nearby_entity"
+      "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
     },
     "play_jukebox_near_thieves_fish": {
       "conditions": {
-        "entity": [
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "minecraft:jukebox"
+                ]
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "tag": "minecraft:music_discs"
+            }
+          },
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
@@ -35,19 +57,9 @@
               "type": "#fishofthieves:thieves_fish"
             }
           }
-        ],
-        "item": {
-          "tag": "minecraft:music_discs"
-        },
-        "location": {
-          "block": {
-            "blocks": [
-              "minecraft:jukebox"
-            ]
-          }
-        }
+        ]
       },
-      "trigger": "fishofthieves:item_used_on_block_with_nearby_entity"
+      "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
     }
   },
   "display": {
