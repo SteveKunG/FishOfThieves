@@ -22,11 +22,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
@@ -43,8 +43,6 @@ public class FishOfThievesForge
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(ForgeRegistries.MEMORY_MODULE_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
-
-    public static CommonProxyForge PROXY;
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
     public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.res(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
@@ -66,19 +64,28 @@ public class FishOfThievesForge
         MEMORY_MODULE_TYPES.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
 
-        FishOfThieves.init();
+        FishOfThieves.initGlobal();
 
         modEventBus.addListener(FOTBiomeModifiers::generateBiomeModifiers);
         STRUCTURE_MODIFIERS.register(THIEVES_FISH_SPAWNS_IN_STRUCTURE, FOTStructureModifiers.Modifier::makeCodec);
         modEventBus.addListener(FOTStructureModifiers::generateStructureModifiers);
 
-        PROXY = DistExecutor.safeRunForDist(() -> ClientProxyForge::new, () -> CommonProxyForge::new);
-        PROXY.init();
+        if (FMLEnvironment.dist.isClient())
+        {
+            new ClientProxyForge().init();
+        }
+        new CommonProxyForge().init();
     }
 
     private void commonSetup(FMLCommonSetupEvent event)
     {
         FishOfThieves.initCommon();
+        FOTLootItemFunctions.init();
+        FOTLootPoolEntries.init();
+        FOTStructures.init();
+        FOTDataSerializers.init();
+        FOTLootItemConditions.init();
+
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build());
 
         if (ModList.get().isLoaded("aquaculture"))
@@ -94,7 +101,6 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
         event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
-        event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
         event.register(ForgeRegistries.Keys.SENSOR_TYPES, helper -> FOTSensorTypes.init());
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());

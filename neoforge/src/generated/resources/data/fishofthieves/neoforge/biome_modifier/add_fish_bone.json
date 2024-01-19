@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#fishofthieves:has_fish_bone",
+  "features": "fishofthieves:fish_bone",
+  "step": "vegetal_decoration"
+}

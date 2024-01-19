@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.proxy;
+package com.stevekung.fishofthieves.neoforge.proxy;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -19,21 +19,21 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
-public class CommonProxyForge
+public class CommonProxyNeoForge
 {
     public void init()
     {
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSpawnPlacement);
@@ -137,7 +137,7 @@ public class CommonProxyForge
 
     private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> entries)
     {
-//        var pool = table.getPool("main");TODO
-//        pool.entries.addAll(entries.build());
+        var pool = table.getPool("main");
+        pool.entries.addAll(entries.build());
     }
 }

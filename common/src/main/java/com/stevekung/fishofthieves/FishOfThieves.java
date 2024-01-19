@@ -36,20 +36,14 @@ public class FishOfThieves
         return new ResourceLocation(MOD_ID, path);
     }
 
-    public static void init()
+    public static void initGlobal()
     {
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
-        FOTDataSerializers.init();
     }
 
     public static void initCommon()
     {
-        FOTDataSerializers.init();
-        FOTLootItemFunctions.init();
-        FOTLootPoolEntries.init();
-        FOTStructures.init();
-
         // Naturalist compatibility
         if (FOTPlatform.isModLoaded("naturalist"))
         {

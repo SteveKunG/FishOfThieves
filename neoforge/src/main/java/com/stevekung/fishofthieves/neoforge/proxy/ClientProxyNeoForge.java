@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.proxy;
+package com.stevekung.fishofthieves.neoforge.proxy;
 
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
@@ -14,13 +14,13 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.client.ConfigScreenHandler;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-public class ClientProxyForge
+public class ClientProxyNeoForge
 {
     public void init()
     {
@@ -77,7 +77,7 @@ public class ClientProxyForge
 
     private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)
     {
-        LivingEntityRenderer<E, M> renderer = event.getEntityRenderer(entityType);
+        LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
 
         if (renderer != null)
         {

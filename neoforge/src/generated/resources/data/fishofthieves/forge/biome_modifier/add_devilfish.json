@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#fishofthieves:spawns_devilfish",
+  "spawners": {
+    "type": "fishofthieves:devilfish",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 4
+  }
+}

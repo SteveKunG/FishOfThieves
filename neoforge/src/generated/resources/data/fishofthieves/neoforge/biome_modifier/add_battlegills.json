@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#fishofthieves:spawns_battlegills",
+  "spawners": {
+    "type": "fishofthieves:battlegill",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 5
+  }
+}

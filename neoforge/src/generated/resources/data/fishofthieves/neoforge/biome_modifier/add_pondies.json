@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#fishofthieves:spawns_pondies",
+  "spawners": {
+    "type": "fishofthieves:pondie",
+    "maxCount": 4,
+    "minCount": 2,
+    "weight": 15
+  }
+}

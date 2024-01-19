@@ -1,0 +1,10 @@
+{
+  "type": "fishofthieves:thieves_fish_spawns_in_structure",
+  "spawnerData": {
+    "type": "fishofthieves:plentifin",
+    "maxCount": 8,
+    "minCount": 4,
+    "weight": 12
+  },
+  "structure": "#fishofthieves:plentifins_spawn_in"
+}

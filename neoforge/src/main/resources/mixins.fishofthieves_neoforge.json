@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.stevekung.fishofthieves.neoforge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinBuiltInRegistries",
+    "MobBucketItemAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

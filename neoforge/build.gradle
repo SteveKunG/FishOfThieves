@@ -1,0 +1,199 @@
+architectury {
+    platformSetupLoomIde()
+    neoForge()
+}
+
+loom {
+    def commonVmArgs = [
+            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-XX:HotswapAgent=fatjar",
+            "-XX:+IgnoreUnrecognizedVMOptions"
+    ]
+    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
+
+    neoForge {
+        accessTransformers = files("src/main/resources/META-INF/accesstransformer.cfg")
+    }
+
+    runs {
+        client {
+            if (project.hasProperty("username") && project.hasProperty("uuid")) {
+                programArgs "--username=${username}", "--uuid=${uuid}"
+            }
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        server {
+            properties commonProperties
+            vmArgs commonVmArgs
+        }
+        data {
+            forgeTemplate("data")
+            environment "data"
+            programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
+            name "NeoForge Data Generation"
+        }
+    }
+}
+
+sourceSets.main {
+    resources {
+        srcDirs += "src/generated/resources/"
+    }
+}
+
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
+}
+
+repositories {
+    maven { url "https://maven.neoforged.net/releases/" }
+    maven {
+        name "Aquaculture 2"
+        url "https://girafi.dk/maven/"
+        content {
+            includeGroup "com.teammetallurgy.aquaculture"
+        }
+    }
+}
+
+dependencies {
+    neoForge "net.neoforged:neoforge:${neoforge_version}"
+
+    api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
+
+    modImplementation "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive false }
+}
+
+processResources {
+    inputs.property "version", mod_version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": mod_version
+    }
+}
+
+String fileName = "${archives_base_name}-mc${mc_version}"
+def commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    excludes = commonExcludes
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    commonSources.exclude ".cache"
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    from commonSources.archiveFile.map { zipTree(it) }
+    excludes = commonExcludes
+}
+
+tasks.register("apiJar", Jar) {
+    group "build"
+    from project(":common").sourceSets.main.allJava
+    from project(":common").sourceSets.main.output
+    include "com/stevekung/fishofthieves/api/**/*"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+    archiveClassifier = "api"
+}
+
+artifacts {
+    archives apiJar
+}
+
+remapSourcesJar {
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = "neoforge" + (project.release_type != "release" ? "-" + project.release_type : "")
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = fileName
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+//TODO https://github.com/SpongePowered/Mixin/issues/408
+/*afterEvaluate {
+    loom {
+        runs {
+            configureEach {
+                def mixinJarFile = configurations.compileClasspath.files { it.name == "mixin-patched" }.first()
+                vmArg("-javaagent:$mixinJarFile")
+            }
+        }
+    }
+}*/
+
+def uploadDebug = true
+
+curseforge {
+    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    project {
+        id = "568372"
+        changelog = rootProject.file("CHANGE_LOG.md")
+        changelogType = "markdown"
+        releaseType = project.release_type
+        addGameVersion "NeoForge"
+        addGameVersion "Java 17"
+        addGameVersion project.mc_version
+        addGameVersion "1.20"
+
+        mainArtifact(remapJar.archiveFile) {
+            it.displayName = "[NeoForge ${project.mc_version}] Fish of Thieves v${mod_version}"
+        }
+        relations {
+            it.requiredDependency "cloth-config"
+            it.optionalDependency "configured"
+        }
+        afterEvaluate {
+            uploadTask.dependsOn(remapJar)
+        }
+        addArtifact shadowJar
+        addArtifact remapSourcesJar
+        addArtifact apiJar
+    }
+    options {
+        debug uploadDebug
+        forgeGradleIntegration = false
+    }
+}
+
+modrinth {
+    debugMode = uploadDebug
+    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    projectId = "fish-of-thieves"
+    changelog = rootProject.file("CHANGE_LOG.md").text
+    syncBodyFrom = rootProject.file("README.md").text
+    versionName = "[NeoForge ${project.mc_version}] Fish of Thieves v${mod_version}"
+    versionNumber = project.mod_version + "-neoforge"
+    versionType = project.release_type
+    uploadFile = remapJar
+    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
+    gameVersions = ["${mc_version}"]
+    loaders = ["neoforge"]
+    dependencies {
+        required.project "cloth-config"
+    }
+}

@@ -31,7 +31,7 @@ public class FishOfThievesFabric implements ModInitializer
     @Override
     public void onInitialize()
     {
-        FishOfThieves.init();
+        FishOfThieves.initGlobal();
         FOTBlocks.init();
         FOTItems.init();
         FOTBlockEntityTypes.init();
@@ -40,6 +40,10 @@ public class FishOfThievesFabric implements ModInitializer
         FOTMemoryModuleTypes.init();
         FOTFeatures.init();
         FishOfThieves.initCommon();
+        FOTLootItemFunctions.init();
+        FOTLootPoolEntries.init();
+        FOTStructures.init();
+        FOTDataSerializers.init();
         FOTLootItemConditions.init();
 
         SplashtailVariants.init();
