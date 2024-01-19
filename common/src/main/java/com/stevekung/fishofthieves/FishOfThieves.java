@@ -40,7 +40,6 @@ public class FishOfThieves
     {
         FOTSoundEvents.init();
         FOTCriteriaTriggers.init();
-        FOTDataSerializers.init();
     }
 
     public static void initCommon()
