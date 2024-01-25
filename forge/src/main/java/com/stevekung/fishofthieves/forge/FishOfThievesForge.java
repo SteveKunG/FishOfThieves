@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -79,7 +80,6 @@ public class FishOfThievesForge
     private void commonSetup(FMLCommonSetupEvent event)
     {
         FishOfThieves.initCommon();
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build());
 
         if (ModList.get().isLoaded("aquaculture"))
         {
@@ -98,5 +98,6 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
         event.register(ForgeRegistries.Keys.SENSOR_TYPES, helper -> FOTSensorTypes.init());
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());
+        event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
     }
 }
