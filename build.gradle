@@ -98,6 +98,12 @@ tasks.register("curseforgeModrinthForge") {
     dependsOn ":forge:curseforge"
 }
 
+tasks.register("curseforgeModrinthNeoForge") {
+    group "publishing"
+    dependsOn ":neoforge:modrinth"
+    dependsOn ":neoforge:curseforge"
+}
+
 if (project.hasProperty("version_lib_dir")) {
     tasks.register("updateVersionLib") {
         group "publishing"

@@ -154,11 +154,10 @@ curseforge {
         id = "568372"
         changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
-        releaseType = project.release_type
+        releaseType = "beta"
         addGameVersion "NeoForge"
         addGameVersion "Java 17"
         addGameVersion project.mc_version
-        addGameVersion "1.20"
 
         mainArtifact(remapJar.archiveFile) {
             it.displayName = "[NeoForge ${project.mc_version}] Fish of Thieves v${mod_version}"
