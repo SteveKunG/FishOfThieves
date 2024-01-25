@@ -70,8 +70,6 @@ dependencies {
 
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
 
-//    modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
-    modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
