@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
-import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -49,23 +46,6 @@ public class FishOfThieves
         FOTLootPoolEntries.init();
         FOTStructures.init();
         FOTEntitySubPredicate.init();
-
-        // Naturalist compatibility
-        if (FOTPlatform.isModLoaded("naturalist"))
-        {
-            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "naturalist:snail");
-        }
-        // Alex's Mobs compatibility
-        if (FOTPlatform.isModLoaded("alexsmobs"))
-        {
-            FishPlaqueRegistry.registerInteractionItem(Items.BUCKET, "alexsmobs:cosmic_cod");
-            FishPlaqueRegistry.registerInteractionItem(Items.LAVA_BUCKET, "alexsmobs:stradpole");
-        }
-        // Alex's Caves compatibility
-        if (FOTPlatform.isModLoaded("alexscaves"))
-        {
-            FishPlaqueRegistry.registerInteractionItem(BuiltInRegistries.ITEM.get(new ResourceLocation("alexscaves", "acid_bucket")), "alexscaves:radgill");
-        }
 
         var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
         DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
