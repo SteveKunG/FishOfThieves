@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.data;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 
-public interface FinishedInteraction
+public interface FinishedFishPlaqueInteraction
 {
     void serializeInteractionData(JsonObject json);
 

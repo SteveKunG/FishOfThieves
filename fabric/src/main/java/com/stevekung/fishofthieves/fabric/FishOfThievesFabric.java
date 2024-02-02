@@ -14,8 +14,10 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -41,6 +43,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTFeatures.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
+
+        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new FabricFishPlaqueInteractionManager());
 
         SplashtailVariants.init();
         PondieVariants.init();

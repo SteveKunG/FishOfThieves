@@ -34,12 +34,12 @@ public class FishPlaqueInteractionBuilder
         return new FishPlaqueInteractionBuilder(BuiltInRegistries.ENTITY_TYPE.getKey(entityToInteract), BuiltInRegistries.ITEM.getKey(item));
     }
 
-    public void save(Consumer<FinishedInteraction> output)
+    public void save(Consumer<FinishedFishPlaqueInteraction> output)
     {
-        output.accept(new InteractionResult(this.entityToInteract, this.item));
+        output.accept(new FishPlaqueInteractionResult(this.entityToInteract, this.item));
     }
 
-    private record InteractionResult(ResourceLocation id, ResourceLocation item) implements FinishedInteraction
+    private record FishPlaqueInteractionResult(ResourceLocation id, ResourceLocation item) implements FinishedFishPlaqueInteraction
     {
         @Override
         public void serializeInteractionData(JsonObject json)

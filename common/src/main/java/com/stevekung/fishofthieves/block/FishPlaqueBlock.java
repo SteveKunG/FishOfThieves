@@ -5,8 +5,8 @@ import java.util.Map;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
+import com.stevekung.fishofthieves.data.FishPlaqueInteractionManager;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -93,7 +93,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             if (fishPlaque.hasPlaqueData())
             {
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
-                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.WATER_BUCKET);
+                var interactItem = FishPlaqueInteractionManager.INSTANCE.getFishPlaqueInteraction().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.WATER_BUCKET);
 
                 if (itemStack.is(interactItem))
                 {
@@ -165,7 +165,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var tag = itemStack.copy().getOrCreateTag();
                 var entityType = FOTPlatform.getMobInBucketItem(bucket);
                 var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
-                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
+                var interactItem = FishPlaqueInteractionManager.INSTANCE.getFishPlaqueInteraction().getOrDefault(entityKey, Items.WATER_BUCKET);
                 tag.putString("id", entityKey);
 
                 if (level instanceof ServerLevel serverLevel)

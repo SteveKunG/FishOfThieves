@@ -25,15 +25,15 @@ public abstract class FishPlaqueInteractionProvider implements DataProvider
         var set = Sets.<ResourceLocation>newHashSet();
         var list = new ArrayList<CompletableFuture<?>>();
 
-        this.generate(finishedInteraction ->
+        this.generate(finishedFishPlaqueInteraction ->
         {
-            if (!set.add(finishedInteraction.id()))
+            if (!set.add(finishedFishPlaqueInteraction.id()))
             {
-                throw new IllegalStateException("Duplicate interaction: " + finishedInteraction.id());
+                throw new IllegalStateException("Duplicate interaction: " + finishedFishPlaqueInteraction.id());
             }
             else
             {
-                list.add(DataProvider.saveStable(output, finishedInteraction.serializeInteraction(), this.fishPlaqueInteractionPathProvider.json(finishedInteraction.id())));
+                list.add(DataProvider.saveStable(output, finishedFishPlaqueInteraction.serializeInteraction(), this.fishPlaqueInteractionPathProvider.json(finishedFishPlaqueInteraction.id())));
             }
         });
         return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
@@ -45,5 +45,5 @@ public abstract class FishPlaqueInteractionProvider implements DataProvider
         return "FishPlaqueInteraction";
     }
 
-    public abstract void generate(Consumer<FinishedInteraction> output);
+    public abstract void generate(Consumer<FinishedFishPlaqueInteraction> output);
 }
