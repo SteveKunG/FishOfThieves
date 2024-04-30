@@ -191,6 +191,17 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         }
     }
 
+    public boolean hasFollowCooldown()
+    {
+        return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public boolean isSameType(AbstractSchoolingThievesFish other)
+    {
+        return this.getType() == other.getType();
+    }
+
     public boolean hasLeader()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_LEADER);

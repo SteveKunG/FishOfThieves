@@ -98,6 +98,6 @@ public class MergeOtherFlock extends Behavior<AbstractSchoolingThievesFish>
         var optional = brain.getMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER);
         Predicate<AbstractSchoolingThievesFish> isFlockLeader = AbstractSchoolingThievesFish::isLeader;
         Predicate<AbstractSchoolingThievesFish> lineOfSight = owner::hasLineOfSight;
-        return optional.get().stream().filter(fish -> fish != owner).filter(fish -> fish.getType() == owner.getType()).filter(isFlockLeader.and(lineOfSight).and(NOT_MERGE_FROM_OTHER_FLOCK)).findAny();
+        return optional.get().stream().filter(fish -> fish != owner).filter(owner::isSameType).filter(isFlockLeader.and(lineOfSight).and(NOT_MERGE_FROM_OTHER_FLOCK)).findAny();
     }
 }
