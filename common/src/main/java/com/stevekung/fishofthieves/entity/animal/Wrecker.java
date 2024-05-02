@@ -236,6 +236,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         return EARTHWORMS_FOOD.test(itemStack);
     }
 
+    @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos).is(FluidTags.WATER) && level.getBlockState(blockPos).is(Blocks.WATER);
