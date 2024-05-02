@@ -1,16 +1,13 @@
-architectury {
-    platformSetupLoomIde()
-    forge()
-}
+apply from: "https://gist.githubusercontent.com/SteveKunG/749ab041d7a2cbcad07e10456c8130d8/raw/32d4c0aa564260c6b4929805b781097aa1fd47b0/forge_architectury.gradle"
 
 loom {
-    def commonVmArgs = [
+    List<String> commonVmArgs = [
             "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
             "-XX:+AllowEnhancedClassRedefinition",
             "-XX:HotswapAgent=fatjar",
             "-XX:+IgnoreUnrecognizedVMOptions"
     ]
-    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
+    Map<String, String> commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
 
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
@@ -47,14 +44,6 @@ sourceSets.main {
     }
 }
 
-configurations {
-    common
-    shadowCommon
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
-}
-
 repositories {
     maven {
         name "Aquaculture 2"
@@ -66,29 +55,16 @@ repositories {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${mc_version}-${forge_version}"
-
-    api "com.teammetallurgy.aquaculture:aquaculture2_${mc_version}:${mc_version}-${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_${minecraft_version}:${minecraft_version}-${aquaculture_version}:api"
 
     //modRuntimeOnly "curse.maven:configured-457570:${configured_version}"
     modRuntimeOnly "curse.maven:catalogue-459701:${catalogue_version}"
     modRuntimeOnly "curse.maven:lazy-dfu-forge-460819:3831644"
     modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
 }
 
-processResources {
-    inputs.property "version", rootProject.mod_version
-
-    filesMatching("META-INF/mods.toml") {
-        expand "version": rootProject.mod_version
-    }
-}
-
-String fileName = "${archives_base_name}-mc${mc_version}"
-def commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+String fileName = "${archives_base_name}-mc${minecraft_version}"
+List<String> commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
@@ -99,7 +75,7 @@ shadowJar {
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
+    Jar commonSources = project(":common").sourcesJar
     dependsOn commonSources
     commonSources.exclude ".cache"
     duplicatesStrategy DuplicatesStrategy.EXCLUDE
@@ -129,44 +105,24 @@ remapSourcesJar {
 remapJar {
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = "forge" + (project.release_type != "release" ? "-" + project.release_type : "")
+    archiveClassifier = "forge" + (release_type != "release" ? "-" + release_type : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
 }
 
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
-}
-
-//TODO https://github.com/SpongePowered/Mixin/issues/408
-/*afterEvaluate {
-    loom {
-        runs {
-            configureEach {
-                def mixinJarFile = configurations.compileClasspath.files { it.name == "mixin-patched" }.first()
-                vmArg("-javaagent:$mixinJarFile")
-            }
-        }
-    }
-}*/
-
-def uploadDebug = true
-
 curseforge {
-    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    apiKey = project.hasProperty("curseforge_api_token") ? curseforge_api_token : ""
     project {
         id = "568372"
         changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
         releaseType = project.release_type
         addGameVersion "Forge"
-        addGameVersion "Java 17"
-        addGameVersion project.mc_version
+        addGameVersion "Java ${java_version}"
+        addGameVersion project.minecraft_version
 
         mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
+            it.displayName = "[Forge ${project.minecraft_version}] Fish of Thieves v${mod_version}"
         }
         relations {
             it.requiredDependency "cloth-config"
@@ -180,23 +136,23 @@ curseforge {
         addArtifact apiJar
     }
     options {
-        debug uploadDebug
+        debug = debug_upload
         forgeGradleIntegration = false
     }
 }
 
 modrinth {
-    debugMode = uploadDebug
-    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    debugMode = debug_upload as boolean
+    token = project.hasProperty("modrinth_api_token") ? modrinth_api_token : ""
     projectId = "fish-of-thieves"
     changelog = rootProject.file("CHANGE_LOG.md").text
     syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[Forge ${project.mc_version}] Fish of Thieves v${mod_version}"
+    versionName = "[Forge ${project.minecraft_version}] Fish of Thieves v${mod_version}"
     versionNumber = project.mod_version + "-forge"
     versionType = project.release_type
     uploadFile = remapJar
     additionalFiles = [shadowJar, remapSourcesJar, apiJar]
-    gameVersions = ["${mc_version}"]
+    gameVersions = ["${minecraft_version}"]
     loaders = ["forge"]
     dependencies {
         required.project "cloth-config"
