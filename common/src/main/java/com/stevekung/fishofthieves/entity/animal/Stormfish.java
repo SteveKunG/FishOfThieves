@@ -155,6 +155,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
         return LEECHES_FOOD.test(itemStack);
     }
 
+    @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);

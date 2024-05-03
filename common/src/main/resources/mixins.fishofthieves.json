@@ -25,7 +25,8 @@
     "entity.monster.MixinGuardian",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
-    "level.block.state.MixinBlockBehaviour"
+    "level.block.state.MixinBlockBehaviour",
+    "level.structure.MixinStructureTemplateManager"
   ],
   "injectors": {
     "defaultRequire": 1

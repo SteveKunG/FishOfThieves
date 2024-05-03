@@ -101,13 +101,14 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     {
                         var itemStack2 = bucketable.getBucketItemStack();
                         bucketable.saveToBucketTag(itemStack2);
-                        level.playSound(player, pos, bucketable.getPickupSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+                        level.playSound(player, pos, bucketable.getPickupSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
                         var itemStack3 = ItemUtils.createFilledResult(itemStack, player, itemStack2, false);
                         player.setItemInHand(hand, itemStack3);
                         fishPlaque.clearDisplayEntity();
                         blockEntity.setChanged();
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                        return InteractionResult.sidedSuccess(level.isClientSide());
                     }
                 }
                 else
@@ -149,47 +150,48 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             }
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
                             level.levelEvent(player, 3003, pos, 0);
-                            return InteractionResult.sidedSuccess(level.isClientSide());
                         }
                         level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                         level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
+                        return InteractionResult.sidedSuccess(level.isClientSide());
                     }
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide());
             }
-
-            if (item instanceof MobBucketItem bucket)
+            else
             {
-                var tag = itemStack.copy().getOrCreateTag();
-                var entityType = FOTPlatform.getMobInBucketItem(bucket);
-                var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
-                var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
-                tag.putString("id", entityKey);
-
-                if (level instanceof ServerLevel serverLevel)
+                if (item instanceof MobBucketItem bucket)
                 {
-                    var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
-                    entityToSave.saveWithoutId(tag);
-                    tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
-                }
+                    var tag = itemStack.copy().getOrCreateTag();
+                    var entityType = FOTPlatform.getMobInBucketItem(bucket);
+                    var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
+                    var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);
+                    tag.putString("id", entityKey);
 
-                level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.NEUTRAL, 1.0F, 1.0F);
-                fishPlaque.setPlaqueData(tag);
-                blockEntity.setChanged();
-                level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
-                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                    if (level instanceof ServerLevel serverLevel)
+                    {
+                        var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
+                        entityToSave.saveWithoutId(tag);
+                        tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
+                    }
 
-                if (!player.getAbilities().instabuild)
-                {
-                    player.setItemInHand(hand, new ItemStack(interactItem));
+                    level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    fishPlaque.setPlaqueData(tag);
+                    blockEntity.setChanged();
+                    level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
+                    level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+
+                    if (!player.getAbilities().instabuild)
+                    {
+                        player.setItemInHand(hand, new ItemStack(interactItem));
+                    }
+                    if (!level.isClientSide())
+                    {
+                        player.awardStat(Stats.ITEM_USED.get(item));
+                    }
+                    return InteractionResult.sidedSuccess(level.isClientSide());
                 }
-                if (!level.isClientSide())
-                {
-                    player.awardStat(Stats.ITEM_USED.get(item));
-                }
-                return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
         return InteractionResult.PASS;

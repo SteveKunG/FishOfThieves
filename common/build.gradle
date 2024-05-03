@@ -1,6 +1,4 @@
-architectury {
-    common(project.enabled_platforms.split(","))
-}
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/common.gradle"
 
 loom {
     accessWidenerPath = project(":fabric").file("src/main/resources/fishofthieves.accesswidener")
@@ -10,21 +8,9 @@ loom {
     }
 }
 
-sourceSets.main {
-    resources {
-        srcDirs += "src/generated/resources/"
-    }
-}
-
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-}
-
-jar {
-    exclude ".cache"
 }
