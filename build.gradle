@@ -6,4 +6,4 @@ plugins {
     id "com.modrinth.minotaur" version "2.+" apply false
 }
 
-apply from: "https://gist.githubusercontent.com/SteveKunG/adb757f3d209b0649487a56bb76b7302/raw/fb5f6922cf5d61fdedc5cc8e3332ef84822ebd61/main_architectury.gradle"
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/main.gradle"

@@ -1,14 +1,6 @@
-apply from: "https://gist.githubusercontent.com/SteveKunG/749ab041d7a2cbcad07e10456c8130d8/raw/32d4c0aa564260c6b4929805b781097aa1fd47b0/forge_architectury.gradle"
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/forge.gradle"
 
 loom {
-    List<String> commonVmArgs = [
-            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
-            "-XX:+AllowEnhancedClassRedefinition",
-            "-XX:HotswapAgent=fatjar",
-            "-XX:+IgnoreUnrecognizedVMOptions"
-    ]
-    Map<String, String> commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
-
     forge {
         mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
 
@@ -17,17 +9,17 @@ loom {
         }
     }
 
+    runs.configureEach {
+        properties project.commonProperties
+        vmArgs project.commonVmArgs
+        vmArgs project.hotswapVmArgs
+    }
+
     runs {
         client {
-            if (project.hasProperty("username") && project.hasProperty("uuid")) {
-                programArgs "--username=${username}", "--uuid=${uuid}"
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
             }
-            properties commonProperties
-            vmArgs commonVmArgs
-        }
-        server {
-            properties commonProperties
-            vmArgs commonVmArgs
         }
         data {
             forgeTemplate("data")
@@ -35,12 +27,6 @@ loom {
             programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
             name "Forge Data Generation"
         }
-    }
-}
-
-sourceSets.main {
-    resources {
-        srcDirs += "src/generated/resources/"
     }
 }
 

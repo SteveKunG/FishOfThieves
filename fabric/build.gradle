@@ -1,4 +1,4 @@
-apply from: "https://gist.githubusercontent.com/SteveKunG/21a21c3c0d05ab0bb8f2256f60911259/raw/d93ad35119139fbfaefce4e6b42778008a737d3d/fabric_architectury.gradle"
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/fabric.gradle"
 
 sourceSets {
     gametest {
@@ -8,36 +8,27 @@ sourceSets {
 }
 
 loom {
-    List<String> commonVmArgs = [
-            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
-            "-XX:+AllowEnhancedClassRedefinition",
-            "-XX:HotswapAgent=fatjar",
-            "-XX:+IgnoreUnrecognizedVMOptions"
-    ]
-    Map<String, String> commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
     accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs.configureEach {
+        properties project.commonProperties
+        vmArgs project.commonVmArgs
+        vmArgs project.hotswapVmArgs
+    }
 
     runs {
         client {
-            if (project.hasProperty("username") && project.hasProperty("uuid")) {
-                programArgs "--username=${username}", "--uuid=${uuid}"
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
             }
-            properties commonProperties
-            vmArgs commonVmArgs
-        }
-        server {
-            properties commonProperties
-            vmArgs commonVmArgs
         }
         gametest {
-            if (project.hasProperty("username") && project.hasProperty("uuid")) {
-                programArgs "--username=${username}", "--uuid=${uuid}"
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
             }
             client()
             name "Game Test Client"
             source sourceSets.gametest
-            properties commonProperties
-            vmArgs commonVmArgs
             vmArg "-Dfabric-api.gametest"
         }
         datagen {
