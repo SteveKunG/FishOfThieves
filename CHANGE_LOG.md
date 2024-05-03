@@ -1,2 +1,6 @@
-* Fish Plaque is now getting all entity data when spawned by bucket
-* Revert fish dancing to use same behavior like parrot does, closes #44
+* Validate structure data version, closed #47
+* Increase Seapost spacing
+* Minor fixes to Fish Plaque logic
+* Change Fish Plaques sound sources to BLOCKS
+* Minor optimization to Fish AIs
+* Rename config "dropAndPickFishesWithVariant" to "enableFishItemWithAllVariant"
