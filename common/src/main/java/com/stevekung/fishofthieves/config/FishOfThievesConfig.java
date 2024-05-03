@@ -35,7 +35,7 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public int seapostSpacing = 128;
+        public int seapostSpacing = 256;
 
         @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.Gui.Tooltip(count = 2)
