@@ -40,7 +40,7 @@ public class FOTLootItem extends LootPoolSingletonContainer
     {
         var itemStack = new ItemStack(this.item);
 
-        if (FishOfThieves.CONFIG.general.dropAndPickFishesWithVariant)
+        if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
         {
             var isNight = !lootContext.getLevel().isDay();
             var data = getData(lootContext, isNight);

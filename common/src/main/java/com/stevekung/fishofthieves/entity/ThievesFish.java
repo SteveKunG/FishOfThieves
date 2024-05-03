@@ -72,7 +72,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
         if (variant != null)
         {
-            if (FishOfThieves.CONFIG.general.dropAndPickFishesWithVariant)
+            if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
             {
                 var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
                 var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));

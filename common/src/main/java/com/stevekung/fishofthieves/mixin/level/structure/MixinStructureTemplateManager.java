@@ -31,9 +31,12 @@ public class MixinStructureTemplateManager
 
         if (resourceLocation.getNamespace().equals(FishOfThieves.MOD_ID) && compoundTag.contains("DataVersion", Tag.TAG_ANY_NUMERIC))
         {
-            if (compoundTag.getInt("DataVersion") != SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+            var structureDataVersion = compoundTag.getInt("DataVersion");
+            var currentDataVersion = SharedConstants.getCurrentVersion().getDataVersion().getVersion();
+
+            if (structureDataVersion != currentDataVersion)
             {
-                FishOfThieves.LOGGER.error("Fish of Thieves structures 'DataVersion' are not updated to match the current 'DataVersion'. Please report this to developer.");
+                FishOfThieves.LOGGER.error("Fish of Thieves structures 'DataVersion' are not updated to match the current 'DataVersion', Expected {} but got {}. Please report this to developer.", currentDataVersion, structureDataVersion);
             }
         }
     }

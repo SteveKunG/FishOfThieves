@@ -45,7 +45,7 @@ public final class FishOfThievesConfig implements ConfigData
         public boolean displayAllFishVariantInCreativeTab = false;
 
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public boolean dropAndPickFishesWithVariant = false;
+        public boolean enableFishItemWithAllVariant = false;
 
         @ConfigEntry.Gui.Tooltip
         public boolean displayTrophySpawnEggInCreativeTab = false;
