@@ -20,7 +20,7 @@ public class FishVariantLootConfigCondition implements LootItemCondition
     @Override
     public boolean test(LootContext lootContext)
     {
-        return FishOfThieves.CONFIG.general.dropAndPickFishesWithVariant;
+        return FishOfThieves.CONFIG.general.enableFishItemWithAllVariant;
     }
 
     public static LootItemCondition.Builder configEnabled()

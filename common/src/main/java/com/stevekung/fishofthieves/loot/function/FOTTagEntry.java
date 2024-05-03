@@ -50,7 +50,7 @@ public class FOTTagEntry extends LootPoolSingletonContainer
     {
         var itemStack = new ItemStack(holder);
 
-        if (FishOfThieves.CONFIG.general.dropAndPickFishesWithVariant)
+        if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
         {
             var isNight = !lootContext.getLevel().isDay();
             var data = getData(lootContext, isNight);

@@ -39,7 +39,7 @@ public class FOTStructures
         static void bootstrap(BootstapContext<StructureSet> context)
         {
             var holderGetter = context.lookup(Registries.STRUCTURE);
-            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(32, 16, RandomSpreadType.LINEAR, 26384127)));
+            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(512, 64, RandomSpreadType.LINEAR, 26384127)));
         }
     }
 
