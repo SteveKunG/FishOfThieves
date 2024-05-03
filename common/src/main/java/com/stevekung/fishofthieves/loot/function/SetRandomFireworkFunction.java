@@ -53,11 +53,11 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
 
             if (flicker)
             {
-                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_FLICKER, flicker);
+                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_FLICKER, true);
             }
             if (trail)
             {
-                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_TRAIL, trail);
+                explosionTag.putBoolean(FireworkRocketItem.TAG_EXPLOSION_TRAIL, true);
             }
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_COLORS, List.of(Util.getRandom(this.fireworkColors, random)));
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_FADECOLORS, List.of(DyeColor.WHITE.getFireworkColor()));

@@ -1,7 +1,4 @@
-architectury {
-    platformSetupLoomIde()
-    fabric()
-}
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/fabric.gradle"
 
 sourceSets {
     gametest {
@@ -11,36 +8,27 @@ sourceSets {
 }
 
 loom {
-    def commonVmArgs = [
-            "-Dfabric.systemLibraries=${System.getProperty("java.home")}/lib/hotswap/hotswap-agent.jar".toString(),
-            "-XX:+AllowEnhancedClassRedefinition",
-            "-XX:HotswapAgent=fatjar",
-            "-XX:+IgnoreUnrecognizedVMOptions"
-    ]
-    def commonProperties = ["mixin.debug.export": "true", "mixin.hotSwap": "true"]
     accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs.configureEach {
+        properties project.commonProperties
+        vmArgs project.commonVmArgs
+        vmArgs project.hotswapVmArgs
+    }
 
     runs {
         client {
-            if (project.hasProperty("username") && project.hasProperty("uuid")) {
-                programArgs "--username=${username}", "--uuid=${uuid}"
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
             }
-            properties commonProperties
-            vmArgs commonVmArgs
-        }
-        server {
-            properties commonProperties
-            vmArgs commonVmArgs
         }
         gametest {
-            if (project.hasProperty("username") && project.hasProperty("uuid")) {
-                programArgs "--username=${username}", "--uuid=${uuid}"
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
             }
             client()
             name "Game Test Client"
             source sourceSets.gametest
-            properties commonProperties
-            vmArgs commonVmArgs
             vmArg "-Dfabric-api.gametest"
         }
         datagen {
@@ -57,16 +45,7 @@ loom {
     }
 }
 
-configurations {
-    common
-    shadowCommon
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
-}
-
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modApi("maven.modrinth:modmenu:${modmenu_version}") {
         exclude group: "net.fabricmc.fabric-api"
@@ -77,21 +56,10 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
-processResources {
-    inputs.property "version", mod_version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": mod_version
-    }
-}
-
-String fileName = "${archives_base_name}-mc${mc_version}"
-def devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
+String fileName = "${archives_base_name}-mc${minecraft_version}"
+List<String> devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
@@ -102,7 +70,7 @@ shadowJar {
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
+    Jar commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
     excludes = devExcludes
@@ -131,44 +99,24 @@ remapJar {
     injectAccessWidener = true
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = "fabric" + (project.release_type != "release" ? "-" + project.release_type : "")
+    archiveClassifier = "fabric" + (release_type != "release" ? "-${release_type}" : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
 }
 
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
-}
-
-afterEvaluate {
-    loom {
-        runs {
-            configureEach {
-                def mixinJarFile = configurations.compileClasspath.files { it.group == "net.fabricmc" && it.name == "sponge-mixin" }.first()
-                vmArg("-javaagent:$mixinJarFile")
-            }
-        }
-    }
-}
-
-def uploadDebug = true
-
 curseforge {
-    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
+    apiKey = project.hasProperty("curseforge_api_token") ? curseforge_api_token : ""
     project {
         id = "568372"
         changelog = rootProject.file("CHANGE_LOG.md")
         changelogType = "markdown"
         releaseType = project.release_type
         addGameVersion "Fabric"
-        addGameVersion "Java 17"
-        addGameVersion project.mc_version
-        addGameVersion "1.20"
+        addGameVersion "Java ${java_version}"
+        addGameVersion project.minecraft_version
 
         mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[Fabric ${project.mc_version}] Fish of Thieves v${mod_version}"
+            it.displayName = "[Fabric ${minecraft_version}] Fish of Thieves v${mod_version}"
         }
         relations {
             it.requiredDependency "fabric-api"
@@ -184,23 +132,23 @@ curseforge {
         addArtifact apiJar
     }
     options {
-        debug uploadDebug
+        debug = debug_upload
         forgeGradleIntegration = false
     }
 }
 
 modrinth {
-    debugMode = uploadDebug
-    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
+    debugMode = debug_upload as boolean
+    token = project.hasProperty("modrinth_api_token") ? modrinth_api_token : ""
     projectId = "fish-of-thieves"
     changelog = rootProject.file("CHANGE_LOG.md").text
     syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[Fabric ${project.mc_version}] Fish of Thieves v${mod_version}"
+    versionName = "[Fabric ${project.minecraft_version}] Fish of Thieves v${mod_version}"
     versionNumber = project.mod_version + "-fabric"
     versionType = project.release_type
     uploadFile = remapJar
     additionalFiles = [shadowJar, remapSourcesJar, apiJar]
-    gameVersions = ["${mc_version}"]
+    gameVersions = ["${minecraft_version}"]
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"

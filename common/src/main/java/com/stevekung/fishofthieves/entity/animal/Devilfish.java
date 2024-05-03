@@ -240,6 +240,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         return GRUBS_FOOD.test(itemStack);
     }
 
+    @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
