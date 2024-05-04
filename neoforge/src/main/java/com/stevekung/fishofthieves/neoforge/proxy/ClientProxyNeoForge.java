@@ -16,7 +16,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
@@ -24,11 +23,12 @@ public class ClientProxyNeoForge
 {
     public void init()
     {
+        var eventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayerDefinitions);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayers);
+        eventBus.addListener(this::clientSetup);
+        eventBus.addListener(this::registerRenderers);
+        eventBus.addListener(this::registerLayerDefinitions);
+        eventBus.addListener(this::registerLayers);
     }
 
     public void clientSetup(FMLClientSetupEvent event)

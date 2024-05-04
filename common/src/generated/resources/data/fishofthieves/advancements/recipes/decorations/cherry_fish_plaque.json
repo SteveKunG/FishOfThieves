@@ -30,6 +30,5 @@
     "recipes": [
       "fishofthieves:cherry_fish_plaque"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

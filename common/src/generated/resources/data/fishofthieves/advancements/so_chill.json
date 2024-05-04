@@ -108,16 +108,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.so_chill.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "fishofthieves:battlegill"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.fot.so_chill.title"
     }

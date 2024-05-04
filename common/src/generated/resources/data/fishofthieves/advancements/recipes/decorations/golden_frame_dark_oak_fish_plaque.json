@@ -30,6 +30,5 @@
     "recipes": [
       "fishofthieves:golden_frame_dark_oak_fish_plaque"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

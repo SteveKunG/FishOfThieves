@@ -30,6 +30,5 @@
     "recipes": [
       "fishofthieves:cooked_wildsplash"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -34,16 +34,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.lightning_straight_to_my_fish.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "fishofthieves:stormfish"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.fot.lightning_straight_to_my_fish.title"
     }

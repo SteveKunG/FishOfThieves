@@ -30,6 +30,5 @@
     "recipes": [
       "fishofthieves:gilded_spruce_fish_plaque"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

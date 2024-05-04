@@ -24,9 +24,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.world.StructureModifier;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -54,7 +54,7 @@ public class FishOfThievesNeoForge
 
     public FishOfThievesNeoForge()
     {
-        var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        var modEventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
         modEventBus.register(this);
         modEventBus.addListener(this::commonSetup);
         BLOCK.register(modEventBus);
@@ -106,6 +106,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
         event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
+        event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
     }
 }

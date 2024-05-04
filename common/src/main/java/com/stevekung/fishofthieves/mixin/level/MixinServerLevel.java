@@ -55,7 +55,7 @@ public abstract class MixinServerLevel extends Level
     private Optional<BlockPos> findNearestStormfish(BlockPos blockPos)
     {
         var blockPos2 = this.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos);
-        var aabb = new AABB(blockPos2, new BlockPos(blockPos2.getX(), this.getMaxBuildHeight(), blockPos2.getZ())).inflate(8.0D);
+        var aabb = AABB.encapsulatingFullBlocks(blockPos2, new BlockPos(blockPos2.getX(), this.getMaxBuildHeight(), blockPos2.getZ())).inflate(8.0D);
         return Optional.of(this.getEntities(FOTEntities.STORMFISH, aabb, living -> living != null && living.isAlive() && this.isRainingAtFromBelowWater(blockPos2))).filter(stormfish -> !stormfish.isEmpty()).map(stormfish -> stormfish.get(this.random.nextInt(stormfish.size())).blockPosition());
     }
 }

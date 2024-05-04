@@ -56,8 +56,10 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
@@ -455,8 +457,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         private static void addCookingRecipes(RecipeOutput output, float xp, ItemLike rawFood, ItemLike cookedFood)
         {
             SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), RecipeCategory.FOOD, cookedFood, xp, 200).unlockedBy(getHasName(rawFood), has(rawFood)).save(output);
-            simpleCookingRecipe(output, "smoking", RecipeSerializer.SMOKING_RECIPE, 100, rawFood, cookedFood, xp);
-            simpleCookingRecipe(output, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600, rawFood, cookedFood, xp);
+            simpleCookingRecipe(output, "smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100, rawFood, cookedFood, xp);
+            simpleCookingRecipe(output, "campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600, rawFood, cookedFood, xp);
         }
     }
 
@@ -997,7 +999,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.root.title"),
                             Component.translatable("advancements.fot.root.description"),
                             new ResourceLocation("textures/block/tube_coral_block.png"),
-                            FrameType.TASK, false, false, false)
+                            AdvancementType.TASK, false, false, false)
                     .addCriterion("in_water", PlayerTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.location()
                                     .setFluid(FluidPredicate.Builder.fluid()
@@ -1008,7 +1010,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.SPLASHTAIL_BUCKET,
                             Component.translatable("advancements.fot.fish_collectors.title"),
                             Component.translatable("advancements.fot.fish_collectors.description"),
-                            null, FrameType.CHALLENGE, true, true, false)
+                            null, AdvancementType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
                     .save(consumer, this.mod("fish_collectors"));
 
@@ -1016,7 +1018,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.SPLASHTAIL_BUCKET,
                             Component.translatable("advancements.fot.master_fish_collectors.title"),
                             Component.translatable("advancements.fot.master_fish_collectors.description"),
-                            null, FrameType.CHALLENGE, true, true, false)
+                            null, AdvancementType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
                     .save(consumer, this.mod("master_fish_collectors"));
 
@@ -1024,7 +1026,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.SPLASHTAIL_BUCKET,
                             Component.translatable("advancements.fot.legendary_fish_collectors.title"),
                             Component.translatable("advancements.fot.legendary_fish_collectors.description"),
-                            null, FrameType.CHALLENGE, true, true, false)
+                            null, AdvancementType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                     .save(consumer, this.mod("legendary_fish_collectors"));
 
@@ -1035,7 +1037,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.DEVILFISH,
                             Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
                             Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
-                            null, FrameType.TASK, true, true, false)
+                            null, AdvancementType.TASK, true, true, false)
                     .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
             var battlegill = BuiltInRegistries.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
@@ -1053,14 +1055,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.BATTLEGILL,
                             Component.translatable("advancements.fot.so_chill.title"),
                             Component.translatable("advancements.fot.so_chill.description"),
-                            null, FrameType.TASK, true, true, false)
+                            null, AdvancementType.TASK, true, true, false)
                     .save(consumer, this.mod("so_chill"));
 
             Advancement.Builder.advancement().parent(advancement)
                     .display(FOTItems.STORMFISH,
                             Component.translatable("advancements.fot.lightning_straight_to_my_fish.title"),
                             Component.translatable("advancements.fot.lightning_straight_to_my_fish.description"),
-                            null, FrameType.TASK, true, true, false)
+                            null, AdvancementType.TASK, true, true, false)
                     .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lightningStrike(Optional.of(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LightningBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build()), Optional.of(EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build())))
                     .save(consumer, this.mod("lightning_straight_to_my_fish"));
 
@@ -1068,7 +1070,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(Items.SPYGLASS,
                             Component.translatable("advancements.fot.spyglass_at_plentifins.title"),
                             Component.translatable("advancements.fot.spyglass_at_plentifins.description"),
-                            null, FrameType.TASK, true, true, false)
+                            null, AdvancementType.TASK, true, true, false)
                     .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(FOTEntities.PLENTIFIN)).build()), ItemPredicate.Builder.item().of(Items.SPYGLASS)))
                     .save(consumer, this.mod("spyglass_at_plentifins"));
 
@@ -1076,7 +1078,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(Items.JUKEBOX,
                             Component.translatable("advancements.fot.play_jukebox_near_fish.title"),
                             Component.translatable("advancements.fot.play_jukebox_near_fish.description"),
-                            null, FrameType.TASK, true, true, true)
+                            null, AdvancementType.TASK, true, true, true)
                     .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX)),
@@ -1097,7 +1099,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(Items.SALMON,
                             Component.translatable("advancements.fot.lost_sally.title"),
                             Component.translatable("advancements.fot.lost_sally.description"),
-                            null, FrameType.TASK, true, true, true)
+                            null, AdvancementType.TASK, true, true, true)
                     .save(consumer, this.mod("lost_sally"));
         }
         //@formatter:on

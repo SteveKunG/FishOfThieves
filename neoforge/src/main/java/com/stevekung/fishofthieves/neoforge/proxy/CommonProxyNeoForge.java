@@ -20,8 +20,8 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -34,11 +34,13 @@ public class CommonProxyNeoForge
     public void init()
     {
         NeoForge.EVENT_BUS.register(this);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSpawnPlacement);
+        var eventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
+        eventBus.addListener(this::commonSetup);
+        eventBus.addListener(this::registerAttributes);
+        eventBus.addListener(this::registerSpawnPlacement);
     }
 
+    @SuppressWarnings("deprecation")
     public void commonSetup(FMLCommonSetupEvent event)
     {
         ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
@@ -138,6 +140,8 @@ public class CommonProxyNeoForge
     private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> entries)
     {
         var pool = table.getPool("main");
-        pool.entries.addAll(entries.build());
+        var modifiedEntries = Lists.newArrayList(pool.entries);
+        modifiedEntries.addAll(entries.build());
+        pool.entries = modifiedEntries;
     }
 }

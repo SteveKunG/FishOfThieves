@@ -103,16 +103,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.fish_collectors.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
       "item": "fishofthieves:splashtail_bucket"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.fot.fish_collectors.title"
     }

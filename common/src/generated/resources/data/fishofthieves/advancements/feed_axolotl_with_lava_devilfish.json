@@ -23,16 +23,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "fishofthieves:devilfish"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.title"
     }

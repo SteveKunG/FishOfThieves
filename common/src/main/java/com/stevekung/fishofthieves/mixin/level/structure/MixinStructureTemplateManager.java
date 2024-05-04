@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.SharedConstants;
+import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +28,7 @@ public class MixinStructureTemplateManager
     @Inject(method = "loadFromResource", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void fishofthieves$validateStructureVersion(ResourceLocation id, CallbackInfoReturnable<Optional<StructureTemplate>> info, ResourceLocation resourceLocation) throws IOException
     {
-        var compoundTag = NbtIo.readCompressed(this.resourceManager.open(resourceLocation));
+        var compoundTag = NbtIo.readCompressed(this.resourceManager.open(resourceLocation), NbtAccounter.unlimitedHeap());
 
         if (resourceLocation.getNamespace().equals(FishOfThieves.MOD_ID) && compoundTag.contains("DataVersion", Tag.TAG_ANY_NUMERIC))
         {

@@ -30,6 +30,5 @@
     "recipes": [
       "fishofthieves:cooked_islehopper"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

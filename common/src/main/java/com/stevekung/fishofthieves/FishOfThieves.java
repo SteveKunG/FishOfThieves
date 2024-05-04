@@ -39,7 +39,6 @@ public class FishOfThieves
     public static void initGlobal()
     {
         FOTSoundEvents.init();
-        FOTCriteriaTriggers.init();
     }
 
     public static void initCommon()

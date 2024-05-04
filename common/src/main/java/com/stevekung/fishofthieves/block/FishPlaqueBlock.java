@@ -1,10 +1,13 @@
 package com.stevekung.fishofthieves.block;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
@@ -20,6 +23,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -54,15 +58,23 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private final Map<Direction, VoxelShape> aabb;
+    public static final MapCodec<FishPlaqueBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(propertiesCodec(), Type.CODEC.fieldOf("type").forGetter(FishPlaqueBlock::getType)).apply(instance, FishPlaqueBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
+    private final Type type;
 
     public FishPlaqueBlock(BlockBehaviour.Properties properties, Type type)
     {
         super(properties);
+        this.type = type;
         this.aabb = type.aabb;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
+    }
+
+    public Type getType()
+    {
+        return this.type;
     }
 
     @Override
@@ -306,6 +318,12 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
+    protected MapCodec<? extends BaseEntityBlock> codec()
+    {
+        return CODEC;
+    }
+
+    @Override
     public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
@@ -358,7 +376,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         return backwards ? Util.findPreviousInIterable(allowedValues, currentValue) : Util.findNextInIterable(allowedValues, currentValue);
     }
 
-    public enum Type
+    public enum Type implements StringRepresentable
     {
         WOODEN(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 4, 14.0, 16.0, 12, 16.0), Direction.SOUTH, Block.box(0.0, 4, 0.0, 16.0, 12, 2.0), Direction.EAST, Block.box(0.0, 4, 0.0, 2.0, 12, 16.0), Direction.WEST, Block.box(14.0, 4, 0.0, 16.0, 12, 16.0)))),
         IRON(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0, 3, 13, 16, 13, 16), Direction.SOUTH, Block.box(0, 3, 0, 16, 13, 3), Direction.EAST, Block.box(0, 3, 0, 3, 13, 16), Direction.WEST, Block.box(13, 3, 0, 16, 13, 16)))),
@@ -366,10 +384,17 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         GILDED(Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Shapes.join(Block.box(0, 3, 13, 16, 13, 16), Block.box(1, 13, 14, 15, 15, 16), BooleanOp.OR), Direction.SOUTH, Shapes.join(Block.box(0, 3, 0, 16, 13, 3), Block.box(1, 13, 0, 15, 15, 2), BooleanOp.OR), Direction.EAST, Shapes.join(Block.box(0, 3, 0, 3, 13, 16), Block.box(0, 13, 1, 2, 15, 15), BooleanOp.OR), Direction.WEST, Shapes.join(Block.box(13, 3, 0, 16, 13, 16), Block.box(14, 13, 1, 16, 15, 15), BooleanOp.OR))));
 
         private final Map<Direction, VoxelShape> aabb;
+        public static final StringRepresentable.EnumCodec<Type> CODEC = StringRepresentable.fromEnum(Type::values);
 
         Type(Map<Direction, VoxelShape> aabb)
         {
             this.aabb = aabb;
+        }
+
+        @Override
+        public String getSerializedName()
+        {
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }

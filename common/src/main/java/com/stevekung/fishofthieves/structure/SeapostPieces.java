@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -100,10 +100,22 @@ public class SeapostPieces
             switch (name)
             {
                 case "seapost_barrel" ->
-                        RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), this.getRandomLootTables(random));
+                {
+                    var blockEntity = level.getBlockEntity(pos.below());
+
+                    if (blockEntity instanceof RandomizableContainer randomizableContainer)
+                    {
+                        randomizableContainer.setLootTable(this.getRandomLootTables(random), random.nextLong());
+                    }
+                }
                 case "seapost_barrel_with_flower_pot" ->
                 {
-                    RandomizableContainerBlockEntity.setLootTable(level, random, pos.below(), this.getRandomLootTables(random));
+                    var blockEntity = level.getBlockEntity(pos.below());
+
+                    if (blockEntity instanceof RandomizableContainer randomizableContainer)
+                    {
+                        randomizableContainer.setLootTable(this.getRandomLootTables(random), random.nextLong());
+                    }
                     level.setBlock(pos, Util.getRandom(POTTED_BLOCKS, random).defaultBlockState(), Block.UPDATE_CLIENTS);
                 }
                 case "seapost_leather_worker" ->

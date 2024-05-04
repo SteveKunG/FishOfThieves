@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
+@SuppressWarnings("deprecation")
 public class FOTBlocks
 {
     public static final Block FISH_BONE = new FishBoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).pushReaction(PushReaction.DESTROY).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XYZ).sound(SoundType.BONE_BLOCK));
@@ -26,41 +27,41 @@ public class FOTBlocks
     public static final Block CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.CRIMSON_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD), FishPlaqueBlock.Type.WOODEN);
     public static final Block WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.WARPED_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.NETHER_WOOD), FishPlaqueBlock.Type.WOODEN);
 
-    public static final Block IRON_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
-    public static final Block IRON_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block IRON_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
 
-    public static final Block GOLDEN_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
-    public static final Block GOLDEN_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GOLDEN_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
 
-    public static final Block GILDED_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
-    public static final Block GILDED_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+    public static final Block GILDED_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.ofLegacyCopy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
     public static void init()
     {

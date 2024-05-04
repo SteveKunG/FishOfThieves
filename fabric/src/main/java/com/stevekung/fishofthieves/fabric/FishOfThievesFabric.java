@@ -45,6 +45,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTStructures.init();
         FOTDataSerializers.init();
         FOTLootItemConditions.init();
+        FOTCriteriaTriggers.init();
 
         SplashtailVariants.init();
         PondieVariants.init();

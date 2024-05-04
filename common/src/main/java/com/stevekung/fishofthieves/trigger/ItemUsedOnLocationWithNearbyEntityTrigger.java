@@ -2,13 +2,14 @@ package com.stevekung.fishofthieves.trigger;
 
 import java.util.Optional;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -22,18 +23,9 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTrigger<ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance>
 {
     @Override
-    public ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance createInstance(JsonObject json, Optional<ContextAwarePredicate> player, DeserializationContext deserializationContext)
+    public Codec<TriggerInstance> codec()
     {
-        var optional = ContextAwarePredicate.fromElement("location", deserializationContext, json.get("location"), LootContextParamSets.ADVANCEMENT_LOCATION);
-
-        if (optional.isEmpty())
-        {
-            throw new JsonParseException("Failed to parse 'location' field");
-        }
-        else
-        {
-            return new ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance(player, optional.get());
-        }
+        return TriggerInstance.CODEC;
     }
 
     public void trigger(ServerPlayer player, BlockPos pos, ItemStack stack, Entity entity)
@@ -45,15 +37,9 @@ public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTr
         this.trigger(player, triggerInstance -> triggerInstance.matches(lootContext));
     }
 
-    public static class TriggerInstance extends AbstractCriterionTriggerInstance
+    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> location) implements SimpleCriterionTrigger.SimpleInstance
     {
-        private final Optional<ContextAwarePredicate> location;
-
-        public TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> location)
-        {
-            super(player);
-            this.location = location;
-        }
+        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player), ExtraCodecs.strictOptionalField(ContextAwarePredicate.CODEC, "location").forGetter(TriggerInstance::location)).apply(instance, TriggerInstance::new));
 
         private static ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance itemUsedOnLocation(LocationPredicate.Builder location, ItemPredicate.Builder tool, EntityPredicate.Builder entity)
         {
@@ -72,11 +58,10 @@ public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTr
         }
 
         @Override
-        public JsonObject serializeToJson()
+        public void validate(CriterionValidator validator)
         {
-            var jsonObject = super.serializeToJson();
-            this.location.ifPresent(contextAwarePredicate -> jsonObject.add("location", contextAwarePredicate.toJson()));
-            return jsonObject;
+            SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
+            this.location.ifPresent(contextAwarePredicate -> validator.validate(contextAwarePredicate, LootContextParamSets.ADVANCEMENT_LOCATION, ".location"));
         }
     }
 }

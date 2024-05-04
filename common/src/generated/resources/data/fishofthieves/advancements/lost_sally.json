@@ -16,7 +16,7 @@
           "items": [
             "minecraft:name_tag"
           ],
-          "nbt": "{display:{Name:'{\"text\":\"Sally\"}'}}"
+          "nbt": "{display:{Name:'\"Sally\"'}}"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"
@@ -40,7 +40,7 @@
               "items": [
                 "minecraft:salmon_bucket"
               ],
-              "nbt": "{display:{Name:'{\"text\":\"Sally\"}'}}"
+              "nbt": "{display:{Name:'\"Sally\"'}}"
             }
           }
         ]
@@ -49,16 +49,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.fot.lost_sally.description"
     },
-    "frame": "task",
     "hidden": true,
     "icon": {
       "item": "minecraft:salmon"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.fot.lost_sally.title"
     }
