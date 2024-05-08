@@ -5,6 +5,7 @@ import java.util.function.Function;
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -33,10 +34,8 @@ public class FishPlaqueBlockEntity extends BlockEntity
     }
 
     @Override
-    public void load(CompoundTag tag)
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider)
     {
-        super.load(tag);
-
         if (tag.contains(PLAQUE_DATA_TAG, Tag.TAG_COMPOUND))
         {
             this.setPlaqueData(tag.getCompound(PLAQUE_DATA_TAG));
@@ -46,10 +45,8 @@ public class FishPlaqueBlockEntity extends BlockEntity
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag)
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider)
     {
-        super.saveAdditional(tag);
-
         if (this.plaqueData != null)
         {
             tag.put(PLAQUE_DATA_TAG, this.plaqueData);
@@ -64,10 +61,10 @@ public class FishPlaqueBlockEntity extends BlockEntity
     }
 
     @Override
-    public CompoundTag getUpdateTag()
+    public CompoundTag getUpdateTag(HolderLookup.Provider provider)
     {
         this.displayEntity = null;
-        return this.saveWithoutMetadata();
+        return this.saveWithoutMetadata(provider);
     }
 
     @Override

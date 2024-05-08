@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 {
-    private static final EntityDataAccessor<BattlegillVariant> VARIANT = SynchedEntityData.defineId(Battlegill.class, FOTDataSerializers.BATTLEGILL_VARIANT);
+    private static final EntityDataAccessor<Holder<BattlegillVariant>> VARIANT = SynchedEntityData.defineId(Battlegill.class, FOTDataSerializers.BATTLEGILL_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:jade");
@@ -128,10 +128,10 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, BattlegillVariants.JADE);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(BattlegillVariants.JADE));
     }
 
     @Override
@@ -143,13 +143,13 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     @Override
     public void setVariant(BattlegillVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public BattlegillVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

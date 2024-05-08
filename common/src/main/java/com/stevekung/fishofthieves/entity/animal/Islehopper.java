@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
-    private static final EntityDataAccessor<IslehopperVariant> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
+    private static final EntityDataAccessor<Holder<IslehopperVariant>> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:stone");
@@ -82,10 +82,10 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, IslehopperVariants.STONE);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(IslehopperVariants.STONE));
     }
 
     @Override
@@ -97,13 +97,13 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public void setVariant(IslehopperVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public IslehopperVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

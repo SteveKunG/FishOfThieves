@@ -24,7 +24,7 @@ public class MixinLevelRenderer
     @Inject(method = "playStreamingMusic", at = @At("TAIL"))
     private void fishofthieves$notifyNearbyFish(@Nullable SoundEvent soundEvent, BlockPos blockPos, CallbackInfo info)
     {
-        for (var livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos).inflate(GameEvent.JUKEBOX_PLAY.getNotificationRadius()), PartyFish.class::isInstance))
+        for (var livingEntity : this.level.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos).inflate(GameEvent.JUKEBOX_PLAY.value().notificationRadius()), PartyFish.class::isInstance))
         {
             livingEntity.setRecordPlayingNearby(blockPos, soundEvent != null);
         }

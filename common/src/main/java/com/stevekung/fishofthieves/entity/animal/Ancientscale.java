@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
-    private static final EntityDataAccessor<AncientscaleVariant> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
+    private static final EntityDataAccessor<Holder<AncientscaleVariant>> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:almond");
@@ -77,10 +77,10 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, AncientscaleVariants.ALMOND);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(AncientscaleVariants.ALMOND));
     }
 
     @Override
@@ -92,13 +92,13 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     public void setVariant(AncientscaleVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public AncientscaleVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

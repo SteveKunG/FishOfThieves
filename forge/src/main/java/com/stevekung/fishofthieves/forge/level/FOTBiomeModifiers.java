@@ -15,7 +15,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -76,7 +76,7 @@ public class FOTBiomeModifiers
         return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.res(key));
     }
 
-    private static BiomeModifier spawn(BootstapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)
+    private static BiomeModifier spawn(BootstrapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)
     {
         var tag = context.lookup(Registries.BIOME).getOrThrow(tagKey);
         return ForgeBiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(tag, spawnerData);

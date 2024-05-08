@@ -25,9 +25,9 @@ public class IslehopperRenderer extends ThievesFishRenderer<IslehopperVariant, I
     }
 
     @Override
-    protected void setupRotations(Islehopper entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(Islehopper entity, PoseStack poseStack, float bob, float rotationYaw, float partialTicks)
     {
-        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
-        poseStack.translate(0.0f, Mth.cos(ageInTicks * 0.1f) * 0.01f, 0.0f);
+        super.setupRotations(entity, poseStack, bob, rotationYaw, partialTicks);
+        poseStack.translate(0.0f, Mth.cos(bob * 0.1f) * 0.01f, 0.0f);
     }
 }

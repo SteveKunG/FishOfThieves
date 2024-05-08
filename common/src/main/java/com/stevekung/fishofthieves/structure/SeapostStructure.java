@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.structure;
 
 import java.util.Optional;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Rotation;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilde
 
 public class SeapostStructure extends Structure
 {
-    public static final Codec<SeapostStructure> CODEC = simpleCodec(SeapostStructure::new);
+    public static final MapCodec<SeapostStructure> CODEC = simpleCodec(SeapostStructure::new);
 
     public SeapostStructure(Structure.StructureSettings structureSettings)
     {

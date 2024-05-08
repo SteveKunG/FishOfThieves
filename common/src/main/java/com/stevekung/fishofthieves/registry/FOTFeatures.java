@@ -4,7 +4,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -23,9 +23,9 @@ public class FOTFeatures
         register("fish_bone", FISH_BONE_FEATURE);
     }
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> bootstapContext)
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> BootstrapContext)
     {
-        FeatureUtils.register(bootstapContext, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
+        FeatureUtils.register(BootstrapContext, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> void register(String key, F value)

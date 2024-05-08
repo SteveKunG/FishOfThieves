@@ -123,20 +123,20 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         }
     }
 
-    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
+    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
     {
-        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))
-        {
-            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
-
-            if (variant != null)
-            {
-                this.setVariant(variant);
-            }
-
-            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
-            return spawnData;
-        }
+//        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))TODO
+//        {
+//            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
+//
+//            if (variant != null)
+//            {
+//                this.setVariant(variant);
+//            }
+//
+//            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
+//            return spawnData;
+//        }
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);

@@ -25,8 +25,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -90,15 +91,14 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
+    public ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
-        var itemStack = player.getItemInHand(hand);
         var item = itemStack.getItem();
         var blockEntity = level.getBlockEntity(pos);
 
         if (!(blockEntity instanceof FishPlaqueBlockEntity fishPlaque) || itemStack.is(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST))
         {
-            return InteractionResult.PASS;
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
         else
         {
@@ -120,7 +120,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         blockEntity.setChanged();
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                        return InteractionResult.sidedSuccess(level.isClientSide());
+                        return ItemInteractionResult.sidedSuccess(level.isClientSide());
                     }
                 }
                 else
@@ -140,8 +140,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.levelEvent(player, 3004, pos, 0);
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-                            itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
-                            return InteractionResult.sidedSuccess(level.isClientSide());
+                            itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                            return ItemInteractionResult.sidedSuccess(level.isClientSide());
                         }
                     }
                     else
@@ -167,7 +167,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                         level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                         level.setBlock(pos, cycleRotation(state, player.isSecondaryUseActive()), Block.UPDATE_ALL);
-                        return InteractionResult.sidedSuccess(level.isClientSide());
+                        return ItemInteractionResult.sidedSuccess(level.isClientSide());
                     }
                 }
             }
@@ -202,11 +202,11 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     {
                         player.awardStat(Stats.ITEM_USED.get(item));
                     }
-                    return InteractionResult.sidedSuccess(level.isClientSide());
+                    return ItemInteractionResult.sidedSuccess(level.isClientSide());
                 }
             }
         }
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Nullable

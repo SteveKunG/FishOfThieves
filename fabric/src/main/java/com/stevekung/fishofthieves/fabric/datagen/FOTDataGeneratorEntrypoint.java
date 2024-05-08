@@ -48,6 +48,7 @@ import net.minecraft.data.models.model.*;
 import net.minecraft.data.recipes.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.*;
 import net.minecraft.world.effect.MobEffects;
@@ -68,7 +69,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -364,9 +366,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class RecipeProvider extends FabricRecipeProvider
     {
-        private RecipeProvider(FabricDataOutput dataOutput)
+        private RecipeProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput);
+            super(dataOutput, provider);
         }
 
         @Override
@@ -464,9 +466,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class BlockLootProvider extends FabricBlockLootTableProvider
     {
-        private BlockLootProvider(FabricDataOutput dataOutput)
+        private BlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput);
+            super(dataOutput, provider);
         }
 
         @Override
@@ -526,64 +528,69 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class CustomBlockLootProvider extends SimpleFabricLootTableProvider
     {
-        private CustomBlockLootProvider(FabricDataOutput dataOutput)
+        private CustomBlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput, LootContextParamSets.BLOCK);
+            super(dataOutput, provider, LootContextParamSets.BLOCK);
         }
 
         //@formatter:off
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider registries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
-            var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(FluidTags.WATER));
+            var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(Fluids.WATER));
             var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(-1, 0, 0)))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, 1)))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 0, -1)))
                     .or(LocationCheck.checkLocation(waterPredicate, new BlockPos(0, 1, 0)));
 
-            consumer.accept(FOTLootTables.Blocks.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(getLootTableKey(FOTLootTables.Blocks.EARTHWORMS_DROPS), LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
-                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootTables.Blocks.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
+            consumer.accept(getLootTableKey(FOTLootTables.Blocks.GRUBS_DROPS), LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.GRUBS)
-                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                     .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                     .when(waterSurrounded.invert())
             ));
 
-            consumer.accept(FOTLootTables.Blocks.LEECHES_DROPS, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Blocks.LEECHES_DROPS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                             .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER))))
                             .when(waterSurrounded))
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
                             .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                             .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.Biomes.ALWAYS_DROP_LEECHES)))));
         }
         //@formatter:on
+
+        private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
+        {
+            return ResourceKey.create(Registries.LOOT_TABLE, lootTable);
+        }
     }
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
     {
-        private EntityLootProvider(FabricDataOutput dataOutput)
+        private EntityLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput, LootContextParamSets.ENTITY);
+            super(dataOutput, provider, LootContextParamSets.ENTITY);
         }
 
         //@formatter:off
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>,LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Entities.FISH_BONE_DROP), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
@@ -660,7 +667,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     FOTEntitySubPredicate.variant(StormfishVariants.TWILIGHT));
         }
 
-        private static void simpleFishLoot(EntityType<?> entityType, Item item, BiConsumer<ResourceLocation, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
+        private static void simpleFishLoot(EntityType<?> entityType, Item item, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
         {
             consumer.accept(entityType.getDefaultLootTable(), simpleFishLoot(item, entityType, subPredicate));
         }
@@ -691,7 +698,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F)));
         }
 
-        @SuppressWarnings("deprecation")
         private static LootPoolSingletonContainer.Builder<?> dropWithVariant(Item item, EntityType<?> entityType, int variant, EntitySubPredicate subPredicate)
         {
             return LootItem.lootTableItem(item)
@@ -699,25 +705,30 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TrophyFishPredicate.trophy(true)))))
-                    .apply(SetNbtFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant)))
+                    .apply(SetCustomModelDataFunction.setTag(Util.make(new CompoundTag(), tag -> tag.putInt("CustomModelData", variant)))
                             .when(FishVariantLootConfigCondition.configEnabled()))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(subPredicate)));
         }
+        //@formatter:on
+
+        private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
+        {
+            return ResourceKey.create(Registries.LOOT_TABLE, lootTable);
+        }
     }
-    //@formatter:on
 
     private static class ChestLootProvider extends SimpleFabricLootTableProvider
     {
-        private ChestLootProvider(FabricDataOutput dataOutput)
+        private ChestLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput, LootContextParamSets.CHEST);
+            super(dataOutput, provider, LootContextParamSets.CHEST);
         }
 
         //@formatter:off
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(4.0F, 12.0F))
                             .add(LootItem.lootTableItem(Items.SUSPICIOUS_STEW).setWeight(10)
@@ -745,11 +756,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(Items.MAP)
                                     .apply(ExplorationMapFunction.makeExplorationMap()
                                             .setDestination(StructureTags.ON_TREASURE_MAPS)
-                                            .setMapDecoration(MapDecoration.Type.RED_X)
+                                            .setMapDecoration(MapDecorationTypes.RED_X)
                                             .setZoom((byte)1)
                                             .setSkipKnownStructures(false)))));
 
-            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 6.0F))
                             .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(5)
@@ -759,7 +770,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
 
-            consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 4.0F))
                             .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(3)
@@ -779,25 +790,30 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))));
         }
         //@formatter:on
+
+        private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
+        {
+            return ResourceKey.create(Registries.LOOT_TABLE, lootTable);
+        }
     }
 
     private static class AdvancementRewardProvider extends SimpleFabricLootTableProvider
     {
-        private AdvancementRewardProvider(FabricDataOutput dataOutput)
+        private AdvancementRewardProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput, LootContextParamSets.ADVANCEMENT_REWARD);
+            super(dataOutput, provider, LootContextParamSets.ADVANCEMENT_REWARD);
         }
 
         //@formatter:off
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
-            consumer.accept(FOTLootTables.Advancements.FISH_COLLECTORS, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Advancements.FISH_COLLECTORS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 4.0F))
                             .add(TagEntry.expandTag(FOTTags.Items.WOODEN_FISH_PLAQUE))));
 
-            consumer.accept(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(2.0F, 4.0F))
                             .add(TagEntry.expandTag(FOTTags.Items.IRON_FRAME_FISH_PLAQUE)))
@@ -805,12 +821,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .setRolls(UniformGenerator.between(4.0F, 8.0F))
                             .add(TagEntry.expandTag(FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE))));
 
-            consumer.accept(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS, LootTable.lootTable()
+            consumer.accept(getLootTableKey(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(UniformGenerator.between(4.0F, 8.0F))
                             .add(TagEntry.expandTag(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE))));
         }
         //@formatter:on
+
+        private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
+        {
+            return ResourceKey.create(Registries.LOOT_TABLE, lootTable);
+        }
     }
 
     private static class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
@@ -851,10 +872,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void addTags(HolderLookup.Provider provider)
         {
-            var rawFishes = new Item[] {FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH};
-            var cookedFishes = new Item[] {FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH};
+            var rawFishes = new Item[] { FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH };
+            var cookedFishes = new Item[] { FOTItems.COOKED_SPLASHTAIL, FOTItems.COOKED_PONDIE, FOTItems.COOKED_ISLEHOPPER, FOTItems.COOKED_ANCIENTSCALE, FOTItems.COOKED_PLENTIFIN, FOTItems.COOKED_WILDSPLASH, FOTItems.COOKED_DEVILFISH, FOTItems.COOKED_BATTLEGILL, FOTItems.COOKED_WRECKER, FOTItems.COOKED_STORMFISH };
 
-            this.getOrCreateTagBuilder(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FISH_BUCKETS).forceAddTag(FOTTags.Items.WORMS);
+            this.getOrCreateTagBuilder(ItemTags.AXOLOTL_FOOD).forceAddTag(FOTTags.Items.WORMS).forceAddTag(FOTTags.Items.THIEVES_FISH_BUCKET);
+            this.getOrCreateTagBuilder(ItemTags.CAT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
+            this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD).forceAddTag(FOTTags.Items.WORMS);
+            this.getOrCreateTagBuilder(ItemTags.OCELOT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
             this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
 
             this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FISH_BUCKETS);
@@ -889,8 +913,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         @Override
         protected void addTags(HolderLookup.Provider provider)
         {
-            var neutralFishes = new EntityType<?>[] {FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER};
-            var fishes = new EntityType<?>[] {FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH};
+            var neutralFishes = new EntityType<?>[] { FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER };
+            var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
             this.getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
             this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
@@ -978,14 +1002,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             map.put(FOTItems.STORMFISH_BUCKET, FOTRegistry.STORMFISH_VARIANT);
         });
 
-        private AdvancementProvider(FabricDataOutput dataOutput)
+        private AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
-            super(dataOutput);
+            super(dataOutput, provider);
         }
 
         //@formatter:off
         @Override
-        public void generateAdvancement(Consumer<AdvancementHolder> consumer)
+        public void generateAdvancement(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer)
         {
             var sallyName = Util.make(new CompoundTag(), compound ->
             {
@@ -1003,7 +1027,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .addCriterion("in_water", PlayerTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.location()
                                     .setFluid(FluidPredicate.Builder.fluid()
-                                            .of(FluidTags.WATER))))
+                                            .of(Fluids.WATER))))
                     .save(consumer, this.mod("root"));
 
             var advancement2 = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
@@ -1011,7 +1035,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.fish_collectors.title"),
                             Component.translatable("advancements.fot.fish_collectors.description"),
                             null, AdvancementType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
+                    .rewards(AdvancementRewards.Builder.experience(250).addLootTable(getLootTableKey(FOTLootTables.Advancements.FISH_COLLECTORS)))
                     .save(consumer, this.mod("fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
@@ -1019,7 +1043,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.master_fish_collectors.title"),
                             Component.translatable("advancements.fot.master_fish_collectors.description"),
                             null, AdvancementType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
+                    .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(getLootTableKey(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS)))
                     .save(consumer, this.mod("master_fish_collectors"));
 
             this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
@@ -1027,7 +1051,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             Component.translatable("advancements.fot.legendary_fish_collectors.title"),
                             Component.translatable("advancements.fot.legendary_fish_collectors.description"),
                             null, AdvancementType.CHALLENGE, true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
+                    .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(getLootTableKey(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS)))
                     .save(consumer, this.mod("legendary_fish_collectors"));
 
             Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
@@ -1137,6 +1161,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                 }
             }
             return builder;
+        }
+
+        private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
+        {
+            return ResourceKey.create(Registries.LOOT_TABLE, lootTable);
         }
     }
 

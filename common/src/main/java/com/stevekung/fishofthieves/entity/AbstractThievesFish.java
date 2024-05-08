@@ -81,12 +81,12 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     protected void registerGoals() {}
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(TROPHY, false);
-        this.entityData.define(HAS_FED, false);
-        this.entityData.define(NO_FLIP, false);
+        super.defineSynchedData(builder);
+        builder.define(TROPHY, false);
+        builder.define(HAS_FED, false);
+        builder.define(NO_FLIP, false);
     }
 
     @Override
@@ -163,10 +163,10 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
+        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
+        return this.defaultFinalizeSpawn(this, reason, spawnData);
     }
 
     @Override

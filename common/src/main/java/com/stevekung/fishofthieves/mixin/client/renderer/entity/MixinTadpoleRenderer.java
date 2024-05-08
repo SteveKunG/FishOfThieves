@@ -18,13 +18,13 @@ public abstract class MixinTadpoleRenderer extends MobRenderer<Tadpole, TadpoleM
     }
 
     @Override
-    public void setupRotations(Tadpole entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    public void setupRotations(Tadpole entity, PoseStack poseStack, float bob, float rotationYaw, float partialTicks, float scale)
     {
-        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, bob, rotationYaw, partialTicks, scale);
 
         if (entity.isDancing())
         {
-            var degree = -20.0f * Mth.sin(2.0f * ageInTicks);
+            var degree = -20.0f * Mth.sin(2.0f * bob);
             poseStack.mulPose(Axis.YP.rotationDegrees(degree));
         }
     }

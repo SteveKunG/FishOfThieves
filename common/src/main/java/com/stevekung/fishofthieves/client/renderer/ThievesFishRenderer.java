@@ -34,12 +34,12 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
     }
 
     @Override
-    protected void setupRotations(T entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks)
+    protected void setupRotations(T entity, PoseStack poseStack, float bob, float rotationYaw, float partialTicks, float scale)
     {
-        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        super.setupRotations(entity, poseStack, bob, rotationYaw, partialTicks, scale);
         var inWater = entity.isInWater() || entity.isNoFlip();
         var rotationRenderData = this.setupRotations(entity, inWater);
-        var degree = rotationRenderData.baseDegree * Mth.sin(rotationRenderData.bodyRotBase * rotationRenderData.bodyRotSpeed * ageInTicks);
+        var degree = rotationRenderData.baseDegree * Mth.sin(rotationRenderData.bodyRotBase * rotationRenderData.bodyRotSpeed * bob);
         poseStack.mulPose(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)

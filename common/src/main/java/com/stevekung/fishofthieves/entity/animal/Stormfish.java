@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
-    private static final EntityDataAccessor<StormfishVariant> VARIANT = SynchedEntityData.defineId(Stormfish.class, FOTDataSerializers.STORMFISH_VARIANT);
+    private static final EntityDataAccessor<Holder<StormfishVariant>> VARIANT = SynchedEntityData.defineId(Stormfish.class, FOTDataSerializers.STORMFISH_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:ancient");
@@ -74,10 +74,10 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, StormfishVariants.ANCIENT);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(StormfishVariants.ANCIENT));
     }
 
     @Override
@@ -89,13 +89,13 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     public void setVariant(StormfishVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public StormfishVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

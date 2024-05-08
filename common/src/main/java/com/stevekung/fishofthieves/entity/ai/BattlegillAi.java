@@ -52,7 +52,7 @@ public class BattlegillAi
     private static void initCoreActivity(Brain<Battlegill> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
-                new AnimalPanic(2.0F),
+                new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),

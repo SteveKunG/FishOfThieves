@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
-    private static final EntityDataAccessor<WreckerVariant> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
+    private static final EntityDataAccessor<Holder<WreckerVariant>> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:rose");
@@ -129,10 +129,10 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, WreckerVariants.ROSE);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(WreckerVariants.ROSE));
     }
 
     @Override
@@ -144,13 +144,13 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public void setVariant(WreckerVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public WreckerVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

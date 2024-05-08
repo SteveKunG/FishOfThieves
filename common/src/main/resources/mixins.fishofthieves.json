@@ -15,11 +15,7 @@
   "mixins": [
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
-    "animal.MixinCat",
-    "animal.MixinChicken",
-    "animal.MixinOcelot",
     "datafix.MixinDataFixers",
-    "entity.MixinEntitySubPredicate_Types",
     "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",

@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
-    private static final EntityDataAccessor<PlentifinVariant> VARIANT = SynchedEntityData.defineId(Plentifin.class, FOTDataSerializers.PLENTIFIN_VARIANT);
+    private static final EntityDataAccessor<Holder<PlentifinVariant>> VARIANT = SynchedEntityData.defineId(Plentifin.class, FOTDataSerializers.PLENTIFIN_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:olive");
@@ -77,10 +77,10 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, PlentifinVariants.OLIVE);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(PlentifinVariants.OLIVE));
     }
 
     @Override
@@ -92,13 +92,13 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     @Override
     public void setVariant(PlentifinVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public PlentifinVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

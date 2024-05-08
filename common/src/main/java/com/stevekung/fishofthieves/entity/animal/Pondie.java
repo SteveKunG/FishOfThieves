@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
-    private static final EntityDataAccessor<PondieVariant> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
+    private static final EntityDataAccessor<Holder<PondieVariant>> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:charcoal");
@@ -69,10 +69,10 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, PondieVariants.CHARCOAL);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(PondieVariants.CHARCOAL));
     }
 
     @Override
@@ -84,13 +84,13 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     @Override
     public void setVariant(PondieVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public PondieVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

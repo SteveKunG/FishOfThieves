@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
-    private static final EntityDataAccessor<DevilfishVariant> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
+    private static final EntityDataAccessor<Holder<DevilfishVariant>> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:ashen");
@@ -127,10 +127,10 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, DevilfishVariants.ASHEN);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(DevilfishVariants.ASHEN));
     }
 
     @Override
@@ -142,13 +142,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public void setVariant(DevilfishVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public DevilfishVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override

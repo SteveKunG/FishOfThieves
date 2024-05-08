@@ -68,7 +68,7 @@ public class AbstractSchoolingThievesFishAi
     private static void initCoreActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
-                new AnimalPanic(2.0F),
+                new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
                 AbstractThievesFishAi.avoidPlayer(),

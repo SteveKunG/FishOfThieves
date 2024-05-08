@@ -3,13 +3,14 @@ package com.stevekung.fishofthieves.registry;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.structure.SeapostPieces;
 import com.stevekung.fishofthieves.structure.SeapostStructure;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 
 public class FOTStructures
 {
-    public static void bootstrap(BootstapContext<Structure> context)
+    public static void bootstrap(BootstrapContext<Structure> context)
     {
         var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(Structures.structure(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST), TerrainAdjustment.BEARD_THIN)));
@@ -36,7 +37,7 @@ public class FOTStructures
 
     public interface Sets
     {
-        static void bootstrap(BootstapContext<StructureSet> context)
+        static void bootstrap(BootstrapContext<StructureSet> context)
         {
             var holderGetter = context.lookup(Registries.STRUCTURE);
             context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(512, 64, RandomSpreadType.LINEAR, 26384127)));
@@ -49,7 +50,7 @@ public class FOTStructures
 
         StructureType<SeapostStructure> SEAPOST = register("seapost", SeapostStructure.CODEC);
 
-        private static <S extends Structure> StructureType<S> register(String name, Codec<S> codec)
+        private static <S extends Structure> StructureType<S> register(String name, MapCodec<S> codec)
         {
             return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, FishOfThieves.res(name), () -> codec);
         }

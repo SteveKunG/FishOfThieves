@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 {
-    private static final EntityDataAccessor<SplashtailVariant> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
+    private static final EntityDataAccessor<Holder<SplashtailVariant>> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
     public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
     {
         map.defaultReturnValue("fishofthieves:ruby");
@@ -69,10 +69,10 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     }
 
     @Override
-    protected void defineSynchedData()
+    protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, SplashtailVariants.RUBY);
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, Holder.direct(SplashtailVariants.RUBY));
     }
 
     @Override
@@ -84,13 +84,13 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     @Override
     public void setVariant(SplashtailVariant variant)
     {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Holder.direct(variant));
     }
 
     @Override
     public SplashtailVariant getVariant()
     {
-        return this.entityData.get(VARIANT);
+        return this.entityData.get(VARIANT).value();
     }
 
     @Override
