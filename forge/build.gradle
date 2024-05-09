@@ -1,14 +1,6 @@
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/forge.gradle"
 
 loom {
-    forge {
-        mixinConfigs = ["mixins.fishofthieves.json", "mixins.fishofthieves_forge.json"]
-
-        mixin {
-            defaultRefmapName = "mixins.fishofthieves_forge.refmap.json"
-        }
-    }
-
     runs.configureEach {
         properties project.commonProperties
         vmArgs project.commonVmArgs
@@ -42,8 +34,6 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
-
-    modImplementation "me.shedaniel.cloth:cloth-config-forge:${cloth_config_version}"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"

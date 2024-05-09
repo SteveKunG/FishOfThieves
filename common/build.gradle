@@ -1,16 +1,1 @@
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/common.gradle"
-
-loom {
-    accessWidenerPath = project(":fabric").file("src/main/resources/fishofthieves.accesswidener")
-
-    mixin {
-        defaultRefmapName = "mixins.fishofthieves.refmap.json"
-    }
-}
-
-dependencies {
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc", module: "fabric-loader"
-    }
-}
