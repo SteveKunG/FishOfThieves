@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:acacia_fish_plaque"
-            ]
+            "items": "fishofthieves:acacia_fish_plaque"
           }
         ]
       },

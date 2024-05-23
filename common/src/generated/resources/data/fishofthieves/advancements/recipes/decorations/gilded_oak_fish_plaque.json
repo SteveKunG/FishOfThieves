@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:oak_fish_plaque"
-            ]
+            "items": "fishofthieves:oak_fish_plaque"
           }
         ]
       },

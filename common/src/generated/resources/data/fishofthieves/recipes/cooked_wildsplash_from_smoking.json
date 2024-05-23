@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:wildsplash"
   },
-  "result": "fishofthieves:cooked_wildsplash"
+  "result": {
+    "id": "fishofthieves:cooked_wildsplash"
+  }
 }

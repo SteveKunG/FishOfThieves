@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:plentifin"
-            ]
+            "items": "fishofthieves:plentifin"
           }
         ]
       },

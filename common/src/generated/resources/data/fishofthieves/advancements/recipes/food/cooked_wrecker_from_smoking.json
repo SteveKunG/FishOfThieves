@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:wrecker"
-            ]
+            "items": "fishofthieves:wrecker"
           }
         ]
       },

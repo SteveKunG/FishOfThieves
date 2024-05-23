@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:devilfish"
   },
-  "result": "fishofthieves:cooked_devilfish"
+  "result": {
+    "id": "fishofthieves:cooked_devilfish"
+  }
 }

@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:warped_fish_plaque"
-            ]
+            "items": "fishofthieves:warped_fish_plaque"
           }
         ]
       },

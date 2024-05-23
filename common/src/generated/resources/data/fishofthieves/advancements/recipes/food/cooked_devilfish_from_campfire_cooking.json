@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:devilfish"
-            ]
+            "items": "fishofthieves:devilfish"
           }
         ]
       },

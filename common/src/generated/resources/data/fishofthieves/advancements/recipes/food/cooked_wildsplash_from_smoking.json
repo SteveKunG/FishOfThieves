@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:wildsplash"
-            ]
+            "items": "fishofthieves:wildsplash"
           }
         ]
       },

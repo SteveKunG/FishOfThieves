@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:jungle_fish_plaque"
-            ]
+            "items": "fishofthieves:jungle_fish_plaque"
           }
         ]
       },

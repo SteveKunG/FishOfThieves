@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:plentifin"
   },
-  "result": "fishofthieves:cooked_plentifin"
+  "result": {
+    "id": "fishofthieves:cooked_plentifin"
+  }
 }

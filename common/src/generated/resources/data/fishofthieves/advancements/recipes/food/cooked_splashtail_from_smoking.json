@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishofthieves:splashtail"
-            ]
+            "items": "fishofthieves:splashtail"
           }
         ]
       },

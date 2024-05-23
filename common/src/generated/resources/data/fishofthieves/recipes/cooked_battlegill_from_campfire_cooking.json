@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:battlegill"
   },
-  "result": "fishofthieves:cooked_battlegill"
+  "result": {
+    "id": "fishofthieves:cooked_battlegill"
+  }
 }

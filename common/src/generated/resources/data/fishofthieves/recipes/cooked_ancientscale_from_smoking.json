@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:ancientscale"
   },
-  "result": "fishofthieves:cooked_ancientscale"
+  "result": {
+    "id": "fishofthieves:cooked_ancientscale"
+  }
 }

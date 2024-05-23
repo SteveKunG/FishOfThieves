@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "fishofthieves:pondie"
   },
-  "result": "fishofthieves:cooked_pondie"
+  "result": {
+    "id": "fishofthieves:cooked_pondie"
+  }
 }

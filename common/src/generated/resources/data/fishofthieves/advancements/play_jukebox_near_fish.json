@@ -8,16 +8,14 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "blocks": [
-                  "minecraft:jukebox"
-                ]
+                "blocks": "minecraft:jukebox"
               }
             }
           },
           {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "tag": "minecraft:music_discs"
+              "items": "#minecraft:music_discs"
             }
           },
           {
@@ -38,16 +36,14 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "blocks": [
-                  "minecraft:jukebox"
-                ]
+                "blocks": "minecraft:jukebox"
               }
             }
           },
           {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "tag": "minecraft:music_discs"
+              "items": "#minecraft:music_discs"
             }
           },
           {
@@ -68,7 +64,8 @@
     },
     "hidden": true,
     "icon": {
-      "item": "minecraft:jukebox"
+      "count": 1,
+      "id": "minecraft:jukebox"
     },
     "title": {
       "translate": "advancements.fot.play_jukebox_near_fish.title"

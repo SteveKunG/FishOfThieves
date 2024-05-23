@@ -13,10 +13,10 @@
           }
         ],
         "item": {
-          "items": [
-            "minecraft:name_tag"
-          ],
-          "nbt": "{display:{Name:'\"Sally\"'}}"
+          "components": {
+            "minecraft:custom_name": "\"Sally\""
+          },
+          "items": "minecraft:name_tag"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"
@@ -28,19 +28,17 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "blocks": [
-                  "minecraft:water"
-                ]
+                "blocks": "minecraft:water"
               }
             }
           },
           {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "items": [
-                "minecraft:salmon_bucket"
-              ],
-              "nbt": "{display:{Name:'\"Sally\"'}}"
+              "components": {
+                "minecraft:custom_name": "\"Sally\""
+              },
+              "items": "minecraft:salmon_bucket"
             }
           }
         ]
@@ -54,7 +52,8 @@
     },
     "hidden": true,
     "icon": {
-      "item": "minecraft:salmon"
+      "count": 1,
+      "id": "minecraft:salmon"
     },
     "title": {
       "translate": "advancements.fot.lost_sally.title"

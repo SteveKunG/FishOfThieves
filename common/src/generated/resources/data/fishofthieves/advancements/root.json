@@ -9,7 +9,7 @@
             "predicate": {
               "location": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             }
@@ -26,7 +26,8 @@
       "translate": "advancements.fot.root.description"
     },
     "icon": {
-      "item": "fishofthieves:splashtail"
+      "count": 1,
+      "id": "fishofthieves:splashtail"
     },
     "show_toast": false,
     "title": {

@@ -13,10 +13,12 @@
           }
         ],
         "item": {
-          "items": [
-            "fishofthieves:devilfish_bucket"
-          ],
-          "nbt": "{variant:\"fishofthieves:lava\"}"
+          "components": {
+            "minecraft:custom_data": {
+              "variant": "fishofthieves:lava"
+            }
+          },
+          "items": "fishofthieves:devilfish_bucket"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"
@@ -27,7 +29,8 @@
       "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.description"
     },
     "icon": {
-      "item": "fishofthieves:devilfish"
+      "count": 1,
+      "id": "fishofthieves:devilfish"
     },
     "title": {
       "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.title"

@@ -23,7 +23,7 @@
                 }
               },
               "type_specific": {
-                "type": "lightning",
+                "type": "minecraft:lightning",
                 "blocks_set_on_fire": 0
               }
             }
@@ -38,7 +38,8 @@
       "translate": "advancements.fot.lightning_straight_to_my_fish.description"
     },
     "icon": {
-      "item": "fishofthieves:stormfish"
+      "count": 1,
+      "id": "fishofthieves:stormfish"
     },
     "title": {
       "translate": "advancements.fot.lightning_straight_to_my_fish.title"

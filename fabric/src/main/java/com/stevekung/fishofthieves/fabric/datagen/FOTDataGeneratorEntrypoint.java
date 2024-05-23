@@ -23,9 +23,10 @@ import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.*;
+import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -47,12 +48,15 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.*;
 import net.minecraft.data.recipes.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.*;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -724,6 +728,22 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class ChestLootProvider extends SimpleFabricLootTableProvider
     {
+        //@formatter:off
+        private static final IntList FIREWORK_COLORS = IntList.of(
+                DyeColor.RED.getFireworkColor(),
+                DyeColor.ORANGE.getFireworkColor(),
+                DyeColor.YELLOW.getFireworkColor(),
+                DyeColor.LIME.getFireworkColor(),
+                DyeColor.BLUE.getFireworkColor(),
+                DyeColor.CYAN.getFireworkColor(),
+                DyeColor.LIGHT_BLUE.getFireworkColor(),
+                DyeColor.PURPLE.getFireworkColor(),
+                DyeColor.MAGENTA.getFireworkColor(),
+                DyeColor.WHITE.getFireworkColor(),
+                6942120 // athena
+        );
+        //@formatter:on
+
         private ChestLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
             super(dataOutput, provider, LootContextParamSets.CHEST);
@@ -775,32 +795,28 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
                                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
 
-            consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK), LootTable.lootTable()
-                    .withPool(LootPool.lootPool()
-                            .setRolls(UniformGenerator.between(2.0F, 4.0F))
-                            .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(3)
-                                    //                                    .apply(SetFireworksFunction.builder()
-                                    //                                            .withColor(DyeColor.RED)
-                                    //                                            .withColor(DyeColor.ORANGE)
-                                    //                                            .withColor(DyeColor.YELLOW)
-                                    //                                            .withColor(DyeColor.LIME)
-                                    //                                            .withColor(DyeColor.BLUE)
-                                    //                                            .withColor(DyeColor.CYAN)
-                                    //                                            .withColor(DyeColor.LIGHT_BLUE)
-                                    //                                            .withColor(DyeColor.PURPLE)
-                                    //                                            .withColor(DyeColor.MAGENTA)
-                                    //                                            .withColor(DyeColor.WHITE)
-                                    //                                            .withColor(6942120) // athena
-                                    //                                    )
-                                    .apply(setFirework(Optional.empty(), Optional.empty())//TODO
-                                    )
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))));
+            consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK), LootTable.lootTable().withPool(buildFirework(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 4.0F)))));
         }
         //@formatter:on
 
-        private static LootItemConditionalFunction.Builder<?> setFirework(Optional<ListOperation.StandAlone<FireworkExplosion>> explosions, Optional<Integer> flightDuration)
+        //@formatter:off
+        private static LootPool.Builder buildFirework(LootPool.Builder builder)
         {
-            return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetFireworksFunction(lootItemConditions, explosions, flightDuration));
+            var random = RandomSource.create(69420);
+
+            for (var color : FIREWORK_COLORS)
+            {
+                builder.add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(1)
+                        .apply(setFirework(new ListOperation.StandAlone<>(List.of(new FireworkExplosion(Util.getRandom(FireworkExplosion.Shape.values(), random), IntList.of(color), IntList.of(), random.nextBoolean(), random.nextBoolean())), ListOperation.Append.INSTANCE), Optional.of(1)))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))));
+            }
+            return builder;
+        }
+        //@formatter:on
+
+        private static LootItemConditionalFunction.Builder<?> setFirework(ListOperation.StandAlone<FireworkExplosion> explosions, Optional<Integer> flightDuration)
+        {
+            return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetFireworksFunction(lootItemConditions, Optional.of(explosions), flightDuration));
         }
 
         private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
@@ -1064,7 +1080,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
                             PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
                                     ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentPredicate.builder()
-                                            .expect(DataComponents.CUSTOM_DATA, Util.make(CustomData.EMPTY, customData -> customData.update(compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariants.LAVA).toString())))).build()
+                                            .expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariants.LAVA).toString())))).build()
                                     ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build()))))
                     .display(FOTItems.DEVILFISH,
                             Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
@@ -1148,7 +1164,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             {
                 for (var variant : Sets.newTreeSet(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
                 {
-                    builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, Util.make(CustomData.EMPTY, customData -> customData.update(compoundTag ->
+                    builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
                     {
                         compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
 

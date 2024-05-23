@@ -9,14 +9,16 @@
           "term": {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "enchantments": [
-                {
-                  "enchantment": "minecraft:silk_touch",
-                  "levels": {
-                    "min": 1
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantment": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         },
@@ -24,16 +26,26 @@
           "condition": "minecraft:any_of",
           "terms": [
             {
-              "condition": "fishofthieves:fot_location_check",
-              "predicate": {
-                "biome": "minecraft:is_beach",
-                "continentalness": "coast"
-              }
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "minecraft:location_check",
+                  "predicate": {
+                    "biomes": "#minecraft:is_beach"
+                  }
+                },
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "continentalness": "coast"
+                  }
+                }
+              ]
             },
             {
-              "condition": "fishofthieves:fot_location_check",
+              "condition": "minecraft:location_check",
               "predicate": {
-                "biome": "minecraft:is_river"
+                "biomes": "#minecraft:is_river"
               }
             }
           ]
@@ -46,7 +58,7 @@
               "offsetX": 1,
               "predicate": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             },
@@ -55,7 +67,7 @@
               "offsetX": -1,
               "predicate": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             },
@@ -64,7 +76,7 @@
               "offsetZ": 1,
               "predicate": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             },
@@ -73,7 +85,7 @@
               "offsetZ": -1,
               "predicate": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             },
@@ -82,7 +94,7 @@
               "offsetY": 1,
               "predicate": {
                 "fluid": {
-                  "tag": "minecraft:water"
+                  "fluids": "minecraft:water"
                 }
               }
             }
@@ -117,21 +129,23 @@
           "term": {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "enchantments": [
-                {
-                  "enchantment": "minecraft:silk_touch",
-                  "levels": {
-                    "min": 1
+              "predicates": {
+                "minecraft:enchantments": [
+                  {
+                    "enchantment": "minecraft:silk_touch",
+                    "levels": {
+                      "min": 1
+                    }
                   }
-                }
-              ]
+                ]
+              }
             }
           }
         },
         {
-          "condition": "fishofthieves:fot_location_check",
+          "condition": "minecraft:location_check",
           "predicate": {
-            "biome": "fishofthieves:always_drop_leeches"
+            "biomes": "#fishofthieves:always_drop_leeches"
           }
         }
       ],

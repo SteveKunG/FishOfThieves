@@ -4,9 +4,7 @@
     "spyglass_at_plentifins": {
       "conditions": {
         "item": {
-          "items": [
-            "minecraft:spyglass"
-          ]
+          "items": "minecraft:spyglass"
         },
         "player": [
           {
@@ -14,7 +12,7 @@
             "entity": "this",
             "predicate": {
               "type_specific": {
-                "type": "player",
+                "type": "minecraft:player",
                 "looking_at": {
                   "type": "fishofthieves:plentifin"
                 }
@@ -31,7 +29,8 @@
       "translate": "advancements.fot.spyglass_at_plentifins.description"
     },
     "icon": {
-      "item": "minecraft:spyglass"
+      "count": 1,
+      "id": "minecraft:spyglass"
     },
     "title": {
       "translate": "advancements.fot.spyglass_at_plentifins.title"
