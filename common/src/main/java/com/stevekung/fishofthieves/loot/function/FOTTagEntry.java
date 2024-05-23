@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
@@ -22,7 +25,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTTagEntry extends LootPoolSingletonContainer
 {
-    public static final Codec<FOTTagEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(TagKey.codec(Registries.ITEM).fieldOf("name").forGetter(tagEntry -> tagEntry.tag), Codec.BOOL.fieldOf("expand").forGetter(tagEntry -> tagEntry.expand)).and(singletonFields(instance)).apply(instance, FOTTagEntry::new));
+    public static final MapCodec<FOTTagEntry> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.codec(Registries.ITEM).fieldOf("name").forGetter(tagEntry -> tagEntry.tag), Codec.BOOL.fieldOf("expand").forGetter(tagEntry -> tagEntry.expand)).and(singletonFields(instance)).apply(instance, FOTTagEntry::new));
     private final TagKey<Item> tag;
     private final boolean expand;
 
@@ -56,7 +59,7 @@ public class FOTTagEntry extends LootPoolSingletonContainer
 
             if (data > 0)
             {
-                itemStack.getOrCreateTag().putInt("CustomModelData", data);
+                itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(data));
             }
         }
 

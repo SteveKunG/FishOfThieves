@@ -136,15 +136,9 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.45F, 0.25F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.3F : 0.15F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.3F) : EntityDimensions.fixed(0.45F, 0.25F).withEyeHeight(0.15F);
     }
 
     @Override

@@ -19,6 +19,7 @@
     "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
+    "item.MixinPotionBrewing",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour",

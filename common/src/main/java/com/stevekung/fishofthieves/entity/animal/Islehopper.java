@@ -162,15 +162,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.3F, 0.2F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.29F : 0.15F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.29F) : EntityDimensions.fixed(0.3F, 0.2F).withEyeHeight(0.15F);
     }
 
     @Override

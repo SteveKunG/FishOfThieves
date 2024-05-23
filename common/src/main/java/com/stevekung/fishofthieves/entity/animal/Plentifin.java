@@ -138,15 +138,9 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.275F, 0.25F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.18F : 0.09F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.18F) : EntityDimensions.fixed(0.275F, 0.25F).withEyeHeight(0.09F);
     }
 
     @Override

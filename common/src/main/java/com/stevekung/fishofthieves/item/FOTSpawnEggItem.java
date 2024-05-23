@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.item;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.CustomData;
 
 public class FOTSpawnEggItem extends SpawnEggItem
 {
@@ -22,8 +23,16 @@ public class FOTSpawnEggItem extends SpawnEggItem
     public Component getName(ItemStack itemStack)
     {
         var name = super.getName(itemStack).copy();
+        var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-        if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab && itemStack.hasTag() && itemStack.getTagElement("EntityTag").getBoolean(ThievesFish.TROPHY_TAG))
+        if (customData.isEmpty())
+        {
+            return name;
+        }
+
+        var compoundTag = customData.copyTag();
+
+        if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab && compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
         {
             return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
         }
@@ -46,9 +55,7 @@ public class FOTSpawnEggItem extends SpawnEggItem
     private static ItemStack create(Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        var compound = new CompoundTag();
-        compound.putBoolean(ThievesFish.TROPHY_TAG, trophy);
-        itemStack.getOrCreateTag().put("EntityTag", compound);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy));
         return itemStack;
     }
 }

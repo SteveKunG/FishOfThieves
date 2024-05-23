@@ -136,15 +136,9 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.35F, 0.25F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.35F : 0.18F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.35F) : EntityDimensions.fixed(0.35F, 0.25F).withEyeHeight(0.18F);
     }
 
     @Override

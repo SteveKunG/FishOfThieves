@@ -15,7 +15,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -195,22 +194,16 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.275F, 0.275F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.3F : 0.14F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.3F) : EntityDimensions.fixed(0.275F, 0.275F).withEyeHeight(0.14F);
     }
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
 
         if (this.isTrophy())
         {

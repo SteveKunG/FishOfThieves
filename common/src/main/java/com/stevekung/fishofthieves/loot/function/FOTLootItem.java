@@ -3,14 +3,16 @@ package com.stevekung.fishofthieves.loot.function;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
@@ -21,7 +23,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 public class FOTLootItem extends LootPoolSingletonContainer
 {
     private final Holder<Item> item;
-    public static final Codec<FOTLootItem> CODEC = RecordCodecBuilder.create(instance -> instance.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("name").forGetter(lootItem -> lootItem.item)).and(singletonFields(instance)).apply(instance, FOTLootItem::new));
+    public static final MapCodec<FOTLootItem> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("name").forGetter(lootItem -> lootItem.item)).and(singletonFields(instance)).apply(instance, FOTLootItem::new));
 
     FOTLootItem(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions)
     {
@@ -47,7 +49,7 @@ public class FOTLootItem extends LootPoolSingletonContainer
 
             if (data > 0)
             {
-                itemStack.getOrCreateTag().putInt("CustomModelData", data);
+                itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(data));
             }
         }
 

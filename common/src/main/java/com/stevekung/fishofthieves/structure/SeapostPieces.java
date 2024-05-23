@@ -11,7 +11,9 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomizableContainer;
@@ -34,6 +36,7 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSeriali
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 public class SeapostPieces
 {
@@ -78,19 +81,19 @@ public class SeapostPieces
             return pos.offset(OFFSETS.get(location)).below(down);
         }
 
-        private ResourceLocation getRandomLootTables(RandomSource random)
+        private ResourceKey<LootTable> getRandomLootTables(RandomSource random)
         {
             if (random.nextFloat() < 0.35f)
             {
-                return FOTLootTables.Chests.SEAPOST_BARREL_COMBAT;
+                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_COMBAT);
             }
             else if (random.nextFloat() < 0.2f)
             {
-                return FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK;
+                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK);
             }
             else
             {
-                return FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY;
+                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY);
             }
         }
 
@@ -124,7 +127,7 @@ public class SeapostPieces
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
-                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);
+                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
                 }
@@ -134,7 +137,7 @@ public class SeapostPieces
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
-                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null, null);
+                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
                 }

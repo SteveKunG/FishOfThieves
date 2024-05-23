@@ -143,15 +143,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose) : EntityDimensions.fixed(0.3F, 0.25F);
-    }
-
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size)
-    {
-        return this.isTrophy() ? 0.38F : 0.2F;
+        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.38F) : EntityDimensions.fixed(0.3F, 0.25F).withEyeHeight(0.2F);
     }
 
     @Override

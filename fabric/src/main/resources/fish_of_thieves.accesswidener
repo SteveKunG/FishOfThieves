@@ -10,6 +10,9 @@ accessible method net/minecraft/data/models/model/ModelTemplates createItem (Lja
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 accessible method net/minecraft/data/worldgen/Structures structure (Lnet/minecraft/core/HolderSet;Lnet/minecraft/world/level/levelgen/structure/TerrainAdjustment;)Lnet/minecraft/world/level/levelgen/structure/Structure$StructureSettings;
 accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
+accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
+accessible method net/minecraft/world/level/storage/loot/functions/SetCustomModelDataFunction <init> (Ljava/util/List;Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;)V
+accessible method net/minecraft/world/level/storage/loot/functions/SetFireworksFunction <init> (Ljava/util/List;Ljava/util/Optional;Ljava/util/Optional;)V
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
 accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems

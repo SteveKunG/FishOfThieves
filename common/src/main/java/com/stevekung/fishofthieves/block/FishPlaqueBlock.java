@@ -19,6 +19,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -175,7 +176,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 if (item instanceof MobBucketItem bucket)
                 {
-                    var tag = itemStack.copy().getOrCreateTag();
+                    var tag = new CompoundTag();
                     var entityType = FOTPlatform.getMobInBucketItem(bucket);
                     var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
                     var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(entityKey, Items.WATER_BUCKET);

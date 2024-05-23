@@ -12,6 +12,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public interface ThievesFish<T extends FishData> extends PartyFish
@@ -66,34 +68,37 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         return 1.0F;
     }
 
-    default void saveToBucket(CompoundTag compound)
+    default void saveToBucket(ItemStack bucket)
     {
         var variant = this.getRegistry().getKey(this.getVariant());
 
-        if (variant != null)
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
+            if (variant != null)
             {
-                var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
-                var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-                var customModelData = swapped.get(variant.toString());
-
-                if (customModelData > 0)
+                if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
                 {
-                    compound.putInt("CustomModelData", customModelData);
+                    var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
+                    var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+                    var customModelData = swapped.get(variant.toString());
+
+                    if (customModelData > 0)
+                    {
+                        compoundTag.putInt("CustomModelData", customModelData);
+                    }
                 }
+                compoundTag.putString(VARIANT_TAG, variant.toString());
             }
-            compound.putString(VARIANT_TAG, variant.toString());
-        }
-        if (this.isTrophy())
-        {
-            compound.putBoolean(HAS_FED_TAG, this.hasFed());
-            compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        }
-        if (this.isNoFlip())
-        {
-            compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
-        }
+            if (this.isTrophy())
+            {
+                compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
+                compoundTag.putBoolean(TROPHY_TAG, this.isTrophy());
+            }
+            if (this.isNoFlip())
+            {
+                compoundTag.putBoolean(NO_FLIP_TAG, this.isNoFlip());
+            }
+        });
     }
 
     default void loadFromBucket(CompoundTag compound)
@@ -125,18 +130,18 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
     {
-//        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))TODO
-//        {
-//            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
-//
-//            if (variant != null)
-//            {
-//                this.setVariant(variant);
-//            }
-//
-//            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
-//            return spawnData;
-//        }
+        //        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))TODO
+        //        {
+        //            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
+        //
+        //            if (variant != null)
+        //            {
+        //                this.setVariant(variant);
+        //            }
+        //
+        //            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
+        //            return spawnData;
+        //        }
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);

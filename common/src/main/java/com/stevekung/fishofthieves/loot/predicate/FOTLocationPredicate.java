@@ -7,17 +7,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.structure.Structure;
 
-public record FOTLocationPredicate(Optional<TagKey<Biome>> biome, Optional<TagKey<Structure>> structure, Optional<Continentalness> continentalness, Optional<Boolean> hasRaids)
+public record FOTLocationPredicate(Optional<Continentalness> continentalness, Optional<Boolean> hasRaids)
 {
-    public static final Codec<FOTLocationPredicate> CODEC = RecordCodecBuilder.create(instance -> instance.group(ExtraCodecs.strictOptionalField(TagKey.codec(Registries.BIOME), "biome").forGetter(FOTLocationPredicate::biome), ExtraCodecs.strictOptionalField(TagKey.codec(Registries.STRUCTURE), "structure").forGetter(FOTLocationPredicate::structure), ExtraCodecs.strictOptionalField(Continentalness.CODEC, "continentalness").forGetter(FOTLocationPredicate::continentalness), ExtraCodecs.strictOptionalField(Codec.BOOL, "has_raids").forGetter(FOTLocationPredicate::hasRaids)).apply(instance, FOTLocationPredicate::new));
+    public static final Codec<FOTLocationPredicate> CODEC = RecordCodecBuilder.create(instance -> instance.group(Continentalness.CODEC.optionalFieldOf("continentalness").forGetter(FOTLocationPredicate::continentalness), Codec.BOOL.optionalFieldOf("has_raids").forGetter(FOTLocationPredicate::hasRaids)).apply(instance, FOTLocationPredicate::new));
 
     public boolean matches(ServerLevel level, double x, double y, double z)
     {
@@ -29,16 +23,7 @@ public record FOTLocationPredicate(Optional<TagKey<Biome>> biome, Optional<TagKe
             return false;
         }
 
-        if (this.biome.isPresent())
-        {
-            return level.getBiome(blockPos).is(this.biome.get());
-        }
-        else if (this.structure.isPresent())
-        {
-            var structureFeatureHolderSet = level.registryAccess().registryOrThrow(Registries.STRUCTURE).getTag(this.structure.get());
-            return structureFeatureHolderSet.isPresent() && this.structureMatched(level, blockPos, structureFeatureHolderSet.get());
-        }
-        else if (this.continentalness.isPresent())
+        if (this.continentalness.isPresent())
         {
             return this.continentalness.get() == TerrainUtils.getContinentalness(level, blockPos);
         }
@@ -49,37 +34,14 @@ public record FOTLocationPredicate(Optional<TagKey<Biome>> biome, Optional<TagKe
         return false;
     }
 
-    private boolean structureMatched(ServerLevel level, BlockPos blockPos, HolderSet.Named<Structure> holders)
-    {
-        for (var holder : holders)
-        {
-            return level.structureManager().getStructureWithPieceAt(blockPos, holder.value()).isValid();
-        }
-        return false;
-    }
-
     public static class Builder
     {
-        private Optional<TagKey<Biome>> biome = Optional.empty();
-        private Optional<TagKey<Structure>> structure = Optional.empty();
         private Optional<Continentalness> continentalness = Optional.empty();
         private Optional<Boolean> hasRaids = Optional.empty();
 
         public static Builder location()
         {
             return new Builder();
-        }
-
-        public Builder setBiome(TagKey<Biome> biome)
-        {
-            this.biome = Optional.of(biome);
-            return this;
-        }
-
-        public Builder setStructure(TagKey<Structure> structure)
-        {
-            this.structure = Optional.of(structure);
-            return this;
         }
 
         public Builder setContinentalness(Continentalness continentalness)
@@ -96,7 +58,7 @@ public record FOTLocationPredicate(Optional<TagKey<Biome>> biome, Optional<TagKe
 
         public FOTLocationPredicate build()
         {
-            return new FOTLocationPredicate(this.biome, this.structure, this.continentalness, this.hasRaids);
+            return new FOTLocationPredicate(this.continentalness, this.hasRaids);
         }
     }
 }

@@ -281,7 +281,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
-        this.saveToBucket(itemStack.getOrCreateTag());
+        this.saveToBucket(itemStack);
     }
 
     @Override
