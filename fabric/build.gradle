@@ -8,8 +8,6 @@ sourceSets {
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-
     runs.configureEach {
         properties project.commonProperties
         vmArgs project.commonVmArgs
@@ -39,30 +37,13 @@ loom {
             runDir "build/datagen"
         }
     }
-
-    mixin {
-        defaultRefmapName = "mixins.fishofthieves_fabric.refmap.json"
-    }
-}
-
-dependencies {
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-    modApi("maven.modrinth:modmenu:${modmenu_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc", module: "fabric-loader"
-    }
-
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc", module: "fabric-loader"
-    }
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
 shadowJar {
-    configurations = [project.configurations.shadowCommon]
+    configurations = [project.configurations.shadowBundle]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
@@ -102,58 +83,4 @@ remapJar {
     archiveClassifier = "fabric" + (release_type != "release" ? "-${release_type}" : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-}
-
-curseforge {
-    apiKey = project.hasProperty("curseforge_api_token") ? curseforge_api_token : ""
-    project {
-        id = "568372"
-        changelog = rootProject.file("CHANGE_LOG.md")
-        changelogType = "markdown"
-        releaseType = project.release_type
-        addGameVersion "Fabric"
-        addGameVersion "Java ${java_version}"
-        addGameVersion project.minecraft_version
-
-        mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[Fabric ${minecraft_version}] Fish of Thieves v${mod_version}"
-        }
-        relations {
-            it.requiredDependency "fabric-api"
-            it.requiredDependency "cloth-config"
-            it.optionalDependency "modmenu"
-            it.optionalDependency "canvas-renderer"
-        }
-        afterEvaluate {
-            uploadTask.dependsOn(remapJar)
-        }
-        addArtifact shadowJar
-        addArtifact remapSourcesJar
-        addArtifact apiJar
-    }
-    options {
-        debug = debug_upload
-        forgeGradleIntegration = false
-    }
-}
-
-modrinth {
-    debugMode = debug_upload as boolean
-    token = project.hasProperty("modrinth_api_token") ? modrinth_api_token : ""
-    projectId = "fish-of-thieves"
-    changelog = rootProject.file("CHANGE_LOG.md").text
-    syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[Fabric ${project.minecraft_version}] Fish of Thieves v${mod_version}"
-    versionNumber = project.mod_version + "-fabric"
-    versionType = project.release_type
-    uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
-    gameVersions = ["${minecraft_version}"]
-    loaders = ["fabric"]
-    dependencies {
-        required.project "fabric-api"
-        required.project "cloth-config"
-        optional.project "modmenu"
-        optional.project "canvas"
-    }
 }
