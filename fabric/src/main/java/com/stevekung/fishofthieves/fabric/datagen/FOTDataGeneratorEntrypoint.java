@@ -600,7 +600,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                             .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
 
-            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
+            /*simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,TODO Rewrite registry
                     FOTEntitySubPredicate.variant(SplashtailVariants.RUBY),
                     FOTEntitySubPredicate.variant(SplashtailVariants.SUNNY),
                     FOTEntitySubPredicate.variant(SplashtailVariants.INDIGO),
@@ -668,7 +668,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     FOTEntitySubPredicate.variant(StormfishVariants.SHORES),
                     FOTEntitySubPredicate.variant(StormfishVariants.WILD),
                     FOTEntitySubPredicate.variant(StormfishVariants.SHADOW),
-                    FOTEntitySubPredicate.variant(StormfishVariants.TWILIGHT));
+                    FOTEntitySubPredicate.variant(StormfishVariants.TWILIGHT));*/
         }
 
         private static void simpleFishLoot(EntityType<?> entityType, Item item, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
