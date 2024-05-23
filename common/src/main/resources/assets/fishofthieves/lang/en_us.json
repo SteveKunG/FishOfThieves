@@ -266,5 +266,17 @@
   "advancements.fot.play_jukebox_near_fish.title": "Fish Dance Beach Parade",
   "advancements.fot.play_jukebox_near_fish.description": "Play a music disc near the fish to help it seem more alive",
   "advancements.fot.lost_sally.title": "Is that you? Sally?",
-  "advancements.fot.lost_sally.description": "Name the salmon Sally, you've just found my favorite fish!"
+  "advancements.fot.lost_sally.description": "Name the salmon Sally, you've just found my favorite fish!",
+  "tag.item.fishofthieves.thieves_fish": "Fish of Thieves's Fish",
+  "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves's Bucket",
+  "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves's Cooked Fish",
+  "tag.item.fishofthieves.worms": "Worms",
+  "tag.item.fishofthieves.earthworms_food": "Earthworms",
+  "tag.item.fishofthieves.grubs_food": "Grubs",
+  "tag.item.fishofthieves.leeches_food": "Leeches",
+  "tag.item.fishofthieves.wooden_fish_plaque": "Wooden Fish Plaque",
+  "tag.item.fishofthieves.iron_frame_fish_plaque": "Iron Frame Fish Plaque",
+  "tag.item.fishofthieves.golden_frame_fish_plaque": "Golden Frame Fish Plaque",
+  "tag.item.fishofthieves.gilded_frame_fish_plaque": "Gilded Frame Fish Plaque",
+  "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "Fish Plaque Blacklist Bucket"
 }
