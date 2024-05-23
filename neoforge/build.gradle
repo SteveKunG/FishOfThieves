@@ -1,10 +1,6 @@
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/neoforge.gradle"
 
 loom {
-    neoForge {
-        accessTransformers = files("src/main/resources/META-INF/accesstransformer.cfg")
-    }
-
     runs.configureEach {
         properties project.commonProperties
         vmArgs project.commonVmArgs
@@ -38,15 +34,13 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
-
-    modImplementation "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
-    configurations = [project.configurations.shadowCommon]
+    configurations = [project.configurations.shadowBundle]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
@@ -87,53 +81,4 @@ remapJar {
     archiveClassifier = "neoforge" + (project.release_type != "release" ? "-" + project.release_type : "")
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
-}
-
-curseforge {
-    apiKey = project.hasProperty("curseforge_api_token") ? project.curseforge_api_token : ""
-    project {
-        id = "568372"
-        changelog = rootProject.file("CHANGE_LOG.md")
-        changelogType = "markdown"
-        releaseType = "beta"
-        addGameVersion "NeoForge"
-        addGameVersion "Java ${java_version}"
-        addGameVersion project.minecraft_version
-
-        mainArtifact(remapJar.archiveFile) {
-            it.displayName = "[NeoForge ${project.minecraft_version}] Fish of Thieves v${mod_version}"
-        }
-        relations {
-            it.requiredDependency "cloth-config"
-            it.optionalDependency "configured"
-        }
-        afterEvaluate {
-            uploadTask.dependsOn(remapJar)
-        }
-        addArtifact shadowJar
-        addArtifact remapSourcesJar
-        addArtifact apiJar
-    }
-    options {
-        debug = debug_upload
-        forgeGradleIntegration = false
-    }
-}
-
-modrinth {
-    debugMode = debug_upload as boolean
-    token = project.hasProperty("modrinth_api_token") ? project.modrinth_api_token : ""
-    projectId = "fish-of-thieves"
-    changelog = rootProject.file("CHANGE_LOG.md").text
-    syncBodyFrom = rootProject.file("README.md").text
-    versionName = "[NeoForge ${project.minecraft_version}] Fish of Thieves v${mod_version}"
-    versionNumber = project.mod_version + "-neoforge"
-    versionType = project.release_type
-    uploadFile = remapJar
-    additionalFiles = [shadowJar, remapSourcesJar, apiJar]
-    gameVersions = ["${minecraft_version}"]
-    loaders = ["neoforge"]
-    dependencies {
-        required.project "cloth-config"
-    }
 }
