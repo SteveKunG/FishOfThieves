@@ -1,33 +1,49 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
-import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 
 public class WildsplashVariants
 {
-    public static final WildsplashVariant RUSSET = WildsplashVariant.builder().condition(SpawnSelectors.always()).texture("russet").build();
-    public static final WildsplashVariant SANDY = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH).and(SpawnSelectors.continentalness(Continentalness.COAST)))).texture("sandy").build();
-    public static final WildsplashVariant OCEAN = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH))).texture("ocean").build();
-    public static final WildsplashVariant MUDDY = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.muddyWildsplashProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH)))).texture("muddy").build();
-    public static final WildsplashVariant CORAL = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 24, blockPos -> context.level().getBlockState(blockPos).is(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON))))).texture("coral").glowTexture("coral_glow").build();
+    public static final ResourceKey<WildsplashVariant> RUSSET = createKey("russet");
+    public static final ResourceKey<WildsplashVariant> SANDY = createKey("sandy");
+    public static final ResourceKey<WildsplashVariant> OCEAN = createKey("ocean");
+    public static final ResourceKey<WildsplashVariant> MUDDY = createKey("muddy");
+    public static final ResourceKey<WildsplashVariant> CORAL = createKey("coral");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
-        register("russet", WildsplashVariants.RUSSET);
-        register("sandy", WildsplashVariants.SANDY);
-        register("ocean", WildsplashVariants.OCEAN);
-        register("muddy", WildsplashVariants.MUDDY);
-        register("coral", WildsplashVariants.CORAL);
+        register(context, RUSSET, "russet");
+        register(context, SANDY, "sandy", AnyOfCondition.anyOf(MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST))).build());
+        register(context, OCEAN, "ocean", AnyOfCondition.anyOf(MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH))).build());
+        register(context, MUDDY, "muddy", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH))).build());
+        register(context, CORAL, "coral", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
     }
 
-    private static void register(String key, WildsplashVariant variant)
+    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, SpawnCondition... conditions)
     {
-        Registry.register(FOTBuiltInRegistries.WILDSPLASH_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, false, conditions);
+    }
+
+    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.res("entity/wildsplash/" + name);
+        var glowTexture = FishOfThieves.res("entity/wildsplash/" + name + "_glow");
+        context.register(key, new WildsplashVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+    }
+
+    private static ResourceKey<WildsplashVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.WILDSPLASH_VARIANT, FishOfThieves.res(name));
     }
 }

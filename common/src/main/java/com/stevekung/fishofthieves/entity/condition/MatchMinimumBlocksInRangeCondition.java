@@ -46,7 +46,7 @@ public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> bloc
         }
     }
 
-    public static Builder hasMinimumBlocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size)
+    public static Builder minimumBlocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size)
     {
         return () -> new MatchMinimumBlocksInRangeCondition(blocks, fluids, range, size);
     }

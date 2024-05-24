@@ -1,39 +1,51 @@
 package com.stevekung.fishofthieves.entity.variant;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
-import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.mojang.datafixers.Products;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 
-public class AbstractFishVariant
+public interface AbstractFishVariant
 {
-    private final Supplier<Predicate<SpawnConditionContext>> condition;
-    private final ResourceLocation texture;
-    @Nullable
-    private final ResourceLocation glowTexture;
+    ResourceLocation texture();
 
-    protected AbstractFishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    Optional<ResourceLocation> glowTexture();
+
+    List<SpawnCondition> conditions();
+
+    static <T extends AbstractFishVariant> Products.P3<RecordCodecBuilder.Mu<T>, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>> commonFields(RecordCodecBuilder.Instance<T> instance)
     {
-        this.condition = condition;
-        this.texture = texture;
-        this.glowTexture = glowTexture;
+        //@formatter:off
+        return instance.group(
+                ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                FOTSpawnConditions.DIRECT_CODEC.listOf().fieldOf("conditions").forGetter(AbstractFishVariant::conditions)
+        );
+        //@formatter:on
     }
 
-    public Predicate<SpawnConditionContext> getCondition()
+    static ResourceLocation fullTextureId(ResourceLocation texture)
     {
-        return this.condition.get();
+        return texture.withPath(string -> "textures/" + string + ".png");
     }
 
-    public ResourceLocation getTexture()
+    static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
-        return this.texture;
-    }
-
-    public Optional<ResourceLocation> getGlowTexture()
-    {
-        return Optional.ofNullable(this.glowTexture);
+        var registry = registryAccess.registryOrThrow(registryKey);
+        return registry.holders().filter(reference ->
+        {
+            var con = reference.value().conditions();
+            return fromBucket || Util.allOf(con).test(livingEntity);
+        }).findFirst().orElse(registry.getHolderOrThrow(defaultKey));
     }
 }

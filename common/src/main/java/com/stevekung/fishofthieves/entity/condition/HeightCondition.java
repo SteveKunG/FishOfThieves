@@ -27,7 +27,7 @@ public record HeightCondition(int min, int max) implements SpawnCondition
         return livingEntity.blockPosition().getY() >= this.min && livingEntity.blockPosition().getY() <= this.max;
     }
 
-    public static HeightCondition.Builder checkHeight(int min, int max)
+    public static HeightCondition.Builder height(int min, int max)
     {
         return () -> new HeightCondition(min, max);
     }

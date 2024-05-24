@@ -2,11 +2,9 @@ package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.entity.variant.PondieVariant;
-import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
+import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -47,12 +45,28 @@ public class FishOfThievesFabric implements ModInitializer
     public void onInitialize()
     {
         DynamicRegistries.registerSynced(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+//        DynamicRegistries.registerSynced(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
 
         DynamicRegistrySetupCallback.EVENT.register(registryView ->
         {
-            addListenerForDynamic(registryView, FOTRegistries.SPLASHTAIL_VARIANT);
-            addListenerForDynamic(registryView, FOTRegistries.PONDIE_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.SPLASHTAIL_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.PONDIE_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.ISLEHOPPER_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.ANCIENTSCALE_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.PLENTIFIN_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.WILDSPLASH_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.DEVILFISH_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.BATTLEGILL_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.WRECKER_VARIANT);
+//            addListenerForDynamic(registryView, FOTRegistries.STORMFISH_VARIANT);
         });
 
         FishOfThieves.initGlobal();
@@ -70,15 +84,6 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemConditions.init();
         FOTCriteriaTriggers.init();
         FOTEntitySubPredicate.init();
-
-        IslehopperVariants.init();
-        AncientscaleVariants.init();
-        PlentifinVariants.init();
-        WildsplashVariants.init();
-        DevilfishVariants.init();
-        BattlegillVariants.init();
-        WreckerVariants.init();
-        StormfishVariants.init();
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(FabricItemGroup.builder()).build());
 

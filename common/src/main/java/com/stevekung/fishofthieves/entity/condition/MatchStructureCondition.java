@@ -26,7 +26,7 @@ public record MatchStructureCondition(HolderSet<Structure> structures) implement
         return ((ServerLevel) livingEntity.level()).structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), this.structures).isValid();
     }
 
-    public static Builder hasStructure(HolderSet<Structure> structures)
+    public static Builder structures(HolderSet<Structure> structures)
     {
         return () -> new MatchStructureCondition(structures);
     }

@@ -45,7 +45,7 @@ public record MatchBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Opt
         }
     }
 
-    public static Builder hasBlocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range)
+    public static Builder blocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range)
     {
         return () -> new MatchBlocksInRangeCondition(blocks, fluids, range);
     }

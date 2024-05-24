@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.WreckerAi;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
@@ -14,7 +15,7 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -131,31 +132,33 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, Holder.direct(WreckerVariants.ROSE));
+        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.WRECKER_VARIANT).getHolderOrThrow(WreckerVariants.ROSE));
     }
 
     @Override
-    public Registry<WreckerVariant> getRegistry()
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        return FOTBuiltInRegistries.WRECKER_VARIANT;
+        super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(WreckerVariants.ROSE).location().toString());
     }
 
     @Override
-    public void setVariant(WreckerVariant variant)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        this.entityData.set(VARIANT, Holder.direct(variant));
+        super.readAdditionalSaveData(compound);
+        this.readVariantTag(compound, FOTRegistries.WRECKER_VARIANT);
     }
 
     @Override
-    public WreckerVariant getVariant()
+    public Holder<WreckerVariant> getVariant()
     {
-        return this.entityData.get(VARIANT).value();
+        return this.entityData.get(VARIANT);
     }
 
     @Override
-    public Holder<WreckerVariant> getSpawnVariant(boolean fromBucket)
+    public void setVariant(Holder<WreckerVariant> variant)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_WRECKER_SPAWNS, WreckerVariants.ROSE, fromBucket);
+        this.entityData.set(VARIANT, variant);
     }
 
     @Override
@@ -196,15 +199,15 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
-
         if (this.isTrophy())
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
         }
-        return spawnData;
+        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE, this, spawnType == MobSpawnType.BUCKET);
+        this.setVariant(holder);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     @Override

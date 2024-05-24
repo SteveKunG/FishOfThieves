@@ -23,8 +23,8 @@ public class PondieVariants
         register(context, CHARCOAL, "charcoal");
         register(context, ORCHID, "orchid");
         register(context, BRONZE, "bronze");
-        register(context, BRIGHT, "bright", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), IsDayCondition.isDay(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, MOONSKY, "moonsky", true, AllOfCondition.allOf(IsNightCondition.isNight(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BRIGHT, "bright", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, MOONSKY, "moonsky", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
     static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, SpawnCondition... conditions)

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import org.jetbrains.annotations.Nullable;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
@@ -17,7 +19,7 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +28,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -85,31 +88,33 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, Holder.direct(IslehopperVariants.STONE));
+        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.ISLEHOPPER_VARIANT).getHolderOrThrow(IslehopperVariants.STONE));
     }
 
     @Override
-    public Registry<IslehopperVariant> getRegistry()
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        return FOTBuiltInRegistries.ISLEHOPPER_VARIANT;
+        super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(IslehopperVariants.STONE).location().toString());
     }
 
     @Override
-    public void setVariant(IslehopperVariant variant)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        this.entityData.set(VARIANT, Holder.direct(variant));
+        super.readAdditionalSaveData(compound);
+        this.readVariantTag(compound, FOTRegistries.ISLEHOPPER_VARIANT);
     }
 
     @Override
-    public IslehopperVariant getVariant()
+    public Holder<IslehopperVariant> getVariant()
     {
-        return this.entityData.get(VARIANT).value();
+        return this.entityData.get(VARIANT);
     }
 
     @Override
-    public Holder<IslehopperVariant> getSpawnVariant(boolean fromBucket)
+    public void setVariant(Holder<IslehopperVariant> variant)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariants.STONE, fromBucket);
+        this.entityData.set(VARIANT, variant);
     }
 
     @Override
@@ -177,6 +182,15 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return WORMS.test(itemStack);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    {
+        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE, this, spawnType == MobSpawnType.BUCKET);
+        this.setVariant(holder);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)

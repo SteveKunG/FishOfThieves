@@ -1,31 +1,48 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
-import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 
 public class WreckerVariants
 {
-    public static final WreckerVariant ROSE = WreckerVariant.builder().condition(SpawnSelectors.always()).texture("rose").build();
-    public static final WreckerVariant SUN = WreckerVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.dayAndSeeSky())).texture("sun").glowTexture("sun_glow").build();
-    public static final WreckerVariant BLACKCLOUD = WreckerVariant.builder().condition(SpawnSelectors.thunderingAndSeeSky()).texture("blackcloud").glowTexture("blackcloud_glow").build();
-    public static final WreckerVariant SNOW = WreckerVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.snowWreckerProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.snowWreckerProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_SNOW_WRECKERS)))).texture("snow").glowTexture("snow_glow").build();
-    public static final WreckerVariant MOON = WreckerVariant.builder().condition(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() > 0F))).texture("moon").glowTexture("moon_glow").build();
+    public static final ResourceKey<WreckerVariant> ROSE = createKey("rose");
+    public static final ResourceKey<WreckerVariant> SUN = createKey("sun");
+    public static final ResourceKey<WreckerVariant> BLACKCLOUD = createKey("blackcloud");
+    public static final ResourceKey<WreckerVariant> SNOW = createKey("snow");
+    public static final ResourceKey<WreckerVariant> MOON = createKey("moon");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<WreckerVariant> context)
     {
-        register("rose", WreckerVariants.ROSE);
-        register("sun", WreckerVariants.SUN);
-        register("blackcloud", WreckerVariants.BLACKCLOUD);
-        register("snow", WreckerVariants.SNOW);
-        register("moon", WreckerVariants.MOON);
+        register(context, ROSE, "rose");
+        register(context, SUN, "sun", AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BLACKCLOUD, "blackcloud", AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SNOW, "snow", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SNOW_WRECKERS)).and(RandomChanceCondition.chance(10))).build());
+        register(context, MOON, "moon", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
     }
 
-    private static void register(String key, WreckerVariant variant)
+    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, SpawnCondition... conditions)
     {
-        Registry.register(FOTBuiltInRegistries.WRECKER_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, false, conditions);
+    }
+
+    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.res("entity/wrecker/" + name);
+        var glowTexture = FishOfThieves.res("entity/wrecker/" + name + "_glow");
+        context.register(key, new WreckerVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+    }
+
+    private static ResourceKey<WreckerVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.WRECKER_VARIANT, FishOfThieves.res(name));
     }
 }

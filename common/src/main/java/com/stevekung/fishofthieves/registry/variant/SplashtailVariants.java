@@ -21,10 +21,10 @@ public class SplashtailVariants
     public static void bootstrap(BootstrapContext<SplashtailVariant> context)
     {
         register(context, RUBY, "ruby");
-        register(context, SUNNY, "sunny", AllOfCondition.allOf(IsDayCondition.isDay(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SUNNY, "sunny", AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
         register(context, INDIGO, "indigo");
         register(context, UMBER, "umber", ProbabilityCondition.defaultRareProbablity().build());
-        register(context, SEAFOAM, "seafoam", true, AllOfCondition.allOf(IsNightCondition.isNight(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SEAFOAM, "seafoam", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
     static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, SpawnCondition... conditions)

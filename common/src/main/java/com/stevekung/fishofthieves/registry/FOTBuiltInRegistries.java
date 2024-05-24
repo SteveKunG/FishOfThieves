@@ -25,13 +25,5 @@ public class FOTBuiltInRegistries
 
     public static void forge()
     {
-        IslehopperVariants.init();
-        AncientscaleVariants.init();
-        PlentifinVariants.init();
-        WildsplashVariants.init();
-        DevilfishVariants.init();
-        BattlegillVariants.init();
-        WreckerVariants.init();
-        StormfishVariants.init();
     }
 }

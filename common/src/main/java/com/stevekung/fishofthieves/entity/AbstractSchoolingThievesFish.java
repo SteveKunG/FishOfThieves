@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,11 +15,14 @@ import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -236,6 +240,11 @@ public abstract class AbstractSchoolingThievesFish<T> extends AbstractSchoolingF
     public int getSchoolSize()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE) ? this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get() : 1;
+    }
+
+    protected void readVariantTag(CompoundTag compound, ResourceKey<? extends Registry<T>> registryKey)
+    {
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(registryKey, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(registryKey).getHolder(resourceKey)).ifPresent(this::setVariant);
     }
 
     @Override

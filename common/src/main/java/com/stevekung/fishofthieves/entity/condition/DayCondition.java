@@ -4,10 +4,10 @@ import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
-public class IsDayCondition implements SpawnCondition
+public class DayCondition implements SpawnCondition
 {
-    private static final IsDayCondition INSTANCE = new IsDayCondition();
-    public static final MapCodec<IsDayCondition> CODEC = MapCodec.unit(INSTANCE);
+    private static final DayCondition INSTANCE = new DayCondition();
+    public static final MapCodec<DayCondition> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
     public SpawnConditionType getType()
@@ -21,7 +21,7 @@ public class IsDayCondition implements SpawnCondition
         return livingEntity.level().isDay();
     }
 
-    public static SpawnCondition.Builder isDay()
+    public static SpawnCondition.Builder day()
     {
         return () -> INSTANCE;
     }

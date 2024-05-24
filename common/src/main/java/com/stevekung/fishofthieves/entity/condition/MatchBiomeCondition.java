@@ -26,7 +26,7 @@ public record MatchBiomeCondition(HolderSet<Biome> biomes) implements SpawnCondi
         return livingEntity.registryAccess().registryOrThrow(Registries.BIOME).holders().anyMatch(biomes -> biomes.is(holder));
     }
 
-    public static Builder hasValue(HolderSet<Biome> biomes)
+    public static Builder biomes(HolderSet<Biome> biomes)
     {
         return () -> new MatchBiomeCondition(biomes);
     }

@@ -39,7 +39,7 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
         return false;
     }
 
-    public static Builder hasBeehive(int honeyLevel, int distance)
+    public static Builder beehive(int honeyLevel, int distance)
     {
         return () -> new HasBeehiveCondition(honeyLevel, distance);
     }

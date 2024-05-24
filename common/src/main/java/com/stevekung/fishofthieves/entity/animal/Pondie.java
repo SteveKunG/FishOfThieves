@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -11,15 +10,13 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.variant.PondieVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -91,7 +88,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(FOTRegistries.PONDIE_VARIANT, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(FOTRegistries.PONDIE_VARIANT).getHolder(resourceKey)).ifPresent(this::setVariant);
+        this.readVariantTag(compound, FOTRegistries.PONDIE_VARIANT);
     }
 
     @Override

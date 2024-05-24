@@ -7,13 +7,14 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -129,31 +130,33 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, Holder.direct(DevilfishVariants.ASHEN));
+        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.DEVILFISH_VARIANT).getHolderOrThrow(DevilfishVariants.ASHEN));
     }
 
     @Override
-    public Registry<DevilfishVariant> getRegistry()
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        return FOTBuiltInRegistries.DEVILFISH_VARIANT;
+        super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(DevilfishVariants.ASHEN).location().toString());
     }
 
     @Override
-    public void setVariant(DevilfishVariant variant)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        this.entityData.set(VARIANT, Holder.direct(variant));
+        super.readAdditionalSaveData(compound);
+        this.readVariantTag(compound, FOTRegistries.DEVILFISH_VARIANT);
     }
 
     @Override
-    public DevilfishVariant getVariant()
+    public Holder<DevilfishVariant> getVariant()
     {
-        return this.entityData.get(VARIANT).value();
+        return this.entityData.get(VARIANT);
     }
 
     @Override
-    public Holder<DevilfishVariant> getSpawnVariant(boolean fromBucket)
+    public void setVariant(Holder<DevilfishVariant> variant)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_DEVILFISH_SPAWNS, DevilfishVariants.ASHEN, fromBucket);
+        this.entityData.set(VARIANT, variant);
     }
 
     @Override
@@ -200,15 +203,15 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
-
         if (this.isTrophy())
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        return spawnData;
+        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, this, spawnType == MobSpawnType.BUCKET);
+        this.setVariant(holder);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     @Override

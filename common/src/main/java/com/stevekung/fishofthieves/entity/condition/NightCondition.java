@@ -4,10 +4,10 @@ import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
-public class IsNightCondition implements SpawnCondition
+public class NightCondition implements SpawnCondition
 {
-    private static final IsNightCondition INSTANCE = new IsNightCondition();
-    public static final MapCodec<IsNightCondition> CODEC = MapCodec.unit(INSTANCE);
+    private static final NightCondition INSTANCE = new NightCondition();
+    public static final MapCodec<NightCondition> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
     public SpawnConditionType getType()
@@ -21,7 +21,7 @@ public class IsNightCondition implements SpawnCondition
         return livingEntity.level().isNight();
     }
 
-    public static Builder isNight()
+    public static Builder night()
     {
         return () -> INSTANCE;
     }

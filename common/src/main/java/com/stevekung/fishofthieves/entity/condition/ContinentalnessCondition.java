@@ -25,7 +25,7 @@ public record ContinentalnessCondition(Continentalness continentalness) implemen
         return continentalness == this.continentalness;
     }
 
-    public static ContinentalnessCondition.Builder getContinentalness()
+    public static ContinentalnessCondition.Builder builder()
     {
         return new ContinentalnessCondition.Builder();
     }
@@ -34,7 +34,7 @@ public record ContinentalnessCondition(Continentalness continentalness) implemen
     {
         private Continentalness continentalness = Continentalness.OCEAN;
 
-        public ContinentalnessCondition.Builder setContinentalness(Continentalness continentalness)
+        public ContinentalnessCondition.Builder continentalness(Continentalness continentalness)
         {
             this.continentalness = continentalness;
             return this;
