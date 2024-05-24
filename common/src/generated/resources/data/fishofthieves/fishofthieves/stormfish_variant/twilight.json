@@ -1,0 +1,11 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:sky_darken",
+      "max": 16,
+      "min": 9
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/stormfish/twilight_glow",
+  "texture": "fishofthieves:entity/stormfish/twilight"
+}

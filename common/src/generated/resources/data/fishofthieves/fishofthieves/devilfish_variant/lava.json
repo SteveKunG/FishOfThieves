@@ -1,0 +1,15 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:match_blocks_in_range",
+          "fluids": "#minecraft:lava",
+          "range": 4
+        }
+      ]
+    }
+  ],
+  "texture": "fishofthieves:entity/devilfish/lava"
+}

@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -25,7 +24,7 @@ public class AncientscaleVariants
         register(context, ALMOND, "almond");
         register(context, SAPPHIRE, "sapphire");
         register(context, SMOKE, "smoke");
-        register(context, BONE, "bone", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(context.lookup(Registries.STRUCTURE).getOrThrow(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN)).and(RandomChanceCondition.chance(10))).build());
+        register(context, BONE, "bone", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
         register(context, STARSHINE, "starshine", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build());
     }
 

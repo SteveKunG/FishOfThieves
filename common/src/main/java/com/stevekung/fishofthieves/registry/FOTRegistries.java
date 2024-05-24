@@ -1,10 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.variant.*;
-import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionType;
+import com.stevekung.fishofthieves.entity.variant.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 

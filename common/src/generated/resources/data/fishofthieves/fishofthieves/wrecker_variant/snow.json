@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:all_of",
+          "terms": [
+            {
+              "biomes": "#fishofthieves:spawns_snow_wreckers",
+              "condition": "fishofthieves:match_biome"
+            },
+            {
+              "chance": 10,
+              "condition": "fishofthieves:random_chance"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "texture": "fishofthieves:entity/wrecker/snow"
+}

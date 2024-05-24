@@ -54,7 +54,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T exten
     @Override
     public ResourceLocation getTextureLocation(T livingEntity)
     {
-        return livingEntity.getVariant().value().texture();
+        return livingEntity.getVariant().value().fullTexture();
     }
 
     @Override

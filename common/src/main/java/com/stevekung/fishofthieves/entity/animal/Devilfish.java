@@ -198,7 +198,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.375F) : EntityDimensions.fixed(0.275F, 0.275F).withEyeHeight(0.18F);
+        return this.isTrophy() ? super.getDefaultDimensions(pose).withEyeHeight(0.375F) : EntityDimensions.fixed(0.275F, 0.275F).withEyeHeight(0.18F);
     }
 
     @Override

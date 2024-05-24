@@ -1,0 +1,12 @@
+{
+  "conditions": [
+    {
+      "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
+      "condition": "fishofthieves:match_minimum_blocks_in_range",
+      "range": 4,
+      "size": 16
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/islehopper/amethyst_glow",
+  "texture": "fishofthieves:entity/islehopper/amethyst"
+}

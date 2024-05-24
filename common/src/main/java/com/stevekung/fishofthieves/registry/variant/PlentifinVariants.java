@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -25,7 +24,7 @@ public class PlentifinVariants
         register(context, OLIVE, "olive");
         register(context, AMBER, "amber", AnyOfCondition.anyOf(RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(0.75f, 0.9f)).and(SeeSkyInWaterCondition.seeSkyInWater())).build());
         register(context, CLOUDY, "cloudy", AllOfCondition.allOf(RainingCondition.raining(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, BONEDUST, "bonedust", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(context.lookup(Registries.STRUCTURE).getOrThrow(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN)).and(RandomChanceCondition.chance(10))).build());
+        register(context, BONEDUST, "bonedust", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
         register(context, WATERY, "watery", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 

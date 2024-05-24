@@ -142,7 +142,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.35F) : EntityDimensions.fixed(0.3F, 0.25F).withEyeHeight(0.17F);
+        return this.isTrophy() ? super.getDefaultDimensions(pose).withEyeHeight(0.35F) : EntityDimensions.fixed(0.3F, 0.25F).withEyeHeight(0.17F);
     }
 
     @Override

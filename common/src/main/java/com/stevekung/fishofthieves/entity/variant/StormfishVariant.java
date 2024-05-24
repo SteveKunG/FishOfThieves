@@ -17,13 +17,13 @@ public record StormfishVariant(ResourceLocation texture, Optional<ResourceLocati
     public static final Codec<Holder<StormfishVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.STORMFISH_VARIANT, DIRECT_CODEC);
 
     @Override
-    public ResourceLocation texture()
+    public ResourceLocation fullTexture()
     {
         return AbstractFishVariant.fullTextureId(this.texture);
     }
 
     @Override
-    public Optional<ResourceLocation> glowTexture()
+    public Optional<ResourceLocation> fullGlowTexture()
     {
         return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }

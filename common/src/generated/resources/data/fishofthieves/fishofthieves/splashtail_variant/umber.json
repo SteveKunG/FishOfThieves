@@ -1,8 +1,8 @@
 {
   "conditions": [
     {
-      "condition": "fishofthieves:probability",
-      "value": 0.1
+      "chance": 0.1,
+      "condition": "fishofthieves:probability"
     }
   ],
   "texture": "fishofthieves:entity/splashtail/umber"

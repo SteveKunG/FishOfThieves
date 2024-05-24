@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        },
+        {
+          "biomes": "#fishofthieves:spawns_coral_wildsplash",
+          "condition": "fishofthieves:match_biome"
+        },
+        {
+          "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
+          "condition": "fishofthieves:match_minimum_blocks_in_range",
+          "range": 4,
+          "size": 24
+        }
+      ]
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/wildsplash/coral_glow",
+  "texture": "fishofthieves:entity/wildsplash/coral"
+}

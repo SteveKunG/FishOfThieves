@@ -17,13 +17,13 @@ public record PlentifinVariant(ResourceLocation texture, Optional<ResourceLocati
     public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC);
 
     @Override
-    public ResourceLocation texture()
+    public ResourceLocation fullTexture()
     {
         return AbstractFishVariant.fullTextureId(this.texture);
     }
 
     @Override
-    public Optional<ResourceLocation> glowTexture()
+    public Optional<ResourceLocation> fullGlowTexture()
     {
         return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }

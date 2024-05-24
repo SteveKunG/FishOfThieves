@@ -1,0 +1,18 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "biomes": "#fishofthieves:spawns_sand_battlegills",
+          "condition": "fishofthieves:match_biome"
+        }
+      ]
+    }
+  ],
+  "texture": "fishofthieves:entity/battlegill/sand"
+}

@@ -142,7 +142,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.225F) : EntityDimensions.fixed(0.4F, 0.3F).withEyeHeight(0.11F);
+        return this.isTrophy() ? super.getDefaultDimensions(pose).withEyeHeight(0.225F) : EntityDimensions.fixed(0.4F, 0.3F).withEyeHeight(0.11F);
     }
 
     @Override

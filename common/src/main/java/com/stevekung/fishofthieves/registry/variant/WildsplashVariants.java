@@ -24,8 +24,8 @@ public class WildsplashVariants
     public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
         register(context, RUSSET, "russet");
-        register(context, SANDY, "sandy", AnyOfCondition.anyOf(MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST))).build());
-        register(context, OCEAN, "ocean", AnyOfCondition.anyOf(MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH))).build());
+        register(context, SANDY, "sandy", MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
+        register(context, OCEAN, "ocean", MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH)).build());
         register(context, MUDDY, "muddy", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH))).build());
         register(context, CORAL, "coral", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
     }

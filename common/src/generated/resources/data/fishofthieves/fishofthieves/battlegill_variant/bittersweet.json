@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/battlegill/bittersweet_glow",
+  "texture": "fishofthieves:entity/battlegill/bittersweet"
+}

@@ -23,7 +23,7 @@ public class BattlegillVariants
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
         register(context, JADE, "jade");
-        register(context, SKY, "sky", AnyOfCondition.anyOf(SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SKY, "sky", SeeSkyInWaterCondition.seeSkyInWater().build());
         register(context, RUM, "rum");
         register(context, SAND, "sand", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS))).build());
         register(context, BITTERSWEET, "bittersweet", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());

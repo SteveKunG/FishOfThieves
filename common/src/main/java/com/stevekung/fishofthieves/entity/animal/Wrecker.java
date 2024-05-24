@@ -194,7 +194,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.34F) : EntityDimensions.fixed(0.275F, 0.25F).withEyeHeight(0.175F);
+        return this.isTrophy() ? super.getDefaultDimensions(pose).withEyeHeight(0.34F) : EntityDimensions.fixed(0.275F, 0.25F).withEyeHeight(0.175F);
     }
 
     @Override

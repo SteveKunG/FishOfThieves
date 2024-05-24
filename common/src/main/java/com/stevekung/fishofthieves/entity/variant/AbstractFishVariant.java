@@ -19,6 +19,10 @@ public interface AbstractFishVariant
 {
     ResourceLocation texture();
 
+    ResourceLocation fullTexture();
+
+    Optional<ResourceLocation> fullGlowTexture();
+
     Optional<ResourceLocation> glowTexture();
 
     List<SpawnCondition> conditions();
@@ -42,10 +46,7 @@ public interface AbstractFishVariant
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
         var registry = registryAccess.registryOrThrow(registryKey);
-        return registry.holders().filter(reference ->
-        {
-            var con = reference.value().conditions();
-            return fromBucket || Util.allOf(con).test(livingEntity);
-        }).findFirst().orElse(registry.getHolderOrThrow(defaultKey));
+        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().conditions()).test(livingEntity)).toList(), livingEntity.getRandom());
+        return muha.orElseGet(() -> registry.getHolderOrThrow(defaultKey));
     }
 }

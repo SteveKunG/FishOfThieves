@@ -1,0 +1,9 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:has_beehive",
+      "distance": 9
+    }
+  ],
+  "texture": "fishofthieves:entity/islehopper/honey"
+}

@@ -17,13 +17,13 @@ public record AncientscaleVariant(ResourceLocation texture, Optional<ResourceLoc
     public static final Codec<Holder<AncientscaleVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ANCIENTSCALE_VARIANT, DIRECT_CODEC);
 
     @Override
-    public ResourceLocation texture()
+    public ResourceLocation fullTexture()
     {
         return AbstractFishVariant.fullTextureId(this.texture);
     }
 
     @Override
-    public Optional<ResourceLocation> glowTexture()
+    public Optional<ResourceLocation> fullGlowTexture()
     {
         return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }

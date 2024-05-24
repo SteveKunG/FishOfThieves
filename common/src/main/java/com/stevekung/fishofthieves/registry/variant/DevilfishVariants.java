@@ -26,7 +26,7 @@ public class DevilfishVariants
         register(context, ASHEN, "ashen");
         register(context, SEASHELL, "seashell");
         register(context, LAVA, "lava", AnyOfCondition.anyOf(MatchBlocksInRangeCondition.blocksInRange(Optional.empty(), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)).build());
-        register(context, FORSAKEN, "forsaken", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity()).build());
+        register(context, FORSAKEN, "forsaken", ProbabilityCondition.defaultRareProbablity().build());
         register(context, FIRELIGHT, "firelight", true, AllOfCondition.allOf(NightCondition.night(), MatchBlocksInRangeCondition.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)).build());
     }
 

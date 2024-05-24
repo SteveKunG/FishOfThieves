@@ -118,15 +118,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
-//        builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
-//        builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
-//        builder.add(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants::bootstrap);
-//        builder.add(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants::bootstrap);
-//        builder.add(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants::bootstrap);
-//        builder.add(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants::bootstrap);
-//        builder.add(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants::bootstrap);
-//        builder.add(FOTRegistries.WRECKER_VARIANT, WreckerVariants::bootstrap);
-//        builder.add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrap);
+        builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
+        builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
+        builder.add(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants::bootstrap);
+        builder.add(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants::bootstrap);
+        builder.add(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants::bootstrap);
+        builder.add(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants::bootstrap);
+        builder.add(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants::bootstrap);
+        builder.add(FOTRegistries.WRECKER_VARIANT, WreckerVariants::bootstrap);
+        builder.add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrap);
     }
 
     @Override
@@ -595,12 +595,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                             .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
 
-//            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
-//                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY)),
-//                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SUNNY)),
-//                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.INDIGO)),
-//                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.UMBER)),
-//                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SEAFOAM)));
+            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
+                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY)),
+                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SUNNY)),
+                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.INDIGO)),
+                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.UMBER)),
+                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SEAFOAM)));
 //
 //            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
 //                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL)),
@@ -1020,16 +1020,16 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     {
         private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
         {
-            map.put(FOTItems.SPLASHTAIL_BUCKET, FOTBuiltInRegistries.SPLASHTAIL_VARIANT);
-            map.put(FOTItems.PONDIE_BUCKET, FOTBuiltInRegistries.PONDIE_VARIANT);
-            map.put(FOTItems.ISLEHOPPER_BUCKET, FOTBuiltInRegistries.ISLEHOPPER_VARIANT);
-            map.put(FOTItems.ANCIENTSCALE_BUCKET, FOTBuiltInRegistries.ANCIENTSCALE_VARIANT);
-            map.put(FOTItems.PLENTIFIN_BUCKET, FOTBuiltInRegistries.PLENTIFIN_VARIANT);
-            map.put(FOTItems.WILDSPLASH_BUCKET, FOTBuiltInRegistries.WILDSPLASH_VARIANT);
-            map.put(FOTItems.DEVILFISH_BUCKET, FOTBuiltInRegistries.DEVILFISH_VARIANT);
-            map.put(FOTItems.BATTLEGILL_BUCKET, FOTBuiltInRegistries.BATTLEGILL_VARIANT);
-            map.put(FOTItems.WRECKER_BUCKET, FOTBuiltInRegistries.WRECKER_VARIANT);
-            map.put(FOTItems.STORMFISH_BUCKET, FOTBuiltInRegistries.STORMFISH_VARIANT);
+//            map.put(FOTItems.SPLASHTAIL_BUCKET, BBFOTBuiltInRegistries.SPLASHTAIL_VARIANT);
+//            map.put(FOTItems.PONDIE_BUCKET, BBFOTBuiltInRegistries.PONDIE_VARIANT);
+//            map.put(FOTItems.ISLEHOPPER_BUCKET, BBFOTBuiltInRegistries.ISLEHOPPER_VARIANT);
+//            map.put(FOTItems.ANCIENTSCALE_BUCKET, BBFOTBuiltInRegistries.ANCIENTSCALE_VARIANT);
+//            map.put(FOTItems.PLENTIFIN_BUCKET, BBFOTBuiltInRegistries.PLENTIFIN_VARIANT);
+//            map.put(FOTItems.WILDSPLASH_BUCKET, BBFOTBuiltInRegistries.WILDSPLASH_VARIANT);
+//            map.put(FOTItems.DEVILFISH_BUCKET, BBFOTBuiltInRegistries.DEVILFISH_VARIANT);
+//            map.put(FOTItems.BATTLEGILL_BUCKET, BBFOTBuiltInRegistries.BATTLEGILL_VARIANT);
+//            map.put(FOTItems.WRECKER_BUCKET, BBFOTBuiltInRegistries.WRECKER_VARIANT);
+//            map.put(FOTItems.STORMFISH_BUCKET, BBFOTBuiltInRegistries.STORMFISH_VARIANT);
         });
 
         private AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
@@ -1202,15 +1202,15 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.ANCIENTSCALE_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.PLENTIFIN_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.WILDSPLASH_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.DEVILFISH_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.WRECKER_VARIANT));
-//            entries.addAll(registries.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.ANCIENTSCALE_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.PLENTIFIN_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.WILDSPLASH_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.DEVILFISH_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.WRECKER_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT));
         }
 
         @Override

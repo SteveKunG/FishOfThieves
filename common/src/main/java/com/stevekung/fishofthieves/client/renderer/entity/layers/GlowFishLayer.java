@@ -23,7 +23,7 @@ public class GlowFishLayer<V extends AbstractFishVariant, T extends LivingEntity
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        var glowTexture = livingEntity.getVariant().value().glowTexture();
+        var glowTexture = livingEntity.getVariant().value().fullGlowTexture();
 
         if (!livingEntity.isInvisible() && glowTexture.isPresent())
         {

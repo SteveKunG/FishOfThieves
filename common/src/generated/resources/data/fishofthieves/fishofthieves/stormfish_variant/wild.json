@@ -1,0 +1,9 @@
+{
+  "conditions": [
+    {
+      "biomes": "#fishofthieves:spawns_wild_stormfish",
+      "condition": "fishofthieves:match_biome"
+    }
+  ],
+  "texture": "fishofthieves:entity/stormfish/wild"
+}

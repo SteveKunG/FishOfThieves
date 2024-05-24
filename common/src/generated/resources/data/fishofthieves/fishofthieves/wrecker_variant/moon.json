@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        },
+        {
+          "condition": "fishofthieves:moon_brightness",
+          "max": 1.0,
+          "min": 0.0
+        }
+      ]
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/wrecker/moon_glow",
+  "texture": "fishofthieves:entity/wrecker/moon"
+}

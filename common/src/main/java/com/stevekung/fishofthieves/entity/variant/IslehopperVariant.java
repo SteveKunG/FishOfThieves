@@ -17,13 +17,13 @@ public record IslehopperVariant(ResourceLocation texture, Optional<ResourceLocat
     public static final Codec<Holder<IslehopperVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ISLEHOPPER_VARIANT, DIRECT_CODEC);
 
     @Override
-    public ResourceLocation texture()
+    public ResourceLocation fullTexture()
     {
         return AbstractFishVariant.fullTextureId(this.texture);
     }
 
     @Override
-    public Optional<ResourceLocation> glowTexture()
+    public Optional<ResourceLocation> fullGlowTexture()
     {
         return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }

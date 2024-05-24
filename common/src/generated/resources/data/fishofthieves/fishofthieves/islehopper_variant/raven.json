@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:height",
+          "max": 0,
+          "min": -64
+        }
+      ]
+    }
+  ],
+  "texture": "fishofthieves:entity/islehopper/raven"
+}

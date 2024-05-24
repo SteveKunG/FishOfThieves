@@ -1,0 +1,19 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:sky_brightness",
+          "max": 4,
+          "min": 0
+        }
+      ]
+    }
+  ],
+  "texture": "fishofthieves:entity/stormfish/shadow"
+}

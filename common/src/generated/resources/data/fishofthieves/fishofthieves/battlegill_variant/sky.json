@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:see_sky_in_water"
+    }
+  ],
+  "texture": "fishofthieves:entity/battlegill/sky"
+}

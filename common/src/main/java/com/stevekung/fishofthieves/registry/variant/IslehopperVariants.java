@@ -26,7 +26,7 @@ public class IslehopperVariants
         register(context, MOSS, "moss", MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MOSS_ISLEHOPPERS)).build());
         register(context, HONEY, "honey", HasBeehiveCondition.beehive(5, 9).build());
         register(context, RAVEN, "raven", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), HeightCondition.height(-64, 0)).build());
-        register(context, AMETHYST, "amethyst", true, AllOfCondition.allOf(MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16)).build());
+        register(context, AMETHYST, "amethyst", true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16).build());
     }
 
     static void register(BootstrapContext<IslehopperVariant> context, ResourceKey<IslehopperVariant> key, String name, SpawnCondition... conditions)

@@ -1,0 +1,9 @@
+{
+  "conditions": [
+    {
+      "biomes": "#fishofthieves:spawns_ocean_wildsplash",
+      "condition": "fishofthieves:match_biome"
+    }
+  ],
+  "texture": "fishofthieves:entity/wildsplash/ocean"
+}

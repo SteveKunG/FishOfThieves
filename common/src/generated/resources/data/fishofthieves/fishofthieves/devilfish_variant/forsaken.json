@@ -1,0 +1,9 @@
+{
+  "conditions": [
+    {
+      "chance": 0.1,
+      "condition": "fishofthieves:probability"
+    }
+  ],
+  "texture": "fishofthieves:entity/devilfish/forsaken"
+}
