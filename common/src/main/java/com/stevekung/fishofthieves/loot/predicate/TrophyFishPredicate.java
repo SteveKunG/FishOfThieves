@@ -23,7 +23,7 @@ public record TrophyFishPredicate(boolean trophy) implements EntitySubPredicate
     @Override
     public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position)
     {
-        if (!(entity instanceof ThievesFish<?> thievesFish))
+        if (!(entity instanceof ThievesFish thievesFish))
         {
             return false;
         }

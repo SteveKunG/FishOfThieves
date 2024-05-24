@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -8,7 +9,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 
 public class FOTDataSerializers
 {
-    public static final EntityDataSerializer<Holder<SplashtailVariant>> SPLASHTAIL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY));
+    public static final EntityDataSerializer<Holder<SplashtailVariant>> SPLASHTAIL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries.SPLASHTAIL_VARIANT));
     public static final EntityDataSerializer<Holder<PondieVariant>> PONDIE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.PONDIE_VARIANT_REGISTRY));
     public static final EntityDataSerializer<Holder<IslehopperVariant>> ISLEHOPPER_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY));
     public static final EntityDataSerializer<Holder<AncientscaleVariant>> ANCIENTSCALE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY));

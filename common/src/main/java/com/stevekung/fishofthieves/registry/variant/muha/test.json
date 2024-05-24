@@ -1,0 +1,82 @@
+{
+  "texture": "fot:splashtail",
+  "glow_texture": "fot:splashtail_glow",
+  "conditions": [
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+        {
+          "condition": "fot:is_day"
+        },
+        {
+          "condition": "fot:is_night"
+        }
+      ]
+    },
+    {
+      "condition": "fot:is_raining",
+      "thundering": true
+    },
+    {
+      "condition": "fot:see_sky_in_water"
+    },
+    {
+      "condition": "fot:continentalness",
+      "continentalness": "COAST"
+    },
+    {
+      "condition": "fot:probability",
+      "value": 0.5
+    },
+    {
+      "condition": "fot:match_biome",
+      "biomes": "#ocean"
+    },
+    {
+      "condition": "fot:match_structure",
+      "biomes": "#ruin"
+    },
+    {
+      "condition": "fot:match_blocks_in_range",
+      "blocks": "#lava",
+      "fluids": "#lava",
+      "range": 5
+    },
+    {
+      "condition": "fot:match_mininum_blocks_in_range",
+      "blocks": "#lava",
+      "fluids": "#lava",
+      "range": 5,
+      "size": 20
+    },
+    {
+      "condition": "fot:full_bee_hive"
+    },
+    {
+      "condition": "fot:check_height",
+      "range": {
+        "min": 0
+      }
+    },
+    {
+      "condition": "fot:check_time_of_day",
+      "value": {
+        "min": 0.5,
+        "max": 1.0
+      }
+    },
+    {
+      "condition": "fot:check_sky_brightness",
+      "range": {
+        "min": 0,
+        "max": 4
+      }
+    },
+    {
+      "condition": "fot:check_sky_darken",
+      "range": {
+        "min": 9
+      }
+    }
+  ]
+}

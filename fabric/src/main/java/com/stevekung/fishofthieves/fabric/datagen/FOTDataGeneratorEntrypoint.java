@@ -24,6 +24,8 @@ import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
+import com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries;
+import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariants;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -121,6 +123,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
+        builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
     }
 
     @Override
@@ -600,14 +603,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                             .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
 
-            /*simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,TODO Rewrite registry
+            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,TODO Rewrite registry
                     FOTEntitySubPredicate.variant(SplashtailVariants.RUBY),
                     FOTEntitySubPredicate.variant(SplashtailVariants.SUNNY),
                     FOTEntitySubPredicate.variant(SplashtailVariants.INDIGO),
                     FOTEntitySubPredicate.variant(SplashtailVariants.UMBER),
                     FOTEntitySubPredicate.variant(SplashtailVariants.SEAFOAM));
 
-            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
+            /*simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
                     FOTEntitySubPredicate.variant(PondieVariants.CHARCOAL),
                     FOTEntitySubPredicate.variant(PondieVariants.ORCHID),
                     FOTEntitySubPredicate.variant(PondieVariants.BRONZE),
@@ -1199,6 +1202,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
             entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
         }
 
         @Override

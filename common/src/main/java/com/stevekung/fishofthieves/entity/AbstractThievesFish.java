@@ -6,18 +6,19 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
@@ -31,7 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractThievesFish<T extends FishData> extends AbstractFish implements ThievesFish<T>
+public abstract class AbstractThievesFish<T> extends AbstractFish implements ThievesFish, VariantHolder<Holder<T>>
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
@@ -93,7 +94,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -104,13 +104,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     {
         super.readAdditionalSaveData(compound);
         ThievesFish.fixData(compound, this.getDataFix());
-
-        var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
-
-        if (variant != null)
-        {
-            this.setVariant(variant);
-        }
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));

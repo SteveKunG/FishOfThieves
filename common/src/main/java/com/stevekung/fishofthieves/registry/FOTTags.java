@@ -95,7 +95,6 @@ public interface FOTTags
 
     interface FishVariant
     {
-        TagKey<SplashtailVariant> DEFAULT_SPLASHTAIL_SPAWNS = TagKey.create(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, FishOfThieves.res("default_splashtail_spawns"));
         TagKey<PondieVariant> DEFAULT_PONDIE_SPAWNS = TagKey.create(FOTRegistries.PONDIE_VARIANT_REGISTRY, FishOfThieves.res("default_pondie_spawns"));
         TagKey<IslehopperVariant> DEFAULT_ISLEHOPPER_SPAWNS = TagKey.create(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, FishOfThieves.res("default_islehopper_spawns"));
         TagKey<AncientscaleVariant> DEFAULT_ANCIENTSCALE_SPAWNS = TagKey.create(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, FishOfThieves.res("default_ancientscale_spawns"));

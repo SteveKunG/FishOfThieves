@@ -13,12 +13,12 @@ import com.stevekung.fishofthieves.entity.debug.SchoolingFishDebug;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,7 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractSchoolingThievesFish<T extends FishData> extends AbstractSchoolingFish implements ThievesFish<T>
+public abstract class AbstractSchoolingThievesFish<T> extends AbstractSchoolingFish implements ThievesFish, VariantHolder<Holder<T>>
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
@@ -251,7 +251,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElseThrow().location().toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -262,13 +262,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     {
         super.readAdditionalSaveData(compound);
         ThievesFish.fixData(compound, this.getDataFix());
-
-        var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
-
-        if (variant != null)
-        {
-            this.setVariant(variant);
-        }
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));

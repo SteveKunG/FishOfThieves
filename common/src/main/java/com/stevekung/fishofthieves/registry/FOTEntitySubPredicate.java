@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
+import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariant;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicates;
 import net.minecraft.core.Holder;
@@ -16,7 +17,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 public class FOTEntitySubPredicate
 {
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<SplashtailVariant> SPLASHTAIL = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, entity -> entity instanceof Splashtail splashtail ? Optional.of(Holder.direct(splashtail.getVariant())) : Optional.empty());
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<SplashtailVariant> SPLASHTAIL = EntitySubPredicates.EntityHolderVariantPredicateType.create(com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries.SPLASHTAIL_VARIANT, entity -> entity instanceof Splashtail splashtail ? Optional.of(splashtail.getVariant()) : Optional.empty());
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<PondieVariant> PONDIE = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PONDIE_VARIANT_REGISTRY, entity -> entity instanceof Pondie pondie ? Optional.of(Holder.direct(pondie.getVariant())) : Optional.empty());
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<IslehopperVariant> ISLEHOPPER = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, entity -> entity instanceof Islehopper islehopper ? Optional.of(Holder.direct(islehopper.getVariant())) : Optional.empty());
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<AncientscaleVariant> ANCIENTSCALE = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, entity -> entity instanceof Ancientscale ancientscale ? Optional.of(Holder.direct(ancientscale.getVariant())) : Optional.empty());

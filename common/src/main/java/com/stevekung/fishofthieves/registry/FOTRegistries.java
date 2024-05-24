@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public class FOTRegistries
 {
-    public static final ResourceKey<Registry<SplashtailVariant>> SPLASHTAIL_VARIANT_REGISTRY = ResourceKey.createRegistryKey(new ResourceLocation("splashtail_variant"));
     public static final ResourceKey<Registry<PondieVariant>> PONDIE_VARIANT_REGISTRY = ResourceKey.createRegistryKey(new ResourceLocation("pondie_variant"));
     public static final ResourceKey<Registry<IslehopperVariant>> ISLEHOPPER_VARIANT_REGISTRY = ResourceKey.createRegistryKey(new ResourceLocation("islehopper_variant"));
     public static final ResourceKey<Registry<AncientscaleVariant>> ANCIENTSCALE_VARIANT_REGISTRY = ResourceKey.createRegistryKey(new ResourceLocation("ancientscale_variant"));

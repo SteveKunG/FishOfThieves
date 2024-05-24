@@ -7,7 +7,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 public class FOTRegistry
 {
-    public static final Registry<SplashtailVariant> SPLASHTAIL_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, registry -> SplashtailVariants.RUBY);
     public static final Registry<PondieVariant> PONDIE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.PONDIE_VARIANT_REGISTRY, registry -> PondieVariants.CHARCOAL);
     public static final Registry<IslehopperVariant> ISLEHOPPER_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, registry -> IslehopperVariants.STONE);
     public static final Registry<AncientscaleVariant> ANCIENTSCALE_VARIANT = BuiltInRegistries.registerSimple(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, registry -> AncientscaleVariants.ALMOND);
@@ -20,7 +19,6 @@ public class FOTRegistry
 
     public static void forge()
     {
-        SplashtailVariants.init();
         PondieVariants.init();
         IslehopperVariants.init();
         AncientscaleVariants.init();

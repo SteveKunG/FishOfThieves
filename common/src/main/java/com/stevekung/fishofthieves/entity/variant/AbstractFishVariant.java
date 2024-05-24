@@ -5,11 +5,10 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import net.minecraft.resources.ResourceLocation;
 
-public class AbstractFishVariant implements FishData
+public class AbstractFishVariant
 {
     private final Supplier<Predicate<SpawnConditionContext>> condition;
     private final ResourceLocation texture;
@@ -23,19 +22,16 @@ public class AbstractFishVariant implements FishData
         this.glowTexture = glowTexture;
     }
 
-    @Override
     public Predicate<SpawnConditionContext> getCondition()
     {
         return this.condition.get();
     }
 
-    @Override
     public ResourceLocation getTexture()
     {
         return this.texture;
     }
 
-    @Override
     public Optional<ResourceLocation> getGlowTexture()
     {
         return Optional.ofNullable(this.glowTexture);

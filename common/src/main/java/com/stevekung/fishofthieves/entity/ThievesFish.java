@@ -1,22 +1,15 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -24,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public interface ThievesFish<T extends FishData> extends PartyFish
+public interface ThievesFish extends PartyFish
 {
     Ingredient WORMS = Ingredient.of(FOTTags.Items.WORMS);
     Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.Items.EARTHWORMS_FOOD);
@@ -38,14 +31,6 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
     String NO_FLIP_TAG = "NoFlip";
-
-    T getVariant();
-
-    void setVariant(T variant);
-
-    Holder<T> getSpawnVariant(boolean fromBucket);
-
-    Registry<T> getRegistry();
 
     Consumer<Int2ObjectOpenHashMap<String>> getDataFix();
 
@@ -70,25 +55,25 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     default void saveToBucket(ItemStack bucket)
     {
-        var variant = this.getRegistry().getKey(this.getVariant());
+        //        var variant = this.getRegistry().getKey(this.getVariant());
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
-            if (variant != null)
-            {
-                if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
-                {
-                    var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
-                    var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-                    var customModelData = swapped.get(variant.toString());
-
-                    if (customModelData > 0)
-                    {
-                        compoundTag.putInt("CustomModelData", customModelData);
-                    }
-                }
-                compoundTag.putString(VARIANT_TAG, variant.toString());
-            }
+            //            if (variant != null)TODO
+            //            {
+            //                if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
+            //                {
+            //                    var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
+            //                    var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+            //                    var customModelData = swapped.get(variant.toString());
+            //
+            //                    if (customModelData > 0)
+            //                    {
+            //                        compoundTag.putInt("CustomModelData", customModelData);
+            //                    }
+            //                }
+            //                compoundTag.putString(VARIANT_TAG, variant.toString());
+            //            }
             if (this.isTrophy())
             {
                 compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
@@ -105,15 +90,15 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     {
         ThievesFish.fixData(compound, this.getDataFix());
 
-        if (compound.contains(VARIANT_TAG))
-        {
-            var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
-
-            if (variant != null)
-            {
-                this.setVariant(variant);
-            }
-        }
+        //        if (compound.contains(VARIANT_TAG))TODO
+        //        {
+        //            var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
+        //
+        //            if (variant != null)
+        //            {
+        //                this.setVariant(variant);
+        //            }
+        //        }
         if (compound.contains(TROPHY_TAG))
         {
             this.setTrophy(compound.getBoolean(TROPHY_TAG));
@@ -147,13 +132,8 @@ public interface ThievesFish<T extends FishData> extends PartyFish
             this.setTrophy(true);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET).value());
+        //        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET).value());TODO
         return spawnData;
-    }
-
-    default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean fromBucket)
-    {
-        return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> fromBucket || variant.value().getCondition().test(SpawnSelectors.get(livingEntity))).orElseGet(() -> Holder.direct(defaultSpawn));
     }
 
     static void fixData(CompoundTag compound, Consumer<Int2ObjectOpenHashMap<String>> consumer)

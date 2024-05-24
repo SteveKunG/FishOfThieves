@@ -1,0 +1,17 @@
+{
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "glow_texture": "fishofthieves:entity/splashtail/seafoam_glow",
+  "texture": "fishofthieves:entity/splashtail/seafoam"
+}

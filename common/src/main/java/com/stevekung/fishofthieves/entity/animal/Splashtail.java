@@ -1,20 +1,27 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
-import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
+import com.stevekung.fishofthieves.registry.FOTDataSerializers;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+import com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries;
+import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariant;
+import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariants;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -72,31 +79,33 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, Holder.direct(SplashtailVariants.RUBY));
+        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getHolderOrThrow(SplashtailVariants.RUBY));
     }
 
     @Override
-    public Registry<SplashtailVariant> getRegistry()
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        return FOTRegistry.SPLASHTAIL_VARIANT;
+        super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(SplashtailVariants.RUBY).location().toString());
     }
 
     @Override
-    public void setVariant(SplashtailVariant variant)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        this.entityData.set(VARIANT, Holder.direct(variant));
+        super.readAdditionalSaveData(compound);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(FOTRegistries.SPLASHTAIL_VARIANT, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getHolder(resourceKey)).ifPresent(this::setVariant);
     }
 
     @Override
-    public SplashtailVariant getVariant()
+    public Holder<SplashtailVariant> getVariant()
     {
-        return this.entityData.get(VARIANT).value();
+        return this.entityData.get(VARIANT);
     }
 
     @Override
-    public Holder<SplashtailVariant> getSpawnVariant(boolean fromBucket)
+    public void setVariant(Holder<SplashtailVariant> variant)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariants.RUBY, fromBucket);
+        this.entityData.set(VARIANT, variant);
     }
 
     @Override
