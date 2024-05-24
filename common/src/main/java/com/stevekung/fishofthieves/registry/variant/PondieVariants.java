@@ -1,30 +1,46 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.core.Registry;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 
 public class PondieVariants
 {
-    public static final PondieVariant CHARCOAL = PondieVariant.builder().condition(SpawnSelectors.always()).texture("charcoal").build();
-    public static final PondieVariant ORCHID = PondieVariant.builder().condition(SpawnSelectors.always()).texture("orchid").build();
-    public static final PondieVariant BRONZE = PondieVariant.builder().condition(SpawnSelectors.always()).texture("bronze").build();
-    public static final PondieVariant BRIGHT = PondieVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky()))).texture("bright").build();
-    public static final PondieVariant MOONSKY = PondieVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("moonsky").glowTexture("moonsky_glow").build();
+    public static final ResourceKey<PondieVariant> CHARCOAL = createKey("charcoal");
+    public static final ResourceKey<PondieVariant> ORCHID = createKey("orchid");
+    public static final ResourceKey<PondieVariant> BRONZE = createKey("bronze");
+    public static final ResourceKey<PondieVariant> BRIGHT = createKey("bright");
+    public static final ResourceKey<PondieVariant> MOONSKY = createKey("moonsky");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<PondieVariant> context)
     {
-        register("charcoal", PondieVariants.CHARCOAL);
-        register("orchid", PondieVariants.ORCHID);
-        register("bronze", PondieVariants.BRONZE);
-        register("bright", PondieVariants.BRIGHT);
-        register("moonsky", PondieVariants.MOONSKY);
+        register(context, CHARCOAL, "charcoal");
+        register(context, ORCHID, "orchid");
+        register(context, BRONZE, "bronze");
+        register(context, BRIGHT, "bright", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), IsDayCondition.isDay(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, MOONSKY, "moonsky", true, AllOfCondition.allOf(IsNightCondition.isNight(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
-    private static void register(String key, PondieVariant variant)
+    static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, SpawnCondition... conditions)
     {
-        Registry.register(FOTRegistry.PONDIE_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, false, conditions);
+    }
+
+    static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.res("entity/pondie/" + name);
+        var glowTexture = FishOfThieves.res("entity/pondie/" + name + "_glow");
+        context.register(key, new PondieVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+    }
+
+    private static ResourceKey<PondieVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.PONDIE_VARIANT, FishOfThieves.res(name));
     }
 }

@@ -1,10 +1,11 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -27,7 +28,7 @@ public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> bloc
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.MATCH_MINIMUM_BLOCKS_IN_RANGE;
+        return FOTSpawnConditions.MATCH_MINIMUM_BLOCKS_IN_RANGE;
     }
 
     @Override

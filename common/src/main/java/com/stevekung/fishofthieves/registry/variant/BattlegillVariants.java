@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
@@ -27,6 +27,6 @@ public class BattlegillVariants
 
     private static void register(String key, BattlegillVariant variant)
     {
-        Registry.register(FOTRegistry.BATTLEGILL_VARIANT, FishOfThieves.res(key), variant);
+        Registry.register(FOTBuiltInRegistries.BATTLEGILL_VARIANT, FishOfThieves.res(key), variant);
     }
 }

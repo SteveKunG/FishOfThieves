@@ -90,15 +90,6 @@ public interface ThievesFish extends PartyFish
     {
         ThievesFish.fixData(compound, this.getDataFix());
 
-        //        if (compound.contains(VARIANT_TAG))TODO
-        //        {
-        //            var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
-        //
-        //            if (variant != null)
-        //            {
-        //                this.setVariant(variant);
-        //            }
-        //        }
         if (compound.contains(TROPHY_TAG))
         {
             this.setTrophy(compound.getBoolean(TROPHY_TAG));
@@ -132,7 +123,6 @@ public interface ThievesFish extends PartyFish
             this.setTrophy(true);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        //        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET).value());TODO
         return spawnData;
     }
 

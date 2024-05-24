@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.function.Predicate;
 

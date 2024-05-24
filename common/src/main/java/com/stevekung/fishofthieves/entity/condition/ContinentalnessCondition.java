@@ -1,7 +1,8 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.server.level.ServerLevel;
@@ -14,7 +15,7 @@ public record ContinentalnessCondition(Continentalness continentalness) implemen
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.CONTINENTALNESS;
+        return FOTSpawnConditions.CONTINENTALNESS;
     }
 
     @Override

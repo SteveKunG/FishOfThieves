@@ -9,9 +9,6 @@ import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
-import com.stevekung.fishofthieves.registry.variant.muha.FOTBuiltinRegistries;
-import com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries;
-import com.stevekung.fishofthieves.registry.variant.muha.condition.SpawnConditions;
 import com.stevekung.fishofthieves.utils.FOTPlatform;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -42,9 +39,6 @@ public class FishOfThieves
     public static void initGlobal()
     {
         FOTSoundEvents.init();
-        FOTRegistries.init();
-        FOTBuiltinRegistries.init();
-        SpawnConditions.init();
     }
 
     public static void initCommon()

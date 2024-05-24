@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public record ProbabilityCondition(float chance) implements SpawnCondition
@@ -12,7 +13,7 @@ public record ProbabilityCondition(float chance) implements SpawnCondition
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.PROBABILITY;
+        return FOTSpawnConditions.PROBABILITY;
     }
 
     @Override

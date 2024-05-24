@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -21,7 +22,7 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.HAS_BEEHIVE;
+        return FOTSpawnConditions.HAS_BEEHIVE;
     }
 
     @Override

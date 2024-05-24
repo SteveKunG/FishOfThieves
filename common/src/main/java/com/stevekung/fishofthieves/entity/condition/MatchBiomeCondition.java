@@ -1,7 +1,8 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +16,7 @@ public record MatchBiomeCondition(HolderSet<Biome> biomes) implements SpawnCondi
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.MATCH_BIOME;
+        return FOTSpawnConditions.MATCH_BIOME;
     }
 
     @Override

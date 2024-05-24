@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.variant.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -91,18 +90,5 @@ public interface FOTTags
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.res("has_seapost"));
         TagKey<Biome> ISLEHOPPER_SPAWN_AT_COAST = TagKey.create(Registries.BIOME, FishOfThieves.res("islehopper_spawn_at_coast"));
         TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.res("has_fish_bone"));
-    }
-
-    interface FishVariant
-    {
-        TagKey<PondieVariant> DEFAULT_PONDIE_SPAWNS = TagKey.create(FOTRegistries.PONDIE_VARIANT_REGISTRY, FishOfThieves.res("default_pondie_spawns"));
-        TagKey<IslehopperVariant> DEFAULT_ISLEHOPPER_SPAWNS = TagKey.create(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, FishOfThieves.res("default_islehopper_spawns"));
-        TagKey<AncientscaleVariant> DEFAULT_ANCIENTSCALE_SPAWNS = TagKey.create(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, FishOfThieves.res("default_ancientscale_spawns"));
-        TagKey<PlentifinVariant> DEFAULT_PLENTIFIN_SPAWNS = TagKey.create(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, FishOfThieves.res("default_plentifin_spawns"));
-        TagKey<WildsplashVariant> DEFAULT_WILDSPLASH_SPAWNS = TagKey.create(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, FishOfThieves.res("default_wildsplash_spawns"));
-        TagKey<DevilfishVariant> DEFAULT_DEVILFISH_SPAWNS = TagKey.create(FOTRegistries.DEVILFISH_VARIANT_REGISTRY, FishOfThieves.res("default_devilfish_spawns"));
-        TagKey<BattlegillVariant> DEFAULT_BATTLEGILL_SPAWNS = TagKey.create(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, FishOfThieves.res("default_battlegill_spawns"));
-        TagKey<WreckerVariant> DEFAULT_WRECKER_SPAWNS = TagKey.create(FOTRegistries.WRECKER_VARIANT_REGISTRY, FishOfThieves.res("default_wrecker_spawns"));
-        TagKey<StormfishVariant> DEFAULT_STORMFISH_SPAWNS = TagKey.create(FOTRegistries.STORMFISH_VARIANT_REGISTRY, FishOfThieves.res("default_stormfish_spawns"));
     }
 }

@@ -136,7 +136,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     @Override
     public Registry<BattlegillVariant> getRegistry()
     {
-        return FOTRegistry.BATTLEGILL_VARIANT;
+        return FOTBuiltInRegistries.BATTLEGILL_VARIANT;
     }
 
     @Override

@@ -1,6 +1,7 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public class IsDayCondition implements SpawnCondition
@@ -11,7 +12,7 @@ public class IsDayCondition implements SpawnCondition
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.IS_DAY;
+        return FOTSpawnConditions.IS_DAY;
     }
 
     @Override

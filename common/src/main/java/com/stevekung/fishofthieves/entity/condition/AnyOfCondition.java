@@ -1,8 +1,9 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.List;
 
 import com.mojang.serialization.MapCodec;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.Util;
 
 public class AnyOfCondition extends CompositeSpawnCondition
@@ -17,7 +18,7 @@ public class AnyOfCondition extends CompositeSpawnCondition
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.ANY_OF;
+        return FOTSpawnConditions.ANY_OF;
     }
 
     public static AnyOfCondition.Builder anyOf(SpawnCondition.Builder... conditions)

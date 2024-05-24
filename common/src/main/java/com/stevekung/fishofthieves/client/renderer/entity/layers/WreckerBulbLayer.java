@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import net.minecraft.Util;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,7 +22,7 @@ import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.putAll(FOTRegistry.WRECKER_VARIANT.stream().collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> FishOfThieves.res("textures/entity/wrecker/%s_bulb.png".formatted(FOTRegistry.WRECKER_VARIANT.getKey(variant).getPath()))))));
+    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.putAll(FOTBuiltInRegistries.WRECKER_VARIANT.stream().collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> FishOfThieves.res("textures/entity/wrecker/%s_bulb.png".formatted(FOTBuiltInRegistries.WRECKER_VARIANT.getKey(variant).getPath()))))));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {

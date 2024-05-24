@@ -1,17 +1,18 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public record InvertedSpawnCondition(SpawnCondition term) implements SpawnCondition
 {
-    public static final MapCodec<InvertedSpawnCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(SpawnConditions.DIRECT_CODEC.fieldOf("term").forGetter(InvertedSpawnCondition::term)).apply(instance, InvertedSpawnCondition::new));
+    public static final MapCodec<InvertedSpawnCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(FOTSpawnConditions.DIRECT_CODEC.fieldOf("term").forGetter(InvertedSpawnCondition::term)).apply(instance, InvertedSpawnCondition::new));
 
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.INVERTED;
+        return FOTSpawnConditions.INVERTED;
     }
 
     @Override

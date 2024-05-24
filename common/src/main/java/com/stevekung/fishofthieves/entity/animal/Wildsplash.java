@@ -85,7 +85,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     @Override
     public Registry<WildsplashVariant> getRegistry()
     {
-        return FOTRegistry.WILDSPLASH_VARIANT;
+        return FOTBuiltInRegistries.WILDSPLASH_VARIANT;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -41,6 +41,6 @@ public class IslehopperVariants
 
     private static void register(String key, IslehopperVariant variant)
     {
-        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, FishOfThieves.res(key), variant);
+        Registry.register(FOTBuiltInRegistries.ISLEHOPPER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

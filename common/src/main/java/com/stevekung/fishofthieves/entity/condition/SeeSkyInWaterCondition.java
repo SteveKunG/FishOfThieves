@@ -1,6 +1,7 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public class SeeSkyInWaterCondition implements SpawnCondition
@@ -11,7 +12,7 @@ public class SeeSkyInWaterCondition implements SpawnCondition
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.SEE_SKY_IN_WATER;
+        return FOTSpawnConditions.SEE_SKY_IN_WATER;
     }
 
     @Override

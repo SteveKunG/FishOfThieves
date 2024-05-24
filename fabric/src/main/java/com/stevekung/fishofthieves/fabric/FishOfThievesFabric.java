@@ -1,13 +1,12 @@
 package com.stevekung.fishofthieves.fabric;
 
-import static com.stevekung.fishofthieves.FishOfThieves.LOGGER;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.variant.PondieVariant;
+import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
-import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariant;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -36,19 +35,24 @@ import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
 {
-    private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key) {
-        registryView.registerEntryAdded(key, (rawId, id, object) -> {
-            LOGGER.info("Loaded entry of {}: {} = {}", key, id, object);
+    private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)
+    {
+        registryView.registerEntryAdded(key, (rawId, id, object) ->
+        {
+            FishOfThieves.LOGGER.info("Loaded entry of {}: {} = {}", key, id, object);
         });
     }
 
     @Override
     public void onInitialize()
     {
-        DynamicRegistries.registerSynced(com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
 
-        DynamicRegistrySetupCallback.EVENT.register(registryView -> {
-            addListenerForDynamic(registryView, com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries.SPLASHTAIL_VARIANT);
+        DynamicRegistrySetupCallback.EVENT.register(registryView ->
+        {
+            addListenerForDynamic(registryView, FOTRegistries.SPLASHTAIL_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.PONDIE_VARIANT);
         });
 
         FishOfThieves.initGlobal();
@@ -67,8 +71,6 @@ public class FishOfThievesFabric implements ModInitializer
         FOTCriteriaTriggers.init();
         FOTEntitySubPredicate.init();
 
-        SplashtailVariants.init();
-        PondieVariants.init();
         IslehopperVariants.init();
         AncientscaleVariants.init();
         PlentifinVariants.init();

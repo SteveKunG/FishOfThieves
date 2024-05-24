@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
@@ -31,6 +31,6 @@ public class PlentifinVariants
 
     private static void register(String key, PlentifinVariant variant)
     {
-        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, FishOfThieves.res(key), variant);
+        Registry.register(FOTBuiltInRegistries.PLENTIFIN_VARIANT, FishOfThieves.res(key), variant);
     }
 }

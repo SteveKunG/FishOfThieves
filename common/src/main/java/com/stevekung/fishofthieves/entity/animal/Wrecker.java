@@ -137,7 +137,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public Registry<WreckerVariant> getRegistry()
     {
-        return FOTRegistry.WRECKER_VARIANT;
+        return FOTBuiltInRegistries.WRECKER_VARIANT;
     }
 
     @Override

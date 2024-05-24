@@ -135,7 +135,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public Registry<DevilfishVariant> getRegistry()
     {
-        return FOTRegistry.DEVILFISH_VARIANT;
+        return FOTBuiltInRegistries.DEVILFISH_VARIANT;
     }
 
     @Override

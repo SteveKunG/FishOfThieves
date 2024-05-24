@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -28,6 +28,6 @@ public class StormfishVariants
 
     private static void register(String key, StormfishVariant variant)
     {
-        Registry.register(FOTRegistry.STORMFISH_VARIANT, FishOfThieves.res(key), variant);
+        Registry.register(FOTBuiltInRegistries.STORMFISH_VARIANT, FishOfThieves.res(key), variant);
     }
 }

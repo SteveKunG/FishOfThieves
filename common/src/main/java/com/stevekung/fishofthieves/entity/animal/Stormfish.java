@@ -83,7 +83,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     public Registry<StormfishVariant> getRegistry()
     {
-        return FOTRegistry.STORMFISH_VARIANT;
+        return FOTBuiltInRegistries.STORMFISH_VARIANT;
     }
 
     @Override

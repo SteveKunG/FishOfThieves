@@ -1,17 +1,16 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.registry;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.registry.variant.muha.FOTBuiltinRegistries;
-import com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries;
+import com.stevekung.fishofthieves.entity.condition.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryFileCodec;
 
-public class SpawnConditions
+public class FOTSpawnConditions
 {
-    private static final Codec<SpawnCondition> TYPED_CODEC = FOTBuiltinRegistries.SPAWN_CONDITION_TYPE.byNameCodec().dispatch("condition", SpawnCondition::getType, SpawnConditionType::codec);
+    private static final Codec<SpawnCondition> TYPED_CODEC = FOTBuiltInRegistries.SPAWN_CONDITION_TYPE.byNameCodec().dispatch("condition", SpawnCondition::getType, SpawnConditionType::codec);
     public static final Codec<SpawnCondition> DIRECT_CODEC = Codec.lazyInitialized(() -> Codec.withAlternative(TYPED_CODEC, AllOfCondition.INLINE_CODEC));
     public static final Codec<Holder<SpawnCondition>> CODEC = RegistryFileCodec.create(FOTRegistries.SPAWN_CONDITION, DIRECT_CODEC);
 
@@ -32,10 +31,8 @@ public class SpawnConditions
     public static final SpawnConditionType HAS_BEEHIVE = register("has_beehive", HasBeehiveCondition.CODEC);
     public static final SpawnConditionType HEIGHT = register("height", HeightCondition.CODEC);
 
-    public static void init() {}
-
     private static SpawnConditionType register(String name, MapCodec<? extends SpawnCondition> codec)
     {
-        return Registry.register(FOTBuiltinRegistries.SPAWN_CONDITION_TYPE, FishOfThieves.res(name), new SpawnConditionType(codec));
+        return Registry.register(FOTBuiltInRegistries.SPAWN_CONDITION_TYPE, FishOfThieves.res(name), new SpawnConditionType(codec));
     }
 }

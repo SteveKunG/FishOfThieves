@@ -1,63 +1,31 @@
 package com.stevekung.fishofthieves.entity.variant;
 
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.List;
+import java.util.Optional;
 
-import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
+import com.stevekung.fishofthieves.registry.variant.AbstractFishVariant;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public class PlentifinVariant extends AbstractFishVariant
+public record PlentifinVariant(ResourceLocation texture, Optional<ResourceLocation> glowTexture, List<SpawnCondition> conditions) implements AbstractFishVariant
 {
-    private PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    public static final Codec<PlentifinVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> AbstractFishVariant.commonFields(instance).apply(instance, PlentifinVariant::new));
+    public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC);
+
+    @Override
+    public ResourceLocation texture()
     {
-        super(condition, texture, glowTexture);
+        return AbstractFishVariant.fullTextureId(this.texture);
     }
 
-    public static Builder builder()
+    @Override
+    public Optional<ResourceLocation> glowTexture()
     {
-        return new Builder();
-    }
-
-    public static class Builder
-    {
-        private Predicate<SpawnConditionContext> condition;
-        private ResourceLocation texture;
-        @Nullable
-        private ResourceLocation glowTexture;
-
-        Builder() {}
-
-        public Builder condition(Predicate<SpawnConditionContext> condition)
-        {
-            Objects.requireNonNull(condition, "Condition may not be null.");
-            this.condition = condition;
-            return this;
-        }
-
-        public Builder texture(String name)
-        {
-            Objects.requireNonNull(name, "Name may not be null.");
-            this.texture = this.createTexture(name);
-            return this;
-        }
-
-        public Builder glowTexture(String glowTexture)
-        {
-            this.glowTexture = this.createTexture(glowTexture);
-            return this;
-        }
-
-        public PlentifinVariant build()
-        {
-            return new PlentifinVariant(() -> this.condition, this.texture, this.glowTexture);
-        }
-
-        private ResourceLocation createTexture(String name)
-        {
-            return FishOfThieves.res("textures/entity/plentifin/%s.png".formatted(name));
-        }
+        return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }
 }

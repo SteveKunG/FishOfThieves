@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.List;
 import java.util.function.Function;
@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public abstract class CompositeSpawnCondition implements SpawnCondition
@@ -23,12 +24,12 @@ public abstract class CompositeSpawnCondition implements SpawnCondition
 
     protected static <T extends CompositeSpawnCondition> MapCodec<T> createCodec(Function<List<SpawnCondition>, T> factory)
     {
-        return RecordCodecBuilder.mapCodec(instance -> instance.group(SpawnConditions.DIRECT_CODEC.listOf().fieldOf("terms").forGetter(compositeSpawnCondition -> compositeSpawnCondition.terms)).apply(instance, factory));
+        return RecordCodecBuilder.mapCodec(instance -> instance.group(FOTSpawnConditions.DIRECT_CODEC.listOf().fieldOf("terms").forGetter(compositeSpawnCondition -> compositeSpawnCondition.terms)).apply(instance, factory));
     }
 
     protected static <T extends CompositeSpawnCondition> Codec<T> createInlineCodec(Function<List<SpawnCondition>, T> factory)
     {
-        return SpawnConditions.DIRECT_CODEC.listOf().xmap(factory, compositeSpawnCondition -> compositeSpawnCondition.terms);
+        return FOTSpawnConditions.DIRECT_CODEC.listOf().xmap(factory, compositeSpawnCondition -> compositeSpawnCondition.terms);
     }
 
     @Override

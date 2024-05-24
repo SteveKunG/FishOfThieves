@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.entity.variant.*;
-import com.stevekung.fishofthieves.registry.variant.muha.SplashtailVariant;
+import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -9,16 +9,16 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 
 public class FOTDataSerializers
 {
-    public static final EntityDataSerializer<Holder<SplashtailVariant>> SPLASHTAIL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(com.stevekung.fishofthieves.registry.variant.muha.FOTRegistries.SPLASHTAIL_VARIANT));
-    public static final EntityDataSerializer<Holder<PondieVariant>> PONDIE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.PONDIE_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<IslehopperVariant>> ISLEHOPPER_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<AncientscaleVariant>> ANCIENTSCALE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<PlentifinVariant>> PLENTIFIN_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.PLENTIFIN_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<WildsplashVariant>> WILDSPLASH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.WILDSPLASH_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<DevilfishVariant>> DEVILFISH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.DEVILFISH_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<BattlegillVariant>> BATTLEGILL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<WreckerVariant>> WRECKER_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.WRECKER_VARIANT_REGISTRY));
-    public static final EntityDataSerializer<Holder<StormfishVariant>> STORMFISH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.STORMFISH_VARIANT_REGISTRY));
+    public static final EntityDataSerializer<Holder<SplashtailVariant>> SPLASHTAIL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.SPLASHTAIL_VARIANT));
+    public static final EntityDataSerializer<Holder<PondieVariant>> PONDIE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.PONDIE_VARIANT));
+    public static final EntityDataSerializer<Holder<IslehopperVariant>> ISLEHOPPER_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ISLEHOPPER_VARIANT));
+    public static final EntityDataSerializer<Holder<AncientscaleVariant>> ANCIENTSCALE_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.ANCIENTSCALE_VARIANT));
+    public static final EntityDataSerializer<Holder<PlentifinVariant>> PLENTIFIN_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.PLENTIFIN_VARIANT));
+    public static final EntityDataSerializer<Holder<WildsplashVariant>> WILDSPLASH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.WILDSPLASH_VARIANT));
+    public static final EntityDataSerializer<Holder<DevilfishVariant>> DEVILFISH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.DEVILFISH_VARIANT));
+    public static final EntityDataSerializer<Holder<BattlegillVariant>> BATTLEGILL_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.BATTLEGILL_VARIANT));
+    public static final EntityDataSerializer<Holder<WreckerVariant>> WRECKER_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.WRECKER_VARIANT));
+    public static final EntityDataSerializer<Holder<StormfishVariant>> STORMFISH_VARIANT = EntityDataSerializer.forValueType(ByteBufCodecs.holderRegistry(FOTRegistries.STORMFISH_VARIANT));
 
     public static void init()
     {

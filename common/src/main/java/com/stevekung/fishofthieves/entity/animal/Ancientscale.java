@@ -86,7 +86,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     public Registry<AncientscaleVariant> getRegistry()
     {
-        return FOTRegistry.ANCIENTSCALE_VARIANT;
+        return FOTBuiltInRegistries.ANCIENTSCALE_VARIANT;
     }
 
     @Override
@@ -99,12 +99,6 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     public AncientscaleVariant getVariant()
     {
         return this.entityData.get(VARIANT).value();
-    }
-
-    @Override
-    public Holder<AncientscaleVariant> getSpawnVariant(boolean fromBucket)
-    {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ANCIENTSCALE_SPAWNS, AncientscaleVariants.ALMOND, fromBucket);
     }
 
     @Override

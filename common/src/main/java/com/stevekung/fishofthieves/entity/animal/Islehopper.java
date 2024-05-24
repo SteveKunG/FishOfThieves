@@ -91,7 +91,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public Registry<IslehopperVariant> getRegistry()
     {
-        return FOTRegistry.ISLEHOPPER_VARIANT;
+        return FOTBuiltInRegistries.ISLEHOPPER_VARIANT;
     }
 
     @Override

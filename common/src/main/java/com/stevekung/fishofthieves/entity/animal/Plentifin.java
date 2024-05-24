@@ -86,7 +86,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     @Override
     public Registry<PlentifinVariant> getRegistry()
     {
-        return FOTRegistry.PLENTIFIN_VARIANT;
+        return FOTBuiltInRegistries.PLENTIFIN_VARIANT;
     }
 
     @Override

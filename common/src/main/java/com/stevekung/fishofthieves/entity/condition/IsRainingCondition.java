@@ -1,10 +1,11 @@
-package com.stevekung.fishofthieves.registry.variant.muha.condition;
+package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.world.entity.LivingEntity;
 
 public record IsRainingCondition(Optional<Boolean> isThundering) implements SpawnCondition
@@ -14,7 +15,7 @@ public record IsRainingCondition(Optional<Boolean> isThundering) implements Spaw
     @Override
     public SpawnConditionType getType()
     {
-        return SpawnConditions.IS_RAINING;
+        return FOTSpawnConditions.IS_RAINING;
     }
 
     @Override

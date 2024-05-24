@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTBuiltInRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Registry;
@@ -26,6 +26,6 @@ public class WreckerVariants
 
     private static void register(String key, WreckerVariant variant)
     {
-        Registry.register(FOTRegistry.WRECKER_VARIANT, FishOfThieves.res(key), variant);
+        Registry.register(FOTBuiltInRegistries.WRECKER_VARIANT, FishOfThieves.res(key), variant);
     }
 }

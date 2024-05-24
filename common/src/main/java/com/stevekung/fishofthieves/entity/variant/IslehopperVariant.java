@@ -1,63 +1,31 @@
 package com.stevekung.fishofthieves.entity.variant;
 
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.List;
+import java.util.Optional;
 
-import org.jetbrains.annotations.Nullable;
-import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
+import com.stevekung.fishofthieves.registry.variant.AbstractFishVariant;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public class IslehopperVariant extends AbstractFishVariant
+public record IslehopperVariant(ResourceLocation texture, Optional<ResourceLocation> glowTexture, List<SpawnCondition> conditions) implements AbstractFishVariant
 {
-    private IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    public static final Codec<IslehopperVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> AbstractFishVariant.commonFields(instance).apply(instance, IslehopperVariant::new));
+    public static final Codec<Holder<IslehopperVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ISLEHOPPER_VARIANT, DIRECT_CODEC);
+
+    @Override
+    public ResourceLocation texture()
     {
-        super(condition, texture, glowTexture);
+        return AbstractFishVariant.fullTextureId(this.texture);
     }
 
-    public static Builder builder()
+    @Override
+    public Optional<ResourceLocation> glowTexture()
     {
-        return new Builder();
-    }
-
-    public static class Builder
-    {
-        private Predicate<SpawnConditionContext> condition;
-        private ResourceLocation texture;
-        @Nullable
-        private ResourceLocation glowTexture;
-
-        Builder() {}
-
-        public Builder condition(Predicate<SpawnConditionContext> condition)
-        {
-            Objects.requireNonNull(condition, "Condition may not be null.");
-            this.condition = condition;
-            return this;
-        }
-
-        public Builder texture(String name)
-        {
-            Objects.requireNonNull(name, "Name may not be null.");
-            this.texture = this.createTexture(name);
-            return this;
-        }
-
-        public Builder glowTexture(String glowTexture)
-        {
-            this.glowTexture = this.createTexture(glowTexture);
-            return this;
-        }
-
-        public IslehopperVariant build()
-        {
-            return new IslehopperVariant(() -> this.condition, this.texture, this.glowTexture);
-        }
-
-        private ResourceLocation createTexture(String name)
-        {
-            return FishOfThieves.res("textures/entity/islehopper/%s.png".formatted(name));
-        }
+        return this.glowTexture.map(AbstractFishVariant::fullTextureId);
     }
 }
