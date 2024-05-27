@@ -603,69 +603,69 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.INDIGO)),
                     FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.UMBER)),
                     FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SEAFOAM)));
-//
-//            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
-//                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL)),
-//                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.ORCHID)),
-//                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRONZE)),
-//                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRIGHT)),
-//                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.MOONSKY)));
 
-//            simpleFishLoot(FOTEntities.ISLEHOPPER, FOTItems.ISLEHOPPER, consumer,
-//                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE)),
-//                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.MOSS)),
-//                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.HONEY)),
-//                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.RAVEN)),
-//                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.AMETHYST)));
-//
-//            simpleFishLoot(FOTEntities.ANCIENTSCALE, FOTItems.ANCIENTSCALE, consumer,
-//                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND)),
-//                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SAPPHIRE)),
-//                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SMOKE)),
-//                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.BONE)),
-//                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.STARSHINE)));
-//
-//            simpleFishLoot(FOTEntities.PLENTIFIN, FOTItems.PLENTIFIN, consumer,
-//                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE)),
-//                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.AMBER)),
-//                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.CLOUDY)),
-//                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.BONEDUST)),
-//                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.WATERY)));
-//
-//            simpleFishLoot(FOTEntities.WILDSPLASH, FOTItems.WILDSPLASH, consumer,
-//                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET)),
-//                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.SANDY)),
-//                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.OCEAN)),
-//                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.MUDDY)),
-//                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.CORAL)));
-//
-//            simpleFishLoot(FOTEntities.DEVILFISH, FOTItems.DEVILFISH, consumer,
-//                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN)),
-//                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.SEASHELL)),
-//                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.LAVA)),
-//                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FORSAKEN)),
-//                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FIRELIGHT)));
-//
-//            simpleFishLoot(FOTEntities.BATTLEGILL, FOTItems.BATTLEGILL, consumer,
-//                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE)),
-//                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SKY)),
-//                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.RUM)),
-//                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SAND)),
-//                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.BITTERSWEET)));
-//
-//            simpleFishLoot(FOTEntities.WRECKER, FOTItems.WRECKER, consumer,
-//                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE)),
-//                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SUN)),
-//                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.BLACKCLOUD)),
-//                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SNOW)),
-//                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.MOON)));
-//
-//            simpleFishLoot(FOTEntities.STORMFISH, FOTItems.STORMFISH, consumer,
-//                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT)),
-//                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHORES)),
-//                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.WILD)),
-//                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHADOW)),
-//                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.TWILIGHT)));
+            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
+                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL)),
+                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.ORCHID)),
+                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRONZE)),
+                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRIGHT)),
+                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.MOONSKY)));
+
+            simpleFishLoot(FOTEntities.ISLEHOPPER, FOTItems.ISLEHOPPER, consumer,
+                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE)),
+                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.MOSS)),
+                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.HONEY)),
+                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.RAVEN)),
+                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.AMETHYST)));
+
+            simpleFishLoot(FOTEntities.ANCIENTSCALE, FOTItems.ANCIENTSCALE, consumer,
+                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND)),
+                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SAPPHIRE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SMOKE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.BONE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.STARSHINE)));
+
+            simpleFishLoot(FOTEntities.PLENTIFIN, FOTItems.PLENTIFIN, consumer,
+                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE)),
+                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.AMBER)),
+                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.CLOUDY)),
+                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.BONEDUST)),
+                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.WATERY)));
+
+            simpleFishLoot(FOTEntities.WILDSPLASH, FOTItems.WILDSPLASH, consumer,
+                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET)),
+                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.SANDY)),
+                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.OCEAN)),
+                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.MUDDY)),
+                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.CORAL)));
+
+            simpleFishLoot(FOTEntities.DEVILFISH, FOTItems.DEVILFISH, consumer,
+                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN)),
+                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.SEASHELL)),
+                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.LAVA)),
+                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FORSAKEN)),
+                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FIRELIGHT)));
+
+            simpleFishLoot(FOTEntities.BATTLEGILL, FOTItems.BATTLEGILL, consumer,
+                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE)),
+                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SKY)),
+                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.RUM)),
+                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SAND)),
+                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.BITTERSWEET)));
+
+            simpleFishLoot(FOTEntities.WRECKER, FOTItems.WRECKER, consumer,
+                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE)),
+                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SUN)),
+                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.BLACKCLOUD)),
+                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SNOW)),
+                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.MOON)));
+
+            simpleFishLoot(FOTEntities.STORMFISH, FOTItems.STORMFISH, consumer,
+                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT)),
+                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHORES)),
+                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.WILD)),
+                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHADOW)),
+                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.TWILIGHT)));
         }
         //@formatter:on
 

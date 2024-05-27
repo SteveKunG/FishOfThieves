@@ -1,0 +1,350 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:wrecker",
+                "type_specific": {
+                  "type": "fishofthieves:wrecker",
+                  "variant": "fishofthieves:rose"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "fishofthieves:wrecker"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:wrecker",
+                "type_specific": {
+                  "type": "fishofthieves:wrecker",
+                  "variant": "fishofthieves:sun"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_custom_model_data",
+              "value": 1.0
+            }
+          ],
+          "name": "fishofthieves:wrecker"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:wrecker",
+                "type_specific": {
+                  "type": "fishofthieves:wrecker",
+                  "variant": "fishofthieves:blackcloud"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_custom_model_data",
+              "value": 2.0
+            }
+          ],
+          "name": "fishofthieves:wrecker"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:wrecker",
+                "type_specific": {
+                  "type": "fishofthieves:wrecker",
+                  "variant": "fishofthieves:snow"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_custom_model_data",
+              "value": 3.0
+            }
+          ],
+          "name": "fishofthieves:wrecker"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "type": "fishofthieves:wrecker",
+                "type_specific": {
+                  "type": "fishofthieves:wrecker",
+                  "variant": "fishofthieves:moon"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:furnace_smelt"
+            },
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:trophy",
+                      "trophy": true
+                    }
+                  }
+                }
+              ],
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_custom_model_data",
+              "value": 4.0
+            }
+          ],
+          "name": "fishofthieves:wrecker"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.05,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone_meal"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.025,
+          "condition": "minecraft:random_chance_with_looting",
+          "looting_multiplier": 0.01
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "fishofthieves:fish_bone"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
