@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -1168,9 +1167,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             for (var bucket : FISH_BUCKETS)
             {
-                var test = BUCKET_TO_VARIANTS_MAP.get(bucket);
+                var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-                for (var variant : Util.make(new Int2ObjectOpenHashMap<>(), test).values().stream().map(ResourceLocation::new).toList())
+                for (var variant : Util.make(new Int2ObjectOpenHashMap<>(), variants).values().stream().map(ResourceLocation::new).toList())
                 {
                     builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
                     {
