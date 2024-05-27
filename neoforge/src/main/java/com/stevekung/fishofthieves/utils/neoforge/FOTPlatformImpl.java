@@ -30,12 +30,12 @@ public class FOTPlatformImpl
 
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
-        return ((MobBucketItemAccessor) bucket).invokeGetFishType();
+        return ((MobBucketItemAccessor) bucket).getType();
     }
 
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
-        return ((MobBucketItemAccessor) bucket).invokeGetEmptySound();
+        return ((MobBucketItemAccessor) bucket).getEmptySound();
     }
 
     public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
@@ -50,7 +50,7 @@ public class FOTPlatformImpl
 
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
-        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width, dimensions.height).clientTrackingRange(4).build("");
+        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build("");
     }
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)

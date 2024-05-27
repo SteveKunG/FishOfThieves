@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.neoforge.FishOfThievesNeoForge;
@@ -31,10 +32,10 @@ public class FOTStructureModifiers
     private static final Codec<TagKey<Structure>> STRUCTURE_LIST_CODEC = TagKey.hashedCodec(Registries.STRUCTURE);
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder().add(NeoForgeRegistries.Keys.STRUCTURE_MODIFIERS, context ->
     {
-        context.register(key("ancientscales_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.ANCIENTSCALE.unwrap().get(0), FOTTags.Structures.ANCIENTSCALES_SPAWN_IN));
-        context.register(key("plentifins_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.PLENTIFIN.unwrap().get(0), FOTTags.Structures.PLENTIFINS_SPAWN_IN));
-        context.register(key("wreckers_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.WRECKER.unwrap().get(0), FOTTags.Structures.WRECKERS_SPAWN_IN));
-        context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.BATTLEGILL.unwrap().get(0), FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
+        context.register(key("ancientscales_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.ANCIENTSCALE.unwrap().getFirst(), FOTTags.Structures.ANCIENTSCALES_SPAWN_IN));
+        context.register(key("plentifins_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.PLENTIFIN.unwrap().getFirst(), FOTTags.Structures.PLENTIFINS_SPAWN_IN));
+        context.register(key("wreckers_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.WRECKER.unwrap().getFirst(), FOTTags.Structures.WRECKERS_SPAWN_IN));
+        context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.BATTLEGILL.unwrap().getFirst(), FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
     });
 
     public static void generateStructureModifiers(GatherDataEvent event)
@@ -68,7 +69,7 @@ public class FOTStructureModifiers
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier
     {
-        private static final DeferredHolder<Codec<? extends StructureModifier>, Codec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThievesNeoForge.ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
+        private static final DeferredHolder<MapCodec<? extends StructureModifier>, MapCodec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThievesNeoForge.ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
 
         @Override
         public void modify(Holder<Structure> structure, Phase phase, ModifiableStructureInfo.StructureInfo.Builder builder)
@@ -80,15 +81,15 @@ public class FOTStructureModifiers
         }
 
         @Override
-        public Codec<? extends StructureModifier> codec()
+        public MapCodec<? extends StructureModifier> codec()
         {
             return SERIALIZER.get();
         }
 
-        public static Codec<Modifier> makeCodec()
+        public static MapCodec<Modifier> makeCodec()
         {
             //@formatter:off
-            return RecordCodecBuilder.create(builder -> builder.group(
+            return RecordCodecBuilder.mapCodec(builder -> builder.group(
                             STRUCTURE_LIST_CODEC.fieldOf("structure").forGetter(Modifier::structureTagKey),
                             MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawnerData").forGetter(Modifier::spawnerData))
                     .apply(builder, Modifier::new));

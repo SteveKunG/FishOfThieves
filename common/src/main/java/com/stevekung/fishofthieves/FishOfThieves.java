@@ -53,7 +53,7 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
     }
 
-    public static void getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
+    public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
     {
         switch (level)
         {
@@ -111,6 +111,7 @@ public class FishOfThieves
                 list.add(new VillagerTrades.ItemsForEmeralds(FOTItems.STORMFISH_BUCKET, 6, 1, 8, 2));
             }
         }
+        return list;
     }
 
     public static CreativeModeTab.Builder getCreativeTabBuilder(CreativeModeTab.Builder builder)

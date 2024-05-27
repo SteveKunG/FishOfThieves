@@ -14,9 +14,9 @@ logoFile = "logo.png"
 authors = "SteveKunG, PloyiinGz"
 
 [[mixins]]
-config = "mixins.fishofthieves.json"
+config = "mixins.fish_of_thieves.json"
 [[mixins]]
-config = "mixins.fishofthieves_neoforge.json"
+config = "mixins.fish_of_thieves_neoforge.json"
 
 [[accessTransformers]]
 file = "META-INF/accesstransformer.cfg"
@@ -24,21 +24,21 @@ file = "META-INF/accesstransformer.cfg"
 [[dependencies.fishofthieves]]
 modId = "neoforge"
 type = "required"
-versionRange = "[20.4,)"
+versionRange = "[20.6,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "cloth_config"
 type = "required"
-versionRange = "[13.0,)"
+versionRange = "[14.0,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.20.4,)"
+versionRange = "[1.20.6,)"
 ordering = "NONE"
 side = "BOTH"
 

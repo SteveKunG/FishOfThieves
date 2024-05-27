@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.neoforge;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.neoforge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.neoforge.level.FOTStructureModifiers;
@@ -29,9 +31,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.world.StructureModifier;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.registries.*;
 
 @Mod(FishOfThieves.MOD_ID)
 public class FishOfThievesNeoForge
@@ -44,7 +44,7 @@ public class FishOfThievesNeoForge
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(BuiltInRegistries.SENSOR_TYPE, FishOfThieves.MOD_ID);
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<MapCodec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -91,6 +91,39 @@ public class FishOfThievesNeoForge
         }
     }
 
+    static {
+        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE= new RegistryBuilder<>(FOTRegistries.SPAWN_CONDITION_TYPE)
+                // If you want to enable integer id syncing, for networking.
+                // These should only be used in networking contexts, for example in packets or purely networking-related NBT data.
+                .sync(true)
+                // Effectively limits the max count. Generally discouraged, but may make sense in settings such as networking.
+                .maxId(256)
+                // Build the registry.
+                .create();
+    }
+
+    @SubscribeEvent
+    public void registerRegistries(NewRegistryEvent event)
+    {
+        event.register(FOTBuiltInRegistries.SPAWN_CONDITION_TYPE);
+    }
+
+    @SubscribeEvent
+    public void registerRegistries(DataPackRegistryEvent.NewRegistry event)
+    {
+        event.dataPackRegistry(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC);
+    }
+
     @SubscribeEvent
     public void onRegister(RegisterEvent event)
     {
@@ -103,7 +136,6 @@ public class FishOfThievesNeoForge
         event.register(Registries.MEMORY_MODULE_TYPE, helper -> FOTMemoryModuleTypes.init());
         event.register(Registries.STRUCTURE_TYPE, helper -> FOTStructures.init());
         event.register(Registries.LOOT_CONDITION_TYPE, helper -> FOTLootItemConditions.init());
-        event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
         event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
         event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
