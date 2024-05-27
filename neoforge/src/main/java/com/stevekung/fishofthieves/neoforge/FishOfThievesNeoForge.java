@@ -52,6 +52,11 @@ public class FishOfThievesNeoForge
     private static final String ADD_FISH_BONE = "add_fish_bone";
     public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.res(ADD_FISH_BONE);
 
+    static
+    {
+        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE = new RegistryBuilder<>(FOTRegistries.SPAWN_CONDITION_TYPE).sync(true).maxId(64).create();
+    }
+
     public FishOfThievesNeoForge()
     {
         var modEventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
@@ -91,17 +96,6 @@ public class FishOfThievesNeoForge
         }
     }
 
-    static {
-        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE= new RegistryBuilder<>(FOTRegistries.SPAWN_CONDITION_TYPE)
-                // If you want to enable integer id syncing, for networking.
-                // These should only be used in networking contexts, for example in packets or purely networking-related NBT data.
-                .sync(true)
-                // Effectively limits the max count. Generally discouraged, but may make sense in settings such as networking.
-                .maxId(256)
-                // Build the registry.
-                .create();
-    }
-
     @SubscribeEvent
     public void registerRegistries(NewRegistryEvent event)
     {
@@ -111,17 +105,17 @@ public class FishOfThievesNeoForge
     @SubscribeEvent
     public void registerRegistries(DataPackRegistryEvent.NewRegistry event)
     {
-        event.dataPackRegistry(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC);
-        event.dataPackRegistry(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, SplashtailVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, PondieVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, IslehopperVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, AncientscaleVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, PlentifinVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, WildsplashVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DevilfishVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, BattlegillVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, WreckerVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, StormfishVariant.DIRECT_CODEC);
+        event.dataPackRegistry(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, FishPlaqueInteraction.DIRECT_CODEC);
     }
 
     @SubscribeEvent
@@ -139,6 +133,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
         event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
+        event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, helper -> FOTEntitySubPredicate.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
     }
 }
