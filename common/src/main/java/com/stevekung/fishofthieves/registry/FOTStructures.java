@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.registry;
 
 import java.util.List;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.structure.SeapostPieces;

@@ -1,6 +1,7 @@
-package com.stevekung.fishofthieves.api.block.fish_plaque;
+package com.stevekung.fishofthieves.item;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;

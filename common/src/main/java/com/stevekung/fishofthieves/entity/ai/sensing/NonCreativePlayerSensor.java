@@ -27,7 +27,7 @@ public class NonCreativePlayerSensor extends Sensor<LivingEntity>
         var brain = entity.getBrain();
         brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, list);
         var list2 = list.stream().filter(player -> isEntityTargetable(entity, player)).toList();
-        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, list2.isEmpty() ? null : list2.get(0));
+        brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, list2.isEmpty() ? null : list2.getFirst());
         var optional = list2.stream().filter(player -> isEntityAttackable(entity, player)).findFirst();
         brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, optional);
     }

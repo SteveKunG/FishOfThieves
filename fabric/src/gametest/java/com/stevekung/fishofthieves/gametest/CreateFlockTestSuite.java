@@ -133,7 +133,7 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Leader is not found! Is it dead? :(");
             }
-            if (!leader.get(0).isTrophy())
+            if (!leader.getFirst().isTrophy())
             {
                 helper.fail("Leader is not trophy!");
             }
@@ -186,7 +186,7 @@ public class CreateFlockTestSuite implements FOTGameTest
             {
                 helper.fail("Leader is not found! Is it dead? :(");
             }
-            if (!leader.get(0).isTrophy())
+            if (!leader.getFirst().isTrophy())
             {
                 helper.fail("Leader is not trophy!");
             }
