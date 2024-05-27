@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
@@ -54,6 +55,7 @@ public class FishOfThievesFabric implements ModInitializer
         DynamicRegistries.registerSynced(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
         DynamicRegistries.registerSynced(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
         DynamicRegistries.registerSynced(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
 
         DynamicRegistrySetupCallback.EVENT.register(registryView ->
         {
@@ -67,6 +69,7 @@ public class FishOfThievesFabric implements ModInitializer
             addListenerForDynamic(registryView, FOTRegistries.BATTLEGILL_VARIANT);
             addListenerForDynamic(registryView, FOTRegistries.WRECKER_VARIANT);
             addListenerForDynamic(registryView, FOTRegistries.STORMFISH_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.FISH_PLAQUE_INTERACTION);
         });
 
         FishOfThieves.initGlobal();

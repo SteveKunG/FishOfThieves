@@ -15,6 +15,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteractions;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
@@ -127,6 +128,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants::bootstrap);
         builder.add(FOTRegistries.WRECKER_VARIANT, WreckerVariants::bootstrap);
         builder.add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrap);
+        builder.add(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteractions::bootstrap);
     }
 
     @Override
@@ -1211,6 +1213,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.WRECKER_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT));
+            entries.addAll(registries.lookupOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION));
         }
 
         @Override
