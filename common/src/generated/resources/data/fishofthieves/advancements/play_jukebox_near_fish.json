@@ -1,0 +1,81 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "play_jukebox_near_fish": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "minecraft:jukebox"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "#minecraft:music_discs"
+            }
+          },
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#minecraft:axolotl_hunt_targets"
+            }
+          }
+        ]
+      },
+      "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
+    },
+    "play_jukebox_near_thieves_fish": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "minecraft:jukebox"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "#minecraft:music_discs"
+            }
+          },
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#fishofthieves:thieves_fish"
+            }
+          }
+        ]
+      },
+      "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.play_jukebox_near_fish.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:jukebox"
+    },
+    "title": {
+      "translate": "advancements.fot.play_jukebox_near_fish.title"
+    }
+  },
+  "requirements": [
+    [
+      "play_jukebox_near_thieves_fish",
+      "play_jukebox_near_fish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

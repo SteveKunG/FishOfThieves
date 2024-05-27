@@ -1,0 +1,42 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "battlegill_village": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "#minecraft:village"
+              }
+            }
+          }
+        ],
+        "item": {
+          "items": "fishofthieves:battlegill"
+        }
+      },
+      "trigger": "minecraft:fishing_rod_hooked"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.so_chill.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "fishofthieves:battlegill"
+    },
+    "title": {
+      "translate": "advancements.fot.so_chill.title"
+    }
+  },
+  "requirements": [
+    [
+      "battlegill_village"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

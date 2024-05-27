@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteractions;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
@@ -26,6 +27,7 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -147,7 +149,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(EntityTagsProvider::new);
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
-//        pack.addProvider(AdvancementProvider::new);
+        pack.addProvider(AdvancementProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
     }
 
@@ -1020,18 +1022,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class AdvancementProvider extends FabricAdvancementProvider
     {
-        private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
+        private static final Map<Item, Consumer<Int2ObjectOpenHashMap<String>>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
         {
-//            map.put(FOTItems.SPLASHTAIL_BUCKET, BBFOTBuiltInRegistries.SPLASHTAIL_VARIANT);
-//            map.put(FOTItems.PONDIE_BUCKET, BBFOTBuiltInRegistries.PONDIE_VARIANT);
-//            map.put(FOTItems.ISLEHOPPER_BUCKET, BBFOTBuiltInRegistries.ISLEHOPPER_VARIANT);
-//            map.put(FOTItems.ANCIENTSCALE_BUCKET, BBFOTBuiltInRegistries.ANCIENTSCALE_VARIANT);
-//            map.put(FOTItems.PLENTIFIN_BUCKET, BBFOTBuiltInRegistries.PLENTIFIN_VARIANT);
-//            map.put(FOTItems.WILDSPLASH_BUCKET, BBFOTBuiltInRegistries.WILDSPLASH_VARIANT);
-//            map.put(FOTItems.DEVILFISH_BUCKET, BBFOTBuiltInRegistries.DEVILFISH_VARIANT);
-//            map.put(FOTItems.BATTLEGILL_BUCKET, BBFOTBuiltInRegistries.BATTLEGILL_VARIANT);
-//            map.put(FOTItems.WRECKER_BUCKET, BBFOTBuiltInRegistries.WRECKER_VARIANT);
-//            map.put(FOTItems.STORMFISH_BUCKET, BBFOTBuiltInRegistries.STORMFISH_VARIANT);
+            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.DATA_FIX_MAP);
+            map.put(FOTItems.PONDIE_BUCKET, Pondie.DATA_FIX_MAP);
+            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.DATA_FIX_MAP);
+            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.DATA_FIX_MAP);
+            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.DATA_FIX_MAP);
+            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.DATA_FIX_MAP);
+            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.DATA_FIX_MAP);
+            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.DATA_FIX_MAP);
+            map.put(FOTItems.WRECKER_BUCKET, Wrecker.DATA_FIX_MAP);
+            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.DATA_FIX_MAP);
         });
 
         private AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
@@ -1164,11 +1166,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         private Advancement.Builder addFishVariantsBuckets(Advancement.Builder builder, boolean trophy)
         {
-            for (var item : FISH_BUCKETS)
+            for (var bucket : FISH_BUCKETS)
             {
-                for (var variant : Sets.newTreeSet(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
+                var test = BUCKET_TO_VARIANTS_MAP.get(bucket);
+
+                for (var variant : Util.make(new Int2ObjectOpenHashMap<>(), test).values().stream().map(ResourceLocation::new).toList())
                 {
-                    builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
+                    builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
                     {
                         compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
 

@@ -1,0 +1,69 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "name_tag": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:salmon"
+            }
+          }
+        ],
+        "item": {
+          "components": {
+            "minecraft:custom_name": "\"Sally\""
+          },
+          "items": "minecraft:name_tag"
+        }
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "salmon_bucket": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "minecraft:water"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "components": {
+                "minecraft:custom_name": "\"Sally\""
+              },
+              "items": "minecraft:salmon_bucket"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.lost_sally.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:salmon"
+    },
+    "title": {
+      "translate": "advancements.fot.lost_sally.title"
+    }
+  },
+  "requirements": [
+    [
+      "name_tag",
+      "salmon_bucket"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

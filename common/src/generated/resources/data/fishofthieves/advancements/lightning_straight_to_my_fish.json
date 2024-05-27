@@ -1,0 +1,54 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "lightning_strike_at_stormfish": {
+      "conditions": {
+        "bystander": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "fishofthieves:stormfish"
+            }
+          }
+        ],
+        "lightning": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "distance": {
+                "absolute": {
+                  "max": 16.0
+                }
+              },
+              "type_specific": {
+                "type": "minecraft:lightning",
+                "blocks_set_on_fire": 0
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:lightning_strike"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.lightning_straight_to_my_fish.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "fishofthieves:stormfish"
+    },
+    "title": {
+      "translate": "advancements.fot.lightning_straight_to_my_fish.title"
+    }
+  },
+  "requirements": [
+    [
+      "lightning_strike_at_stormfish"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
