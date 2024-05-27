@@ -48,27 +48,28 @@ public class FOTMobBucketItem extends MobBucketItem
         {
             var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-            if (customData.isEmpty())
+            if (!customData.isEmpty())
             {
-                return;
-            }
+                var compoundTag = customData.copyTag();
 
-            var compoundTag = customData.copyTag();
-
-            if (compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
-            {
-                var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG));
-
-                if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                if (compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
                 {
-                    type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                    var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG));
+
+                    if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                    {
+                        type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                    }
+                    tooltipComponents.add(type);
                 }
-                tooltipComponents.add(type);
             }
-            if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+            else
             {
-                var variantMap = Util.make(new Int2ObjectOpenHashMap<>(), this.dataFixMap);
-                tooltipComponents.add(this.createTooltip(variantMap.get(0)));
+                if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+                {
+                    var variantMap = Util.make(new Int2ObjectOpenHashMap<>(), this.dataFixMap);
+                    tooltipComponents.add(this.createTooltip(variantMap.get(0)));
+                }
             }
         }
     }
