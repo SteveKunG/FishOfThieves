@@ -1,9 +1,11 @@
 package com.stevekung.fishofthieves.item;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.Iterables;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -25,20 +27,13 @@ import net.minecraft.world.level.material.Fluid;
 public class FOTMobBucketItem extends MobBucketItem
 {
     private final EntityType<?> entityType;
-    private final Consumer<Int2ObjectOpenHashMap<String>> dataFixMap;
+    private final Map<String, Integer> variantToCustomModelData;
 
-    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, Consumer<Int2ObjectOpenHashMap<String>> dataFixMap, Item.Properties properties)
+    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, Map<String, Integer> variantToCustomModelData, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
-        this.dataFixMap = dataFixMap;
-    }
-
-    @Override
-    public void verifyTagAfterLoad(CompoundTag compoundTag)
-    {
-        super.verifyTagAfterLoad(compoundTag);
-        ThievesFish.fixData(compoundTag, this.dataFixMap);
+        this.variantToCustomModelData = variantToCustomModelData;
     }
 
     @Override
@@ -63,8 +58,7 @@ public class FOTMobBucketItem extends MobBucketItem
             }
             else if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
             {
-                var variantMap = Util.make(new Int2ObjectOpenHashMap<>(), this.dataFixMap);
-                tooltipComponents.add(this.createTooltip(variantMap.get(0)));
+                tooltipComponents.add(this.createTooltip(this.variantToCustomModelData.keySet().stream().findFirst().get()));
             }
         }
     }
@@ -77,7 +71,7 @@ public class FOTMobBucketItem extends MobBucketItem
         {
             for (var i = 1; i < 5; i++)
             {
-                output.accept(create(item, ((FOTMobBucketItem)item).dataFixMap, i));
+                output.accept(create(item, ((FOTMobBucketItem)item).variantToCustomModelData, i));
             }
         }
     }
@@ -87,13 +81,12 @@ public class FOTMobBucketItem extends MobBucketItem
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, Consumer<Int2ObjectOpenHashMap<String>> dataFixMap, int index)
+    private static ItemStack create(Item item, Map<String, Integer> variantToCustomModelData, int index)
     {
         var itemStack = new ItemStack(item);
         var compoundTag = itemStack.getOrCreateTag();
-        var variant = Util.make(new Int2ObjectOpenHashMap<>(), dataFixMap);
         compoundTag.putInt("CustomModelData", index);
-        compoundTag.putString(ThievesFish.VARIANT_TAG, variant.get(index));
+        compoundTag.putString(ThievesFish.VARIANT_TAG, variantToCustomModelData.keySet().ge);
         return itemStack;
     }
 }

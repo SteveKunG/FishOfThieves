@@ -1,10 +1,12 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.HashBiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
@@ -29,9 +31,6 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.Items.GRUBS_FOOD);
     Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.Items.LEECHES_FOOD);
 
-    String OLD_VARIANT_TAG = "Variant";
-    String OLD_NAME_TAG = "Name";
-
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
@@ -45,7 +44,13 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     Registry<T> getRegistry();
 
-    Consumer<Int2ObjectOpenHashMap<String>> getDataFix();
+    //TODO Remove
+    default Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    {
+        return null;
+    }
+
+    HashBiMap<String, Integer> variantToCustomModelData();
 
     boolean isTrophy();
 
@@ -74,9 +79,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         {
             if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
             {
-                var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
-                var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-                var customModelData = swapped.get(variant.toString());
+                var customModelData = this.variantToCustomModelData().get(variant.toString());
 
                 if (customModelData > 0)
                 {
@@ -98,8 +101,6 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     default void loadFromBucket(CompoundTag compound)
     {
-        ThievesFish.fixData(compound, this.getDataFix());
-
         if (compound.contains(VARIANT_TAG))
         {
             var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
@@ -149,20 +150,5 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean fromBucket)
     {
         return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> fromBucket || variant.value().getCondition().test(SpawnSelectors.get(livingEntity))).orElseGet(() -> Holder.direct(defaultSpawn));
-    }
-
-    static void fixData(CompoundTag compound, Consumer<Int2ObjectOpenHashMap<String>> consumer)
-    {
-        if (compound.contains(OLD_VARIANT_TAG, Tag.TAG_INT))
-        {
-            var variant = compound.getInt(OLD_VARIANT_TAG);
-            var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
-            compound.remove(OLD_VARIANT_TAG);
-            compound.putString(VARIANT_TAG, oldMap.get(variant));
-        }
-        if (compound.contains(OLD_NAME_TAG))
-        {
-            compound.remove(OLD_NAME_TAG);
-        }
     }
 }

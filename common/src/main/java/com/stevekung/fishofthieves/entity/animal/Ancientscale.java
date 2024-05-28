@@ -1,9 +1,10 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Map;
 import java.util.stream.Stream;
 
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -11,7 +12,6 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -35,15 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
     private static final EntityDataAccessor<AncientscaleVariant> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
-    {
-        map.defaultReturnValue("fishofthieves:almond");
-        map.put(0, "fishofthieves:almond");
-        map.put(1, "fishofthieves:sapphire");
-        map.put(2, "fishofthieves:smoke");
-        map.put(3, "fishofthieves:bone");
-        map.put(4, "fishofthieves:starshine");
-    };
+    public static final HashBiMap<String, Integer> VARIANT_TO_INT = HashBiMap.create().put("fishofthieves:almond", 0, "fishofthieves:sapphire", 1, "fishofthieves:smoke", 2, "fishofthieves:bone", 3, "fishofthieves:starshine", 4);
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
@@ -108,9 +100,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public HashBiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

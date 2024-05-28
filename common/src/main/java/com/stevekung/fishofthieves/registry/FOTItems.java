@@ -18,7 +18,7 @@ public class FOTItems
     public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, Splashtail.DATA_FIX_MAP);
     public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, Pondie.DATA_FIX_MAP);
     public static final Item ISLEHOPPER = new FOTItem(new Item.Properties().food(FOTFoodProperties.ISLEHOPPER), FOTEntities.ISLEHOPPER, Islehopper.DATA_FIX_MAP);
-    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, Ancientscale.DATA_FIX_MAP);
+    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, Ancientscale.VARIANTS);
     public static final Item PLENTIFIN = new FOTItem(new Item.Properties().food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, Plentifin.DATA_FIX_MAP);
     public static final Item WILDSPLASH = new FOTItem(new Item.Properties().food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, Wildsplash.DATA_FIX_MAP);
     public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH), FOTEntities.DEVILFISH, Devilfish.DATA_FIX_MAP);
@@ -40,7 +40,7 @@ public class FOTItems
     public static final Item SPLASHTAIL_BUCKET = new FOTMobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Splashtail.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
     public static final Item PONDIE_BUCKET = new FOTMobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Pondie.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
     public static final Item ISLEHOPPER_BUCKET = new FOTMobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Islehopper.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
-    public static final Item ANCIENTSCALE_BUCKET = new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Ancientscale.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
+    public static final Item ANCIENTSCALE_BUCKET = new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Ancientscale.VARIANTS, new Item.Properties().stacksTo(1));
     public static final Item PLENTIFIN_BUCKET = new FOTMobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Plentifin.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
     public static final Item WILDSPLASH_BUCKET = new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Wildsplash.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
     public static final Item DEVILFISH_BUCKET = new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, Devilfish.DATA_FIX_MAP, new Item.Properties().stacksTo(1));
