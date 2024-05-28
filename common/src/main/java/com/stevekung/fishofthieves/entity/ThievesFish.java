@@ -1,17 +1,10 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
 import org.jetbrains.annotations.Nullable;
-import com.google.common.collect.HashBiMap;
+import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -44,13 +37,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     Registry<T> getRegistry();
 
-    //TODO Remove
-    default Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
-    {
-        return null;
-    }
-
-    HashBiMap<String, Integer> variantToCustomModelData();
+    BiMap<String, Integer> variantToCustomModelData();
 
     boolean isTrophy();
 

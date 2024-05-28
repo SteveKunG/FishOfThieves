@@ -7,6 +7,7 @@ import java.util.function.UnaryOperator;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,10 +30,13 @@ public class MixinDataFixers
         throw new AssertionError();
     }
 
+    @Unique
+    private static final int MC_1_19_2 = 3120;
+
     @Inject(method = "addFixers", at = @At("TAIL"))
     private static void fishofthieves$addFixers(DataFixerBuilder builder, CallbackInfo info)
     {
-        var schema = builder.addSchema(3210, SAME_NAMESPACED);
+        var schema = builder.addSchema(MC_1_19_2, SAME_NAMESPACED);
 
         //@formatter:off
         builder.addFixer(new AdvancementsRenameFix(schema, false, "Rename FOT recipe advancements", createRenamer(ImmutableMap.<String, String>builder()

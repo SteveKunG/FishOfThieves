@@ -1,16 +1,17 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,15 +28,14 @@ import net.minecraft.world.level.Level;
 public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 {
     private static final EntityDataAccessor<SplashtailVariant> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:ruby");
-        map.put(0, "fishofthieves:ruby");
-        map.put(1, "fishofthieves:sunny");
-        map.put(2, "fishofthieves:indigo");
-        map.put(3, "fishofthieves:umber");
-        map.put(4, "fishofthieves:seafoam");
-    };
+        map.put("fishofthieves:ruby", 0);
+        map.put("fishofthieves:sunny", 1);
+        map.put("fishofthieves:indigo", 2);
+        map.put("fishofthieves:umber", 3);
+        map.put("fishofthieves:seafoam", 4);
+    });
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
@@ -100,9 +100,9 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

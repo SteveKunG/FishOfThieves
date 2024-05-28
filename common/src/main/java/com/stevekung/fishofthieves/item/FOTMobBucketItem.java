@@ -1,19 +1,14 @@
 package com.stevekung.fishofthieves.item;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
-import com.google.common.collect.Iterables;
+import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -27,9 +22,9 @@ import net.minecraft.world.level.material.Fluid;
 public class FOTMobBucketItem extends MobBucketItem
 {
     private final EntityType<?> entityType;
-    private final Map<String, Integer> variantToCustomModelData;
+    private final BiMap<String, Integer> variantToCustomModelData;
 
-    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, Map<String, Integer> variantToCustomModelData, Item.Properties properties)
+    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, BiMap<String, Integer> variantToCustomModelData, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
@@ -71,7 +66,7 @@ public class FOTMobBucketItem extends MobBucketItem
         {
             for (var i = 1; i < 5; i++)
             {
-                output.accept(create(item, ((FOTMobBucketItem)item).variantToCustomModelData, i));
+                output.accept(create(item, ((FOTMobBucketItem) item).variantToCustomModelData, i));
             }
         }
     }
@@ -81,12 +76,12 @@ public class FOTMobBucketItem extends MobBucketItem
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, Map<String, Integer> variantToCustomModelData, int index)
+    private static ItemStack create(Item item, BiMap<String, Integer> variantToCustomModelData, int index)
     {
         var itemStack = new ItemStack(item);
         var compoundTag = itemStack.getOrCreateTag();
         compoundTag.putInt("CustomModelData", index);
-        compoundTag.putString(ThievesFish.VARIANT_TAG, variantToCustomModelData.keySet().ge);
+        compoundTag.putString(ThievesFish.VARIANT_TAG, variantToCustomModelData.inverse().get(index));
         return itemStack;
     }
 }

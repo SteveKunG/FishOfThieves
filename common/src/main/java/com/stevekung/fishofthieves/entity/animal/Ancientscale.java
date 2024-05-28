@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
+import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -35,7 +36,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
     private static final EntityDataAccessor<AncientscaleVariant> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
-    public static final HashBiMap<String, Integer> VARIANT_TO_INT = HashBiMap.create().put("fishofthieves:almond", 0, "fishofthieves:sapphire", 1, "fishofthieves:smoke", 2, "fishofthieves:bone", 3, "fishofthieves:starshine", 4);
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
+    {
+        map.put("fishofthieves:almond", 0);
+        map.put("fishofthieves:sapphire", 1);
+        map.put("fishofthieves:smoke", 2);
+        map.put("fishofthieves:bone", 3);
+        map.put("fishofthieves:starshine", 4);
+    });
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
@@ -100,7 +108,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    public HashBiMap<String, Integer> variantToCustomModelData()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
         return VARIANT_TO_INT;
     }

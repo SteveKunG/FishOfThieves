@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.function.Consumer;
-
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -10,7 +10,7 @@ import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -39,15 +39,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
     private static final EntityDataAccessor<DevilfishVariant> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:ashen");
-        map.put(0, "fishofthieves:ashen");
-        map.put(1, "fishofthieves:seashell");
-        map.put(2, "fishofthieves:lava");
-        map.put(3, "fishofthieves:forsaken");
-        map.put(4, "fishofthieves:firelight");
-    };
+        map.put("fishofthieves:ashen", 0);
+        map.put("fishofthieves:seashell", 1);
+        map.put("fishofthieves:lava", 2);
+        map.put("fishofthieves:forsaken", 3);
+        map.put("fishofthieves:firelight", 4);
+    });
 
     //@formatter:off
     private static final ImmutableList<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = ImmutableList.of(
@@ -164,9 +163,9 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override
