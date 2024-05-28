@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Lists;
-import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.common.entity.animal.*;
+import com.stevekung.fishofthieves.common.loot.FOTLootManager;
+import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.common.registry.FOTItems;
+import com.stevekung.fishofthieves.common.registry.FOTTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;

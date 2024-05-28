@@ -7,6 +7,14 @@ loom {
         vmArgs project.hotswapVmArgs
     }
 
+    forge {
+        mixinConfig("mixins.${archives_base_name}_forge.json")
+
+        mixin {
+            defaultRefmapName = "mixins.${archives_base_name}_forge.refmap.json"
+        }
+    }
+
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
@@ -60,7 +68,7 @@ tasks.register("apiJar", Jar) {
     group "build"
     from project(":common").sourceSets.main.allJava
     from project(":common").sourceSets.main.output
-    include "com/stevekung/fishofthieves/api/**/*"
+    include "com/stevekung/fishofthieves/common/api/**/*"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
     archiveClassifier = "api"

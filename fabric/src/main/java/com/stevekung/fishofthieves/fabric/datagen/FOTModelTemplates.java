@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.util.Optional;
 
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.common.FishOfThieves;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
 
@@ -16,6 +16,6 @@ public class FOTModelTemplates
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
-        return new ModelTemplate(Optional.of(FishOfThieves.res("block/" + blockModelLocation)), Optional.empty(), requiredSlots);
+        return new ModelTemplate(Optional.of(FishOfThieves.id("block/" + blockModelLocation)), Optional.empty(), requiredSlots);
     }
 }
