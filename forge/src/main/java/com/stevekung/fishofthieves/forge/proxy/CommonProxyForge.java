@@ -1,26 +1,18 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.common.FishOfThieves;
 import com.stevekung.fishofthieves.common.entity.animal.*;
-import com.stevekung.fishofthieves.common.loot.FOTLootManager;
 import com.stevekung.fishofthieves.common.registry.FOTEntities;
 import com.stevekung.fishofthieves.common.registry.FOTItems;
 import com.stevekung.fishofthieves.common.registry.FOTTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -54,42 +46,6 @@ public class CommonProxyForge
         if (itemStack.is(FOTTags.Items.WOODEN_FISH_PLAQUE))
         {
             event.setBurnTime(300);
-        }
-    }
-
-    @SubscribeEvent
-    public void registerLootTables(LootTableLoadEvent event)
-    {
-        var id = event.getName();
-        var table = event.getTable();
-
-        // Gameplay
-        if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
-        {
-            injectLoot(table, FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
-        }
-        else if (id.equals(BuiltInLootTables.FISHING_FISH))
-        {
-            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
-        }
-        // Entity Loot
-        else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
-        {
-            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
-        }
-        // Chests
-        else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-        {
-            injectLoot(table, FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
-        }
-        else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-        {
-            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
-        }
-        // Archaeology
-        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-        {
-            injectLoot(table, FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool()).entries);
         }
     }
 
@@ -133,11 +89,5 @@ public class CommonProxyForge
         event.put(FOTEntities.BATTLEGILL, Battlegill.createAttributes().build());
         event.put(FOTEntities.WRECKER, Wrecker.createAttributes().build());
         event.put(FOTEntities.STORMFISH, AbstractFish.createAttributes().build());
-    }
-
-    private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> entries)
-    {
-        //        var pool = table.getPool("main");TODO
-        //        pool.entries.addAll(entries.build());
     }
 }

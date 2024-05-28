@@ -25,21 +25,16 @@ public class FOTLootManager
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.EARTHWORMS_DROPS)));
+            droppedList.addAll(lootDataManager.getLootTable(FOTLootTables.Blocks.EARTHWORMS_DROPS).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableGrubsDrop && blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.GRUBS_DROPS)));
+            droppedList.addAll(lootDataManager.getLootTable(FOTLootTables.Blocks.GRUBS_DROPS).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableLeechesDrop && blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, lootDataManager.getLootTable(FOTLootTables.Blocks.LEECHES_DROPS)));
+            droppedList.addAll(lootDataManager.getLootTable(FOTLootTables.Blocks.LEECHES_DROPS).getRandomItems(lootParams));
         }
-    }
-
-    private static List<ItemStack> getAlternateLootStack(LootParams lootParams, LootTable lootTable)
-    {
-        return lootTable.getRandomItems(lootParams);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)

@@ -1,0 +1,52 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:splashtail"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:pondie"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:islehopper"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:ancientscale"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:plentifin"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:wildsplash"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:devilfish"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:battlegill"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:wrecker"
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "name": "fishofthieves:stormfish"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "fishofthieves:gameplay/hero_of_the_village/fisherman_gift"
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "fishofthieves:fot_tag",
+          "expand": true,
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "fishofthieves:thieves_fish"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "fishofthieves:chests/village/village_fisher"
+}

@@ -6,11 +6,15 @@ import com.stevekung.fishofthieves.common.registry.*;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
+import com.stevekung.fishofthieves.forge.loot.AddLootModifier;
+import com.stevekung.fishofthieves.forge.loot.FOTForgeLootTables;
+import com.stevekung.fishofthieves.forge.loot.FOTGlobalLootModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -21,7 +25,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.common.data.GlobalLootModifierProvider;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.common.loot.LootTableIdCondition;
 import net.minecraftforge.common.world.StructureModifier;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -44,6 +54,7 @@ public class FishOfThievesForge
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(ForgeRegistries.MEMORY_MODULE_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLOBAL_LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
     public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.id(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
@@ -64,6 +75,7 @@ public class FishOfThievesForge
         SENSOR_TYPES.register(modEventBus);
         MEMORY_MODULE_TYPES.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
+        GLOBAL_LOOT_MODIFIERS.register(modEventBus);
 
         FishOfThieves.initGlobal();
 
@@ -81,11 +93,8 @@ public class FishOfThievesForge
     private void commonSetup(FMLCommonSetupEvent event)
     {
         FishOfThieves.initCommon();
-        FOTLootItemFunctions.init();
-        FOTLootPoolEntries.init();
         FOTStructures.init();
         FOTDataSerializers.init();
-        FOTLootItemConditions.init();
 
         if (ModList.get().isLoaded("aquaculture"))
         {
@@ -103,6 +112,50 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
         event.register(ForgeRegistries.Keys.SENSOR_TYPES, helper -> FOTSensorTypes.init());
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());
+        event.register(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, helper -> FOTGlobalLootModifiers.init());
+        event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
+        event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
+        event.register(Registries.LOOT_CONDITION_TYPE, helper -> FOTLootItemConditions.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
+    }
+
+    @SubscribeEvent
+    public void runData(GatherDataEvent event)
+    {
+        event.getGenerator().addProvider(event.includeServer(), new ModGlobalLootModifierProvider(event.getGenerator().getPackOutput()));
+    }
+
+    private static class ModGlobalLootModifierProvider extends GlobalLootModifierProvider
+    {
+        ModGlobalLootModifierProvider(PackOutput output)
+        {
+            super(output, FishOfThieves.MOD_ID);
+        }
+
+        @Override
+        protected void start()
+        {
+            //@formatter:off
+            this.add("add_fisherman_gift", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(BuiltInLootTables.FISHERMAN_GIFT).build()
+            }, FOTForgeLootTables.Gift.FISHERMAN_GIFT));
+            this.add("add_fishing_fish", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(BuiltInLootTables.FISHING_FISH).build()
+            }, FOTForgeLootTables.Fishing.FISHING_FISH));
+            this.add("add_polar_bear", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(EntityType.POLAR_BEAR.getDefaultLootTable()).build()
+            }, FOTForgeLootTables.Entity.POLAR_BEAR));
+            this.add("add_village_fisher", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_FISHER).build()
+            }, FOTForgeLootTables.Chest.VILLAGE_FISHER));
+            this.add("add_buried_treasure", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(BuiltInLootTables.BURIED_TREASURE).build()
+            }, FOTForgeLootTables.Chest.BURIED_TREASURE));
+            this.add("add_ocean_ruins", new AddLootModifier(new LootItemCondition[] {
+                    LootTableIdCondition.builder(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY).build(),
+                    LootTableIdCondition.builder(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY).build()
+            }, FOTForgeLootTables.Archaeology.OCEAN_RUINS));
+            //@formatter:on
+        }
     }
 }
