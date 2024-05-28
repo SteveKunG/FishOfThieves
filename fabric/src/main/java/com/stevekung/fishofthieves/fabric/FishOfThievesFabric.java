@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.fabric;
 
-import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.*;
+import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.common.entity.animal.*;
+import com.stevekung.fishofthieves.common.loot.FOTLootManager;
+import com.stevekung.fishofthieves.common.registry.*;
+import com.stevekung.fishofthieves.common.registry.variant.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;

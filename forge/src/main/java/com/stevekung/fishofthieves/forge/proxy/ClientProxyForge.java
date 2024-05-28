@@ -1,13 +1,13 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
-import com.stevekung.fishofthieves.client.model.*;
-import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
-import com.stevekung.fishofthieves.client.renderer.entity.*;
-import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
-import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.entity.PartyFish;
-import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
-import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.common.client.model.*;
+import com.stevekung.fishofthieves.common.client.renderer.blockentity.FishPlaqueRenderer;
+import com.stevekung.fishofthieves.common.client.renderer.entity.*;
+import com.stevekung.fishofthieves.common.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.common.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.common.entity.PartyFish;
+import com.stevekung.fishofthieves.common.registry.FOTBlockEntityTypes;
+import com.stevekung.fishofthieves.common.registry.FOTEntities;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;

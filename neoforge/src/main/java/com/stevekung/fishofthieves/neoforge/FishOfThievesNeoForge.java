@@ -1,13 +1,13 @@
 package com.stevekung.fishofthieves.neoforge;
 
 import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.common.registry.*;
 import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.neoforge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.neoforge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
-import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -48,9 +48,9 @@ public class FishOfThievesNeoForge
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
-    public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.res(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
+    public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.id(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
     private static final String ADD_FISH_BONE = "add_fish_bone";
-    public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.res(ADD_FISH_BONE);
+    public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.id(ADD_FISH_BONE);
 
     public FishOfThievesNeoForge()
     {

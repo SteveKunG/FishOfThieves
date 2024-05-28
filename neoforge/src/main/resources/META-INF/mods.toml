@@ -14,9 +14,9 @@ logoFile = "logo.png"
 authors = "SteveKunG, PloyiinGz"
 
 [[mixins]]
-config = "mixins.fishofthieves.json"
+config = "mixins.fish_of_thieves.json"
 [[mixins]]
-config = "mixins.fishofthieves_neoforge.json"
+config = "mixins.fish_of_thieves_neoforge.json"
 
 [[accessTransformers]]
 file = "META-INF/accesstransformer.cfg"
