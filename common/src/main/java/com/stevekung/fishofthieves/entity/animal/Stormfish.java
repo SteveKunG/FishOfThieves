@@ -1,16 +1,17 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -32,15 +33,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
     private static final EntityDataAccessor<StormfishVariant> VARIANT = SynchedEntityData.defineId(Stormfish.class, FOTDataSerializers.STORMFISH_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:ancient");
-        map.put(0, "fishofthieves:ancient");
-        map.put(1, "fishofthieves:shores");
-        map.put(2, "fishofthieves:wild");
-        map.put(3, "fishofthieves:shadow");
-        map.put(4, "fishofthieves:twilight");
-    };
+        map.put("fishofthieves:ancient", 0);
+        map.put("fishofthieves:shores", 1);
+        map.put("fishofthieves:wild", 2);
+        map.put("fishofthieves:shadow", 3);
+        map.put("fishofthieves:twilight", 4);
+    });
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)
     {
@@ -105,9 +105,9 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

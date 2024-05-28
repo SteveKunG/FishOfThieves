@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.function.Consumer;
-
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -11,7 +11,7 @@ import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -40,15 +40,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 {
     private static final EntityDataAccessor<BattlegillVariant> VARIANT = SynchedEntityData.defineId(Battlegill.class, FOTDataSerializers.BATTLEGILL_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:jade");
-        map.put(0, "fishofthieves:jade");
-        map.put(1, "fishofthieves:sky");
-        map.put(2, "fishofthieves:rum");
-        map.put(3, "fishofthieves:sand");
-        map.put(4, "fishofthieves:bittersweet");
-    };
+        map.put("fishofthieves:jade", 0);
+        map.put("fishofthieves:sky", 1);
+        map.put("fishofthieves:rum", 2);
+        map.put("fishofthieves:sand", 3);
+        map.put("fishofthieves:bittersweet", 4);
+    });
 
     //@formatter:off
     private static final ImmutableList<SensorType<? extends Sensor<? super Battlegill>>> SENSOR_TYPES = ImmutableList.of(
@@ -165,9 +164,9 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

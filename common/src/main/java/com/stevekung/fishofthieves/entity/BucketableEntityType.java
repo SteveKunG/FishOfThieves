@@ -11,9 +11,12 @@ import net.minecraft.world.item.ItemStack;
 
 public interface BucketableEntityType<T extends Entity>
 {
-    @Nullable Entity spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType);
+    @Nullable
+    Entity spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType);
 
-    @Nullable T spawnByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType);
+    @Nullable
+    T spawnByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType);
 
-    @Nullable T createByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType);
+    @Nullable
+    T createByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType);
 }
