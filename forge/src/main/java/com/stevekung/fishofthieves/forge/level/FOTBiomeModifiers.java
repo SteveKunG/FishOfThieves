@@ -3,12 +3,12 @@ package com.stevekung.fishofthieves.forge.level;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.common.registry.FOTFeatures;
+import com.stevekung.fishofthieves.common.registry.FOTPlacements;
+import com.stevekung.fishofthieves.common.registry.FOTTags;
 import com.stevekung.fishofthieves.forge.FishOfThievesForge;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTFeatures;
-import com.stevekung.fishofthieves.registry.FOTPlacements;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
@@ -73,7 +73,7 @@ public class FOTBiomeModifiers
 
     private static ResourceKey<BiomeModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.res(key));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.id(key));
     }
 
     private static BiomeModifier spawn(BootstapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)

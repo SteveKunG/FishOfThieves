@@ -5,10 +5,10 @@ import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.common.registry.FOTTags;
 import com.stevekung.fishofthieves.neoforge.FishOfThievesNeoForge;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -63,7 +63,7 @@ public class FOTStructureModifiers
 
     private static ResourceKey<StructureModifier> key(String key)
     {
-        return ResourceKey.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.res(key));
+        return ResourceKey.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.id(key));
     }
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier

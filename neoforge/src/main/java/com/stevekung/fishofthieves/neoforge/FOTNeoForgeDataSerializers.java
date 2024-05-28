@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.neoforge;
 
-import com.stevekung.fishofthieves.registry.FOTDataSerializers;
+import com.stevekung.fishofthieves.common.registry.FOTDataSerializers;
 
 public class FOTNeoForgeDataSerializers
 {

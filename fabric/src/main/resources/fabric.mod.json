@@ -48,7 +48,7 @@
     },
     "loom:injected_interfaces": {
       "net/minecraft/class_1422": [
-        "com/stevekung/fishofthieves/entity/PartyFish"
+        "com/stevekung/fishofthieves/common/entity/PartyFish"
       ]
     }
   }
