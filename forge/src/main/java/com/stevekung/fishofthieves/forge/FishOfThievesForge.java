@@ -1,13 +1,13 @@
 package com.stevekung.fishofthieves.forge;
 
 import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.common.FishOfThieves;
-import com.stevekung.fishofthieves.common.registry.*;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
+import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

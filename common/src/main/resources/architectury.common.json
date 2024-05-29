@@ -1,7 +1,7 @@
 {
   "injected_interfaces": {
     "net/minecraft/class_1422": [
-      "com/stevekung/fishofthieves/common/entity/PartyFish"
+      "com/stevekung/fishofthieves/entity/PartyFish"
     ]
   }
 }

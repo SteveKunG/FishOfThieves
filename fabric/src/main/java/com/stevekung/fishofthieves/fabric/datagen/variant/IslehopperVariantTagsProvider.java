@@ -2,10 +2,10 @@ package com.stevekung.fishofthieves.fabric.datagen.variant;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.common.entity.variant.IslehopperVariant;
-import com.stevekung.fishofthieves.common.registry.FOTRegistries;
-import com.stevekung.fishofthieves.common.registry.FOTTags;
-import com.stevekung.fishofthieves.common.registry.variant.IslehopperVariants;
+import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;

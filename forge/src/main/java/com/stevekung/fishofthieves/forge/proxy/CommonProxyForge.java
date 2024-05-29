@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import com.google.common.collect.Lists;
-import com.stevekung.fishofthieves.common.FishOfThieves;
-import com.stevekung.fishofthieves.common.entity.animal.*;
-import com.stevekung.fishofthieves.common.loot.FOTLootManager;
-import com.stevekung.fishofthieves.common.registry.FOTEntities;
-import com.stevekung.fishofthieves.common.registry.FOTItems;
-import com.stevekung.fishofthieves.common.registry.FOTTags;
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -28,7 +28,6 @@ import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -38,7 +37,6 @@ public class CommonProxyForge
     {
         MinecraftForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSpawnPlacement);
     }
@@ -48,10 +46,6 @@ public class CommonProxyForge
         ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.GRUBS, 0.4F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
-    }
-
-    public void clientSetup(FMLClientSetupEvent event)
-    {
     }
 
     @SubscribeEvent

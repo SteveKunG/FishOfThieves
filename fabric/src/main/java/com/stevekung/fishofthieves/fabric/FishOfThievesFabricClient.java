@@ -1,12 +1,12 @@
 package com.stevekung.fishofthieves.fabric;
 
-import com.stevekung.fishofthieves.common.client.model.*;
-import com.stevekung.fishofthieves.common.client.renderer.blockentity.FishPlaqueRenderer;
-import com.stevekung.fishofthieves.common.client.renderer.entity.*;
-import com.stevekung.fishofthieves.common.client.renderer.entity.layers.HeadphoneLayer;
-import com.stevekung.fishofthieves.common.registry.FOTBlockEntityTypes;
-import com.stevekung.fishofthieves.common.registry.FOTBlocks;
-import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.client.model.*;
+import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
+import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
