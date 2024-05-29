@@ -34,13 +34,13 @@ public class PondieVariants
 
     static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/pondie/" + name);
-        var glowTexture = FishOfThieves.res("entity/pondie/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/pondie/" + name);
+        var glowTexture = FishOfThieves.id("entity/pondie/" + name + "_glow");
         context.register(key, new PondieVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<PondieVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.PONDIE_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.PONDIE_VARIANT, FishOfThieves.id(name));
     }
 }

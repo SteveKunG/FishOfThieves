@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 
 public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("wildsplash"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("wildsplash"), "main");
     private final ModelPart head;
     private final ModelPart body_main;
     private final ModelPart body_back;

@@ -37,13 +37,13 @@ public class DevilfishVariants
 
     static void register(BootstrapContext<DevilfishVariant> context, ResourceKey<DevilfishVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/devilfish/" + name);
-        var glowTexture = FishOfThieves.res("entity/devilfish/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/devilfish/" + name);
+        var glowTexture = FishOfThieves.id("entity/devilfish/" + name + "_glow");
         context.register(key, new DevilfishVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<DevilfishVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.DEVILFISH_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.DEVILFISH_VARIANT, FishOfThieves.id(name));
     }
 }

@@ -73,7 +73,7 @@ public class FOTBiomeModifiers
 
     private static ResourceKey<BiomeModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.res(key));
+        return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.id(key));
     }
 
     private static BiomeModifier spawn(BootstrapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)

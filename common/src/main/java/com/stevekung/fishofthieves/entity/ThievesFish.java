@@ -1,15 +1,11 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.function.Consumer;
-
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -24,15 +20,12 @@ public interface ThievesFish extends PartyFish
     Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.Items.GRUBS_FOOD);
     Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.Items.LEECHES_FOOD);
 
-    String OLD_VARIANT_TAG = "Variant";
-    String OLD_NAME_TAG = "Name";
-
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
     String NO_FLIP_TAG = "NoFlip";
 
-    Consumer<Int2ObjectOpenHashMap<String>> getDataFix();
+    BiMap<String, Integer> variantToCustomModelData();
 
     boolean isTrophy();
 
@@ -74,11 +67,20 @@ public interface ThievesFish extends PartyFish
             //                }
             //                compoundTag.putString(VARIANT_TAG, variant.toString());
             //            }
-            if (this.isTrophy())
-            {
-                compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
-                compoundTag.putBoolean(TROPHY_TAG, this.isTrophy());
-            }
+//            if (this.isTrophy())
+//            {
+//<<<<<<< HEAD
+//                compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
+//                compoundTag.putBoolean(TROPHY_TAG, this.isTrophy());
+//=======
+//                var customModelData = this.variantToCustomModelData().get(variant.toString());
+//
+//                if (customModelData > 0)
+//                {
+//                    compound.putInt("CustomModelData", customModelData);
+//                }
+//>>>>>>> bbd683547eecb620d15c4575ce1340e7b07284f1
+//            }
             if (this.isNoFlip())
             {
                 compoundTag.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -88,8 +90,6 @@ public interface ThievesFish extends PartyFish
 
     default void loadFromBucket(CompoundTag compound)
     {
-        ThievesFish.fixData(compound, this.getDataFix());
-
         if (compound.contains(TROPHY_TAG))
         {
             this.setTrophy(compound.getBoolean(TROPHY_TAG));
@@ -124,20 +124,5 @@ public interface ThievesFish extends PartyFish
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         return spawnData;
-    }
-
-    static void fixData(CompoundTag compound, Consumer<Int2ObjectOpenHashMap<String>> consumer)
-    {
-        if (compound.contains(OLD_VARIANT_TAG, Tag.TAG_INT))
-        {
-            var variant = compound.getInt(OLD_VARIANT_TAG);
-            var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), consumer);
-            compound.remove(OLD_VARIANT_TAG);
-            compound.putString(VARIANT_TAG, oldMap.get(variant));
-        }
-        if (compound.contains(OLD_NAME_TAG))
-        {
-            compound.remove(OLD_NAME_TAG);
-        }
     }
 }

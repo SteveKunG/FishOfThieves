@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.entity.animal;
 
-import java.util.function.Consumer;
-
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
@@ -12,7 +12,7 @@ import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -40,15 +40,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
     private static final EntityDataAccessor<Holder<WreckerVariant>> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:rose");
-        map.put(0, "fishofthieves:rose");
-        map.put(1, "fishofthieves:sun");
-        map.put(2, "fishofthieves:blackcloud");
-        map.put(3, "fishofthieves:snow");
-        map.put(4, "fishofthieves:moon");
-    };
+        map.put("fishofthieves:rose", 0);
+        map.put("fishofthieves:sun", 1);
+        map.put("fishofthieves:blackcloud", 2);
+        map.put("fishofthieves:snow", 3);
+        map.put("fishofthieves:moon", 4);
+    });
 
     //@formatter:off
     private static final ImmutableList<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = ImmutableList.of(
@@ -162,9 +161,9 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

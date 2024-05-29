@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.gametest;
+package com.stevekung.fishofthieves.fabric.gametest;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;

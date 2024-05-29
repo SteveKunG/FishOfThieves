@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 
 public class PondieModel<T extends Pondie> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("pondie"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("pondie"), "main");
     private final ModelPart head;
     private final ModelPart mouth;
     private final ModelPart body_main;

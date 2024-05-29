@@ -37,13 +37,13 @@ public class StormfishVariants
 
     static void register(BootstrapContext<StormfishVariant> context, ResourceKey<StormfishVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/stormfish/" + name);
-        var glowTexture = FishOfThieves.res("entity/stormfish/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/stormfish/" + name);
+        var glowTexture = FishOfThieves.id("entity/stormfish/" + name + "_glow");
         context.register(key, new StormfishVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.STORMFISH_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.STORMFISH_VARIANT, FishOfThieves.id(name));
     }
 }

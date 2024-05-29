@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.ArrayUtils;
+import com.google.common.collect.BiMap;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -26,7 +27,6 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.utils.Continentalness;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -1021,18 +1021,18 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class AdvancementProvider extends FabricAdvancementProvider
     {
-        private static final Map<Item, Consumer<Int2ObjectOpenHashMap<String>>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
+        private static final Map<Item, BiMap<String, Integer>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
         {
-            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.DATA_FIX_MAP);
-            map.put(FOTItems.PONDIE_BUCKET, Pondie.DATA_FIX_MAP);
-            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.DATA_FIX_MAP);
-            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.DATA_FIX_MAP);
-            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.DATA_FIX_MAP);
-            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.DATA_FIX_MAP);
-            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.DATA_FIX_MAP);
-            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.DATA_FIX_MAP);
-            map.put(FOTItems.WRECKER_BUCKET, Wrecker.DATA_FIX_MAP);
-            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.DATA_FIX_MAP);
+            map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.VARIANT_TO_INT);
+            map.put(FOTItems.PONDIE_BUCKET, Pondie.VARIANT_TO_INT);
+            map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.VARIANT_TO_INT);
+            map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.VARIANT_TO_INT);
+            map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.VARIANT_TO_INT);
+            map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.VARIANT_TO_INT);
+            map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.VARIANT_TO_INT);
+            map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.VARIANT_TO_INT);
+            map.put(FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT);
+            map.put(FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT);
         });
 
         private AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
@@ -1169,7 +1169,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             {
                 var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-                for (var variant : Util.make(new Int2ObjectOpenHashMap<>(), variants).values().stream().map(ResourceLocation::new).toList())
+                for (var variant : variants.keySet().stream().map(ResourceLocation::new).toList())
                 {
                     builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
                     {

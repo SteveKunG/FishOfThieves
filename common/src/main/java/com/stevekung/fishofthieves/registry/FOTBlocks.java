@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.block.FishBoneBlock;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;

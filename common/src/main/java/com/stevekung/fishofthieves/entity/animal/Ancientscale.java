@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -13,7 +14,7 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -35,15 +36,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
     private static final EntityDataAccessor<Holder<AncientscaleVariant>> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:almond");
-        map.put(0, "fishofthieves:almond");
-        map.put(1, "fishofthieves:sapphire");
-        map.put(2, "fishofthieves:smoke");
-        map.put(3, "fishofthieves:bone");
-        map.put(4, "fishofthieves:starshine");
-    };
+        map.put("fishofthieves:almond", 0);
+        map.put("fishofthieves:sapphire", 1);
+        map.put("fishofthieves:smoke", 2);
+        map.put("fishofthieves:bone", 3);
+        map.put("fishofthieves:starshine", 4);
+    });
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
@@ -110,9 +110,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

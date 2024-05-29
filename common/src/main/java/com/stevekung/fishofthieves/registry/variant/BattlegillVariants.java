@@ -36,13 +36,13 @@ public class BattlegillVariants
 
     static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/battlegill/" + name);
-        var glowTexture = FishOfThieves.res("entity/battlegill/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/battlegill/" + name);
+        var glowTexture = FishOfThieves.id("entity/battlegill/" + name + "_glow");
         context.register(key, new BattlegillVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.BATTLEGILL_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.BATTLEGILL_VARIANT, FishOfThieves.id(name));
     }
 }

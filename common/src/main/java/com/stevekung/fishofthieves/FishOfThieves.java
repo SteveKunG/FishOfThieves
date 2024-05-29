@@ -26,9 +26,9 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
-    public static final ResourceKey<CreativeModeTab> FOT = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.res("fot"));
+    public static final ResourceKey<CreativeModeTab> FOT = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
-    public static ResourceLocation res(String path)
+    public static ResourceLocation id(String path)
     {
         return new ResourceLocation(MOD_ID, path);
     }

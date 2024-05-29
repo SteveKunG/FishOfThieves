@@ -1,104 +1,95 @@
-package com.stevekung.fishofthieves.utils;
+package com.stevekung.fishofthieves.neoforge;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import com.stevekung.fishofthieves.neoforge.mixin.MobBucketItemAccessor;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.neoforged.fml.ModList;
 
-public class FOTPlatform
+public class FOTPlatformImpl
 {
-    @ExpectPlatform
     public static boolean isModLoaded(String modId)
     {
-        throw new AssertionError();
+        return ModList.get().isLoaded(modId);
     }
 
-    @ExpectPlatform
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
-        throw new AssertionError();
+        return ((MobBucketItemAccessor) bucket).getType();
     }
 
-    @ExpectPlatform
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
-        throw new AssertionError();
+        return ((MobBucketItemAccessor) bucket).getEmptySound();
     }
 
-    @ExpectPlatform
     public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
     {
-        throw new AssertionError();
+        CriteriaTriggers.register(key, trigger);
     }
 
-    @ExpectPlatform
     public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)
     {
-        throw new AssertionError();
+        return BlockEntityType.Builder.<T>of(factory, validBlocks).build(null);
     }
 
-    @ExpectPlatform
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
-        throw new AssertionError();
+        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build("");
     }
 
-    @ExpectPlatform
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.BLOCK_ENTITY_TYPE.register(key, () -> type);
     }
 
-    @ExpectPlatform
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.ENTITY.register(key, () -> type);
     }
 
-    @ExpectPlatform
     public static void registerBlock(String key, Block block)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.BLOCK.register(key, () -> block);
+        registerItem(key, new BlockItem(block, new Item.Properties()));
     }
 
-    @ExpectPlatform
     public static void registerItem(String key, Item item)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.ITEM.register(key, () -> item);
     }
 
-    @ExpectPlatform
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.SOUND_EVENTS.register(soundEvent.getLocation().getPath(), () -> soundEvent);
     }
 
-    @ExpectPlatform
     public static void registerFeature(String key, Feature<?> feature)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.FEATURES.register(key, () -> feature);
     }
 
-    @ExpectPlatform
     public static <U extends Sensor<?>> void registerSensorType(String key, SensorType<U> sensorType)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.SENSOR_TYPES.register(key, () -> sensorType);
     }
 
-    @ExpectPlatform
     public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
     {
-        throw new AssertionError();
+        FishOfThievesNeoForge.MEMORY_MODULE_TYPES.register(key, () -> type);
     }
 }

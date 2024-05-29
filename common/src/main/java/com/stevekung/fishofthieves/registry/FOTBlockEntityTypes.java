@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTBlockEntityTypes

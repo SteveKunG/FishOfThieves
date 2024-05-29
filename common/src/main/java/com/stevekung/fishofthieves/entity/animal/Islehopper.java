@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
@@ -16,7 +17,7 @@ import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -43,15 +44,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
     private static final EntityDataAccessor<Holder<IslehopperVariant>> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:stone");
-        map.put(0, "fishofthieves:stone");
-        map.put(1, "fishofthieves:moss");
-        map.put(2, "fishofthieves:honey");
-        map.put(3, "fishofthieves:raven");
-        map.put(4, "fishofthieves:amethyst");
-    };
+        map.put("fishofthieves:stone", 0);
+        map.put("fishofthieves:moss", 1);
+        map.put("fishofthieves:honey", 2);
+        map.put("fishofthieves:raven", 3);
+        map.put("fishofthieves:amethyst", 4);
+    });
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
@@ -118,9 +118,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

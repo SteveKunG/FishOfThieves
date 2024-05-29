@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.sounds.SoundEvent;
 
 public class FOTSoundEvents
@@ -78,7 +78,7 @@ public class FOTSoundEvents
 
     private static SoundEvent create(String key)
     {
-        return SoundEvent.createVariableRangeEvent(FishOfThieves.res(key));
+        return SoundEvent.createVariableRangeEvent(FishOfThieves.id(key));
     }
 
     private static void register(SoundEvent soundEvent)

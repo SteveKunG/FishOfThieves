@@ -37,6 +37,6 @@ public class FishPlaqueInteractions
 
     private static ResourceKey<FishPlaqueInteraction> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.FISH_PLAQUE_INTERACTION, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.FISH_PLAQUE_INTERACTION, FishOfThieves.id(name));
     }
 }

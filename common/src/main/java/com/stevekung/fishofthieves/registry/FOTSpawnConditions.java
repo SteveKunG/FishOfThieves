@@ -38,6 +38,6 @@ public class FOTSpawnConditions
 
     private static SpawnConditionType register(String name, MapCodec<? extends SpawnCondition> codec)
     {
-        return Registry.register(FOTBuiltInRegistries.SPAWN_CONDITION_TYPE, FishOfThieves.res(name), new SpawnConditionType(codec));
+        return Registry.register(FOTBuiltInRegistries.SPAWN_CONDITION_TYPE, FishOfThieves.id(name), new SpawnConditionType(codec));
     }
 }

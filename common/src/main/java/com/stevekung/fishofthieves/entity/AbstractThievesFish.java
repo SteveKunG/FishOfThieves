@@ -108,7 +108,6 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        ThievesFish.fixData(compound, this.getDataFix());
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));

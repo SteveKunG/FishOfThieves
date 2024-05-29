@@ -34,13 +34,13 @@ public class SplashtailVariants
 
     static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/splashtail/" + name);
-        var glowTexture = FishOfThieves.res("entity/splashtail/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/splashtail/" + name);
+        var glowTexture = FishOfThieves.id("entity/splashtail/" + name + "_glow");
         context.register(key, new SplashtailVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<SplashtailVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.SPLASHTAIL_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.SPLASHTAIL_VARIANT, FishOfThieves.id(name));
     }
 }

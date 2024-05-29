@@ -7,27 +7,27 @@ public interface FOTLootTables
 {
     interface Blocks
     {
-        ResourceLocation EARTHWORMS_DROPS = FishOfThieves.res("blocks/earthworms_drops");
-        ResourceLocation GRUBS_DROPS = FishOfThieves.res("blocks/grubs_drops");
-        ResourceLocation LEECHES_DROPS = FishOfThieves.res("blocks/leeches_drops");
+        ResourceLocation EARTHWORMS_DROPS = FishOfThieves.id("blocks/earthworms_drops");
+        ResourceLocation GRUBS_DROPS = FishOfThieves.id("blocks/grubs_drops");
+        ResourceLocation LEECHES_DROPS = FishOfThieves.id("blocks/leeches_drops");
     }
 
     interface Entities
     {
-        ResourceLocation FISH_BONE_DROP = FishOfThieves.res("entities/fish_bone_drop");
+        ResourceLocation FISH_BONE_DROP = FishOfThieves.id("entities/fish_bone_drop");
     }
 
     interface Chests
     {
-        ResourceLocation SEAPOST_BARREL_SUPPLY = FishOfThieves.res("chests/seapost_barrel_supply");
-        ResourceLocation SEAPOST_BARREL_COMBAT = FishOfThieves.res("chests/seapost_barrel_combat");
-        ResourceLocation SEAPOST_BARREL_FIREWORK = FishOfThieves.res("chests/seapost_barrel_firework");
+        ResourceLocation SEAPOST_BARREL_SUPPLY = FishOfThieves.id("chests/seapost_barrel_supply");
+        ResourceLocation SEAPOST_BARREL_COMBAT = FishOfThieves.id("chests/seapost_barrel_combat");
+        ResourceLocation SEAPOST_BARREL_FIREWORK = FishOfThieves.id("chests/seapost_barrel_firework");
     }
 
     interface Advancements
     {
-        ResourceLocation FISH_COLLECTORS = FishOfThieves.res("rewards/fish_collectors");
-        ResourceLocation MASTER_FISH_COLLECTORS = FishOfThieves.res("rewards/master_fish_collectors");
-        ResourceLocation LEGENDARY_FISH_COLLECTORS = FishOfThieves.res("rewards/legendary_fish_collectors");
+        ResourceLocation FISH_COLLECTORS = FishOfThieves.id("rewards/fish_collectors");
+        ResourceLocation MASTER_FISH_COLLECTORS = FishOfThieves.id("rewards/master_fish_collectors");
+        ResourceLocation LEGENDARY_FISH_COLLECTORS = FishOfThieves.id("rewards/legendary_fish_collectors");
     }
 }

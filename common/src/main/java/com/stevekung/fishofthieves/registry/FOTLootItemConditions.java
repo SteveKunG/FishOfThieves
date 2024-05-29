@@ -57,6 +57,6 @@ public class FOTLootItemConditions
 
     private static void register(String key, LootItemConditionType type)
     {
-        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, FishOfThieves.res(key), type);
+        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, FishOfThieves.id(key), type);
     }
 }

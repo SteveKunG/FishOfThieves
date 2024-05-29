@@ -35,13 +35,13 @@ public class PlentifinVariants
 
     static void register(BootstrapContext<PlentifinVariant> context, ResourceKey<PlentifinVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/plentifin/" + name);
-        var glowTexture = FishOfThieves.res("entity/plentifin/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/plentifin/" + name);
+        var glowTexture = FishOfThieves.id("entity/plentifin/" + name + "_glow");
         context.register(key, new PlentifinVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<PlentifinVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.PLENTIFIN_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.PLENTIFIN_VARIANT, FishOfThieves.id(name));
     }
 }

@@ -19,7 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class HeadphoneLayer<T extends LivingEntity & PartyFish, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final ResourceLocation TEXTURE = FishOfThieves.res("textures/entity/headphone.png");
+    private static final ResourceLocation TEXTURE = FishOfThieves.id("textures/entity/headphone.png");
     private final HeadphoneModel<T> model;
     private final HeadphoneModel.Scaleable<T> scaleable;
 

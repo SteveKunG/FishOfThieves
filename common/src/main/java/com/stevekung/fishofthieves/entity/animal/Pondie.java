@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +13,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PondieVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,15 +30,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
     private static final EntityDataAccessor<Holder<PondieVariant>> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:charcoal");
-        map.put(0, "fishofthieves:charcoal");
-        map.put(1, "fishofthieves:orchid");
-        map.put(2, "fishofthieves:bronze");
-        map.put(3, "fishofthieves:bright");
-        map.put(4, "fishofthieves:moonsky");
-    };
+        map.put("fishofthieves:charcoal", 0);
+        map.put("fishofthieves:orchid", 1);
+        map.put("fishofthieves:bronze", 2);
+        map.put("fishofthieves:bright", 3);
+        map.put("fishofthieves:moonsky", 4);
+    });
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
@@ -104,9 +104,9 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

@@ -45,13 +45,13 @@ public class FOTEntitySubPredicate
     //TODO Move to FOTPlatform
     private static <T extends EntitySubPredicate> void registerEntitySubPredicates(String key, MapCodec<T> codec)
     {
-        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.res(key), codec);
+        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.id(key), codec);
     }
 
     //TODO Move to FOTPlatform
     private static <V> void registerEntitySubPredicates(String key, EntitySubPredicates.EntityHolderVariantPredicateType<V> predicateType)
     {
-        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.res(key), predicateType.codec);
+        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.id(key), predicateType.codec);
     }
 
     public static EntitySubPredicate splashtail(HolderSet<SplashtailVariant> variant)

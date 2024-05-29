@@ -19,7 +19,7 @@ import net.minecraft.world.entity.animal.frog.Tadpole;
 
 public class HeadphoneModel<T extends Entity> extends EntityModel<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("headphone"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("headphone"), "main");
     private final ModelPart headphone;
 
     public HeadphoneModel(ModelPart part)

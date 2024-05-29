@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 
 public class FOTCriteriaTriggers
 {

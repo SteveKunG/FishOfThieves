@@ -35,13 +35,13 @@ public class AncientscaleVariants
 
     static void register(BootstrapContext<AncientscaleVariant> context, ResourceKey<AncientscaleVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/ancientscale/" + name);
-        var glowTexture = FishOfThieves.res("entity/ancientscale/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/ancientscale/" + name);
+        var glowTexture = FishOfThieves.id("entity/ancientscale/" + name + "_glow");
         context.register(key, new AncientscaleVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<AncientscaleVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.ANCIENTSCALE_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.ANCIENTSCALE_VARIANT, FishOfThieves.id(name));
     }
 }

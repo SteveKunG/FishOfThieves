@@ -56,6 +56,7 @@ public class WreckerAi
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
     }
 
+    @SuppressWarnings("deprecation")
     private static void initIdleActivity(Brain<Wrecker> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(

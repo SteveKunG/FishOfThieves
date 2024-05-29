@@ -1,0 +1,11 @@
+{
+  "entries": [
+    "fishofthieves:add_fisherman_gift",
+    "fishofthieves:add_polar_bear",
+    "fishofthieves:add_ocean_ruins",
+    "fishofthieves:add_fishing_fish",
+    "fishofthieves:add_buried_treasure",
+    "fishofthieves:add_village_fisher"
+  ],
+  "replace": false
+}

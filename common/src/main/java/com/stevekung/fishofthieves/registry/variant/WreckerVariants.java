@@ -36,13 +36,13 @@ public class WreckerVariants
 
     static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/wrecker/" + name);
-        var glowTexture = FishOfThieves.res("entity/wrecker/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/wrecker/" + name);
+        var glowTexture = FishOfThieves.id("entity/wrecker/" + name + "_glow");
         context.register(key, new WreckerVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<WreckerVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.WRECKER_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.WRECKER_VARIANT, FishOfThieves.id(name));
     }
 }

@@ -63,7 +63,7 @@ public class FOTStructureModifiers
 
     private static ResourceKey<StructureModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.res(key));
+        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.id(key));
     }
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier

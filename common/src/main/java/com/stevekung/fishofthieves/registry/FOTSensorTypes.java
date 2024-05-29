@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.ai.sensing.*;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;

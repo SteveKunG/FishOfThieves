@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
@@ -31,21 +30,16 @@ public class FOTLootManager
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.EARTHWORMS_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.EARTHWORMS_DROPS)).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableGrubsDrop && blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.GRUBS_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.GRUBS_DROPS)).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableLeechesDrop && blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.LEECHES_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.LEECHES_DROPS)).getRandomItems(lootParams));
         }
-    }
-
-    private static List<ItemStack> getAlternateLootStack(LootParams lootParams, LootTable lootTable)
-    {
-        return lootTable.getRandomItems(lootParams);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)

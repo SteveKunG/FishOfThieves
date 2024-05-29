@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 
 public class StormfishModel<T extends Stormfish> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
 {
-    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.res("stormfish"), "main");
+    public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("stormfish"), "main");
     private final ModelPart head;
     private final ModelPart body_main;
     private final ModelPart body_back;

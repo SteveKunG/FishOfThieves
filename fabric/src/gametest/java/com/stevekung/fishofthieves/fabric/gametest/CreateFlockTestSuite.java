@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.gametest;
+package com.stevekung.fishofthieves.fabric.gametest;
 
 import java.util.function.Predicate;
 

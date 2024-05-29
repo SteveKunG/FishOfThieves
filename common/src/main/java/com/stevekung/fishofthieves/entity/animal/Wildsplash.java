@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +13,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -34,15 +35,14 @@ import net.minecraft.world.level.block.Blocks;
 public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 {
     private static final EntityDataAccessor<Holder<WildsplashVariant>> VARIANT = SynchedEntityData.defineId(Wildsplash.class, FOTDataSerializers.WILDSPLASH_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:russet");
-        map.put(0, "fishofthieves:russet");
-        map.put(1, "fishofthieves:sandy");
-        map.put(2, "fishofthieves:ocean");
-        map.put(3, "fishofthieves:muddy");
-        map.put(4, "fishofthieves:coral");
-    };
+        map.put("fishofthieves:russet", 0);
+        map.put("fishofthieves:sandy", 1);
+        map.put("fishofthieves:ocean", 2);
+        map.put("fishofthieves:muddy", 3);
+        map.put("fishofthieves:coral", 4);
+    });
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
@@ -109,9 +109,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override

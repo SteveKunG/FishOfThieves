@@ -20,6 +20,6 @@ public class FOTPlacements
 
     private static ResourceKey<PlacedFeature> createKey(String key)
     {
-        return ResourceKey.create(Registries.PLACED_FEATURE, FishOfThieves.res(key));
+        return ResourceKey.create(Registries.PLACED_FEATURE, FishOfThieves.id(key));
     }
 }

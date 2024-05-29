@@ -37,13 +37,13 @@ public class WildsplashVariants
 
     static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, boolean glow, SpawnCondition... conditions)
     {
-        var texture = FishOfThieves.res("entity/wildsplash/" + name);
-        var glowTexture = FishOfThieves.res("entity/wildsplash/" + name + "_glow");
+        var texture = FishOfThieves.id("entity/wildsplash/" + name);
+        var glowTexture = FishOfThieves.id("entity/wildsplash/" + name + "_glow");
         context.register(key, new WildsplashVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
     }
 
     private static ResourceKey<WildsplashVariant> createKey(String name)
     {
-        return ResourceKey.create(FOTRegistries.WILDSPLASH_VARIANT, FishOfThieves.res(name));
+        return ResourceKey.create(FOTRegistries.WILDSPLASH_VARIANT, FishOfThieves.id(name));
     }
 }

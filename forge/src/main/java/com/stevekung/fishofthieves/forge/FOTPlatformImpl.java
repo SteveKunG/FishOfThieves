@@ -1,11 +1,8 @@
-package com.stevekung.fishofthieves.utils.fabric;
+package com.stevekung.fishofthieves.forge;
 
-import com.stevekung.fishofthieves.FishOfThieves;
-import net.fabricmc.loader.api.FabricLoader;
+import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -21,22 +18,23 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraftforge.fml.ModList;
 
 public class FOTPlatformImpl
 {
     public static boolean isModLoaded(String modId)
     {
-        return FabricLoader.getInstance().isModLoaded(modId);
+        return ModList.get().isLoaded(modId);
     }
 
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
     {
-        return bucket.type;
+        return ((MobBucketItemAccessor) bucket).invokeGetFishType();
     }
 
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
-        return bucket.emptySound;
+        return ((MobBucketItemAccessor) bucket).invokeGetEmptySound();
     }
 
     public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
@@ -51,47 +49,47 @@ public class FOTPlatformImpl
 
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
-        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build();
+        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width, dimensions.height).clientTrackingRange(4).build("");
     }
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
-        Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.res(key), type);
+        FishOfThievesForge.BLOCK_ENTITY_TYPE.register(key, () -> type);
     }
 
     public static <T extends Entity> void registerEntityType(String key, EntityType<T> type)
     {
-        Registry.register(BuiltInRegistries.ENTITY_TYPE, FishOfThieves.res(key), type);
+        FishOfThievesForge.ENTITY.register(key, () -> type);
     }
 
     public static void registerBlock(String key, Block block)
     {
-        Registry.register(BuiltInRegistries.BLOCK, FishOfThieves.res(key), block);
+        FishOfThievesForge.BLOCK.register(key, () -> block);
         registerItem(key, new BlockItem(block, new Item.Properties()));
     }
 
     public static void registerItem(String key, Item item)
     {
-        Registry.register(BuiltInRegistries.ITEM, FishOfThieves.res(key), item);
+        FishOfThievesForge.ITEM.register(key, () -> item);
     }
 
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
-        Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.getLocation().getPath(), soundEvent);
+        FishOfThievesForge.SOUND_EVENTS.register(soundEvent.getLocation().getPath(), () -> soundEvent);
     }
 
     public static void registerFeature(String key, Feature<?> feature)
     {
-        Registry.register(BuiltInRegistries.FEATURE, FishOfThieves.res(key), feature);
+        FishOfThievesForge.FEATURES.register(key, () -> feature);
     }
 
     public static <U extends Sensor<?>> void registerSensorType(String key, SensorType<U> sensorType)
     {
-        Registry.register(BuiltInRegistries.SENSOR_TYPE, FishOfThieves.res(key), sensorType);
+        FishOfThievesForge.SENSOR_TYPES.register(key, () -> sensorType);
     }
 
     public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
     {
-        Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.res(key), type);
+        FishOfThievesForge.MEMORY_MODULE_TYPES.register(key, () -> type);
     }
 }

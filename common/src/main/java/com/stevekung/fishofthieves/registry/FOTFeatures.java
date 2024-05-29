@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
-import com.stevekung.fishofthieves.utils.FOTPlatform;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -35,6 +35,6 @@ public class FOTFeatures
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name)
     {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, FishOfThieves.res(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, FishOfThieves.id(name));
     }
 }
