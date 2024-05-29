@@ -61,7 +61,7 @@ tasks.register("apiJar", Jar) {
     group "build"
     from project(":common").sourceSets.main.allJava
     from project(":common").sourceSets.main.output
-    include "com/stevekung/fishofthieves/common/api/**/*"
+    include "com/stevekung/fishofthieves/api/**/*"
     archiveVersion = "v${mod_version}"
     archiveBaseName = fileName
     archiveClassifier = "api"

@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.fabric.gametest;
 
-import com.stevekung.fishofthieves.common.entity.AbstractSchoolingThievesFish;
-import com.stevekung.fishofthieves.common.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;

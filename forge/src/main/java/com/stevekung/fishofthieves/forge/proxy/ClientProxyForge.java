@@ -1,13 +1,13 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
-import com.stevekung.fishofthieves.common.client.model.*;
-import com.stevekung.fishofthieves.common.client.renderer.blockentity.FishPlaqueRenderer;
-import com.stevekung.fishofthieves.common.client.renderer.entity.*;
-import com.stevekung.fishofthieves.common.client.renderer.entity.layers.HeadphoneLayer;
-import com.stevekung.fishofthieves.common.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.common.entity.PartyFish;
-import com.stevekung.fishofthieves.common.registry.FOTBlockEntityTypes;
-import com.stevekung.fishofthieves.common.registry.FOTEntities;
+import com.stevekung.fishofthieves.client.model.*;
+import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
+import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.entity.PartyFish;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,6 +26,7 @@ public class ClientProxyForge
     public void init()
     {
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
+        MinecraftForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayerDefinitions);

@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.neoforge.compatibility;
 
-import com.stevekung.fishofthieves.common.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.teammetallurgy.aquaculture.api.AquacultureAPI;
 
 public class Aquaculture2

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
-import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.resources.ResourceLocation;
 
 public class FOTForgeLootTables
