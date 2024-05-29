@@ -3,12 +3,12 @@ package com.stevekung.fishofthieves.neoforge.level;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.common.FishOfThieves;
-import com.stevekung.fishofthieves.common.registry.FOTEntities;
-import com.stevekung.fishofthieves.common.registry.FOTFeatures;
-import com.stevekung.fishofthieves.common.registry.FOTPlacements;
-import com.stevekung.fishofthieves.common.registry.FOTTags;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.neoforge.FishOfThievesNeoForge;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTFeatures;
+import com.stevekung.fishofthieves.registry.FOTPlacements;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;

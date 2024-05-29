@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.util.Optional;
 
-import com.stevekung.fishofthieves.common.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThieves;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
 
