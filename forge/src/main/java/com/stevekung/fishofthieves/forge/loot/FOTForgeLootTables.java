@@ -5,50 +5,52 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.FishOfThieves;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 public class FOTForgeLootTables
 {
-    private static final Set<ResourceLocation> LOCATIONS = Sets.newHashSet();
-    private static final Set<ResourceLocation> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
+    private static final Set<ResourceKey<LootTable>> LOCATIONS = Sets.newHashSet();
+    private static final Set<ResourceKey<LootTable>> IMMUTABLE_LOCATIONS = Collections.unmodifiableSet(LOCATIONS);
 
     public interface Entity
     {
-        ResourceLocation POLAR_BEAR = register("entities/polar_bear");
+        ResourceKey<LootTable> POLAR_BEAR = register("entities/polar_bear");
     }
 
     public interface Chest
     {
-        ResourceLocation VILLAGE_FISHER = register("chests/village/village_fisher");
-        ResourceLocation BURIED_TREASURE = register("chests/buried_treasure");
+        ResourceKey<LootTable> VILLAGE_FISHER = register("chests/village/village_fisher");
+        ResourceKey<LootTable> BURIED_TREASURE = register("chests/buried_treasure");
     }
 
     public interface Archaeology
     {
-        ResourceLocation OCEAN_RUINS = register("archaeology/ocean_ruins");
+        ResourceKey<LootTable> OCEAN_RUINS = register("archaeology/ocean_ruins");
     }
 
     public interface Gift
     {
-        ResourceLocation FISHERMAN_GIFT = register("gameplay/hero_of_the_village/fisherman_gift");
+        ResourceKey<LootTable> FISHERMAN_GIFT = register("gameplay/hero_of_the_village/fisherman_gift");
     }
 
     public interface Fishing
     {
-        ResourceLocation FISHING_FISH = register("gameplay/fishing/fish");
+        ResourceKey<LootTable> FISHING_FISH = register("gameplay/fishing/fish");
     }
 
-    public static Set<ResourceLocation> all()
+    public static Set<ResourceKey<LootTable>> all()
     {
         return IMMUTABLE_LOCATIONS;
     }
 
-    private static ResourceLocation register(String id)
+    private static ResourceKey<LootTable> register(String id)
     {
-        return register(FishOfThieves.id(id));
+        return register(ResourceKey.create(Registries.LOOT_TABLE, FishOfThieves.id(id)));
     }
 
-    private static ResourceLocation register(ResourceLocation id)
+    private static ResourceKey<LootTable> register(ResourceKey<LootTable> id)
     {
         if (LOCATIONS.add(id))
         {

@@ -24,6 +24,7 @@ import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -58,7 +59,7 @@ public class DataGeneratorFOT
                 new LootTableProvider.SubProviderEntry(GiftLootTableProvider::new, LootContextParamSets.GIFT),
                 new LootTableProvider.SubProviderEntry(FishingLootTableProvider::new, LootContextParamSets.FISHING)
                 //@formatter:on
-        )));
+        ), provider));
         dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(packOutput, provider, helper));
         dataGenerator.addProvider(event.includeServer(), new FishingReal(packOutput, provider));
     }
@@ -66,7 +67,7 @@ public class DataGeneratorFOT
     private static class ArchaeologyLootTableProvider implements LootTableSubProvider
     {
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(FOTForgeLootTables.Archaeology.OCEAN_RUINS, LootTable.lootTable().withPool(FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool())));
         }
@@ -75,7 +76,7 @@ public class DataGeneratorFOT
     private static class ChestLootTableProvider implements LootTableSubProvider
     {
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(FOTForgeLootTables.Chest.VILLAGE_FISHER, LootTable.lootTable().withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool())));
             consumer.accept(FOTForgeLootTables.Chest.BURIED_TREASURE, LootTable.lootTable().withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool())));
@@ -85,7 +86,7 @@ public class DataGeneratorFOT
     private static class EntityLootTableProvider implements LootTableSubProvider
     {
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(FOTForgeLootTables.Entity.POLAR_BEAR, LootTable.lootTable().withPool(FOTLootManager.getPolarBearLoot(LootPool.lootPool())));
         }
@@ -94,7 +95,7 @@ public class DataGeneratorFOT
     private static class GiftLootTableProvider implements LootTableSubProvider
     {
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(FOTForgeLootTables.Gift.FISHERMAN_GIFT, LootTable.lootTable().withPool(FOTLootManager.getFishermanGiftLoot(LootPool.lootPool())));
         }
@@ -103,7 +104,7 @@ public class DataGeneratorFOT
     private static class FishingLootTableProvider implements LootTableSubProvider
     {
         @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
+        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(FOTForgeLootTables.Fishing.FISHING_FISH, LootTable.lootTable().withPool(FOTLootManager.getFishingLoot(LootPool.lootPool())));
         }

@@ -14,6 +14,6 @@ public class MixinBuiltInRegistries
     private static void fishofthieves$initEarlyRegistries(CallbackInfo info)
     {
         FishOfThieves.LOGGER.warn("This is the stupidest thing I've ever made in Minecraft modding history... (Even in NeoForge)");
-//        FOTRegistry.forge();
+        //        FOTRegistry.forge();
     }
 }
