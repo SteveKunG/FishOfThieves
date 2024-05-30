@@ -18,7 +18,7 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
         var blockPos = BlockPos.containing(x, y, z);
         var loaded = level.isLoaded(blockPos);
 
-        if (loaded)
+        if (!loaded)
         {
             return false;
         }
