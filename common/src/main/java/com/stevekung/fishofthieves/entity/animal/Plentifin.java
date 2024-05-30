@@ -155,7 +155,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
     {
-        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE, this, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE, this, spawnType == MobSpawnType.BUCKET);
         this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

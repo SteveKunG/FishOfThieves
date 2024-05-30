@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.mojang.datafixers.Products;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
+import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
@@ -13,6 +14,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 
 public interface AbstractFishVariant
@@ -43,10 +45,11 @@ public interface AbstractFishVariant
         return texture.withPath(string -> "textures/" + string + ".png");
     }
 
-    static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
+    static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
         var registry = registryAccess.registryOrThrow(registryKey);
-        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().conditions()).test(livingEntity)).toList(), livingEntity.getRandom());
+        var context = new SpawnConditionContext(serverLevel, registryAccess, livingEntity.blockPosition(), livingEntity.getRandom());
+        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().conditions()).test(context)).toList(), livingEntity.getRandom());
         return muha.orElseGet(() -> registry.getHolderOrThrow(defaultKey));
     }
 }

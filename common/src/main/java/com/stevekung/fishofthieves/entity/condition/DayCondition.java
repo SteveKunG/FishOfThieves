@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public class DayCondition implements SpawnCondition
 {
@@ -16,9 +15,9 @@ public class DayCondition implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.level().isDay();
+        return context.level().isDay();
     }
 
     public static SpawnCondition.Builder day()

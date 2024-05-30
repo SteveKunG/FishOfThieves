@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -32,17 +31,17 @@ public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> bloc
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var level = livingEntity.level();
+        var level = context.level();
 
-        if (this.blocks.isPresent() && TerrainUtils.lookForBlocksWithSize(livingEntity.blockPosition(), this.range, this.size, blockPos2 -> level.getBlockState(blockPos2).is(this.blocks.get())))
+        if (this.blocks.isPresent() && TerrainUtils.lookForBlocksWithSize(context.blockPos(), this.range, this.size, blockPos2 -> level.getBlockState(blockPos2).is(this.blocks.get())))
         {
             return true;
         }
         else
         {
-            return this.fluids.isPresent() && TerrainUtils.lookForBlocksWithSize(livingEntity.blockPosition(), this.range, this.size, blockPos2 -> level.getFluidState(blockPos2).is(this.fluids.get()) && level.getFluidState(blockPos2).isSource());
+            return this.fluids.isPresent() && TerrainUtils.lookForBlocksWithSize(context.blockPos(), this.range, this.size, blockPos2 -> level.getFluidState(blockPos2).is(this.fluids.get()) && level.getFluidState(blockPos2).isSource());
         }
     }
 

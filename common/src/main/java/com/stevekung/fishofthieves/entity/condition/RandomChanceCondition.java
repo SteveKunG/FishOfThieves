@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record RandomChanceCondition(int chance) implements SpawnCondition
 {
@@ -21,9 +20,9 @@ public record RandomChanceCondition(int chance) implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.getRandom().nextInt(this.chance) == 0;
+        return context.random().nextInt(this.chance) == 0;
     }
 
     public static Builder chance(int chance)

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public class NightCondition implements SpawnCondition
 {
@@ -16,9 +15,9 @@ public class NightCondition implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.level().isNight();
+        return context.level().isNight();
     }
 
     public static Builder night()

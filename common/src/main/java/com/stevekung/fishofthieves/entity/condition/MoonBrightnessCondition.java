@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record MoonBrightnessCondition(float min, float max) implements SpawnCondition
 {
@@ -22,9 +21,9 @@ public record MoonBrightnessCondition(float min, float max) implements SpawnCond
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.level().getMoonBrightness() >= this.min && livingEntity.level().getMoonBrightness() <= this.max;
+        return context.level().getMoonBrightness() >= this.min && context.level().getMoonBrightness() <= this.max;
     }
 
     public static Builder moonBrightness(float min, float max)

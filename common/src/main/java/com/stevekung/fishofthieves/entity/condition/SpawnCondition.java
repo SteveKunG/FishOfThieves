@@ -2,9 +2,7 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import java.util.function.Predicate;
 
-import net.minecraft.world.entity.LivingEntity;
-
-public interface SpawnCondition extends Predicate<LivingEntity>
+public interface SpawnCondition extends Predicate<SpawnConditionContext>
 {
     SpawnConditionType getType();
 

@@ -160,7 +160,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
     {
-        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET, this, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET, this, spawnType == MobSpawnType.BUCKET);
         this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.condition;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record InvertedSpawnCondition(SpawnCondition term) implements SpawnCondition
 {
@@ -16,9 +15,9 @@ public record InvertedSpawnCondition(SpawnCondition term) implements SpawnCondit
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return !this.term.test(livingEntity);
+        return !this.term.test(context);
     }
 
     public static SpawnCondition.Builder invert(SpawnCondition.Builder toInvert)

@@ -9,14 +9,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public abstract class CompositeSpawnCondition implements SpawnCondition
 {
     protected final List<SpawnCondition> terms;
-    private final Predicate<LivingEntity> composedPredicate;
+    private final Predicate<SpawnConditionContext> composedPredicate;
 
-    protected CompositeSpawnCondition(List<SpawnCondition> terms, Predicate<LivingEntity> composedPredicate)
+    protected CompositeSpawnCondition(List<SpawnCondition> terms, Predicate<SpawnConditionContext> composedPredicate)
     {
         this.terms = terms;
         this.composedPredicate = composedPredicate;
@@ -33,7 +32,7 @@ public abstract class CompositeSpawnCondition implements SpawnCondition
     }
 
     @Override
-    public final boolean test(LivingEntity context)
+    public final boolean test(SpawnConditionContext context)
     {
         return this.composedPredicate.test(context);
     }

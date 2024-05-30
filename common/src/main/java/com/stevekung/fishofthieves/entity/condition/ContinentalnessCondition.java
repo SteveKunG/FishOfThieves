@@ -5,8 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 
 public record ContinentalnessCondition(Continentalness continentalness) implements SpawnCondition
 {
@@ -19,9 +17,9 @@ public record ContinentalnessCondition(Continentalness continentalness) implemen
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var continentalness = TerrainUtils.getContinentalness((ServerLevel) livingEntity.level(), livingEntity.blockPosition());
+        var continentalness = TerrainUtils.getContinentalness(context.level(), context.blockPos());
         return continentalness == this.continentalness;
     }
 

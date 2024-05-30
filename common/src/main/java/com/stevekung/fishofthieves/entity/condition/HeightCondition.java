@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record HeightCondition(int min, int max) implements SpawnCondition
 {
@@ -22,9 +21,9 @@ public record HeightCondition(int min, int max) implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.blockPosition().getY() >= this.min && livingEntity.blockPosition().getY() <= this.max;
+        return context.blockPos().getY() >= this.min && context.blockPos().getY() <= this.max;
     }
 
     public static HeightCondition.Builder height(int min, int max)

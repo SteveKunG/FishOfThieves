@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record RainingCondition(Optional<Boolean> thundering) implements SpawnCondition
 {
@@ -19,9 +18,9 @@ public record RainingCondition(Optional<Boolean> thundering) implements SpawnCon
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var level = livingEntity.level();
+        var level = context.level();
         return level.isRaining() || this.thundering.isPresent() && this.thundering.get() == level.isThundering();
     }
 

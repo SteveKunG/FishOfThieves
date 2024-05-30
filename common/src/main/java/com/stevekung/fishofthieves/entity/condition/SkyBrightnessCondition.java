@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LightLayer;
 
 public record SkyBrightnessCondition(int min, int max) implements SpawnCondition
@@ -23,9 +22,9 @@ public record SkyBrightnessCondition(int min, int max) implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.level().getBrightness(LightLayer.SKY, livingEntity.blockPosition()) >= this.min && livingEntity.level().getBrightness(LightLayer.SKY, livingEntity.blockPosition()) <= this.max;
+        return context.level().getBrightness(LightLayer.SKY, context.blockPos()) >= this.min && context.level().getBrightness(LightLayer.SKY, context.blockPos()) <= this.max;
     }
 
     public static Builder skyBrightness(int min, int max)

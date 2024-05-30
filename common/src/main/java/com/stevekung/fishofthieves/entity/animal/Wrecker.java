@@ -204,7 +204,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
         }
-        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE, this, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE, this, spawnType == MobSpawnType.BUCKET);
         this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

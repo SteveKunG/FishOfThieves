@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.biome.Biome;
 
 public record MatchBiomeCondition(HolderSet<Biome> biomes) implements SpawnCondition
@@ -20,10 +19,10 @@ public record MatchBiomeCondition(HolderSet<Biome> biomes) implements SpawnCondi
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var holder = livingEntity.level().getBiome(livingEntity.blockPosition());
-        return livingEntity.registryAccess().registryOrThrow(Registries.BIOME).holders().anyMatch(biomes -> biomes.is(holder));
+        var holder = context.level().getBiome(context.blockPos());
+        return context.registryAccess().registryOrThrow(Registries.BIOME).holders().anyMatch(biomes -> biomes.is(holder));
     }
 
     public static Builder biomes(HolderSet<Biome> biomes)

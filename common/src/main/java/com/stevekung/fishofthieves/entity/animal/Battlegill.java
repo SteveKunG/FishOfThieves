@@ -209,7 +209,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE, this, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE, this, spawnType == MobSpawnType.BUCKET);
         this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record TimeOfDayCondition(float min, float max) implements SpawnCondition
 {
@@ -22,9 +21,9 @@ public record TimeOfDayCondition(float min, float max) implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var time = livingEntity.level().getTimeOfDay(1.0F);
+        var time = context.level().getTimeOfDay(1.0F);
         return time >= this.min && time <= this.max;
     }
 

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.world.entity.LivingEntity;
 
 public record SkyDarkenCondition(int min, int max) implements SpawnCondition
 {
@@ -22,9 +21,9 @@ public record SkyDarkenCondition(int min, int max) implements SpawnCondition
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return livingEntity.level().getSkyDarken() >= this.min && livingEntity.level().getSkyDarken() <= this.max;
+        return context.level().getSkyDarken() >= this.min && context.level().getSkyDarken() <= this.max;
     }
 
     public static Builder skyDarken(int min, int max)

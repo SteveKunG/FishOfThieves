@@ -4,8 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
@@ -26,14 +24,14 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        var poiManager = ((ServerLevel) livingEntity.level()).getPoiManager();
-        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), livingEntity.blockPosition(), this.distance, PoiManager.Occupancy.ANY);
+        var poiManager = context.level().getPoiManager();
+        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), context.blockPos(), this.distance, PoiManager.Occupancy.ANY);
 
         if (optional.isPresent())
         {
-            var blockState = livingEntity.level().getBlockState(optional.get());
+            var blockState = context.level().getBlockState(optional.get());
             return BeehiveBlockEntity.getHoneyLevel(blockState) == this.honeyLevel;
         }
         return false;

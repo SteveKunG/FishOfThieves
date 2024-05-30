@@ -208,7 +208,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        var holder = AbstractFishVariant.getSpawnVariant(this.registryAccess(), FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, this, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, this, spawnType == MobSpawnType.BUCKET);
         this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

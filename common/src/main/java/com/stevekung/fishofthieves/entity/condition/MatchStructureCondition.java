@@ -4,9 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public record MatchStructureCondition(TagKey<Structure> structures) implements SpawnCondition
@@ -20,9 +18,9 @@ public record MatchStructureCondition(TagKey<Structure> structures) implements S
     }
 
     @Override
-    public boolean test(LivingEntity livingEntity)
+    public boolean test(SpawnConditionContext context)
     {
-        return ((ServerLevel) livingEntity.level()).structureManager().getStructureWithPieceAt(livingEntity.blockPosition(), this.structures).isValid();
+        return context.level().structureManager().getStructureWithPieceAt(context.blockPos(), this.structures).isValid();
     }
 
     public static Builder structures(TagKey<Structure> structures)
