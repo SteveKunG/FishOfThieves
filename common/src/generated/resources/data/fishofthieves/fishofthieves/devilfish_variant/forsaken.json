@@ -1,9 +1,12 @@
 {
+  "base_item": "fishofthieves:devilfish",
   "conditions": [
     {
       "chance": 0.1,
       "condition": "fishofthieves:probability"
     }
   ],
+  "custom_model_data": 3,
+  "name": "forsaken",
   "texture": "fishofthieves:entity/devilfish/forsaken"
 }

@@ -1,4 +1,5 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:wildsplash",
+  "name": "russet",
   "texture": "fishofthieves:entity/wildsplash/russet"
 }

@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:devilfish",
   "conditions": [
     {
       "condition": "fishofthieves:any_of",
@@ -11,5 +12,7 @@
       ]
     }
   ],
+  "custom_model_data": 2,
+  "name": "lava",
   "texture": "fishofthieves:entity/devilfish/lava"
 }

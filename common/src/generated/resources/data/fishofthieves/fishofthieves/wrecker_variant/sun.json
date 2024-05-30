@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:wrecker",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -12,5 +13,7 @@
       ]
     }
   ],
+  "custom_model_data": 1,
+  "name": "sun",
   "texture": "fishofthieves:entity/wrecker/sun"
 }

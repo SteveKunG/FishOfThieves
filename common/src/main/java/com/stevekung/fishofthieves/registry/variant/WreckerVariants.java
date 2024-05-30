@@ -6,8 +6,10 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -22,23 +24,23 @@ public class WreckerVariants
 
     public static void bootstrap(BootstrapContext<WreckerVariant> context)
     {
-        register(context, ROSE, "rose");
-        register(context, SUN, "sun", AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, BLACKCLOUD, "blackcloud", AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, SNOW, "snow", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SNOW_WRECKERS)).and(RandomChanceCondition.chance(10))).build());
-        register(context, MOON, "moon", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
+        register(context, ROSE, "rose", 0);
+        register(context, SUN, "sun", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BLACKCLOUD, "blackcloud", 2, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SNOW_WRECKERS)).and(RandomChanceCondition.chance(10))).build());
+        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
     }
 
-    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, SpawnCondition... conditions)
+    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        register(context, key, name, false, conditions);
+        register(context, key, name, customModelData, false, conditions);
     }
 
-    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
     {
         var texture = FishOfThieves.id("entity/wrecker/" + name);
         var glowTexture = FishOfThieves.id("entity/wrecker/" + name + "_glow");
-        context.register(key, new WreckerVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+        context.register(key, new WreckerVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WRECKER), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
     }
 
     private static ResourceKey<WreckerVariant> createKey(String name)

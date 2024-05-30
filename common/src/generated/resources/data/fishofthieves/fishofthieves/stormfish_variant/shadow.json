@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -15,5 +16,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "shadow",
   "texture": "fishofthieves:entity/stormfish/shadow"
 }

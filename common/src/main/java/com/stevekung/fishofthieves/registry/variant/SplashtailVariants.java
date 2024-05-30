@@ -6,7 +6,9 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -20,23 +22,23 @@ public class SplashtailVariants
 
     public static void bootstrap(BootstrapContext<SplashtailVariant> context)
     {
-        register(context, RUBY, "ruby");
-        register(context, SUNNY, "sunny", AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, INDIGO, "indigo");
-        register(context, UMBER, "umber", ProbabilityCondition.defaultRareProbablity().build());
-        register(context, SEAFOAM, "seafoam", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, RUBY, "ruby", 0);
+        register(context, SUNNY, "sunny", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, INDIGO, "indigo", 2);
+        register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
-    static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, SpawnCondition... conditions)
+    static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        register(context, key, name, false, conditions);
+        register(context, key, name, customModelData, false, conditions);
     }
 
-    static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    static void register(BootstrapContext<SplashtailVariant> context, ResourceKey<SplashtailVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
     {
         var texture = FishOfThieves.id("entity/splashtail/" + name);
         var glowTexture = FishOfThieves.id("entity/splashtail/" + name + "_glow");
-        context.register(key, new SplashtailVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+        context.register(key, new SplashtailVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.SPLASHTAIL), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
     }
 
     private static ResourceKey<SplashtailVariant> createKey(String name)

@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:wrecker",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -13,5 +14,7 @@
       ]
     }
   ],
+  "custom_model_data": 2,
+  "name": "blackcloud",
   "texture": "fishofthieves:entity/wrecker/blackcloud"
 }

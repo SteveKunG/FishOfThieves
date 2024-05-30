@@ -1,4 +1,5 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:wrecker",
+  "name": "rose",
   "texture": "fishofthieves:entity/wrecker/rose"
 }

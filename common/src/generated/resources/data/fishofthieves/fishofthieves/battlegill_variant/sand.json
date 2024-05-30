@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:battlegill",
   "conditions": [
     {
       "condition": "fishofthieves:any_of",
@@ -14,5 +15,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "sand",
   "texture": "fishofthieves:entity/battlegill/sand"
 }

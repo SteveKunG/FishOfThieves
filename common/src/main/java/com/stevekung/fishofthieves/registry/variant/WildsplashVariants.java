@@ -6,9 +6,11 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -23,23 +25,23 @@ public class WildsplashVariants
 
     public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
-        register(context, RUSSET, "russet");
-        register(context, SANDY, "sandy", MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
-        register(context, OCEAN, "ocean", MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH)).build());
-        register(context, MUDDY, "muddy", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH))).build());
-        register(context, CORAL, "coral", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
+        register(context, RUSSET, "russet", 0);
+        register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
+        register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH)).build());
+        register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH))).build());
+        register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
     }
 
-    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, SpawnCondition... conditions)
+    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        register(context, key, name, false, conditions);
+        register(context, key, name, customModelData, false, conditions);
     }
 
-    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
     {
         var texture = FishOfThieves.id("entity/wildsplash/" + name);
         var glowTexture = FishOfThieves.id("entity/wildsplash/" + name + "_glow");
-        context.register(key, new WildsplashVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+        context.register(key, new WildsplashVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WILDSPLASH), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
     }
 
     private static ResourceKey<WildsplashVariant> createKey(String name)

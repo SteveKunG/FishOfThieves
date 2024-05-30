@@ -1,9 +1,12 @@
 {
+  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "biomes": "#fishofthieves:spawns_moss_islehoppers",
       "condition": "fishofthieves:match_biome"
     }
   ],
+  "custom_model_data": 1,
+  "name": "moss",
   "texture": "fishofthieves:entity/islehopper/moss"
 }

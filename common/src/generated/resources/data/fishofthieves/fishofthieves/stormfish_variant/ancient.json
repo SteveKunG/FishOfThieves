@@ -1,4 +1,5 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:stormfish",
+  "name": "ancient",
   "texture": "fishofthieves:entity/stormfish/ancient"
 }

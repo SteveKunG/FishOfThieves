@@ -1,8 +1,11 @@
 {
+  "base_item": "fishofthieves:battlegill",
   "conditions": [
     {
       "condition": "fishofthieves:see_sky_in_water"
     }
   ],
+  "custom_model_data": 1,
+  "name": "sky",
   "texture": "fishofthieves:entity/battlegill/sky"
 }

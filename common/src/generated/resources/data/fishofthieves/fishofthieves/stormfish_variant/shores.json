@@ -1,9 +1,12 @@
 {
+  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "condition": "fishofthieves:continentalness",
       "continentalness": "coast"
     }
   ],
+  "custom_model_data": 1,
+  "name": "shores",
   "texture": "fishofthieves:entity/stormfish/shores"
 }

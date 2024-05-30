@@ -1,9 +1,12 @@
 {
+  "base_item": "fishofthieves:wildsplash",
   "conditions": [
     {
       "biomes": "#fishofthieves:spawns_ocean_wildsplash",
       "condition": "fishofthieves:match_biome"
     }
   ],
+  "custom_model_data": 2,
+  "name": "ocean",
   "texture": "fishofthieves:entity/wildsplash/ocean"
 }

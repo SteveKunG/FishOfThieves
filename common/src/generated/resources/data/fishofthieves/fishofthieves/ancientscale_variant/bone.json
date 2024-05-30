@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:ancientscale",
   "conditions": [
     {
       "condition": "fishofthieves:any_of",
@@ -23,5 +24,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "bone",
   "texture": "fishofthieves:entity/ancientscale/bone"
 }

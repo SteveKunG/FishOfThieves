@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
@@ -7,6 +8,8 @@
       "size": 16
     }
   ],
+  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/islehopper/amethyst_glow",
+  "name": "amethyst",
   "texture": "fishofthieves:entity/islehopper/amethyst"
 }

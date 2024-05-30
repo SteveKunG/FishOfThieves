@@ -15,16 +15,16 @@ public class FOTItems
     public static final Item GRUBS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
     public static final Item LEECHES = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
 
-    public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, Splashtail.VARIANT_TO_INT);
-    public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, Pondie.VARIANT_TO_INT);
-    public static final Item ISLEHOPPER = new FOTItem(new Item.Properties().food(FOTFoodProperties.ISLEHOPPER), FOTEntities.ISLEHOPPER, Islehopper.VARIANT_TO_INT);
-    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, Ancientscale.VARIANT_TO_INT);
-    public static final Item PLENTIFIN = new FOTItem(new Item.Properties().food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, Plentifin.VARIANT_TO_INT);
-    public static final Item WILDSPLASH = new FOTItem(new Item.Properties().food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, Wildsplash.VARIANT_TO_INT);
-    public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH), FOTEntities.DEVILFISH, Devilfish.VARIANT_TO_INT);
-    public static final Item BATTLEGILL = new FOTItem(new Item.Properties().food(FOTFoodProperties.BATTLEGILL), FOTEntities.BATTLEGILL, Battlegill.VARIANT_TO_INT);
-    public static final Item WRECKER = new FOTItem(new Item.Properties().food(FOTFoodProperties.WRECKER), FOTEntities.WRECKER, Wrecker.VARIANT_TO_INT);
-    public static final Item STORMFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.STORMFISH), FOTEntities.STORMFISH, Stormfish.VARIANT_TO_INT);
+    public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, Splashtail.VARIANT_TO_INT);
+    public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, Pondie.VARIANT_TO_INT);
+    public static final Item ISLEHOPPER = new FOTItem(new Item.Properties().food(FOTFoodProperties.ISLEHOPPER), FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, Islehopper.VARIANT_TO_INT);
+    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, Ancientscale.VARIANT_TO_INT);
+    public static final Item PLENTIFIN = new FOTItem(new Item.Properties().food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, Plentifin.VARIANT_TO_INT);
+    public static final Item WILDSPLASH = new FOTItem(new Item.Properties().food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, Wildsplash.VARIANT_TO_INT);
+    public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH), FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, Devilfish.VARIANT_TO_INT);
+    public static final Item BATTLEGILL = new FOTItem(new Item.Properties().food(FOTFoodProperties.BATTLEGILL), FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, Battlegill.VARIANT_TO_INT);
+    public static final Item WRECKER = new FOTItem(new Item.Properties().food(FOTFoodProperties.WRECKER), FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, Wrecker.VARIANT_TO_INT);
+    public static final Item STORMFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.STORMFISH), FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, Stormfish.VARIANT_TO_INT);
 
     public static final Item COOKED_SPLASHTAIL = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_SPLASHTAIL));
     public static final Item COOKED_PONDIE = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PONDIE));

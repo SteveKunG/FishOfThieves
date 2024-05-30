@@ -1,9 +1,12 @@
 {
+  "base_item": "fishofthieves:splashtail",
   "conditions": [
     {
       "chance": 0.1,
       "condition": "fishofthieves:probability"
     }
   ],
+  "custom_model_data": 3,
+  "name": "umber",
   "texture": "fishofthieves:entity/splashtail/umber"
 }

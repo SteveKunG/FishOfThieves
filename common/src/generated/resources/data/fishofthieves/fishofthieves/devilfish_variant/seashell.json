@@ -1,4 +1,6 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:devilfish",
+  "custom_model_data": 1,
+  "name": "seashell",
   "texture": "fishofthieves:entity/devilfish/seashell"
 }

@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:pondie",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -16,5 +17,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "bright",
   "texture": "fishofthieves:entity/pondie/bright"
 }

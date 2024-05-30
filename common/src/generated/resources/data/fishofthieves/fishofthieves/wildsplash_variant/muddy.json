@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:wildsplash",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -14,5 +15,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "muddy",
   "texture": "fishofthieves:entity/wildsplash/muddy"
 }

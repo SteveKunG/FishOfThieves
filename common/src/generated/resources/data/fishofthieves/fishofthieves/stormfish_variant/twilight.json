@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "condition": "fishofthieves:sky_darken",
@@ -6,6 +7,8 @@
       "min": 9
     }
   ],
+  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/stormfish/twilight_glow",
+  "name": "twilight",
   "texture": "fishofthieves:entity/stormfish/twilight"
 }

@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:wrecker",
   "conditions": [
     {
       "condition": "fishofthieves:any_of",
@@ -23,5 +24,7 @@
       ]
     }
   ],
+  "custom_model_data": 3,
+  "name": "snow",
   "texture": "fishofthieves:entity/wrecker/snow"
 }

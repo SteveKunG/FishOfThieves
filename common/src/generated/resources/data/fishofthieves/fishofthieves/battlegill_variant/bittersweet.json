@@ -1,4 +1,5 @@
 {
+  "base_item": "fishofthieves:battlegill",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -12,6 +13,8 @@
       ]
     }
   ],
+  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/battlegill/bittersweet_glow",
+  "name": "bittersweet",
   "texture": "fishofthieves:entity/battlegill/bittersweet"
 }

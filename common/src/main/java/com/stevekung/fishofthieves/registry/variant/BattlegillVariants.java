@@ -6,8 +6,10 @@ import java.util.Optional;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -22,23 +24,23 @@ public class BattlegillVariants
 
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
-        register(context, JADE, "jade");
-        register(context, SKY, "sky", SeeSkyInWaterCondition.seeSkyInWater().build());
-        register(context, RUM, "rum");
-        register(context, SAND, "sand", AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS))).build());
-        register(context, BITTERSWEET, "bittersweet", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, JADE, "jade", 0);
+        register(context, SKY, "sky", 1, SeeSkyInWaterCondition.seeSkyInWater().build());
+        register(context, RUM, "rum", 2);
+        register(context, SAND, "sand", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS))).build());
+        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
-    static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, SpawnCondition... conditions)
+    static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        register(context, key, name, false, conditions);
+        register(context, key, name, customModelData, false, conditions);
     }
 
-    static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, boolean glow, SpawnCondition... conditions)
+    static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
     {
         var texture = FishOfThieves.id("entity/battlegill/" + name);
         var glowTexture = FishOfThieves.id("entity/battlegill/" + name + "_glow");
-        context.register(key, new BattlegillVariant(texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions)));
+        context.register(key, new BattlegillVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.BATTLEGILL), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)

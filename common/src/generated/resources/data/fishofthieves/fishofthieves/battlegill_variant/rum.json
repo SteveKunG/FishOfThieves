@@ -1,4 +1,6 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:battlegill",
+  "custom_model_data": 2,
+  "name": "rum",
   "texture": "fishofthieves:entity/battlegill/rum"
 }

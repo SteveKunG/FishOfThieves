@@ -1,4 +1,6 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:pondie",
+  "custom_model_data": 2,
+  "name": "bronze",
   "texture": "fishofthieves:entity/pondie/bronze"
 }

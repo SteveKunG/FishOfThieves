@@ -1,4 +1,6 @@
 {
-  "conditions": [],
+  "base_item": "fishofthieves:ancientscale",
+  "custom_model_data": 2,
+  "name": "smoke",
   "texture": "fishofthieves:entity/ancientscale/smoke"
 }
