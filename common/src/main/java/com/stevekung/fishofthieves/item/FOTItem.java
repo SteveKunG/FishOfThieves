@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.item;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
-import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -28,14 +27,12 @@ public class FOTItem extends Item
 {
     private final EntityType<?> entityType;
     private final ResourceLocation registryKey;
-    private final BiMap<String, Integer> variantToCustomModelData;
 
-    public FOTItem(Properties properties, EntityType<?> entityType, ResourceKey<?> registryKey, BiMap<String, Integer> variantToCustomModelData)
+    public FOTItem(Properties properties, EntityType<?> entityType, ResourceKey<?> registryKey)
     {
         super(properties);
         this.entityType = entityType;
         this.registryKey = registryKey.location();
-        this.variantToCustomModelData = variantToCustomModelData;
     }
 
     public static void addFishVariants(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output, Item item)
@@ -59,10 +56,21 @@ public class FOTItem extends Item
     {
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {
-            if (itemStack.getItem() instanceof FOTItem fotItem)
+            if (context.registries() != null && itemStack.getItem() instanceof FOTItem fotItem)
             {
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                context.registries().lookup(registryKey).ifPresent(lookup -> lookup.listElements().forEach(holder -> tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + holder.value().name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY))));
+                context.registries().lookup(registryKey).ifPresent(lookup -> lookup.listElements().forEach(holder ->
+                {
+                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
+                    {
+                        var itemCustomModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value();
+
+                        if (itemCustomModelData == holder.value().customModelData().orElse(0))
+                        {
+                            tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + holder.value().name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                        }
+                    }
+                }));
             }
         }
     }
