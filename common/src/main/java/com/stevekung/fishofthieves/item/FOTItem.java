@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.item;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -9,6 +10,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -41,8 +43,9 @@ public class FOTItem extends Item
         {
             if (item instanceof FOTItem fotItem)
             {
+                Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(variant -> variant.customModelData().orElse(0)));
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().forEach(holder -> output.accept(create(item, holder.value().customModelData().orElse(0)))));
+                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).forEach(holder -> output.accept(create(item, holder.value().customModelData().orElse(0)))));
             }
         }
         else
