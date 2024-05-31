@@ -3,27 +3,23 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
-import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -47,7 +43,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)
     {
-        super(entityType, level);
+        super(entityType, level, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT);
     }
 
     @Override
@@ -84,20 +80,6 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(StormfishVariants.ANCIENT).location().toString());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.readVariantTag(compound, FOTRegistries.STORMFISH_VARIANT);
-    }
-
-    @Override
     public Holder<StormfishVariant> getVariant()
     {
         return this.entityData.get(VARIANT);
@@ -107,12 +89,6 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     public void setVariant(Holder<StormfishVariant> variant)
     {
         this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
     }
 
     @Override
@@ -152,15 +128,6 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return LEECHES_FOOD.test(itemStack);
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
-    {
-        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT, this, spawnType == MobSpawnType.BUCKET);
-        this.setVariant(holder);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     @SuppressWarnings("unused")

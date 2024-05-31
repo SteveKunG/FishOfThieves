@@ -3,29 +3,26 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PondieVariants;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
@@ -41,7 +38,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
-        super(entityType, level);
+        super(entityType, level, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL);
     }
 
     @Override
@@ -78,20 +75,6 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(PondieVariants.CHARCOAL).location().toString());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.readVariantTag(compound, FOTRegistries.PONDIE_VARIANT);
-    }
-
-    @Override
     public Holder<PondieVariant> getVariant()
     {
         return this.entityData.get(VARIANT);
@@ -101,12 +84,6 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     public void setVariant(Holder<PondieVariant> variant)
     {
         this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
     }
 
     @Override
@@ -149,14 +126,5 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return WORMS.test(itemStack);
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
-    {
-        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL, this, spawnType == MobSpawnType.BUCKET);
-        this.setVariant(holder);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 }

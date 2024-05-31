@@ -13,7 +13,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.VariantHolder;
 
-public class GlowFishLayer<V extends AbstractFishVariant, T extends LivingEntity & ThievesFish & VariantHolder<Holder<V>>, M extends EntityModel<T>> extends RenderLayer<T, M>
+public class GlowFishLayer<V extends AbstractFishVariant, T extends LivingEntity & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
     public GlowFishLayer(RenderLayerParent<T, M> renderLayerParent)
     {

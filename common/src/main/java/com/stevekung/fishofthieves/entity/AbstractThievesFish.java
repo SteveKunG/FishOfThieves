@@ -1,14 +1,12 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Optional;
-
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -17,14 +15,12 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
@@ -39,7 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractThievesFish<T> extends AbstractFish implements ThievesFish, VariantHolder<Holder<T>>
+public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends AbstractFish implements ThievesFish<T>
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
@@ -77,12 +73,29 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
     );
     //@formatter:on
 
-    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
+    private final ResourceKey<? extends Registry<T>> registryKey;
+    private final ResourceKey<T> resourceKey;
+
+    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
     {
         super(entityType, level);
         this.refreshDimensions();
+        this.registryKey = registryKey;
+        this.resourceKey = resourceKey;
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    @Override
+    public ResourceKey<? extends Registry<T>> getRegistryKey()
+    {
+        return this.registryKey;
+    }
+
+    @Override
+    public ResourceKey<T> getDefaultKey()
+    {
+        return this.resourceKey;
     }
 
     @Override
@@ -128,7 +141,7 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
     public void loadFromBucketTag(CompoundTag compound)
     {
         super.loadFromBucketTag(compound);
-        this.loadFromBucket(compound);
+        this.loadFromBucket(compound, this.registryAccess());
     }
 
     @Override
@@ -163,10 +176,21 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
     {
-        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
-        return this.defaultFinalizeSpawn(this, spawnData);
+        if (spawnType == MobSpawnType.BUCKET)
+        {
+            //TODO Fix random variant when spawn from creative bucket
+            /*var registry = accessor.registryAccess().registryOrThrow(this.registryKey);
+            var muha = Util.getRandomSafe(registry.holders().toList(), this.getRandom());
+            this.setVariant(muha.orElseGet(() -> registry.getHolderOrThrow(this.resourceKey)));*/
+            return spawnGroupData;
+        }
+        else
+        {
+            spawnGroupData = super.finalizeSpawn(accessor, difficulty, spawnType, spawnGroupData);
+            return this.defaultFinalizeSpawn(accessor, this, spawnType, spawnGroupData);
+        }
     }
 
     @Override
@@ -231,10 +255,5 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
             this.setHasFed(true);
             this.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-    }
-
-    protected void readVariantTag(CompoundTag compound, ResourceKey<? extends Registry<T>> registryKey)
-    {
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(registryKey, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(registryKey).getHolder(resourceKey)).ifPresent(this::setVariant);
     }
 }

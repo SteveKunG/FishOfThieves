@@ -7,14 +7,12 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
-import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -92,7 +90,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {
-        super(entityType, level);
+        super(entityType, level, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN);
     }
 
     @Override
@@ -133,20 +131,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(DevilfishVariants.ASHEN).location().toString());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.readVariantTag(compound, FOTRegistries.DEVILFISH_VARIANT);
-    }
-
-    @Override
     public Holder<DevilfishVariant> getVariant()
     {
         return this.entityData.get(VARIANT);
@@ -156,12 +140,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     public void setVariant(Holder<DevilfishVariant> variant)
     {
         this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
     }
 
     @Override
@@ -208,8 +186,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, this, spawnType == MobSpawnType.BUCKET);
-        this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 

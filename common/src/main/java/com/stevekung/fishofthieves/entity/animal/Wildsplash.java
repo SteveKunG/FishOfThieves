@@ -3,28 +3,27 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
-import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +45,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
-        super(entityType, level);
+        super(entityType, level, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET);
     }
 
     @Override
@@ -83,20 +82,6 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(WildsplashVariants.RUSSET).location().toString());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.readVariantTag(compound, FOTRegistries.WILDSPLASH_VARIANT);
-    }
-
-    @Override
     public Holder<WildsplashVariant> getVariant()
     {
         return this.entityData.get(VARIANT);
@@ -106,12 +91,6 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     public void setVariant(Holder<WildsplashVariant> variant)
     {
         this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
     }
 
     @Override
@@ -154,15 +133,6 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return EARTHWORMS_FOOD.test(itemStack);
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
-    {
-        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET, this, spawnType == MobSpawnType.BUCKET);
-        this.setVariant(holder);
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)

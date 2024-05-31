@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.BattlegillAi;
-import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
@@ -15,7 +14,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -93,7 +91,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {
-        super(entityType, level);
+        super(entityType, level, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE);
     }
 
     @Override
@@ -134,20 +132,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
-    {
-        super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(BattlegillVariants.JADE).location().toString());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound)
-    {
-        super.readAdditionalSaveData(compound);
-        this.readVariantTag(compound, FOTRegistries.BATTLEGILL_VARIANT);
-    }
-
-    @Override
     public Holder<BattlegillVariant> getVariant()
     {
         return this.entityData.get(VARIANT);
@@ -157,12 +141,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     public void setVariant(Holder<BattlegillVariant> variant)
     {
         this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
     }
 
     @Override
@@ -209,8 +187,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE, this, spawnType == MobSpawnType.BUCKET);
-        this.setVariant(holder);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 

@@ -19,7 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.AbstractFish;
 
-public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T extends AbstractFish & ThievesFish & VariantHolder<Holder<V>>, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends MobRenderer<T, M>
+public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T extends AbstractFish & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends MobRenderer<T, M>
 {
     protected ThievesFishRenderer(EntityRendererProvider.Context context, M entityModel)
     {
