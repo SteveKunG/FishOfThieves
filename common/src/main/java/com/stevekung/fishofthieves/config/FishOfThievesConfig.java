@@ -54,44 +54,7 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.CollapsibleObject
         @ConfigEntry.Gui.Tooltip
-        public Variant variant = new Variant();
-
-        @ConfigEntry.Gui.CollapsibleObject
-        @ConfigEntry.Gui.Tooltip
         public FishWeight fishWeight = new FishWeight();
-
-        public static class Variant
-        {
-            @ConfigEntry.Gui.Tooltip
-            public float umberSplashtailProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float brightPondieProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float ravenIslehopperProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float boneAncientscaleProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float bonedustPlentifinProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float muddyWildsplashProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float forsakenDevilfishProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float sandBattlegillProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float snowWreckerProbability = 0.1F;
-
-            @ConfigEntry.Gui.Tooltip
-            public float shadowStormfishProbability = 0.1F;
-        }
 
         public static class FishWeight
         {
