@@ -32,6 +32,15 @@ public class DevilfishVariants
         register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), MatchBlocksInRangeCondition.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<DevilfishVariant> context)
+    {
+        register(context, ASHEN, "ashen", 0);
+        register(context, SEASHELL, "seashell", 1);
+        register(context, LAVA, "lava", 2);
+        register(context, FORSAKEN, "forsaken", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<DevilfishVariant> context, ResourceKey<DevilfishVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

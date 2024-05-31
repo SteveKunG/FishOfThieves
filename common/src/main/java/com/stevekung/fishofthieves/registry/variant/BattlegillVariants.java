@@ -33,6 +33,15 @@ public class BattlegillVariants
         register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
+    {
+        register(context, JADE, "jade", 0);
+        register(context, SKY, "sky", 1);
+        register(context, RUM, "rum", 2);
+        register(context, SAND, "sand", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

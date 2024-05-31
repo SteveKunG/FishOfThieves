@@ -1,0 +1,12 @@
+{
+  "base_item": "fishofthieves:battlegill",
+  "conditions": [
+    {
+      "chance": 0.1,
+      "condition": "fishofthieves:probability"
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "sand",
+  "texture": "fishofthieves:entity/battlegill/sand"
+}

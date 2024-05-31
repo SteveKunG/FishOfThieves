@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:plentifin",
+  "custom_model_data": 2,
+  "name": "cloudy",
+  "texture": "fishofthieves:entity/plentifin/cloudy"
+}

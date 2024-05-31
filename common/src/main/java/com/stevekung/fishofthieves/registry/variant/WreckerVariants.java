@@ -33,6 +33,15 @@ public class WreckerVariants
         register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)
+    {
+        register(context, ROSE, "rose", 0);
+        register(context, SUN, "sun", 1);
+        register(context, BLACKCLOUD, "blackcloud", 2);
+        register(context, SNOW, "snow", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

@@ -30,6 +30,15 @@ public class PlentifinVariants
         register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<PlentifinVariant> context)
+    {
+        register(context, OLIVE, "olive", 0);
+        register(context, AMBER, "amber", 1);
+        register(context, CLOUDY, "cloudy", 2);
+        register(context, BONEDUST, "bonedust", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<PlentifinVariant> context, ResourceKey<PlentifinVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

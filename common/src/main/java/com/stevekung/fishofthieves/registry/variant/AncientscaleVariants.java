@@ -30,6 +30,15 @@ public class AncientscaleVariants
         register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)
+    {
+        register(context, ALMOND, "almond", 0);
+        register(context, SAPPHIRE, "sapphire", 1);
+        register(context, SMOKE, "smoke", 2);
+        register(context, BONE, "bone", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<AncientscaleVariant> context, ResourceKey<AncientscaleVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

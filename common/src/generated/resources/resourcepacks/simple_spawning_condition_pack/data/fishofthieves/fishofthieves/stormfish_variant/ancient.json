@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:stormfish",
+  "custom_model_data": 0,
+  "name": "ancient",
+  "texture": "fishofthieves:entity/stormfish/ancient"
+}

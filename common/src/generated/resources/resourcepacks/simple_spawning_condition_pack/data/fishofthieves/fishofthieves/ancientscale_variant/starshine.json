@@ -1,0 +1,20 @@
+{
+  "base_item": "fishofthieves:ancientscale",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 4,
+  "glow_texture": "fishofthieves:entity/ancientscale/starshine_glow",
+  "name": "starshine",
+  "texture": "fishofthieves:entity/ancientscale/starshine"
+}

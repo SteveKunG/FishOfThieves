@@ -35,6 +35,15 @@ public class IslehopperVariants
         register(context, AMETHYST, "amethyst", 4, true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16).build());
     }
 
+    public static void bootstrapSimple(BootstrapContext<IslehopperVariant> context)
+    {
+        register(context, STONE, "stone", 0);
+        register(context, MOSS, "moss", 1);
+        register(context, HONEY, "honey", 2);
+        register(context, RAVEN, "raven", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, AMETHYST, "amethyst", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+    }
+
     static void register(BootstrapContext<IslehopperVariant> context, ResourceKey<IslehopperVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
         register(context, key, name, customModelData, false, conditions);

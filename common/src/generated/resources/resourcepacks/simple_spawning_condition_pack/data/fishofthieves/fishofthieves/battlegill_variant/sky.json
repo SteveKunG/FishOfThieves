@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:battlegill",
+  "custom_model_data": 1,
+  "name": "sky",
+  "texture": "fishofthieves:entity/battlegill/sky"
+}

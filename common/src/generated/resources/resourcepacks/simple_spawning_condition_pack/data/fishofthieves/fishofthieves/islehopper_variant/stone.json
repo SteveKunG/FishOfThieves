@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:islehopper",
+  "custom_model_data": 0,
+  "name": "stone",
+  "texture": "fishofthieves:entity/islehopper/stone"
+}

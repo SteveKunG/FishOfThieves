@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:wildsplash",
+  "custom_model_data": 1,
+  "name": "sandy",
+  "texture": "fishofthieves:entity/wildsplash/sandy"
+}

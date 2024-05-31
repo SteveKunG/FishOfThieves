@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:wrecker",
+  "custom_model_data": 2,
+  "name": "blackcloud",
+  "texture": "fishofthieves:entity/wrecker/blackcloud"
+}

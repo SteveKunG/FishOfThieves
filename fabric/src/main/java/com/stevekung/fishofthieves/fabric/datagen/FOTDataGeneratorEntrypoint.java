@@ -150,6 +150,8 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(StructureTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
+
+        new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
     }
 
     private static class ModelProvider extends FabricModelProvider

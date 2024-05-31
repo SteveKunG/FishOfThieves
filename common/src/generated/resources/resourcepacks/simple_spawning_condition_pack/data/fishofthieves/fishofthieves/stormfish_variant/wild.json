@@ -1,0 +1,6 @@
+{
+  "base_item": "fishofthieves:stormfish",
+  "custom_model_data": 2,
+  "name": "wild",
+  "texture": "fishofthieves:entity/stormfish/wild"
+}
