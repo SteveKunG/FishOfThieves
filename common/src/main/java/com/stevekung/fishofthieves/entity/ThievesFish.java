@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -78,20 +77,8 @@ public interface ThievesFish extends PartyFish
         }
     }
 
-    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
+    default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, @Nullable SpawnGroupData spawnData)
     {
-        //        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))TODO
-        //        {
-        //            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
-        //
-        //            if (variant != null)
-        //            {
-        //                this.setVariant(variant);
-        //            }
-        //
-        //            this.setTrophy(dataTag.getBoolean(TROPHY_TAG));
-        //            return spawnData;
-        //        }
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)
         {
             this.setTrophy(true);

@@ -166,7 +166,7 @@ public abstract class AbstractThievesFish<T> extends AbstractFish implements Thi
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData)
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
-        return this.defaultFinalizeSpawn(this, reason, spawnData);
+        return this.defaultFinalizeSpawn(this, spawnData);
     }
 
     @Override

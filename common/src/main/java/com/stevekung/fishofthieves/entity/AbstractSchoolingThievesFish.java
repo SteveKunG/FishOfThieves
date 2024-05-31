@@ -246,7 +246,11 @@ public abstract class AbstractSchoolingThievesFish<T> extends AbstractSchoolingF
 
     protected void readVariantTag(CompoundTag compound, ResourceKey<? extends Registry<T>> registryKey)
     {
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(registryKey, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(registryKey).getHolder(resourceKey)).ifPresent(this::setVariant);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(registryKey, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(registryKey).getHolder(resourceKey)).ifPresent(variant ->
+        {
+            this.setTrophy(compound.getBoolean(TROPHY_TAG));
+            this.setVariant(variant);
+        });
     }
 
     @Override
@@ -350,7 +354,7 @@ public abstract class AbstractSchoolingThievesFish<T> extends AbstractSchoolingF
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
         AbstractSchoolingThievesFishAi.initMemories(this);
-        return this.defaultFinalizeSpawn(this, reason, spawnData);
+        return this.defaultFinalizeSpawn(this, spawnData);
     }
 
     @Override
