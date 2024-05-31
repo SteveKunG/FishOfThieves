@@ -8,11 +8,12 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
-import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biomes;
 
 public class BattlegillVariants
 {
@@ -24,10 +25,11 @@ public class BattlegillVariants
 
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
+        var biomeLookup = context.lookup(Registries.BIOME);
         register(context, JADE, "jade", 0);
         register(context, SKY, "sky", 1, SeeSkyInWaterCondition.seeSkyInWater().build());
         register(context, RUM, "rum", 2);
-        register(context, SAND, "sand", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS))).build());
+        register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
         register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 

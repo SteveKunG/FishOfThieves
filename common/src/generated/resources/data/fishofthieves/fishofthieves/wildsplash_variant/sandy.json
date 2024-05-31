@@ -5,7 +5,7 @@
       "condition": "fishofthieves:all_of",
       "terms": [
         {
-          "biomes": "#fishofthieves:spawns_sandy_wildsplash",
+          "biomes": "#minecraft:is_beach",
           "condition": "fishofthieves:match_biome"
         },
         {

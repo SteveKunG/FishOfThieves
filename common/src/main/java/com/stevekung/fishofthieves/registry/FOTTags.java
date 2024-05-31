@@ -78,14 +78,6 @@ public interface FOTTags
         TagKey<Biome> SPAWNS_WRECKERS = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_wreckers"));
         TagKey<Biome> SPAWNS_STORMFISH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_stormfish"));
         TagKey<Biome> DEVILFISH_CANNOT_SPAWN = TagKey.create(Registries.BIOME, FishOfThieves.id("devilfish_cannot_spawn"));
-        TagKey<Biome> SPAWNS_SAND_BATTLEGILLS = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_sand_battlegills"));
-        TagKey<Biome> SPAWNS_MOSS_ISLEHOPPERS = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_moss_islehoppers"));
-        TagKey<Biome> SPAWNS_WILD_STORMFISH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_wild_stormfish"));
-        TagKey<Biome> SPAWNS_CORAL_WILDSPLASH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_coral_wildsplash"));
-        TagKey<Biome> SPAWNS_SNOW_WRECKERS = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_snow_wreckers"));
-        TagKey<Biome> SPAWNS_SANDY_WILDSPLASH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_sandy_wildsplash"));
-        TagKey<Biome> SPAWNS_OCEAN_WILDSPLASH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_ocean_wildsplash"));
-        TagKey<Biome> SPAWNS_MUDDY_WILDSPLASH = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_muddy_wildsplash"));
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registries.BIOME, FishOfThieves.id("always_drop_leeches"));
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.id("has_seapost"));
         TagKey<Biome> ISLEHOPPER_SPAWN_AT_COAST = TagKey.create(Registries.BIOME, FishOfThieves.id("islehopper_spawn_at_coast"));

@@ -2,8 +2,21 @@
   "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
-      "biomes": "#fishofthieves:spawns_moss_islehoppers",
-      "condition": "fishofthieves:match_biome"
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "biomes": "#minecraft:is_jungle",
+          "condition": "fishofthieves:match_biome"
+        },
+        {
+          "biomes": "#minecraft:has_closer_water_fog",
+          "condition": "fishofthieves:match_biome"
+        },
+        {
+          "biomes": "minecraft:lush_caves",
+          "condition": "fishofthieves:match_biome"
+        }
+      ]
     }
   ],
   "custom_model_data": 1,

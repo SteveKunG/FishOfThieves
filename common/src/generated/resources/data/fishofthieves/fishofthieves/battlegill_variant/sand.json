@@ -2,14 +2,19 @@
   "base_item": "fishofthieves:battlegill",
   "conditions": [
     {
-      "condition": "fishofthieves:any_of",
+      "condition": "fishofthieves:all_of",
       "terms": [
         {
           "chance": 0.1,
           "condition": "fishofthieves:probability"
         },
         {
-          "biomes": "#fishofthieves:spawns_sand_battlegills",
+          "biomes": [
+            "minecraft:desert",
+            "minecraft:warm_ocean",
+            "minecraft:lukewarm_ocean",
+            "minecraft:deep_lukewarm_ocean"
+          ],
           "condition": "fishofthieves:match_biome"
         }
       ]

@@ -2,7 +2,7 @@
   "base_item": "fishofthieves:wildsplash",
   "conditions": [
     {
-      "biomes": "#fishofthieves:spawns_ocean_wildsplash",
+      "biomes": "#minecraft:is_ocean",
       "condition": "fishofthieves:match_biome"
     }
   ],

@@ -2,7 +2,7 @@
   "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
-      "biomes": "#fishofthieves:spawns_wild_stormfish",
+      "biomes": "minecraft:sparse_jungle",
       "condition": "fishofthieves:match_biome"
     }
   ],

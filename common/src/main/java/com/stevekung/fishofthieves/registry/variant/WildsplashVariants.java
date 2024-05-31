@@ -10,10 +10,13 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biomes;
 
 public class WildsplashVariants
 {
@@ -25,11 +28,12 @@ public class WildsplashVariants
 
     public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
+        var biomeLookup = context.lookup(Registries.BIOME);
         register(context, RUSSET, "russet", 0);
-        register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
-        register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH)).build());
-        register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH))).build());
-        register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH)), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
+        register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
+        register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)).build());
+        register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))).build());
+        register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
     }
 
     static void register(BootstrapContext<WildsplashVariant> context, ResourceKey<WildsplashVariant> key, String name, int customModelData, SpawnCondition... conditions)

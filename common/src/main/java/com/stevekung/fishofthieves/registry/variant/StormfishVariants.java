@@ -8,12 +8,13 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biomes;
 
 public class StormfishVariants
 {
@@ -27,7 +28,7 @@ public class StormfishVariants
     {
         register(context, ANCIENT, "ancient", 0);
         register(context, SHORES, "shores", 1, ContinentalnessCondition.builder().continentalness(Continentalness.COAST).build());
-        register(context, WILD, "wild", 2, MatchBiomeCondition.biomes(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.SPAWNS_WILD_STORMFISH)).build());
+        register(context, WILD, "wild", 2, MatchBiomeCondition.biomes(HolderSet.direct(context.lookup(Registries.BIOME).getOrThrow(Biomes.SPARSE_JUNGLE))).build());
         register(context, SHADOW, "shadow", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), SkyBrightnessCondition.skyBrightness(0, 4)).build());
         register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(9, 16).build());
     }

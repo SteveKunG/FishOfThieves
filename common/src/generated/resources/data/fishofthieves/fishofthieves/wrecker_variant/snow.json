@@ -12,7 +12,10 @@
           "condition": "fishofthieves:all_of",
           "terms": [
             {
-              "biomes": "#fishofthieves:spawns_snow_wreckers",
+              "biomes": [
+                "minecraft:frozen_ocean",
+                "minecraft:deep_frozen_ocean"
+              ],
               "condition": "fishofthieves:match_biome"
             },
             {

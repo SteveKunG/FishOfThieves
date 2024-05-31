@@ -11,7 +11,7 @@
           "condition": "fishofthieves:see_sky_in_water"
         },
         {
-          "biomes": "#fishofthieves:spawns_coral_wildsplash",
+          "biomes": "minecraft:warm_ocean",
           "condition": "fishofthieves:match_biome"
         },
         {

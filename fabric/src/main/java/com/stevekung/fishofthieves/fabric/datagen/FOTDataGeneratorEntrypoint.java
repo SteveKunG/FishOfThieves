@@ -984,14 +984,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE);
 
             this.getOrCreateTagBuilder(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN).add(Biomes.LUSH_CAVES, Biomes.DEEP_DARK);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_MOSS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_WILD_STORMFISH).add(Biomes.SPARSE_JUNGLE);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH).add(Biomes.WARM_OCEAN);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_SNOW_WRECKERS).add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_SANDY_WILDSPLASH).forceAddTag(BiomeTags.IS_BEACH);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN);
-            this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG);
             this.getOrCreateTagBuilder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
             this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
             this.getOrCreateTagBuilder(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH);

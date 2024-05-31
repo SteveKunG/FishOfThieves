@@ -9,7 +9,7 @@
           "condition": "fishofthieves:probability"
         },
         {
-          "biomes": "#fishofthieves:spawns_muddy_wildsplash",
+          "biomes": "#minecraft:has_closer_water_fog",
           "condition": "fishofthieves:match_biome"
         }
       ]
