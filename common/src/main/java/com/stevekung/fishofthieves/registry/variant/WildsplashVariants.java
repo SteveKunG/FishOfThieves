@@ -45,7 +45,7 @@ public class WildsplashVariants
     {
         var texture = FishOfThieves.id("entity/wildsplash/" + name);
         var glowTexture = FishOfThieves.id("entity/wildsplash/" + name + "_glow");
-        context.register(key, new WildsplashVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WILDSPLASH), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new WildsplashVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WILDSPLASH), customModelData));
     }
 
     private static ResourceKey<WildsplashVariant> createKey(String name)

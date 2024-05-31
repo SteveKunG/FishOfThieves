@@ -54,6 +54,15 @@
                 "min": 2.0
               },
               "function": "minecraft:set_count"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                }
+              ],
+              "function": "minecraft:set_custom_model_data",
+              "value": 0.0
             }
           ],
           "name": "fishofthieves:islehopper"

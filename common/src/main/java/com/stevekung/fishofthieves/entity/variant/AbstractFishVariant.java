@@ -27,7 +27,7 @@ import net.minecraft.world.item.Items;
 
 public interface AbstractFishVariant
 {
-    Optional<Integer> customModelData();
+    int customModelData();
 
     default Holder<Item> baseItem()
     {
@@ -46,7 +46,7 @@ public interface AbstractFishVariant
 
     List<SpawnCondition> conditions();
 
-    static <B extends AbstractFishVariant> Codec<B> simpleCodec(Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Holder<Item>, Optional<Integer>, B> factory)
+    static <B extends AbstractFishVariant> Codec<B> simpleCodec(Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Holder<Item>, Integer, B> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
@@ -55,7 +55,7 @@ public interface AbstractFishVariant
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("conditions", List.of()).forGetter(AbstractFishVariant::conditions),
                 RegistryFixedCodec.create(Registries.ITEM).validate(AbstractFishVariant::validateItem).fieldOf("base_item").forGetter(AbstractFishVariant::baseItem),
-                ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
     }

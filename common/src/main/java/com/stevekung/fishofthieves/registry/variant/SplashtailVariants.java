@@ -38,7 +38,7 @@ public class SplashtailVariants
     {
         var texture = FishOfThieves.id("entity/splashtail/" + name);
         var glowTexture = FishOfThieves.id("entity/splashtail/" + name + "_glow");
-        context.register(key, new SplashtailVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.SPLASHTAIL), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new SplashtailVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.SPLASHTAIL), customModelData));
     }
 
     private static ResourceKey<SplashtailVariant> createKey(String name)

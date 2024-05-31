@@ -39,7 +39,7 @@ public class AncientscaleVariants
     {
         var texture = FishOfThieves.id("entity/ancientscale/" + name);
         var glowTexture = FishOfThieves.id("entity/ancientscale/" + name + "_glow");
-        context.register(key, new AncientscaleVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ANCIENTSCALE), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new AncientscaleVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ANCIENTSCALE), customModelData));
     }
 
     private static ResourceKey<AncientscaleVariant> createKey(String name)

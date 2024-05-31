@@ -11,7 +11,7 @@ import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
-public record SplashtailVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, List<SpawnCondition> conditions, Holder<Item> baseItem, Optional<Integer> customModelData) implements AbstractFishVariant
+public record SplashtailVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, List<SpawnCondition> conditions, Holder<Item> baseItem, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<SplashtailVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(SplashtailVariant::new);
     public static final Codec<Holder<SplashtailVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.SPLASHTAIL_VARIANT, DIRECT_CODEC);

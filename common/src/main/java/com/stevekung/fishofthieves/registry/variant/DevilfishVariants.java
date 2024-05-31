@@ -41,7 +41,7 @@ public class DevilfishVariants
     {
         var texture = FishOfThieves.id("entity/devilfish/" + name);
         var glowTexture = FishOfThieves.id("entity/devilfish/" + name + "_glow");
-        context.register(key, new DevilfishVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.DEVILFISH), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new DevilfishVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.DEVILFISH), customModelData));
     }
 
     private static ResourceKey<DevilfishVariant> createKey(String name)

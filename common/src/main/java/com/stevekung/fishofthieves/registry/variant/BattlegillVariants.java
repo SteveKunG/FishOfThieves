@@ -42,7 +42,7 @@ public class BattlegillVariants
     {
         var texture = FishOfThieves.id("entity/battlegill/" + name);
         var glowTexture = FishOfThieves.id("entity/battlegill/" + name + "_glow");
-        context.register(key, new BattlegillVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.BATTLEGILL), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new BattlegillVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.BATTLEGILL), customModelData));
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)

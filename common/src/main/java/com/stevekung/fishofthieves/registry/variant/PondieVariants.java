@@ -38,7 +38,7 @@ public class PondieVariants
     {
         var texture = FishOfThieves.id("entity/pondie/" + name);
         var glowTexture = FishOfThieves.id("entity/pondie/" + name + "_glow");
-        context.register(key, new PondieVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PONDIE), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new PondieVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PONDIE), customModelData));
     }
 
     private static ResourceKey<PondieVariant> createKey(String name)

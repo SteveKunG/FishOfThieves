@@ -42,7 +42,7 @@ public class WreckerVariants
     {
         var texture = FishOfThieves.id("entity/wrecker/" + name);
         var glowTexture = FishOfThieves.id("entity/wrecker/" + name + "_glow");
-        context.register(key, new WreckerVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WRECKER), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new WreckerVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.WRECKER), customModelData));
     }
 
     private static ResourceKey<WreckerVariant> createKey(String name)

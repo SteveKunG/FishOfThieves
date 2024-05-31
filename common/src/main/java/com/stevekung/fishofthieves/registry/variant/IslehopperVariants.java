@@ -44,7 +44,7 @@ public class IslehopperVariants
     {
         var texture = FishOfThieves.id("entity/islehopper/" + name);
         var glowTexture = FishOfThieves.id("entity/islehopper/" + name + "_glow");
-        context.register(key, new IslehopperVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ISLEHOPPER), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new IslehopperVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ISLEHOPPER), customModelData));
     }
 
     private static ResourceKey<IslehopperVariant> createKey(String name)

@@ -39,7 +39,7 @@ public class PlentifinVariants
     {
         var texture = FishOfThieves.id("entity/plentifin/" + name);
         var glowTexture = FishOfThieves.id("entity/plentifin/" + name + "_glow");
-        context.register(key, new PlentifinVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PLENTIFIN), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new PlentifinVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PLENTIFIN), customModelData));
     }
 
     private static ResourceKey<PlentifinVariant> createKey(String name)

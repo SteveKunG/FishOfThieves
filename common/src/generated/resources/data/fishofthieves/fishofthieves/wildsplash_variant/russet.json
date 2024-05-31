@@ -1,5 +1,6 @@
 {
   "base_item": "fishofthieves:wildsplash",
+  "custom_model_data": 0,
   "name": "russet",
   "texture": "fishofthieves:entity/wildsplash/russet"
 }

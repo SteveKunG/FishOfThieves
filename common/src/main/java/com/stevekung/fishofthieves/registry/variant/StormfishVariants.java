@@ -42,7 +42,7 @@ public class StormfishVariants
     {
         var texture = FishOfThieves.id("entity/stormfish/" + name);
         var glowTexture = FishOfThieves.id("entity/stormfish/" + name + "_glow");
-        context.register(key, new StormfishVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.STORMFISH), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+        context.register(key, new StormfishVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.STORMFISH), customModelData));
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)

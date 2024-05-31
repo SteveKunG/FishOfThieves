@@ -43,9 +43,9 @@ public class FOTItem extends Item
         {
             if (item instanceof FOTItem fotItem)
             {
-                Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(variant -> variant.customModelData().orElse(0)));
+                Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(AbstractFishVariant::customModelData));
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).forEach(holder -> output.accept(create(item, holder.value().customModelData().orElse(0)))));
+                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).forEach(holder -> output.accept(create(item, holder.value().customModelData()))));
             }
         }
         else
@@ -64,14 +64,11 @@ public class FOTItem extends Item
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
                 context.registries().lookup(registryKey).ifPresent(lookup -> lookup.listElements().forEach(holder ->
                 {
-                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
-                    {
-                        var itemCustomModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value();
+                    var customModelData = holder.value().customModelData();
 
-                        if (itemCustomModelData == holder.value().customModelData().orElse(0))
-                        {
-                            tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + holder.value().name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-                        }
+                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value() == customModelData)
+                    {
+                        tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + holder.value().name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                     }
                 }));
             }
@@ -92,16 +89,7 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-
-                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().filter(holder -> itemStack.is(holder.value().baseItem()) && Util.allOf(holder.value().conditions()).test(context)).toList(), randomSource).ifPresent(holder ->
-                {
-                    int customModelData = holder.value().customModelData().orElse(0);
-
-                    if (customModelData > 0)
-                    {
-                        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(customModelData));
-                    }
-                });
+                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().filter(holder -> itemStack.is(holder.value().baseItem()) && Util.allOf(holder.value().conditions()).test(context)).toList(), randomSource).ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(holder.value().customModelData())));
             }
         }
         return itemStack;
