@@ -84,16 +84,16 @@ public class FOTDisplayItems
         FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.STORMFISH);
         output.accept(FOTItems.COOKED_STORMFISH);
 
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.SPLASHTAIL_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.PONDIE_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ISLEHOPPER_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.ANCIENTSCALE_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.PLENTIFIN_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.WILDSPLASH_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.DEVILFISH_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.BATTLEGILL_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.WRECKER_BUCKET);
-        FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.STORMFISH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.SPLASHTAIL_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.PONDIE_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.ISLEHOPPER_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.ANCIENTSCALE_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.PLENTIFIN_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.WILDSPLASH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.DEVILFISH_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.BATTLEGILL_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.WRECKER_BUCKET);
+        FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.STORMFISH_BUCKET);
 
         FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.SPLASHTAIL_SPAWN_EGG);
         FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PONDIE_SPAWN_EGG);
