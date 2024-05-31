@@ -48,39 +48,13 @@ public interface ThievesFish extends PartyFish
 
     default void saveToBucket(ItemStack bucket)
     {
-        //        var variant = this.getRegistry().getKey(this.getVariant());
-
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
-            //            if (variant != null)TODO
-            //            {
-            //                if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
-            //                {
-            //                    var oldMap = Util.make(new Int2ObjectOpenHashMap<>(), this.getDataFix());
-            //                    var swapped = oldMap.int2ObjectEntrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-            //                    var customModelData = swapped.get(variant.toString());
-            //
-            //                    if (customModelData > 0)
-            //                    {
-            //                        compoundTag.putInt("CustomModelData", customModelData);
-            //                    }
-            //                }
-            //                compoundTag.putString(VARIANT_TAG, variant.toString());
-            //            }
-            //            if (this.isTrophy())
-            //            {
-            //<<<<<<< HEAD
-            //                compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
-            //                compoundTag.putBoolean(TROPHY_TAG, this.isTrophy());
-            //=======
-            //                var customModelData = this.variantToCustomModelData().get(variant.toString());
-            //
-            //                if (customModelData > 0)
-            //                {
-            //                    compound.putInt("CustomModelData", customModelData);
-            //                }
-            //>>>>>>> bbd683547eecb620d15c4575ce1340e7b07284f1
-            //            }
+            if (this.isTrophy())
+            {
+                compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
+                compoundTag.putBoolean(TROPHY_TAG, this.isTrophy());
+            }
             if (this.isNoFlip())
             {
                 compoundTag.putBoolean(NO_FLIP_TAG, this.isNoFlip());
