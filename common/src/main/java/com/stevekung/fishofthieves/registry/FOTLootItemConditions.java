@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import com.stevekung.fishofthieves.utils.PeakTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -17,7 +18,10 @@ public class FOTLootItemConditions
     public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(FishVariantLootConfigCondition.CODEC);
 
     public static final LootItemCondition.Builder THUNDERING = WeatherCheck.weather().setThundering(true);
-    public static final LootItemCondition.Builder COAST = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
+    public static final LootItemCondition.Builder OCEAN_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.OCEAN));
+    public static final LootItemCondition.Builder COAST_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
+    public static final LootItemCondition.Builder LOW_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.LOW));
+    public static final LootItemCondition.Builder MID_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.MID));
     public static final LootItemCondition.Builder HAS_RAIDS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().hasRaids());
 
     public static void init()
