@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.client.renderer.entity.layers;
 import java.util.function.Function;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
@@ -18,7 +19,7 @@ import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> new ResourceLocation("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
+    private static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {
