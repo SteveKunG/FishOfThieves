@@ -1,7 +1,12 @@
 package com.stevekung.fishofthieves.utils;
 
 import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 
 public enum Continentalness implements StringRepresentable
@@ -14,8 +19,8 @@ public enum Continentalness implements StringRepresentable
     FAR_INLAND("Far inland"),
     MUSHROOM_FIELDS("Mushroom fields");
 
-    @SuppressWarnings("deprecation")
-    public static final StringRepresentable.EnumCodec<Continentalness> CODEC = StringRepresentable.fromEnum(Continentalness::values);
+    public static final Codec<Continentalness> CODEC = StringRepresentable.fromEnum(Continentalness::values);
+    private static final Map<String, Continentalness> BY_NAME = Stream.of(values()).collect(Collectors.toMap(Continentalness::getName, Function.identity()));
     private final String name;
 
     Continentalness(String name)
@@ -36,6 +41,6 @@ public enum Continentalness implements StringRepresentable
 
     public static Continentalness byName(String name)
     {
-        return CODEC.byName(name, OCEAN);
+        return BY_NAME.get(name);
     }
 }
