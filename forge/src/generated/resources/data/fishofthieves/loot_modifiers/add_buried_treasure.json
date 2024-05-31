@@ -1,0 +1,10 @@
+{
+  "type": "fishofthieves:add_loot",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/buried_treasure"
+    }
+  ],
+  "loot_table": "fishofthieves:chests/buried_treasure"
+}

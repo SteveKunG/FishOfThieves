@@ -1,0 +1,10 @@
+{
+  "type": "fishofthieves:add_loot",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:gameplay/fishing/fish"
+    }
+  ],
+  "loot_table": "fishofthieves:gameplay/fishing/fish"
+}

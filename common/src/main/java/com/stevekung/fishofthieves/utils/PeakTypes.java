@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.utils;
 
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Locale;
 
 import net.minecraft.util.StringRepresentable;
 
@@ -15,7 +12,8 @@ public enum PeakTypes implements StringRepresentable
     PEAK("Peak"),
     VALLEY("Valley");
 
-    private static final Map<String, PeakTypes> BY_NAME = Stream.of(values()).collect(Collectors.toMap(PeakTypes::getName, Function.identity()));
+    @SuppressWarnings("deprecation")
+    public static final StringRepresentable.EnumCodec<PeakTypes> CODEC = StringRepresentable.fromEnum(PeakTypes::values);
     private final String name;
 
     PeakTypes(String name)
@@ -31,11 +29,11 @@ public enum PeakTypes implements StringRepresentable
     @Override
     public String getSerializedName()
     {
-        return this.name;
+        return this.name().toLowerCase(Locale.ROOT);
     }
 
     public static PeakTypes byName(String name)
     {
-        return BY_NAME.get(name);
+        return CODEC.byName(name, LOW);
     }
 }

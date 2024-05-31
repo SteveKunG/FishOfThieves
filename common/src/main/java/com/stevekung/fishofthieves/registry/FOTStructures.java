@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.registry;
 
 import java.util.List;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.structure.SeapostPieces;
@@ -52,7 +51,7 @@ public class FOTStructures
 
         private static <S extends Structure> StructureType<S> register(String name, MapCodec<S> codec)
         {
-            return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, FishOfThieves.res(name), () -> codec);
+            return Registry.register(BuiltInRegistries.STRUCTURE_TYPE, FishOfThieves.id(name), () -> codec);
         }
     }
 
@@ -63,12 +62,12 @@ public class FOTStructures
 
         private static ResourceKey<Structure> registerStructure(String name)
         {
-            return ResourceKey.create(Registries.STRUCTURE, FishOfThieves.res(name));
+            return ResourceKey.create(Registries.STRUCTURE, FishOfThieves.id(name));
         }
 
         private static ResourceKey<StructureSet> registerStructureSet(String name)
         {
-            return ResourceKey.create(Registries.STRUCTURE_SET, FishOfThieves.res(name));
+            return ResourceKey.create(Registries.STRUCTURE_SET, FishOfThieves.id(name));
         }
     }
 
@@ -80,7 +79,7 @@ public class FOTStructures
 
         private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
         {
-            return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.res(pieceId), pieceType);
+            return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.id(pieceId), pieceType);
         }
     }
 }

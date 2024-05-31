@@ -1,13 +1,17 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
-import com.stevekung.fishofthieves.registry.variant.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -16,6 +20,7 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -29,9 +34,41 @@ import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
 {
+    static
+    {
+        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE = BuiltInRegistries.registerSimple(FOTRegistries.SPAWN_CONDITION_TYPE, registry -> FOTSpawnConditions.ANY_OF);
+    }
+
     @Override
     public void onInitialize()
     {
+        DynamicRegistries.registerSynced(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+
+        DynamicRegistrySetupCallback.EVENT.register(registryView ->
+        {
+            addListenerForDynamic(registryView, FOTRegistries.SPLASHTAIL_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.PONDIE_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.ISLEHOPPER_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.ANCIENTSCALE_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.PLENTIFIN_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.WILDSPLASH_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.DEVILFISH_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.BATTLEGILL_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.WRECKER_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.STORMFISH_VARIANT);
+            addListenerForDynamic(registryView, FOTRegistries.FISH_PLAQUE_INTERACTION);
+        });
+
         FishOfThieves.initGlobal();
         FOTBlocks.init();
         FOTItems.init();
@@ -47,17 +84,6 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemConditions.init();
         FOTCriteriaTriggers.init();
         FOTEntitySubPredicate.init();
-
-        SplashtailVariants.init();
-        PondieVariants.init();
-        IslehopperVariants.init();
-        AncientscaleVariants.init();
-        PlentifinVariants.init();
-        WildsplashVariants.init();
-        DevilfishVariants.init();
-        BattlegillVariants.init();
-        WreckerVariants.init();
-        StormfishVariants.init();
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(FabricItemGroup.builder()).build());
 
@@ -139,5 +165,10 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_BATTLEGILLS), FOTEntities.BATTLEGILL.getCategory(), FOTEntities.BATTLEGILL, FishOfThieves.CONFIG.spawnRate.fishWeight.battlegill, 2, 4);
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_WRECKERS), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8);
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
+    }
+
+    private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)
+    {
+        registryView.registerEntryAdded(key, (rawId, id, object) -> FishOfThieves.LOGGER.debug("Loaded entry of {}: {} = {}", key, id, object));
     }
 }

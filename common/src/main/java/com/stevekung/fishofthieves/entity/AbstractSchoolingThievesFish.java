@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,11 +14,15 @@ import com.stevekung.fishofthieves.entity.debug.SchoolingFishDebug;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -33,11 +38,12 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractSchoolingThievesFish<T extends FishData> extends AbstractSchoolingFish implements ThievesFish<T>
+public abstract class AbstractSchoolingThievesFish<T> extends AbstractSchoolingFish implements ThievesFish, VariantHolder<Holder<T>>
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
@@ -238,6 +244,15 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE) ? this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get() : 1;
     }
 
+    protected void readVariantTag(CompoundTag compound, ResourceKey<? extends Registry<T>> registryKey)
+    {
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(registryKey, resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(registryKey).getHolder(resourceKey)).ifPresent(variant ->
+        {
+            this.setTrophy(compound.getBoolean(TROPHY_TAG));
+            this.setVariant(variant);
+        });
+    }
+
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
@@ -251,7 +266,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getRegistry().getKey(this.getVariant()).toString());
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElseThrow().location().toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -261,14 +276,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-        ThievesFish.fixData(compound, this.getDataFix());
-
-        var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
-
-        if (variant != null)
-        {
-            this.setVariant(variant);
-        }
 
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
@@ -282,6 +289,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     {
         super.saveToBucketTag(itemStack);
         this.saveToBucket(itemStack);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString("variant", this.getVariant().unwrapKey().orElseThrow().location().toString()));
     }
 
     @Override
@@ -346,7 +354,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData);
         AbstractSchoolingThievesFishAi.initMemories(this);
-        return this.defaultFinalizeSpawn(this, reason, spawnData);
+        return this.defaultFinalizeSpawn(this, spawnData);
     }
 
     @Override

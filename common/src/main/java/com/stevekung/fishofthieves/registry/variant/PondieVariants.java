@@ -1,30 +1,48 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.core.Registry;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 
 public class PondieVariants
 {
-    public static final PondieVariant CHARCOAL = PondieVariant.builder().condition(SpawnSelectors.always()).texture("charcoal").build();
-    public static final PondieVariant ORCHID = PondieVariant.builder().condition(SpawnSelectors.always()).texture("orchid").build();
-    public static final PondieVariant BRONZE = PondieVariant.builder().condition(SpawnSelectors.always()).texture("bronze").build();
-    public static final PondieVariant BRIGHT = PondieVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky()))).texture("bright").build();
-    public static final PondieVariant MOONSKY = PondieVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("moonsky").glowTexture("moonsky_glow").build();
+    public static final ResourceKey<PondieVariant> CHARCOAL = createKey("charcoal");
+    public static final ResourceKey<PondieVariant> ORCHID = createKey("orchid");
+    public static final ResourceKey<PondieVariant> BRONZE = createKey("bronze");
+    public static final ResourceKey<PondieVariant> BRIGHT = createKey("bright");
+    public static final ResourceKey<PondieVariant> MOONSKY = createKey("moonsky");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<PondieVariant> context)
     {
-        register("charcoal", PondieVariants.CHARCOAL);
-        register("orchid", PondieVariants.ORCHID);
-        register("bronze", PondieVariants.BRONZE);
-        register("bright", PondieVariants.BRIGHT);
-        register("moonsky", PondieVariants.MOONSKY);
+        register(context, CHARCOAL, "charcoal", 0);
+        register(context, ORCHID, "orchid", 1);
+        register(context, BRONZE, "bronze", 2);
+        register(context, BRIGHT, "bright", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
-    private static void register(String key, PondieVariant variant)
+    static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        Registry.register(FOTRegistry.PONDIE_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, customModelData, false, conditions);
+    }
+
+    static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.id("entity/pondie/" + name);
+        var glowTexture = FishOfThieves.id("entity/pondie/" + name + "_glow");
+        context.register(key, new PondieVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PONDIE), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+    }
+
+    private static ResourceKey<PondieVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.PONDIE_VARIANT, FishOfThieves.id(name));
     }
 }

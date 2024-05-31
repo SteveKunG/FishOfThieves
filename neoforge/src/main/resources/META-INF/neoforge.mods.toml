@@ -1,0 +1,50 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/SteveKunG/FishOfThieves/issues"
+
+[[mods]]
+modId = "fishofthieves"
+version = "${version}"
+displayName = "Fish of Thieves"
+description = "A mod adds all the fish from Sea of Thieves, fish fer ye pirate!"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves"
+updateJSONURL = "https://raw.githubusercontent.com/SteveKunG/VersionCheckLibrary/master/fish_of_thieves.json"
+logoFile = "logo.png"
+authors = "SteveKunG, PloyiinGz"
+
+[[mixins]]
+config = "mixins.fish_of_thieves.json"
+[[mixins]]
+config = "mixins.fish_of_thieves_neoforge.json"
+
+[[accessTransformers]]
+file = "META-INF/accesstransformer.cfg"
+
+[[dependencies.fishofthieves]]
+modId = "neoforge"
+type = "required"
+versionRange = "[20.6,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
+modId = "cloth_config"
+type = "required"
+versionRange = "[14.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20.6,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
+modId = "aquaculture"
+type = "optional"
+versionRange = "[1.19.4-2.4.10,)"
+ordering = "NONE"
+side = "BOTH"

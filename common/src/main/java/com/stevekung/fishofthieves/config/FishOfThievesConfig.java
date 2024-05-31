@@ -33,10 +33,6 @@ public final class FishOfThievesConfig implements ConfigData
 
         public boolean enableLeechesDrop = true;
 
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.Gui.Tooltip(count = 3)
-        public boolean simpleSpawningCondition = false;
-
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
 

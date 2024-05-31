@@ -1,0 +1,33 @@
+{
+  "base_item": "fishofthieves:wrecker",
+  "conditions": [
+    {
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:all_of",
+          "terms": [
+            {
+              "biomes": [
+                "minecraft:frozen_ocean",
+                "minecraft:deep_frozen_ocean"
+              ],
+              "condition": "fishofthieves:match_biome"
+            },
+            {
+              "chance": 10,
+              "condition": "fishofthieves:random_chance"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "snow",
+  "texture": "fishofthieves:entity/wrecker/snow"
+}

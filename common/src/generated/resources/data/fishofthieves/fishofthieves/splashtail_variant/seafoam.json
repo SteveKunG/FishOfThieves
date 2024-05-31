@@ -1,0 +1,20 @@
+{
+  "base_item": "fishofthieves:splashtail",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 4,
+  "glow_texture": "fishofthieves:entity/splashtail/seafoam_glow",
+  "name": "seafoam",
+  "texture": "fishofthieves:entity/splashtail/seafoam"
+}

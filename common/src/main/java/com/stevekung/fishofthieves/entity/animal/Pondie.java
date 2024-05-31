@@ -1,41 +1,43 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import org.jetbrains.annotations.Nullable;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PondieVariants;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
     private static final EntityDataAccessor<Holder<PondieVariant>> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
-    public static final Consumer<Int2ObjectOpenHashMap<String>> DATA_FIX_MAP = map ->
+    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
     {
-        map.defaultReturnValue("fishofthieves:charcoal");
-        map.put(0, "fishofthieves:charcoal");
-        map.put(1, "fishofthieves:orchid");
-        map.put(2, "fishofthieves:bronze");
-        map.put(3, "fishofthieves:bright");
-        map.put(4, "fishofthieves:moonsky");
-    };
+        map.put("fishofthieves:charcoal", 0);
+        map.put("fishofthieves:orchid", 1);
+        map.put("fishofthieves:bronze", 2);
+        map.put("fishofthieves:bright", 3);
+        map.put("fishofthieves:moonsky", 4);
+    });
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
@@ -72,37 +74,39 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, Holder.direct(PondieVariants.CHARCOAL));
+        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.PONDIE_VARIANT).getHolderOrThrow(PondieVariants.CHARCOAL));
     }
 
     @Override
-    public Registry<PondieVariant> getRegistry()
+    public void addAdditionalSaveData(CompoundTag compound)
     {
-        return FOTRegistry.PONDIE_VARIANT;
+        super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(PondieVariants.CHARCOAL).location().toString());
     }
 
     @Override
-    public void setVariant(PondieVariant variant)
+    public void readAdditionalSaveData(CompoundTag compound)
     {
-        this.entityData.set(VARIANT, Holder.direct(variant));
+        super.readAdditionalSaveData(compound);
+        this.readVariantTag(compound, FOTRegistries.PONDIE_VARIANT);
     }
 
     @Override
-    public PondieVariant getVariant()
+    public Holder<PondieVariant> getVariant()
     {
-        return this.entityData.get(VARIANT).value();
+        return this.entityData.get(VARIANT);
     }
 
     @Override
-    public Holder<PondieVariant> getSpawnVariant(boolean fromBucket)
+    public void setVariant(Holder<PondieVariant> variant)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PONDIE_SPAWNS, PondieVariants.CHARCOAL, fromBucket);
+        this.entityData.set(VARIANT, variant);
     }
 
     @Override
-    public Consumer<Int2ObjectOpenHashMap<String>> getDataFix()
+    public BiMap<String, Integer> variantToCustomModelData()
     {
-        return DATA_FIX_MAP;
+        return VARIANT_TO_INT;
     }
 
     @Override
@@ -138,12 +142,21 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose)
     {
-        return this.isTrophy() ? super.getDimensions(pose).withEyeHeight(0.35F) : EntityDimensions.fixed(0.35F, 0.25F).withEyeHeight(0.18F);
+        return this.isTrophy() ? super.getDefaultDimensions(pose).withEyeHeight(0.35F) : EntityDimensions.fixed(0.35F, 0.25F).withEyeHeight(0.18F);
     }
 
     @Override
     public boolean isFood(ItemStack itemStack)
     {
         return WORMS.test(itemStack);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    {
+        var holder = AbstractFishVariant.getSpawnVariant(level.getLevel(), this.registryAccess(), FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL, this, spawnType == MobSpawnType.BUCKET);
+        this.setVariant(holder);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }
 }

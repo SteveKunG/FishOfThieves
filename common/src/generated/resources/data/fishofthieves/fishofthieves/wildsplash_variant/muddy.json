@@ -1,0 +1,21 @@
+{
+  "base_item": "fishofthieves:wildsplash",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "biomes": "#minecraft:has_closer_water_fog",
+          "condition": "fishofthieves:match_biome"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "muddy",
+  "texture": "fishofthieves:entity/wildsplash/muddy"
+}

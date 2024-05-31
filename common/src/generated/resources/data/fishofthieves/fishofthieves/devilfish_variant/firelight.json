@@ -1,0 +1,23 @@
+{
+  "base_item": "fishofthieves:devilfish",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "blocks": "#fishofthieves:firelight_devilfish_warm_blocks",
+          "condition": "fishofthieves:match_blocks_in_range",
+          "fluids": "#minecraft:lava",
+          "range": 4
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 4,
+  "glow_texture": "fishofthieves:entity/devilfish/firelight_glow",
+  "name": "firelight",
+  "texture": "fishofthieves:entity/devilfish/firelight"
+}

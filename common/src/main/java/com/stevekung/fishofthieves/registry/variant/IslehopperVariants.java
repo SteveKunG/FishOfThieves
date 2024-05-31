@@ -1,46 +1,54 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.core.Registry;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiTypes;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biomes;
 
 public class IslehopperVariants
 {
-    public static final IslehopperVariant STONE = IslehopperVariant.builder().condition(SpawnSelectors.always()).texture("stone").build();
-    public static final IslehopperVariant MOSS = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_MOSS_ISLEHOPPERS))).texture("moss").build();
-    public static final IslehopperVariant HONEY = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(context ->
-    {
-        var poiManager = context.level().getPoiManager();
-        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), context.blockPos(), 9, PoiManager.Occupancy.ANY);
+    public static final ResourceKey<IslehopperVariant> STONE = createKey("stone");
+    public static final ResourceKey<IslehopperVariant> MOSS = createKey("moss");
+    public static final ResourceKey<IslehopperVariant> HONEY = createKey("honey");
+    public static final ResourceKey<IslehopperVariant> RAVEN = createKey("raven");
+    public static final ResourceKey<IslehopperVariant> AMETHYST = createKey("amethyst");
 
-        if (optional.isPresent())
-        {
-            var blockState = context.level().getBlockState(optional.get());
-            return BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
-        }
-        return false;
-    })).texture("honey").build();
-    public static final IslehopperVariant RAVEN = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))).texture("raven").build();
-    public static final IslehopperVariant AMETHYST = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 16, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)))).texture("amethyst").glowTexture("amethyst_glow").build();
-
-    public static void init()
+    public static void bootstrap(BootstrapContext<IslehopperVariant> context)
     {
-        register("stone", IslehopperVariants.STONE);
-        register("moss", IslehopperVariants.MOSS);
-        register("honey", IslehopperVariants.HONEY);
-        register("raven", IslehopperVariants.RAVEN);
-        register("amethyst", IslehopperVariants.AMETHYST);
+        var biomeLookup = context.lookup(Registries.BIOME);
+        register(context, STONE, "stone", 0);
+        register(context, MOSS, "moss", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES)))).build());
+        register(context, HONEY, "honey", 2, HasBeehiveCondition.beehive(5, 9).build());
+        register(context, RAVEN, "raven", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), HeightCondition.height(Optional.empty(), Optional.of(0))).build());
+        register(context, AMETHYST, "amethyst", 4, true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16).build());
     }
 
-    private static void register(String key, IslehopperVariant variant)
+    static void register(BootstrapContext<IslehopperVariant> context, ResourceKey<IslehopperVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        Registry.register(FOTRegistry.ISLEHOPPER_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, customModelData, false, conditions);
+    }
+
+    static void register(BootstrapContext<IslehopperVariant> context, ResourceKey<IslehopperVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.id("entity/islehopper/" + name);
+        var glowTexture = FishOfThieves.id("entity/islehopper/" + name + "_glow");
+        context.register(key, new IslehopperVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ISLEHOPPER), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+    }
+
+    private static ResourceKey<IslehopperVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.ISLEHOPPER_VARIANT, FishOfThieves.id(name));
     }
 }

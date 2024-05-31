@@ -76,6 +76,7 @@ public class AbstractSchoolingThievesFishAi
                 new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
     }
 
+    @SuppressWarnings("deprecation")
     private static void initIdleActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(

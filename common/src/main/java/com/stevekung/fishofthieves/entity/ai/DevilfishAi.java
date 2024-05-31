@@ -59,6 +59,7 @@ public class DevilfishAi
                 new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
     }
 
+    @SuppressWarnings("deprecation")
     private static void initIdleActivity(Brain<Devilfish> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(

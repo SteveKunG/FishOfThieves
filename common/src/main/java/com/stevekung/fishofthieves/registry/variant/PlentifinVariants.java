@@ -1,36 +1,49 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 
 public class PlentifinVariants
 {
-    public static final PlentifinVariant OLIVE = PlentifinVariant.builder().condition(SpawnSelectors.always()).texture("olive").build();
-    public static final PlentifinVariant AMBER = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky().negate().and(context ->
-    {
-        var time = context.level().getTimeOfDay(1.0F);
-        return time >= 0.75F && time <= 0.9F;
-    }).and(SpawnConditionContext::seeSkyInWater))).texture("amber").build();
-    public static final PlentifinVariant CLOUDY = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())).texture("cloudy").build();
-    public static final PlentifinVariant BONEDUST = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.bonedustPlentifinProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.bonedustPlentifinProbability).or(SpawnSelectors.structureTag(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(context -> context.random().nextInt(10) == 0)))).texture("bonedust").build();
-    public static final PlentifinVariant WATERY = PlentifinVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("watery").glowTexture("watery_glow").build();
+    public static final ResourceKey<PlentifinVariant> OLIVE = createKey("olive");
+    public static final ResourceKey<PlentifinVariant> AMBER = createKey("amber");
+    public static final ResourceKey<PlentifinVariant> CLOUDY = createKey("cloudy");
+    public static final ResourceKey<PlentifinVariant> BONEDUST = createKey("bonedust");
+    public static final ResourceKey<PlentifinVariant> WATERY = createKey("watery");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<PlentifinVariant> context)
     {
-        register("olive", PlentifinVariants.OLIVE);
-        register("amber", PlentifinVariants.AMBER);
-        register("cloudy", PlentifinVariants.CLOUDY);
-        register("bonedust", PlentifinVariants.BONEDUST);
-        register("watery", PlentifinVariants.WATERY);
+        register(context, OLIVE, "olive", 0);
+        register(context, AMBER, "amber", 1, RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(0.75f, 0.9f)).and(SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, CLOUDY, "cloudy", 2, AllOfCondition.allOf(RainingCondition.raining(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BONEDUST, "bonedust", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
+        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
     }
 
-    private static void register(String key, PlentifinVariant variant)
+    static void register(BootstrapContext<PlentifinVariant> context, ResourceKey<PlentifinVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        Registry.register(FOTRegistry.PLENTIFIN_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, customModelData, false, conditions);
+    }
+
+    static void register(BootstrapContext<PlentifinVariant> context, ResourceKey<PlentifinVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.id("entity/plentifin/" + name);
+        var glowTexture = FishOfThieves.id("entity/plentifin/" + name + "_glow");
+        context.register(key, new PlentifinVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.PLENTIFIN), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+    }
+
+    private static ResourceKey<PlentifinVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.PLENTIFIN_VARIANT, FishOfThieves.id(name));
     }
 }

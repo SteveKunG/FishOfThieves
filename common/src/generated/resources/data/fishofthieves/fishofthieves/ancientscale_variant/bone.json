@@ -1,0 +1,30 @@
+{
+  "base_item": "fishofthieves:ancientscale",
+  "conditions": [
+    {
+      "condition": "fishofthieves:any_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:all_of",
+          "terms": [
+            {
+              "condition": "fishofthieves:match_structure",
+              "structures": "fishofthieves:bone_ancientscales_spawn_in"
+            },
+            {
+              "chance": 10,
+              "condition": "fishofthieves:random_chance"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "bone",
+  "texture": "fishofthieves:entity/ancientscale/bone"
+}

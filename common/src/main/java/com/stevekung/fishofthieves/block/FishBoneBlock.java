@@ -19,7 +19,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-@SuppressWarnings("deprecation")
 public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock
 {
     private static final VoxelShape X_SHAPE = Block.box(4, 0, 0, 12, 3, 16);

@@ -1,0 +1,19 @@
+{
+  "base_item": "fishofthieves:splashtail",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_day"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 1,
+  "name": "sunny",
+  "texture": "fishofthieves:entity/splashtail/sunny"
+}

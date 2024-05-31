@@ -20,6 +20,6 @@ public class FOTLootPoolEntries
 
     private static void register(String key, LootPoolEntryType type)
     {
-        Registry.register(BuiltInRegistries.LOOT_POOL_ENTRY_TYPE, FishOfThieves.res(key), type);
+        Registry.register(BuiltInRegistries.LOOT_POOL_ENTRY_TYPE, FishOfThieves.id(key), type);
     }
 }

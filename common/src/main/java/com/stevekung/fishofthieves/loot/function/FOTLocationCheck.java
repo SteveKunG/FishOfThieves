@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPos offset) implements LootItemCondition
 {
     private static final MapCodec<BlockPos> OFFSET_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.optionalFieldOf("offsetX", 0).forGetter(Vec3i::getX), Codec.INT.optionalFieldOf("offsetY", 0).forGetter(Vec3i::getY), Codec.INT.optionalFieldOf("offsetZ", 0).forGetter(Vec3i::getZ)).apply(instance, BlockPos::new));
-    public static final MapCodec<FOTLocationCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(FOTLocationPredicate.CODEC.optionalFieldOf( "predicate").forGetter(FOTLocationCheck::predicate), OFFSET_CODEC.forGetter(FOTLocationCheck::offset)).apply(instance, FOTLocationCheck::new));
+    public static final MapCodec<FOTLocationCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(FOTLocationPredicate.CODEC.optionalFieldOf("predicate").forGetter(FOTLocationCheck::predicate), OFFSET_CODEC.forGetter(FOTLocationCheck::offset)).apply(instance, FOTLocationCheck::new));
 
     @Override
     public LootItemConditionType getType()

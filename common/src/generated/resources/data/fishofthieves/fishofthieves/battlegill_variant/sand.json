@@ -1,0 +1,26 @@
+{
+  "base_item": "fishofthieves:battlegill",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "biomes": [
+            "minecraft:desert",
+            "minecraft:warm_ocean",
+            "minecraft:lukewarm_ocean",
+            "minecraft:deep_lukewarm_ocean"
+          ],
+          "condition": "fishofthieves:match_biome"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "sand",
+  "texture": "fishofthieves:entity/battlegill/sand"
+}

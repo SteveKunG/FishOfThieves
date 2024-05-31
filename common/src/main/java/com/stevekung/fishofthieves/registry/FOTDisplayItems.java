@@ -63,25 +63,25 @@ public class FOTDisplayItems
         output.accept(FOTItems.GRUBS);
         output.accept(FOTItems.LEECHES);
 
-        FOTItem.addFishVariants(output, FOTItems.SPLASHTAIL);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.SPLASHTAIL);
         output.accept(FOTItems.COOKED_SPLASHTAIL);
-        FOTItem.addFishVariants(output, FOTItems.PONDIE);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.PONDIE);
         output.accept(FOTItems.COOKED_PONDIE);
-        FOTItem.addFishVariants(output, FOTItems.ISLEHOPPER);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.ISLEHOPPER);
         output.accept(FOTItems.COOKED_ISLEHOPPER);
-        FOTItem.addFishVariants(output, FOTItems.ANCIENTSCALE);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.ANCIENTSCALE);
         output.accept(FOTItems.COOKED_ANCIENTSCALE);
-        FOTItem.addFishVariants(output, FOTItems.PLENTIFIN);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.PLENTIFIN);
         output.accept(FOTItems.COOKED_PLENTIFIN);
-        FOTItem.addFishVariants(output, FOTItems.WILDSPLASH);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.WILDSPLASH);
         output.accept(FOTItems.COOKED_WILDSPLASH);
-        FOTItem.addFishVariants(output, FOTItems.DEVILFISH);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.DEVILFISH);
         output.accept(FOTItems.COOKED_DEVILFISH);
-        FOTItem.addFishVariants(output, FOTItems.BATTLEGILL);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.BATTLEGILL);
         output.accept(FOTItems.COOKED_BATTLEGILL);
-        FOTItem.addFishVariants(output, FOTItems.WRECKER);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.WRECKER);
         output.accept(FOTItems.COOKED_WRECKER);
-        FOTItem.addFishVariants(output, FOTItems.STORMFISH);
+        FOTItem.addFishVariants(itemDisplayParameters, output, FOTItems.STORMFISH);
         output.accept(FOTItems.COOKED_STORMFISH);
 
         FOTMobBucketItem.addFishVariantsBucket(output, FOTItems.SPLASHTAIL_BUCKET);

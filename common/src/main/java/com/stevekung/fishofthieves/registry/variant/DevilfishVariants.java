@@ -1,37 +1,51 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
-import com.stevekung.fishofthieves.registry.FOTRegistry;
+import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.spawn.SpawnSelectors;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.FluidTags;
 
 public class DevilfishVariants
 {
-    public static final DevilfishVariant ASHEN = DevilfishVariant.builder().condition(SpawnSelectors.always()).texture("ashen").build();
-    public static final DevilfishVariant SEASHELL = DevilfishVariant.builder().condition(SpawnSelectors.always()).texture("seashell").build();
-    public static final DevilfishVariant LAVA = DevilfishVariant.builder().condition(SpawnSelectors.simpleSpawn(context -> TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource()).isPresent())).texture("lava").build();
-    public static final DevilfishVariant FORSAKEN = DevilfishVariant.builder().condition(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.forsakenDevilfishProbability)).texture("forsaken").build();
-    public static final DevilfishVariant FIRELIGHT = DevilfishVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context ->
-    {
-        var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
-        return context.isNight() && optional.isPresent();
-    })).texture("firelight").glowTexture("firelight_glow").build();
+    public static final ResourceKey<DevilfishVariant> ASHEN = createKey("ashen");
+    public static final ResourceKey<DevilfishVariant> SEASHELL = createKey("seashell");
+    public static final ResourceKey<DevilfishVariant> LAVA = createKey("lava");
+    public static final ResourceKey<DevilfishVariant> FORSAKEN = createKey("forsaken");
+    public static final ResourceKey<DevilfishVariant> FIRELIGHT = createKey("firelight");
 
-    public static void init()
+    public static void bootstrap(BootstrapContext<DevilfishVariant> context)
     {
-        register("ashen", DevilfishVariants.ASHEN);
-        register("seashell", DevilfishVariants.SEASHELL);
-        register("lava", DevilfishVariants.LAVA);
-        register("forsaken", DevilfishVariants.FORSAKEN);
-        register("firelight", DevilfishVariants.FIRELIGHT);
+        register(context, ASHEN, "ashen", 0);
+        register(context, SEASHELL, "seashell", 1);
+        register(context, LAVA, "lava", 2, MatchBlocksInRangeCondition.blocksInRange(Optional.empty(), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4).build());
+        register(context, FORSAKEN, "forsaken", 3, ProbabilityCondition.defaultRareProbablity().build());
+        register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), MatchBlocksInRangeCondition.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)).build());
     }
 
-    private static void register(String key, DevilfishVariant variant)
+    static void register(BootstrapContext<DevilfishVariant> context, ResourceKey<DevilfishVariant> key, String name, int customModelData, SpawnCondition... conditions)
     {
-        Registry.register(FOTRegistry.DEVILFISH_VARIANT, FishOfThieves.res(key), variant);
+        register(context, key, name, customModelData, false, conditions);
+    }
+
+    static void register(BootstrapContext<DevilfishVariant> context, ResourceKey<DevilfishVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+    {
+        var texture = FishOfThieves.id("entity/devilfish/" + name);
+        var glowTexture = FishOfThieves.id("entity/devilfish/" + name + "_glow");
+        context.register(key, new DevilfishVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.DEVILFISH), customModelData == 0 ? Optional.empty() : Optional.of(customModelData)));
+    }
+
+    private static ResourceKey<DevilfishVariant> createKey(String name)
+    {
+        return ResourceKey.create(FOTRegistries.DEVILFISH_VARIANT, FishOfThieves.id(name));
     }
 }

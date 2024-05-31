@@ -3,9 +3,13 @@ package com.stevekung.fishofthieves.loot;
 import java.util.List;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
+import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceKey;
@@ -15,12 +19,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -31,21 +35,16 @@ public class FOTLootManager
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.EARTHWORMS_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.EARTHWORMS_DROPS)).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableGrubsDrop && blockState.is(FOTTags.Blocks.GRUBS_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.GRUBS_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.GRUBS_DROPS)).getRandomItems(lootParams));
         }
         if (FishOfThieves.CONFIG.general.enableLeechesDrop && blockState.is(FOTTags.Blocks.LEECHES_DROPS))
         {
-            droppedList.addAll(getAlternateLootStack(lootParams, holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.LEECHES_DROPS))));
+            droppedList.addAll(holder.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Blocks.LEECHES_DROPS)).getRandomItems(lootParams));
         }
-    }
-
-    private static List<ItemStack> getAlternateLootStack(LootParams lootParams, LootTable lootTable)
-    {
-        return lootTable.getRandomItems(lootParams);
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)
@@ -69,34 +68,43 @@ public class FOTLootManager
         //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .setWeight(50)
-                        .when(FOTLootItemConditions.IN_OCEAN))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_SPLASHTAILS))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
                         .setWeight(50)
-                        .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_PONDIES))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
                         .setWeight(40)
-                        .when(FOTLootItemConditions.COAST))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_ISLEHOPPERS)).and(FOTLootItemConditions.COAST_CONTINENTALNESS.or(FOTLootItemConditions.OCEAN_CONTINENTALNESS).or(FOTLootItemConditions.LOW_PEAKTYPE).or(FOTLootItemConditions.MID_PEAKTYPE))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .setWeight(40)
-                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_ANCIENTSCALES)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.ANCIENTSCALES_SPAWN_IN)))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .setWeight(45)
-                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_PLENTIFINS)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.PLENTIFINS_SPAWN_IN)))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .setWeight(45)
-                        .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_WILDSPLASH))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
                         .setWeight(35)
-                        .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_DEVILFISH)).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(MinMaxBounds.Doubles.atMost(0))).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN)).invert()))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .setWeight(35)
-                        .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_BATTLEGILLS)).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.BATTLEGILLS_SPAWN_IN)).or(FOTLootItemConditions.HAS_RAIDS))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
-                        .when(FOTLootItemConditions.IN_SHIPWRECKS.or(FOTLootItemConditions.IN_RUINED_PORTAL_OCEAN)))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.WRECKERS_SPAWN_IN)).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_WRECKERS)))))
+
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
-                        .when(FOTLootItemConditions.THUNDERING));
+                        .when(FOTLootItemConditions.THUNDERING.and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_STORMFISH)))));
         //@formatter:on
     }
 

@@ -1,0 +1,25 @@
+{
+  "base_item": "fishofthieves:wrecker",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        },
+        {
+          "condition": "fishofthieves:moon_brightness",
+          "max": 1.0,
+          "min": 0.0
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 4,
+  "glow_texture": "fishofthieves:entity/wrecker/moon_glow",
+  "name": "moon",
+  "texture": "fishofthieves:entity/wrecker/moon"
+}

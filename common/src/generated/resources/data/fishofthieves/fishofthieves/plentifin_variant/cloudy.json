@@ -1,0 +1,19 @@
+{
+  "base_item": "fishofthieves:plentifin",
+  "conditions": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_raining"
+        },
+        {
+          "condition": "fishofthieves:see_sky_in_water"
+        }
+      ]
+    }
+  ],
+  "custom_model_data": 2,
+  "name": "cloudy",
+  "texture": "fishofthieves:entity/plentifin/cloudy"
+}

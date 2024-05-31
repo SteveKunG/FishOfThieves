@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.FishOfThievesForge;
@@ -63,12 +64,12 @@ public class FOTStructureModifiers
 
     private static ResourceKey<StructureModifier> key(String key)
     {
-        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.res(key));
+        return ResourceKey.create(ForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.id(key));
     }
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier
     {
-        private static final RegistryObject<Codec<? extends StructureModifier>> SERIALIZER = RegistryObject.create(FishOfThievesForge.ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL, ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
+        private static final RegistryObject<MapCodec<? extends StructureModifier>> SERIALIZER = RegistryObject.create(FishOfThievesForge.ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL, ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
         @Override
         public void modify(Holder<Structure> structure, Phase phase, ModifiableStructureInfo.StructureInfo.Builder builder)
@@ -80,15 +81,15 @@ public class FOTStructureModifiers
         }
 
         @Override
-        public Codec<? extends StructureModifier> codec()
+        public MapCodec<? extends StructureModifier> codec()
         {
             return SERIALIZER.get();
         }
 
-        public static Codec<Modifier> makeCodec()
+        public static MapCodec<Modifier> makeCodec()
         {
             //@formatter:off
-            return RecordCodecBuilder.create(builder -> builder.group(
+            return RecordCodecBuilder.mapCodec(builder -> builder.group(
                             STRUCTURE_LIST_CODEC.fieldOf("structure").forGetter(Modifier::structureTagKey),
                             MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawnerData").forGetter(Modifier::spawnerData))
                     .apply(builder, Modifier::new));

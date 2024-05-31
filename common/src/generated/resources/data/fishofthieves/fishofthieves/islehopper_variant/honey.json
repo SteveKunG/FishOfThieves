@@ -1,0 +1,12 @@
+{
+  "base_item": "fishofthieves:islehopper",
+  "conditions": [
+    {
+      "condition": "fishofthieves:has_beehive",
+      "distance": 9
+    }
+  ],
+  "custom_model_data": 2,
+  "name": "honey",
+  "texture": "fishofthieves:entity/islehopper/honey"
+}

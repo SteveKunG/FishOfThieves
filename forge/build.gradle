@@ -8,10 +8,10 @@ loom {
     }
 
     forge {
-        mixinConfigs = ["mixins.fishofthieves_forge.json"]
+        mixinConfig("mixins.${archives_base_name}_forge.json")
 
         mixin {
-            defaultRefmapName = "mixins.fishofthieves_forge.refmap.json"
+            defaultRefmapName = "mixins.${archives_base_name}_forge.refmap.json"
         }
     }
 
@@ -42,6 +42,10 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
+}
+
+configurations.modImplementation {
+    exclude group: "me.shedaniel.cloth" //TODO Temporary exclude cloth-config
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"

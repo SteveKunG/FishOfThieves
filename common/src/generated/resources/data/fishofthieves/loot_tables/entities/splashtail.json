@@ -115,8 +115,8 @@
                   "condition": "fishofthieves:fish_variant_loot_config"
                 }
               ],
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "function": "minecraft:set_custom_model_data",
+              "value": 1.0
             }
           ],
           "name": "fishofthieves:splashtail"
@@ -178,8 +178,8 @@
                   "condition": "fishofthieves:fish_variant_loot_config"
                 }
               ],
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "function": "minecraft:set_custom_model_data",
+              "value": 2.0
             }
           ],
           "name": "fishofthieves:splashtail"
@@ -241,8 +241,8 @@
                   "condition": "fishofthieves:fish_variant_loot_config"
                 }
               ],
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "function": "minecraft:set_custom_model_data",
+              "value": 3.0
             }
           ],
           "name": "fishofthieves:splashtail"
@@ -304,8 +304,8 @@
                   "condition": "fishofthieves:fish_variant_loot_config"
                 }
               ],
-              "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "function": "minecraft:set_custom_model_data",
+              "value": 4.0
             }
           ],
           "name": "fishofthieves:splashtail"
