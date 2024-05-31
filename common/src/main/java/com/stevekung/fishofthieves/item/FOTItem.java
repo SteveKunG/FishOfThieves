@@ -55,6 +55,16 @@ public class FOTItem extends Item
     }
 
     @Override
+    public void verifyComponentsAfterLoad(ItemStack itemStack)
+    {
+        if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
+        {
+            // item without a custom model data component is always 0 if enable all fish variants
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(0));
+        }
+    }
+
+    @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
     {
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
