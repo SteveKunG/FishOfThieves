@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.item;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -23,18 +24,18 @@ public class FOTSpawnEggItem extends SpawnEggItem
     public Component getName(ItemStack itemStack)
     {
         var name = super.getName(itemStack).copy();
-        var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-        if (customData.isEmpty())
+        if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
         {
-            return name;
-        }
+            var customData = itemStack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
 
-        var compoundTag = customData.copyTag();
-
-        if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab && compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
-        {
-            return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
+            if (!customData.isEmpty())
+            {
+                if (customData.copyTag().getBoolean(ThievesFish.TROPHY_TAG))
+                {
+                    return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
+                }
+            }
         }
         return name;
     }
@@ -55,7 +56,11 @@ public class FOTSpawnEggItem extends SpawnEggItem
     private static ItemStack create(Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy));
+        CustomData.update(DataComponents.ENTITY_DATA, itemStack, compoundTag ->
+        {
+            compoundTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(((SpawnEggItem) item).getType(itemStack)).toString());
+            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+        });
         return itemStack;
     }
 }
