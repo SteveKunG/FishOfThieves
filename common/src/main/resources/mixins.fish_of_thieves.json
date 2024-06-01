@@ -17,6 +17,7 @@
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "datafix.MixinDataFixers",
+    "datafix.MixinItemStackComponentizationFix",
     "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
