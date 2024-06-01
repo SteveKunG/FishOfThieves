@@ -31,12 +31,12 @@ public class MixinDataFixers
     }
 
     @Unique
-    private static final int MC_1_19_2 = 3120;
+    private static final int MC_22W46A = 3210;
 
     @Inject(method = "addFixers", at = @At("TAIL"))
     private static void fishofthieves$addFixers(DataFixerBuilder builder, CallbackInfo info)
     {
-        var schema = builder.addSchema(MC_1_19_2, SAME_NAMESPACED);
+        var schema = builder.addSchema(MC_22W46A, SAME_NAMESPACED);
 
         //@formatter:off
         builder.addFixer(new AdvancementsRenameFix(schema, false, "Rename FOT recipe advancements", createRenamer(ImmutableMap.<String, String>builder()

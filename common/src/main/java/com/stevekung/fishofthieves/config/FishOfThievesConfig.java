@@ -40,7 +40,6 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
 
-        @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.Gui.Tooltip
         public boolean displayAllFishVariantInCreativeTab = false;
 
