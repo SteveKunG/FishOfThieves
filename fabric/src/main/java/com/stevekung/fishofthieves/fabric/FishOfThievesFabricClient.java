@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
@@ -21,6 +22,8 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
+        FishOfThievesClient.init();
+
         BlockRenderLayerMap.INSTANCE.putBlock(FOTBlocks.FISH_BONE, RenderType.cutoutMipped());
         //@formatter:off
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE,
