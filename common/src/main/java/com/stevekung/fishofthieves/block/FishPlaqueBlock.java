@@ -18,6 +18,7 @@ import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -188,6 +190,9 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         entityToSave.saveWithoutId(tag);
                         tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
                     }
+
+                    var bucketData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+                    tag.merge(bucketData.copyTag());
 
                     level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.BLOCKS, 1.0F, 1.0F);
                     fishPlaque.setPlaqueData(tag);
