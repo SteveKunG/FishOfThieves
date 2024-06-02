@@ -21,8 +21,7 @@ public record MatchBiomeCondition(HolderSet<Biome> biomes) implements SpawnCondi
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        var holder = context.level().getBiome(context.blockPos());
-        return context.registryAccess().registryOrThrow(Registries.BIOME).holders().anyMatch(biomes -> biomes.is(holder));
+        return this.biomes.contains(context.level().getBiome(context.blockPos()));
     }
 
     public static Builder biomes(HolderSet<Biome> biomes)
