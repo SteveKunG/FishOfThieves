@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.entity.debug.SchoolingFishDebug;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
@@ -303,6 +304,14 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     {
         super.loadFromBucketTag(compound);
         this.loadFromBucket(compound, this.registryAccess());
+
+        if (!compound.contains(VARIANT_TAG))
+        {
+            var registry = this.registryAccess().registryOrThrow(this.registryKey);
+            var muha = Util.getRandomSafe(registry.holders().toList(), this.getRandom());
+            this.setVariant(muha.orElseGet(() -> registry.getHolderOrThrow(this.resourceKey)));
+            this.setTrophy(this.random.nextBoolean());
+        }
     }
 
     @Override
@@ -360,10 +369,6 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     {
         if (spawnType == MobSpawnType.BUCKET)
         {
-            //TODO Fix random variant when spawn from creative bucket
-            /*var registry = accessor.registryAccess().registryOrThrow(this.registryKey);
-            var muha = Util.getRandomSafe(registry.holders().toList(), this.getRandom());
-            this.setVariant(muha.orElseGet(() -> registry.getHolderOrThrow(this.resourceKey)));*/
             return spawnGroupData;
         }
         else
