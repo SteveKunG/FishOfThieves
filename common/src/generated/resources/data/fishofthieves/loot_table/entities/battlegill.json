@@ -11,10 +11,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:ancientscale",
+                "type": "fishofthieves:battlegill",
                 "type_specific": {
-                  "type": "fishofthieves:ancientscale",
-                  "variant": "fishofthieves:almond"
+                  "type": "fishofthieves:battlegill",
+                  "variant": "fishofthieves:jade"
                 }
               }
             }
@@ -65,7 +65,7 @@
               "value": 0.0
             }
           ],
-          "name": "fishofthieves:ancientscale"
+          "name": "fishofthieves:battlegill"
         },
         {
           "type": "minecraft:item",
@@ -74,10 +74,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:ancientscale",
+                "type": "fishofthieves:battlegill",
                 "type_specific": {
-                  "type": "fishofthieves:ancientscale",
-                  "variant": "fishofthieves:sapphire"
+                  "type": "fishofthieves:battlegill",
+                  "variant": "fishofthieves:sky"
                 }
               }
             }
@@ -128,7 +128,7 @@
               "value": 1.0
             }
           ],
-          "name": "fishofthieves:ancientscale"
+          "name": "fishofthieves:battlegill"
         },
         {
           "type": "minecraft:item",
@@ -137,10 +137,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:ancientscale",
+                "type": "fishofthieves:battlegill",
                 "type_specific": {
-                  "type": "fishofthieves:ancientscale",
-                  "variant": "fishofthieves:smoke"
+                  "type": "fishofthieves:battlegill",
+                  "variant": "fishofthieves:rum"
                 }
               }
             }
@@ -191,7 +191,7 @@
               "value": 2.0
             }
           ],
-          "name": "fishofthieves:ancientscale"
+          "name": "fishofthieves:battlegill"
         },
         {
           "type": "minecraft:item",
@@ -200,10 +200,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:ancientscale",
+                "type": "fishofthieves:battlegill",
                 "type_specific": {
-                  "type": "fishofthieves:ancientscale",
-                  "variant": "fishofthieves:bone"
+                  "type": "fishofthieves:battlegill",
+                  "variant": "fishofthieves:sand"
                 }
               }
             }
@@ -254,7 +254,7 @@
               "value": 3.0
             }
           ],
-          "name": "fishofthieves:ancientscale"
+          "name": "fishofthieves:battlegill"
         },
         {
           "type": "minecraft:item",
@@ -263,10 +263,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:ancientscale",
+                "type": "fishofthieves:battlegill",
                 "type_specific": {
-                  "type": "fishofthieves:ancientscale",
-                  "variant": "fishofthieves:starshine"
+                  "type": "fishofthieves:battlegill",
+                  "variant": "fishofthieves:bittersweet"
                 }
               }
             }
@@ -317,7 +317,7 @@
               "value": 4.0
             }
           ],
-          "name": "fishofthieves:ancientscale"
+          "name": "fishofthieves:battlegill"
         }
       ],
       "rolls": 1.0
@@ -342,9 +342,14 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.025,
-          "condition": "minecraft:random_chance_with_looting",
-          "looting_multiplier": 0.01
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.035,
+            "per_level_above_first": 0.01
+          },
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.025
         }
       ],
       "entries": [

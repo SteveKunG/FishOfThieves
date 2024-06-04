@@ -11,10 +11,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:wildsplash",
+                "type": "fishofthieves:devilfish",
                 "type_specific": {
-                  "type": "fishofthieves:wildsplash",
-                  "variant": "fishofthieves:russet"
+                  "type": "fishofthieves:devilfish",
+                  "variant": "fishofthieves:ashen"
                 }
               }
             }
@@ -65,7 +65,7 @@
               "value": 0.0
             }
           ],
-          "name": "fishofthieves:wildsplash"
+          "name": "fishofthieves:devilfish"
         },
         {
           "type": "minecraft:item",
@@ -74,10 +74,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:wildsplash",
+                "type": "fishofthieves:devilfish",
                 "type_specific": {
-                  "type": "fishofthieves:wildsplash",
-                  "variant": "fishofthieves:sandy"
+                  "type": "fishofthieves:devilfish",
+                  "variant": "fishofthieves:seashell"
                 }
               }
             }
@@ -128,7 +128,7 @@
               "value": 1.0
             }
           ],
-          "name": "fishofthieves:wildsplash"
+          "name": "fishofthieves:devilfish"
         },
         {
           "type": "minecraft:item",
@@ -137,10 +137,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:wildsplash",
+                "type": "fishofthieves:devilfish",
                 "type_specific": {
-                  "type": "fishofthieves:wildsplash",
-                  "variant": "fishofthieves:ocean"
+                  "type": "fishofthieves:devilfish",
+                  "variant": "fishofthieves:lava"
                 }
               }
             }
@@ -191,7 +191,7 @@
               "value": 2.0
             }
           ],
-          "name": "fishofthieves:wildsplash"
+          "name": "fishofthieves:devilfish"
         },
         {
           "type": "minecraft:item",
@@ -200,10 +200,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:wildsplash",
+                "type": "fishofthieves:devilfish",
                 "type_specific": {
-                  "type": "fishofthieves:wildsplash",
-                  "variant": "fishofthieves:muddy"
+                  "type": "fishofthieves:devilfish",
+                  "variant": "fishofthieves:forsaken"
                 }
               }
             }
@@ -254,7 +254,7 @@
               "value": 3.0
             }
           ],
-          "name": "fishofthieves:wildsplash"
+          "name": "fishofthieves:devilfish"
         },
         {
           "type": "minecraft:item",
@@ -263,10 +263,10 @@
               "condition": "minecraft:entity_properties",
               "entity": "this",
               "predicate": {
-                "type": "fishofthieves:wildsplash",
+                "type": "fishofthieves:devilfish",
                 "type_specific": {
-                  "type": "fishofthieves:wildsplash",
-                  "variant": "fishofthieves:coral"
+                  "type": "fishofthieves:devilfish",
+                  "variant": "fishofthieves:firelight"
                 }
               }
             }
@@ -317,7 +317,7 @@
               "value": 4.0
             }
           ],
-          "name": "fishofthieves:wildsplash"
+          "name": "fishofthieves:devilfish"
         }
       ],
       "rolls": 1.0
@@ -342,9 +342,14 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.025,
-          "condition": "minecraft:random_chance_with_looting",
-          "looting_multiplier": 0.01
+          "condition": "minecraft:random_chance_with_enchanted_bonus",
+          "enchanted_chance": {
+            "type": "minecraft:linear",
+            "base": 0.035,
+            "per_level_above_first": 0.01
+          },
+          "enchantment": "minecraft:looting",
+          "unenchanted_chance": 0.025
         }
       ],
       "entries": [

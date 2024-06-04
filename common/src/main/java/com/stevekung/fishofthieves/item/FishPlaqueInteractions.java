@@ -19,10 +19,10 @@ public class FishPlaqueInteractions
 
     public static void bootstrap(BootstrapContext<FishPlaqueInteraction> context)
     {
-        register(context, SNAIL, new ResourceLocation("naturalist", "snail"), Items.BUCKET);
-        register(context, COSMIC_COD, new ResourceLocation("alexsmobs", "cosmic_cod"), Items.BUCKET);
-        register(context, STRADPOLE, new ResourceLocation("alexsmobs", "stradpole"), Items.LAVA_BUCKET);
-        register(context, RADGILL, new ResourceLocation("alexscaves", "radgill"), new ResourceLocation("alexscaves", "acid_bucket"));
+        register(context, SNAIL, ResourceLocation.fromNamespaceAndPath("naturalist", "snail"), Items.BUCKET);
+        register(context, COSMIC_COD, ResourceLocation.fromNamespaceAndPath("alexsmobs", "cosmic_cod"), Items.BUCKET);
+        register(context, STRADPOLE, ResourceLocation.fromNamespaceAndPath("alexsmobs", "stradpole"), Items.LAVA_BUCKET);
+        register(context, RADGILL, ResourceLocation.fromNamespaceAndPath("alexscaves", "radgill"), ResourceLocation.fromNamespaceAndPath("alexscaves", "acid_bucket"));
     }
 
     static void register(BootstrapContext<FishPlaqueInteraction> context, ResourceKey<FishPlaqueInteraction> key, ResourceLocation entityType, ResourceLocation item)

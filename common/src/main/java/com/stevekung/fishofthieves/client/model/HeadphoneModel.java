@@ -40,9 +40,9 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
     {
-        this.headphone.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.headphone.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
     }
 
     public interface Scaleable<T extends Entity>

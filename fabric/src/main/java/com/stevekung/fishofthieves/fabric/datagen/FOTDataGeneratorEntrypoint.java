@@ -41,8 +41,6 @@ import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.*;
@@ -105,10 +103,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     //@formatter:on
 
     // Croptopia
-    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("croptopia", "fishes"));
+    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("croptopia", "fishes"));
 
     // Immersive Weathering
-    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
+    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("immersive_weathering", "freezing_water_immune"));
 
     @Override
     public void buildRegistry(RegistrySetBuilder builder)
@@ -362,7 +360,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         private ResourceLocation getCustomModelLocation(ResourceLocation resourceLocation, String item)
         {
-            return new ResourceLocation(resourceLocation.getNamespace(), "item/" + item);
+            return ResourceLocation.fromNamespaceAndPath(resourceLocation.getNamespace(), "item/" + item);
         }
     }
 
@@ -530,14 +528,17 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class CustomBlockLootProvider extends SimpleFabricLootTableProvider
     {
+        private final HolderLookup.Provider registries;
+
         private CustomBlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
             super(dataOutput, provider, LootContextParamSets.BLOCK);
+            this.registries = provider.join();
         }
 
         //@formatter:off
         @Override
-        public void generate(HolderLookup.Provider registries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(Fluids.WATER));
             var waterSurrounded = LocationCheck.checkLocation(waterPredicate, new BlockPos(1, 0, 0))
@@ -548,32 +549,38 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
             consumer.accept(getLootTableKey(FOTLootTables.Blocks.EARTHWORMS_DROPS), LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
-                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                    .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                    .when(this.hasSilkTouch().invert())
                     .when(waterSurrounded.invert())
             ));
 
             consumer.accept(getLootTableKey(FOTLootTables.Blocks.GRUBS_DROPS), LootTable.lootTable().withPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(FOTItems.GRUBS)
-                            .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                    .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
+                            .when(BonusLevelTableCondition.bonusLevelFlatChance(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                    .when(this.hasSilkTouch().invert())
                     .when(waterSurrounded.invert())
             ));
 
             consumer.accept(getLootTableKey(FOTLootTables.Blocks.LEECHES_DROPS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                            .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
-                            .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH))).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST))).or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_RIVER)))))
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(this.hasSilkTouch().invert())
+                            .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH))).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST))).or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_RIVER)))))
                             .when(waterSurrounded))
                     .withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
-                            .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
-                            .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(registries.lookupOrThrow(Registries.BIOME).getOrThrow(FOTTags.Biomes.ALWAYS_DROP_LEECHES))))));
+                                    .when(BonusLevelTableCondition.bonusLevelFlatChance(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                            .when(this.hasSilkTouch().invert())
+                            .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(FOTTags.Biomes.ALWAYS_DROP_LEECHES))))));
         }
         //@formatter:on
+
+        private LootItemCondition.Builder hasSilkTouch()
+        {
+            var registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+            return MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(registryLookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))));
+        }
 
         private static ResourceKey<LootTable> getLootTableKey(ResourceLocation lootTable)
         {
@@ -583,90 +590,93 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class EntityLootProvider extends SimpleFabricLootTableProvider
     {
+        private final HolderLookup.Provider registries;
+
         private EntityLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
         {
             super(dataOutput, provider, LootContextParamSets.ENTITY);
+            this.registries = provider.join();
         }
 
         //@formatter:off
         @Override
-        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>,LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceKey<LootTable>,LootTable.Builder> consumer)
         {
             consumer.accept(getLootTableKey(FOTLootTables.Entities.FISH_BONE_DROP), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
+                            .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.025F, 0.01F))));
 
-            simpleFishLoot(FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
-                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY)),
-                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SUNNY)),
-                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.INDIGO)),
-                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.UMBER)),
-                    FOTEntitySubPredicate.splashtail(getValue(provider, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SEAFOAM)));
+            simpleFishLoot(this.registries, FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, consumer,
+                    FOTEntitySubPredicate.splashtail(getValue(this.registries, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY)),
+                    FOTEntitySubPredicate.splashtail(getValue(this.registries, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SUNNY)),
+                    FOTEntitySubPredicate.splashtail(getValue(this.registries, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.INDIGO)),
+                    FOTEntitySubPredicate.splashtail(getValue(this.registries, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.UMBER)),
+                    FOTEntitySubPredicate.splashtail(getValue(this.registries, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.SEAFOAM)));
 
-            simpleFishLoot(FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
-                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL)),
-                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.ORCHID)),
-                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRONZE)),
-                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRIGHT)),
-                    FOTEntitySubPredicate.pondie(getValue(provider, FOTRegistries.PONDIE_VARIANT, PondieVariants.MOONSKY)));
+            simpleFishLoot(this.registries, FOTEntities.PONDIE, FOTItems.PONDIE, consumer,
+                    FOTEntitySubPredicate.pondie(getValue(this.registries, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL)),
+                    FOTEntitySubPredicate.pondie(getValue(this.registries, FOTRegistries.PONDIE_VARIANT, PondieVariants.ORCHID)),
+                    FOTEntitySubPredicate.pondie(getValue(this.registries, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRONZE)),
+                    FOTEntitySubPredicate.pondie(getValue(this.registries, FOTRegistries.PONDIE_VARIANT, PondieVariants.BRIGHT)),
+                    FOTEntitySubPredicate.pondie(getValue(this.registries, FOTRegistries.PONDIE_VARIANT, PondieVariants.MOONSKY)));
 
-            simpleFishLoot(FOTEntities.ISLEHOPPER, FOTItems.ISLEHOPPER, consumer,
-                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE)),
-                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.MOSS)),
-                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.HONEY)),
-                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.RAVEN)),
-                    FOTEntitySubPredicate.islehopper(getValue(provider, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.AMETHYST)));
+            simpleFishLoot(this.registries, FOTEntities.ISLEHOPPER, FOTItems.ISLEHOPPER, consumer,
+                    FOTEntitySubPredicate.islehopper(getValue(this.registries, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE)),
+                    FOTEntitySubPredicate.islehopper(getValue(this.registries, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.MOSS)),
+                    FOTEntitySubPredicate.islehopper(getValue(this.registries, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.HONEY)),
+                    FOTEntitySubPredicate.islehopper(getValue(this.registries, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.RAVEN)),
+                    FOTEntitySubPredicate.islehopper(getValue(this.registries, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.AMETHYST)));
 
-            simpleFishLoot(FOTEntities.ANCIENTSCALE, FOTItems.ANCIENTSCALE, consumer,
-                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND)),
-                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SAPPHIRE)),
-                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SMOKE)),
-                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.BONE)),
-                    FOTEntitySubPredicate.ancientscale(getValue(provider, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.STARSHINE)));
+            simpleFishLoot(this.registries, FOTEntities.ANCIENTSCALE, FOTItems.ANCIENTSCALE, consumer,
+                    FOTEntitySubPredicate.ancientscale(getValue(this.registries, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND)),
+                    FOTEntitySubPredicate.ancientscale(getValue(this.registries, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SAPPHIRE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(this.registries, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.SMOKE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(this.registries, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.BONE)),
+                    FOTEntitySubPredicate.ancientscale(getValue(this.registries, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.STARSHINE)));
 
-            simpleFishLoot(FOTEntities.PLENTIFIN, FOTItems.PLENTIFIN, consumer,
-                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE)),
-                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.AMBER)),
-                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.CLOUDY)),
-                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.BONEDUST)),
-                    FOTEntitySubPredicate.plentifin(getValue(provider, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.WATERY)));
+            simpleFishLoot(this.registries, FOTEntities.PLENTIFIN, FOTItems.PLENTIFIN, consumer,
+                    FOTEntitySubPredicate.plentifin(getValue(this.registries, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE)),
+                    FOTEntitySubPredicate.plentifin(getValue(this.registries, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.AMBER)),
+                    FOTEntitySubPredicate.plentifin(getValue(this.registries, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.CLOUDY)),
+                    FOTEntitySubPredicate.plentifin(getValue(this.registries, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.BONEDUST)),
+                    FOTEntitySubPredicate.plentifin(getValue(this.registries, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.WATERY)));
 
-            simpleFishLoot(FOTEntities.WILDSPLASH, FOTItems.WILDSPLASH, consumer,
-                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET)),
-                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.SANDY)),
-                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.OCEAN)),
-                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.MUDDY)),
-                    FOTEntitySubPredicate.wildsplash(getValue(provider, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.CORAL)));
+            simpleFishLoot(this.registries, FOTEntities.WILDSPLASH, FOTItems.WILDSPLASH, consumer,
+                    FOTEntitySubPredicate.wildsplash(getValue(this.registries, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET)),
+                    FOTEntitySubPredicate.wildsplash(getValue(this.registries, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.SANDY)),
+                    FOTEntitySubPredicate.wildsplash(getValue(this.registries, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.OCEAN)),
+                    FOTEntitySubPredicate.wildsplash(getValue(this.registries, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.MUDDY)),
+                    FOTEntitySubPredicate.wildsplash(getValue(this.registries, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.CORAL)));
 
-            simpleFishLoot(FOTEntities.DEVILFISH, FOTItems.DEVILFISH, consumer,
-                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN)),
-                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.SEASHELL)),
-                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.LAVA)),
-                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FORSAKEN)),
-                    FOTEntitySubPredicate.devilfish(getValue(provider, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FIRELIGHT)));
+            simpleFishLoot(this.registries, FOTEntities.DEVILFISH, FOTItems.DEVILFISH, consumer,
+                    FOTEntitySubPredicate.devilfish(getValue(this.registries, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN)),
+                    FOTEntitySubPredicate.devilfish(getValue(this.registries, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.SEASHELL)),
+                    FOTEntitySubPredicate.devilfish(getValue(this.registries, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.LAVA)),
+                    FOTEntitySubPredicate.devilfish(getValue(this.registries, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FORSAKEN)),
+                    FOTEntitySubPredicate.devilfish(getValue(this.registries, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.FIRELIGHT)));
 
-            simpleFishLoot(FOTEntities.BATTLEGILL, FOTItems.BATTLEGILL, consumer,
-                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE)),
-                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SKY)),
-                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.RUM)),
-                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SAND)),
-                    FOTEntitySubPredicate.battlegill(getValue(provider, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.BITTERSWEET)));
+            simpleFishLoot(this.registries, FOTEntities.BATTLEGILL, FOTItems.BATTLEGILL, consumer,
+                    FOTEntitySubPredicate.battlegill(getValue(this.registries, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE)),
+                    FOTEntitySubPredicate.battlegill(getValue(this.registries, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SKY)),
+                    FOTEntitySubPredicate.battlegill(getValue(this.registries, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.RUM)),
+                    FOTEntitySubPredicate.battlegill(getValue(this.registries, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.SAND)),
+                    FOTEntitySubPredicate.battlegill(getValue(this.registries, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.BITTERSWEET)));
 
-            simpleFishLoot(FOTEntities.WRECKER, FOTItems.WRECKER, consumer,
-                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE)),
-                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SUN)),
-                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.BLACKCLOUD)),
-                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SNOW)),
-                    FOTEntitySubPredicate.wrecker(getValue(provider, FOTRegistries.WRECKER_VARIANT, WreckerVariants.MOON)));
+            simpleFishLoot(this.registries, FOTEntities.WRECKER, FOTItems.WRECKER, consumer,
+                    FOTEntitySubPredicate.wrecker(getValue(this.registries, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE)),
+                    FOTEntitySubPredicate.wrecker(getValue(this.registries, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SUN)),
+                    FOTEntitySubPredicate.wrecker(getValue(this.registries, FOTRegistries.WRECKER_VARIANT, WreckerVariants.BLACKCLOUD)),
+                    FOTEntitySubPredicate.wrecker(getValue(this.registries, FOTRegistries.WRECKER_VARIANT, WreckerVariants.SNOW)),
+                    FOTEntitySubPredicate.wrecker(getValue(this.registries, FOTRegistries.WRECKER_VARIANT, WreckerVariants.MOON)));
 
-            simpleFishLoot(FOTEntities.STORMFISH, FOTItems.STORMFISH, consumer,
-                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT)),
-                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHORES)),
-                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.WILD)),
-                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHADOW)),
-                    FOTEntitySubPredicate.stormfish(getValue(provider, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.TWILIGHT)));
+            simpleFishLoot(this.registries, FOTEntities.STORMFISH, FOTItems.STORMFISH, consumer,
+                    FOTEntitySubPredicate.stormfish(getValue(this.registries, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT)),
+                    FOTEntitySubPredicate.stormfish(getValue(this.registries, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHORES)),
+                    FOTEntitySubPredicate.stormfish(getValue(this.registries, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.WILD)),
+                    FOTEntitySubPredicate.stormfish(getValue(this.registries, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.SHADOW)),
+                    FOTEntitySubPredicate.stormfish(getValue(this.registries, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.TWILIGHT)));
         }
         //@formatter:on
 
@@ -675,13 +685,13 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             return HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey));
         }
 
-        private static void simpleFishLoot(EntityType<?> entityType, Item item, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
+        private static void simpleFishLoot(HolderLookup.Provider provider, EntityType<?> entityType, Item item, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, EntitySubPredicate... subPredicate)
         {
-            consumer.accept(entityType.getDefaultLootTable(), simpleFishLoot(item, entityType, subPredicate));
+            consumer.accept(entityType.getDefaultLootTable(), simpleFishLoot(provider, item, entityType, subPredicate));
         }
 
         //@formatter:off
-        private static LootTable.Builder simpleFishLoot(Item item, EntityType<?> entityType, EntitySubPredicate... subPredicate)
+        private static LootTable.Builder simpleFishLoot(HolderLookup.Provider provider, Item item, EntityType<?> entityType, EntitySubPredicate... subPredicate)
         {
             return LootTable.lootTable().withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
@@ -698,14 +708,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .withPool(LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0f))
                             .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                            .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F)));
+                            .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(provider, 0.025F, 0.01F)));
         }
 
         private static LootPoolSingletonContainer.Builder<?> dropWithVariant(Item item, EntityType<?> entityType, int variant, EntitySubPredicate subPredicate)
         {
             return LootItem.lootTableItem(item)
                     .apply(SmeltItemFunction.smelted()
-                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
+                            .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)))))
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                             .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TrophyFishPredicate(true)))))
                     .apply(hasCustomModelData(variant)
@@ -750,7 +760,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(getLootTableKey(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -833,7 +843,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void generate(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(getLootTableKey(FOTLootTables.Advancements.FISH_COLLECTORS), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -1038,7 +1048,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .display(FOTItems.SPLASHTAIL,
                             Component.translatable("advancements.fot.root.title"),
                             Component.translatable("advancements.fot.root.description"),
-                            new ResourceLocation("textures/block/tube_coral_block.png"),
+                            ResourceLocation.withDefaultNamespace("textures/block/tube_coral_block.png"),
                             AdvancementType.TASK, false, false, false)
                     .addCriterion("in_water", PlayerTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.location()
@@ -1115,12 +1125,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX)),
-                            ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
+                            ItemPredicate.Builder.item().of(ItemTags.CREEPER_DROP_MUSIC_DISCS),
                             EntityPredicate.Builder.entity().of(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE)))
                     .addCriterion("play_jukebox_near_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX)),
-                            ItemPredicate.Builder.item().of(ItemTags.MUSIC_DISCS),
+                            ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.JUKEBOX_PLAYABLE, ItemJukeboxPlayablePredicate.any()),
                             EntityPredicate.Builder.entity().of(EntityTypeTags.AXOLOTL_HUNT_TARGETS)))
                     .save(consumer, this.mod("play_jukebox_near_fish"));
 
@@ -1157,7 +1167,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             {
                 var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-                for (var variant : variants.keySet().stream().map(ResourceLocation::new).toList())
+                for (var variant : variants.keySet().stream().map(ResourceLocation::parse).toList())
                 {
                     builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
                     {

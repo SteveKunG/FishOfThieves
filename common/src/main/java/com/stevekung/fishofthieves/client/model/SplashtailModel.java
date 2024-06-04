@@ -62,11 +62,11 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implem
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
     {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        this.head.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
     }
 
     @Override

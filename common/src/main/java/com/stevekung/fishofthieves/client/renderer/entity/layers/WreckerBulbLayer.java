@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
@@ -33,7 +34,7 @@ public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> exten
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(BULB_BY_VARIANT.apply(livingEntity.getVariant())));
             var color = Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.25F, 1.0F);
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, color, color, color, 1.0f);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1.0f, color, color, color));
         }
     }
 }

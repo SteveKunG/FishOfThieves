@@ -147,7 +147,7 @@ public class SeapostPieces
         @Override
         public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random, BoundingBox box, ChunkPos chunkPos, BlockPos pos)
         {
-            var resourceLocation = new ResourceLocation(this.templateName);
+            var resourceLocation = ResourceLocation.parse(this.templateName);
             this.templatePosition = new BlockPos(this.templatePosition.getX(), generator.getSeaLevel() - OFFSETS.get(resourceLocation).getY(), this.templatePosition.getZ());
             super.postProcess(level, structureManager, generator, random, box, chunkPos, pos);
         }

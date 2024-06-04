@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Holder;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.VariantHolder;
 
@@ -29,7 +30,7 @@ public class GlowFishLayer<V extends AbstractFishVariant, T extends LivingEntity
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(glowTexture.get()));
             var color = livingEntity.getGlowBrightness(ageInTicks);
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, color, color, color, 1.0f);
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(1.0f, color, color, color));
         }
     }
 }

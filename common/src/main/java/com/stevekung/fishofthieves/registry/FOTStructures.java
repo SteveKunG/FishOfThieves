@@ -10,7 +10,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
@@ -25,7 +24,7 @@ public class FOTStructures
     public static void bootstrap(BootstrapContext<Structure> context)
     {
         var holderGetter = context.lookup(Registries.BIOME);
-        context.register(Key.SEAPOST, new SeapostStructure(Structures.structure(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST), TerrainAdjustment.BEARD_THIN)));
+        context.register(Key.SEAPOST, new SeapostStructure(new Structure.StructureSettings.Builder(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
     }
 
     public static void init()
