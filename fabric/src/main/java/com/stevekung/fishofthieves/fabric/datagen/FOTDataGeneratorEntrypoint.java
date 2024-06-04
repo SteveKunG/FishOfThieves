@@ -32,6 +32,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.Util;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
@@ -85,6 +86,7 @@ import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+@SuppressWarnings("unused")
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 {
     //@formatter:off
@@ -101,10 +103,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             FOTItems.STORMFISH_BUCKET
     };
     //@formatter:on
-
-    // Fabric Tags
-    private static final TagKey<Item> RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("fabric", "raw_fishes"));
-    private static final TagKey<Item> COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("fabric", "cooked_fishes"));
 
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("croptopia", "fishes"));
@@ -923,9 +921,11 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
             this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
 
-            // Fabric
-            this.getOrCreateTagBuilder(RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
-            this.getOrCreateTagBuilder(COOKED_FISHES).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
+            // Common
+            this.getOrCreateTagBuilder(ConventionalItemTags.RAW_FISHES_FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH);
+            this.getOrCreateTagBuilder(ConventionalItemTags.COOKED_FISHES_FOODS).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
+            this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH).forceAddTag(FOTTags.Items.WORMS);
+            this.getOrCreateTagBuilder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FISH_BUCKETS);
 
             // Croptopia compatibility
             this.getOrCreateTagBuilder(CROPTOPIA_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
