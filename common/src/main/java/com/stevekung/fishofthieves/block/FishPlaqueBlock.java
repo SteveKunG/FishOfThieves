@@ -174,10 +174,10 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
                         entityToSave.saveWithoutId(tag);
                         tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
+                        fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
 
                     level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.BLOCKS, 1.0F, 1.0F);
-                    fishPlaque.setPlaqueData(tag);
                     blockEntity.setChanged();
                     level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
