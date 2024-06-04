@@ -45,7 +45,9 @@
           {
             "condition": "minecraft:match_tool",
             "predicate": {
-              "items": "#minecraft:creeper_drop_music_discs"
+              "predicates": {
+                "minecraft:jukebox_playable": {}
+              }
             }
           },
           {

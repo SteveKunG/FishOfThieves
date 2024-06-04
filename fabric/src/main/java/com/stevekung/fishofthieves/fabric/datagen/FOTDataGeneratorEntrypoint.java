@@ -600,7 +600,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         //@formatter:off
         @Override
-        public void generate(BiConsumer<ResourceKey<LootTable>,LootTable.Builder> consumer)
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
         {
             consumer.accept(getLootTableKey(FOTLootTables.Entities.FISH_BONE_DROP), LootTable.lootTable()
                     .withPool(LootPool.lootPool()
@@ -1125,7 +1125,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
                     .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
                                     .setBlock(BlockPredicate.Builder.block().of(Blocks.JUKEBOX)),
-                            ItemPredicate.Builder.item().of(ItemTags.CREEPER_DROP_MUSIC_DISCS),
+                            ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.JUKEBOX_PLAYABLE, ItemJukeboxPlayablePredicate.any()),
                             EntityPredicate.Builder.entity().of(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE)))
                     .addCriterion("play_jukebox_near_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                             LocationPredicate.Builder.location()
