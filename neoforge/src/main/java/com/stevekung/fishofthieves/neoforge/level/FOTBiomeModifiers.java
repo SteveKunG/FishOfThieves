@@ -23,6 +23,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -47,18 +48,18 @@ public class FOTBiomeModifiers
                 context.register(key("add_wreckers"), spawn(context, FOTTags.Biomes.SPAWNS_WRECKERS, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8)));
                 context.register(key("add_stormfish"), spawn(context, FOTTags.Biomes.SPAWNS_STORMFISH, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8)));
 
-                context.register(ADD_FISH_BONE, new net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.HAS_FISH_BONE), HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(FOTPlacements.FISH_BONE)), GenerationStep.Decoration.VEGETAL_DECORATION));
+                context.register(ADD_FISH_BONE, new BiomeModifiers.AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.HAS_FISH_BONE), HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(FOTPlacements.FISH_BONE)), GenerationStep.Decoration.VEGETAL_DECORATION));
             });
     //@formatter:on
 
     public static void generateBiomeModifiers(GatherDataEvent event)
     {
-        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<BiomeModifiers>) output -> new BiomeModifiers(output, event.getLookupProvider()));
+        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<ModBiomeModifiers>) output -> new ModBiomeModifiers(output, event.getLookupProvider()));
     }
 
-    private static class BiomeModifiers extends DatapackBuiltinEntriesProvider
+    private static class ModBiomeModifiers extends DatapackBuiltinEntriesProvider
     {
-        public BiomeModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
+        public ModBiomeModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
         {
             super(output, registries, BUILDER, Set.of(FishOfThieves.MOD_ID));
         }
@@ -78,6 +79,6 @@ public class FOTBiomeModifiers
     private static BiomeModifier spawn(BootstrapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)
     {
         var tag = context.lookup(Registries.BIOME).getOrThrow(tagKey);
-        return net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(tag, spawnerData);
+        return BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(tag, spawnerData);
     }
 }

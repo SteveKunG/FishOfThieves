@@ -7,8 +7,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,7 +26,7 @@ public abstract class MixinLivingEntity extends Entity
     {
         if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {
-            var fishBoneDropLootTable = this.level().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Entities.FISH_BONE_DROP));
+            var fishBoneDropLootTable = this.level().getServer().reloadableRegistries().getLootTable(FOTLootTables.Entities.FISH_BONE_DROP);
             fishBoneDropLootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
         }
     }

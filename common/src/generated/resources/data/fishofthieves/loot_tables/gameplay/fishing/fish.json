@@ -1,0 +1,268 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "fishofthieves:fot_location_check",
+              "predicate": {
+                "biomes": "fishofthieves:spawns_splashtails"
+              }
+            }
+          ],
+          "name": "fishofthieves:splashtail",
+          "weight": 50
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "fishofthieves:fot_location_check",
+              "predicate": {
+                "biomes": "fishofthieves:spawns_pondies"
+              }
+            }
+          ],
+          "name": "fishofthieves:pondie",
+          "weight": 50
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_islehoppers"
+                  }
+                },
+                {
+                  "condition": "minecraft:any_of",
+                  "terms": [
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "continentalness": "coast"
+                      }
+                    },
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "continentalness": "ocean"
+                      }
+                    },
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "peak_type": "low"
+                      }
+                    },
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "peak_type": "mid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:islehopper",
+          "weight": 40
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_ancientscales"
+                  }
+                },
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "structures": "fishofthieves:ancientscales_spawn_in"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:ancientscale",
+          "weight": 40
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_plentifins"
+                  }
+                },
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "structures": "fishofthieves:plentifins_spawn_in"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:plentifin",
+          "weight": 45
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "fishofthieves:fot_location_check",
+              "predicate": {
+                "biomes": "fishofthieves:spawns_wildsplash"
+              }
+            }
+          ],
+          "name": "fishofthieves:wildsplash",
+          "weight": 45
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_devilfish"
+                  }
+                },
+                {
+                  "condition": "minecraft:all_of",
+                  "terms": [
+                    {
+                      "condition": "minecraft:location_check",
+                      "predicate": {
+                        "position": {
+                          "y": {
+                            "max": 0.0
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "condition": "minecraft:inverted",
+                      "term": {
+                        "condition": "fishofthieves:fot_location_check",
+                        "predicate": {
+                          "biomes": "fishofthieves:devilfish_cannot_spawn"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:devilfish",
+          "weight": 35
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_battlegills"
+                  }
+                },
+                {
+                  "condition": "minecraft:any_of",
+                  "terms": [
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "structures": "fishofthieves:battlegills_spawn_in"
+                      }
+                    },
+                    {
+                      "condition": "fishofthieves:fot_location_check",
+                      "predicate": {
+                        "has_raids": true
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:battlegill",
+          "weight": 35
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "structures": "fishofthieves:wreckers_spawn_in"
+                  }
+                },
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_wreckers"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:wrecker",
+          "weight": 20
+        },
+        {
+          "type": "fishofthieves:fot_item",
+          "conditions": [
+            {
+              "condition": "minecraft:all_of",
+              "terms": [
+                {
+                  "condition": "minecraft:weather_check",
+                  "thundering": true
+                },
+                {
+                  "condition": "fishofthieves:fot_location_check",
+                  "predicate": {
+                    "biomes": "fishofthieves:spawns_stormfish"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "fishofthieves:stormfish",
+          "weight": 20
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
