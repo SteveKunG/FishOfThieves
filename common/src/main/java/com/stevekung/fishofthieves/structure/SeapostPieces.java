@@ -11,7 +11,6 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -85,15 +84,15 @@ public class SeapostPieces
         {
             if (random.nextFloat() < 0.35f)
             {
-                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_COMBAT);
+                return FOTLootTables.Chests.SEAPOST_BARREL_COMBAT;
             }
             else if (random.nextFloat() < 0.2f)
             {
-                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK);
+                return FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK;
             }
             else
             {
-                return ResourceKey.create(Registries.LOOT_TABLE, FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY);
+                return FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY;
             }
         }
 
