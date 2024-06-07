@@ -1,17 +1,13 @@
 package com.stevekung.fishofthieves.forge.datagen;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.forge.loot.FOTForgeLootTables;
-import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.HolderLookup;
@@ -19,8 +15,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.nbt.CompoundTag;
@@ -28,9 +22,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,63 +41,8 @@ public class DataGeneratorFOT
         var packOutput = dataGenerator.getPackOutput();
         var provider = event.getLookupProvider();
         var helper = event.getExistingFileHelper();
-        dataGenerator.addProvider(event.includeServer(), new LootTableProvider(packOutput, FOTForgeLootTables.all(), List.of(
-                //@formatter:off
-                new LootTableProvider.SubProviderEntry(EntityLootTableProvider::new, LootContextParamSets.ENTITY),
-                new LootTableProvider.SubProviderEntry(ChestLootTableProvider::new, LootContextParamSets.CHEST),
-                new LootTableProvider.SubProviderEntry(ArchaeologyLootTableProvider::new, LootContextParamSets.ARCHAEOLOGY),
-                new LootTableProvider.SubProviderEntry(GiftLootTableProvider::new, LootContextParamSets.GIFT),
-                new LootTableProvider.SubProviderEntry(FishingLootTableProvider::new, LootContextParamSets.FISHING)
-                //@formatter:on
-        )));
         dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(packOutput, provider, helper));
         dataGenerator.addProvider(event.includeServer(), new FishingReal(packOutput, provider));
-    }
-
-    private static class ArchaeologyLootTableProvider implements LootTableSubProvider
-    {
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            consumer.accept(FOTForgeLootTables.Archaeology.OCEAN_RUINS, LootTable.lootTable().withPool(FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool())));
-        }
-    }
-
-    private static class ChestLootTableProvider implements LootTableSubProvider
-    {
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            consumer.accept(FOTForgeLootTables.Chest.VILLAGE_FISHER, LootTable.lootTable().withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool())));
-            consumer.accept(FOTForgeLootTables.Chest.BURIED_TREASURE, LootTable.lootTable().withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool())));
-        }
-    }
-
-    private static class EntityLootTableProvider implements LootTableSubProvider
-    {
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            consumer.accept(FOTForgeLootTables.Entity.POLAR_BEAR, LootTable.lootTable().withPool(FOTLootManager.getPolarBearLoot(LootPool.lootPool())));
-        }
-    }
-
-    private static class GiftLootTableProvider implements LootTableSubProvider
-    {
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            consumer.accept(FOTForgeLootTables.Gift.FISHERMAN_GIFT, LootTable.lootTable().withPool(FOTLootManager.getFishermanGiftLoot(LootPool.lootPool())));
-        }
-    }
-
-    private static class FishingLootTableProvider implements LootTableSubProvider
-    {
-        @Override
-        public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
-        {
-            consumer.accept(FOTForgeLootTables.Fishing.FISHING_FISH, LootTable.lootTable().withPool(FOTLootManager.getFishingLoot(LootPool.lootPool())));
-        }
     }
 
     private static class ForgeItemTags extends ItemTagsProvider

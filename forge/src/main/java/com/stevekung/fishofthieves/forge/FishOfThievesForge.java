@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.loot.AddLootModifier;
-import com.stevekung.fishofthieves.forge.loot.FOTForgeLootTables;
 import com.stevekung.fishofthieves.forge.loot.FOTGlobalLootModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
@@ -139,23 +138,23 @@ public class FishOfThievesForge
             //@formatter:off
             this.add("add_fisherman_gift", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(BuiltInLootTables.FISHERMAN_GIFT).build()
-            }, FOTForgeLootTables.Gift.FISHERMAN_GIFT));
+            }, FOTLootTables.Gift.FISHERMAN_GIFT));
             this.add("add_fishing_fish", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(BuiltInLootTables.FISHING_FISH).build()
-            }, FOTForgeLootTables.Fishing.FISHING_FISH));
+            }, FOTLootTables.Fishing.FISHING_FISH));
             this.add("add_polar_bear", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(EntityType.POLAR_BEAR.getDefaultLootTable()).build()
-            }, FOTForgeLootTables.Entity.POLAR_BEAR));
+            }, FOTLootTables.Entities.POLAR_BEAR));
             this.add("add_village_fisher", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(BuiltInLootTables.VILLAGE_FISHER).build()
-            }, FOTForgeLootTables.Chest.VILLAGE_FISHER));
+            }, FOTLootTables.Chests.VILLAGE_FISHER));
             this.add("add_buried_treasure", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(BuiltInLootTables.BURIED_TREASURE).build()
-            }, FOTForgeLootTables.Chest.BURIED_TREASURE));
+            }, FOTLootTables.Chests.BURIED_TREASURE));
             this.add("add_ocean_ruins", new AddLootModifier(new LootItemCondition[] {
                     LootTableIdCondition.builder(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY).build(),
                     LootTableIdCondition.builder(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY).build()
-            }, FOTForgeLootTables.Archaeology.OCEAN_RUINS));
+            }, FOTLootTables.Archaeology.OCEAN_RUINS));
             //@formatter:on
         }
     }
