@@ -29,6 +29,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
 
         if (entity != null)
         {
+            var animationTick = blockEntity.getAnimation(partialTick);
             var blockState = blockEntity.getBlockState();
             var facing = blockState.getValue(FishPlaqueBlock.FACING);
             var rotation = blockState.getValue(FishPlaqueBlock.ROTATION) - 1;
@@ -73,8 +74,10 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
                 poseStack.mulPose(Axis.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
             }
 
+            entity.setYHeadRot(0);
+            entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, 0.0f, poseStack, bufferSource, packedLight);
+            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, animationTick, poseStack, bufferSource, packedLight);
         }
         poseStack.popPose();
     }

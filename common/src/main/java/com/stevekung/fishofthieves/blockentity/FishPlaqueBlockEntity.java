@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.blockentity;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +21,8 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public static final String WAXED_TAG = "Waxed";
 
     private boolean waxed;
+    private int animationTickCount;
+    private boolean isAnimating;
 
     @Nullable
     private Entity displayEntity;
@@ -111,6 +114,24 @@ public class FishPlaqueBlockEntity extends BlockEntity
     {
         this.plaqueData = null;
         this.displayEntity = null;
+    }
+
+    public static void animation(Level level, BlockPos pos, BlockState state, FishPlaqueBlockEntity blockEntity)
+    {
+        if (state.hasProperty(FishPlaqueBlock.POWERED) && state.getValue(FishPlaqueBlock.POWERED))
+        {
+            blockEntity.isAnimating = true;
+            ++blockEntity.animationTickCount;
+        }
+        else
+        {
+            blockEntity.isAnimating = false;
+        }
+    }
+
+    public float getAnimation(float partialTick)
+    {
+        return this.isAnimating ? (float) this.animationTickCount + partialTick : (float) this.animationTickCount;
     }
 
     @Nullable
