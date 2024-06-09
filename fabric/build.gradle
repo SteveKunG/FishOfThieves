@@ -39,6 +39,10 @@ loom {
     }
 }
 
+dependencies {
+    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
+}
+
 String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
