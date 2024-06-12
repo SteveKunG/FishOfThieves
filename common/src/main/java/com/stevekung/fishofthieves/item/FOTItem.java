@@ -99,7 +99,7 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().filter(holder -> itemStack.is(holder.value().baseItem()) && Util.allOf(holder.value().conditions()).test(context)).toList(), randomSource).ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(holder.value().customModelData())));
+                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().filter(holder -> itemStack.is(holder.value().baseItem()) && holder.value().fishingOverride().isPresent() ? Util.allOf(holder.value().fishingOverride().get()).test(context) : Util.allOf(holder.value().conditions()).test(context)).toList(), randomSource).ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(holder.value().customModelData())));
             }
         }
         return itemStack;

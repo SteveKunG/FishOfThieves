@@ -7,6 +7,11 @@
     }
   ],
   "custom_model_data": 1,
+  "fishing_override": [
+    {
+      "condition": "fishofthieves:see_sky"
+    }
+  ],
   "name": "sky",
   "texture": "fishofthieves:entity/battlegill/sky"
 }

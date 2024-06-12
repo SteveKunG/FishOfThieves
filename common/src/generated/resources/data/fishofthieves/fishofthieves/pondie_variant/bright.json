@@ -19,6 +19,23 @@
     }
   ],
   "custom_model_data": 3,
+  "fishing_override": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "chance": 0.1,
+          "condition": "fishofthieves:probability"
+        },
+        {
+          "condition": "fishofthieves:is_day"
+        },
+        {
+          "condition": "fishofthieves:see_sky"
+        }
+      ]
+    }
+  ],
   "name": "bright",
   "texture": "fishofthieves:entity/pondie/bright"
 }

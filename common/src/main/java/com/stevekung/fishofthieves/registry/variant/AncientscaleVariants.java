@@ -1,15 +1,14 @@
 package com.stevekung.fishofthieves.registry.variant;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -23,32 +22,22 @@ public class AncientscaleVariants
 
     public static void bootstrap(BootstrapContext<AncientscaleVariant> context)
     {
-        register(context, ALMOND, "almond", 0);
-        register(context, SAPPHIRE, "sapphire", 1);
-        register(context, SMOKE, "smoke", 2);
-        register(context, BONE, "bone", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
-        register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build());
+        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", FOTItems.ANCIENTSCALE, AncientscaleVariant::new);
+        registerContext.register(context, ALMOND, "almond", 0);
+        registerContext.register(context, SAPPHIRE, "sapphire", 1);
+        registerContext.register(context, SMOKE, "smoke", 2);
+        registerContext.register(context, BONE, "bone", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
+        registerContext.register(context, STARSHINE, "starshine", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build()));
     }
 
     public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)
     {
-        register(context, ALMOND, "almond", 0);
-        register(context, SAPPHIRE, "sapphire", 1);
-        register(context, SMOKE, "smoke", 2);
-        register(context, BONE, "bone", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
-    }
-
-    static void register(BootstrapContext<AncientscaleVariant> context, ResourceKey<AncientscaleVariant> key, String name, int customModelData, SpawnCondition... conditions)
-    {
-        register(context, key, name, customModelData, false, conditions);
-    }
-
-    static void register(BootstrapContext<AncientscaleVariant> context, ResourceKey<AncientscaleVariant> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
-    {
-        var texture = FishOfThieves.id("entity/ancientscale/" + name);
-        var glowTexture = FishOfThieves.id("entity/ancientscale/" + name + "_glow");
-        context.register(key, new AncientscaleVariant(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), List.of(conditions), BuiltInRegistries.ITEM.wrapAsHolder(FOTItems.ANCIENTSCALE), customModelData));
+        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", FOTItems.ANCIENTSCALE, AncientscaleVariant::new);
+        registerContext.register(context, ALMOND, "almond", 0);
+        registerContext.register(context, SAPPHIRE, "sapphire", 1);
+        registerContext.register(context, SMOKE, "smoke", 2);
+        registerContext.register(context, BONE, "bone", 3, ProbabilityCondition.defaultRareProbablity().build());
+        registerContext.register(context, STARSHINE, "starshine", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
     }
 
     private static ResourceKey<AncientscaleVariant> createKey(String name)
