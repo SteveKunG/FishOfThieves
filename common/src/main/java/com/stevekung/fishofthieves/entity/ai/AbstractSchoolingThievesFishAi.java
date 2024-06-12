@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
@@ -23,13 +24,13 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class AbstractSchoolingThievesFishAi
 {
-    public static void initMemories(AbstractSchoolingThievesFish<?> fish)
+    public static void initMemories(AbstractFlockFish fish)
     {
         fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
         fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom()));
     }
 
-    public static void resetMemories(AbstractSchoolingThievesFish<?> fish)
+    public static void resetMemories(AbstractFlockFish fish)
     {
         initMemories(fish);
         fish.getBrain().eraseMemory(FOTMemoryModuleTypes.IS_FLOCK_LEADER);
@@ -38,7 +39,7 @@ public class AbstractSchoolingThievesFishAi
         fish.getBrain().eraseMemory(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK);
     }
 
-    public static Brain<?> makeBrain(Brain<AbstractSchoolingThievesFish<?>> brain)
+    public static Brain<?> makeBrain(Brain<AbstractFlockFish> brain)
     {
         initCoreActivity(brain);
         initIdleActivity(brain);
@@ -49,12 +50,12 @@ public class AbstractSchoolingThievesFishAi
         return brain;
     }
 
-    public static void updateActivity(AbstractSchoolingThievesFish<?> fish)
+    public static void updateActivity(AbstractFlockFish fish)
     {
         fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
     }
 
-    public static <T extends AbstractSchoolingThievesFish<?>> void customServerAiStep(T fish, Brain<T> brain)
+    public static <T extends AbstractFlockFish> void customServerAiStep(T fish, Brain<T> brain)
     {
         var name = BuiltInRegistries.ENTITY_TYPE.getKey(fish.getType()).getPath();
         fish.level().getProfiler().push(name + "Brain");
@@ -65,7 +66,7 @@ public class AbstractSchoolingThievesFishAi
     }
 
     //@formatter:off
-    private static void initCoreActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
+    private static void initCoreActivity(Brain<AbstractFlockFish> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
                 new AnimalPanic<>(2.0F),
@@ -77,7 +78,7 @@ public class AbstractSchoolingThievesFishAi
     }
 
     @SuppressWarnings("deprecation")
-    private static void initIdleActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
+    private static void initIdleActivity(Brain<AbstractFlockFish> brain)
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
@@ -93,7 +94,7 @@ public class AbstractSchoolingThievesFishAi
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
     }
 
-    private static void initRetreatActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
+    private static void initRetreatActivity(Brain<AbstractFlockFish> brain)
     {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(
                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 5.0F, 12, true),
@@ -102,7 +103,7 @@ public class AbstractSchoolingThievesFishAi
                 EraseMemoryIf.create(AbstractThievesFishAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
-    private static RunOne<AbstractSchoolingThievesFish<?>> createIdleLookBehaviors()
+    private static RunOne<AbstractFlockFish> createIdleLookBehaviors()
     {
         return new RunOne<>(ImmutableList.of(
                 Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 6.0F), 1),
@@ -110,7 +111,7 @@ public class AbstractSchoolingThievesFishAi
                 Pair.of(new DoNothing(30, 60), 1)));
     }
 
-    private static RunOne<AbstractSchoolingThievesFish<?>> createIdleMovementBehaviors()
+    private static RunOne<AbstractFlockFish> createIdleMovementBehaviors()
     {
         return new RunOne<>(ImmutableList.of(
                 Pair.of(RandomStroll.swim(1.0F), 2),
@@ -118,14 +119,14 @@ public class AbstractSchoolingThievesFishAi
     }
     //@formatter:on
 
-    public static void wasHurtBy(AbstractSchoolingThievesFish<?> fish)
+    public static void wasHurtBy(AbstractFlockFish livingEntity)
     {
-        var brain = fish.getBrain();
+        var brain = livingEntity.getBrain();
 
-        if (fish.isFollower())
+        if (livingEntity.isFollower())
         {
-            fish.getLeader().removeFollower();
-            brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom(), 1200));
+            livingEntity.getLeader().removeFollower();
+            brain.setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(livingEntity.getRandom(), 1200));
             brain.eraseMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER);
             brain.eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
         }

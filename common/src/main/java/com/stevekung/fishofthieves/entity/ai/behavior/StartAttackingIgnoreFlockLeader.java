@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import com.google.common.collect.ImmutableMap;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,7 +61,7 @@ public class StartAttackingIgnoreFlockLeader<E extends Mob> extends Behavior<E>
         var brain = mob.getBrain();
         brain.setMemory(MemoryModuleType.ATTACK_TARGET, attackTarget);
         brain.eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        brain.getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).ifPresent(AbstractSchoolingThievesFish::removeFollower);
+        brain.getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).ifPresent(AbstractFlockFish::removeFollower);
         brain.eraseMemory(FOTMemoryModuleTypes.FLOCK_LEADER);
     }
 }

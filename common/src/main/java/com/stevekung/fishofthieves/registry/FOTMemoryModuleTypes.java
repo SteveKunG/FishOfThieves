@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FOTPlatform;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -14,19 +14,15 @@ public class FOTMemoryModuleTypes
 {
     public static final MemoryModuleType<LivingEntity> NEAREST_VISIBLE_TROPHY = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<BlockPos> NEAREST_SHIPWRECK = new MemoryModuleType<>(Optional.empty());
-    @SuppressWarnings("rawtypes")
-    public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH = new MemoryModuleType<>(Optional.empty());
+    public static final MemoryModuleType<List<AbstractFlockFish>> NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<Integer> FOLLOW_FLOCK_COOLDOWN_TICKS = new MemoryModuleType<>(Optional.of(Codec.INT));
     public static final MemoryModuleType<Integer> SCHOOL_SIZE = new MemoryModuleType<>(Optional.of(Codec.INT));
-    @SuppressWarnings("rawtypes")
-    public static final MemoryModuleType<AbstractSchoolingThievesFish> FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
+    public static final MemoryModuleType<AbstractFlockFish> FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<Boolean> IS_FLOCK_LEADER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
     public static final MemoryModuleType<Boolean> IS_FLOCK_FOLLOWER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
     public static final MemoryModuleType<Boolean> MERGE_FROM_OTHER_FLOCK = new MemoryModuleType<>(Optional.of(Codec.BOOL));
-    @SuppressWarnings("rawtypes")
-    public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> FLOCK_FOLLOWERS = new MemoryModuleType<>(Optional.empty());
-    @SuppressWarnings("rawtypes")
-    public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> NEAREST_VISIBLE_FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
+    public static final MemoryModuleType<List<AbstractFlockFish>> FLOCK_FOLLOWERS = new MemoryModuleType<>(Optional.empty());
+    public static final MemoryModuleType<List<AbstractFlockFish>> NEAREST_VISIBLE_FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<BlockPos> NEAREST_LOW_BRIGHTNESS = new MemoryModuleType<>(Optional.empty());
 
     public static void init()

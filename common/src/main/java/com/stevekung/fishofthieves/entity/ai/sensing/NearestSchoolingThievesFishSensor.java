@@ -5,14 +5,14 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import com.google.common.collect.ImmutableSet;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 
-@SuppressWarnings("rawtypes")
-public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingThievesFish>
+public class NearestSchoolingThievesFishSensor extends Sensor<LivingEntity>
 {
     @Override
     public Set<MemoryModuleType<?>> requires()
@@ -21,11 +21,11 @@ public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingT
     }
 
     @Override
-    protected void doTick(ServerLevel level, AbstractSchoolingThievesFish entity)
+    protected void doTick(ServerLevel level, LivingEntity entity)
     {
         var brain = entity.getBrain();
-        Predicate<AbstractSchoolingThievesFish> predicate = fish -> (fish.canBeFollowed() || !fish.isFollower()) && fish.isAlive();
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), predicate);
+        Predicate<AbstractFlockFish> predicate = livingEntity -> (livingEntity.canBeFollowed() || !livingEntity.isFollower()) && livingEntity.isAlive();
+        var list = level.getEntitiesOfClass(AbstractFlockFish.class, entity.getBoundingBox().inflate(16.0), predicate);
         list.sort(Comparator.comparingDouble(entity::distanceToSqr));
         brain.setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, list);
     }

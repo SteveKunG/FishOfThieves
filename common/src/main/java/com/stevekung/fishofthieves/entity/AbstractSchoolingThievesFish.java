@@ -42,14 +42,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant> extends AbstractSchoolingFish implements ThievesFish<T>
+public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant> extends AbstractFlockFish implements ThievesFish<T>
 {
     private static final EntityDataAccessor<Boolean> TROPHY = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
 
     //@formatter:off
-    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractSchoolingThievesFish<?>>>> SENSOR_TYPES = ImmutableList.of(
+    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractFlockFish>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
@@ -171,19 +171,19 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS) && !this.getFlockFollowers().isEmpty() && this.getSchoolSize() > 1;
     }
 
+    @Override
     public boolean isLeader()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_FLOCK_LEADER) && this.getBrain().getMemory(FOTMemoryModuleTypes.IS_FLOCK_LEADER).get();
     }
 
-    @SuppressWarnings("rawtypes")
-    public List<AbstractSchoolingThievesFish> getFlockFollowers()
+    public List<AbstractFlockFish> getFlockFollowers()
     {
         return this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_FOLLOWERS).get();
     }
 
-    @SuppressWarnings("rawtypes")
-    protected void startFollowingThievesFish(AbstractSchoolingThievesFish leader)
+    @Override
+    public void startFollowingThievesFish(AbstractFlockFish leader)
     {
         this.getBrain().setMemory(FOTMemoryModuleTypes.FLOCK_LEADER, leader);
         this.getBrain().setMemory(FOTMemoryModuleTypes.IS_FLOCK_FOLLOWER, true);
@@ -191,8 +191,8 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         leader.addFollower();
     }
 
-    @SuppressWarnings("rawtypes")
-    public void addThievesFishFollowers(Stream<AbstractSchoolingThievesFish> followers)
+    @Override
+    public void addThievesFishFollowers(Stream<AbstractFlockFish> followers)
     {
         var list = followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
         var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
@@ -213,33 +213,37 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         }
     }
 
+    @Override
     public boolean hasFollowCooldown()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS);
     }
 
-    @SuppressWarnings("rawtypes")
-    public boolean isSameType(AbstractSchoolingThievesFish other)
+    @Override
+    public boolean isSameType(AbstractFlockFish other)
     {
         return this.getType() == other.getType();
     }
 
+    @Override
     public boolean hasLeader()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_LEADER);
     }
 
-    @SuppressWarnings("rawtypes")
-    public AbstractSchoolingThievesFish getLeader()
+    @Override
+    public AbstractFlockFish getLeader()
     {
         return this.getBrain().getMemory(FOTMemoryModuleTypes.FLOCK_LEADER).get();
     }
 
+    @Override
     public void addFollower()
     {
         this.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, this.getSchoolSize() + 1);
     }
 
+    @Override
     public void removeFollower()
     {
         this.removeFollower(true);
@@ -255,6 +259,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         }
     }
 
+    @Override
     public int getSchoolSize()
     {
         return this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.SCHOOL_SIZE) ? this.getBrain().getMemory(FOTMemoryModuleTypes.SCHOOL_SIZE).get() : 1;
