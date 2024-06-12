@@ -68,9 +68,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 
     @Override
     @SuppressWarnings("unchecked")
-    public Brain<AbstractThievesFish<?>> getBrain()
+    public Brain<Islehopper> getBrain()
     {
-        return (Brain<AbstractThievesFish<?>>) super.getBrain();
+        return (Brain<Islehopper>) super.getBrain();
     }
 
     @Override

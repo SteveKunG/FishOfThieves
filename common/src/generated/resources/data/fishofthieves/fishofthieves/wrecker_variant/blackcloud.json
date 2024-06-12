@@ -9,12 +9,27 @@
           "thundering": true
         },
         {
-          "condition": "fishofthieves:see_sky_in_water"
+          "below_water": true,
+          "condition": "fishofthieves:see_sky"
         }
       ]
     }
   ],
   "custom_model_data": 2,
+  "fishing_override": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_raining",
+          "thundering": true
+        },
+        {
+          "condition": "fishofthieves:see_sky"
+        }
+      ]
+    }
+  ],
   "name": "blackcloud",
   "texture": "fishofthieves:entity/wrecker/blackcloud"
 }

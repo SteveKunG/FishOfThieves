@@ -78,7 +78,7 @@ public class FOTMobBucketItem extends MobBucketItem
             {
                 Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(AbstractFishVariant::customModelData));
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).forEach(holder -> output.accept(create(item, holder))));
+                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).map(Holder.Reference::value).forEach(variant -> output.accept(create(item, variant))));
             }
         }
         else
@@ -97,11 +97,11 @@ public class FOTMobBucketItem extends MobBucketItem
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, Holder.Reference<AbstractFishVariant> holder)
+    private static ItemStack create(Item item, AbstractFishVariant variant)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(holder.value().customModelData()));
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(holder.value().name()).toString()));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData()));
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(variant.name()).toString()));
         return itemStack;
     }
 }

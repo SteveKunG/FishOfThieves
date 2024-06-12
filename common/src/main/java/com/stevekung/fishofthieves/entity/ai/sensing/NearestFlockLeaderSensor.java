@@ -4,14 +4,13 @@ import java.util.Comparator;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 
-@SuppressWarnings("rawtypes")
-public class NearestFlockLeaderSensor extends Sensor<AbstractSchoolingThievesFish>
+public class NearestFlockLeaderSensor extends Sensor<AbstractFlockFish>
 {
     @Override
     public Set<MemoryModuleType<?>> requires()
@@ -20,10 +19,10 @@ public class NearestFlockLeaderSensor extends Sensor<AbstractSchoolingThievesFis
     }
 
     @Override
-    protected void doTick(ServerLevel level, AbstractSchoolingThievesFish entity)
+    protected void doTick(ServerLevel level, AbstractFlockFish livingEntity)
     {
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), fish -> fish.isLeader() && fish.isAlive());
-        list.sort(Comparator.comparingDouble(entity::distanceToSqr));
-        entity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, list);
+        var list = level.getEntitiesOfClass(AbstractFlockFish.class, livingEntity.getBoundingBox().inflate(16.0), livingEntityx -> livingEntityx.isLeader() && livingEntityx.isAlive());
+        list.sort(Comparator.comparingDouble(livingEntity::distanceToSqr));
+        livingEntity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, list);
     }
 }

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
@@ -50,7 +51,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    protected Brain.Provider<AbstractSchoolingThievesFish<?>> brainProvider()
+    protected Brain.Provider<AbstractFlockFish> brainProvider()
     {
         return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
     }
@@ -63,9 +64,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
 
     @Override
     @SuppressWarnings("unchecked")
-    public Brain<AbstractSchoolingThievesFish<?>> getBrain()
+    public Brain<Ancientscale> getBrain()
     {
-        return (Brain<AbstractSchoolingThievesFish<?>>) super.getBrain();
+        return (Brain<Ancientscale>) super.getBrain();
     }
 
     @Override

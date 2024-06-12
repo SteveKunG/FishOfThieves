@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
 import com.google.common.collect.ImmutableMap;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.Util;
 import net.minecraft.server.level.ServerLevel;
@@ -11,8 +11,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 
-@SuppressWarnings("rawtypes")
-public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
+public class FollowFlockLeader extends Behavior<AbstractFlockFish>
 {
     private final float speedModifier;
 
@@ -37,7 +36,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, AbstractSchoolingThievesFish entity, long gameTime)
+    protected boolean canStillUse(ServerLevel level, AbstractFlockFish entity, long gameTime)
     {
         var brain = entity.getBrain();
 
@@ -57,7 +56,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
     }
 
     @Override
-    protected void tick(ServerLevel level, AbstractSchoolingThievesFish owner, long gameTime)
+    protected void tick(ServerLevel level, AbstractFlockFish owner, long gameTime)
     {
         var flockLeader = owner.getLeader();
         var brain = owner.getBrain();

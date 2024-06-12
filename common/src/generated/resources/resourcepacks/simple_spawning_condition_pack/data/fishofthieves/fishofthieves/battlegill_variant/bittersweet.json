@@ -8,12 +8,26 @@
           "condition": "fishofthieves:is_night"
         },
         {
-          "condition": "fishofthieves:see_sky_in_water"
+          "below_water": true,
+          "condition": "fishofthieves:see_sky"
         }
       ]
     }
   ],
   "custom_model_data": 4,
+  "fishing_override": [
+    {
+      "condition": "fishofthieves:all_of",
+      "terms": [
+        {
+          "condition": "fishofthieves:is_night"
+        },
+        {
+          "condition": "fishofthieves:see_sky"
+        }
+      ]
+    }
+  ],
   "glow_texture": "fishofthieves:entity/battlegill/bittersweet_glow",
   "name": "bittersweet",
   "texture": "fishofthieves:entity/battlegill/bittersweet"

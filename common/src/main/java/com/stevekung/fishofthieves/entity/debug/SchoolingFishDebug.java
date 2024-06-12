@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.entity.debug;
 
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
@@ -8,7 +8,7 @@ public class SchoolingFishDebug
 {
     public static final boolean ENABLE = false;
 
-    public static void tick(AbstractSchoolingThievesFish<?> fish)
+    public static void tick(AbstractFlockFish fish)
     {
         if (!ENABLE)
         {

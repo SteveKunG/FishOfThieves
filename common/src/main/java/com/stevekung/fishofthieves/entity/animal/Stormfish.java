@@ -60,9 +60,9 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
 
     @Override
     @SuppressWarnings("unchecked")
-    public Brain<AbstractThievesFish<?>> getBrain()
+    public Brain<Stormfish> getBrain()
     {
-        return (Brain<AbstractThievesFish<?>>) super.getBrain();
+        return (Brain<Stormfish>) super.getBrain();
     }
 
     @Override
