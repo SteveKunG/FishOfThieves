@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.Optional;
+
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -9,13 +11,13 @@ import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +33,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -115,6 +116,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
+        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(this.getDefaultKey()).location().toString());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -125,6 +127,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     {
         super.readAdditionalSaveData(compound);
 
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(resourceKey)).ifPresent(this::setVariant);
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
@@ -135,7 +138,6 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     {
         super.saveToBucketTag(itemStack);
         this.saveToBucket(itemStack);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString("variant", this.getVariant().unwrapKey().orElseThrow().location().toString()));
     }
 
     @Override
