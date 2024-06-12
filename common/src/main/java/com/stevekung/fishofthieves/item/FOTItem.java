@@ -45,7 +45,7 @@ public class FOTItem extends Item
             {
                 Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(AbstractFishVariant::customModelData));
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).forEach(holder -> output.accept(create(item, holder.value().customModelData()))));
+                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).mapToInt(holder -> holder.value().customModelData()).forEach(customModelData -> output.accept(create(item, customModelData))));
             }
         }
         else
@@ -72,13 +72,13 @@ public class FOTItem extends Item
             if (context.registries() != null && itemStack.getItem() instanceof FOTItem fotItem)
             {
                 var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                context.registries().lookup(registryKey).ifPresent(lookup -> lookup.listElements().forEach(holder ->
+                context.registries().lookup(registryKey).ifPresent(lookup -> lookup.listElements().map(Holder.Reference::value).forEach(variant ->
                 {
-                    var customModelData = holder.value().customModelData();
+                    var customModelData = variant.customModelData();
 
                     if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value() == customModelData)
                     {
-                        tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + holder.value().name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                        tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + variant.name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                     }
                 }));
             }
@@ -99,7 +99,7 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().filter(holder -> itemStack.is(holder.value().baseItem()) && holder.value().fishingOverride().isPresent() ? Util.allOf(holder.value().fishingOverride().get()).test(context) : Util.allOf(holder.value().conditions()).test(context)).toList(), randomSource).ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(holder.value().customModelData())));
+                Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().map(Holder.Reference::value).filter(variant -> itemStack.is(variant.baseItem()) && variant.fishingOverride().isPresent() ? Util.allOf(variant.fishingOverride().get()).test(context) : Util.allOf(variant.conditions()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData())));
             }
         }
         return itemStack;
