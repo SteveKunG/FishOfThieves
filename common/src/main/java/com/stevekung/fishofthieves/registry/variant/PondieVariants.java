@@ -25,8 +25,8 @@ public class PondieVariants
         register(context, CHARCOAL, "charcoal", 0);
         register(context, ORCHID, "orchid", 1);
         register(context, BRONZE, "bronze", 2);
-        register(context, BRIGHT, "bright", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BRIGHT, "bright", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build());
+        register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<PondieVariant> context)
@@ -35,7 +35,7 @@ public class PondieVariants
         register(context, ORCHID, "orchid", 1);
         register(context, BRONZE, "bronze", 2);
         register(context, BRIGHT, "bright", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<PondieVariant> context, ResourceKey<PondieVariant> key, String name, int customModelData, SpawnCondition... conditions)

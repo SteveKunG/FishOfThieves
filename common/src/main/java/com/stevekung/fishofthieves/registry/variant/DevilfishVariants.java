@@ -38,7 +38,7 @@ public class DevilfishVariants
         register(context, SEASHELL, "seashell", 1);
         register(context, LAVA, "lava", 2);
         register(context, FORSAKEN, "forsaken", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<DevilfishVariant> context, ResourceKey<DevilfishVariant> key, String name, int customModelData, SpawnCondition... conditions)

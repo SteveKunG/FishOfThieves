@@ -27,10 +27,10 @@ public class BattlegillVariants
     {
         var biomeLookup = context.lookup(Registries.BIOME);
         register(context, JADE, "jade", 0);
-        register(context, SKY, "sky", 1, SeeSkyInWaterCondition.seeSkyInWater().build());
+        register(context, SKY, "sky", 1, SeeSkyCondition.seeSkyBelowWater().build());
         register(context, RUM, "rum", 2);
         register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
-        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
@@ -39,7 +39,7 @@ public class BattlegillVariants
         register(context, SKY, "sky", 1);
         register(context, RUM, "rum", 2);
         register(context, SAND, "sand", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<BattlegillVariant> context, ResourceKey<BattlegillVariant> key, String name, int customModelData, SpawnCondition... conditions)

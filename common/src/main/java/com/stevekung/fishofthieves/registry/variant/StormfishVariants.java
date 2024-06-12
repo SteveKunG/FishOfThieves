@@ -39,7 +39,7 @@ public class StormfishVariants
         register(context, SHORES, "shores", 1);
         register(context, WILD, "wild", 2);
         register(context, SHADOW, "shadow", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, TWILIGHT, "twilight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, TWILIGHT, "twilight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<StormfishVariant> context, ResourceKey<StormfishVariant> key, String name, int customModelData, SpawnCondition... conditions)

@@ -21,7 +21,7 @@ public class FOTSpawnConditions
     public static final SpawnConditionType IS_DAY = register("is_day", DayCondition.CODEC);
     public static final SpawnConditionType IS_NIGHT = register("is_night", NightCondition.CODEC);
     public static final SpawnConditionType IS_RAINING = register("is_raining", RainingCondition.CODEC);
-    public static final SpawnConditionType SEE_SKY_IN_WATER = register("see_sky_in_water", SeeSkyInWaterCondition.CODEC);
+    public static final SpawnConditionType SEE_SKY = register("see_sky", SeeSkyCondition.CODEC);
     public static final SpawnConditionType CONTINENTALNESS = register("continentalness", ContinentalnessCondition.CODEC);
     public static final SpawnConditionType PROBABILITY = register("probability", ProbabilityCondition.CODEC);
     public static final SpawnConditionType MATCH_BIOME = register("match_biome", MatchBiomeCondition.CODEC);

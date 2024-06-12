@@ -24,10 +24,10 @@ public class PlentifinVariants
     public static void bootstrap(BootstrapContext<PlentifinVariant> context)
     {
         register(context, OLIVE, "olive", 0);
-        register(context, AMBER, "amber", 1, RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(0.75f, 0.9f)).and(SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, CLOUDY, "cloudy", 2, AllOfCondition.allOf(RainingCondition.raining(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, AMBER, "amber", 1, RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(0.75f, 0.9f)).and(SeeSkyCondition.seeSkyBelowWater()).build());
+        register(context, CLOUDY, "cloudy", 2, AllOfCondition.allOf(RainingCondition.raining(), SeeSkyCondition.seeSkyBelowWater()).build());
         register(context, BONEDUST, "bonedust", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
-        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<PlentifinVariant> context)
@@ -36,7 +36,7 @@ public class PlentifinVariants
         register(context, AMBER, "amber", 1);
         register(context, CLOUDY, "cloudy", 2);
         register(context, BONEDUST, "bonedust", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, WATERY, "watery", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<PlentifinVariant> context, ResourceKey<PlentifinVariant> key, String name, int customModelData, SpawnCondition... conditions)

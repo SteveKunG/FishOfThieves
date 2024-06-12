@@ -41,7 +41,7 @@ public class IslehopperVariants
         register(context, MOSS, "moss", 1);
         register(context, HONEY, "honey", 2);
         register(context, RAVEN, "raven", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, AMETHYST, "amethyst", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, AMETHYST, "amethyst", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<IslehopperVariant> context, ResourceKey<IslehopperVariant> key, String name, int customModelData, SpawnCondition... conditions)

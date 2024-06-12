@@ -16,7 +16,8 @@
           "min": 0.75
         },
         {
-          "condition": "fishofthieves:see_sky_in_water"
+          "below_water": true,
+          "condition": "fishofthieves:see_sky"
         }
       ]
     }

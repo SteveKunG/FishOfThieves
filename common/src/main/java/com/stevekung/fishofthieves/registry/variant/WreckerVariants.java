@@ -27,10 +27,10 @@ public class WreckerVariants
     {
         var biomeLookup = context.lookup(Registries.BIOME);
         register(context, ROSE, "rose", 0);
-        register(context, SUN, "sun", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyInWaterCondition.seeSkyInWater()).build());
-        register(context, BLACKCLOUD, "blackcloud", 2, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, SUN, "sun", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build());
+        register(context, BLACKCLOUD, "blackcloud", 2, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSkyBelowWater()).build());
         register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
-        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
+        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)
@@ -39,7 +39,7 @@ public class WreckerVariants
         register(context, SUN, "sun", 1);
         register(context, BLACKCLOUD, "blackcloud", 2);
         register(context, SNOW, "snow", 3, ProbabilityCondition.defaultRareProbablity().build());
-        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyInWaterCondition.seeSkyInWater()).build());
+        register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build());
     }
 
     static void register(BootstrapContext<WreckerVariant> context, ResourceKey<WreckerVariant> key, String name, int customModelData, SpawnCondition... conditions)
