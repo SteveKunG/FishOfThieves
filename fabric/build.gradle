@@ -40,7 +40,7 @@ loom {
 }
 
 dependencies {
-//    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"TODO
+    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
