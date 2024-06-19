@@ -12,12 +12,21 @@
           "condition": "fishofthieves:all_of",
           "terms": [
             {
-              "condition": "fishofthieves:match_structure",
-              "structures": "fishofthieves:bone_ancientscales_spawn_in"
-            },
-            {
               "chance": 10,
               "condition": "fishofthieves:random_chance"
+            },
+            {
+              "condition": "fishofthieves:any_of",
+              "terms": [
+                {
+                  "condition": "fishofthieves:match_structure",
+                  "structures": "minecraft:stronghold"
+                },
+                {
+                  "condition": "fishofthieves:match_structure",
+                  "structures": "#minecraft:mineshaft"
+                }
+              ]
             }
           ]
         }
