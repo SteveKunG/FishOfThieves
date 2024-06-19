@@ -44,6 +44,9 @@ dependencies {
 }
 
 processResources {
+    delete {
+        delete "${projectDir}/src/main/resources/resourcepacks/simple_spawning_condition_pack"
+    }
     copy {
         from("../common/src/generated/resources/resourcepacks")
         into("$projectDir/src/main/resources/resourcepacks")
