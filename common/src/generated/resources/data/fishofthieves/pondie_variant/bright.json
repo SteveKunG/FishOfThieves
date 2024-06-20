@@ -5,7 +5,7 @@
       "condition": "fishofthieves:all_of",
       "terms": [
         {
-          "chance": 0.1,
+          "chance": 0.01,
           "condition": "fishofthieves:probability"
         },
         {
@@ -24,7 +24,7 @@
       "condition": "fishofthieves:all_of",
       "terms": [
         {
-          "chance": 0.1,
+          "chance": 0.01,
           "condition": "fishofthieves:probability"
         },
         {

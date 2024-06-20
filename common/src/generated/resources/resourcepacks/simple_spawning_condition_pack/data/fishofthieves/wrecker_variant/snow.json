@@ -2,7 +2,7 @@
   "base_item": "fishofthieves:wrecker",
   "conditions": [
     {
-      "chance": 0.1,
+      "chance": 0.01,
       "condition": "fishofthieves:probability"
     }
   ],
