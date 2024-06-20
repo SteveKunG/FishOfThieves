@@ -9,8 +9,8 @@ public record SkyDarkenCondition(int min, int max) implements SpawnCondition
 {
     //@formatter:off
     public static final MapCodec<SkyDarkenCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.fieldOf("min").forGetter(SkyDarkenCondition::min),
-            Codec.INT.fieldOf("max").forGetter(SkyDarkenCondition::max)
+            Codec.intRange(0, 16).fieldOf("min").forGetter(SkyDarkenCondition::min),
+            Codec.intRange(0, 16).fieldOf("max").forGetter(SkyDarkenCondition::max)
     ).apply(instance, SkyDarkenCondition::new));
     //@formatter:on
 

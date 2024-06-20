@@ -9,8 +9,8 @@ public record TimeOfDayCondition(float min, float max) implements SpawnCondition
 {
     //@formatter:off
     public static final MapCodec<TimeOfDayCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.FLOAT.fieldOf("min").forGetter(TimeOfDayCondition::min),
-            Codec.FLOAT.fieldOf("max").forGetter(TimeOfDayCondition::max)
+            Codec.floatRange(0.0f, 1.0f).fieldOf("min").forGetter(TimeOfDayCondition::min),
+            Codec.floatRange(0.0f, 1.0f).fieldOf("max").forGetter(TimeOfDayCondition::max)
     ).apply(instance, TimeOfDayCondition::new));
     //@formatter:on
 
