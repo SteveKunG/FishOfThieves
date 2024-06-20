@@ -145,7 +145,7 @@ public class CommonProxyNeoForge
 
     private void onAddPackFinders(AddPackFindersEvent event)
     {
-        event.addPackFinders(FishOfThieves.id("simple_spawning_condition_pack"), PackType.SERVER_DATA, Component.translatable("dataPack.simple_spawning_condition_pack.description"), PackSource.FEATURE, false, Pack.Position.TOP);
+        event.addPackFinders(FishOfThieves.id("simple_spawning_condition_pack"), PackType.SERVER_DATA, Component.translatable("dataPack.simple_spawning_condition_pack.name"), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 
     private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> entries)

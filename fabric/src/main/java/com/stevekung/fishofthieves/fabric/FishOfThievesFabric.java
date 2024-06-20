@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -75,7 +76,7 @@ public class FishOfThievesFabric implements ModInitializer
         //@formatter:off
         FabricLoader.getInstance().getModContainer(FishOfThieves.MOD_ID)
                 .map(container -> ResourceManagerHelper.registerBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"),
-                        container, ResourcePackActivationType.NORMAL))
+                        container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), ResourcePackActivationType.NORMAL))
                 .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
         //@formatter:on
 
