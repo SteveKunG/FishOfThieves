@@ -1,0 +1,12 @@
+{
+  "base_item": "fishofthieves:wrecker",
+  "conditions": [
+    {
+      "chance": 0.01,
+      "condition": "fishofthieves:probability"
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "snow",
+  "texture": "fishofthieves:entity/wrecker/snow"
+}

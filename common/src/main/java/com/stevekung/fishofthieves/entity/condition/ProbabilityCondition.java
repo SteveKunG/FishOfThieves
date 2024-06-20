@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 
 public record ProbabilityCondition(float chance) implements SpawnCondition
 {
-    public static final MapCodec<ProbabilityCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("chance").forGetter(ProbabilityCondition::chance)).apply(instance, ProbabilityCondition::new));
+    public static final MapCodec<ProbabilityCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ProbabilityCondition::chance)).apply(instance, ProbabilityCondition::new));
 
     @Override
     public SpawnConditionType getType()
@@ -28,6 +28,6 @@ public record ProbabilityCondition(float chance) implements SpawnCondition
 
     public static SpawnCondition.Builder defaultRareProbablity()
     {
-        return () -> new ProbabilityCondition(0.1f);
+        return () -> new ProbabilityCondition(0.01f);
     }
 }

@@ -9,8 +9,8 @@ public record MoonBrightnessCondition(float min, float max) implements SpawnCond
 {
     //@formatter:off
     public static final MapCodec<MoonBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.FLOAT.fieldOf("min").forGetter(MoonBrightnessCondition::min),
-            Codec.FLOAT.fieldOf("max").forGetter(MoonBrightnessCondition::max)
+            Codec.floatRange(0.0f, 1.0f).fieldOf("min").forGetter(MoonBrightnessCondition::min),
+            Codec.floatRange(0.0f, 1.0f).fieldOf("max").forGetter(MoonBrightnessCondition::max)
     ).apply(instance, MoonBrightnessCondition::new));
     //@formatter:on
 

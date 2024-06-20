@@ -8,6 +8,10 @@ import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.AbstractFish;
@@ -23,6 +27,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
@@ -38,6 +43,7 @@ public class CommonProxyNeoForge
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::registerAttributes);
         eventBus.addListener(this::registerSpawnPlacement);
+        eventBus.addListener(this::onAddPackFinders);
     }
 
     @SuppressWarnings("deprecation")
@@ -135,6 +141,11 @@ public class CommonProxyNeoForge
         event.put(FOTEntities.BATTLEGILL, Battlegill.createAttributes().build());
         event.put(FOTEntities.WRECKER, Wrecker.createAttributes().build());
         event.put(FOTEntities.STORMFISH, AbstractFish.createAttributes().build());
+    }
+
+    private void onAddPackFinders(AddPackFindersEvent event)
+    {
+        event.addPackFinders(FishOfThieves.id("simple_spawning_condition_pack"), PackType.SERVER_DATA, Component.translatable("dataPack.simple_spawning_condition_pack.description"), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 
     private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> entries)

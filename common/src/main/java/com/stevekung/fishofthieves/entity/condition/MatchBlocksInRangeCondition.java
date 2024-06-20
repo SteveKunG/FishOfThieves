@@ -19,7 +19,7 @@ public record MatchBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Opt
     public static final MapCodec<MatchBlocksInRangeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MatchBlocksInRangeCondition::blocks),
             RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MatchBlocksInRangeCondition::fluids),
-            Codec.INT.fieldOf("range").forGetter(MatchBlocksInRangeCondition::range)
+            Codec.intRange(1, 32).fieldOf("range").forGetter(MatchBlocksInRangeCondition::range)
     ).apply(instance, MatchBlocksInRangeCondition::new));
     //@formatter:on
 

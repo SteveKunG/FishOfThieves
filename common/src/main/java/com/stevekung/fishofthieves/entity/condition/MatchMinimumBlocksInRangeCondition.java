@@ -19,8 +19,8 @@ public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> bloc
     public static final MapCodec<MatchMinimumBlocksInRangeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MatchMinimumBlocksInRangeCondition::blocks),
             RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MatchMinimumBlocksInRangeCondition::fluids),
-            Codec.INT.fieldOf("range").forGetter(MatchMinimumBlocksInRangeCondition::range),
-            Codec.INT.fieldOf("size").forGetter(MatchMinimumBlocksInRangeCondition::size)
+            Codec.intRange(1, 32).fieldOf("range").forGetter(MatchMinimumBlocksInRangeCondition::range),
+            Codec.intRange(1, 64).fieldOf("size").forGetter(MatchMinimumBlocksInRangeCondition::size)
     ).apply(instance, MatchMinimumBlocksInRangeCondition::new));
     //@formatter:on
 

@@ -36,14 +36,13 @@ dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
 }
 
-tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            version: version
-    ]
-    inputs.properties replaceProperties
-
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand replaceProperties
+processResources {
+    delete {
+        delete "${projectDir}/src/main/resources/simple_spawning_condition_pack"
+    }
+    copy {
+        from("../common/src/generated/resources/resourcepacks")
+        into("$projectDir/src/main/resources")
     }
 }
 

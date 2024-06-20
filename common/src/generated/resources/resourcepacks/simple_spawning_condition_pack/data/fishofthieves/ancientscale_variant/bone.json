@@ -1,0 +1,12 @@
+{
+  "base_item": "fishofthieves:ancientscale",
+  "conditions": [
+    {
+      "chance": 0.01,
+      "condition": "fishofthieves:probability"
+    }
+  ],
+  "custom_model_data": 3,
+  "name": "bone",
+  "texture": "fishofthieves:entity/ancientscale/bone"
+}

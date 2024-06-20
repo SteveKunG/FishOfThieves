@@ -10,8 +10,8 @@ public record SkyBrightnessCondition(int min, int max) implements SpawnCondition
 {
     //@formatter:off
     public static final MapCodec<SkyBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.fieldOf("min").forGetter(SkyBrightnessCondition::min),
-            Codec.INT.fieldOf("max").forGetter(SkyBrightnessCondition::max)
+            Codec.intRange(0, 15).fieldOf("min").forGetter(SkyBrightnessCondition::min),
+            Codec.intRange(0, 15).fieldOf("max").forGetter(SkyBrightnessCondition::max)
     ).apply(instance, SkyBrightnessCondition::new));
     //@formatter:on
 
