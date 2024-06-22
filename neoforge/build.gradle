@@ -47,7 +47,7 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
-List<String> commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
+List<String> commonExcludes = [".cache", "**/datagen/", "**/resourcepacks/", "data/fabric/**", "data/immersive_weathering/**", "**/freeze_immune_entity_types.json", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
