@@ -10,14 +10,14 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 
-public class GoToClosestShipwreck extends Behavior<LivingEntity>
+public class GoToClosestWreckerLocated extends Behavior<LivingEntity>
 {
     private final float speedModifier;
     private final int closeEnoughDistance;
 
-    public GoToClosestShipwreck(float speedModifier, int closeEnoughDistance)
+    public GoToClosestWreckerLocated(float speedModifier, int closeEnoughDistance)
     {
-        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_SHIPWRECK, MemoryStatus.VALUE_PRESENT));
+        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED, MemoryStatus.VALUE_PRESENT));
         this.speedModifier = speedModifier;
         this.closeEnoughDistance = closeEnoughDistance;
     }
@@ -27,9 +27,9 @@ public class GoToClosestShipwreck extends Behavior<LivingEntity>
     {
         var brain = entity.getBrain();
 
-        if (brain.hasMemoryValue(FOTMemoryModuleTypes.NEAREST_SHIPWRECK))
+        if (brain.hasMemoryValue(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED))
         {
-            brain.getMemory(FOTMemoryModuleTypes.NEAREST_SHIPWRECK).ifPresent(blockPos ->
+            brain.getMemory(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED).ifPresent(blockPos ->
             {
                 var vec3 = Vec3.atCenterOf(blockPos);
                 entity.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(vec3.x, entity.getY(), vec3.z), this.speedModifier, this.closeEnoughDistance));
