@@ -24,7 +24,7 @@
 				"east": {"uv": [14, 10, 16, 13], "texture": "#fish_plaque"},
 				"south": {"uv": [10, 11, 14, 14], "texture": "#fish_plaque", "cullface": "south"},
 				"west": {"uv": [14, 10, 16, 13], "texture": "#fish_plaque"},
-				"up": {"uv": [14, 12, 10, 10], "texture": "#fish_plaque"}
+				"up": {"uv": [14, 12, 10, 10], "texture": "#fish_plaque", "cullface": "up"}
 			}
 		},
 		{
@@ -52,7 +52,7 @@
 			"to": [15, 15, 16],
 			"faces": {
 				"north": {"uv": [6, 1, 1, 3], "texture": "#fish_plaque"},
-				"east": {"uv": [13, 1, 11, 3], "texture": "#fish_plaque", "cullface": "east"},
+				"east": {"uv": [13, 1, 11, 3], "texture": "#fish_plaque"},
 				"south": {"uv": [11, 1, 6, 3], "texture": "#fish_plaque", "cullface": "south"},
 				"up": {"uv": [1, 1, 6, 3], "texture": "#fish_plaque"},
 				"down": {"uv": [6, 1, 1, 3], "texture": "#fish_plaque"}
