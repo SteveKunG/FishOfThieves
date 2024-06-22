@@ -15,6 +15,7 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
@@ -153,6 +155,22 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     public boolean isFood(ItemStack itemStack)
     {
         return LEECHES_FOOD.test(itemStack);
+    }
+
+    @Override
+    public void tick()
+    {
+        super.tick();
+
+        if (this.level().isClientSide())
+        {
+            var pos = this.blockPosition();
+
+            if (this.level().isThundering() && this.random.nextInt(200) <= this.level().getGameTime() % 200L && pos.getY() == this.level().getHeight(Heightmap.Types.WORLD_SURFACE, pos.getX(), pos.getZ()) - 1)
+            {
+                this.level().addParticle(ParticleTypes.ELECTRIC_SPARK, this.getRandomX(0.6), this.getRandomY(), this.getRandomZ(0.6), 0.0, 0.0, 0.0);
+            }
+        }
     }
 
     @SuppressWarnings("unused")
