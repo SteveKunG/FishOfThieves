@@ -28,6 +28,6 @@ public record ProbabilityCondition(float chance) implements SpawnCondition
 
     public static SpawnCondition.Builder defaultRareProbablity()
     {
-        return () -> new ProbabilityCondition(0.01f);
+        return () -> new ProbabilityCondition(0.05f);
     }
 }
