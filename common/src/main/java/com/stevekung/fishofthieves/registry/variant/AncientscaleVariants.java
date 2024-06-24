@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -27,7 +28,7 @@ public class AncientscaleVariants
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
         registerContext.register(context, BONE, "bone", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchStructureCondition.structures(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN).and(RandomChanceCondition.chance(10))).build());
-        registerContext.register(context, STARSHINE, "starshine", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(0f, 0.25f)).build()));
+        registerContext.register(context, STARSHINE, "starshine", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(0.25d))).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(0.25d))).build()));
     }
 
     public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)

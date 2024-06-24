@@ -9,9 +9,10 @@
           "condition": "fishofthieves:probability"
         },
         {
-          "condition": "fishofthieves:sky_brightness",
-          "max": 4,
-          "min": 0
+          "brightness": {
+            "max": 4
+          },
+          "condition": "fishofthieves:sky_brightness"
         }
       ]
     }

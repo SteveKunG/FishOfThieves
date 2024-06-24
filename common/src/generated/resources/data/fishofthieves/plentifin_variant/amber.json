@@ -12,8 +12,10 @@
         },
         {
           "condition": "fishofthieves:time_of_day",
-          "max": 0.9,
-          "min": 0.75
+          "time_of_day": {
+            "max": 0.9,
+            "min": 0.75
+          }
         },
         {
           "below_water": true,
@@ -35,8 +37,10 @@
         },
         {
           "condition": "fishofthieves:time_of_day",
-          "max": 0.9,
-          "min": 0.75
+          "time_of_day": {
+            "max": 0.9,
+            "min": 0.75
+          }
         },
         {
           "condition": "fishofthieves:see_sky"

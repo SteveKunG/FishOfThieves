@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -30,7 +31,7 @@ public class WreckerVariants
         registerContext.register(context, SUN, "sun", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
         registerContext.register(context, BLACKCLOUD, "blackcloud", 2, List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()));
         registerContext.register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
-        registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(0f, 1f)).build());
+        registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(1.0d))).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)

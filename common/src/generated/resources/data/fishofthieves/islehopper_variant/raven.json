@@ -10,7 +10,9 @@
         },
         {
           "condition": "fishofthieves:height",
-          "max": 0
+          "height": {
+            "max": 0
+          }
         }
       ]
     }

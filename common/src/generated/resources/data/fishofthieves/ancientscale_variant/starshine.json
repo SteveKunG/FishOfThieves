@@ -12,9 +12,10 @@
           "condition": "fishofthieves:see_sky"
         },
         {
-          "condition": "fishofthieves:moon_brightness",
-          "max": 0.25,
-          "min": 0.0
+          "brightness": {
+            "max": 0.25
+          },
+          "condition": "fishofthieves:moon_brightness"
         }
       ]
     }
@@ -31,9 +32,10 @@
           "condition": "fishofthieves:see_sky"
         },
         {
-          "condition": "fishofthieves:moon_brightness",
-          "max": 0.25,
-          "min": 0.0
+          "brightness": {
+            "max": 0.25
+          },
+          "condition": "fishofthieves:moon_brightness"
         }
       ]
     }
