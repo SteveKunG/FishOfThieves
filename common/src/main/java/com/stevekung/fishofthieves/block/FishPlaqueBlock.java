@@ -66,12 +66,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private final Map<Direction, VoxelShape> aabb;
+    private final Type type;
     public static final MapCodec<FishPlaqueBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(propertiesCodec(), Type.CODEC.fieldOf("type").forGetter(FishPlaqueBlock::getType)).apply(instance, FishPlaqueBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
-    private final Type type;
 
     public FishPlaqueBlock(BlockBehaviour.Properties properties, Type type)
     {
@@ -84,6 +84,16 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     public Type getType()
     {
         return this.type;
+    }
+
+    @Override
+    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
+    {
+        if (this.type == Type.WOODEN)
+        {
+            return false;
+        }
+        return adjacentState.is(this) || super.skipRendering(state, adjacentState, direction);
     }
 
     @Override

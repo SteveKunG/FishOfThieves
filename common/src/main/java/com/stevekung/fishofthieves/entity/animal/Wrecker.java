@@ -53,7 +53,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY,
             FOTSensorTypes.EARTHWORMS_THIEVES_FISH_TEMPTATIONS,
-            FOTSensorTypes.NEAREST_SHIPWRECK,
+            FOTSensorTypes.NEAREST_WRECKER_LOCATED,
             FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.WRECKER_ATTACKABLES,
             FOTSensorTypes.LOW_BRIGHTNESS
@@ -70,8 +70,8 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             // Avoid Repellent AI
             MemoryModuleType.NEAREST_REPELLENT,
 
-            // Find Shipwreck AI
-            FOTMemoryModuleTypes.NEAREST_SHIPWRECK,
+            // Find Shipwreck or Ruined Portal AI
+            FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED,
 
             // Find Low Light AI
             FOTMemoryModuleTypes.NEAREST_LOW_BRIGHTNESS,
@@ -214,7 +214,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Nullable
-    public static BlockPos getNearestShipwreckPos(ServerLevel level, BlockPos pos)
+    public static BlockPos getNearestShipwreckOrRuinedPortalPos(ServerLevel level, BlockPos pos)
     {
         return level.findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, pos, 32, false);
     }
