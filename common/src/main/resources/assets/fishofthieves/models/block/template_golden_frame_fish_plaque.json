@@ -12,9 +12,7 @@
 			"faces": {
 				"north": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque"},
 				"east": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque", "cullface": "east"},
-				"west": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque"},
-				"up": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"},
-				"down": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"}
+				"west": {"uv": [0, 1, 1, 9], "texture": "#fish_plaque"}
 			}
 		},
 		{
@@ -34,9 +32,7 @@
 			"faces": {
 				"north": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque"},
 				"east": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque"},
-				"west": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque", "cullface": "west"},
-				"up": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"},
-				"down": {"uv": [0, 0, 0, 0], "texture": "#fish_plaque"}
+				"west": {"uv": [15, 1, 16, 9], "texture": "#fish_plaque", "cullface": "west"}
 			}
 		},
 		{
@@ -57,7 +53,7 @@
 				"north": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque"},
 				"east": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
 				"south": {"uv": [0, 10, 2, 12], "texture": "#fish_plaque"},
-				"west": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque"},
+				"west": {"uv": [2, 10, 0, 12], "texture": "#fish_plaque", "cullface": "west"},
 				"up": {"uv": [4, 10, 2, 12], "texture": "#fish_plaque"},
 				"down": {"uv": [6, 10, 4, 12], "texture": "#fish_plaque"}
 			}

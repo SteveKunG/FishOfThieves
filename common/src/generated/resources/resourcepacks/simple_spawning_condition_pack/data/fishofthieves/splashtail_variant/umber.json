@@ -2,7 +2,7 @@
   "base_item": "fishofthieves:splashtail",
   "conditions": [
     {
-      "chance": 0.01,
+      "chance": 0.05,
       "condition": "fishofthieves:probability"
     }
   ],

@@ -5,7 +5,7 @@
       "condition": "fishofthieves:all_of",
       "terms": [
         {
-          "chance": 0.01,
+          "chance": 0.05,
           "condition": "fishofthieves:probability"
         },
         {
@@ -19,7 +19,7 @@
   "custom_model_data": 3,
   "fishing_override": [
     {
-      "chance": 0.01,
+      "chance": 0.05,
       "condition": "fishofthieves:probability"
     }
   ],
