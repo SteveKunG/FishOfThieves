@@ -18,7 +18,9 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.FishPlaqueInteractions;
-import com.stevekung.fishofthieves.loot.function.*;
+import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
+import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
@@ -80,7 +82,10 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 

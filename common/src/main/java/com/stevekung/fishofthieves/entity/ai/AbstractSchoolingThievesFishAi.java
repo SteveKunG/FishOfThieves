@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
-import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.entity.ai.behavior.MergeOtherFlock;
