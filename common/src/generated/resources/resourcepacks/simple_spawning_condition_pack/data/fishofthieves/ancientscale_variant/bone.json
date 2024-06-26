@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:ancientscale",
   "conditions": [
     {
       "chance": 0.05,

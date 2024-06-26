@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "biomes": "minecraft:sparse_jungle",

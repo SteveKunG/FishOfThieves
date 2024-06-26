@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:devilfish",
   "conditions": [
     {
       "chance": 0.05,

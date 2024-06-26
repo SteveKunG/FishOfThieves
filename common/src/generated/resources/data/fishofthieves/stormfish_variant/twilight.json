@@ -1,10 +1,11 @@
 {
-  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "condition": "fishofthieves:sky_darken",
-      "max": 16,
-      "min": 9
+      "darken": {
+        "max": 16,
+        "min": 9
+      }
     }
   ],
   "custom_model_data": 4,

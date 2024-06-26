@@ -6,9 +6,9 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.utils.Continentalness;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -25,17 +25,17 @@ public class StormfishVariants
 
     public static void bootstrap(BootstrapContext<StormfishVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", FOTItems.STORMFISH, StormfishVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1, ContinentalnessCondition.builder().continentalness(Continentalness.COAST).build());
         registerContext.register(context, WILD, "wild", 2, MatchBiomeCondition.biomes(HolderSet.direct(context.lookup(Registries.BIOME).getOrThrow(Biomes.SPARSE_JUNGLE))).build());
-        registerContext.register(context, SHADOW, "shadow", 3, List.of(AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), SkyBrightnessCondition.skyBrightness(0, 4)).build()), List.of(ProbabilityCondition.defaultRareProbablity().build()));
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(9, 16).build());
+        registerContext.register(context, SHADOW, "shadow", 3, List.of(AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), SkyBrightnessCondition.skyBrightness(MinMaxBounds.Ints.atMost(4))).build()), List.of(ProbabilityCondition.defaultRareProbablity().build()));
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(MinMaxBounds.Ints.between(9, 16)).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<StormfishVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", FOTItems.STORMFISH, StormfishVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1);
         registerContext.register(context, WILD, "wild", 2);

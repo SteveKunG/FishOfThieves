@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",

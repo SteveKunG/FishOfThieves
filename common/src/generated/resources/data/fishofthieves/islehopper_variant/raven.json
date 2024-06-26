@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
@@ -10,7 +9,9 @@
         },
         {
           "condition": "fishofthieves:height",
-          "max": 0
+          "height": {
+            "max": 0
+          }
         }
       ]
     }

@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:wrecker",
   "conditions": [
     {
       "chance": 0.05,

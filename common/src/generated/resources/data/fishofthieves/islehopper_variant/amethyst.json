@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
