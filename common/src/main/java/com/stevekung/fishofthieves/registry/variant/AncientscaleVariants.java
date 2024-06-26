@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -23,7 +22,7 @@ public class AncientscaleVariants
 
     public static void bootstrap(BootstrapContext<AncientscaleVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", FOTItems.ANCIENTSCALE, AncientscaleVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", AncientscaleVariant::new);
         registerContext.register(context, ALMOND, "almond", 0);
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
@@ -33,7 +32,7 @@ public class AncientscaleVariants
 
     public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", FOTItems.ANCIENTSCALE, AncientscaleVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", AncientscaleVariant::new);
         registerContext.register(context, ALMOND, "almond", 0);
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);

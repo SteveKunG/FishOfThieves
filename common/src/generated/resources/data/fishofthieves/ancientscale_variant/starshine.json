@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:ancientscale",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",

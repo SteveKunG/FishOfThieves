@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -28,7 +27,7 @@ public class WildsplashVariants
 
     public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("wildsplash", FOTItems.WILDSPLASH, WildsplashVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("wildsplash", WildsplashVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, RUSSET, "russet", 0);
         registerContext.register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
@@ -39,7 +38,7 @@ public class WildsplashVariants
 
     public static void bootstrapSimple(BootstrapContext<WildsplashVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("wildsplash", FOTItems.WILDSPLASH, WildsplashVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("wildsplash", WildsplashVariant::new);
         registerContext.register(context, RUSSET, "russet", 0);
         registerContext.register(context, SANDY, "sandy", 1);
         registerContext.register(context, OCEAN, "ocean", 2);

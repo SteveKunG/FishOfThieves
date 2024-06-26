@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:devilfish",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",

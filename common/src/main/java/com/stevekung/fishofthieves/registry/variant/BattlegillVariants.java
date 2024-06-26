@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +23,7 @@ public class BattlegillVariants
 
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", FOTItems.BATTLEGILL, BattlegillVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1, List.of(SeeSkyCondition.seeSkyBelowWater().build()), List.of(SeeSkyCondition.seeSky().build()));
@@ -35,7 +34,7 @@ public class BattlegillVariants
 
     public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", FOTItems.BATTLEGILL, BattlegillVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1);
         registerContext.register(context, RUM, "rum", 2);

@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -23,7 +22,7 @@ public class PlentifinVariants
 
     public static void bootstrap(BootstrapContext<PlentifinVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("plentifin", FOTItems.PLENTIFIN, PlentifinVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("plentifin", PlentifinVariant::new);
         registerContext.register(context, OLIVE, "olive", 0);
         registerContext.register(context, AMBER, "amber", 1, List.of(RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(MinMaxBounds.Doubles.between(0.75d, 0.9d))).and(SeeSkyCondition.seeSkyBelowWater()).build()), List.of(RainingCondition.raining().invert().and(TimeOfDayCondition.timeOfDay(MinMaxBounds.Doubles.between(0.75d, 0.9d))).and(SeeSkyCondition.seeSky()).build()));
         registerContext.register(context, CLOUDY, "cloudy", 2, List.of(AllOfCondition.allOf(RainingCondition.raining(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(RainingCondition.raining(), SeeSkyCondition.seeSky()).build()));
@@ -33,7 +32,7 @@ public class PlentifinVariants
 
     public static void bootstrapSimple(BootstrapContext<PlentifinVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("plentifin", FOTItems.PLENTIFIN, PlentifinVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("plentifin", PlentifinVariant::new);
         registerContext.register(context, OLIVE, "olive", 0);
         registerContext.register(context, AMBER, "amber", 1);
         registerContext.register(context, CLOUDY, "cloudy", 2);

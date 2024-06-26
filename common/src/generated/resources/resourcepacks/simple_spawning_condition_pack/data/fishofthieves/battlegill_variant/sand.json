@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:battlegill",
   "conditions": [
     {
       "chance": 0.05,

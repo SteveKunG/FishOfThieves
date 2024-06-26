@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +20,7 @@ public class PondieVariants
 
     public static void bootstrap(BootstrapContext<PondieVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("pondie", FOTItems.PONDIE, PondieVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("pondie", PondieVariant::new);
         registerContext.register(context, CHARCOAL, "charcoal", 0);
         registerContext.register(context, ORCHID, "orchid", 1);
         registerContext.register(context, BRONZE, "bronze", 2);
@@ -31,7 +30,7 @@ public class PondieVariants
 
     public static void bootstrapSimple(BootstrapContext<PondieVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("pondie", FOTItems.PONDIE, PondieVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("pondie", PondieVariant::new);
         registerContext.register(context, CHARCOAL, "charcoal", 0);
         registerContext.register(context, ORCHID, "orchid", 1);
         registerContext.register(context, BRONZE, "bronze", 2);

@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:pondie",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",

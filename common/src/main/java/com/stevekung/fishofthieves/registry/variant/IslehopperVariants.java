@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -28,7 +27,7 @@ public class IslehopperVariants
 
     public static void bootstrap(BootstrapContext<IslehopperVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", FOTItems.ISLEHOPPER, IslehopperVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", IslehopperVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, STONE, "stone", 0);
         registerContext.register(context, MOSS, "moss", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES)))).build());
@@ -39,7 +38,7 @@ public class IslehopperVariants
 
     public static void bootstrapSimple(BootstrapContext<IslehopperVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", FOTItems.ISLEHOPPER, IslehopperVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", IslehopperVariant::new);
         registerContext.register(context, STONE, "stone", 0);
         registerContext.register(context, MOSS, "moss", 1);
         registerContext.register(context, HONEY, "honey", 2);

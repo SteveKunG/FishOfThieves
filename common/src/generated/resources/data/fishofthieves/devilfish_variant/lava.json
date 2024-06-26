@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:devilfish",
   "conditions": [
     {
       "condition": "fishofthieves:match_blocks_in_range",

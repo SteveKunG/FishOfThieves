@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:wrecker",
   "custom_model_data": 1,
   "name": "sun",
   "texture": "fishofthieves:entity/wrecker/sun"

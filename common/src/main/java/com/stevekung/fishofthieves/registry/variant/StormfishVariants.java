@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -26,7 +25,7 @@ public class StormfishVariants
 
     public static void bootstrap(BootstrapContext<StormfishVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", FOTItems.STORMFISH, StormfishVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1, ContinentalnessCondition.builder().continentalness(Continentalness.COAST).build());
         registerContext.register(context, WILD, "wild", 2, MatchBiomeCondition.biomes(HolderSet.direct(context.lookup(Registries.BIOME).getOrThrow(Biomes.SPARSE_JUNGLE))).build());
@@ -36,7 +35,7 @@ public class StormfishVariants
 
     public static void bootstrapSimple(BootstrapContext<StormfishVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", FOTItems.STORMFISH, StormfishVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1);
         registerContext.register(context, WILD, "wild", 2);

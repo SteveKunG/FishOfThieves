@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:wildsplash",
   "conditions": [
     {
       "chance": 0.05,

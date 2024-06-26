@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:islehopper",
   "conditions": [
     {
       "chance": 0.05,

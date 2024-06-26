@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderSet;
@@ -25,7 +24,7 @@ public class WreckerVariants
 
     public static void bootstrap(BootstrapContext<WreckerVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", FOTItems.WRECKER, WreckerVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ROSE, "rose", 0);
         registerContext.register(context, SUN, "sun", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
@@ -36,7 +35,7 @@ public class WreckerVariants
 
     public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", FOTItems.WRECKER, WreckerVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         registerContext.register(context, ROSE, "rose", 0);
         registerContext.register(context, SUN, "sun", 1);
         registerContext.register(context, BLACKCLOUD, "blackcloud", 2);

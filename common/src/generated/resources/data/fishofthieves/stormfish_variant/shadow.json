@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:stormfish",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",

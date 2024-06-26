@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +20,7 @@ public class SplashtailVariants
 
     public static void bootstrap(BootstrapContext<SplashtailVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", FOTItems.SPLASHTAIL, SplashtailVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", SplashtailVariant::new);
         registerContext.register(context, RUBY, "ruby", 0);
         registerContext.register(context, SUNNY, "sunny", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
         registerContext.register(context, INDIGO, "indigo", 2);
@@ -31,7 +30,7 @@ public class SplashtailVariants
 
     public static void bootstrapSimple(BootstrapContext<SplashtailVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", FOTItems.SPLASHTAIL, SplashtailVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", SplashtailVariant::new);
         registerContext.register(context, RUBY, "ruby", 0);
         registerContext.register(context, SUNNY, "sunny", 1);
         registerContext.register(context, INDIGO, "indigo", 2);

@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:plentifin",
   "conditions": [
     {
       "condition": "fishofthieves:any_of",

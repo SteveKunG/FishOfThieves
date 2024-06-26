@@ -1,5 +1,4 @@
 {
-  "base_item": "fishofthieves:wildsplash",
   "conditions": [
     {
       "condition": "fishofthieves:all_of",
