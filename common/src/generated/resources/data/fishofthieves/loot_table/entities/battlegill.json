@@ -6,19 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:battlegill",
-                "type_specific": {
-                  "type": "fishofthieves:battlegill",
-                  "variant": "fishofthieves:jade"
-                }
-              }
-            }
-          ],
           "functions": [
             {
               "conditions": [
@@ -81,346 +68,267 @@
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:battlegill",
+                    "type_specific": {
+                      "type": "fishofthieves:battlegill",
+                      "variant": "fishofthieves:jade"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 0.0
-            }
-          ],
-          "name": "fishofthieves:battlegill"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:battlegill",
-                "type_specific": {
-                  "type": "fishofthieves:battlegill",
-                  "variant": "fishofthieves:sky"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:any_of",
-                  "terms": [
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "this",
-                      "predicate": {
-                        "flags": {
-                          "is_on_fire": true
-                        }
-                      }
-                    },
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "direct_attacker",
-                      "predicate": {
-                        "equipment": {
-                          "mainhand": {
-                            "predicates": {
-                              "minecraft:enchantments": [
-                                {
-                                  "enchantments": "#minecraft:smelts_loot"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:battlegill",
+                    "type_specific": {
+                      "type": "fishofthieves:battlegill",
+                      "variant": "fishofthieves:sky"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 1.0
-            }
-          ],
-          "name": "fishofthieves:battlegill"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:battlegill",
-                "type_specific": {
-                  "type": "fishofthieves:battlegill",
-                  "variant": "fishofthieves:rum"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:any_of",
-                  "terms": [
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "this",
-                      "predicate": {
-                        "flags": {
-                          "is_on_fire": true
-                        }
-                      }
-                    },
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "direct_attacker",
-                      "predicate": {
-                        "equipment": {
-                          "mainhand": {
-                            "predicates": {
-                              "minecraft:enchantments": [
-                                {
-                                  "enchantments": "#minecraft:smelts_loot"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:battlegill",
+                    "type_specific": {
+                      "type": "fishofthieves:battlegill",
+                      "variant": "fishofthieves:rum"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 2.0
-            }
-          ],
-          "name": "fishofthieves:battlegill"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:battlegill",
-                "type_specific": {
-                  "type": "fishofthieves:battlegill",
-                  "variant": "fishofthieves:sand"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:any_of",
-                  "terms": [
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "this",
-                      "predicate": {
-                        "flags": {
-                          "is_on_fire": true
-                        }
-                      }
-                    },
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "direct_attacker",
-                      "predicate": {
-                        "equipment": {
-                          "mainhand": {
-                            "predicates": {
-                              "minecraft:enchantments": [
-                                {
-                                  "enchantments": "#minecraft:smelts_loot"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:battlegill",
+                    "type_specific": {
+                      "type": "fishofthieves:battlegill",
+                      "variant": "fishofthieves:sand"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 3.0
-            }
-          ],
-          "name": "fishofthieves:battlegill"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:battlegill",
-                "type_specific": {
-                  "type": "fishofthieves:battlegill",
-                  "variant": "fishofthieves:bittersweet"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:any_of",
-                  "terms": [
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "this",
-                      "predicate": {
-                        "flags": {
-                          "is_on_fire": true
-                        }
-                      }
-                    },
-                    {
-                      "condition": "minecraft:entity_properties",
-                      "entity": "direct_attacker",
-                      "predicate": {
-                        "equipment": {
-                          "mainhand": {
-                            "predicates": {
-                              "minecraft:enchantments": [
-                                {
-                                  "enchantments": "#minecraft:smelts_loot"
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:battlegill",
+                    "type_specific": {
+                      "type": "fishofthieves:battlegill",
+                      "variant": "fishofthieves:bittersweet"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
