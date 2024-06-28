@@ -45,14 +45,14 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
 
         consumer.accept(FOTLootTables.Blocks.EARTHWORMS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                 .add(LootItem.lootTableItem(FOTItems.EARTHWORMS)
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.05f, 0.1f, 0.15f, 0.2f)))
                 .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                 .when(waterSurrounded.invert())
         ));
 
         consumer.accept(FOTLootTables.Blocks.GRUBS_DROPS, LootTable.lootTable().withPool(LootPool.lootPool()
                 .add(LootItem.lootTableItem(FOTItems.GRUBS)
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.05f, 0.1f, 0.15f, 0.2f)))
                 .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                 .when(waterSurrounded.invert())
         ));
@@ -60,13 +60,13 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
         consumer.accept(FOTLootTables.Blocks.LEECHES_DROPS, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.05f, 0.1f, 0.15f, 0.2f)))
                         .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                         .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER))))
                         .when(waterSurrounded))
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)
-                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.1f, 0.14285715f, 0.25f, 0.5f)))
+                                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.05f, 0.1f, 0.15f, 0.2f)))
                         .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                         .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.Biomes.ALWAYS_DROP_LEECHES)))));
     }
