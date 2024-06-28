@@ -6,19 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:islehopper",
-                "type_specific": {
-                  "type": "fishofthieves:islehopper",
-                  "variant": "fishofthieves:stone"
-                }
-              }
-            }
-          ],
           "functions": [
             {
               "conditions": [
@@ -59,258 +46,157 @@
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:islehopper",
+                    "type_specific": {
+                      "type": "fishofthieves:islehopper",
+                      "variant": "fishofthieves:stone"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 0.0
-            }
-          ],
-          "name": "fishofthieves:islehopper"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:islehopper",
-                "type_specific": {
-                  "type": "fishofthieves:islehopper",
-                  "variant": "fishofthieves:moss"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:islehopper",
+                    "type_specific": {
+                      "type": "fishofthieves:islehopper",
+                      "variant": "fishofthieves:moss"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 1.0
-            }
-          ],
-          "name": "fishofthieves:islehopper"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:islehopper",
-                "type_specific": {
-                  "type": "fishofthieves:islehopper",
-                  "variant": "fishofthieves:honey"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:islehopper",
+                    "type_specific": {
+                      "type": "fishofthieves:islehopper",
+                      "variant": "fishofthieves:honey"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 2.0
-            }
-          ],
-          "name": "fishofthieves:islehopper"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:islehopper",
-                "type_specific": {
-                  "type": "fishofthieves:islehopper",
-                  "variant": "fishofthieves:raven"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:islehopper",
+                    "type_specific": {
+                      "type": "fishofthieves:islehopper",
+                      "variant": "fishofthieves:raven"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
               "value": 3.0
-            }
-          ],
-          "name": "fishofthieves:islehopper"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:islehopper",
-                "type_specific": {
-                  "type": "fishofthieves:islehopper",
-                  "variant": "fishofthieves:amethyst"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:islehopper",
+                    "type_specific": {
+                      "type": "fishofthieves:islehopper",
+                      "variant": "fishofthieves:amethyst"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_custom_model_data",
