@@ -92,6 +92,22 @@ public class FOTLootManager
         //@formatter:on
     }
 
+    public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, boolean elder)
+    {
+        //@formatter:off
+        var weight = elder ? 3 : 2;
+        return builder.setRolls(ConstantValue.exactly(1.0F))
+                .add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                        .setWeight(weight)
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))))
+                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
+                        .setWeight(weight)
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))));
+        //@formatter:on
+    }
+
     public static LootPool.Builder getDolphinLoot(LootPool.Builder builder)
     {
         //@formatter:off
