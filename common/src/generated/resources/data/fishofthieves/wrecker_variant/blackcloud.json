@@ -8,7 +8,6 @@
           "thundering": true
         },
         {
-          "below_water": true,
           "condition": "fishofthieves:see_sky"
         }
       ]

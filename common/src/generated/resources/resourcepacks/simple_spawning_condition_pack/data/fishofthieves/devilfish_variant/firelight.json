@@ -7,26 +7,12 @@
           "condition": "fishofthieves:is_night"
         },
         {
-          "below_water": true,
           "condition": "fishofthieves:see_sky"
         }
       ]
     }
   ],
   "custom_model_data": 4,
-  "fishing_override": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_night"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "glow_texture": "fishofthieves:entity/devilfish/firelight_glow",
   "name": "firelight",
   "texture": "fishofthieves:entity/devilfish/firelight"

@@ -17,7 +17,6 @@
           }
         },
         {
-          "below_water": true,
           "condition": "fishofthieves:see_sky"
         }
       ]

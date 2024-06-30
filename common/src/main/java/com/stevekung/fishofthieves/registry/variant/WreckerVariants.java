@@ -27,10 +27,10 @@ public class WreckerVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ROSE, "rose", 0);
-        registerContext.register(context, SUN, "sun", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
-        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, SUN, "sun", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()), List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()));
         registerContext.register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
-        registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(1.0d))).build());
+        registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(1.0d))).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)
@@ -40,7 +40,7 @@ public class WreckerVariants
         registerContext.register(context, SUN, "sun", 1);
         registerContext.register(context, BLACKCLOUD, "blackcloud", 2);
         registerContext.register(context, SNOW, "snow", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, MOON, "moon", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     private static ResourceKey<WreckerVariant> createKey(String name)
