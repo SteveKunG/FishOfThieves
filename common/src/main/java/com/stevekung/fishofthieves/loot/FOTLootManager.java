@@ -9,7 +9,10 @@ import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootDataManager;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
@@ -85,6 +88,33 @@ public class FOTLootManager
                         .when(FOTLootItemConditions.IN_SHIPWRECKS.or(FOTLootItemConditions.IN_RUINED_PORTAL_OCEAN)))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
+                        .when(FOTLootItemConditions.THUNDERING));
+        //@formatter:on
+    }
+
+    public static LootPool.Builder getDolphinLoot(LootPool.Builder builder)
+    {
+        //@formatter:off
+        return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))))
+                .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))))
+                .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))))
+                .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))))
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }

@@ -83,6 +83,10 @@ public class FishOfThievesFabric implements ModInitializer
             {
                 tableBuilder.modifyPools(FOTLootManager::getPolarBearLoot);
             }
+            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
+            {
+                tableBuilder.modifyPools(FOTLootManager::getDolphinLoot);
+            }
             // Chests
             else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
             {

@@ -79,6 +79,10 @@ public class CommonProxyForge
         {
             injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
         }
+        else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
+        {
+            injectLoot(table, FOTLootManager.getDolphinLoot(LootPool.lootPool()).entries);
+        }
         // Chests
         else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
         {
