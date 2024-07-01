@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.neoforge.level;
+package com.stevekung.fishofthieves.neoforge.datagen;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -17,9 +17,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.world.ModifiableStructureInfo;
 import net.neoforged.neoforge.common.world.StructureModifier;
@@ -27,8 +30,11 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+@EventBusSubscriber(modid = FishOfThieves.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class FOTStructureModifiers
 {
+    public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.id(FishOfThievesNeoForge.THIEVES_FISH_SPAWNS_IN_STRUCTURE);
+
     private static final Codec<TagKey<Structure>> STRUCTURE_LIST_CODEC = TagKey.hashedCodec(Registries.STRUCTURE);
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder().add(NeoForgeRegistries.Keys.STRUCTURE_MODIFIERS, context ->
     {
@@ -38,7 +44,8 @@ public class FOTStructureModifiers
         context.register(key("battlegills_spawn_in"), addStructureSpawns(FOTEntities.SpawnData.BATTLEGILL.unwrap().getFirst(), FOTTags.Structures.BATTLEGILLS_SPAWN_IN));
     });
 
-    public static void generateStructureModifiers(GatherDataEvent event)
+    @SubscribeEvent
+    public static void onGatherData(GatherDataEvent event)
     {
         event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<StructureModifiers>) output -> new StructureModifiers(output, event.getLookupProvider()));
     }
@@ -69,7 +76,7 @@ public class FOTStructureModifiers
 
     public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier
     {
-        private static final DeferredHolder<MapCodec<? extends StructureModifier>, MapCodec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThievesNeoForge.ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
+        private static final DeferredHolder<MapCodec<? extends StructureModifier>, MapCodec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
 
         @Override
         public void modify(Holder<Structure> structure, Phase phase, ModifiableStructureInfo.StructureInfo.Builder builder)

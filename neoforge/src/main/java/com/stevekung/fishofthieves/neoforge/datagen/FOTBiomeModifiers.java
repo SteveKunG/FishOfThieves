@@ -1,10 +1,9 @@
-package com.stevekung.fishofthieves.neoforge.level;
+package com.stevekung.fishofthieves.neoforge.datagen;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.neoforge.FishOfThievesNeoForge;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTFeatures;
 import com.stevekung.fishofthieves.registry.FOTPlacements;
@@ -17,19 +16,24 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+@EventBusSubscriber(modid = FishOfThieves.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class FOTBiomeModifiers
 {
-    private static final ResourceKey<BiomeModifier> ADD_FISH_BONE = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThievesNeoForge.ADD_FISH_BONE_RL);
+    private static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.id("add_fish_bone");
+    private static final ResourceKey<BiomeModifier> ADD_FISH_BONE = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ADD_FISH_BONE_RL);
 
     //@formatter:off
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
@@ -52,7 +56,8 @@ public class FOTBiomeModifiers
             });
     //@formatter:on
 
-    public static void generateBiomeModifiers(GatherDataEvent event)
+    @SubscribeEvent
+    public static void onGatherData(GatherDataEvent event)
     {
         event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<ModBiomeModifiers>) output -> new ModBiomeModifiers(output, event.getLookupProvider()));
     }
