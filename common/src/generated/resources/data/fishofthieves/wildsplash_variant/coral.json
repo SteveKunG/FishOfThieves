@@ -7,7 +7,6 @@
           "condition": "fishofthieves:is_night"
         },
         {
-          "below_water": true,
           "condition": "fishofthieves:see_sky"
         },
         {
@@ -24,29 +23,6 @@
     }
   ],
   "custom_model_data": 4,
-  "fishing_override": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_night"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        },
-        {
-          "biomes": "minecraft:warm_ocean",
-          "condition": "fishofthieves:match_biome"
-        },
-        {
-          "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
-          "condition": "fishofthieves:match_minimum_blocks_in_range",
-          "range": 4,
-          "size": 24
-        }
-      ]
-    }
-  ],
   "glow_texture": "fishofthieves:entity/wildsplash/coral_glow",
   "name": "coral",
   "texture": "fishofthieves:entity/wildsplash/coral"

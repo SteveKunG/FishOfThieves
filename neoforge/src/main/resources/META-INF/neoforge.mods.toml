@@ -15,8 +15,6 @@ authors = "SteveKunG, PloyiinGz"
 
 [[mixins]]
 config = "mixins.fish_of_thieves.json"
-[[mixins]]
-config = "mixins.fish_of_thieves_neoforge.json"
 
 [[accessTransformers]]
 file = "META-INF/accesstransformer.cfg"

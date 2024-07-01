@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.neoforge;
 
-import com.stevekung.fishofthieves.neoforge.mixin.MobBucketItemAccessor;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,16 +23,6 @@ public class FOTPlatformImpl
     public static boolean isModLoaded(String modId)
     {
         return ModList.get().isLoaded(modId);
-    }
-
-    public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
-    {
-        return ((MobBucketItemAccessor) bucket).getType();
-    }
-
-    public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
-    {
-        return ((MobBucketItemAccessor) bucket).getEmptySound();
     }
 
     public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)

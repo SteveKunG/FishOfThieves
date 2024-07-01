@@ -40,7 +40,7 @@ public class StormfishVariants
         registerContext.register(context, SHORES, "shores", 1);
         registerContext.register(context, WILD, "wild", 2);
         registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)

@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -33,7 +32,7 @@ public class WildsplashVariants
         registerContext.register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
         registerContext.register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)).build());
         registerContext.register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))).build());
-        registerContext.register(context, CORAL, "coral", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build()));
+        registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<WildsplashVariant> context)
@@ -43,7 +42,7 @@ public class WildsplashVariants
         registerContext.register(context, SANDY, "sandy", 1);
         registerContext.register(context, OCEAN, "ocean", 2);
         registerContext.register(context, MUDDY, "muddy", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, CORAL, "coral", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     private static ResourceKey<WildsplashVariant> createKey(String name)

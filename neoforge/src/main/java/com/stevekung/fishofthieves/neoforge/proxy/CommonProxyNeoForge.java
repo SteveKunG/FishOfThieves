@@ -85,6 +85,18 @@ public class CommonProxyNeoForge
         {
             injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
         }
+        else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable().location()))
+        {
+            injectLoot(table, FOTLootManager.getDolphinLoot(LootPool.lootPool()).entries);
+        }
+        else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable().location()))
+        {
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), false).build());
+        }
+        else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable().location()))
+        {
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), true).build());
+        }
         // Chests
         else if (id.equals(BuiltInLootTables.VILLAGE_FISHER.location()))
         {

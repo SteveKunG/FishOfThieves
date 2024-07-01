@@ -50,6 +50,57 @@ public class CommonProxyForge
     }
 
     @SubscribeEvent
+<<<<<<< HEAD
+=======
+    public void registerLootTables(LootTableLoadEvent event)
+    {
+        var id = event.getName();
+        var table = event.getTable();
+
+        // Gameplay
+        if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
+        {
+            injectLoot(table, FOTLootManager.getFishermanGiftLoot(LootPool.lootPool()).entries);
+        }
+        else if (id.equals(BuiltInLootTables.FISHING_FISH))
+        {
+            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
+        }
+        // Entity Loot
+        else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
+        {
+            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
+        }
+        else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
+        {
+            injectLoot(table, FOTLootManager.getDolphinLoot(LootPool.lootPool()).entries);
+        }
+        else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
+        {
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), false).build());
+        }
+        else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
+        {
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), true).build());
+        }
+        // Chests
+        else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
+        {
+            injectLoot(table, FOTLootManager.getVillageFisherLoot(LootPool.lootPool()).entries);
+        }
+        else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
+        {
+            table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
+        }
+        // Archaeology
+        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
+        {
+            injectLoot(table, FOTLootManager.getOceanRuinsArchaeologyLoot(LootPool.lootPool()).entries);
+        }
+    }
+
+    @SubscribeEvent
+>>>>>>> 459726fbc1092f165b151ffc90c5a4389de815bf
     public void registerVillagerTrades(VillagerTradesEvent event)
     {
         if (event.getType() == VillagerProfession.FISHERMAN)

@@ -7,7 +7,6 @@
           "condition": "fishofthieves:is_raining"
         },
         {
-          "below_water": true,
           "condition": "fishofthieves:see_sky"
         }
       ]
