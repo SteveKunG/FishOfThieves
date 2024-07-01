@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_1.21:${aquaculture_version}:api"
 }
 
 processResources {

@@ -1,24 +1,23 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -33,7 +32,6 @@ import net.minecraft.world.level.storage.loot.functions.SetCustomModelDataFuncti
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
@@ -81,7 +79,7 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(this.applyCustomModelDataFromVariant(LootItem.lootTableItem(item)
                                 .apply(SmeltItemFunction.smelted()
-                                        .when(this.shouldSmeltLoot()))
+                                        .when(FOTLootManager.shouldSmeltLoot(this.registries)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TrophyFishPredicate(true))))), entityType, registryKey, function)))
                 .withPool(LootPool.lootPool()
@@ -95,12 +93,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
         //@formatter:on
     }
 
-    private AnyOfCondition.Builder shouldSmeltLoot()
-    {
-        var registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return AnyOfCondition.anyOf(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))), LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))))))));
-    }
-
     private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, BiFunction<ResourceKey<Registry<T>>, ResourceKey<T>, EntitySubPredicate> function)
     {
         this.registries.lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing(holder -> holder.value().customModelData())).forEach(holder ->
@@ -109,7 +101,7 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(registryKey, holder.key()))))
-                    .when(this.shouldSmeltLoot().invert()));
+                    .when(FOTLootManager.shouldSmeltLoot(this.registries).invert()));
             //@formatter:on
         });
         return builder;
