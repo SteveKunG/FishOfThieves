@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
@@ -194,7 +193,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 if (item instanceof MobBucketItem bucket)
                 {
                     var tag = new CompoundTag();
-                    var entityType = FOTPlatform.getMobInBucketItem(bucket);
+                    var entityType = bucket.type;
                     var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
                     var interactionOptional = level.registryAccess().registryOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).holders().map(Holder.Reference::value).filter(interaction -> BuiltInRegistries.ENTITY_TYPE.getKey(entityType).equals(interaction.entityType())).findFirst();
                     tag.putString("id", entityKey);
@@ -214,7 +213,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
 
-                    level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(player, pos, bucket.emptySound, SoundSource.BLOCKS, 1.0F, 1.0F);
                     blockEntity.setChanged();
                     level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
