@@ -1,33 +1,21 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_raining",
-          "thundering": true
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 2,
-  "fishing_override": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_raining",
-          "thundering": true
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "name": "blackcloud",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "condition": "fishofthieves:is_raining",
+            "thundering": true
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/wrecker/blackcloud"
 }

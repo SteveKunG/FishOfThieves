@@ -1,24 +1,26 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:any_of",
-      "terms": [
-        {
-          "biomes": "#minecraft:is_jungle",
-          "condition": "fishofthieves:match_biome"
-        },
-        {
-          "biomes": "#minecraft:has_closer_water_fog",
-          "condition": "fishofthieves:match_biome"
-        },
-        {
-          "biomes": "minecraft:lush_caves",
-          "condition": "fishofthieves:match_biome"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 1,
   "name": "moss",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:any_of",
+        "terms": [
+          {
+            "biomes": "#minecraft:is_jungle",
+            "condition": "fishofthieves:match_biome"
+          },
+          {
+            "biomes": "#minecraft:has_closer_water_fog",
+            "condition": "fishofthieves:match_biome"
+          },
+          {
+            "biomes": "minecraft:lush_caves",
+            "condition": "fishofthieves:match_biome"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/islehopper/moss"
 }

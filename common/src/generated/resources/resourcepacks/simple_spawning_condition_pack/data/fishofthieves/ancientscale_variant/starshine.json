@@ -1,19 +1,21 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_night"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/ancientscale/starshine_glow",
   "name": "starshine",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "condition": "fishofthieves:is_night"
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/ancientscale/starshine"
 }

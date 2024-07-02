@@ -1,15 +1,17 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:sky_darken",
-      "darken": {
-        "max": 16,
-        "min": 9
-      }
-    }
-  ],
   "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/stormfish/twilight_glow",
   "name": "twilight",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:sky_darken",
+        "darken": {
+          "max": 16,
+          "min": 9
+        }
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/stormfish/twilight"
 }
