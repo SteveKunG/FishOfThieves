@@ -60,7 +60,7 @@ public class FOTLootManager
                 .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH))
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER))
-                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH));
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH).when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }
 
@@ -168,16 +168,6 @@ public class FOTLootManager
                         .setWeight(10)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
-                .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
-                        .setWeight(1)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
-                .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
-                        .setWeight(8)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
                         .setWeight(6)
@@ -193,11 +183,6 @@ public class FOTLootManager
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
-                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
-                        .setWeight(1)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
                         .setWeight(5)
@@ -207,7 +192,8 @@ public class FOTLootManager
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
                         .setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
+                        .when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }
 

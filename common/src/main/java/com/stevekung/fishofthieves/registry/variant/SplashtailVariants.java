@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -22,7 +20,7 @@ public class SplashtailVariants
     {
         var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", SplashtailVariant::new);
         registerContext.register(context, RUBY, "ruby", 0);
-        registerContext.register(context, SUNNY, "sunny", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, SUNNY, "sunny", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build());
         registerContext.register(context, INDIGO, "indigo", 2);
         registerContext.register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());

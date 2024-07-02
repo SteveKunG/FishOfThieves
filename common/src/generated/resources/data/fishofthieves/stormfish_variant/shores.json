@@ -1,11 +1,13 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:continentalness",
-      "continentalness": "coast"
-    }
-  ],
   "custom_model_data": 1,
   "name": "shores",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:continentalness",
+        "continentalness": "coast"
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/stormfish/shores"
 }

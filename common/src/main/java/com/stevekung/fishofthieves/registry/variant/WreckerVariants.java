@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -27,8 +25,8 @@ public class WreckerVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ROSE, "rose", 0);
-        registerContext.register(context, SUN, "sun", 1, List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()), List.of(AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build()));
-        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()), List.of(AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, SUN, "sun", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build());
         registerContext.register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
         registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(1.0d))).build());
     }

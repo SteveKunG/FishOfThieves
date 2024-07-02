@@ -1,39 +1,24 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "chance": 0.05,
-          "condition": "fishofthieves:probability"
-        },
-        {
-          "condition": "fishofthieves:is_day"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 3,
-  "fishing_override": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "chance": 0.05,
-          "condition": "fishofthieves:probability"
-        },
-        {
-          "condition": "fishofthieves:is_day"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "name": "bright",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "chance": 0.05,
+            "condition": "fishofthieves:probability"
+          },
+          {
+            "condition": "fishofthieves:is_day"
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/pondie/bright"
 }

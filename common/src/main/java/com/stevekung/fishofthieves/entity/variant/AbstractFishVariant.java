@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.entity.variant;
 import java.util.List;
 import java.util.Optional;
 
-import com.mojang.datafixers.util.Function6;
+import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -35,19 +35,16 @@ public interface AbstractFishVariant
 
     Optional<ResourceLocation> glowTexture();
 
-    List<SpawnCondition> conditions();
+    SpawnSettings spawnSettings();
 
-    Optional<List<SpawnCondition>> fishingOverride();
-
-    static <B extends AbstractFishVariant> Codec<B> simpleCodec(Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Optional<List<SpawnCondition>>, Integer, B> factory)
+    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
-                FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("conditions", List.of()).forGetter(AbstractFishVariant::conditions),
-                FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("fishing_override").forGetter(AbstractFishVariant::fishingOverride),
+                SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
@@ -62,22 +59,22 @@ public interface AbstractFishVariant
     {
         var registry = registryAccess.registryOrThrow(registryKey);
         var context = new SpawnConditionContext(serverLevel, registryAccess, livingEntity.blockPosition(), livingEntity.getRandom());
-        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().conditions()).test(context)).toList(), livingEntity.getRandom());
+        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().spawnSettings().entity()).test(context)).toList(), livingEntity.getRandom());
         return muha.orElseGet(() -> registry.getHolderOrThrow(defaultKey));
     }
 
     class RegisterContext<T>
     {
         private final String entityName;
-        private final Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Optional<List<SpawnCondition>>, Integer, T> factory;
+        private final Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory;
 
-        RegisterContext(String entityName, Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Optional<List<SpawnCondition>>, Integer, T> factory)
+        RegisterContext(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
         {
             this.entityName = entityName;
             this.factory = factory;
         }
 
-        public static <T> RegisterContext<T> create(String entityName, Function6<String, ResourceLocation, Optional<ResourceLocation>, List<SpawnCondition>, Optional<List<SpawnCondition>>, Integer, T> factory)
+        public static <T> RegisterContext<T> create(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
@@ -101,7 +98,17 @@ public interface AbstractFishVariant
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), conditions, fishingOverride.isEmpty() ? Optional.empty() : Optional.of(fishingOverride), customModelData));
+            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(conditions, fishingOverride.isEmpty() ? Optional.empty() : Optional.of(fishingOverride)), customModelData));
         }
+    }
+
+    record SpawnSettings(List<SpawnCondition> entity, Optional<List<SpawnCondition>> fishing)
+    {
+        //@formatter:off
+        public static final Codec<SpawnSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                        FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("entity", List.of()).forGetter(SpawnSettings::entity),
+                        FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
+                .apply(instance, SpawnSettings::new));
+        //@formatter:on
     }
 }

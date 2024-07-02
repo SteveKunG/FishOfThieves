@@ -1,51 +1,30 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:inverted",
-          "term": {
-            "condition": "fishofthieves:is_raining"
-          }
-        },
-        {
-          "condition": "fishofthieves:time_of_day",
-          "time_of_day": {
-            "max": 0.9,
-            "min": 0.75
-          }
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 1,
-  "fishing_override": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:inverted",
-          "term": {
-            "condition": "fishofthieves:is_raining"
-          }
-        },
-        {
-          "condition": "fishofthieves:time_of_day",
-          "time_of_day": {
-            "max": 0.9,
-            "min": 0.75
-          }
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        }
-      ]
-    }
-  ],
   "name": "amber",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "condition": "fishofthieves:inverted",
+            "term": {
+              "condition": "fishofthieves:is_raining"
+            }
+          },
+          {
+            "condition": "fishofthieves:time_of_day",
+            "time_of_day": {
+              "max": 0.9,
+              "min": 0.75
+            }
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/plentifin/amber"
 }

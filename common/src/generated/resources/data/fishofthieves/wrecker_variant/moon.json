@@ -1,25 +1,27 @@
 {
-  "conditions": [
-    {
-      "condition": "fishofthieves:all_of",
-      "terms": [
-        {
-          "condition": "fishofthieves:is_night"
-        },
-        {
-          "condition": "fishofthieves:see_sky"
-        },
-        {
-          "brightness": {
-            "max": 1.0
-          },
-          "condition": "fishofthieves:moon_brightness"
-        }
-      ]
-    }
-  ],
   "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/wrecker/moon_glow",
   "name": "moon",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "condition": "fishofthieves:is_night"
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          },
+          {
+            "brightness": {
+              "max": 1.0
+            },
+            "condition": "fishofthieves:moon_brightness"
+          }
+        ]
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/wrecker/moon"
 }
