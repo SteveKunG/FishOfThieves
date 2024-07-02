@@ -52,7 +52,7 @@ public class FOTLootManager
                 .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH))
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER))
-                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH));
+                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH).when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }
 
@@ -191,7 +191,8 @@ public class FOTLootManager
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f))));
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f)))
+                        .when(FOTLootItemConditions.THUNDERING));
         //@formatter:on
     }
 
