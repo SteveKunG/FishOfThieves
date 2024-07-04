@@ -11,6 +11,7 @@ loom {
         mixinConfig("mixins.${archives_base_name}_forge.json")
 
         mixin {
+            useLegacyMixinAp = true
             defaultRefmapName = "mixins.${archives_base_name}_forge.refmap.json"
         }
     }
