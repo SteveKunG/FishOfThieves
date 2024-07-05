@@ -1,18 +1,13 @@
 package com.stevekung.fishofthieves.entity.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 
-public record TimeOfDayCondition(float min, float max) implements SpawnCondition
+public record TimeOfDayCondition(MinMaxBounds.Doubles timeOfDay) implements SpawnCondition
 {
-    //@formatter:off
-    public static final MapCodec<TimeOfDayCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.FLOAT.fieldOf("min").forGetter(TimeOfDayCondition::min),
-            Codec.FLOAT.fieldOf("max").forGetter(TimeOfDayCondition::max)
-    ).apply(instance, TimeOfDayCondition::new));
-    //@formatter:on
+    public static final MapCodec<TimeOfDayCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Doubles.CODEC.fieldOf("time_of_day").forGetter(TimeOfDayCondition::timeOfDay)).apply(instance, TimeOfDayCondition::new));
 
     @Override
     public SpawnConditionType getType()
@@ -23,12 +18,11 @@ public record TimeOfDayCondition(float min, float max) implements SpawnCondition
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        var time = context.level().getTimeOfDay(1.0F);
-        return time >= this.min && time <= this.max;
+        return this.timeOfDay.matches(context.level().getTimeOfDay(1.0F));
     }
 
-    public static Builder timeOfDay(float min, float max)
+    public static Builder timeOfDay(MinMaxBounds.Doubles timeOfDay)
     {
-        return () -> new TimeOfDayCondition(min, max);
+        return () -> new TimeOfDayCondition(timeOfDay);
     }
 }

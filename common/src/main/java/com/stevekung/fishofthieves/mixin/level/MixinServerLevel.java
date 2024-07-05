@@ -7,12 +7,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
@@ -30,7 +29,7 @@ public abstract class MixinServerLevel extends Level
     }
 
     @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, ChunkPos chunkPos, boolean isRaining, int x, int z, ProfilerFiller profilerFiller)
+    private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 4, ordinal = 0) boolean isRaining, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z)
     {
         var blockPos = this.findNearestStormfish(this.getBlockRandomPos(x, 0, z, 15));
 

@@ -1,18 +1,13 @@
 package com.stevekung.fishofthieves.entity.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 
-public record SkyDarkenCondition(int min, int max) implements SpawnCondition
+public record SkyDarkenCondition(MinMaxBounds.Ints darken) implements SpawnCondition
 {
-    //@formatter:off
-    public static final MapCodec<SkyDarkenCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.fieldOf("min").forGetter(SkyDarkenCondition::min),
-            Codec.INT.fieldOf("max").forGetter(SkyDarkenCondition::max)
-    ).apply(instance, SkyDarkenCondition::new));
-    //@formatter:on
+    public static final MapCodec<SkyDarkenCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("darken").forGetter(SkyDarkenCondition::darken)).apply(instance, SkyDarkenCondition::new));
 
     @Override
     public SpawnConditionType getType()
@@ -23,11 +18,11 @@ public record SkyDarkenCondition(int min, int max) implements SpawnCondition
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.level().getSkyDarken() >= this.min && context.level().getSkyDarken() <= this.max;
+        return this.darken.matches(context.level().getSkyDarken());
     }
 
-    public static Builder skyDarken(int min, int max)
+    public static Builder skyDarken(MinMaxBounds.Ints darken)
     {
-        return () -> new SkyDarkenCondition(min, max);
+        return () -> new SkyDarkenCondition(darken);
     }
 }

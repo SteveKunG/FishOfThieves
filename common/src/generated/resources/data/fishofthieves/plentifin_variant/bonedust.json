@@ -1,0 +1,40 @@
+{
+  "custom_model_data": 3,
+  "name": "bonedust",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:any_of",
+        "terms": [
+          {
+            "chance": 0.05,
+            "condition": "fishofthieves:probability"
+          },
+          {
+            "condition": "fishofthieves:all_of",
+            "terms": [
+              {
+                "chance": 10,
+                "condition": "fishofthieves:random_chance"
+              },
+              {
+                "condition": "fishofthieves:any_of",
+                "terms": [
+                  {
+                    "condition": "fishofthieves:match_structure",
+                    "structures": "minecraft:stronghold"
+                  },
+                  {
+                    "condition": "fishofthieves:match_structure",
+                    "structures": "#minecraft:mineshaft"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/plentifin/bonedust"
+}

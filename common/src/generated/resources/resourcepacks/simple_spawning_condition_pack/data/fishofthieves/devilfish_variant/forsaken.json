@@ -1,0 +1,13 @@
+{
+  "custom_model_data": 3,
+  "name": "forsaken",
+  "spawn_settings": {
+    "entity": [
+      {
+        "chance": 0.05,
+        "condition": "fishofthieves:probability"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/devilfish/forsaken"
+}

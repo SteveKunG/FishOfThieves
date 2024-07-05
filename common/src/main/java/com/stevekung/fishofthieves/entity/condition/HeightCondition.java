@@ -1,20 +1,13 @@
 package com.stevekung.fishofthieves.entity.condition;
 
-import java.util.Optional;
-
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 
-public record HeightCondition(Optional<Integer> min, Optional<Integer> max) implements SpawnCondition
+public record HeightCondition(MinMaxBounds.Ints height) implements SpawnCondition
 {
-    //@formatter:off
-    public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.INT.optionalFieldOf("min").forGetter(HeightCondition::min),
-            Codec.INT.optionalFieldOf("max").forGetter(HeightCondition::max)
-    ).apply(instance, HeightCondition::new));
-    //@formatter:on
+    public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("height").forGetter(HeightCondition::height)).apply(instance, HeightCondition::new));
 
     @Override
     public SpawnConditionType getType()
@@ -25,11 +18,11 @@ public record HeightCondition(Optional<Integer> min, Optional<Integer> max) impl
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.blockPos().getY() >= this.min.orElse(context.level().getMinBuildHeight()) && context.blockPos().getY() <= this.max.orElse(context.level().getMaxBuildHeight());
+        return this.height.matches(context.blockPos().getY());
     }
 
-    public static HeightCondition.Builder height(Optional<Integer> min, Optional<Integer> max)
+    public static HeightCondition.Builder height(MinMaxBounds.Ints height)
     {
-        return () -> new HeightCondition(min, max);
+        return () -> new HeightCondition(height);
     }
 }

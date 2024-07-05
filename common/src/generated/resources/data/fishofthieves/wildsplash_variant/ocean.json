@@ -1,0 +1,13 @@
+{
+  "custom_model_data": 2,
+  "name": "ocean",
+  "spawn_settings": {
+    "entity": [
+      {
+        "biomes": "#minecraft:is_ocean",
+        "condition": "fishofthieves:match_biome"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/wildsplash/ocean"
+}

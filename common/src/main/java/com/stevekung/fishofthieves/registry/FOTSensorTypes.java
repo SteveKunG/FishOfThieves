@@ -13,7 +13,7 @@ public class FOTSensorTypes
     public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getLeechesTemptations()));
     public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getEarthwormsTemptations()));
     public static final SensorType<TemptingSensor> GRUBS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getGrubsTemptations()));
-    public static final SensorType<NearestShipwreckSensor> NEAREST_SHIPWRECK = new SensorType<>(NearestShipwreckSensor::new);
+    public static final SensorType<NearestWreckerLocatedSensor> NEAREST_WRECKER_LOCATED = new SensorType<>(NearestWreckerLocatedSensor::new);
     public static final SensorType<FishAttackablesSensor> BATTLEGILL_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE)));
     public static final SensorType<FishAttackablesSensor> DEVILFISH_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE)));
     public static final SensorType<FishAttackablesSensor> WRECKER_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.WRECKER_ATTACKABLE)));
@@ -29,7 +29,7 @@ public class FOTSensorTypes
         register("leeches_thieves_fish_temptations", LEECHES_THIEVES_FISH_TEMPTATIONS);
         register("earthworms_thieves_fish_temptations", EARTHWORMS_THIEVES_FISH_TEMPTATIONS);
         register("grubs_thieves_fish_temptations", GRUBS_THIEVES_FISH_TEMPTATIONS);
-        register("nearest_shipwreck", NEAREST_SHIPWRECK);
+        register("nearest_wrecker_located", NEAREST_WRECKER_LOCATED);
         register("battlegill_attackables", BATTLEGILL_ATTACKABLES);
         register("devilfish_attackables", DEVILFISH_ATTACKABLES);
         register("wrecker_attackables", WRECKER_ATTACKABLES);

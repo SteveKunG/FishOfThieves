@@ -43,6 +43,16 @@ dependencies {
     modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
 }
 
+processResources {
+    delete {
+        delete "${projectDir}/src/main/resources/resourcepacks/simple_spawning_condition_pack"
+    }
+    copy {
+        from("../common/src/generated/resources/resourcepacks")
+        into("$projectDir/src/main/resources/resourcepacks")
+    }
+}
+
 String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
 
@@ -59,6 +69,7 @@ sourcesJar {
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
     excludes = devExcludes
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
 }
 
 tasks.register("apiJar", Jar) {

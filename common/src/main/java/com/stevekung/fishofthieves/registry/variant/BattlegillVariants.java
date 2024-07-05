@@ -1,12 +1,9 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -24,23 +21,23 @@ public class BattlegillVariants
 
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", FOTItems.BATTLEGILL, BattlegillVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, JADE, "jade", 0);
-        registerContext.register(context, SKY, "sky", 1, List.of(SeeSkyCondition.seeSkyBelowWater().build()), List.of(SeeSkyCondition.seeSky().build()));
+        registerContext.register(context, SKY, "sky", 1, SeeSkyCondition.seeSky().build());
         registerContext.register(context, RUM, "rum", 2);
         registerContext.register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
-        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
     {
-        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", FOTItems.BATTLEGILL, BattlegillVariant::new);
+        var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1);
         registerContext.register(context, RUM, "rum", 2);
         registerContext.register(context, SAND, "sand", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSkyBelowWater()).build()), List.of(AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build()));
+        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)

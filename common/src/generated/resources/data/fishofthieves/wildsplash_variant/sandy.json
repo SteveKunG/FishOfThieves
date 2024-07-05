@@ -1,0 +1,22 @@
+{
+  "custom_model_data": 1,
+  "name": "sandy",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "biomes": "#minecraft:is_beach",
+            "condition": "fishofthieves:match_biome"
+          },
+          {
+            "condition": "fishofthieves:continentalness",
+            "continentalness": "coast"
+          }
+        ]
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/wildsplash/sandy"
+}

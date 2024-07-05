@@ -1,0 +1,22 @@
+{
+  "custom_model_data": 3,
+  "name": "muddy",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "chance": 0.05,
+            "condition": "fishofthieves:probability"
+          },
+          {
+            "biomes": "#minecraft:has_closer_water_fog",
+            "condition": "fishofthieves:match_biome"
+          }
+        ]
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/wildsplash/muddy"
+}

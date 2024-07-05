@@ -1,0 +1,13 @@
+{
+  "custom_model_data": 2,
+  "name": "wild",
+  "spawn_settings": {
+    "entity": [
+      {
+        "biomes": "minecraft:sparse_jungle",
+        "condition": "fishofthieves:match_biome"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/stormfish/wild"
+}

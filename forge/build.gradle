@@ -11,6 +11,7 @@ loom {
         mixinConfig("mixins.${archives_base_name}_forge.json")
 
         mixin {
+            useLegacyMixinAp = true
             defaultRefmapName = "mixins.${archives_base_name}_forge.refmap.json"
         }
     }
@@ -42,6 +43,8 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
 }
 
 configurations.modImplementation {

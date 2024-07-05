@@ -1,0 +1,24 @@
+{
+  "custom_model_data": 3,
+  "name": "raven",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "chance": 0.05,
+            "condition": "fishofthieves:probability"
+          },
+          {
+            "condition": "fishofthieves:height",
+            "height": {
+              "max": 0
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/islehopper/raven"
+}

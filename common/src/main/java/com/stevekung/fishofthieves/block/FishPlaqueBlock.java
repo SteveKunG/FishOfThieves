@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
@@ -66,12 +65,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private final Map<Direction, VoxelShape> aabb;
+    private final Type type;
     public static final MapCodec<FishPlaqueBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(propertiesCodec(), Type.CODEC.fieldOf("type").forGetter(FishPlaqueBlock::getType)).apply(instance, FishPlaqueBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
-    private final Type type;
 
     public FishPlaqueBlock(BlockBehaviour.Properties properties, Type type)
     {
@@ -84,6 +83,16 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     public Type getType()
     {
         return this.type;
+    }
+
+    @Override
+    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
+    {
+        if (this.type == Type.WOODEN)
+        {
+            return false;
+        }
+        return adjacentState.is(this) || super.skipRendering(state, adjacentState, direction);
     }
 
     @Override
@@ -184,7 +193,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 if (item instanceof MobBucketItem bucket)
                 {
                     var tag = new CompoundTag();
-                    var entityType = FOTPlatform.getMobInBucketItem(bucket);
+                    var entityType = bucket.type;
                     var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
                     var interactionOptional = level.registryAccess().registryOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).holders().map(Holder.Reference::value).filter(interaction -> BuiltInRegistries.ENTITY_TYPE.getKey(entityType).equals(interaction.entityType())).findFirst();
                     tag.putString("id", entityKey);
@@ -204,7 +213,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                         fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
 
-                    level.playSound(player, pos, FOTPlatform.getEmptySoundInBucketItem(bucket), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(player, pos, bucket.emptySound, SoundSource.BLOCKS, 1.0F, 1.0F);
                     blockEntity.setChanged();
                     level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);

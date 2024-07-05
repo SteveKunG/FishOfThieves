@@ -1,18 +1,13 @@
 package com.stevekung.fishofthieves.entity.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 
-public record MoonBrightnessCondition(float min, float max) implements SpawnCondition
+public record MoonBrightnessCondition(MinMaxBounds.Doubles brightness) implements SpawnCondition
 {
-    //@formatter:off
-    public static final MapCodec<MoonBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Codec.FLOAT.fieldOf("min").forGetter(MoonBrightnessCondition::min),
-            Codec.FLOAT.fieldOf("max").forGetter(MoonBrightnessCondition::max)
-    ).apply(instance, MoonBrightnessCondition::new));
-    //@formatter:on
+    public static final MapCodec<MoonBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Doubles.CODEC.fieldOf("brightness").forGetter(MoonBrightnessCondition::brightness)).apply(instance, MoonBrightnessCondition::new));
 
     @Override
     public SpawnConditionType getType()
@@ -23,11 +18,11 @@ public record MoonBrightnessCondition(float min, float max) implements SpawnCond
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.level().getMoonBrightness() >= this.min && context.level().getMoonBrightness() <= this.max;
+        return this.brightness.matches(context.level().getMoonBrightness());
     }
 
-    public static Builder moonBrightness(float min, float max)
+    public static Builder moonBrightness(MinMaxBounds.Doubles brightness)
     {
-        return () -> new MoonBrightnessCondition(min, max);
+        return () -> new MoonBrightnessCondition(brightness);
     }
 }

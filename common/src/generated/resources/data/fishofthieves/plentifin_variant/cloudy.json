@@ -1,0 +1,20 @@
+{
+  "custom_model_data": 2,
+  "name": "cloudy",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:all_of",
+        "terms": [
+          {
+            "condition": "fishofthieves:is_raining"
+          },
+          {
+            "condition": "fishofthieves:see_sky"
+          }
+        ]
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/plentifin/cloudy"
+}

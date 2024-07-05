@@ -1,0 +1,12 @@
+{
+  "custom_model_data": 1,
+  "name": "sky",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:see_sky"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/battlegill/sky"
+}
