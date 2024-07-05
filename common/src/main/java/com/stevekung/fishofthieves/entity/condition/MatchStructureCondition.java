@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public record MatchStructureCondition(HolderSet<Structure> structures) implements SpawnCondition
 {
-    public static final MapCodec<MatchStructureCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.STRUCTURE).fieldOf("structures").forGetter(MatchStructureCondition::structures)).apply(instance, MatchStructureCondition::new));
+    public static final MapCodec<MatchStructureCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.STRUCTURE, Structure.DIRECT_CODEC).fieldOf("structures").forGetter(MatchStructureCondition::structures)).apply(instance, MatchStructureCondition::new));
 
     @Override
     public SpawnConditionType getType()
