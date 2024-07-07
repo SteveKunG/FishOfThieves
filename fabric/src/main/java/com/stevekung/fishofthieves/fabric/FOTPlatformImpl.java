@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,16 +26,6 @@ public class FOTPlatformImpl
     public static boolean isModLoaded(String modId)
     {
         return FabricLoader.getInstance().isModLoaded(modId);
-    }
-
-    public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
-    {
-        return bucket.type;
-    }
-
-    public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
-    {
-        return bucket.emptySound;
     }
 
     public static void registerCriteriaTriggers(String key, CriterionTrigger<?> trigger)
