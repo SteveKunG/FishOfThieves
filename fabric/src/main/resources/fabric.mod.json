@@ -36,7 +36,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.15",
-    "fabric": ">=0.100",
+    "fabric": ">=0.100.5",
     "cloth-config": ">=15.0",
     "minecraft": ">=1.21"
   },

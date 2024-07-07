@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -110,7 +110,7 @@ public class FishOfThievesFabric implements ModInitializer
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 4, list -> FishOfThieves.getFishermanTradesByLevel(4, list));
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 5, list -> FishOfThieves.getFishermanTradesByLevel(5, list));
 
-        LootTableEvents.MODIFY.register((id, tableBuilder, source) ->
+        LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {
             // Gameplay
             if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
@@ -119,24 +119,24 @@ public class FishOfThievesFabric implements ModInitializer
             }
             else if (id.equals(BuiltInLootTables.FISHING_FISH))
             {
-                tableBuilder.modifyPools(FOTLootManager::getFishingLoot);
+                tableBuilder.modifyPools(builder -> FOTLootManager.getFishingLoot(builder, provider));
             }
             // Entity Loot
             else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
             {
-                tableBuilder.modifyPools(FOTLootManager::getPolarBearLoot);
+                tableBuilder.modifyPools(builder -> FOTLootManager.getPolarBearLoot(builder, provider));
             }
             else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
             {
-                tableBuilder.modifyPools(FOTLootManager::getDolphinLoot);
+                tableBuilder.modifyPools(builder -> FOTLootManager.getDolphinLoot(builder, provider));
             }
             else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
             {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), false));
+                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false));
             }
             else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
             {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), true));
+                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true));
             }
             // Chests
             else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))

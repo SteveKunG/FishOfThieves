@@ -3,15 +3,12 @@ package com.stevekung.fishofthieves.loot;
 import java.util.List;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
-import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.ItemStack;
@@ -64,57 +61,56 @@ public class FOTLootManager
         //@formatter:on
     }
 
-    public static LootPool.Builder getFishingLoot(LootPool.Builder builder)
+    public static LootPool.Builder getFishingLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
-        var provider = VanillaRegistries.createLookup(); //TODO TEMP Waiting for Loot v3 then remove biome and structure check from FOTLocationPredicate
+        var structureLookup = provider.lookupOrThrow(Registries.STRUCTURE);
+        var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
 
         //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .setWeight(50)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_SPLASHTAILS))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_SPLASHTAILS)))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
                         .setWeight(50)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_PONDIES))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_PONDIES)))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
                         .setWeight(40)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_ISLEHOPPERS)).and(FOTLootItemConditions.COAST_CONTINENTALNESS.or(FOTLootItemConditions.OCEAN_CONTINENTALNESS).or(FOTLootItemConditions.LOW_PEAKTYPE).or(FOTLootItemConditions.MID_PEAKTYPE))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_ISLEHOPPERS))).and(FOTLootItemConditions.COAST_CONTINENTALNESS.or(FOTLootItemConditions.OCEAN_CONTINENTALNESS).or(FOTLootItemConditions.LOW_PEAKTYPE).or(FOTLootItemConditions.MID_PEAKTYPE))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .setWeight(40)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_ANCIENTSCALES)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.ANCIENTSCALES_SPAWN_IN)))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_ANCIENTSCALES))).or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(structureLookup.getOrThrow(FOTTags.Structures.ANCIENTSCALES_SPAWN_IN))))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .setWeight(45)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_PLENTIFINS)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.PLENTIFINS_SPAWN_IN)))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_PLENTIFINS))).or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(structureLookup.getOrThrow(FOTTags.Structures.PLENTIFINS_SPAWN_IN))))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .setWeight(45)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_WILDSPLASH))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WILDSPLASH)))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
                         .setWeight(35)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_DEVILFISH)).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(MinMaxBounds.Doubles.atMost(0))).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN)).invert()))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_DEVILFISH))).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setY(MinMaxBounds.Doubles.atMost(0))).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN))).invert()))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .setWeight(35)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_BATTLEGILLS)).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.BATTLEGILLS_SPAWN_IN)).or(FOTLootItemConditions.HAS_RAIDS))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_BATTLEGILLS))).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(structureLookup.getOrThrow(FOTTags.Structures.BATTLEGILLS_SPAWN_IN))).or(FOTLootItemConditions.HAS_RAIDS))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructures(FOTTags.Structures.WRECKERS_SPAWN_IN)).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_WRECKERS)))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(structureLookup.getOrThrow(FOTTags.Structures.WRECKERS_SPAWN_IN))).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WRECKERS))))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
-                        .when(FOTLootItemConditions.THUNDERING.and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiomes(FOTTags.Biomes.SPAWNS_STORMFISH)))));
+                        .when(FOTLootItemConditions.THUNDERING.and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_STORMFISH))))));
         //@formatter:on
     }
 
-    public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, boolean elder)
+    public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, HolderLookup.Provider provider, boolean elder)
     {
-        var provider = VanillaRegistries.createLookup(); //TODO TEMP Waiting for Loot v3
-
         //@formatter:off
         var weight = elder ? 3 : 2;
         return builder.setRolls(ConstantValue.exactly(1.0F))
@@ -129,10 +125,8 @@ public class FOTLootManager
         //@formatter:on
     }
 
-    public static LootPool.Builder getDolphinLoot(LootPool.Builder builder)
+    public static LootPool.Builder getDolphinLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
-        var provider = VanillaRegistries.createLookup(); //TODO TEMP Waiting for Loot v3
-
         //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
@@ -158,10 +152,8 @@ public class FOTLootManager
         //@formatter:on
     }
 
-    public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder)
+    public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
-        var provider = VanillaRegistries.createLookup(); //TODO TEMP Waiting for Loot v3
-
         //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))

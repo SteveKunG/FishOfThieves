@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
@@ -70,6 +71,7 @@ public class CommonProxyNeoForge
     {
         var id = event.getName();
         var table = event.getTable();
+        var provider = VanillaRegistries.createLookup(); //TODO Temp, no solution for neo yet
 
         // Gameplay
         if (id.equals(BuiltInLootTables.FISHERMAN_GIFT.location()))
@@ -78,24 +80,24 @@ public class CommonProxyNeoForge
         }
         else if (id.equals(BuiltInLootTables.FISHING_FISH.location()))
         {
-            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getFishingLoot(LootPool.lootPool(), provider).entries);
         }
         // Entity Loot
         else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable().location()))
         {
-            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getPolarBearLoot(LootPool.lootPool(), provider).entries);
         }
         else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable().location()))
         {
-            injectLoot(table, FOTLootManager.getDolphinLoot(LootPool.lootPool()).entries);
+            injectLoot(table, FOTLootManager.getDolphinLoot(LootPool.lootPool(), provider).entries);
         }
         else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable().location()))
         {
-            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), false).build());
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false).build());
         }
         else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable().location()))
         {
-            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), true).build());
+            table.addPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true).build());
         }
         // Chests
         else if (id.equals(BuiltInLootTables.VILLAGE_FISHER.location()))
