@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
@@ -56,19 +56,19 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
         //@formatter:on
 
-        this.simpleFishLoot(provider, consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.splashtail(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.pondie(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.ISLEHOPPER, FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.islehopper(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.ANCIENTSCALE, FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.ancientscale(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.PLENTIFIN, FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.plentifin(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.WILDSPLASH, FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.wildsplash(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.DEVILFISH, FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.devilfish(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.BATTLEGILL, FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.battlegill(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.WRECKER, FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.wrecker(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
-        this.simpleFishLoot(provider, consumer, FOTItems.STORMFISH, FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, (registryKey, resourceKey) -> FOTEntitySubPredicate.stormfish(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(resourceKey))));
+        this.simpleFishLoot(provider, consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, FOTEntitySubPredicate::splashtail);
+        this.simpleFishLoot(provider, consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, FOTEntitySubPredicate::pondie);
+        this.simpleFishLoot(provider, consumer, FOTItems.ISLEHOPPER, FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, FOTEntitySubPredicate::islehopper);
+        this.simpleFishLoot(provider, consumer, FOTItems.ANCIENTSCALE, FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, FOTEntitySubPredicate::ancientscale);
+        this.simpleFishLoot(provider, consumer, FOTItems.PLENTIFIN, FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, FOTEntitySubPredicate::plentifin);
+        this.simpleFishLoot(provider, consumer, FOTItems.WILDSPLASH, FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, FOTEntitySubPredicate::wildsplash);
+        this.simpleFishLoot(provider, consumer, FOTItems.DEVILFISH, FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, FOTEntitySubPredicate::devilfish);
+        this.simpleFishLoot(provider, consumer, FOTItems.BATTLEGILL, FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, FOTEntitySubPredicate::battlegill);
+        this.simpleFishLoot(provider, consumer, FOTItems.WRECKER, FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, FOTEntitySubPredicate::wrecker);
+        this.simpleFishLoot(provider, consumer, FOTItems.STORMFISH, FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, FOTEntitySubPredicate::stormfish);
     }
 
-    private <T extends AbstractFishVariant> void simpleFishLoot(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, BiFunction<ResourceKey<Registry<T>>, ResourceKey<T>, EntitySubPredicate> function)
+    private <T extends AbstractFishVariant> void simpleFishLoot(HolderLookup.Provider provider, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
         //@formatter:off
         consumer.accept(entityType.getDefaultLootTable(), LootTable.lootTable()
@@ -90,14 +90,14 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
         //@formatter:on
     }
 
-    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(HolderLookup.Provider provider, LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, BiFunction<ResourceKey<Registry<T>>, ResourceKey<T>, EntitySubPredicate> function)
+    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(HolderLookup.Provider provider, LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
         provider.lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing(holder -> holder.value().customModelData())).forEach(holder ->
         {
             //@formatter:off
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
-                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(registryKey, holder.key()))))
+                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(HolderSet.direct(provider.lookupOrThrow(registryKey).getOrThrow(holder.key()))))))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE).invert()));
             //@formatter:on
         });
