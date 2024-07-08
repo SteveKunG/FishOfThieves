@@ -1,13 +1,17 @@
 package com.stevekung.fishofthieves.forge.datagen;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
 
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.forge.loot.FOTForgeLootTables;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.HolderLookup;
@@ -15,6 +19,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +29,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,7 +51,6 @@ public class DataGeneratorFOT
         var packOutput = dataGenerator.getPackOutput();
         var provider = event.getLookupProvider();
         var helper = event.getExistingFileHelper();
-<<<<<<< HEAD
         dataGenerator.addProvider(event.includeServer(), new LootTableProvider(packOutput, FOTForgeLootTables.all(), List.of(
                 //@formatter:off
                 new LootTableProvider.SubProviderEntry(EntityLootTableProvider::new, LootContextParamSets.ENTITY),
@@ -52,13 +60,10 @@ public class DataGeneratorFOT
                 new LootTableProvider.SubProviderEntry(FishingLootTableProvider::new, LootContextParamSets.FISHING)
                 //@formatter:on
         ), provider));
-=======
->>>>>>> 9718ab522f80a0a5d91bb99251bd1fd49f2add05
         dataGenerator.addProvider(event.includeServer(), new ForgeItemTags(packOutput, provider, helper));
         dataGenerator.addProvider(event.includeServer(), new FishingReal(packOutput, provider));
     }
 
-<<<<<<< HEAD
     private static class ArchaeologyLootTableProvider implements LootTableSubProvider
     {
         @Override
@@ -105,8 +110,6 @@ public class DataGeneratorFOT
         }
     }
 
-=======
->>>>>>> 9718ab522f80a0a5d91bb99251bd1fd49f2add05
     private static class ForgeItemTags extends ItemTagsProvider
     {
         public ForgeItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper)

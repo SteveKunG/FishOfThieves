@@ -1,3 +1,8 @@
+buildscript { //TODO Remove
+    // Done to not remap sources, since that causes the Forge subproject to crash out
+    System.setProperty("fabric.loom.ci", true as String)
+}
+
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/forge.gradle"
 
 loom {
@@ -49,6 +54,13 @@ dependencies {
 
 configurations.modImplementation {
     exclude group: "me.shedaniel.cloth" //TODO Temporary exclude cloth-config
+}
+
+configurations.configureEach { //TODO Remove
+    resolutionStrategy.dependencySubstitution {
+        substitute module("cpw.mods:securejarhandler") using module("net.minecraftforge:securemodules:2.2.19")
+    }
+    resolutionStrategy.force("net.sf.jopt-simple:jopt-simple:5.0.4")
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
