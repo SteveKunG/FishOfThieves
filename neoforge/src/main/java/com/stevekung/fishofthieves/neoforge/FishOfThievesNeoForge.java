@@ -1,11 +1,9 @@
 package com.stevekung.fishofthieves.neoforge;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
-import com.stevekung.fishofthieves.neoforge.datagen.FOTStructureModifiers;
 import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
 import com.stevekung.fishofthieves.registry.*;
@@ -28,7 +26,6 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.common.world.StructureModifier;
 import net.neoforged.neoforge.registries.*;
 
 @Mod(FishOfThieves.MOD_ID)
@@ -42,10 +39,7 @@ public class FishOfThievesNeoForge
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(BuiltInRegistries.SENSOR_TYPE, FishOfThieves.MOD_ID);
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<MapCodec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
-
-    public static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
 
     static
     {
@@ -65,12 +59,9 @@ public class FishOfThievesNeoForge
         FEATURES.register(modEventBus);
         SENSOR_TYPES.register(modEventBus);
         MEMORY_MODULE_TYPES.register(modEventBus);
-        STRUCTURE_MODIFIERS.register(modEventBus);
         ENTITY_DATA_SERIALIZERS.register(modEventBus);
 
         FishOfThieves.initGlobal();
-
-        STRUCTURE_MODIFIERS.register(THIEVES_FISH_SPAWNS_IN_STRUCTURE, FOTStructureModifiers.Modifier::makeCodec);
 
         if (FMLEnvironment.dist.isClient())
         {

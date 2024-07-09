@@ -17,7 +17,7 @@ import net.minecraft.world.entity.EntityType;
 public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
 {
     // Immersive Weathering
-    private static final TagKey<EntityType<?>> FREEZING_WATER_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immersive_weathering", "freezing_water_immune"));
+    private static final TagKey<EntityType<?>> LIGHT_FREEZE_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("immersive_weathering", "light_freeze_immune"));
 
     public EntityTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
@@ -38,7 +38,6 @@ public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.WRECKER_ATTACKABLE).add(EntityType.PLAYER, EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);
 
         // Immersive Weathering compatibility
-        this.getOrCreateTagBuilder(FREEZING_WATER_IMMUNE).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.getOrCreateTagBuilder(LIGHT_FREEZE_IMMUNE).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
     }
 }

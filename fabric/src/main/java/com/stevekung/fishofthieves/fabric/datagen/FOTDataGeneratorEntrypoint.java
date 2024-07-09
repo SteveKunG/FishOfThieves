@@ -57,6 +57,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
+        pack.addProvider(ModFishingRealProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
 
         new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
