@@ -8,6 +8,7 @@
 * Fish Plaque now animate entity inside when powered by Redstone
 * Reload creative tabs when changing 'displayAllFishVariantInCreativeTab' and 'displayTrophySpawnEggInCreativeTab' config
 * Update Fabric conventional tags
+* Update Immersive Weathering freeze tag (And supported on Forge)
 * Rewrite fish entity loot tables
 * Internal: Use MixinExtras for capture local vars
 * Fixed rendered entity position in Fish Plaque (only entity in horizontal tag)
