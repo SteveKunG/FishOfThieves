@@ -18,4 +18,4 @@
 * Fixed Fish Plaque cullface model and skip rendering when placed adjacent
 * Fixed custom model data being applied on Cooked Fish item when killed by burning damage sources
 * Removed some fish loot from Polar Bear for more consistent
-* Removed old DataFix from 1.8
+* Removed old DataFix from 1.18
