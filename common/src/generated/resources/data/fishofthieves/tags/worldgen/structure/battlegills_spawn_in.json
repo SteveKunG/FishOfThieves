@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:monument",
-    "minecraft:pillager_outpost"
+    "minecraft:pillager_outpost",
+    "minecraft:trial_chambers"
   ]
 }

@@ -1,3 +1,4 @@
+* Update to 1.21
 * Added Emissive item textures (Continuity support, Only work on Fabric)
 * Added spark particles to Stormfish during thunderstorm
 * Added Splashtail, Ancientscale, Plentifin, Wildsplash and Stormfish (when thundering) to Dolphin loot table
@@ -6,6 +7,7 @@
 * Added Simple Spawning Condition Built-in Datapack
 * Fish Plaque Interaction is now data-driven
 * All Fish are now data-driven
+* Battlegill now can spawn inside Trial Chambers
 * Rare variant spawning chance is now 5% instead of 10%
 * Stormfish item in certain loot table now drops only when thundering (e.g., fishing, mob loot)
 * Decreased worms drop rate to 5, 10, 15, 20 percent
