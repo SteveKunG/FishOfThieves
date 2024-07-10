@@ -1,3 +1,4 @@
+* Update to 1.20.6
 * Added Emissive item textures (Continuity support, Only work on Fabric)
 * Added spark particles to Stormfish during thunderstorm
 * Added Splashtail, Ancientscale, Plentifin, Wildsplash and Stormfish (when thundering) to Dolphin loot table
