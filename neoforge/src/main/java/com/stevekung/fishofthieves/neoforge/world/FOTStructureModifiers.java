@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.neoforge.datagen;
+package com.stevekung.fishofthieves.neoforge.world;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;

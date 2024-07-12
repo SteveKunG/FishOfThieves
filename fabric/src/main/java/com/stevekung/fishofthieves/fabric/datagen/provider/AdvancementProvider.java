@@ -10,10 +10,9 @@ import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTLootTables;
-import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.item.predicate.BucketNbtPredicate;
+import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -104,7 +103,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
                                 ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentPredicate.builder()
-                                        .expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
+                                        .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
                                 ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build()))))
                 .display(FOTItems.DEVILFISH,
                         Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
@@ -190,16 +189,15 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
             for (var variant : variants.keySet().stream().map(ResourceLocation::parse).toList())
             {
-                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag ->
-                {
-                    compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
+                var compoundTag = new CompoundTag();
+                compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
 
-                    if (trophy)
-                    {
-                        compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
-                        compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
-                    }
-                }))).build())));
+                if (trophy)
+                {
+                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
+                    compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
+                }
+                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).withSubPredicate(FOTItemSubPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
             }
         }
         return builder;
