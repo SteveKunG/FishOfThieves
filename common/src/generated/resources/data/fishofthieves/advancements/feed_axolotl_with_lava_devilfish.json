@@ -14,7 +14,7 @@
         ],
         "item": {
           "components": {
-            "minecraft:custom_data": {
+            "minecraft:bucket_entity_data": {
               "variant": "fishofthieves:lava"
             }
           },
