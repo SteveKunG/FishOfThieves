@@ -42,7 +42,11 @@ public class FOTMixinConfigPlugin implements IMixinConfigPlugin
     @Override
     public List<String> getMixins()
     {
-        return List.of("data.MixinModelTemplate");
+        if (DEV)
+        {
+            return List.of("data.MixinModelTemplate");
+        }
+        return null;
     }
 
     @Override
