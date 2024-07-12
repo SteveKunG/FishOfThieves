@@ -50,7 +50,7 @@ dependencies {
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
-List<String> devExcludes = ["**/gametest/", "**/datagen/", "architectury.common.json"]
+List<String> devExcludes = ["**/gametest/", "**/datagen/", "**/mixin/data/", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
