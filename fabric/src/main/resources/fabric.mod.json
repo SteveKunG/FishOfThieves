@@ -31,8 +31,8 @@
     ]
   },
   "mixins": [
-    "mixins.fishofthieves.json",
-    "mixins.fishofthieves_fabric.json"
+    "mixins.fish_of_thieves.json",
+    "mixins.fish_of_thieves_fabric.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.14",

@@ -4,7 +4,7 @@ loom {
     accessWidenerPath = project(":fabric").file("src/main/resources/fishofthieves.accesswidener")
 
     mixin {
-        defaultRefmapName = "mixins.fishofthieves.refmap.json"
+        defaultRefmapName = "mixins.fish_of_thieves.refmap.json"
     }
 }
 
