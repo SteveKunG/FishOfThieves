@@ -118,6 +118,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
         event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
         event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, helper -> FOTEntitySubPredicate.init());
+        event.register(Registries.ITEM_SUB_PREDICATE_TYPE, helper -> FOTItemSubPredicates.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
     }
 }
