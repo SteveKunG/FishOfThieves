@@ -30,10 +30,15 @@ repositories {
             includeGroup "com.teammetallurgy.aquaculture"
         }
     }
+    maven {
+        name "ForgifiedFabricAPI"
+        url "https://maven.su5ed.dev/releases"
+    }
 }
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.21:${aquaculture_version}:api"
+    modApi "org.sinytra.forgified-fabric-api:fabric-loot-api-v3:1.0.0+333dfad9d1"
 }
 
 processResources {
