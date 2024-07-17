@@ -9,26 +9,19 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -53,24 +46,6 @@ public class CommonProxyNeoForge
         LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {
             var tableBuilderC = (FabricLootTableBuilder) tableBuilder;
-            //            System.out.println(id);
-
-            //loot spawn -176 63 197 loot blocks/diamond_block - plains
-            //loot spawn 384 60 -256 loot blocks/diamond_block - ocean
-            if (id.equals(Blocks.DIAMOND_BLOCK.getLootTable()))
-            {
-                System.out.println(id);
-                var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
-
-                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.NETHER_STAR)
-                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(BiomeTags.IS_OVERWORLD))))));
-
-                //                tableBuilder.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.WATER_BUCKET)));
-
-
-                //                tableBuilderC.modifyPools(builder -> builder.add(LootItem.lootTableItem(Items.NETHER_STAR)
-                //                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.PLAINS)))))));
-            }
 
             // Gameplay
             if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
