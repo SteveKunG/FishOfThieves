@@ -27,6 +27,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
+modId = "fabric_loot_api_v3"
+type = "required"
+versionRange = "[0.100.6,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.fishofthieves]]
 modId = "cloth_config"
 type = "required"
 versionRange = "[15.0,)"
