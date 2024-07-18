@@ -38,7 +38,10 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.21:${aquaculture_version}:api"
-    modApi "org.sinytra.forgified-fabric-api:fabric-loot-api-v3:1.0.0+333dfad9d1"
+
+    include modApi("org.sinytra.forgified-fabric-api:fabric-api-base:0.4.42+d1308dedd1"){ exclude group: "fabric-api" }
+    include modApi("org.sinytra.forgified-fabric-api:fabric-resource-loader-v0:1.1.5+0a0c14ffd1"){ exclude group: "fabric-api" }
+    include modApi("org.sinytra.forgified-fabric-api:fabric-loot-api-v3:1.0.0+333dfad9d1"){ exclude group: "fabric-api" }
 }
 
 processResources {
