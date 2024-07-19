@@ -77,7 +77,7 @@ public class FOTLootManager
 
                 .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
                         .setWeight(40)
-                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_ISLEHOPPERS))).and(FOTLootItemConditions.COAST_CONTINENTALNESS.or(FOTLootItemConditions.OCEAN_CONTINENTALNESS).or(FOTLootItemConditions.LOW_PEAKTYPE).or(FOTLootItemConditions.MID_PEAKTYPE))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_ISLEHOPPERS))).and(FOTLootItemConditions.COAST_CONTINENTALNESS.and(FOTLootItemConditions.LOW_PEAKTYPE.or(FOTLootItemConditions.MID_PEAKTYPE).or(FOTLootItemConditions.VALLEY_PEAKTYPE)))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .setWeight(40)
