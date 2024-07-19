@@ -21,6 +21,7 @@ public class FOTLootItemConditions
     public static final LootItemCondition.Builder COAST_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
     public static final LootItemCondition.Builder LOW_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.LOW));
     public static final LootItemCondition.Builder MID_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.MID));
+    public static final LootItemCondition.Builder VALLEY_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.VALLEY));
     public static final LootItemCondition.Builder HAS_RAIDS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().hasRaids());
 
     public static void init()
