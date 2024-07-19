@@ -22,7 +22,7 @@ file = "META-INF/accesstransformer.cfg"
 [[dependencies.fishofthieves]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.0.75-beta,)"
+versionRange = "[21.0.109-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
