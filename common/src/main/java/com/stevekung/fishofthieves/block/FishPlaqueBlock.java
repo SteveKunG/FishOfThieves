@@ -78,6 +78,10 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         {
             return false;
         }
+        else if (this.type == Type.GILDED)
+        {
+            return direction.getAxis().isVertical() && adjacentState.isSolid() || direction.getAxis().isHorizontal() && adjacentState.is(this);
+        }
         return adjacentState.is(this) || super.skipRendering(state, adjacentState, direction);
     }
 
