@@ -18,7 +18,6 @@ public class FOTLootItemConditions
     public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(FishVariantLootConfigCondition.CODEC);
 
     public static final LootItemCondition.Builder THUNDERING = WeatherCheck.weather().setThundering(true);
-    public static final LootItemCondition.Builder OCEAN_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.OCEAN));
     public static final LootItemCondition.Builder COAST_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
     public static final LootItemCondition.Builder LOW_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.LOW));
     public static final LootItemCondition.Builder MID_PEAKTYPE = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setPeakType(PeakTypes.MID));
