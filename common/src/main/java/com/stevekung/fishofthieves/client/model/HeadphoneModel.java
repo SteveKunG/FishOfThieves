@@ -36,7 +36,7 @@ public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
     }
 
     @Override
-    public void setupAnim(S renderStateRenderState) {}
+    public void setupAnim(S renderState) {}
 
     @Override
     public ModelPart root()
