@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -23,8 +24,8 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -128,12 +129,12 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return LEECHES_FOOD.test(itemStack);
+        return itemStack.is(LEECHES_FOOD);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource random)
     {
-        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
+        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, entitySpawnReason, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         return isSurfaceWater || isWater && TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN);
     }

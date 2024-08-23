@@ -157,12 +157,12 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return WORMS.test(itemStack);
+        return itemStack.is(WORMS);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason EntitySpawnReason, BlockPos blockPos, RandomSource random)
     {
-        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
+        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, EntitySpawnReason, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
         var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);

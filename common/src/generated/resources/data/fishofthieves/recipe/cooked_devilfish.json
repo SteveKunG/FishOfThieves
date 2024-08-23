@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 200,
   "experience": 0.4,
-  "ingredient": {
-    "item": "fishofthieves:devilfish"
-  },
+  "ingredient": "fishofthieves:devilfish",
   "result": {
     "id": "fishofthieves:cooked_devilfish"
   }

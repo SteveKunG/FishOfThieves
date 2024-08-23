@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -20,11 +20,11 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 {
     @Shadow
     @Nullable
-    abstract T create(Level level);
+    abstract T create(Level level, EntitySpawnReason entitySpawnReason);
 
     @Override
     @Nullable
-    public T spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType)
+    public T spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, EntitySpawnReason entitySpawnReason)
     {
         Consumer<T> consumer;
 
@@ -38,14 +38,14 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
             {
             };
         }
-        return this.spawnByBucket(serverLevel, consumer, spawnType);
+        return this.spawnByBucket(serverLevel, consumer, entitySpawnReason);
     }
 
     @Override
     @Nullable
-    public T spawnByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
+    public T spawnByBucket(ServerLevel level, @Nullable Consumer<T> consumer, EntitySpawnReason entitySpawnReason)
     {
-        var entity = this.createByBucket(level, consumer, spawnType);
+        var entity = this.createByBucket(level, consumer, entitySpawnReason);
 
         if (entity != null)
         {
@@ -56,9 +56,9 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public T createByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
+    public T createByBucket(ServerLevel level, @Nullable Consumer<T> consumer, EntitySpawnReason entitySpawnReason)
     {
-        var entity = this.create(level);
+        var entity = this.create(level, entitySpawnReason);
 
         if (entity == null)
         {
@@ -68,7 +68,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
         {
             if (entity instanceof Mob mob)
             {
-                mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), spawnType, null);
+                mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), entitySpawnReason, null);
             }
 
             if (consumer != null)

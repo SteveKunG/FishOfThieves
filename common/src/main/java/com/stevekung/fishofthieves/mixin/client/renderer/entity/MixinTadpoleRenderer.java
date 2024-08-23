@@ -6,11 +6,12 @@ import com.mojang.math.Axis;
 import net.minecraft.client.model.TadpoleModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.TadpoleRenderer;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.frog.Tadpole;
 
 @Mixin(TadpoleRenderer.class)
-public abstract class MixinTadpoleRenderer extends MobRenderer<Tadpole, TadpoleModel<Tadpole>>
+public abstract class MixinTadpoleRenderer extends MobRenderer<Tadpole, LivingEntityRenderState, TadpoleModel>
 {
     MixinTadpoleRenderer()
     {
@@ -18,13 +19,13 @@ public abstract class MixinTadpoleRenderer extends MobRenderer<Tadpole, TadpoleM
     }
 
     @Override
-    public void setupRotations(Tadpole entity, PoseStack poseStack, float bob, float rotationYaw, float partialTicks, float scale)
+    public void setupRotations(LivingEntityRenderState renderState, PoseStack poseStack, float partialTicks, float scale)
     {
-        super.setupRotations(entity, poseStack, bob, rotationYaw, partialTicks, scale);
+        super.setupRotations(renderState, poseStack, partialTicks, scale);
 
-        if (entity.isDancing())
+        if (renderState.isDancing())
         {
-            var degree = -20.0f * Mth.sin(2.0f * bob);
+            var degree = -20.0f * Mth.sin(2.0f * renderState.ageInTicks);
             poseStack.mulPose(Axis.YP.rotationDegrees(degree));
         }
     }

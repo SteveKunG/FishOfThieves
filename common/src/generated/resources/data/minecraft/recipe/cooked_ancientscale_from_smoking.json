@@ -3,10 +3,8 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.3,
-  "ingredient": {
-    "item": "fishofthieves:plentifin"
-  },
+  "ingredient": "fishofthieves:ancientscale",
   "result": {
-    "id": "fishofthieves:cooked_plentifin"
+    "id": "fishofthieves:cooked_ancientscale"
   }
 }

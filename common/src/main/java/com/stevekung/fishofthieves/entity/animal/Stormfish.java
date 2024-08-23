@@ -129,7 +129,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return LEECHES_FOOD.test(itemStack);
+        return itemStack.is(LEECHES_FOOD);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @SuppressWarnings("unused")
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason EntitySpawnReason, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var levelData = level.getLevelData();

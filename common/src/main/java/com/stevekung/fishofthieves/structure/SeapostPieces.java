@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
@@ -122,21 +122,21 @@ public class SeapostPieces
                 }
                 case "seapost_leather_worker" ->
                 {
-                    var villager = EntityType.VILLAGER.create(level.getLevel());
+                    var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
-                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null);
+                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
                 }
                 case "seapost_fisherman" ->
                 {
-                    var villager = EntityType.VILLAGER.create(level.getLevel());
+                    var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
                     villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 1));
                     villager.setPersistenceRequired();
                     villager.moveTo(pos, 0.0F, 0.0F);
-                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), MobSpawnType.STRUCTURE, null);
+                    villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
                 }

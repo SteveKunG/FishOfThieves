@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -14,6 +15,7 @@ import com.stevekung.fishofthieves.entity.debug.SchoolingFishDebug;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -29,12 +31,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -104,6 +108,11 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         this.resourceKey = resourceKey;
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    public static AttributeSupplier.Builder createAttributes()
+    {
+        return AbstractFish.createAttributes().add(Attributes.TEMPT_RANGE, 10.0);
     }
 
     @Override
@@ -344,7 +353,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
                 this.growUp(player, itemStack);
             }
             this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
     }
@@ -370,17 +379,17 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData)
     {
-        if (spawnType == MobSpawnType.BUCKET)
+        if (entitySpawnReason == EntitySpawnReason.BUCKET)
         {
             return spawnGroupData;
         }
         else
         {
-            spawnGroupData = super.finalizeSpawn(accessor, difficulty, spawnType, spawnGroupData);
+            spawnGroupData = super.finalizeSpawn(accessor, difficulty, entitySpawnReason, spawnGroupData);
             AbstractSchoolingThievesFishAi.initMemories(this);
-            return this.defaultFinalizeSpawn(accessor, this, spawnType, spawnGroupData);
+            return this.defaultFinalizeSpawn(accessor, this, entitySpawnReason, spawnGroupData);
         }
     }
 

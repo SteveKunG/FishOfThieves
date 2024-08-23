@@ -176,13 +176,13 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData)
     {
         if (this.isTrophy())
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.5d);
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, entitySpawnReason, spawnGroupData);
     }
 
     @Override
@@ -198,11 +198,11 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return EARTHWORMS_FOOD.test(itemStack);
+        return itemStack.is(EARTHWORMS_FOOD);
     }
 
     @SuppressWarnings("unused")
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason EntitySpawnReason, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos).is(FluidTags.WATER) && level.getBlockState(blockPos).is(Blocks.WATER);
         return isWater && TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.WRECKERS_SPAWN_IN);
@@ -210,7 +210,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
     public static AttributeSupplier.Builder createAttributes()
     {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.5).add(Attributes.ATTACK_KNOCKBACK, 0.01);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.5).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
 
     @Nullable

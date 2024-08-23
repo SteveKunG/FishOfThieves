@@ -3,11 +3,13 @@ package com.stevekung.fishofthieves.entity;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -21,8 +23,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -180,23 +182,23 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
                 this.growUp(player, itemStack);
             }
             this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 0.5, this.getRandomZ(1.0), 0.0, 0.0, 0.0);
-            return InteractionResult.sidedSuccess(this.level().isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
     }
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor accessor, DifficultyInstance difficulty, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData)
     {
-        if (spawnType == MobSpawnType.BUCKET)
+        if (entitySpawnReason == EntitySpawnReason.BUCKET)
         {
             return spawnGroupData;
         }
         else
         {
-            spawnGroupData = super.finalizeSpawn(accessor, difficulty, spawnType, spawnGroupData);
-            return this.defaultFinalizeSpawn(accessor, this, spawnType, spawnGroupData);
+            spawnGroupData = super.finalizeSpawn(accessor, difficulty, entitySpawnReason, spawnGroupData);
+            return this.defaultFinalizeSpawn(accessor, this, entitySpawnReason, spawnGroupData);
         }
     }
 

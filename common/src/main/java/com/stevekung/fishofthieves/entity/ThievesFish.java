@@ -3,9 +3,11 @@ package com.stevekung.fishofthieves.entity;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -13,22 +15,23 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.CustomModelData;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, VariantHolder<Holder<T>>
 {
-    Ingredient WORMS = Ingredient.of(FOTTags.Items.WORMS);
-    Ingredient EARTHWORMS_FOOD = Ingredient.of(FOTTags.Items.EARTHWORMS_FOOD);
-    Ingredient GRUBS_FOOD = Ingredient.of(FOTTags.Items.GRUBS_FOOD);
-    Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.Items.LEECHES_FOOD);
+    TagKey<Item> WORMS = FOTTags.Items.WORMS;
+    TagKey<Item> EARTHWORMS_FOOD = FOTTags.Items.EARTHWORMS_FOOD;
+    TagKey<Item> GRUBS_FOOD = FOTTags.Items.GRUBS_FOOD;
+    TagKey<Item> LEECHES_FOOD = FOTTags.Items.LEECHES_FOOD;
 
     String VARIANT_TAG = "variant";
     String TROPHY_TAG = "Trophy";
@@ -99,9 +102,9 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
         }
     }
 
-    default SpawnGroupData defaultFinalizeSpawn(ServerLevelAccessor accessor, LivingEntity livingEntity, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData)
+    default SpawnGroupData defaultFinalizeSpawn(ServerLevelAccessor accessor, LivingEntity livingEntity, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnData)
     {
-        var holder = AbstractFishVariant.getSpawnVariant(accessor.getLevel(), accessor.registryAccess(), this.getRegistryKey(), this.getDefaultKey(), livingEntity, spawnType == MobSpawnType.BUCKET);
+        var holder = AbstractFishVariant.getSpawnVariant(accessor.getLevel(), accessor.registryAccess(), this.getRegistryKey(), this.getDefaultKey(), livingEntity, entitySpawnReason == EntitySpawnReason.BUCKET);
         this.setVariant(holder);
 
         if (livingEntity.getRandom().nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability)

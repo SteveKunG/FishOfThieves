@@ -126,6 +126,6 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return WORMS.test(itemStack);
+        return itemStack.is(WORMS);
     }
 }

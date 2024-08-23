@@ -2,6 +2,9 @@
   "injected_interfaces": {
     "net/minecraft/class_1422": [
       "com/stevekung/fishofthieves/entity/PartyFish"
+    ],
+    "net/minecraft/class_10042": [
+      "com/stevekung/fishofthieves/client/renderer/entity/state/LivingEntityRenderStateExtender"
     ]
   }
 }

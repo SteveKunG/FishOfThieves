@@ -126,6 +126,6 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return WORMS.test(itemStack);
+        return itemStack.is(WORMS);
     }
 }

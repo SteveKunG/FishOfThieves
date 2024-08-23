@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.5,
-  "ingredient": {
-    "item": "fishofthieves:wrecker"
-  },
+  "ingredient": "fishofthieves:wrecker",
   "result": {
     "id": "fishofthieves:cooked_wrecker"
   }

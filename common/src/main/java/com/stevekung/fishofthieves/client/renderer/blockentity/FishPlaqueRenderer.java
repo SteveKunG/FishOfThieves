@@ -68,7 +68,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             entity.setYHeadRot(0);
             entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, animationTick, poseStack, bufferSource, packedLight);
+            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, animationTick, poseStack, bufferSource, packedLight);
         }
         poseStack.popPose();
     }

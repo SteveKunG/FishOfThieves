@@ -10,9 +10,9 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
 {
-    public static final Item EARTHWORMS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
-    public static final Item GRUBS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
-    public static final Item LEECHES = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
+    public static final Item EARTHWORMS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
+    public static final Item GRUBS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
+    public static final Item LEECHES = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
 
     public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT);
     public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT);
@@ -20,7 +20,7 @@ public class FOTItems
     public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT);
     public static final Item PLENTIFIN = new FOTItem(new Item.Properties().food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT);
     public static final Item WILDSPLASH = new FOTItem(new Item.Properties().food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT);
-    public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH), FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT);
+    public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH, FOTConsumables.DEVILFISH), FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT);
     public static final Item BATTLEGILL = new FOTItem(new Item.Properties().food(FOTFoodProperties.BATTLEGILL), FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT);
     public static final Item WRECKER = new FOTItem(new Item.Properties().food(FOTFoodProperties.WRECKER), FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT);
     public static final Item STORMFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.STORMFISH), FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT);
@@ -29,10 +29,10 @@ public class FOTItems
     public static final Item COOKED_PONDIE = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PONDIE));
     public static final Item COOKED_ISLEHOPPER = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_ISLEHOPPER));
     public static final Item COOKED_ANCIENTSCALE = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_ANCIENTSCALE));
-    public static final Item COOKED_PLENTIFIN = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PLENTIFIN));
+    public static final Item COOKED_PLENTIFIN = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PLENTIFIN, FOTConsumables.COOKED_PLENTIFIN));
     public static final Item COOKED_WILDSPLASH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_WILDSPLASH));
     public static final Item COOKED_DEVILFISH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_DEVILFISH));
-    public static final Item COOKED_BATTLEGILL = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_BATTLEGILL));
+    public static final Item COOKED_BATTLEGILL = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_BATTLEGILL, FOTConsumables.COOKED_BATTLEGILL));
     public static final Item COOKED_WRECKER = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_WRECKER));
     public static final Item COOKED_STORMFISH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_STORMFISH));
 

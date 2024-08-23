@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.45,
-  "ingredient": {
-    "item": "fishofthieves:battlegill"
-  },
+  "ingredient": "fishofthieves:battlegill",
   "result": {
     "id": "fishofthieves:cooked_battlegill"
   }

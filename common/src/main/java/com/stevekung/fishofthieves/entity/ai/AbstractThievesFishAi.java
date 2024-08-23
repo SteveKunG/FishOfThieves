@@ -6,9 +6,11 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -23,7 +25,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.Item;
 
 public class AbstractThievesFishAi
 {
@@ -43,22 +45,22 @@ public class AbstractThievesFishAi
         fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
     }
 
-    public static Ingredient getCommonTemptations()
+    public static TagKey<Item> getCommonTemptations()
     {
         return ThievesFish.WORMS;
     }
 
-    public static Ingredient getLeechesTemptations()
+    public static TagKey<Item> getLeechesTemptations()
     {
         return ThievesFish.LEECHES_FOOD;
     }
 
-    public static Ingredient getEarthwormsTemptations()
+    public static TagKey<Item> getEarthwormsTemptations()
     {
         return ThievesFish.EARTHWORMS_FOOD;
     }
 
-    public static Ingredient getGrubsTemptations()
+    public static TagKey<Item> getGrubsTemptations()
     {
         return ThievesFish.GRUBS_FOOD;
     }

@@ -180,13 +180,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 
     @Override
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData)
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnGroupData)
     {
         if (this.isTrophy())
         {
             this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2.0d);
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        return super.finalizeSpawn(level, difficulty, entitySpawnReason, spawnGroupData);
     }
 
     @Override
@@ -202,11 +202,11 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return GRUBS_FOOD.test(itemStack);
+        return itemStack.is(GRUBS_FOOD);
     }
 
     @SuppressWarnings("unused")
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason EntitySpawnReason, BlockPos blockPos, RandomSource random)
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         return isWater && blockPos.getY() <= 0 && !level.getBiome(blockPos).is(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN);
@@ -214,6 +214,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 
     public static AttributeSupplier.Builder createAttributes()
     {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.0).add(Attributes.ATTACK_KNOCKBACK, 0.01);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0).add(Attributes.FOLLOW_RANGE, 10.0).add(Attributes.TEMPT_RANGE, 10.0).add(Attributes.ATTACK_DAMAGE, 1.0).add(Attributes.ATTACK_KNOCKBACK, 0.01);
     }
 }

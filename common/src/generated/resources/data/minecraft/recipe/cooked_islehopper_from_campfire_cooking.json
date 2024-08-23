@@ -3,10 +3,8 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.3,
-  "ingredient": {
-    "item": "fishofthieves:ancientscale"
-  },
+  "ingredient": "fishofthieves:islehopper",
   "result": {
-    "id": "fishofthieves:cooked_ancientscale"
+    "id": "fishofthieves:cooked_islehopper"
   }
 }

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "golden_frame_fish_plaque",
   "key": {
-    "F": {
-      "item": "fishofthieves:jungle_fish_plaque"
-    },
-    "G": {
-      "item": "minecraft:gold_nugget"
-    }
+    "F": "fishofthieves:jungle_fish_plaque",
+    "G": "minecraft:gold_nugget"
   },
   "pattern": [
     "GGG",

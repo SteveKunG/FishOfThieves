@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.animal.Wrecker;
+import com.stevekung.fishofthieves.client.renderer.entity.state.WreckerRenderState;
+
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,11 +15,10 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class WreckerModel extends EntityModel<WreckerRenderState> implements HeadphoneModel.Scaleable<WreckerRenderState>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("wrecker"), "main");
-    private final ModelPart head;
-    private final ModelPart body_main;
+    private final ModelPart root;
     private final ModelPart body_back;
     private final ModelPart bulb;
     private final ModelPart mouth;
@@ -27,11 +26,11 @@ public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements H
     public WreckerModel(ModelPart part)
     {
         super(RenderType::entityCutout);
-        this.head = part.getChild("head");
-        this.body_main = part.getChild("body_main");
+        this.root = part;
+        var head = part.getChild("head");
         this.body_back = part.getChild("body_back");
-        this.bulb = this.head.getChild("bulb");
-        this.mouth = this.head.getChild("mouth");
+        this.bulb = head.getChild("bulb");
+        this.mouth = head.getChild("mouth");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -58,34 +57,32 @@ public class WreckerModel<T extends Wrecker> extends EntityModel<T> implements H
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setupAnim(WreckerRenderState renderState)
     {
         var backRotation = 1.0f;
         var backRotSpeed = 1.0f;
         var mouthSpeed = 0.4f;
         var bulbSpeed = 0.1f;
 
-        if (!entity.isInWater() && !entity.isNoFlip())
+        if (!renderState.isInWater && !renderState.isNoFlip)
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
             mouthSpeed = 1.8f;
         }
-        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
-        this.mouth.xRot = 0.1F + Mth.cos(mouthSpeed * ageInTicks) * (float) Math.PI * 0.07f;
-        this.bulb.xRot = 0.25F + Mth.cos(bulbSpeed * ageInTicks) * (float) Math.PI * 0.03f;
+        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
+        this.mouth.xRot = 0.1F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.07f;
+        this.bulb.xRot = 0.25F + Mth.cos(bulbSpeed * renderState.ageInTicks) * (float) Math.PI * 0.03f;
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
+    public ModelPart root()
     {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        return this.root;
     }
 
     @Override
-    public void scale(T entity, PoseStack poseStack)
+    public void scale(WreckerRenderState renderState, PoseStack poseStack)
     {
         var scale = 2.0f;
         poseStack.scale(scale, scale - 0.5f, scale - 0.5f);

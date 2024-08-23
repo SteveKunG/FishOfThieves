@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "wooden_fish_plaque",
   "key": {
-    "F": {
-      "item": "minecraft:item_frame"
-    },
-    "P": {
-      "item": "minecraft:jungle_planks"
-    }
+    "F": "minecraft:item_frame",
+    "P": "minecraft:jungle_planks"
   },
   "pattern": [
     "PPP",

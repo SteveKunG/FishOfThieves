@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +18,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -54,7 +57,7 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter level, BlockPos blockPos, CollisionContext context)
     {
-        var vec3 = blockState.getOffset(level, blockPos);
+        var vec3 = blockState.getOffset(blockPos);
         var direction = blockState.getValue(FACING);
 
         if (direction.getAxis() == Direction.Axis.X)
@@ -85,7 +88,7 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     }
 
     @Override
-    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, BlockPos fromPos, boolean isMoving)
+    public void neighborChanged(BlockState blockState, Level level, BlockPos blockPos, Block block, @Nullable Orientation orientation, boolean isMoving)
     {
         if (!blockState.canSurvive(level, blockPos))
         {

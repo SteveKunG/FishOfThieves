@@ -3,9 +3,7 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.25,
-  "ingredient": {
-    "item": "fishofthieves:pondie"
-  },
+  "ingredient": "fishofthieves:pondie",
   "result": {
     "id": "fishofthieves:cooked_pondie"
   }

@@ -23,7 +23,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -133,12 +133,12 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     @Override
     public boolean isFood(ItemStack itemStack)
     {
-        return EARTHWORMS_FOOD.test(itemStack);
+        return itemStack.is(EARTHWORMS_FOOD);
     }
 
-    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
+    public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason EntitySpawnReason, BlockPos blockPos, RandomSource random)
     {
-        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
+        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, EntitySpawnReason, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var biome = level.getBiome(blockPos);
         return isWater && biome.is(FOTTags.Biomes.SPAWNS_WILDSPLASH) || isSurfaceWater;

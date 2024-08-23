@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -17,6 +18,7 @@ import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -100,7 +102,7 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
             //@formatter:off
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
-                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(HolderSet.direct(this.provider.lookupOrThrow(registryKey).getOrThrow(holder.key()))))))
+                    .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(this.provider.lookupOrThrow(Registries.ENTITY_TYPE), entityType).subPredicate(function.apply(HolderSet.direct(this.provider.lookupOrThrow(registryKey).getOrThrow(holder.key()))))))
                     .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
             //@formatter:on
         });

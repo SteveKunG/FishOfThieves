@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.animal.Splashtail;
+import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
+
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,18 +15,16 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class SplashtailModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("splashtail"), "main");
-    private final ModelPart head;
-    private final ModelPart body_main;
+    private final ModelPart root;
     private final ModelPart body_back;
 
     public SplashtailModel(ModelPart part)
     {
         super(RenderType::entityCutout);
-        this.head = part.getChild("head");
-        this.body_main = part.getChild("body_main");
+        this.root = part;
         this.body_back = part.getChild("body_back");
     }
 
@@ -48,29 +46,27 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implem
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setupAnim(S renderState)
     {
         var backRotation = 1.0f;
         var backRotSpeed = 1.0f;
 
-        if (!entity.isInWater() && !entity.isNoFlip())
+        if (!renderState.isInWater && !renderState.isNoFlip)
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
         }
-        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
+        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
+    public ModelPart root()
     {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        return this.root;
     }
 
     @Override
-    public void scale(T entity, PoseStack poseStack)
+    public void scale(S renderState, PoseStack poseStack)
     {
         var scale = 1.5f;
         poseStack.scale(scale, scale, scale);

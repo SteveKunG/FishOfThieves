@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -10,14 +10,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Cod;
-import net.minecraft.world.entity.animal.Pufferfish;
-import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PufferfishRenderState;
+import net.minecraft.client.renderer.entity.state.TropicalFishRenderState;
 import net.minecraft.world.entity.animal.TropicalFish;
-import net.minecraft.world.entity.animal.frog.Tadpole;
 
-public class HeadphoneModel<T extends Entity> extends EntityModel<T>
+public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("headphone"), "main");
     private final ModelPart headphone;
@@ -37,27 +36,27 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
+    public void setupAnim(S renderStateRenderState) {}
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
+    public ModelPart root()
     {
-        this.headphone.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        return this.headphone;
     }
 
-    public interface Scaleable<T extends Entity>
+    public interface Scaleable<S extends LivingEntityRenderState>
     {
-        HeadphoneModel.Scaleable<Cod> COD = (entity, poseStack) -> poseStack.translate(0.0f, 0.25f, -0.05f);
-        HeadphoneModel.Scaleable<Salmon> SALMON = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<LivingEntityRenderState> COD = (entity, poseStack) -> poseStack.translate(0.0f, 0.25f, -0.05f);
+        HeadphoneModel.Scaleable<LivingEntityRenderState> SALMON = (entity, poseStack) ->
         {
             poseStack.scale(1.5f, 1.5f, 1.5f);
             poseStack.translate(0.0f, -0.275f, 0.0f);
         };
-        HeadphoneModel.Scaleable<Pufferfish> PUFFERFISH = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<PufferfishRenderState> PUFFERFISH = (renderState, poseStack) ->
         {
             var y = 0.0f;
 
-            switch (entity.getPuffState())
+            switch (renderState.puffState)
             {
                 case 0 ->
                 {
@@ -77,9 +76,9 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
             }
             poseStack.translate(0.0f, y, -0.025f);
         };
-        HeadphoneModel.Scaleable<TropicalFish> TROPICAL_FISH = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<TropicalFishRenderState> TROPICAL_FISH = (renderState, poseStack) ->
         {
-            var baseVariant = entity.getVariant().base();
+            var baseVariant = renderState.variant.base();
             var y = 0.0f;
             var z = 0.0f;
 
@@ -96,12 +95,12 @@ public class HeadphoneModel<T extends Entity> extends EntityModel<T>
             }
             poseStack.translate(0.0f, y, z);
         };
-        HeadphoneModel.Scaleable<Tadpole> TADPOLE = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<LivingEntityRenderState> TADPOLE = (entity, poseStack) ->
         {
             poseStack.scale(1.1f, 1.1f, 1.1f);
             poseStack.translate(0.0f, 0.15f, -0.08f);
         };
 
-        void scale(T entity, PoseStack poseStack);
+        void scale(S renderState, PoseStack poseStack);
     }
 }

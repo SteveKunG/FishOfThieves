@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "iron_frame_fish_plaque",
   "key": {
-    "F": {
-      "item": "fishofthieves:crimson_fish_plaque"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    }
+    "F": "fishofthieves:crimson_fish_plaque",
+    "N": "minecraft:iron_nugget"
   },
   "pattern": [
     "NNN",

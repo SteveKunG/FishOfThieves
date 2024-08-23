@@ -3,10 +3,8 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.3,
-  "ingredient": {
-    "item": "fishofthieves:splashtail"
-  },
+  "ingredient": "fishofthieves:plentifin",
   "result": {
-    "id": "fishofthieves:cooked_splashtail"
+    "id": "fishofthieves:cooked_plentifin"
   }
 }

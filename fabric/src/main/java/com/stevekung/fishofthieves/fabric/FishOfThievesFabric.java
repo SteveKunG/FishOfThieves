@@ -2,10 +2,12 @@ package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -17,7 +19,6 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -28,7 +29,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -103,7 +103,7 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.LEECHES, 0.4F);
 
-        FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);
+//        FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);TODO
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, list -> FishOfThieves.getFishermanTradesByLevel(1, list));
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, list -> FishOfThieves.getFishermanTradesByLevel(2, list));
@@ -155,16 +155,16 @@ public class FishOfThievesFabric implements ModInitializer
             }
         });
 
-        FabricDefaultAttributeRegistry.register(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.PONDIE, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.ISLEHOPPER, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.ANCIENTSCALE, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.PLENTIFIN, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.WILDSPLASH, AbstractFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.SPLASHTAIL, AbstractSchoolingThievesFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.PONDIE, AbstractSchoolingThievesFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.ISLEHOPPER, AbstractSchoolingThievesFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.ANCIENTSCALE, AbstractSchoolingThievesFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.PLENTIFIN, AbstractSchoolingThievesFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.WILDSPLASH, AbstractSchoolingThievesFish.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.DEVILFISH, Devilfish.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.BATTLEGILL, Battlegill.createAttributes());
         FabricDefaultAttributeRegistry.register(FOTEntities.WRECKER, Wrecker.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.STORMFISH, AbstractFish.createAttributes());
+        FabricDefaultAttributeRegistry.register(FOTEntities.STORMFISH, AbstractSchoolingThievesFish.createAttributes());
 
         SpawnPlacements.register(FOTEntities.SPLASHTAIL, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
         SpawnPlacements.register(FOTEntities.PONDIE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);

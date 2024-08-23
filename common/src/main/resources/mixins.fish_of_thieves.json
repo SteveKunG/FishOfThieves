@@ -5,9 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.MixinCreativeModeTabs",
-    "client.MixinLevelRenderer",
+    "client.MixinLevelEventHandler",
     "client.model.MixinTadpoleModel",
+    "client.renderer.entity.state.MixinLivingEntityRenderState",
     "client.renderer.entity.MixinCodRenderer",
+    "client.renderer.entity.MixinLivingEntityRenderer",
     "client.renderer.entity.MixinPufferfishRenderer",
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",

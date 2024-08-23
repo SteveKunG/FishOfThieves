@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.fabric;
 
+import java.util.Set;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -35,7 +37,7 @@ public class FOTPlatformImpl
 
     public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)
     {
-        return BlockEntityType.Builder.<T>of(factory, validBlocks).build(null);
+        return new BlockEntityType<>(factory, Set.of(validBlocks));
     }
 
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)

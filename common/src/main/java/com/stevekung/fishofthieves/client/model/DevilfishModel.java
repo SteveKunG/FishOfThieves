@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.animal.Devilfish;
+import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
+
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,21 +15,20 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class DevilfishModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("devilfish"), "main");
-    private final ModelPart head;
-    private final ModelPart body_main;
+    private final ModelPart root;
     private final ModelPart body_back;
     private final ModelPart mouth;
 
     public DevilfishModel(ModelPart part)
     {
         super(RenderType::entityCutout);
-        this.head = part.getChild("head");
-        this.body_main = part.getChild("body_main");
+        this.root = part;
+        var head = part.getChild("head");
         this.body_back = part.getChild("body_back");
-        this.mouth = this.head.getChild("mouth");
+        this.mouth = head.getChild("mouth");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -53,32 +52,30 @@ public class DevilfishModel<T extends Devilfish> extends EntityModel<T> implemen
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setupAnim(S renderState)
     {
         var backRotation = 1.0f;
         var backRotSpeed = 1.0f;
         var mouthSpeed = 0.4f;
 
-        if (!entity.isInWater() && !entity.isNoFlip())
+        if (!renderState.isInWater && !renderState.isNoFlip)
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
             mouthSpeed = 1.8f;
         }
-        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
-        this.mouth.xRot = -0.0F + Mth.cos(mouthSpeed * ageInTicks) * (float) Math.PI * 0.06f;
+        this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
+        this.mouth.xRot = -0.0F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.06f;
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int packedColor)
+    public ModelPart root()
     {
-        this.head.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_main.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
-        this.body_back.render(poseStack, buffer, packedLight, packedOverlay, packedColor);
+        return this.root;
     }
 
     @Override
-    public void scale(T entity, PoseStack poseStack)
+    public void scale(S renderState, PoseStack poseStack)
     {
         var scale = 1.5f;
         poseStack.scale(scale, scale, scale);

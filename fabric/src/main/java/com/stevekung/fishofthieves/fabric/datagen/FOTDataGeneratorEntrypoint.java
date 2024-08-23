@@ -45,7 +45,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     {
         var pack = dataGenerator.createPack();
         pack.addProvider(ModelProvider::new);
-        pack.addProvider(RecipeProvider::new);
+        pack.addProvider(ModRecipeProvider.Runner::new);
         pack.addProvider(BlockLootProvider::new);
         pack.addProvider(CustomBlockLootProvider::new);
         pack.addProvider(EntityLootProvider::new);
