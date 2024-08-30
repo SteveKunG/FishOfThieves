@@ -79,7 +79,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.WILDSPLASH_VARIANT).getHolderOrThrow(WildsplashVariants.RUSSET));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.WILDSPLASH_VARIANT).getOrThrow(WildsplashVariants.RUSSET));
     }
 
     @Override

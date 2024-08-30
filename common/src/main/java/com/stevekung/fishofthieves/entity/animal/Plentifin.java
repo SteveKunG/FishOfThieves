@@ -80,7 +80,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.PLENTIFIN_VARIANT).getHolderOrThrow(PlentifinVariants.OLIVE));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.PLENTIFIN_VARIANT).getOrThrow(PlentifinVariants.OLIVE));
     }
 
     @Override

@@ -84,7 +84,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.ISLEHOPPER_VARIANT).getHolderOrThrow(IslehopperVariants.STONE));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT).getOrThrow(IslehopperVariants.STONE));
     }
 
     @Override

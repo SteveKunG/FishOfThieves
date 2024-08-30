@@ -78,7 +78,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.STORMFISH_VARIANT).getHolderOrThrow(StormfishVariants.ANCIENT));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.STORMFISH_VARIANT).getOrThrow(StormfishVariants.ANCIENT));
     }
 
     @Override

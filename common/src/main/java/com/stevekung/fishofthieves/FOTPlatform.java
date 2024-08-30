@@ -36,7 +36,7 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    public static <T extends Entity> EntityType<T> createEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
         throw new AssertionError();
     }

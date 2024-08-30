@@ -76,7 +76,7 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
     private <T extends AbstractFishVariant> void simpleFishLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
         //@formatter:off
-        consumer.accept(entityType.getDefaultLootTable(), LootTable.lootTable()
+        consumer.accept(entityType.getDefaultLootTable().orElseThrow(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(this.applyCustomModelDataFromVariant(LootItem.lootTableItem(item)

@@ -18,14 +18,12 @@ import net.minecraft.util.Mth;
 public class StormfishModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("stormfish"), "main");
-    private final ModelPart root;
     private final ModelPart body_back;
     private final ModelPart body_back_2;
 
     public StormfishModel(ModelPart part)
     {
-        super(RenderType::entityCutout);
-        this.root = part;
+        super(part, RenderType::entityCutout);
         this.body_back = part.getChild("body_back");
         this.body_back_2 = this.body_back.getChild("body_back_2");
     }
@@ -60,12 +58,6 @@ public class StormfishModel<S extends ThievesFishRenderState> extends EntityMode
         }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.65f * renderState.ageInTicks);
         this.body_back_2.yRot = -backRotation * 0.25f * Mth.sin(backRotSpeed * 0.65f * renderState.ageInTicks);
-    }
-
-    @Override
-    public ModelPart root()
-    {
-        return this.root;
     }
 
     @Override

@@ -129,9 +129,9 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             if (fishPlaque.hasPlaqueData())
             {
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
-                var interactionOptional = level.registryAccess().registryOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).holders().map(Holder.Reference::value).filter(interaction -> fishPlaque.getEntityKeyFromPlaqueData().equals(interaction.entityType().toString())).findFirst();
+                var interactionOptional = level.registryAccess().lookupOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).listElements().map(Holder.Reference::value).filter(interaction -> fishPlaque.getEntityKeyFromPlaqueData().equals(interaction.entityType().toString())).findFirst();
 
-                if (itemStack.is(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.get(interaction.item())).orElse(Items.WATER_BUCKET)))
+                if (itemStack.is(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.getValue(interaction.item())).orElse(Items.WATER_BUCKET)))
                 {
                     if (entity instanceof Bucketable bucketable)
                     {
@@ -202,7 +202,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     var tag = new CompoundTag();
                     var entityType = bucket.type;
                     var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
-                    var interactionOptional = level.registryAccess().registryOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).holders().map(Holder.Reference::value).filter(interaction -> BuiltInRegistries.ENTITY_TYPE.getKey(entityType).equals(interaction.entityType())).findFirst();
+                    var interactionOptional = level.registryAccess().lookupOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).listElements().map(Holder.Reference::value).filter(interaction -> BuiltInRegistries.ENTITY_TYPE.getKey(entityType).equals(interaction.entityType())).findFirst();
                     tag.putString("id", entityKey);
 
                     if (level instanceof ServerLevel serverLevel)
@@ -227,7 +227,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
                     if (!player.getAbilities().instabuild)
                     {
-                        player.setItemInHand(hand, new ItemStack(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.get(interaction.item())).orElse(Items.WATER_BUCKET)));
+                        player.setItemInHand(hand, new ItemStack(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.getValue(interaction.item())).orElse(Items.WATER_BUCKET)));
                     }
                     if (!level.isClientSide())
                     {

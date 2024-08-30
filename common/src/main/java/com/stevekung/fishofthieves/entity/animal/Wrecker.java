@@ -129,7 +129,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.WRECKER_VARIANT).getHolderOrThrow(WreckerVariants.ROSE));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.WRECKER_VARIANT).getOrThrow(WreckerVariants.ROSE));
     }
 
     @Override

@@ -298,7 +298,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     {
         super.readAdditionalSaveData(compound);
 
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(resourceKey)).ifPresent(this::setVariant);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().lookupOrThrow(this.getRegistryKey()).get(resourceKey)).ifPresent(this::setVariant);
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
@@ -321,9 +321,9 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
 
         if (!compound.contains(VARIANT_TAG))
         {
-            var registry = this.registryAccess().registryOrThrow(this.registryKey);
-            var muha = Util.getRandomSafe(registry.holders().toList(), this.getRandom());
-            this.setVariant(muha.orElseGet(() -> registry.getHolderOrThrow(this.resourceKey)));
+            var registry = this.registryAccess().lookupOrThrow(this.registryKey);
+            var muha = Util.getRandomSafe(registry.listElements().toList(), this.getRandom());
+            this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.resourceKey)));
             this.setTrophy(this.random.nextBoolean());
         }
     }

@@ -72,7 +72,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getHolderOrThrow(SplashtailVariants.RUBY));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getOrThrow(SplashtailVariants.RUBY));
     }
 
     @Override

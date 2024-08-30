@@ -57,10 +57,10 @@ public interface AbstractFishVariant
 
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
-        var registry = registryAccess.registryOrThrow(registryKey);
+        var registry = registryAccess.lookupOrThrow(registryKey);
         var context = new SpawnConditionContext(serverLevel, registryAccess, livingEntity.blockPosition(), livingEntity.getRandom());
-        var muha = Util.getRandomSafe(registry.holders().filter(variant -> fromBucket || Util.allOf(variant.value().spawnSettings().entity()).test(context)).toList(), livingEntity.getRandom());
-        return muha.orElseGet(() -> registry.getHolderOrThrow(defaultKey));
+        var muha = Util.getRandomSafe(registry.listElements().filter(variant -> fromBucket || Util.allOf(variant.value().spawnSettings().entity()).test(context)).toList(), livingEntity.getRandom());
+        return muha.orElseGet(() -> registry.getOrThrow(defaultKey));
     }
 
     class RegisterContext<T>

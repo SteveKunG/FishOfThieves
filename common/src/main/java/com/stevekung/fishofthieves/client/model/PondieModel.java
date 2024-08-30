@@ -18,14 +18,12 @@ import net.minecraft.util.Mth;
 public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("pondie"), "main");
-    private final ModelPart root;
     private final ModelPart mouth;
     private final ModelPart body_back;
 
     public PondieModel(ModelPart part)
     {
-        super(RenderType::entityCutout);
-        this.root = part;
+        super(part, RenderType::entityCutout);
         var head = part.getChild("head");
         this.mouth = head.getChild("mouth_r1");
         this.body_back = part.getChild("body_back");
@@ -63,12 +61,6 @@ public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S
         }
         this.body_back.yRot = -backRotation * 0.15f * Mth.sin(backRotSpeed * 0.65f * renderState.ageInTicks);
         this.mouth.xRot = -0.8727F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.02f;
-    }
-
-    @Override
-    public ModelPart root()
-    {
-        return this.root;
     }
 
     @Override

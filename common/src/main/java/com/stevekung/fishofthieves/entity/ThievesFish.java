@@ -86,7 +86,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
 
     default void loadFromBucket(CompoundTag compound, RegistryAccess registryAccess)
     {
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> registryAccess.registryOrThrow(this.getRegistryKey()).getHolder(resourceKey)).ifPresent(this::setVariant);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> registryAccess.lookupOrThrow(this.getRegistryKey()).get(resourceKey)).ifPresent(this::setVariant);
 
         if (compound.contains(TROPHY_TAG))
         {

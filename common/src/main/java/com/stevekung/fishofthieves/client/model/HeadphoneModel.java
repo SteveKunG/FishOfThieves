@@ -19,11 +19,10 @@ import net.minecraft.world.entity.animal.TropicalFish;
 public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("headphone"), "main");
-    private final ModelPart headphone;
 
     public HeadphoneModel(ModelPart part)
     {
-        this.headphone = part.getChild("headphone");
+        super(part);
     }
 
     public static LayerDefinition createBodyLayer()
@@ -37,12 +36,6 @@ public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
 
     @Override
     public void setupAnim(S renderState) {}
-
-    @Override
-    public ModelPart root()
-    {
-        return this.headphone;
-    }
 
     public interface Scaleable<S extends LivingEntityRenderState>
     {

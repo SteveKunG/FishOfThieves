@@ -127,7 +127,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.DEVILFISH_VARIANT).getHolderOrThrow(DevilfishVariants.ASHEN));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.DEVILFISH_VARIANT).getOrThrow(DevilfishVariants.ASHEN));
     }
 
     @Override

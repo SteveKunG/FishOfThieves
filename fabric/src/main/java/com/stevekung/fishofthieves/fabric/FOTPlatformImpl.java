@@ -8,6 +8,8 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -40,9 +42,9 @@ public class FOTPlatformImpl
         return new BlockEntityType<>(factory, Set.of(validBlocks));
     }
 
-    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    public static <T extends Entity> EntityType<T> createEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
-        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build();
+        return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build(ResourceKey.create(Registries.ENTITY_TYPE, FishOfThieves.id(key)));
     }
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)

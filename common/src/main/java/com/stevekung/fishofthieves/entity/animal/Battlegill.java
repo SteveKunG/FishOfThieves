@@ -128,7 +128,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getHolderOrThrow(BattlegillVariants.JADE));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.JADE));
     }
 
     @Override

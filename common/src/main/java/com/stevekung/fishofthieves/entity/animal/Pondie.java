@@ -72,7 +72,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.PONDIE_VARIANT).getHolderOrThrow(PondieVariants.CHARCOAL));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.PONDIE_VARIANT).getOrThrow(PondieVariants.CHARCOAL));
     }
 
     @Override

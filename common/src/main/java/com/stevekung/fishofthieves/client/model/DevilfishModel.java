@@ -18,14 +18,12 @@ import net.minecraft.util.Mth;
 public class DevilfishModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("devilfish"), "main");
-    private final ModelPart root;
     private final ModelPart body_back;
     private final ModelPart mouth;
 
     public DevilfishModel(ModelPart part)
     {
-        super(RenderType::entityCutout);
-        this.root = part;
+        super(part, RenderType::entityCutout);
         var head = part.getChild("head");
         this.body_back = part.getChild("body_back");
         this.mouth = head.getChild("mouth");
@@ -66,12 +64,6 @@ public class DevilfishModel<S extends ThievesFishRenderState> extends EntityMode
         }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
         this.mouth.xRot = -0.0F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.06f;
-    }
-
-    @Override
-    public ModelPart root()
-    {
-        return this.root;
     }
 
     @Override

@@ -18,14 +18,12 @@ import net.minecraft.util.Mth;
 public class IslehopperModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("islehopper"), "main");
-    private final ModelPart root;
     private final ModelPart body_back;
     private final ModelPart body_back_2;
 
     public IslehopperModel(ModelPart part)
     {
-        super(RenderType::entityCutout);
-        this.root = part;
+        super(part, RenderType::entityCutout);
         this.body_back = part.getChild("body_back");
         this.body_back_2 = this.body_back.getChild("body_back_2");
     }
@@ -67,12 +65,6 @@ public class IslehopperModel<S extends ThievesFishRenderState> extends EntityMod
         }
         this.body_back.yRot = -backRotation * 0.05f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
         this.body_back_2.yRot = -backRotation * 0.1f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
-    }
-
-    @Override
-    public ModelPart root()
-    {
-        return this.root;
     }
 
     @Override

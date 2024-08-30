@@ -81,7 +81,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     protected void defineSynchedData(SynchedEntityData.Builder builder)
     {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, this.registryAccess().registryOrThrow(FOTRegistries.ANCIENTSCALE_VARIANT).getHolderOrThrow(AncientscaleVariants.ALMOND));
+        builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.ANCIENTSCALE_VARIANT).getOrThrow(AncientscaleVariants.ALMOND));
     }
 
     @Override
