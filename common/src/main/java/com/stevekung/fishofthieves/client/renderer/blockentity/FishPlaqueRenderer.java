@@ -29,6 +29,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
 
         if (entity != null)
         {
+            var animationTick = blockEntity.getAnimation(partialTick);
             var blockState = blockEntity.getBlockState();
             var facing = blockState.getValue(FishPlaqueBlock.FACING);
             var rotation = blockState.getValue(FishPlaqueBlock.ROTATION) - 1;
@@ -44,37 +45,30 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
                 scale /= maxScale;
             }
 
+            // Rotate by facing state
             poseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
 
-            // rotate by facing state
+            // Rotate by rotation state
             poseStack.mulPose(Axis.YP.rotationDegrees(yDegree));
-            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
+
+            // Adjust rendered entity position a little bit
+            poseStack.translate(0, -0.02f, 0);
 
             if (isHorizontal)
             {
-                switch (rotation)
-                {
-                    // TODO better solution for this??
-                    case 0 -> poseStack.translate(-0.1, 0, 0);
-                    case 1 -> poseStack.translate(-0.083125, 0, -0.1);
-                    case 2 -> poseStack.translate(0, 0, -scale * 0.22);
-                    case 3 -> poseStack.translate(0.073125, 0, -0.1);
-                    case 4 -> poseStack.translate(0.123125, 0, 0);
-                    case 5 -> poseStack.translate(0.083125, 0, 0.073125);
-                    case 6 -> poseStack.translate(0, 0, -scale * -0.22);
-                    case 7 -> poseStack.translate(-0.073125, 0, 0.073125);
-                }
-
-                poseStack.mulPose(Axis.ZP.rotationDegrees(-90.0F));
                 poseStack.mulPose(Axis.XP.rotationDegrees(rotation * 360.0F / 8.0F));
+                poseStack.translate(0, -0.10f, 0);
             }
             else
             {
+                poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
                 poseStack.mulPose(Axis.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
             }
 
+            entity.setYHeadRot(0);
+            entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, 0.0f, poseStack, bufferSource, packedLight);
+            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, 0.0F, animationTick, poseStack, bufferSource, packedLight);
         }
         poseStack.popPose();
     }

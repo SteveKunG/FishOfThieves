@@ -12,6 +12,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 public interface FOTTags
 {
+    Item[] FISH_BUCKETS = { FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET, FOTItems.ISLEHOPPER_BUCKET, FOTItems.ANCIENTSCALE_BUCKET, FOTItems.PLENTIFIN_BUCKET, FOTItems.WILDSPLASH_BUCKET, FOTItems.DEVILFISH_BUCKET, FOTItems.BATTLEGILL_BUCKET, FOTItems.WRECKER_BUCKET, FOTItems.STORMFISH_BUCKET };
+
     interface Items
     {
         TagKey<Item> THIEVES_FISH_BUCKET = TagKey.create(Registries.ITEM, FishOfThieves.id("thieves_fish_bucket"));

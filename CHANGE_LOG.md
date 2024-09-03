@@ -1,7 +1,3 @@
-* Validate structure data version, closed #47
-* Added German Translation (#48) Thanks to Mari023
-* Increase Seapost spacing
-* Minor fixes to Fish Plaque logic
-* Change Fish Plaques sound sources to BLOCKS
-* Minor optimization to Fish AIs
-* Rename config "dropAndPickFishesWithVariant" to "enableFishItemWithAllVariant"
+* Fix Islehopper spawn in Ocean Continentalness type
+* Allowed Islehopper to spawn in 'Valley' peak type around the terrain coast
+* Fixed Gilded Fish Plaque model culling when placed adjacent in vertical

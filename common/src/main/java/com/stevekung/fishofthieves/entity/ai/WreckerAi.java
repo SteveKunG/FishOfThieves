@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.ai.behavior.GoToClosestShipwreck;
+import com.stevekung.fishofthieves.entity.ai.behavior.GoToClosestWreckerLocated;
 import com.stevekung.fishofthieves.entity.ai.behavior.GoToLowBrightness;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -64,10 +64,10 @@ public class WreckerAi
                 Pair.of(1, new RunOne<>(ImmutableList.of(
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.15F), 1),
-                        Pair.of(new GoToClosestShipwreck(2.0f, 8), 2)))),
-                Pair.of(2, new GoToLowBrightness(2.0f, 4)),
-                Pair.of(3, StartAttacking.create(WreckerAi::findNearestValidAttackTarget)),
-                Pair.of(4, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
+                        Pair.of(new GoToClosestWreckerLocated(2.0f, 8), 2),
+                        Pair.of(new GoToLowBrightness(2.0f, 4), 3)))),
+                Pair.of(2, StartAttacking.create(WreckerAi::findNearestValidAttackTarget)),
+                Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(0.8F), 2),
                         Pair.of(SetWalkTargetFromLookTarget.create(0.8F, 3), 3),
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
