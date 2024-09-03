@@ -1,39 +1,28 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import com.google.common.collect.ObjectArrays;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 @Mixin(Chicken.class)
-public abstract class MixinChicken extends Animal
+public class MixinChicken
 {
-    private static final Ingredient WORM_FOOD_ITEMS = Ingredient.of(FOTTags.Items.WORMS);
+    @Shadow
+    @Final
+    @Mutable
+    static Ingredient FOOD_ITEMS;
 
-    MixinChicken()
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/ai/goal/TemptGoal.<init>(Lnet/minecraft/world/entity/PathfinderMob;DLnet/minecraft/world/item/crafting/Ingredient;Z)V"), index = 2)
+    private Ingredient fishofthieves$addNewTempt(Ingredient original)
     {
-        super(null, null);
-    }
-
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void fishofthieves$addNewTempt(CallbackInfo info)
-    {
-        this.goalSelector.addGoal(3, new TemptGoal(Chicken.class.cast(this), 1.0, WORM_FOOD_ITEMS, false));
-    }
-
-    @Inject(method = "isFood", cancellable = true, at = @At("HEAD"))
-    private void fishofthieves$isWorms(ItemStack itemStack, CallbackInfoReturnable<Boolean> info)
-    {
-        if (WORM_FOOD_ITEMS.test(itemStack))
-        {
-            info.setReturnValue(true);
-        }
+        return FOOD_ITEMS = Ingredient.of(ObjectArrays.concat(FOOD_ITEMS.getItems(), Ingredient.of(FOTTags.Items.WORMS).getItems(), ItemStack.class));
     }
 }

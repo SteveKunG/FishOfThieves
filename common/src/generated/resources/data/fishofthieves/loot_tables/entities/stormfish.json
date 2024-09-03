@@ -6,73 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:stormfish",
-                "type_specific": {
-                  "type": "fishofthieves:stormfish",
-                  "variant": "fishofthieves:ancient"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "fishofthieves:stormfish"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:stormfish",
-                "type_specific": {
-                  "type": "fishofthieves:stormfish",
-                  "variant": "fishofthieves:shores"
-                }
-              }
-            }
-          ],
           "functions": [
             {
               "conditions": [
@@ -113,195 +46,125 @@
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:shores"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_nbt",
               "tag": "{CustomModelData:1}"
-            }
-          ],
-          "name": "fishofthieves:stormfish"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:stormfish",
-                "type_specific": {
-                  "type": "fishofthieves:stormfish",
-                  "variant": "fishofthieves:wild"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:wild"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_nbt",
               "tag": "{CustomModelData:2}"
-            }
-          ],
-          "name": "fishofthieves:stormfish"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:stormfish",
-                "type_specific": {
-                  "type": "fishofthieves:stormfish",
-                  "variant": "fishofthieves:shadow"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:shadow"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_nbt",
               "tag": "{CustomModelData:3}"
-            }
-          ],
-          "name": "fishofthieves:stormfish"
-        },
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:entity_properties",
-              "entity": "this",
-              "predicate": {
-                "type": "fishofthieves:stormfish",
-                "type_specific": {
-                  "type": "fishofthieves:stormfish",
-                  "variant": "fishofthieves:twilight"
-                }
-              }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "flags": {
-                      "is_on_fire": true
-                    }
-                  }
-                }
-              ],
-              "function": "minecraft:furnace_smelt"
-            },
-            {
-              "add": false,
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
-                      "trophy": true
-                    }
-                  }
-                }
-              ],
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
             },
             {
               "conditions": [
                 {
                   "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:twilight"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
                 }
               ],
               "function": "minecraft:set_nbt",

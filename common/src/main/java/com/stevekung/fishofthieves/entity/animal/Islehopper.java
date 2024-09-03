@@ -194,7 +194,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 
         if (level.getBiome(blockPos).is(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST))
         {
-            return isSurfaceWater && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID) && (continentalness == Continentalness.COAST || continentalness == Continentalness.OCEAN);
+            return isSurfaceWater && continentalness == Continentalness.COAST && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID || peakTypes == PeakTypes.VALLEY);
         }
         return isWater && blockPos.getY() <= 0;
     }

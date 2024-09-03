@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
+import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.Util;
@@ -34,6 +35,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -54,15 +57,32 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 {
     private final Map<Direction, VoxelShape> aabb;
+    private final Type type;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 1, 8);
 
     public FishPlaqueBlock(BlockBehaviour.Properties properties, Type type)
     {
         super(properties);
+        this.type = type;
         this.aabb = type.aabb;
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(WATERLOGGED, false).setValue(ROTATION, 1));
+    }
+
+    @Override
+    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
+    {
+        if (this.type == Type.WOODEN)
+        {
+            return false;
+        }
+        else if (this.type == Type.GILDED)
+        {
+            return direction.getAxis().isVertical() && adjacentState.isSolid() || direction.getAxis().isHorizontal() && adjacentState.is(this);
+        }
+        return adjacentState.is(this) || super.skipRendering(state, adjacentState, direction);
     }
 
     @Override
@@ -199,12 +219,23 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
     @Nullable
     @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType)
+    {
+        if (level.isClientSide())
+        {
+            return createTickerHelper(blockEntityType, FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueBlockEntity::animation);
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        var blockState = this.defaultBlockState();
-        var fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        var levelReader = context.getLevel();
         var blockPos = context.getClickedPos();
+        var blockState = this.defaultBlockState().setValue(POWERED, context.getLevel().hasNeighborSignal(blockPos));
+        var fluidState = context.getLevel().getFluidState(blockPos);
+        var levelReader = context.getLevel();
         var directions = context.getNearestLookingDirections();
 
         for (var direction : directions)
@@ -306,6 +337,20 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston)
+    {
+        if (!level.isClientSide)
+        {
+            var hasSignal = level.hasNeighborSignal(pos);
+
+            if (hasSignal != state.getValue(POWERED))
+            {
+                level.setBlock(pos, state.setValue(POWERED, hasSignal), Block.UPDATE_CLIENTS);
+            }
+        }
+    }
+
+    @Override
     public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.MODEL;
@@ -326,7 +371,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(FACING, WATERLOGGED, ROTATION);
+        builder.add(FACING, WATERLOGGED, ROTATION, POWERED);
     }
 
     private void spawnFish(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity)

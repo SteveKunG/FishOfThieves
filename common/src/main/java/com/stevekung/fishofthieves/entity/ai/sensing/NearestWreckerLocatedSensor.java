@@ -10,9 +10,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 
-public class NearestShipwreckSensor extends Sensor<LivingEntity>
+public class NearestWreckerLocatedSensor extends Sensor<LivingEntity>
 {
-    public NearestShipwreckSensor()
+    public NearestWreckerLocatedSensor()
     {
         super(20);
     }
@@ -20,13 +20,13 @@ public class NearestShipwreckSensor extends Sensor<LivingEntity>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_SHIPWRECK);
+        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED);
     }
 
     @Override
     protected void doTick(ServerLevel level, LivingEntity entity)
     {
-        var wreckagePos = Wrecker.getNearestShipwreckPos(level, entity.blockPosition());
+        var wreckagePos = Wrecker.getNearestShipwreckOrRuinedPortalPos(level, entity.blockPosition());
 
         if (wreckagePos != null)
         {
@@ -34,7 +34,7 @@ public class NearestShipwreckSensor extends Sensor<LivingEntity>
 
             if (distance < 1024)
             {
-                entity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_SHIPWRECK, wreckagePos);
+                entity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED, wreckagePos);
             }
         }
     }
