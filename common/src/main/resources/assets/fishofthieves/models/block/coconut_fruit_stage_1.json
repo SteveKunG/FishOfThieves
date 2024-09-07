@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"particle": "fishofthieves:block/coconut_fruit_stage_1",
+		"coconut": "fishofthieves:block/coconut_fruit_stage_1"
+	},
+	"elements": [
+		{
+			"from": [4, 6, -2],
+			"to": [12, 14, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 8, -2]},
+			"faces": {
+				"east": {"uv": [0, 0, 8, 8], "texture": "#coconut"},
+				"south": {"uv": [0, 0, 8, 8], "texture": "#coconut"},
+				"west": {"uv": [0, 0, 8, 8], "texture": "#coconut"},
+				"up": {"uv": [8, 8, 0, 0], "texture": "#coconut"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#coconut"}
+			}
+		}
+	]
+}

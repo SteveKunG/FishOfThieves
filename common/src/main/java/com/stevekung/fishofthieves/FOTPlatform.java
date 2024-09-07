@@ -73,6 +73,12 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static void registerBlockWithItem(String key, Block block)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static void registerItem(String key, Item item)
     {
         throw new AssertionError();

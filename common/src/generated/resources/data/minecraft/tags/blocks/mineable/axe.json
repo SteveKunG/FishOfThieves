@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#fishofthieves:fish_plaque"
+    "#fishofthieves:fish_plaque",
+    "fishofthieves:coconut_fruit"
   ]
 }

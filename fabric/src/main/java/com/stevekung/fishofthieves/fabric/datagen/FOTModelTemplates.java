@@ -13,9 +13,16 @@ public class FOTModelTemplates
     public static final ModelTemplate IRON_FRAME_FISH_PLAQUE = create("template_iron_frame_fish_plaque", PLANKS);
     public static final ModelTemplate GOLDEN_FRAME_FISH_PLAQUE = create("template_golden_frame_fish_plaque", PLANKS);
     public static final ModelTemplate GILDED_FISH_PLAQUE = create("template_gilded_fish_plaque", PLANKS);
+    public static final ModelTemplate MEDIUM_COCONUT_LOG = create("medium_coconut_log", TextureSlot.END, TextureSlot.SIDE);
+    public static final ModelTemplate MEDIUM_COCONUT_LOG_HORIZONTAL = create("medium_coconut_log_horizontal", "_horizontal", TextureSlot.END, TextureSlot.SIDE);
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
         return new ModelTemplate(Optional.of(FishOfThieves.id("block/" + blockModelLocation)), Optional.empty(), requiredSlots);
+    }
+
+    private static ModelTemplate create(String blockModelLocation, String suffix, TextureSlot... requiredSlots)
+    {
+        return new ModelTemplate(Optional.of(FishOfThieves.id("block/" + blockModelLocation)), Optional.of(suffix), requiredSlots);
     }
 }

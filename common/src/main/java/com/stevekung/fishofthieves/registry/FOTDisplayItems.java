@@ -9,6 +9,11 @@ public class FOTDisplayItems
 {
     public static void displayItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
     {
+        output.accept(FOTBlocks.COCONUT_LOG);
+        output.accept(FOTBlocks.COCONUT_WOOD);
+        output.accept(FOTBlocks.MEDIUM_COCONUT_LOG);
+        output.accept(FOTBlocks.SMALL_COCONUT_LOG);
+
         output.accept(FOTBlocks.FISH_BONE);
 
         output.accept(FOTBlocks.OAK_FISH_PLAQUE);
@@ -58,6 +63,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+
+        output.accept(FOTItems.COCONUT);
 
         output.accept(FOTItems.EARTHWORMS);
         output.accept(FOTItems.GRUBS);

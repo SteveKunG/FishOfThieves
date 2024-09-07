@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "fishofthieves:coconut_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "minecraft:oak_planks"
+  }
+}

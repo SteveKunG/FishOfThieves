@@ -28,4 +28,6 @@ public class FOTFoodProperties
     public static final FoodProperties COOKED_BATTLEGILL = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).effect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200), 0.1F).build();
     public static final FoodProperties COOKED_WRECKER = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).build();
     public static final FoodProperties COOKED_STORMFISH = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).build();
+
+    public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
 }

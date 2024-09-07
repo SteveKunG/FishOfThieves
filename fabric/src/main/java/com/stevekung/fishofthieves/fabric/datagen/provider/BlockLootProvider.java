@@ -1,8 +1,18 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
+import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class BlockLootProvider extends FabricBlockLootTableProvider
 {
@@ -63,5 +73,18 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE));
         this.add(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE));
         this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
+
+        this.dropSelf(FOTBlocks.SMALL_COCONUT_LOG);
+        this.dropSelf(FOTBlocks.MEDIUM_COCONUT_LOG);
+        this.dropSelf(FOTBlocks.COCONUT_LOG);
+        this.dropSelf(FOTBlocks.COCONUT_WOOD);
+        this.dropSelf(FOTBlocks.COCONUT_SAPLING);
+        this.add(FOTBlocks.COCONUT_FRUIT, block -> LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(FOTItems.COCONUT)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2f, 4f))))
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
     }
 }

@@ -50,11 +50,15 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
+        this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
         this.getOrCreateTagBuilder(C_COOKED_FISHES).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
-        this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH).forceAddTag(FOTTags.Items.WORMS);
+        this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
+                .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
+                .forceAddTag(FOTTags.Items.WORMS)
+                .add(FOTItems.COCONUT);
         this.getOrCreateTagBuilder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTTags.FISH_BUCKETS);
 
         // Croptopia compatibility

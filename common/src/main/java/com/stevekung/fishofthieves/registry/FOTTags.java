@@ -28,6 +28,7 @@ public interface FOTTags
         TagKey<Item> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("iron_frame_fish_plaque"));
         TagKey<Item> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("gilded_frame_fish_plaque"));
+        TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
     }
 
     interface Blocks
@@ -45,6 +46,8 @@ public interface FOTTags
         TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("iron_frame_fish_plaque"));
         TagKey<Block> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Block> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("gilded_frame_fish_plaque"));
+        TagKey<Block> NON_FULL_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("non_full_logs"));
+        TagKey<Block> COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_logs"));
     }
 
     interface EntityTypes

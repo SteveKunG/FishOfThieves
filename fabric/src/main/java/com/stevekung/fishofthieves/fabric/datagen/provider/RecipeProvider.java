@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.*;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class RecipeProvider extends FabricRecipeProvider
 {
@@ -84,6 +86,9 @@ public class RecipeProvider extends FabricRecipeProvider
         addCookingRecipes(consumer, 0.45F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
         addCookingRecipes(consumer, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
         addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+
+        woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
+        planksFromLogs(consumer, Blocks.OAK_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
     }
 
     private static void addWoodenFishPlaqueRecipe(Block block, ItemLike baseMaterial, Consumer<FinishedRecipe> consumer)

@@ -1,12 +1,15 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
-import com.stevekung.fishofthieves.block.FishBoneBlock;
-import com.stevekung.fishofthieves.block.FishPlaqueBlock;
+import com.stevekung.fishofthieves.block.*;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -62,6 +65,13 @@ public class FOTBlocks
     public static final Block GILDED_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
     public static final Block GILDED_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
+    public static final Block SMALL_COCONUT_LOG = smallLog(MapColor.COLOR_ORANGE, MapColor.STONE);
+    public static final Block MEDIUM_COCONUT_LOG = mediumLog(MapColor.COLOR_ORANGE, MapColor.STONE);
+    public static final Block COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.STONE);
+    public static final Block COCONUT_WOOD = new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_SAPLING = new CoconutSaplingBlock(new OakTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    public static final Block COCONUT_FRUIT = new CoconutFruitBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD).strength(1.0F).pushReaction(PushReaction.DESTROY));
+
     public static void init()
     {
         register("fish_bone", FISH_BONE);
@@ -113,10 +123,37 @@ public class FOTBlocks
         register("gilded_bamboo_fish_plaque", GILDED_BAMBOO_FISH_PLAQUE);
         register("gilded_crimson_fish_plaque", GILDED_CRIMSON_FISH_PLAQUE);
         register("gilded_warped_fish_plaque", GILDED_WARPED_FISH_PLAQUE);
+
+        register("coconut_log", COCONUT_LOG);
+        register("coconut_wood", COCONUT_WOOD);
+        register("small_coconut_log", SMALL_COCONUT_LOG);
+        register("medium_coconut_log", MEDIUM_COCONUT_LOG);
+        registerNoItem("coconut_sapling", COCONUT_SAPLING);
+        register("coconut_fruit", COCONUT_FRUIT);
     }
 
     private static void register(String key, Block block)
     {
+        FOTPlatform.registerBlockWithItem(key, block);
+    }
+
+    private static void registerNoItem(String key, Block block)
+    {
         FOTPlatform.registerBlock(key, block);
+    }
+
+    private static RotatedPillarBlock log(MapColor topMapColor, MapColor sideMapColor)
+    {
+        return new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    private static RotatedPillarBlock mediumLog(MapColor topMapColor, MapColor sideMapColor)
+    {
+        return new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    private static RotatedPillarBlock smallLog(MapColor topMapColor, MapColor sideMapColor)
+    {
+        return new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     }
 }

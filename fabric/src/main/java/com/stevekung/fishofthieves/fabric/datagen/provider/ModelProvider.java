@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -15,6 +16,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
+import net.minecraft.data.models.blockstates.Variant;
+import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -128,6 +133,8 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.GILDED_WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
+
+        generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -184,6 +191,27 @@ public class ModelProvider extends FabricModelProvider
         this.createFishPlaque(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
+
+        generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
+
+        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(FOTBlocks.SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG)));
+        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG)));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.COCONUT_SAPLING, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_SAPLING)));
+        this.createCoconutFruit(generator);
+    }
+
+    private void createCoconutFruit(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.COCONUT_FRUIT;
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(CoconutFruitBlock.AGE)
+                        .select(0, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_0")))
+                        .select(1, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_1")))
+                        .select(2, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_2"))))
+                .with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }
 
     private void createFishPlaque(Block block, Block planks, ModelTemplate template, BlockModelGenerators generator)
