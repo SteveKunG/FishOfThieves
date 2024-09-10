@@ -62,6 +62,7 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.COCONUT_FRONDS, 0.8F);
 
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRONDS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.PINK_PLUMERIA, 60, 100);
 
         FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);
 

@@ -17,6 +17,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.SMALL_COCONUT_WOOD);
         output.accept(FOTBlocks.COCONUT_FRONDS);
 
+        output.accept(FOTBlocks.PINK_PLUMERIA);
+
         output.accept(FOTBlocks.FISH_BONE);
 
         output.accept(FOTBlocks.OAK_FISH_PLAQUE);

@@ -74,6 +74,8 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE));
         this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
 
+        this.dropSelf(FOTBlocks.PINK_PLUMERIA);
+        this.dropPottedContents(FOTBlocks.POTTED_PINK_PLUMERIA);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_LOG);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_WOOD);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_LOG);
