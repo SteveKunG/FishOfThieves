@@ -28,7 +28,8 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
-    public static final ResourceKey<CreativeModeTab> FOT = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
+    public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
+    public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
     public static ResourceLocation id(String path)
     {
@@ -143,8 +144,13 @@ public class FishOfThieves
         return list;
     }
 
-    public static CreativeModeTab.Builder getCreativeTabBuilder(CreativeModeTab.Builder builder)
+    public static CreativeModeTab.Builder getFishCreativeTabBuilder(CreativeModeTab.Builder builder)
     {
-        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems);
+        return builder.title(Component.translatable("itemGroup.fishofthieves.fish")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayFishItems);
+    }
+
+    public static CreativeModeTab.Builder getMainCreativeTabBuilder(CreativeModeTab.Builder builder)
+    {
+        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTBlocks.COCONUT_LOG)).displayItems(FOTDisplayItems::displayMainItems);
     }
 }

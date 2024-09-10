@@ -67,6 +67,7 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "Stormfish",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "Weight of Stormfishes spawning.",
   "itemGroup.fishofthieves.main": "Fish of Thieves",
+  "itemGroup.fishofthieves.fish": "Fish of Thieves: Fish",
   "block.fishofthieves.fish_bone": "Fish Bone",
   "block.fishofthieves.oak_fish_plaque": "Oak Fish Plaque",
   "block.fishofthieves.spruce_fish_plaque": "Spruce Fish Plaque",

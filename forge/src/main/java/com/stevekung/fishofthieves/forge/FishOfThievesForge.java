@@ -99,6 +99,10 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
         event.register(ForgeRegistries.Keys.SENSOR_TYPES, helper -> FOTSensorTypes.init());
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());
-        event.register(Registries.CREATIVE_MODE_TAB, helper -> Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(CreativeModeTab.builder()).build()));
+        event.register(Registries.CREATIVE_MODE_TAB, helper ->
+        {
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_MAIN, FishOfThieves.getMainCreativeTabBuilder(CreativeModeTab.builder()).build());
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_FISH, FishOfThieves.getFishCreativeTabBuilder(CreativeModeTab.builder()).build());
+        });
     }
 }

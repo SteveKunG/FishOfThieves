@@ -54,7 +54,8 @@ public class FishOfThievesFabric implements ModInitializer
         WreckerVariants.init();
         StormfishVariants.init();
 
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT, FishOfThieves.getCreativeTabBuilder(FabricItemGroup.builder()).build());
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_MAIN, FishOfThieves.getMainCreativeTabBuilder(FabricItemGroup.builder()).build());
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_FISH, FishOfThieves.getFishCreativeTabBuilder(FabricItemGroup.builder()).build());
 
         CompostingChanceRegistry.INSTANCE.add(FOTItems.EARTHWORMS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);
