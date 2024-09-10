@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
@@ -194,10 +195,44 @@ public class ModelProvider extends FabricModelProvider
 
         generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
 
-        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(FOTBlocks.SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG)));
-        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG)));
+        this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.COCONUT_SAPLING, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_SAPLING)));
         this.createCoconutFruit(generator);
+        this.createCoconutLeaf(generator);
+    }
+
+    private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
+    {
+        var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
+        var resourceLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
+    }
+
+    private void createMediumLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
+    {
+        var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
+        var resourceLocation = FOTModelTemplates.MEDIUM_LOG.create(block, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
+    }
+
+    private void createCoconutLeaf(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.COCONUT_FRONDS;
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createHorizontalFacingDispatchAlt())
+                .with(PropertyDispatch.property(CoconutFrondsBlock.PART)
+                        .select(CoconutFrondsBlock.Part.STEM, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
+                        .select(CoconutFrondsBlock.Part.MIDDLE, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_middle")))
+                        .select(CoconutFrondsBlock.Part.TAIL, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail")))
+                        .select(CoconutFrondsBlock.Part.SINGLE, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_single")))));
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_single")), generator.modelOutput);
     }
 
     private void createCoconutFruit(BlockModelGenerators generator)

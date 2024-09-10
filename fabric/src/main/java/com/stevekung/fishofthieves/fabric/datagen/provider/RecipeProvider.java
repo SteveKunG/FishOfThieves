@@ -88,6 +88,8 @@ public class RecipeProvider extends FabricRecipeProvider
         addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
 
         woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);
         planksFromLogs(consumer, Blocks.OAK_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
     }
 

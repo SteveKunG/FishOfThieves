@@ -52,6 +52,10 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);
 
+        this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS);
+        this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS);
+        this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS.asItem());
+
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
         this.getOrCreateTagBuilder(C_COOKED_FISHES).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);

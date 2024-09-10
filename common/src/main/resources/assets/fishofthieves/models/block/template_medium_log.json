@@ -2,9 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "fishofthieves:block/coconut_log",
-		"side": "fishofthieves:block/coconut_log",
-		"end": "fishofthieves:block/medium_coconut_log_top"
+		"particle": "#side"
 	},
 	"elements": [
 		{

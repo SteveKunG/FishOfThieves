@@ -12,7 +12,10 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.COCONUT_LOG);
         output.accept(FOTBlocks.COCONUT_WOOD);
         output.accept(FOTBlocks.MEDIUM_COCONUT_LOG);
+        output.accept(FOTBlocks.MEDIUM_COCONUT_WOOD);
         output.accept(FOTBlocks.SMALL_COCONUT_LOG);
+        output.accept(FOTBlocks.SMALL_COCONUT_WOOD);
+        output.accept(FOTBlocks.COCONUT_FRONDS);
 
         output.accept(FOTBlocks.FISH_BONE);
 

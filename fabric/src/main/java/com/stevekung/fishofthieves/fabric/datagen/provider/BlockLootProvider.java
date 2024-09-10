@@ -75,7 +75,9 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, this.createSingleItemTable(FOTBlocks.GILDED_WARPED_FISH_PLAQUE));
 
         this.dropSelf(FOTBlocks.SMALL_COCONUT_LOG);
+        this.dropSelf(FOTBlocks.SMALL_COCONUT_WOOD);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_LOG);
+        this.dropSelf(FOTBlocks.MEDIUM_COCONUT_WOOD);
         this.dropSelf(FOTBlocks.COCONUT_LOG);
         this.dropSelf(FOTBlocks.COCONUT_WOOD);
         this.dropSelf(FOTBlocks.COCONUT_SAPLING);
@@ -86,5 +88,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2f, 4f))))
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
+        this.add(FOTBlocks.COCONUT_FRONDS, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(FOTBlocks.COCONUT_FRONDS).when(HAS_SHEARS))));
     }
 }
