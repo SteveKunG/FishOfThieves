@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.entity.ai.behavior.MergeOtherFlock;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -57,11 +58,12 @@ public class AbstractSchoolingThievesFishAi
     public static <T extends AbstractFlockFish> void customServerAiStep(T fish, Brain<T> brain)
     {
         var name = BuiltInRegistries.ENTITY_TYPE.getKey(fish.getType()).getPath();
-        fish.level().getProfiler().push(name + "Brain");
+        var profiler = Profiler.get();
+        profiler.push(name + "Brain");
         brain.tick((ServerLevel) fish.level(), fish);
-        fish.level().getProfiler().popPush(name + "ActivityUpdate");
+        profiler.popPush(name + "ActivityUpdate");
         AbstractSchoolingThievesFishAi.updateActivity(fish);
-        fish.level().getProfiler().pop();
+        profiler.pop();
     }
 
     //@formatter:off

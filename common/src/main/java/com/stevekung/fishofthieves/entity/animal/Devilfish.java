@@ -19,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -115,11 +116,12 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level().getProfiler().push("devilfishBrain");
+        var profiler = Profiler.get();
+        profiler.push("devilfishBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().popPush("devilfishActivityUpdate");
+        profiler.popPush("devilfishActivityUpdate");
         DevilfishAi.updateActivity(this);
-        this.level().getProfiler().pop();
+        profiler.pop();
         super.customServerAiStep();
     }
 

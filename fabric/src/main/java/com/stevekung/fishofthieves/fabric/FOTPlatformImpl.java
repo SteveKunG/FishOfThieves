@@ -60,7 +60,7 @@ public class FOTPlatformImpl
     public static void registerBlock(String key, Block block)
     {
         Registry.register(BuiltInRegistries.BLOCK, FishOfThieves.id(key), block);
-        registerItem(key, new BlockItem(block, new Item.Properties()));
+        registerItem(key, new BlockItem(block, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, FishOfThieves.id(key))).useBlockDescriptionPrefix()));
     }
 
     public static void registerItem(String key, Item item)

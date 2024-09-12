@@ -1,62 +1,68 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.function.Function;
+
 import com.stevekung.fishofthieves.FOTPlatform;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
 {
-    public static final Item EARTHWORMS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
-    public static final Item GRUBS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
-    public static final Item LEECHES = new Item(new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
+    public static final Item EARTHWORMS = item("earthworms", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
+    public static final Item GRUBS = item("grubs", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
+    public static final Item LEECHES = item("leeches", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
 
-    public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT);
-    public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT);
-    public static final Item ISLEHOPPER = new FOTItem(new Item.Properties().food(FOTFoodProperties.ISLEHOPPER), FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT);
-    public static final Item ANCIENTSCALE = new FOTItem(new Item.Properties().food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT);
-    public static final Item PLENTIFIN = new FOTItem(new Item.Properties().food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT);
-    public static final Item WILDSPLASH = new FOTItem(new Item.Properties().food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT);
-    public static final Item DEVILFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.DEVILFISH, FOTConsumables.DEVILFISH), FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT);
-    public static final Item BATTLEGILL = new FOTItem(new Item.Properties().food(FOTFoodProperties.BATTLEGILL), FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT);
-    public static final Item WRECKER = new FOTItem(new Item.Properties().food(FOTFoodProperties.WRECKER), FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT);
-    public static final Item STORMFISH = new FOTItem(new Item.Properties().food(FOTFoodProperties.STORMFISH), FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT);
+    public static final Item SPLASHTAIL = item("splashtail", properties -> new FOTItem(properties.food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT));
+    public static final Item PONDIE = item("pondie", properties -> new FOTItem(properties.food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT));
+    public static final Item ISLEHOPPER = item("islehopper", properties -> new FOTItem(properties.food(FOTFoodProperties.ISLEHOPPER), FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT));
+    public static final Item ANCIENTSCALE = item("ancientscale", properties -> new FOTItem(properties.food(FOTFoodProperties.ANCIENTSCALE), FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT));
+    public static final Item PLENTIFIN = item("plentifin", properties -> new FOTItem(properties.food(FOTFoodProperties.PLENTIFIN), FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT));
+    public static final Item WILDSPLASH = item("wildsplash", properties -> new FOTItem(properties.food(FOTFoodProperties.WILDSPLASH), FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT));
+    public static final Item DEVILFISH = item("devilfish", properties -> new FOTItem(properties.food(FOTFoodProperties.DEVILFISH, FOTConsumables.DEVILFISH), FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT));
+    public static final Item BATTLEGILL = item("battlegill", properties -> new FOTItem(properties.food(FOTFoodProperties.BATTLEGILL), FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT));
+    public static final Item WRECKER = item("wrecker", properties -> new FOTItem(properties.food(FOTFoodProperties.WRECKER), FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT));
+    public static final Item STORMFISH = item("stormfish", properties -> new FOTItem(properties.food(FOTFoodProperties.STORMFISH), FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT));
 
-    public static final Item COOKED_SPLASHTAIL = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_SPLASHTAIL));
-    public static final Item COOKED_PONDIE = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PONDIE));
-    public static final Item COOKED_ISLEHOPPER = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_ISLEHOPPER));
-    public static final Item COOKED_ANCIENTSCALE = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_ANCIENTSCALE));
-    public static final Item COOKED_PLENTIFIN = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_PLENTIFIN, FOTConsumables.COOKED_PLENTIFIN));
-    public static final Item COOKED_WILDSPLASH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_WILDSPLASH));
-    public static final Item COOKED_DEVILFISH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_DEVILFISH));
-    public static final Item COOKED_BATTLEGILL = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_BATTLEGILL, FOTConsumables.COOKED_BATTLEGILL));
-    public static final Item COOKED_WRECKER = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_WRECKER));
-    public static final Item COOKED_STORMFISH = new Item(new Item.Properties().food(FOTFoodProperties.COOKED_STORMFISH));
+    public static final Item COOKED_SPLASHTAIL = item("cooked_splashtail", properties -> new Item(properties.food(FOTFoodProperties.COOKED_SPLASHTAIL)));
+    public static final Item COOKED_PONDIE = item("cooked_pondie", properties -> new Item(properties.food(FOTFoodProperties.COOKED_PONDIE)));
+    public static final Item COOKED_ISLEHOPPER = item("cooked_islehopper", properties -> new Item(properties.food(FOTFoodProperties.COOKED_ISLEHOPPER)));
+    public static final Item COOKED_ANCIENTSCALE = item("cooked_ancientscale", properties -> new Item(properties.food(FOTFoodProperties.COOKED_ANCIENTSCALE)));
+    public static final Item COOKED_PLENTIFIN = item("cooked_plentifin", properties -> new Item(properties.food(FOTFoodProperties.COOKED_PLENTIFIN, FOTConsumables.COOKED_PLENTIFIN)));
+    public static final Item COOKED_WILDSPLASH = item("cooked_wildsplash", properties -> new Item(properties.food(FOTFoodProperties.COOKED_WILDSPLASH)));
+    public static final Item COOKED_DEVILFISH = item("cooked_devilfish", properties -> new Item(properties.food(FOTFoodProperties.COOKED_DEVILFISH)));
+    public static final Item COOKED_BATTLEGILL = item("cooked_battlegill", properties -> new Item(properties.food(FOTFoodProperties.COOKED_BATTLEGILL, FOTConsumables.COOKED_BATTLEGILL)));
+    public static final Item COOKED_WRECKER = item("cooked_wrecker", properties -> new Item(properties.food(FOTFoodProperties.COOKED_WRECKER)));
+    public static final Item COOKED_STORMFISH = item("cooked_stormfish", properties -> new Item(properties.food(FOTFoodProperties.COOKED_STORMFISH)));
 
-    public static final Item SPLASHTAIL_BUCKET = new FOTMobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.SPLASHTAIL_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item PONDIE_BUCKET = new FOTMobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PONDIE_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item ISLEHOPPER_BUCKET = new FOTMobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ISLEHOPPER_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item ANCIENTSCALE_BUCKET = new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ANCIENTSCALE_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item PLENTIFIN_BUCKET = new FOTMobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PLENTIFIN_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item WILDSPLASH_BUCKET = new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WILDSPLASH_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item DEVILFISH_BUCKET = new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.DEVILFISH_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item BATTLEGILL_BUCKET = new FOTMobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.BATTLEGILL_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item WRECKER_BUCKET = new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, new Item.Properties().stacksTo(1));
-    public static final Item STORMFISH_BUCKET = new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, new Item.Properties().stacksTo(1));
+    public static final Item SPLASHTAIL_BUCKET = item("splashtail_bucket", properties -> new FOTMobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.SPLASHTAIL_VARIANT, properties.stacksTo(1)));
+    public static final Item PONDIE_BUCKET = item("pondie_bucket", properties -> new FOTMobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PONDIE_VARIANT, properties.stacksTo(1)));
+    public static final Item ISLEHOPPER_BUCKET = item("islehopper_bucket", properties -> new FOTMobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ISLEHOPPER_VARIANT, properties.stacksTo(1)));
+    public static final Item ANCIENTSCALE_BUCKET = item("ancientscale_bucket", properties -> new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ANCIENTSCALE_VARIANT, properties.stacksTo(1)));
+    public static final Item PLENTIFIN_BUCKET = item("plentifin_bucket", properties -> new FOTMobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PLENTIFIN_VARIANT, properties.stacksTo(1)));
+    public static final Item WILDSPLASH_BUCKET = item("wildsplash_bucket", properties -> new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WILDSPLASH_VARIANT, properties.stacksTo(1)));
+    public static final Item DEVILFISH_BUCKET = item("devilfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.DEVILFISH_VARIANT, properties.stacksTo(1)));
+    public static final Item BATTLEGILL_BUCKET = item("battlegill_bucket", properties -> new FOTMobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.BATTLEGILL_VARIANT, properties.stacksTo(1)));
+    public static final Item WRECKER_BUCKET = item("wrecker_bucket", properties -> new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, properties.stacksTo(1)));
+    public static final Item STORMFISH_BUCKET = item("stormfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, properties.stacksTo(1)));
 
-    public static final Item SPLASHTAIL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties());
-    public static final Item PONDIE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, new Item.Properties());
-    public static final Item ISLEHOPPER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, new Item.Properties());
-    public static final Item ANCIENTSCALE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, new Item.Properties());
-    public static final Item PLENTIFIN_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, new Item.Properties());
-    public static final Item WILDSPLASH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, new Item.Properties());
-    public static final Item DEVILFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, new Item.Properties());
-    public static final Item BATTLEGILL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties());
-    public static final Item WRECKER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties());
-    public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties());
+    public static final Item SPLASHTAIL_SPAWN_EGG = item("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, properties));
+    public static final Item PONDIE_SPAWN_EGG = item("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, properties));
+    public static final Item ISLEHOPPER_SPAWN_EGG = item("islehopper_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, properties));
+    public static final Item ANCIENTSCALE_SPAWN_EGG = item("ancientscale_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, properties));
+    public static final Item PLENTIFIN_SPAWN_EGG = item("plentifin_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, properties));
+    public static final Item WILDSPLASH_SPAWN_EGG = item("wildsplash_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, properties));
+    public static final Item DEVILFISH_SPAWN_EGG = item("devilfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, properties));
+    public static final Item BATTLEGILL_SPAWN_EGG = item("battlegill_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, properties));
+    public static final Item WRECKER_SPAWN_EGG = item("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, properties));
+    public static final Item STORMFISH_SPAWN_EGG = item("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, properties));
 
     public static void init()
     {
@@ -111,5 +117,15 @@ public class FOTItems
     private static void register(String key, Item item)
     {
         FOTPlatform.registerItem(key, item);
+    }
+
+    public static Item item(String key, Function<Item.Properties, Item> function)
+    {
+        return item(key, function, new Item.Properties());
+    }
+
+    public static Item item(String key, Function<Item.Properties, Item> function, Item.Properties properties)
+    {
+        return function.apply(properties.setId(ResourceKey.create(Registries.ITEM, FishOfThieves.id(key))));
     }
 }

@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -116,11 +117,12 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level().getProfiler().push("battlegillBrain");
+        var profiler = Profiler.get();
+        profiler.push("battlegillBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().popPush("battlegillActivityUpdate");
+        profiler.popPush("battlegillActivityUpdate");
         BattlegillAi.updateActivity(this);
-        this.level().getProfiler().pop();
+        profiler.pop();
         super.customServerAiStep();
     }
 

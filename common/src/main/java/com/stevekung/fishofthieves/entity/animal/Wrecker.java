@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -117,11 +118,12 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     protected void customServerAiStep()
     {
-        this.level().getProfiler().push("wreckerBrain");
+        var profiler = Profiler.get();
+        profiler.push("wreckerBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().popPush("wreckerActivityUpdate");
+        profiler.popPush("wreckerActivityUpdate");
         WreckerAi.updateActivity(this);
-        this.level().getProfiler().pop();
+        profiler.pop();
         super.customServerAiStep();
     }
 
