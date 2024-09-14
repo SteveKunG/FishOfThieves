@@ -22,9 +22,9 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.COCONUT_FRUIT);
-        this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG);
-        this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS);
-        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS);
+        this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.BANANA_STEM);
+        this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM);
+        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
@@ -40,7 +40,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE).add(FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE, FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.GILDED_CHERRY_FISH_PLAQUE, FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE, FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_REPELLENTS).add(Blocks.MAGMA_BLOCK, Blocks.BUBBLE_COLUMN);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).forceAddTag(FOTTags.Blocks.WOODEN_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE);
-        this.getOrCreateTagBuilder(FOTTags.Blocks.NON_FULL_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.NON_FULL_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.BANANA_STEM);
         this.getOrCreateTagBuilder(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD);
     }
 }

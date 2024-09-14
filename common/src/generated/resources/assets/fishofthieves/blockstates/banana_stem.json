@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=x,top=false": {
+      "model": "fishofthieves:block/banana_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,top=true": {
+      "model": "fishofthieves:block/banana_stem_top",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,top=false": {
+      "model": "fishofthieves:block/banana_stem"
+    },
+    "axis=y,top=true": {
+      "model": "fishofthieves:block/banana_stem_top"
+    },
+    "axis=z,top=false": {
+      "model": "fishofthieves:block/banana_stem",
+      "x": 90
+    },
+    "axis=z,top=true": {
+      "model": "fishofthieves:block/banana_stem_top",
+      "x": 90
+    }
+  }
+}

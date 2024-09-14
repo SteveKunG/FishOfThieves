@@ -61,6 +61,7 @@ public class FOTItems
     public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties());
 
     public static final Item COCONUT = new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT));
+    public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
 
     public static void init()
     {
@@ -112,6 +113,7 @@ public class FOTItems
         register("stormfish_spawn_egg", STORMFISH_SPAWN_EGG);
 
         register("coconut", COCONUT);
+        register("banana", BANANA);
     }
 
     private static void register(String key, Item item)

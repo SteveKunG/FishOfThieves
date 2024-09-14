@@ -66,6 +66,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.SMALL_COCONUT_LOG);
         output.accept(FOTBlocks.SMALL_COCONUT_WOOD);
         output.accept(FOTBlocks.COCONUT_FRONDS);
+        output.accept(FOTBlocks.BANANA_STEM);
+        output.accept(FOTBlocks.BANANA_LEAVES);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 
@@ -120,5 +122,6 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
 
         output.accept(FOTItems.COCONUT);
+        output.accept(FOTItems.BANANA);
     }
 }

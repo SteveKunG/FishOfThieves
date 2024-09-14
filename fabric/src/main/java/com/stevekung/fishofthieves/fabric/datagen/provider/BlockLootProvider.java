@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -92,5 +93,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
         this.add(FOTBlocks.COCONUT_FRONDS, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(FOTBlocks.COCONUT_FRONDS).when(HAS_SHEARS))));
+        this.dropSelf(FOTBlocks.BANANA_STEM);
+        this.add(FOTBlocks.BANANA_LEAVES, BlockLootSubProvider::createShearsOnlyDrop);
     }
 }

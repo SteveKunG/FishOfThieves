@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fishofthieves:block/banana_leaves_tail"
+  }
+}

@@ -41,7 +41,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     public CoconutFrondsBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, Part.SINGLE).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.SINGLE).setValue(WATERLOGGED, false));
     }
 
     @Override

@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,part=stem,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_stem_lower",
+      "y": 270
+    },
+    "facing=east,part=stem,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_stem_upper",
+      "y": 270
+    },
+    "facing=east,part=tail,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_tail_lower",
+      "y": 270
+    },
+    "facing=east,part=tail,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_tail_upper",
+      "y": 270
+    },
+    "facing=north,part=stem,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_stem_lower",
+      "y": 180
+    },
+    "facing=north,part=stem,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_stem_upper",
+      "y": 180
+    },
+    "facing=north,part=tail,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_tail_lower",
+      "y": 180
+    },
+    "facing=north,part=tail,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_tail_upper",
+      "y": 180
+    },
+    "facing=south,part=stem,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_stem_lower"
+    },
+    "facing=south,part=stem,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_stem_upper"
+    },
+    "facing=south,part=tail,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_tail_lower"
+    },
+    "facing=south,part=tail,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_tail_upper"
+    },
+    "facing=west,part=stem,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_stem_lower",
+      "y": 90
+    },
+    "facing=west,part=stem,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_stem_upper",
+      "y": 90
+    },
+    "facing=west,part=tail,type=lower": {
+      "model": "fishofthieves:block/banana_leaves_tail_lower",
+      "y": 90
+    },
+    "facing=west,part=tail,type=upper": {
+      "model": "fishofthieves:block/banana_leaves_tail_upper",
+      "y": 90
+    }
+  }
+}

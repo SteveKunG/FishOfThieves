@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#fishofthieves:coconut_logs"
+    "#fishofthieves:coconut_logs",
+    "fishofthieves:banana_stem"
   ]
 }

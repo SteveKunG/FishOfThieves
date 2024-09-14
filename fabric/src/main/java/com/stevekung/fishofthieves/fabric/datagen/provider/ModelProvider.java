@@ -7,6 +7,8 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.block.BananaLeavesBlock;
+import com.stevekung.fishofthieves.block.BananaStemBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
@@ -14,6 +16,7 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
@@ -26,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class ModelProvider extends FabricModelProvider
 {
@@ -136,6 +140,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTBlocks.GILDED_WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -201,7 +206,43 @@ public class ModelProvider extends FabricModelProvider
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.COCONUT_SAPLING, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_SAPLING)));
         this.createCoconutFruit(generator);
-        this.createCoconutLeaf(generator);
+        this.createCoconutFronds(generator);
+        this.createBananaLeaves(generator);
+        this.createBananaStem(generator);
+    }
+
+    private void createBananaStem(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BANANA_STEM;
+        var modelLocation = ModelLocationUtils.getModelLocation(block);
+        var topModelLocation = ModelLocationUtils.getModelLocation(block, "_top");
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.properties(BlockStateProperties.AXIS, BananaStemBlock.TOP)
+                        .select(Direction.Axis.Y, false, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.Y, true, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
+                        .select(Direction.Axis.Z, true, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, true, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))));
+    }
+
+    private void createBananaLeaves(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BANANA_LEAVES;
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createHorizontalFacingDispatchAlt())
+                .with(PropertyDispatch.properties(BananaLeavesBlock.TYPE, BananaLeavesBlock.PART)
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower")))
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper")))));
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
     }
 
     private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
@@ -218,7 +259,7 @@ public class ModelProvider extends FabricModelProvider
         generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
     }
 
-    private void createCoconutLeaf(BlockModelGenerators generator)
+    private void createCoconutFronds(BlockModelGenerators generator)
     {
         var block = FOTBlocks.COCONUT_FRONDS;
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
