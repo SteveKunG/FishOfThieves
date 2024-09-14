@@ -1,27 +1,51 @@
 {
   "variants": {
-    "axis=x,top=false": {
+    "axis=x,bottom=false,top=false": {
       "model": "fishofthieves:block/banana_stem",
       "x": 90,
       "y": 90
     },
-    "axis=x,top=true": {
+    "axis=x,bottom=false,top=true": {
       "model": "fishofthieves:block/banana_stem_top",
       "x": 90,
       "y": 90
     },
-    "axis=y,top=false": {
+    "axis=x,bottom=true,top=false": {
+      "model": "fishofthieves:block/banana_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,bottom=true,top=true": {
+      "model": "fishofthieves:block/banana_stem",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,bottom=false,top=false": {
       "model": "fishofthieves:block/banana_stem"
     },
-    "axis=y,top=true": {
+    "axis=y,bottom=false,top=true": {
       "model": "fishofthieves:block/banana_stem_top"
     },
-    "axis=z,top=false": {
+    "axis=y,bottom=true,top=false": {
+      "model": "fishofthieves:block/banana_stem"
+    },
+    "axis=y,bottom=true,top=true": {
+      "model": "fishofthieves:block/banana_stem"
+    },
+    "axis=z,bottom=false,top=false": {
       "model": "fishofthieves:block/banana_stem",
       "x": 90
     },
-    "axis=z,top=true": {
+    "axis=z,bottom=false,top=true": {
       "model": "fishofthieves:block/banana_stem_top",
+      "x": 90
+    },
+    "axis=z,bottom=true,top=false": {
+      "model": "fishofthieves:block/banana_stem",
+      "x": 90
+    },
+    "axis=z,bottom=true,top=true": {
+      "model": "fishofthieves:block/banana_stem",
       "x": 90
     }
   }
