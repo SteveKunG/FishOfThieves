@@ -4,7 +4,11 @@ import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -62,6 +67,50 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     private static Direction getNeighbourDirection(Part part, Direction direction)
     {
         return part == Part.TAIL ? direction.getOpposite() : direction;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
+    {
+        if (level.isRainingAt(pos.above()))
+        {
+            if (random.nextInt(8) == 0)
+            {
+                if (state.getValue(PART) == Part.STEM)
+                {
+                    var ySpawn = state.getValue(TYPE) == Type.UPPER ? 0.6d : 0.1d;
+                    var blockPos = pos.below();
+                    var blockState = level.getBlockState(blockPos);
+
+                    if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
+                    {
+                        var x = pos.getX() + random.nextDouble();
+                        var y = pos.getY() + ySpawn;
+                        var z = pos.getZ() + random.nextDouble();
+                        level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
+                    }
+                }
+                else
+                {
+                    var ySpawn = state.getValue(TYPE) == Type.UPPER ? Mth.nextDouble(level.random, -0.6, -0.2) : Mth.nextDouble(level.random, -1.2, -0.8);
+                    var count = UniformInt.of(1, 2);
+                    var axis = state.getValue(FACING).getAxis();
+                    var d = 0.2;
+                    var vec3 = Vec3.atCenterOf(pos);
+                    var bl = axis == Direction.Axis.X;
+                    var bl3 = axis == Direction.Axis.Z;
+                    var i = count.sample(level.random);
+
+                    for (var j = 0; j < i; j++)
+                    {
+                        var e = vec3.x + Mth.nextDouble(level.random, -1.0, 1.0) * (bl ? 0.5 : d);
+                        var f = vec3.y + ySpawn * 0.5;
+                        var g = vec3.z + Mth.nextDouble(level.random, -1.0, 1.0) * (bl3 ? 0.5 : d);
+                        level.addParticle(ParticleTypes.DRIPPING_WATER, e, f, g, 0, 0, 0);
+                    }
+                }
+            }
+        }
     }
 
     @Nullable
