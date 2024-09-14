@@ -47,11 +47,12 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     @Override
     public void extractRenderState(T entity, S renderState, float partialTicks)
     {
+        super.extractRenderState(entity, renderState, partialTicks);
         var variant = entity.getVariant().value();
         renderState.isTrophy = entity.isTrophy();
         renderState.isNoFlip = entity.isNoFlip();
         renderState.fullTexture = variant.fullTexture();
-        variant.fullGlowTexture().ifPresent(resourceLocation -> renderState.fullGlowTexture = resourceLocation);
+        renderState.fullGlowTexture = variant.fullGlowTexture();
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);
     }
 

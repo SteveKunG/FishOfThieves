@@ -28,9 +28,9 @@ public class GlowFishLayer<V extends AbstractFishVariant, S extends ThievesFishR
     {
         var glowTexture = renderState.fullGlowTexture;
 
-        if (!renderState.isInvisible && glowTexture != null)
+        if (!renderState.isInvisible && glowTexture.isPresent())
         {
-            var vertexConsumer = buffer.getBuffer(RenderType.eyes(glowTexture));
+            var vertexConsumer = buffer.getBuffer(RenderType.eyes(glowTexture.get()));
             var color = renderState.glowBrightness;
             this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color));
         }
