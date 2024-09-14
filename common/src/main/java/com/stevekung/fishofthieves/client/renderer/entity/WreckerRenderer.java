@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.WreckerBulbLaye
 import com.stevekung.fishofthieves.client.renderer.entity.state.WreckerRenderState;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
-
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class WreckerRenderer extends ThievesFishRenderer<WreckerVariant, WreckerRenderState, Wrecker, WreckerModel>
@@ -24,6 +23,12 @@ public class WreckerRenderer extends ThievesFishRenderer<WreckerVariant, Wrecker
         var bodyRotSpeed = renderState.isDancing() ? inWater ? 2.0f : 1.0f : 0.6f;
         var baseDegree = renderState.isDancing() ? -20.0f : 4.0f;
         return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(renderState.isTrophy ? 0.275f : 0.15f, 0.1f, 0.0f));
+    }
+
+    @Override
+    public WreckerRenderState createRenderState()
+    {
+        return new WreckerRenderState();
     }
 
     @Override
