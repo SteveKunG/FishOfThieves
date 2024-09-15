@@ -46,6 +46,12 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     }
 
     @Override
+    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    {
+        return Shapes.empty();
+    }
+
+    @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
         var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
