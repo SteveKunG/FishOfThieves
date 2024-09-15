@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -127,7 +128,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         {
             return state.getValue(FACING) == otherState.getValue(FACING);
         }
-        return otherState.is(FOTTags.Blocks.COCONUT_LOGS) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
+        return otherState.is(FOTTags.Blocks.COCONUT_LOGS) || otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -177,7 +178,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         {
             return state.getValue(FACING) == otherState.getValue(FACING);
         }
-        return otherState.is(FOTBlocks.BANANA_STEM) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
+        return otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.is(FOTBlocks.BANANA_STEM) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
     }
 
     @Override
