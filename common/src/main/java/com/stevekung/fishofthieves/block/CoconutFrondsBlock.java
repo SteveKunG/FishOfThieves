@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.utils.CauldronUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,6 +44,15 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.SINGLE).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        {
+            CauldronUtils.fillCauldronFromLeavesTail(level, pos);
+        }
     }
 
     @Override

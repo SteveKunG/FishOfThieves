@@ -2,9 +2,11 @@ package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.utils.CauldronUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -52,6 +54,15 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     public boolean useShapeForLightOcclusion(BlockState state)
     {
         return true;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        {
+            CauldronUtils.fillCauldronFromLeavesTail(level, pos);
+        }
     }
 
     @Override
