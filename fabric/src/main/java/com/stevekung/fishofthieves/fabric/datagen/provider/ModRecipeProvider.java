@@ -6,8 +6,9 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -119,11 +120,11 @@ public class ModRecipeProvider extends RecipeProvider
         this.simpleCookingRecipe("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600, rawFood, cookedFood, xp);
     }
 
-    public static class Runner extends RecipeProvider.Runner
+    public static class Runner extends FabricRecipeProvider
     {
-        public Runner(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture)
+        public Runner(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture)
         {
-            super(packOutput, completableFuture);
+            super(output, completableFuture);
         }
 
         @Override
