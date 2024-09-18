@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
 public class IslehopperVariants
@@ -23,7 +24,7 @@ public class IslehopperVariants
         if (optional.isPresent())
         {
             var blockState = context.level().getBlockState(optional.get());
-            return BeehiveBlockEntity.getHoneyLevel(blockState) == 5;
+            return blockState.hasProperty(BeehiveBlock.HONEY_LEVEL) && BeehiveBlockEntity.getHoneyLevel(blockState) == BeehiveBlock.MAX_HONEY_LEVELS;
         }
         return false;
     })).texture("honey").build();
