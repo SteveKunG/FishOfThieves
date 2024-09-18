@@ -1,1 +1,1 @@
-* Port all features and bug fixes from 1.20.1
+* Fix crash with Honey Islehopper, closes #51
