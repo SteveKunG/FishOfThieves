@@ -33,7 +33,7 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
         if (optional.isPresent())
         {
             var blockState = context.level().getBlockState(optional.get());
-            return BeehiveBlockEntity.getHoneyLevel(blockState) == this.honeyLevel;
+            return blockState.hasProperty(BeehiveBlock.HONEY_LEVEL) && BeehiveBlockEntity.getHoneyLevel(blockState) == this.honeyLevel;
         }
         return false;
     }
