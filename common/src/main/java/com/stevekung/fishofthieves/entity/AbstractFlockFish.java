@@ -13,12 +13,6 @@ public abstract class AbstractFlockFish extends AbstractSchoolingFish
         super(entityType, level);
     }
 
-    @Override
-    public int getMaxSchoolSize()
-    {
-        return super.getMaxSchoolSize();
-    }
-
     public abstract int getSchoolSize();
 
     public abstract void addThievesFishFollowers(Stream<AbstractFlockFish> followers);
