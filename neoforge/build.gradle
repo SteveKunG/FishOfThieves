@@ -54,7 +54,7 @@ repositories {
 }
 
 dependencies {
-    api "com.teammetallurgy.aquaculture:aquaculture2_1.21:${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_${minecraft_version}:${aquaculture_version}:api"
 
     include(modImplementation("org.sinytra.forgified-fabric-api:fabric-api-base:${ffapi_fabric_api_base_version}"))
     include(modImplementation("org.sinytra.forgified-fabric-api:fabric-resource-loader-v0:${ffapi_fabric_resource_loader_v0_version}"))
