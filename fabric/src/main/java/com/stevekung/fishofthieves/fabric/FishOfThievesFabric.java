@@ -123,19 +123,19 @@ public class FishOfThievesFabric implements ModInitializer
                 tableBuilder.modifyPools(builder -> FOTLootManager.getFishingLoot(builder, provider));
             }
             // Entity Loot
-            else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
+            else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable().orElseThrow()))
             {
                 tableBuilder.modifyPools(builder -> FOTLootManager.getPolarBearLoot(builder, provider));
             }
-            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
+            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable().orElseThrow()))
             {
                 tableBuilder.modifyPools(builder -> FOTLootManager.getDolphinLoot(builder, provider));
             }
-            else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
+            else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable().orElseThrow()))
             {
                 tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false));
             }
-            else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
+            else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable().orElseThrow()))
             {
                 tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true));
             }
