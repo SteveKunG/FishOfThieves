@@ -132,33 +132,51 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         }
     }
 
+    private BlockState placeVerticalLeaves(Direction direction)
+    {
+        var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
+        return direction == Direction.DOWN ? blockState.setValue(VerticalBananaLeavesBlock.CEILING, true) : blockState;
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        var fluidState = context.getLevel().getFluidState(context.getClickedPos());
         var level = context.getLevel();
-        var blockState2 = this.defaultBlockState().setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         var blockPos = context.getClickedPos();
+        var fluidState = level.getFluidState(blockPos);
+        var blockState2 = this.defaultBlockState().setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        var direction = context.getClickedFace();
 
-        for (var direction : context.getNearestLookingDirections())
+        if (direction.getAxis() == Direction.Axis.Y)
         {
-            if (direction.getAxis() == Direction.Axis.Y)
-            {
-                blockState2 = blockState2.setValue(FACING, context.getHorizontalDirection());
-            }
-            else
-            {
-                blockState2 = blockState2.setValue(FACING, direction);
-            }
+            return this.placeVerticalLeaves(direction);
+        }
+        else
+        {
+            blockState2 = blockState2.setValue(FACING, direction);
 
-            if (blockState2.canSurvive(context.getLevel(), context.getClickedPos()))
+            if (blockState2.canSurvive(level, blockPos))
             {
-                var blockPos1 = context.getClickedPos().relative(blockState2.getValue(FACING));
+                var blockPos1 = blockPos.relative(blockState2.getValue(FACING));
 
                 if (level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
                 {
                     return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockPos.getY() > 0.5)) ? blockState2 : blockState2.setValue(TYPE, Type.UPPER);
+                }
+            }
+            else
+            {
+                for (var dir : context.getNearestLookingDirections())
+                {
+                    if (dir.getAxis().isVertical())
+                    {
+                        return FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState().setValue(VerticalBananaLeavesBlock.CEILING, true);
+                    }
+                    else
+                    {
+                        return FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
+                    }
                 }
             }
         }

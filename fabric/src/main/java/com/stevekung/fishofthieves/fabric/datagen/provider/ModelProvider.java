@@ -7,10 +7,7 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.stevekung.fishofthieves.block.BananaLeavesBlock;
-import com.stevekung.fishofthieves.block.BananaStemBlock;
-import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
-import com.stevekung.fishofthieves.block.CoconutFruitBlock;
+import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -209,6 +206,7 @@ public class ModelProvider extends FabricModelProvider
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
         this.createBananaStem(generator);
+        this.createVerticalBananaLeaves(generator);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -256,6 +254,15 @@ public class ModelProvider extends FabricModelProvider
                         .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper")))
                         .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper")))));
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
+    }
+
+    private void createVerticalBananaLeaves(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.VERTICAL_BANANA_LEAVES;
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(VerticalBananaLeavesBlock.CEILING)
+                        .select(true, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
+                        .select(false, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))));
     }
 
     private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)

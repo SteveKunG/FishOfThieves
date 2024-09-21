@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "ceiling=false": {
+      "model": "fishofthieves:block/vertical_banana_leaves"
+    },
+    "ceiling=true": {
+      "model": "fishofthieves:block/vertical_banana_leaves",
+      "x": 180
+    }
+  }
+}

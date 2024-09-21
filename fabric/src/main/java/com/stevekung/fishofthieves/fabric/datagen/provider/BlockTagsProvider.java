@@ -24,7 +24,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.COCONUT_FRUIT);
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.BANANA_STEM);
         this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM);
-        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES);
+        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
