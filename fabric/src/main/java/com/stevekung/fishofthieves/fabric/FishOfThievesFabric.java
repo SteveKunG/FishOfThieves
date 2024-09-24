@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -103,7 +104,7 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.LEECHES, 0.4F);
 
-//        FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);TODO
+        FuelRegistryEvents.BUILD.register((builder, context) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
 
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, list -> FishOfThieves.getFishermanTradesByLevel(1, list));
         TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, list -> FishOfThieves.getFishermanTradesByLevel(2, list));
