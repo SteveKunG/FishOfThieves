@@ -10,6 +10,8 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.behavior.GoToClosestWreckerLocated;
 import com.stevekung.fishofthieves.entity.ai.behavior.GoToLowBrightness;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
+
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -82,7 +84,7 @@ public class WreckerAi
     }
     //@formatter:on
 
-    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Wrecker fish)
+    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel serverLevel, Wrecker fish)
     {
         return fish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }

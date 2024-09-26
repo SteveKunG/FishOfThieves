@@ -26,9 +26,9 @@ public class NonCreativePlayerSensor extends Sensor<LivingEntity>
         var list = level.players().stream().filter(EntitySelector.NO_CREATIVE_OR_SPECTATOR).filter(serverPlayer -> entity.closerThan(serverPlayer, 16.0)).sorted(Comparator.comparingDouble(entity::distanceToSqr)).collect(Collectors.<Player>toList());
         var brain = entity.getBrain();
         brain.setMemory(MemoryModuleType.NEAREST_PLAYERS, list);
-        var list2 = list.stream().filter(player -> isEntityTargetable(entity, player)).toList();
+        var list2 = list.stream().filter(player -> isEntityTargetable(level, entity, player)).toList();
         brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER, list2.isEmpty() ? null : list2.getFirst());
-        var optional = list2.stream().filter(player -> isEntityAttackable(entity, player)).findFirst();
+        var optional = list2.stream().filter(player -> isEntityAttackable(level, entity, player)).findFirst();
         brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, optional);
     }
 }

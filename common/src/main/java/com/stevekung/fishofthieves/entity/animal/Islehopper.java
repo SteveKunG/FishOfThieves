@@ -15,12 +15,14 @@ import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -74,10 +76,10 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         AbstractThievesFishAi.customServerAiStep(this, this.getBrain());
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override
@@ -130,7 +132,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         {
             var multiplier = this.isTrophy() ? 2 : 1;
 
-            if (entity instanceof ServerPlayer serverPlayer && entity.hurt(this.damageSources().mobAttack(this), multiplier))
+            if (entity instanceof ServerPlayer serverPlayer && entity.hurtServer(serverPlayer.serverLevel(), this.damageSources().mobAttack(this), multiplier))
             {
                 if (!this.isSilent())
                 {

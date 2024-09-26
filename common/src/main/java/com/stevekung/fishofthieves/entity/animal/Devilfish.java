@@ -114,7 +114,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         var profiler = Profiler.get();
         profiler.push("devilfishBrain");
@@ -122,7 +122,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         profiler.popPush("devilfishActivityUpdate");
         DevilfishAi.updateActivity(this);
         profiler.pop();
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override

@@ -115,7 +115,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         var profiler = Profiler.get();
         profiler.push("battlegillBrain");
@@ -123,7 +123,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         profiler.popPush("battlegillActivityUpdate");
         BattlegillAi.updateActivity(this);
         profiler.pop();
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override

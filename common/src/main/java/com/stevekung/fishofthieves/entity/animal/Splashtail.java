@@ -12,10 +12,12 @@ import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
+
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
@@ -62,10 +64,10 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         AbstractSchoolingThievesFishAi.customServerAiStep(this, this.getBrain());
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override

@@ -79,7 +79,7 @@ public class DevilfishAi
     private static void initFightActivity(Brain<Devilfish> brain)
     {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(
-                StopAttackingIfTargetInvalid.create(livingEntity -> false, (mob, livingEntity) -> livingEntity.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(livingEntity.getRandom(), 200)), true),
+                StopAttackingIfTargetInvalid.create((serverLevel, livingEntity) -> false, (serverLevel, mob, livingEntity) -> livingEntity.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(livingEntity.getRandom(), 200)), true),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.25f),
                 MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
     }

@@ -7,6 +7,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,12 +24,12 @@ public abstract class MixinLivingEntity extends Entity
     }
 
     @Inject(method = "dropFromLootTable", at = @At("TAIL"))
-    private void fishofthieves$dropFishBone(DamageSource damageSource, boolean hitByPlayer, CallbackInfo info, @Local LootParams.Builder builder)
+    private void fishofthieves$dropFishBone(ServerLevel serverLevel, DamageSource damageSource, boolean hitByPlayer, CallbackInfo info, @Local LootParams.Builder builder)
     {
         if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {
             var fishBoneDropLootTable = this.level().getServer().reloadableRegistries().getLootTable(FOTLootTables.Entities.FISH_BONE_DROP);
-            fishBoneDropLootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), this::spawnAtLocation);
+            fishBoneDropLootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), itemStack -> this.spawnAtLocation(serverLevel, itemStack));
         }
     }
 }

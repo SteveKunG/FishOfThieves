@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.entity.ai.sensing;
 
 import java.util.function.Predicate;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.NearestVisibleLivingEntitySensor;
@@ -17,9 +18,9 @@ public class FishAttackablesSensor extends NearestVisibleLivingEntitySensor
     }
 
     @Override
-    protected boolean isMatchingEntity(LivingEntity attacker, LivingEntity target)
+    protected boolean isMatchingEntity(ServerLevel serverLevel, LivingEntity attacker, LivingEntity target)
     {
-        return this.isClose(attacker, target) && target.isInWaterOrBubble() && this.isAttackableTarget(target) && Sensor.isEntityAttackable(attacker, target);
+        return this.isClose(attacker, target) && target.isInWaterOrBubble() && this.isAttackableTarget(target) && Sensor.isEntityAttackable(serverLevel, attacker, target);
     }
 
     @Override

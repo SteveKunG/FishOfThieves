@@ -68,10 +68,10 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         AbstractThievesFishAi.customServerAiStep(this, this.getBrain());
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override

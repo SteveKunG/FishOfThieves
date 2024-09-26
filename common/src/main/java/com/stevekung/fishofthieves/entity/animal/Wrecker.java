@@ -116,7 +116,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Override
-    protected void customServerAiStep()
+    protected void customServerAiStep(ServerLevel serverLevel)
     {
         var profiler = Profiler.get();
         profiler.push("wreckerBrain");
@@ -124,7 +124,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         profiler.popPush("wreckerActivityUpdate");
         WreckerAi.updateActivity(this);
         profiler.pop();
-        super.customServerAiStep();
+        super.customServerAiStep(serverLevel);
     }
 
     @Override
