@@ -146,7 +146,7 @@ public class FOTBlocks
         register("medium_coconut_log", MEDIUM_COCONUT_LOG);
         register("medium_coconut_wood", MEDIUM_COCONUT_WOOD);
         registerNoItem("coconut_sapling", COCONUT_SAPLING);
-        register("coconut_fruit", COCONUT_FRUIT);
+        register("coconut_fruit", COCONUT_FRUIT);//TODO No Item
         register("coconut_fronds", COCONUT_FRONDS);
         register("banana_stem", BANANA_STEM);
         register("banana_leaves", BANANA_LEAVES);
