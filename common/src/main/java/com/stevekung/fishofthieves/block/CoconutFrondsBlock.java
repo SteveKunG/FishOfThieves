@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
 import net.minecraft.core.BlockPos;
@@ -189,24 +190,26 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         }
     }
 
+    private BlockState placeVerticalLeaves(Direction direction)
+    {
+        var blockState = FOTBlocks.VERTICAL_COCONUT_FRONDS.defaultBlockState();
+        return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         var fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        var direction = context.getClickedFace();
 
-        for (var direction : context.getNearestLookingDirections())
+        if (direction.getAxis() == Direction.Axis.Y)
         {
-            BlockState blockState;
-
-            if (direction.getAxis() == Direction.Axis.Y)
-            {
-                blockState = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
-            }
-            else
-            {
-                blockState = this.defaultBlockState().setValue(FACING, direction.getOpposite());
-            }
+            return this.placeVerticalLeaves(direction);
+        }
+        else
+        {
+            var blockState = this.defaultBlockState().setValue(FACING, direction);
 
             var otherState = context.getLevel().getBlockState(context.getClickedPos().relative(blockState.getValue(FACING).getOpposite()));
 
@@ -223,7 +226,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
                 return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
             }
         }
-        return super.getStateForPlacement(context);
+        return null;
     }
 
     @Override

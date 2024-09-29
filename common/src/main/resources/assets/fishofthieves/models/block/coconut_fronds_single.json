@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"stem": "fishofthieves:block/coconut_fronds_stem",
 		"particle": "fishofthieves:block/coconut_fronds_single",
-		"texture": "fishofthieves:block/coconut_fronds_single"
+		"texture": "fishofthieves:block/coconut_fronds_single",
+		"stalk": "fishofthieves:block/coconut_fronds_stalk"
 	},
 	"elements": [
 		{
@@ -16,12 +16,12 @@
 			}
 		},
 		{
-			"from": [7, 8.87714, -0.28169],
+			"from": [7, 8.87714, -4.28169],
 			"to": [9, 8.87714, 1.21831],
 			"rotation": {"angle": -22.5, "axis": "x", "origin": [0, 8.87714, 1.21831]},
 			"faces": {
-				"up": {"uv": [7, 16, 9, 15], "texture": "#stem"},
-				"down": {"uv": [7, 15, 9, 16], "texture": "#stem"}
+				"up": {"uv": [2, 6, 0, 0], "texture": "#stalk"},
+				"down": {"uv": [2, 0, 0, 6], "texture": "#stalk"}
 			}
 		}
 	]

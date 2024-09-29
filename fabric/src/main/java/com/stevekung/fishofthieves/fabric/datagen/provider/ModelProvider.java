@@ -206,7 +206,8 @@ public class ModelProvider extends FabricModelProvider
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
         this.createBananaStem(generator);
-        this.createVerticalBananaLeaves(generator);
+        this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
+        this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -256,11 +257,10 @@ public class ModelProvider extends FabricModelProvider
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
     }
 
-    private void createVerticalBananaLeaves(BlockModelGenerators generator)
+    private void createVerticalLeaves(BlockModelGenerators generator, Block block)
     {
-        var block = FOTBlocks.VERTICAL_BANANA_LEAVES;
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(VerticalBananaLeavesBlock.CEILING)
+                .with(PropertyDispatch.property(VerticalLeavesBlock.CEILING)
                         .select(true, Variant.variant().with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
                         .select(false, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))));
     }

@@ -10,12 +10,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class VerticalBananaLeavesBlock extends VerticalLeavesBlock
+public class VerticalCoconutFrondsBlock extends VerticalLeavesBlock
 {
     private static final VoxelShape DOWN_AABB = Block.box(0, 0, 0, 16, 8, 16);
     private static final VoxelShape UP_AABB = Block.box(0, 8, 0, 16, 16, 16);
 
-    public VerticalBananaLeavesBlock(Properties properties)
+    public VerticalCoconutFrondsBlock(Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(CEILING, false).setValue(WATERLOGGED, false));
@@ -30,6 +30,6 @@ public class VerticalBananaLeavesBlock extends VerticalLeavesBlock
     @Override
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
     {
-        return new ItemStack(FOTBlocks.BANANA_LEAVES);
+        return new ItemStack(FOTBlocks.COCONUT_FRONDS);
     }
 }

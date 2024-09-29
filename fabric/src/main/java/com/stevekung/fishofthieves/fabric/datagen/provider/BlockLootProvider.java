@@ -96,5 +96,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.add(FOTBlocks.BANANA_LEAVES, block -> this.createSinglePropConditionTable(block, BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM));
         this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.BANANA_LEAVES);
+        this.dropOther(FOTBlocks.VERTICAL_COCONUT_FRONDS, FOTBlocks.COCONUT_FRONDS);
     }
 }

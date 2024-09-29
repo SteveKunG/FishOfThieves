@@ -1,0 +1,82 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"tail": "fishofthieves:block/coconut_fronds_tail",
+		"particle": "fishofthieves:block/coconut_fronds_stem",
+		"stem": "fishofthieves:block/coconut_fronds_stem"
+	},
+	"elements": [
+		{
+			"from": [-15.89988, 7.89857, 3],
+			"to": [0.10012, 7.89857, 13],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [0.10012, 7.89857, 8]},
+			"faces": {
+				"up": {"uv": [3, 16, 13, 0], "rotation": 90, "texture": "#tail"},
+				"down": {"uv": [3, 0, 13, 16], "rotation": 270, "texture": "#tail"}
+			}
+		},
+		{
+			"from": [10, -2, 3],
+			"to": [10, 12, 13],
+			"rotation": {"angle": 45, "axis": "z", "origin": [10, -2, 8]},
+			"faces": {
+				"east": {"uv": [3, 14, 13, 0], "rotation": 180, "texture": "#stem"},
+				"west": {"uv": [3, 0, 13, 14], "texture": "#stem"}
+			}
+		},
+		{
+			"from": [6, -2, 3],
+			"to": [6, 12, 13],
+			"rotation": {"angle": -45, "axis": "z", "origin": [6, -2, 8]},
+			"faces": {
+				"east": {"uv": [3, 0, 13, 14], "texture": "#stem"},
+				"west": {"uv": [3, 14, 13, 0], "rotation": 180, "texture": "#stem"}
+			}
+		},
+		{
+			"from": [15.89988, 7.89857, 3],
+			"to": [31.89988, 7.89857, 13],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [15.89988, 7.89857, 8]},
+			"faces": {
+				"up": {"uv": [13, 0, 3, 16], "rotation": 90, "texture": "#tail"},
+				"down": {"uv": [13, 16, 3, 0], "rotation": 270, "texture": "#tail"}
+			}
+		},
+		{
+			"from": [3, 7.89949, -15.89949],
+			"to": [13, 7.89949, 0.10051],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 7.89949, 0.10051]},
+			"faces": {
+				"up": {"uv": [13, 0, 3, 16], "texture": "#tail"},
+				"down": {"uv": [13, 16, 3, 0], "texture": "#tail"}
+			}
+		},
+		{
+			"from": [3, -2, 10],
+			"to": [13, 12, 10],
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, -2, 10]},
+			"faces": {
+				"north": {"uv": [3, 0, 13, 14], "texture": "#stem"},
+				"south": {"uv": [3, 14, 13, 0], "rotation": 180, "texture": "#stem"}
+			}
+		},
+		{
+			"from": [3, -2, 6],
+			"to": [13, 12, 6],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, -2, 6]},
+			"faces": {
+				"north": {"uv": [3, 14, 13, 0], "rotation": 180, "texture": "#stem"},
+				"south": {"uv": [3, 0, 13, 14], "texture": "#stem"}
+			}
+		},
+		{
+			"from": [3, 7.89949, 15.89949],
+			"to": [13, 7.89949, 31.89949],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 7.89949, 15.89949]},
+			"faces": {
+				"up": {"uv": [3, 16, 13, 0], "texture": "#tail"},
+				"down": {"uv": [3, 0, 13, 16], "texture": "#tail"}
+			}
+		}
+	]
+}

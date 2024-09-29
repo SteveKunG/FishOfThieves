@@ -135,7 +135,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     private BlockState placeVerticalLeaves(Direction direction)
     {
         var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
-        return direction == Direction.DOWN ? blockState.setValue(VerticalBananaLeavesBlock.CEILING, true) : blockState;
+        return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
     }
 
     @Nullable
@@ -163,20 +163,6 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
                 if (level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
                 {
                     return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockPos.getY() > 0.5)) ? blockState2 : blockState2.setValue(TYPE, Type.UPPER);
-                }
-            }
-            else
-            {
-                for (var dir : context.getNearestLookingDirections())
-                {
-                    if (dir.getAxis().isVertical())
-                    {
-                        return FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState().setValue(VerticalBananaLeavesBlock.CEILING, true);
-                    }
-                    else
-                    {
-                        return FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
-                    }
                 }
             }
         }

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "ceiling=false": {
+      "model": "fishofthieves:block/vertical_coconut_fronds"
+    },
+    "ceiling=true": {
+      "model": "fishofthieves:block/vertical_coconut_fronds",
+      "x": 180
+    }
+  }
+}
