@@ -1,0 +1,45 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "fishofthieves:block/banana_leaves_stem",
+		"leaves": "fishofthieves:block/banana_leaves_stem"
+	},
+	"elements": [
+		{
+			"from": [0, 4, -3],
+			"to": [16, 4, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 4, -2]},
+			"faces": {
+				"up": {"uv": [0, 16, 16, 12], "texture": "#leaves"},
+				"down": {"uv": [0, 12, 16, 16], "texture": "#leaves"}
+			}
+		},
+		{
+			"from": [0, 4, 1],
+			"to": [16, 4, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 4, 0]},
+			"faces": {
+				"up": {"uv": [0, 15, 16, 0], "texture": "#leaves"},
+				"down": {"uv": [0, 0, 16, 15], "texture": "#leaves"}
+			}
+		},
+		{
+			"from": [0, 4, -4],
+			"to": [16, 4, 0],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 4, -3]},
+			"faces": {
+				"up": {"uv": [0, 16, 16, 12], "texture": "#leaves"},
+				"down": {"uv": [0, 12, 16, 16], "texture": "#leaves"}
+			}
+		},
+		{
+			"from": [0, 3.23463, -0.15224],
+			"to": [16, 3.23463, 14.84776],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 3.23463, -1.15224]},
+			"faces": {
+				"up": {"uv": [0, 15, 16, 0], "texture": "#leaves"},
+				"down": {"uv": [0, 0, 16, 15], "texture": "#leaves"}
+			}
+		}
+	]
+}

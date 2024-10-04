@@ -20,6 +20,22 @@
               }
             }
           ],
+          "functions": [
+            {
+              "add": false,
+              "conditions": [
+                {
+                  "block": "fishofthieves:banana_leaves",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "count": "2"
+                  }
+                }
+              ],
+              "count": 2.0,
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "fishofthieves:banana_leaves"
         }
       ],

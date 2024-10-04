@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
+import java.util.List;
+
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
-
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -94,8 +95,16 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
         this.dropSelf(FOTBlocks.COCONUT_FRONDS);
         this.dropSelf(FOTBlocks.BANANA_STEM);
-        this.add(FOTBlocks.BANANA_LEAVES, block -> this.createSinglePropConditionTable(block, BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM));
         this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.BANANA_LEAVES);
         this.dropOther(FOTBlocks.VERTICAL_COCONUT_FRONDS, FOTBlocks.COCONUT_FRONDS);
+        this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
+                .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(block)
+                                .apply(List.of(2), integer -> SetItemCountFunction.setCount(ConstantValue.exactly((float) integer))
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.COUNT, integer))))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)))))));
     }
 }

@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -40,6 +41,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
 {
     public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
+    public static final IntegerProperty COUNT = IntegerProperty.create("count", 1, 2);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape BOTTOM_AABB = Block.box(0, 2, 0, 16, 5, 16);
     private static final VoxelShape TOP_AABB = Block.box(0, 10, 0, 16, 13, 16);
@@ -47,7 +49,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     public BananaLeavesBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.STEM).setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.STEM).setValue(TYPE, Type.LOWER).setValue(COUNT, 1).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -74,7 +76,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder)
     {
-        builder.add(FACING, PART, TYPE, WATERLOGGED);
+        builder.add(FACING, PART, TYPE, WATERLOGGED, COUNT);
     }
 
     @Override
@@ -138,6 +140,12 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
     }
 
+    @Override
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext)
+    {
+        return !useContext.isSecondaryUseActive() && useContext.getItemInHand().is(this.asItem()) && state.getValue(PART) != Part.TAIL && state.getValue(COUNT) < 2 || super.canBeReplaced(state, useContext);
+    }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
@@ -148,22 +156,40 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         var isWater = fluidState.getType() == Fluids.WATER;
         var blockState2 = this.defaultBlockState().setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, isWater);
         var direction = context.getClickedFace();
+        var blockState = level.getBlockState(context.getClickedPos());
 
         if (direction.getAxis() == Direction.Axis.Y)
         {
-            return this.placeVerticalLeaves(direction, isWater);
+            if (!blockState.is(this))
+            {
+                return this.placeVerticalLeaves(direction, isWater);
+            }
+            else
+            {
+                if (blockState.getValue(PART) == Part.STEM)
+                {
+                    return blockState.setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1));
+                }
+            }
         }
         else
         {
-            blockState2 = blockState2.setValue(FACING, direction);
-
-            if (blockState2.canSurvive(level, blockPos))
+            if (blockState.is(this) && blockState.getValue(PART) == Part.STEM)
             {
-                var blockPos1 = blockPos.relative(blockState2.getValue(FACING));
+                return blockState.setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1));
+            }
+            else
+            {
+                blockState2 = blockState2.setValue(FACING, direction);
 
-                if (level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
+                if (blockState2.canSurvive(level, blockPos))
                 {
-                    return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockPos.getY() > 0.5)) ? blockState2 : blockState2.setValue(TYPE, Type.UPPER);
+                    var blockPos1 = blockPos.relative(blockState2.getValue(FACING));
+
+                    if (level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
+                    {
+                        return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockPos.getY() > 0.5)) ? blockState2 : blockState2.setValue(TYPE, Type.UPPER);
+                    }
                 }
             }
         }

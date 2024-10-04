@@ -249,11 +249,16 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.BANANA_LEAVES;
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(BlockModelGenerators.createHorizontalFacingDispatchAlt())
-                .with(PropertyDispatch.properties(BananaLeavesBlock.TYPE, BananaLeavesBlock.PART)
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower")))
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper")))));
+                .with(PropertyDispatch.properties(BananaLeavesBlock.TYPE, BananaLeavesBlock.PART, BananaLeavesBlock.COUNT)
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower")))
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper")))
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower_2")))
+                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower_2")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper_2")))
+                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper_2")))
+                ));
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
     }
 
