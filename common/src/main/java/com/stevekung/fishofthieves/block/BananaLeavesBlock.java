@@ -132,9 +132,9 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         }
     }
 
-    private BlockState placeVerticalLeaves(Direction direction)
+    private BlockState placeVerticalLeaves(Direction direction, boolean isWater)
     {
-        var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
+        var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState().setValue(VerticalLeavesBlock.WATERLOGGED, isWater);
         return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
     }
 
@@ -145,12 +145,13 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         var level = context.getLevel();
         var blockPos = context.getClickedPos();
         var fluidState = level.getFluidState(blockPos);
-        var blockState2 = this.defaultBlockState().setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        var isWater = fluidState.getType() == Fluids.WATER;
+        var blockState2 = this.defaultBlockState().setValue(TYPE, Type.LOWER).setValue(WATERLOGGED, isWater);
         var direction = context.getClickedFace();
 
         if (direction.getAxis() == Direction.Axis.Y)
         {
-            return this.placeVerticalLeaves(direction);
+            return this.placeVerticalLeaves(direction, isWater);
         }
         else
         {

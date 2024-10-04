@@ -190,9 +190,9 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         }
     }
 
-    private BlockState placeVerticalLeaves(Direction direction)
+    private BlockState placeVerticalLeaves(Direction direction, boolean isWater)
     {
-        var blockState = FOTBlocks.VERTICAL_COCONUT_FRONDS.defaultBlockState();
+        var blockState = FOTBlocks.VERTICAL_COCONUT_FRONDS.defaultBlockState().setValue(VerticalLeavesBlock.WATERLOGGED, isWater);
         return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
     }
 
@@ -202,10 +202,11 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     {
         var fluidState = context.getLevel().getFluidState(context.getClickedPos());
         var direction = context.getClickedFace();
+        var isWater = fluidState.getType() == Fluids.WATER;
 
         if (direction.getAxis() == Direction.Axis.Y)
         {
-            return this.placeVerticalLeaves(direction);
+            return this.placeVerticalLeaves(direction, isWater);
         }
         else
         {
@@ -223,7 +224,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
 
             if (blockState.canSurvive(context.getLevel(), context.getClickedPos()))
             {
-                return blockState.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+                return blockState.setValue(WATERLOGGED, isWater);
             }
         }
         return null;
