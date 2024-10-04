@@ -197,7 +197,7 @@ public class ModelProvider extends FabricModelProvider
 
         generator.createPlant(FOTBlocks.PINK_PLUMERIA, FOTBlocks.POTTED_PINK_PLUMERIA, BlockModelGenerators.TintState.NOT_TINTED);
         generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
-        this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        this.createSmallCoconutLog(generator);
         this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
@@ -217,6 +217,42 @@ public class ModelProvider extends FabricModelProvider
         var topModelLocation = ModelLocationUtils.getModelLocation(block, "_top");
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(PropertyDispatch.properties(BlockStateProperties.AXIS, BananaStemBlock.TOP, BananaStemBlock.BOTTOM)
+                        .select(Direction.Axis.Y, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.Y, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
+                        .select(Direction.Axis.Z, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.Y, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.Y, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                        .select(Direction.Axis.X, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                ));
+    }
+
+    private void createSmallCoconutLog(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.SMALL_COCONUT_LOG;
+        var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
+        var textureMapping2 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping2, generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.properties(BlockStateProperties.AXIS, CoconutGrowableLogBlock.TOP, CoconutGrowableLogBlock.GROW)
                         .select(Direction.Axis.Y, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation))
                         .select(Direction.Axis.Z, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))

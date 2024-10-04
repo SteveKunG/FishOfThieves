@@ -1,0 +1,7 @@
+{
+  "parent": "fishofthieves:block/template_small_log",
+  "textures": {
+    "end": "fishofthieves:block/small_coconut_log_trunk",
+    "side": "fishofthieves:block/coconut_log"
+  }
+}

@@ -16,17 +16,18 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
 {
     public static final BooleanProperty TOP = BooleanProperty.create("top");
+    public static final BooleanProperty GROW = BooleanProperty.create("grow");
 
     public CoconutGrowableLogBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(TOP, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(GROW, false).setValue(TOP, false));
     }
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return state.getValue(TOP) && Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
+        return state.getValue(GROW) && Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
     }
 
     @Override
@@ -50,6 +51,6 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        super.createBlockStateDefinition(builder.add(TOP));
+        super.createBlockStateDefinition(builder.add(TOP, GROW));
     }
 }

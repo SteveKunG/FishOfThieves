@@ -1,14 +1,50 @@
 {
   "variants": {
-    "axis=x": {
+    "axis=x,grow=false,top=false": {
       "model": "fishofthieves:block/small_coconut_log",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
+    "axis=x,grow=false,top=true": {
+      "model": "fishofthieves:block/small_coconut_log_trunk",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,grow=true,top=false": {
+      "model": "fishofthieves:block/small_coconut_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,grow=true,top=true": {
+      "model": "fishofthieves:block/small_coconut_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,grow=false,top=false": {
       "model": "fishofthieves:block/small_coconut_log"
     },
-    "axis=z": {
+    "axis=y,grow=false,top=true": {
+      "model": "fishofthieves:block/small_coconut_log_trunk"
+    },
+    "axis=y,grow=true,top=false": {
+      "model": "fishofthieves:block/small_coconut_log"
+    },
+    "axis=y,grow=true,top=true": {
+      "model": "fishofthieves:block/small_coconut_log"
+    },
+    "axis=z,grow=false,top=false": {
+      "model": "fishofthieves:block/small_coconut_log",
+      "x": 90
+    },
+    "axis=z,grow=false,top=true": {
+      "model": "fishofthieves:block/small_coconut_log_trunk",
+      "x": 90
+    },
+    "axis=z,grow=true,top=false": {
+      "model": "fishofthieves:block/small_coconut_log",
+      "x": 90
+    },
+    "axis=z,grow=true,top=true": {
       "model": "fishofthieves:block/small_coconut_log",
       "x": 90
     }

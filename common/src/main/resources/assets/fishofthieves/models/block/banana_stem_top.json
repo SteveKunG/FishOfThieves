@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"top": "fishofthieves:block/banana_stem_top2",
+		"top": "fishofthieves:block/banana_stem_trunk",
 		"end": "fishofthieves:block/banana_stem_top",
 		"particle": "fishofthieves:block/banana_stem_side",
 		"side": "fishofthieves:block/banana_stem_side"
