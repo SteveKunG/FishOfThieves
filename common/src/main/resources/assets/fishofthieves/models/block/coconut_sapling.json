@@ -2,46 +2,41 @@
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"stage_1": "block/pitcher_crop_bottom_stage_1",
-		"particle": "block/pitcher_crop_top",
-		"pitcher_top": "block/pitcher_crop_top",
-		"pitcher_side": "block/pitcher_crop_side",
-		"pitcher_bottom": "block/pitcher_crop_bottom"
+		"particle": "fishofthieves:block/coconut_sapling_base",
+		"base": "fishofthieves:block/coconut_sapling_base",
+		"sapling": "fishofthieves:block/coconut_sapling"
 	},
 	"elements": [
 		{
-			"name": "pitcher_crop_bottom_stage_1",
-			"from": [0, 4, 8],
-			"to": [16, 20, 8],
-			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 4, 8]},
+			"from": [3, 0, 3],
+			"to": [13, 5, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#stage_1"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#stage_1"}
+				"north": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"east": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"south": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"west": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#base"}
 			}
 		},
 		{
-			"name": "pitcher_crop_bottom_stage_1",
-			"from": [0, 4, 8],
-			"to": [16, 20, 8],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 4, 8]},
+			"from": [0, 5, 8],
+			"to": [16, 21, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
+            "shade": false,
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#stage_1"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#stage_1"}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#sapling"}
 			}
 		},
 		{
-			"name": "pitcher_crop_bottom_stage_1",
-			"from": [4, 0, 4],
-			"to": [12, 4, 12],
+			"from": [8, 5, 0],
+			"to": [8, 21, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
+            "shade": false,
 			"faces": {
-				"north": {"uv": [3, 10, 13, 16], "texture": "#pitcher_side"},
-				"east": {"uv": [3, 10, 13, 16], "texture": "#pitcher_side"},
-				"south": {"uv": [3, 10, 13, 16], "texture": "#pitcher_side"},
-				"west": {"uv": [3, 10, 13, 16], "texture": "#pitcher_side"},
-				"up": {"uv": [3, 3, 13, 13], "texture": "#pitcher_top"},
-				"down": {"uv": [3, 3, 13, 13], "texture": "#pitcher_bottom"}
+				"east": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#sapling"}
 			}
 		}
 	]
