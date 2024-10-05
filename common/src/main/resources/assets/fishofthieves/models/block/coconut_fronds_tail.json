@@ -8,6 +8,7 @@
 		{
 			"from": [0, 15, 0],
 			"to": [16, 15, 16],
+			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 15, 0]},
 			"faces": {
 				"up": {"uv": [0, 16, 16, 0], "texture": "#texture"},

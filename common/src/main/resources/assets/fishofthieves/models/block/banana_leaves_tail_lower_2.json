@@ -8,6 +8,7 @@
 		{
 			"from": [0, 4, 0],
 			"to": [16, 4, 16],
+			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 4, 0]},
 			"faces": {
 				"up": {"uv": [16, 16, 0, 0], "texture": "#leaves"},
@@ -17,6 +18,7 @@
 		{
 			"from": [0, -2.88809, -2.37049],
 			"to": [16, -2.88809, 13.62951],
+			"shade": false,
 			"rotation": {"angle": 45, "axis": "x", "origin": [0, -2.88809, -2.37049]},
 			"faces": {
 				"up": {"uv": [16, 16, 0, 0], "texture": "#leaves"},
