@@ -50,7 +50,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
         {
             CauldronUtils.fillCauldronFromLeavesTail(level, pos);
         }
