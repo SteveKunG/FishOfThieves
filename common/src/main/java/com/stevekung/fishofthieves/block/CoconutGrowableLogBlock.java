@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
+@SuppressWarnings("deprecation")
 public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
 {
     public static final BooleanProperty TOP = BooleanProperty.create("top");
@@ -22,6 +23,15 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
     {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(GROW, false).setValue(TOP, false));
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (state.getValue(GROW) && random.nextInt(20) == 0)
+        {
+            this.growCoconuts(level, random, pos);
+        }
     }
 
     @Override
@@ -38,6 +48,11 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        this.growCoconuts(level, random, pos);
+    }
+
+    private void growCoconuts(ServerLevel level, RandomSource random, BlockPos pos)
     {
         var direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         var blockState = level.getBlockState(pos.relative(direction));

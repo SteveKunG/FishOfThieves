@@ -11,7 +11,7 @@
       "y": 90
     },
     "axis=x,grow=true,top=false": {
-      "model": "fishofthieves:block/small_coconut_log",
+      "model": "fishofthieves:block/small_coconut_log_growable",
       "x": 90,
       "y": 90
     },
@@ -27,7 +27,7 @@
       "model": "fishofthieves:block/small_coconut_log_trunk"
     },
     "axis=y,grow=true,top=false": {
-      "model": "fishofthieves:block/small_coconut_log"
+      "model": "fishofthieves:block/small_coconut_log_growable"
     },
     "axis=y,grow=true,top=true": {
       "model": "fishofthieves:block/small_coconut_log"
@@ -41,7 +41,7 @@
       "x": 90
     },
     "axis=z,grow=true,top=false": {
-      "model": "fishofthieves:block/small_coconut_log",
+      "model": "fishofthieves:block/small_coconut_log_growable",
       "x": 90
     },
     "axis=z,grow=true,top=true": {
