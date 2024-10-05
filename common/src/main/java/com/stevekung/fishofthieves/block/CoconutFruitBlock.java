@@ -2,10 +2,12 @@ package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+@SuppressWarnings("deprecation")
 public class CoconutFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock
 {
     private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
@@ -147,5 +150,11 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type)
     {
         return false;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
+    {
+        return new ItemStack(FOTItems.COCONUT);
     }
 }
