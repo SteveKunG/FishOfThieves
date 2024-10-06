@@ -186,9 +186,9 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
                 {
                     var blockPos1 = blockPos.relative(blockState2.getValue(FACING));
 
-                    if (level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
+                    if (level.isUnobstructed(blockState2, blockPos1, CollisionContext.empty()) && level.getBlockState(blockPos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockPos1))
                     {
-                        return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double) blockPos.getY() > 0.5)) ? blockState2 : blockState2.setValue(TYPE, Type.UPPER);
+                        return context.getClickLocation().y - blockPos.getY() > 0.5d ? blockState2.setValue(TYPE, Type.UPPER) : blockState2;
                     }
                 }
             }
