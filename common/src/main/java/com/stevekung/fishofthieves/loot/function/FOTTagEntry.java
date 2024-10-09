@@ -50,7 +50,7 @@ public class FOTTagEntry extends LootPoolSingletonContainer
     private void createItemStackWithData(Consumer<ItemStack> stackConsumer, LootContext lootContext, Holder<Item> itemHolder)
     {
         var itemStack = new ItemStack(itemHolder);
-        var vec3 = lootContext.getParamOrNull(LootContextParams.ORIGIN);
+        var vec3 = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
         stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, lootContext.getLevel(), vec3, lootContext.getRandom()));
     }
 
