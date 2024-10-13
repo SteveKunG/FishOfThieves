@@ -1,2 +1,2 @@
-* Fix crash with Honey Islehopper, closes #51
-* [NeoForge] Now required Forgified Fabric API, mod is no longer embedded few of modules
+* Fix putting fish into a fish plaque will spawn fish at 0, 0, closes #54
+* Update uk_ua.json (#52) - unroman
