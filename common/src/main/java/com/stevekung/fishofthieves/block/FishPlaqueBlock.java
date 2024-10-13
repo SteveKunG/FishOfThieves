@@ -32,7 +32,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -40,7 +39,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -214,7 +215,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             bucketable.loadFromBucketTag(customData.copyTag());
                         }
                         entityToSave.saveWithoutId(tag);
-                        tag.remove(Entity.UUID_TAG); // Remove UUID from an entity to allow them spawns in the world
+                        entityToSave.moveTo(pos, 0, 0); // Move entity position to this fish plaque pos
+                        entityToSave.discard(); // Remove spawned entity from the world
                         fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
 
