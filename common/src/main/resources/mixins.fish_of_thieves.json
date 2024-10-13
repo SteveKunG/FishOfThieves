@@ -24,6 +24,7 @@
     "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
+    "item.MixinAxeItem",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour",

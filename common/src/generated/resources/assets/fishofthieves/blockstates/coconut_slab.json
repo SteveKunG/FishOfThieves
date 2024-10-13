@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "fishofthieves:block/coconut_slab"
+    },
+    "type=double": {
+      "model": "fishofthieves:block/coconut_planks"
+    },
+    "type=top": {
+      "model": "fishofthieves:block/coconut_slab_top"
+    }
+  }
+}

@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.BlockPos;
@@ -8,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -77,7 +75,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
         var blockState = level.getBlockState(pos.relative(state.getValue(FACING)));
-        return blockState.is(FOTBlocks.SMALL_COCONUT_LOG) && blockState.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y;
+        return (blockState.is(FOTBlocks.SMALL_COCONUT_LOG) || blockState.is(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG)) && blockState.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y;
     }
 
     @Override
@@ -87,33 +85,10 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
         return switch (state.getValue(FACING))
         {
             case SOUTH -> SOUTH_AABB[i];
-            default -> NORTH_AABB[i];
             case WEST -> WEST_AABB[i];
             case EAST -> EAST_AABB[i];
+            default -> NORTH_AABB[i];
         };
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        var blockState = this.defaultBlockState();
-        var levelReader = context.getLevel();
-        var blockPos = context.getClickedPos();
-
-        for (var direction : context.getNearestLookingDirections())
-        {
-            if (direction.getAxis().isHorizontal())
-            {
-                blockState = blockState.setValue(FACING, direction);
-
-                if (blockState.canSurvive(levelReader, blockPos))
-                {
-                    return blockState;
-                }
-            }
-        }
-        return null;
     }
 
     @Override

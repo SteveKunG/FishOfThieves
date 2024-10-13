@@ -1,11 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_logs": {
+    "has_coconut_fish_plaque": {
       "conditions": {
         "items": [
           {
-            "tag": "fishofthieves:coconut_logs"
+            "items": [
+              "fishofthieves:coconut_fish_plaque"
+            ]
           }
         ]
       },
@@ -13,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:oak_planks"
+        "recipe": "fishofthieves:iron_frame_coconut_fish_plaque"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_logs",
+      "has_coconut_fish_plaque",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:oak_planks"
+      "fishofthieves:iron_frame_coconut_fish_plaque"
     ]
   },
   "sends_telemetry_event": false

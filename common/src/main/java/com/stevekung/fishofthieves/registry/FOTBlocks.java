@@ -11,6 +11,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -76,6 +77,12 @@ public class FOTBlocks
     public static final Block MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.STONE);
     public static final Block COCONUT_WOOD = new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.COLOR_ORANGE);
+    public static final Block STRIPPED_COCONUT_WOOD = new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_MEDIUM_COCONUT_LOG = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_SMALL_COCONUT_WOOD = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_SAPLING = new CoconutSaplingBlock(new CoconutTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
     public static final Block COCONUT_FRUIT = new CoconutFruitBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD).strength(1.0F).pushReaction(PushReaction.DESTROY));
     public static final Block COCONUT_FRONDS = new CoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().ignitedByLava().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
@@ -83,6 +90,18 @@ public class FOTBlocks
     public static final Block BANANA_LEAVES = new BananaLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().ignitedByLava().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block VERTICAL_BANANA_LEAVES = new VerticalBananaLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block VERTICAL_COCONUT_FRONDS = new VerticalCoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+
+    public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_FENCE = new FenceBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_SLAB = new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_STAIRS = new StairBlock(COCONUT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(COCONUT_PLANKS));
+    public static final Block COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
+    public static final Block IRON_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block GOLDEN_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GILDED_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
     public static void init()
     {
@@ -141,10 +160,16 @@ public class FOTBlocks
 
         register("coconut_log", COCONUT_LOG);
         register("coconut_wood", COCONUT_WOOD);
+        register("stripped_coconut_log", STRIPPED_COCONUT_LOG);
+        register("stripped_coconut_wood", STRIPPED_COCONUT_WOOD);
         register("small_coconut_log", SMALL_COCONUT_LOG);
         register("small_coconut_wood", SMALL_COCONUT_WOOD);
         register("medium_coconut_log", MEDIUM_COCONUT_LOG);
         register("medium_coconut_wood", MEDIUM_COCONUT_WOOD);
+        register("stripped_medium_coconut_log", STRIPPED_MEDIUM_COCONUT_LOG);
+        register("stripped_medium_coconut_wood", STRIPPED_MEDIUM_COCONUT_WOOD);
+        register("stripped_small_coconut_log", STRIPPED_SMALL_COCONUT_LOG);
+        register("stripped_small_coconut_wood", STRIPPED_SMALL_COCONUT_WOOD);
         registerNoItem("coconut_sapling", COCONUT_SAPLING);
         registerNoItem("coconut_fruit", COCONUT_FRUIT);
         register("coconut_fronds", COCONUT_FRONDS);
@@ -152,6 +177,18 @@ public class FOTBlocks
         register("banana_leaves", BANANA_LEAVES);
         registerNoItem("vertical_banana_leaves", VERTICAL_BANANA_LEAVES);
         registerNoItem("vertical_coconut_fronds", VERTICAL_COCONUT_FRONDS);
+
+        register("coconut_planks", COCONUT_PLANKS);
+        register("coconut_button", COCONUT_BUTTON);
+        register("coconut_fence", COCONUT_FENCE);
+        register("coconut_fence_gate", COCONUT_FENCE_GATE);
+        register("coconut_pressure_plate", COCONUT_PRESSURE_PLATE);
+        register("coconut_slab", COCONUT_SLAB);
+        register("coconut_stairs", COCONUT_STAIRS);
+        register("coconut_fish_plaque", COCONUT_FISH_PLAQUE);
+        register("iron_frame_coconut_fish_plaque", IRON_FRAME_COCONUT_FISH_PLAQUE);
+        register("golden_frame_coconut_fish_plaque", GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
+        register("gilded_coconut_fish_plaque", GILDED_COCONUT_FISH_PLAQUE);
     }
 
     private static void register(String key, Block block)
@@ -173,6 +210,11 @@ public class FOTBlocks
     {
         var properties = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
         return new FlowerPotBlock(content, properties);
+    }
+
+    private static ButtonBlock woodenButton(BlockSetType setType)
+    {
+        return new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), setType, 30, true);
     }
 
     private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos)

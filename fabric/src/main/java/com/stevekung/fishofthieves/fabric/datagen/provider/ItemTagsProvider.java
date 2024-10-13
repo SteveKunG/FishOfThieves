@@ -46,7 +46,10 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(FOTTags.Items.GRUBS_FOOD).add(FOTItems.GRUBS);
         this.getOrCreateTagBuilder(FOTTags.Items.LEECHES_FOOD).add(FOTItems.LEECHES);
         this.getOrCreateTagBuilder(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST);
-        this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE.asItem(), FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.CHERRY_FISH_PLAQUE.asItem(), FOTBlocks.BAMBOO_FISH_PLAQUE.asItem());
+        this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE.asItem(), FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(),
+                FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), FOTBlocks.ACACIA_FISH_PLAQUE.asItem(),
+                FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.CHERRY_FISH_PLAQUE.asItem(),
+                FOTBlocks.BAMBOO_FISH_PLAQUE.asItem(), FOTBlocks.COCONUT_FISH_PLAQUE.asItem());
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
@@ -55,6 +58,13 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
         this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
         this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS.asItem(), FOTBlocks.BANANA_LEAVES.asItem());
+        this.getOrCreateTagBuilder(ItemTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS).add(FOTBlocks.COCONUT_STAIRS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).add(FOTBlocks.COCONUT_SLAB.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTBlocks.COCONUT_FENCE_GATE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);

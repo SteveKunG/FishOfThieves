@@ -65,6 +65,21 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.MEDIUM_COCONUT_WOOD);
         output.accept(FOTBlocks.SMALL_COCONUT_LOG);
         output.accept(FOTBlocks.SMALL_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+        output.accept(FOTBlocks.COCONUT_PLANKS);
+        output.accept(FOTBlocks.COCONUT_STAIRS);
+        output.accept(FOTBlocks.COCONUT_SLAB);
+        output.accept(FOTBlocks.COCONUT_FENCE);
+        output.accept(FOTBlocks.COCONUT_FENCE_GATE);
+//        output.accept(FOTBlocks.COCONUT_DOOR);
+//        output.accept(FOTBlocks.COCONUT_TRAPDOOR);
+        output.accept(FOTBlocks.COCONUT_PRESSURE_PLATE);
+        output.accept(FOTBlocks.COCONUT_BUTTON);
         output.accept(FOTBlocks.COCONUT_FRONDS);
         output.accept(FOTBlocks.BANANA_STEM);
         output.accept(FOTBlocks.BANANA_LEAVES);
@@ -84,6 +99,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.COCONUT_FISH_PLAQUE);
 
         output.accept(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
@@ -96,6 +112,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
 
         output.accept(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
@@ -108,6 +125,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
 
         output.accept(FOTBlocks.GILDED_OAK_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE);
@@ -120,6 +138,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
         output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
 
         output.accept(FOTItems.COCONUT);
         output.accept(FOTItems.BANANA);

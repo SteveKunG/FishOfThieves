@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -67,6 +68,14 @@ public class FishOfThievesFabric implements ModInitializer
 
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.PINK_PLUMERIA, 60, 100);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FENCE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FENCE_GATE, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_SLAB, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_STAIRS, 5, 20);
+
+        StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
+        StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
         FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);
 
