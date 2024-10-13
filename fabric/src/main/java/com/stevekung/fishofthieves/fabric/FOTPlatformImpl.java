@@ -70,7 +70,7 @@ public class FOTPlatformImpl
 
     public static void registerSoundEvent(SoundEvent soundEvent)
     {
-        Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.getLocation().getPath(), soundEvent);
+        Registry.register(BuiltInRegistries.SOUND_EVENT, soundEvent.location().getPath(), soundEvent);
     }
 
     public static void registerFeature(String key, Feature<?> feature)
