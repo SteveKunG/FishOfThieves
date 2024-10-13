@@ -23,7 +23,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
@@ -193,7 +192,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     {
                         var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
                         entityToSave.saveWithoutId(tag);
-                        tag.remove(Entity.UUID_TAG); // remove UUID from an entity to allow them spawns in the world
+                        entityToSave.moveTo(pos, 0, 0); // Move entity position to this fish plaque pos
+                        entityToSave.discard(); // Remove spawned entity from the world
                         fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
 
