@@ -2,6 +2,7 @@
   "parent": "fishofthieves:block/template_small_log",
   "textures": {
     "end": "fishofthieves:block/stripped_small_coconut_log_top",
-    "side": "fishofthieves:block/stripped_coconut_log"
+    "side": "fishofthieves:block/stripped_coconut_log",
+    "top": "fishofthieves:block/stripped_small_coconut_log_top"
   }
 }

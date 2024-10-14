@@ -13,7 +13,7 @@ public class FOTModelTemplates
     public static final ModelTemplate IRON_FRAME_FISH_PLAQUE = create("template_iron_frame_fish_plaque", PLANKS);
     public static final ModelTemplate GOLDEN_FRAME_FISH_PLAQUE = create("template_golden_frame_fish_plaque", PLANKS);
     public static final ModelTemplate GILDED_FISH_PLAQUE = create("template_gilded_fish_plaque", PLANKS);
-    public static final ModelTemplate SMALL_LOG = create("template_small_log", TextureSlot.END, TextureSlot.SIDE);
+    public static final ModelTemplate SMALL_LOG = create("template_small_log", TextureSlot.TOP, TextureSlot.END, TextureSlot.SIDE);
     public static final ModelTemplate MEDIUM_LOG = create("template_medium_log", TextureSlot.END, TextureSlot.SIDE);
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)

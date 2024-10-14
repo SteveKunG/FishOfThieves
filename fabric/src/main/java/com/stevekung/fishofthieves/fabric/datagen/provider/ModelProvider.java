@@ -265,11 +265,11 @@ public class ModelProvider extends FabricModelProvider
     private void createSmallCoconutLog(BlockModelGenerators generator)
     {
         var block = FOTBlocks.SMALL_COCONUT_LOG;
-        var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
-        var textureMapping2 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var textureMapping2 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(block, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping2, generator.modelOutput);
-        var textureMapping3 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
+        var textureMapping3 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
         var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_growable"), textureMapping3, generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(PropertyDispatch.properties(BlockStateProperties.AXIS, CoconutGrowableLogBlock.TOP, CoconutGrowableLogBlock.GROW)
@@ -328,7 +328,7 @@ public class ModelProvider extends FabricModelProvider
 
     private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
     {
-        var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
+        var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, sideTexture);
         var resourceLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
         generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
     }
