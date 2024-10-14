@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BoatItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.level.material.Fluids;
@@ -66,6 +67,7 @@ public class FOTItems
     public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
     public static final Item COCONUT_BOAT = new BoatItem(false, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
     public static final Item COCONUT_CHEST_BOAT = new BoatItem(true, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
+    public static final Item COCONUT_DOOR = new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, new Item.Properties());
 
     public static void init()
     {
@@ -123,6 +125,7 @@ public class FOTItems
         register("coconut_hanging_sign", COCONUT_HANGING_SIGN);
         register("coconut_boat", COCONUT_BOAT);
         register("coconut_chest_boat", COCONUT_CHEST_BOAT);
+        register("coconut_door", COCONUT_DOOR);
     }
 
     private static void register(String key, Item item)

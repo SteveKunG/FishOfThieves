@@ -98,6 +98,8 @@ public class FOTBlocks
     public static final Block COCONUT_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
     public static final Block COCONUT_SLAB = new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_STAIRS = new StairBlock(COCONUT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(COCONUT_PLANKS));
+    public static final Block COCONUT_TRAPDOOR = new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(3.0F).noOcclusion().isValidSpawn(FOTBlocks::never).ignitedByLava(), FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_DOOR = new DoorBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
     public static final Block COCONUT_SIGN = new FOTStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
     public static final Block COCONUT_WALL_SIGN = new FOTWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
     public static final Block COCONUT_HANGING_SIGN = new FOTCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
@@ -189,6 +191,8 @@ public class FOTBlocks
         register("coconut_pressure_plate", COCONUT_PRESSURE_PLATE);
         register("coconut_slab", COCONUT_SLAB);
         register("coconut_stairs", COCONUT_STAIRS);
+        register("coconut_trapdoor", COCONUT_TRAPDOOR);
+        registerNoItem("coconut_door", COCONUT_DOOR);
         registerNoItem("coconut_sign", COCONUT_SIGN);
         registerNoItem("coconut_wall_sign", COCONUT_WALL_SIGN);
         registerNoItem("coconut_hanging_sign", COCONUT_HANGING_SIGN);

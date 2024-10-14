@@ -119,6 +119,8 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.COCONUT_FENCE_GATE);
         this.dropSelf(FOTBlocks.COCONUT_PRESSURE_PLATE);
         this.dropSelf(FOTBlocks.COCONUT_STAIRS);
+        this.dropSelf(FOTBlocks.COCONUT_TRAPDOOR);
+        this.add(FOTBlocks.COCONUT_DOOR, this::createDoorTable);
         this.add(FOTBlocks.COCONUT_SLAB, this::createSlabItemTable);
         this.dropSelf(FOTBlocks.COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);

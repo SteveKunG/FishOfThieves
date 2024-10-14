@@ -76,8 +76,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.COCONUT_SLAB);
         output.accept(FOTBlocks.COCONUT_FENCE);
         output.accept(FOTBlocks.COCONUT_FENCE_GATE);
-//        output.accept(FOTBlocks.COCONUT_DOOR);
-//        output.accept(FOTBlocks.COCONUT_TRAPDOOR);
+        output.accept(FOTItems.COCONUT_DOOR);
+        output.accept(FOTBlocks.COCONUT_TRAPDOOR);
         output.accept(FOTBlocks.COCONUT_PRESSURE_PLATE);
         output.accept(FOTBlocks.COCONUT_BUTTON);
         output.accept(FOTItems.COCONUT_SIGN);

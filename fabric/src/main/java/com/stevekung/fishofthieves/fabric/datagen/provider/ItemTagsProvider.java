@@ -39,6 +39,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
         this.getOrCreateTagBuilder(ItemTags.SIGNS).add(FOTItems.COCONUT_SIGN);
         this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_DOORS).add(FOTItems.COCONUT_DOOR);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS).add(FOTBlocks.COCONUT_TRAPDOOR.asItem());
 
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);

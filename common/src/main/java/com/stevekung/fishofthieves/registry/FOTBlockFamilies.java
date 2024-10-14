@@ -20,8 +20,8 @@ public class FOTBlockFamilies
             .sign(FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN)
             .slab(FOTBlocks.COCONUT_SLAB)
             .stairs(FOTBlocks.COCONUT_STAIRS)
-            //            .door(Blocks.OAK_DOOR)TODO
-            //            .trapdoor(Blocks.OAK_TRAPDOOR)
+            .door(FOTBlocks.COCONUT_DOOR)
+            .trapdoor(FOTBlocks.COCONUT_TRAPDOOR)
             .recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 
     public static BlockFamily.Builder familyBuilder(Block baseBlock)
