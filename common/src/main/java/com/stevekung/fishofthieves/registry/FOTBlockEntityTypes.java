@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
+import com.stevekung.fishofthieves.blockentity.FOTHangingSignBlockEntity;
+import com.stevekung.fishofthieves.blockentity.FOTSignBlockEntity;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -28,10 +30,16 @@ public class FOTBlockEntityTypes
             FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE,
             FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.GILDED_CHERRY_FISH_PLAQUE, FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE,
             FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+    public static final BlockEntityType<FOTSignBlockEntity> SIGN = FOTPlatform.createBlockEntityType(FOTSignBlockEntity::new,
+            FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
+    public static final BlockEntityType<FOTHangingSignBlockEntity> HANGING_SIGN = FOTPlatform.createBlockEntityType(FOTHangingSignBlockEntity::new,
+            FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
     //@formatter:on
 
     public static void init()
     {
         FOTPlatform.registerBlockEntity("fish_plaque", FISH_PLAQUE);
+        FOTPlatform.registerBlockEntity("sign", SIGN);
+        FOTPlatform.registerBlockEntity("hanging_sign", HANGING_SIGN);
     }
 }

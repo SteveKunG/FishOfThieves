@@ -30,7 +30,7 @@ public class MixinAxeItem
             .build();
 
     @ModifyVariable(method = "useOn", at = @At(value = "INVOKE", target = "java/util/Optional.isPresent()Z", ordinal = 0), index = 10, ordinal = 3)
-    private Optional<BlockState> stripNonFullCoconutLog(Optional<BlockState> optional, UseOnContext context)
+    private Optional<BlockState> fishofthieves$stripNonFullCoconutLog(Optional<BlockState> optional, UseOnContext context)
     {
         var level = context.getLevel();
         var blockPos = context.getClickedPos();

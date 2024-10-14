@@ -100,6 +100,9 @@ public class RecipeProvider extends FabricRecipeProvider
         woodFromLogs(consumer, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
         woodFromLogs(consumer, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
         planksFromLogs(consumer, FOTBlocks.COCONUT_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
+        woodenBoat(consumer, FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
+        chestBoat(consumer, FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
+        hangingSign(consumer, FOTItems.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
     }
 
     private static void generateForFOTBlockFamilies(Consumer<FinishedRecipe> consumer)

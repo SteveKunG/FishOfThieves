@@ -17,10 +17,10 @@ public class FOTBlockFamilies
             .fence(FOTBlocks.COCONUT_FENCE)
             .fenceGate(FOTBlocks.COCONUT_FENCE_GATE)
             .pressurePlate(FOTBlocks.COCONUT_PRESSURE_PLATE)
-            //            .sign(Blocks.OAK_SIGN, Blocks.OAK_WALL_SIGN)
+            .sign(FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN)
             .slab(FOTBlocks.COCONUT_SLAB)
             .stairs(FOTBlocks.COCONUT_STAIRS)
-            //            .door(Blocks.OAK_DOOR)
+            //            .door(Blocks.OAK_DOOR)TODO
             //            .trapdoor(Blocks.OAK_TRAPDOOR)
             .recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
 

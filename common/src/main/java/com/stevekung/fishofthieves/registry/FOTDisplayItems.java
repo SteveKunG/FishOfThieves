@@ -80,6 +80,10 @@ public class FOTDisplayItems
 //        output.accept(FOTBlocks.COCONUT_TRAPDOOR);
         output.accept(FOTBlocks.COCONUT_PRESSURE_PLATE);
         output.accept(FOTBlocks.COCONUT_BUTTON);
+        output.accept(FOTItems.COCONUT_SIGN);
+        output.accept(FOTItems.COCONUT_HANGING_SIGN);
+        output.accept(FOTItems.COCONUT_BOAT);
+        output.accept(FOTItems.COCONUT_CHEST_BOAT);
         output.accept(FOTBlocks.COCONUT_FRONDS);
         output.accept(FOTBlocks.BANANA_STEM);
         output.accept(FOTBlocks.BANANA_LEAVES);

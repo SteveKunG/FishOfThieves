@@ -143,6 +143,8 @@ public class ModelProvider extends FabricModelProvider
 
         generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.COCONUT_BOAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.COCONUT_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -223,6 +225,7 @@ public class ModelProvider extends FabricModelProvider
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
+        generator.createHangingSign(FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
     }
 
     private void createBananaStem(BlockModelGenerators generator)

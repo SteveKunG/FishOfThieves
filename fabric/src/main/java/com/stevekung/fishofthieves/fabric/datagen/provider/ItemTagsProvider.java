@@ -37,6 +37,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
 
         this.getOrCreateTagBuilder(ItemTags.AXOLOTL_TEMPT_ITEMS).add(FOTTags.FISH_BUCKETS).forceAddTag(FOTTags.Items.WORMS);
         this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
+        this.getOrCreateTagBuilder(ItemTags.SIGNS).add(FOTItems.COCONUT_SIGN);
+        this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);
 
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);
@@ -65,6 +67,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE.asItem());
         this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTBlocks.COCONUT_FENCE_GATE.asItem());
         this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
+        this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);

@@ -124,5 +124,9 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+        this.dropOther(FOTBlocks.COCONUT_SIGN, FOTItems.COCONUT_SIGN);
+        this.dropOther(FOTBlocks.COCONUT_WALL_SIGN, FOTItems.COCONUT_SIGN);
+        this.dropOther(FOTBlocks.COCONUT_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
+        this.dropOther(FOTBlocks.COCONUT_WALL_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
     }
 }

@@ -6,6 +6,7 @@
   "client": [
     "client.MixinCreativeModeTabs",
     "client.MixinLevelRenderer",
+    "client.MixinLocalPlayer",
     "client.model.MixinTadpoleModel",
     "client.renderer.entity.MixinCodRenderer",
     "client.renderer.entity.MixinPufferfishRenderer",
@@ -21,6 +22,9 @@
     "animal.MixinChicken",
     "animal.MixinOcelot",
     "datafix.MixinDataFixers",
+    "entity.MixinBoat",
+    "entity.MixinBoat$BoatType",
+    "entity.MixinChestBoat",
     "entity.MixinEntityType",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",

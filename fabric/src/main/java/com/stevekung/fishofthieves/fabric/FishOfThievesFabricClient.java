@@ -15,6 +15,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.entity.EntityType;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
@@ -34,6 +36,8 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         //@formatter:on
 
         BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
 
         EntityRendererRegistry.register(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
         EntityRendererRegistry.register(FOTEntities.PONDIE, PondieRenderer::new);

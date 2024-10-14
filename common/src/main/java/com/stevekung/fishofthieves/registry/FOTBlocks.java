@@ -96,8 +96,12 @@ public class FOTBlocks
     public static final Block COCONUT_FENCE = new FenceBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
     public static final Block COCONUT_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
-    public static final Block COCONUT_SLAB = new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_SLAB = new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_STAIRS = new StairBlock(COCONUT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(COCONUT_PLANKS));
+    public static final Block COCONUT_SIGN = new FOTStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_WALL_SIGN = new FOTWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_HANGING_SIGN = new FOTCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_WALL_HANGING_SIGN = new FOTWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
     public static final Block COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
     public static final Block IRON_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
     public static final Block GOLDEN_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
@@ -185,6 +189,10 @@ public class FOTBlocks
         register("coconut_pressure_plate", COCONUT_PRESSURE_PLATE);
         register("coconut_slab", COCONUT_SLAB);
         register("coconut_stairs", COCONUT_STAIRS);
+        registerNoItem("coconut_sign", COCONUT_SIGN);
+        registerNoItem("coconut_wall_sign", COCONUT_WALL_SIGN);
+        registerNoItem("coconut_hanging_sign", COCONUT_HANGING_SIGN);
+        registerNoItem("coconut_wall_hanging_sign", COCONUT_WALL_HANGING_SIGN);
         register("coconut_fish_plaque", COCONUT_FISH_PLAQUE);
         register("iron_frame_coconut_fish_plaque", IRON_FRAME_COCONUT_FISH_PLAQUE);
         register("golden_frame_coconut_fish_plaque", GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
