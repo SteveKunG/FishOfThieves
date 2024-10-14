@@ -54,13 +54,7 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
 
     private void growCoconuts(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        var direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        var blockState = level.getBlockState(pos.relative(direction));
-
-        if (blockState.isAir())
-        {
-            level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
-        }
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 
     @Override
