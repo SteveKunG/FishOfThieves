@@ -1,8 +1,10 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.List;
 import java.util.OptionalInt;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
@@ -50,7 +52,7 @@ public class FOTFeatures
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
                 new CoconutTrunkPlacer(7, 2, 2),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(2, 1, new CoconutFrondsPlacer.ReduceLeavesLength(7, 1)),
+                new CoconutFrondsPlacer(2, 1, List.of(Pair.of(7, 1))),
                 new ThreeLayersFeatureSize(5, 15, 1, 2, 4, OptionalInt.empty()));
     }
 

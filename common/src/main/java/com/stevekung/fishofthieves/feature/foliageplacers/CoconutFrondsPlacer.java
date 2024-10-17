@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.feature.foliageplacers;
 
+import java.util.List;
+
 import com.mojang.datafixers.Products;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.RecordCodecBuilder.Instance;
@@ -23,16 +26,16 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     public static final Codec<CoconutFrondsPlacer> CODEC = RecordCodecBuilder.create(instance -> frondsPart(instance).apply(instance, CoconutFrondsPlacer::new));
     protected final int height;
     protected final int maxLeavesLengthFromLocalY;
-    protected final ReduceLeavesLength reduceLeavesLength;
+    protected final List<Pair<Integer, Integer>> reduceLeavesLength;
 
-    protected static <P extends CoconutFrondsPlacer> Products.P3<Mu<P>, Integer, Integer, ReduceLeavesLength> frondsPart(Instance<P> instance)
+    protected static <P extends CoconutFrondsPlacer> Products.P3<Mu<P>, Integer, Integer, List<Pair<Integer, Integer>>> frondsPart(Instance<P> instance)
     {
         return instance.group(Codec.intRange(0, 8).fieldOf("height").forGetter(placer -> placer.height))
                 .and(Codec.intRange(0, 8).fieldOf("max_leaves_length_from_local_y").forGetter(placer -> placer.maxLeavesLengthFromLocalY))
-                .and(ReduceLeavesLength.CODEC.fieldOf("reduce_leaves_length").forGetter(placer -> placer.reduceLeavesLength));
+                .and(Codec.mapPair(Codec.intRange(0, 16).fieldOf("at_tree_height"), Codec.intRange(0, 8).fieldOf("reduce_by")).codec().listOf().fieldOf("reduce_leaves_length").forGetter(placer -> placer.reduceLeavesLength));
     }
 
-    public CoconutFrondsPlacer(int height, int maxLeavesLengthFromLocalY, ReduceLeavesLength reduceLeavesLength)
+    public CoconutFrondsPlacer(int height, int maxLeavesLengthFromLocalY, List<Pair<Integer, Integer>> reduceLeavesLength)
     {
         super(ConstantInt.of(0), ConstantInt.of(0));
         this.height = height;
@@ -68,9 +71,12 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                 var mutableBlockPos = pos.mutable();
                 var maxLeavesFromLocalYLength = this.maxLeavesLengthFromLocalY - localY;
 
-                if (maxFreeTreeHeight == this.reduceLeavesLength.treeHeight())
+                for (var reduceLeavesLength : this.reduceLeavesLength)
                 {
-                    maxLeavesFromLocalYLength -= this.reduceLeavesLength.reduceBy();
+                    if (maxFreeTreeHeight == reduceLeavesLength.getFirst())
+                    {
+                        maxLeavesFromLocalYLength -= reduceLeavesLength.getSecond();
+                    }
                 }
 
                 for (var direction : Direction.Plane.HORIZONTAL)
