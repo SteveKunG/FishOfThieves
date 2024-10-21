@@ -37,7 +37,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class BananaLeavesBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock
+public class BananaLeavesBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, BonemealableBlock
 {
     public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
@@ -50,6 +50,39 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.STEM).setValue(TYPE, Type.LOWER).setValue(COUNT, 1).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
+    {
+        return state.getValue(COUNT) < 2;
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        if (state.getValue(COUNT) < 2)
+        {
+            BlockPos blockPos;
+
+            if (state.getValue(PART) == Part.STEM)
+            {
+                blockPos = pos.relative(state.getValue(FACING));
+                level.setBlock(blockPos, level.getBlockState(blockPos).setValue(COUNT, 2), Block.UPDATE_ALL);
+            }
+            else
+            {
+                blockPos = pos.relative(state.getValue(FACING).getOpposite());
+                level.setBlock(blockPos, level.getBlockState(blockPos).setValue(COUNT, 2), Block.UPDATE_ALL);
+            }
+            level.setBlock(pos, state.setValue(COUNT, 2), Block.UPDATE_ALL);
+        }
     }
 
     @Override
