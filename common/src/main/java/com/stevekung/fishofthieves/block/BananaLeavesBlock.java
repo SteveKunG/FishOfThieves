@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -260,7 +261,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         {
             return state.getValue(FACING) == otherState.getValue(FACING);
         }
-        return otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.is(FOTBlocks.BANANA_STEM) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
+        return otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.is(FOTTags.Blocks.BANANA_STEMS) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
     }
 
     @Override

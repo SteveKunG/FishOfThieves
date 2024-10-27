@@ -224,6 +224,8 @@ public class ModelProvider extends FabricModelProvider
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
         this.createBananaStem(generator);
+        this.createGrowableBananaStem(generator);
+        this.createTopBananaStem(generator);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
@@ -234,31 +236,42 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.BANANA_STEM;
         var modelLocation = ModelLocationUtils.getModelLocation(block);
-        var topModelLocation = ModelLocationUtils.getModelLocation(block, "_top");
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.properties(BlockStateProperties.AXIS, BananaStemBlock.TOP, BananaStemBlock.BOTTOM)
-                        .select(Direction.Axis.Y, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
-                        .select(Direction.Axis.Z, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                ));
+    }
+
+    private void createGrowableBananaStem(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.GROWABLE_BANANA_STEM;
+        var modelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM);
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                ));
+    }
+
+    private void createTopBananaStem(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.TOP_BANANA_STEM;
+        var topModelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM, "_top");
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, false, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
                 ));

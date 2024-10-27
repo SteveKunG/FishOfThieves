@@ -49,6 +49,7 @@ public interface FOTTags
         TagKey<Block> NON_FULL_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("non_full_logs"));
         TagKey<Block> COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_logs"));
         TagKey<Block> SMALL_COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("small_coconut_logs"));
+        TagKey<Block> BANANA_STEMS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_stems"));
     }
 
     interface EntityTypes

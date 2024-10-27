@@ -96,6 +96,8 @@ public class FishOfThievesFabric implements ModInitializer
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_STEM, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.TOP_BANANA_STEM, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
 
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
