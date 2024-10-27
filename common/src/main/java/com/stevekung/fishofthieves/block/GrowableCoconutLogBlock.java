@@ -10,25 +10,19 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 @SuppressWarnings("deprecation")
-public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
+public class GrowableCoconutLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
 {
-    public static final BooleanProperty TOP = BooleanProperty.create("top");
-    public static final BooleanProperty GROW = BooleanProperty.create("grow");
-
-    public CoconutGrowableLogBlock(Properties properties)
+    public GrowableCoconutLogBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(GROW, false).setValue(TOP, false));
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (state.getValue(GROW) && random.nextInt(20) == 0)
+        if (random.nextInt(20) == 0)
         {
             this.growCoconuts(level, random, pos);
         }
@@ -37,7 +31,7 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return state.getValue(GROW) && Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
+        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
     }
 
     @Override
@@ -55,11 +49,5 @@ public class CoconutGrowableLogBlock extends SmallRotatedPillarBlock implements 
     private void growCoconuts(ServerLevel level, RandomSource random, BlockPos pos)
     {
         Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
-    {
-        super.createBlockStateDefinition(builder.add(TOP, GROW));
     }
 }

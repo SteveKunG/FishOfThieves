@@ -22,8 +22,10 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
     {
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(FOTBlocks.FISH_BONE);
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(FOTTags.Blocks.FISH_PLAQUE).add(FOTBlocks.COCONUT_FRUIT);
-        this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.BANANA_STEM);
-        this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM);
+        this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG,
+                FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
+                FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.BANANA_STEM);
+        this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.BANANA_STEM);
         this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA);
@@ -67,13 +69,18 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_REPELLENTS).add(Blocks.MAGMA_BLOCK, Blocks.BUBBLE_COLUMN);
         this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).forceAddTag(FOTTags.Blocks.WOODEN_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE);
-        this.getOrCreateTagBuilder(FOTTags.Blocks.NON_FULL_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG,
-                FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.BANANA_STEM,
-                FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
-                FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
-        this.getOrCreateTagBuilder(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG,
-                FOTBlocks.COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD,
+        this.getOrCreateTagBuilder(FOTTags.Blocks.NON_FULL_LOGS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.MEDIUM_COCONUT_LOG,
+                FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.BANANA_STEM,
+                FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
+                FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG,
+                FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
+                FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD,
+                FOTBlocks.COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_WOOD,
                 FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
-                FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+                FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
+                FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
+                FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
     }
 }

@@ -50,7 +50,7 @@ public class FOTFeatures
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(7, 2, 2),
+                new CoconutTrunkPlacer(7, 2, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.TOP_SMALL_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
                 new CoconutFrondsPlacer(2, 1, List.of(Pair.of(7, 1))),
                 new ThreeLayersFeatureSize(5, 15, 1, 2, 4, OptionalInt.empty()));

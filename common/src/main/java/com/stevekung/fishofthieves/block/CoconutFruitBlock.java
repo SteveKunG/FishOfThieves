@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -75,7 +75,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
         var blockState = level.getBlockState(pos.relative(state.getValue(FACING)));
-        return (blockState.is(FOTBlocks.SMALL_COCONUT_LOG) || blockState.is(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG)) && blockState.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y;
+        return blockState.is(FOTTags.Blocks.SMALL_COCONUT_LOGS) && blockState.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y;
     }
 
     @Override

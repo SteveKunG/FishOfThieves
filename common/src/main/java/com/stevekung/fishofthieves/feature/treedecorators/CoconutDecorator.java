@@ -5,7 +5,6 @@ import java.util.Collections;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
-import com.stevekung.fishofthieves.block.CoconutGrowableLogBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 import net.minecraft.core.Direction;
@@ -50,7 +49,7 @@ public class CoconutDecorator extends TreeDecorator
 
             list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).forEach(blockPos ->
             {
-                context.setBlock(blockPos, FOTBlocks.SMALL_COCONUT_LOG.defaultBlockState().setValue(CoconutGrowableLogBlock.GROW, true));
+                context.setBlock(blockPos, FOTBlocks.GROWABLE_SMALL_COCONUT_LOG.defaultBlockState());
 
                 for (var direction : Direction.Plane.HORIZONTAL)
                 {

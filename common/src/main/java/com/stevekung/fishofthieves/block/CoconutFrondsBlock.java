@@ -145,7 +145,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         {
             return state.getValue(FACING) == otherState.getValue(FACING);
         }
-        return otherState.is(FOTTags.Blocks.COCONUT_LOGS) || otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
+        return otherState.is(FOTTags.Blocks.COCONUT_LOGS) || otherState.is(FOTTags.Blocks.SMALL_COCONUT_LOGS) || otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
     }
 
     @Override

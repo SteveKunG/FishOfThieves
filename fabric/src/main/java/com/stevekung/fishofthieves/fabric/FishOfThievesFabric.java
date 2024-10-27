@@ -64,15 +64,38 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTItems.EARTHWORMS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.GRUBS, 0.4F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.LEECHES, 0.4F);
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.COCONUT, 0.5F);
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.BANANA, 0.3F);
+        CompostingChanceRegistry.INSTANCE.add(FOTBlocks.PINK_PLUMERIA, 0.6F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.COCONUT_FRONDS, 0.8F);
+        CompostingChanceRegistry.INSTANCE.add(FOTBlocks.BANANA_LEAVES, 0.8F);
 
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRONDS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_LEAVES, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.VERTICAL_COCONUT_FRONDS, 30, 60);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.VERTICAL_BANANA_LEAVES, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.PINK_PLUMERIA, 60, 100);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_SAPLING, 60, 100);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_PLANKS, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FENCE, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FENCE_GATE, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_SLAB, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_STAIRS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRUIT, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.SMALL_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.TOP_SMALL_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.SMALL_COCONUT_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.MEDIUM_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.MEDIUM_COCONUT_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_STEM, 5, 5);
 
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);

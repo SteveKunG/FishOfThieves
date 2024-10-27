@@ -80,6 +80,8 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.PINK_PLUMERIA);
         this.dropPottedContents(FOTBlocks.POTTED_PINK_PLUMERIA);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_LOG);
+        this.dropOther(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG);
+        this.dropOther(FOTBlocks.TOP_SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_WOOD);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_LOG);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_WOOD);

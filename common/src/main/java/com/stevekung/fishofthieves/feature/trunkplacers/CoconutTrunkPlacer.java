@@ -7,8 +7,6 @@ import java.util.function.Function;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.block.CoconutGrowableLogBlock;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTrunkPlacerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -16,6 +14,7 @@ import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
@@ -24,14 +23,23 @@ public class CoconutTrunkPlacer extends TrunkPlacer
     public static final Codec<CoconutTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     Codec.intRange(0, 32).fieldOf("base_height").forGetter(trunkPlacer -> trunkPlacer.baseHeight),
                     Codec.intRange(0, 24).fieldOf("height_rand_a").forGetter(trunkPlacer -> trunkPlacer.heightRandA),
-                    Codec.intRange(0, 32).fieldOf("medium_trunk_height").forGetter(trunkPlacer -> trunkPlacer.mediumTrunkHeight))
+                    Codec.intRange(0, 32).fieldOf("medium_trunk_height").forGetter(trunkPlacer -> trunkPlacer.mediumTrunkHeight),
+                    BlockStateProvider.CODEC.fieldOf("small_log").forGetter(trunkPlacer -> trunkPlacer.smallLog),
+                    BlockStateProvider.CODEC.fieldOf("medium_log").forGetter(trunkPlacer -> trunkPlacer.mediumLog),
+                    BlockStateProvider.CODEC.fieldOf("top_log").forGetter(trunkPlacer -> trunkPlacer.topLog))
             .apply(instance, CoconutTrunkPlacer::new));
     private final int mediumTrunkHeight;
+    private final BlockStateProvider smallLog;
+    private final BlockStateProvider mediumLog;
+    private final BlockStateProvider topLog;
 
-    public CoconutTrunkPlacer(int baseHeight, int heightRandA, int mediumTrunkHeight)
+    public CoconutTrunkPlacer(int baseHeight, int heightRandA, int mediumTrunkHeight, BlockStateProvider smallLog, BlockStateProvider mediumLog, BlockStateProvider topLog)
     {
         super(baseHeight, heightRandA, 0);
         this.mediumTrunkHeight = mediumTrunkHeight;
+        this.smallLog = smallLog;
+        this.mediumLog = mediumLog;
+        this.topLog = topLog;
     }
 
     @Override
@@ -61,18 +69,12 @@ public class CoconutTrunkPlacer extends TrunkPlacer
 
             if (height > 0 && height <= mediumTrunkHeight)
             {
-                blockState = propertySetter.apply(FOTBlocks.MEDIUM_COCONUT_LOG.defaultBlockState());
+                blockState = propertySetter.apply(this.mediumLog.getState(random, pos));
             }
             else if (height > mediumTrunkHeight)
             {
-                var smallLog = FOTBlocks.SMALL_COCONUT_LOG.defaultBlockState();
-
-                if (isTop)
-                {
-                    smallLog = smallLog.setValue(CoconutGrowableLogBlock.TOP, true);
-                }
-
-                blockState = propertySetter.apply(smallLog);
+                var log = isTop ? this.topLog : this.smallLog;
+                blockState = propertySetter.apply(log.getState(random, pos));
             }
             blockSetter.accept(pos, blockState);
         }

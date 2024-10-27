@@ -210,6 +210,8 @@ public class ModelProvider extends FabricModelProvider
         generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
         generator.woodProvider(FOTBlocks.STRIPPED_COCONUT_LOG).logWithHorizontal(FOTBlocks.STRIPPED_COCONUT_LOG).wood(FOTBlocks.STRIPPED_COCONUT_WOOD);
         this.createSmallCoconutLog(generator);
+        this.createGrowableSmallCoconutLog(generator);
+        this.createTopSmallCoconutLog(generator);
         this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
@@ -267,34 +269,44 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.SMALL_COCONUT_LOG;
         var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
-        var textureMapping2 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(block, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
-        var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping2, generator.modelOutput);
-        var textureMapping3 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
-        var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_growable"), textureMapping3, generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.properties(BlockStateProperties.AXIS, CoconutGrowableLogBlock.TOP, CoconutGrowableLogBlock.GROW)
-                        .select(Direction.Axis.Y, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, false, false, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
-                        .select(Direction.Axis.Z, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                ));
+    }
+
+    private void createTopSmallCoconutLog(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.TOP_SMALL_COCONUT_LOG;
+        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, true, false, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, false, true, Variant.variant().with(VariantProperties.MODEL, growableModelLocation))
-                        .select(Direction.Axis.Z, false, true, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
+                ));
+    }
+
+    private void createGrowableSmallCoconutLog(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.GROWABLE_SMALL_COCONUT_LOG;
+        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
+        var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_growable"), textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
+                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, growableModelLocation))
+                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, false, true, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.Y, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, true, true, Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                                 .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
                 ));
