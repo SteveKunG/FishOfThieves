@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "fishofthieves:block/banana_shoots",
-		"shoot": "fishofthieves:block/banana_shoots"
+		"particle": "fishofthieves:block/banana_shoots_plant",
+		"shoot": "fishofthieves:block/banana_shoots_plant"
 	},
 	"elements": [
 		{

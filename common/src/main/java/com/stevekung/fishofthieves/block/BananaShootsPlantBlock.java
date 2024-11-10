@@ -17,11 +17,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class BananaShootsBlock extends HorizontalDirectionalBlock
+public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
 {
     private static final VoxelShape SHAPE = Block.box(3, 2, -3, 13, 14, 8);
 
-    public BananaShootsBlock(Properties properties)
+    public BananaShootsPlantBlock(Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

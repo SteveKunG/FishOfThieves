@@ -230,7 +230,7 @@ public class ModelProvider extends FabricModelProvider
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
         generator.createHangingSign(FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
-        this.createBananaShoots(generator);
+        this.createBananaShootsPlant(generator);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -397,9 +397,9 @@ public class ModelProvider extends FabricModelProvider
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }
 
-    private void createBananaShoots(BlockModelGenerators generator)
+    private void createBananaShootsPlant(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.BANANA_SHOOTS;
+        var block = FOTBlocks.BANANA_SHOOTS_PLANT;
         generator.skipAutoItemBlock(block);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));

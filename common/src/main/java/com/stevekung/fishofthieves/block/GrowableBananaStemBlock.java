@@ -48,6 +48,6 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
 
     private void growBananaShoots(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS.defaultBlockState().setValue(BananaShootsBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }
