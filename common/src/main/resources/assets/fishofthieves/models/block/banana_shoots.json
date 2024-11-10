@@ -1,0 +1,28 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "fishofthieves:block/banana_shoots",
+		"shoot": "fishofthieves:block/banana_shoots"
+	},
+	"elements": [
+		{
+			"from": [4, 0, -7],
+			"to": [20, 16, -7],
+			"rotation": {"angle": -45, "axis": "y", "origin": [4, 0, -7]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#shoot"},
+				"south": {"uv": [16, 0, 0, 16], "texture": "#shoot"}
+			}
+		},
+		{
+			"from": [12, 0, -7],
+			"to": [12, 16, 9],
+			"rotation": {"angle": -45, "axis": "y", "origin": [12, 0, -7]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#shoot"},
+				"west": {"uv": [16, 0, 0, 16], "texture": "#shoot"}
+			}
+		}
+	]
+}

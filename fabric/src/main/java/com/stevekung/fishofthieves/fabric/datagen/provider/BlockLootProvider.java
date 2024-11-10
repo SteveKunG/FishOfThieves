@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -134,5 +135,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.COCONUT_WALL_SIGN, FOTItems.COCONUT_SIGN);
         this.dropOther(FOTBlocks.COCONUT_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
         this.dropOther(FOTBlocks.COCONUT_WALL_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
+        this.add(FOTBlocks.BANANA_SHOOTS, BlockLootSubProvider::createShearsOnlyDrop);
     }
 }

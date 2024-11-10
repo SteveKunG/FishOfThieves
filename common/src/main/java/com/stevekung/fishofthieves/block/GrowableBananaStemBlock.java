@@ -1,14 +1,17 @@
 package com.stevekung.fishofthieves.block;
 
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+@SuppressWarnings("deprecation")
 public class GrowableBananaStemBlock extends BananaStemBlock implements BonemealableBlock
 {
     public GrowableBananaStemBlock(Properties properties)
@@ -17,26 +20,34 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
     }
 
     @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (level.isRaining() && random.nextInt(20) == 0)
+        {
+            this.growBananaShoots(level, random, pos);
+        }
+    }
+
+    @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).canBeReplaced());
+        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
     }
 
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
-        return true;
+        return random.nextInt(6) == 0;
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
     {
-        var direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        var blockState = level.getBlockState(pos.relative(direction));
+        this.growBananaShoots(level, random, pos);
+    }
 
-        if (blockState.isAir())
-        {
-//            level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
-        }
+    private void growBananaShoots(ServerLevel level, RandomSource random, BlockPos pos)
+    {
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS.defaultBlockState().setValue(BananaShootsBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }
