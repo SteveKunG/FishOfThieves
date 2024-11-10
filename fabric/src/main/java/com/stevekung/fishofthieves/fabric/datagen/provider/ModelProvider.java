@@ -145,6 +145,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_BOAT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.BANANA_BLOSSOM, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -231,6 +232,7 @@ public class ModelProvider extends FabricModelProvider
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
         generator.createHangingSign(FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
         this.createBananaShootsPlant(generator);
+        this.createBananaBlossom(generator);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -400,6 +402,14 @@ public class ModelProvider extends FabricModelProvider
     private void createBananaShootsPlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.BANANA_SHOOTS_PLANT;
+        generator.skipAutoItemBlock(block);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
+                .with(BlockModelGenerators.createHorizontalFacingDispatch()));
+    }
+
+    private void createBananaBlossom(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BANANA_BLOSSOM;
         generator.skipAutoItemBlock(block);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));

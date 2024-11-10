@@ -63,6 +63,8 @@ public class FOTItems
     public static final Item COCONUT = new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT));
     public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
 
+    public static final Item BANANA_BLOSSOM = new Item(new Item.Properties());
+
     public static final Item COCONUT_SIGN = new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
     public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
     public static final Item COCONUT_BOAT = new BoatItem(false, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
@@ -117,6 +119,8 @@ public class FOTItems
         register("battlegill_spawn_egg", BATTLEGILL_SPAWN_EGG);
         register("wrecker_spawn_egg", WRECKER_SPAWN_EGG);
         register("stormfish_spawn_egg", STORMFISH_SPAWN_EGG);
+
+        register("banana_blossom", BANANA_BLOSSOM);
 
         register("coconut", COCONUT);
         register("banana", BANANA);

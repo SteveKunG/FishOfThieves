@@ -9,7 +9,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -61,6 +60,6 @@ public class GrowableBananaBunchStemBlock extends BananaStemBlock implements Bon
 
     private void growBananaBunch(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> this.canGrowBananaBunch(level, pos, direction)).findFirst().ifPresent(direction -> level.setBlock(pos.below().relative(direction), Blocks.DIAMOND_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS));
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> this.canGrowBananaBunch(level, pos, direction)).findFirst().ifPresent(direction -> level.setBlock(pos.below().relative(direction), FOTBlocks.BANANA_BLOSSOM.defaultBlockState().setValue(BananaBlossomBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }

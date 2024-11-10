@@ -136,5 +136,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.COCONUT_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
         this.dropOther(FOTBlocks.COCONUT_WALL_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
         this.add(FOTBlocks.BANANA_SHOOTS_PLANT, BlockLootSubProvider::createShearsOnlyDrop);//TODO Add shoots
+        this.dropOther(FOTBlocks.BANANA_BLOSSOM, FOTItems.BANANA_BLOSSOM);
     }
 }
