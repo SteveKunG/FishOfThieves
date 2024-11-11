@@ -84,6 +84,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTItems.init();
         FOTItemSubPredicates.init();
         FOTBlockEntityTypes.init();
+        FOTSoundEvents.init();
         FOTEntities.init();
         FOTSensorTypes.init();
         FOTMemoryModuleTypes.init();
