@@ -14,8 +14,8 @@ import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class FOTLootItemConditions
 {
-    public static final LootItemConditionType FOT_LOCATION_CHECK = new LootItemConditionType(FOTLocationCheck.CODEC);
-    public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(FishVariantLootConfigCondition.CODEC);
+    public static final LootItemConditionType FOT_LOCATION_CHECK = register("fot_location_check", new LootItemConditionType(FOTLocationCheck.CODEC));
+    public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = register("fish_variant_loot_config", new LootItemConditionType(FishVariantLootConfigCondition.CODEC));
 
     public static final LootItemCondition.Builder THUNDERING = WeatherCheck.weather().setThundering(true);
     public static final LootItemCondition.Builder COAST_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));
@@ -26,12 +26,11 @@ public class FOTLootItemConditions
 
     public static void init()
     {
-        register("fot_location_check", FOT_LOCATION_CHECK);
-        register("fish_variant_loot_config", FISH_VARIANT_LOOT_CONFIG);
+        FishOfThieves.LOGGER.info("Registering Loot Item Condition");
     }
 
-    private static void register(String key, LootItemConditionType type)
+    private static LootItemConditionType register(String key, LootItemConditionType type)
     {
-        Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, FishOfThieves.id(key), type);
+        return Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, FishOfThieves.id(key), type);
     }
 }
