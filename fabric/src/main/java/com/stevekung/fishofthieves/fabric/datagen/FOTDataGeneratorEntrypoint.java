@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.CompletableFuture;
 
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
@@ -9,10 +10,12 @@ import com.stevekung.fishofthieves.registry.FOTPlacements;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 import com.stevekung.fishofthieves.registry.variant.*;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -44,7 +47,21 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
         var pack = dataGenerator.createPack();
-        pack.addProvider(ModelProvider::new);
+
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+        {
+            try
+            {
+                var clientEntrypointClass = Class.forName("com.stevekung.fishofthieves.fabric.datagen.client.ClientDataGenerator");
+                var entrypoint = (DataGeneratorEntrypoint)clientEntrypointClass.getConstructor().newInstance();
+                entrypoint.onInitializeDataGenerator(dataGenerator);
+            }
+            catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+
         pack.addProvider(ModRecipeProvider.Runner::new);
         pack.addProvider(BlockLootProvider::new);
         pack.addProvider(CustomBlockLootProvider::new);

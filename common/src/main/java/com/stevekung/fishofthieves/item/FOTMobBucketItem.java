@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.CustomModelData;
@@ -25,10 +26,10 @@ import net.minecraft.world.level.material.Fluid;
 
 public class FOTMobBucketItem extends MobBucketItem
 {
-    private final EntityType<?> entityType;
+    private final EntityType<? extends Mob> entityType;
     private final ResourceLocation registryKey;
 
-    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<?> registryKey, Item.Properties properties)
+    public FOTMobBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<?> registryKey, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
@@ -41,7 +42,7 @@ public class FOTMobBucketItem extends MobBucketItem
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(0));
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(0f), List.of(), List.of(), List.of()));
         }
     }
 
@@ -100,7 +101,7 @@ public class FOTMobBucketItem extends MobBucketItem
     private static ItemStack create(Item item, AbstractFishVariant variant)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData()));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)variant.customModelData()), List.of(), List.of(), List.of()));
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(variant.name()).toString()));
         return itemStack;
     }

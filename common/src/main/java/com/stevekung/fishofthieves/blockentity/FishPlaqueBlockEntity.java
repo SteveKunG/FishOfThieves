@@ -71,12 +71,6 @@ public class FishPlaqueBlockEntity extends BlockEntity
         return this.saveWithoutMetadata(provider);
     }
 
-    @Override
-    public boolean onlyOpCanSetNbt()
-    {
-        return true;
-    }
-
     public void setPlaqueData(CompoundTag plaqueData)
     {
         this.plaqueData = plaqueData;

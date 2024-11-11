@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -10,7 +12,6 @@ import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
-
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -29,10 +30,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
-import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.SetCustomModelDataFunction;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -111,6 +109,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private LootItemConditionalFunction.Builder<?> setCustomModelData(int data)
     {
-        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomModelDataFunction(lootItemConditions, ConstantValue.exactly(data)));
+        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomModelDataFunction(lootItemConditions, Optional.of(new ListOperation.StandAlone<>(List.of(ConstantValue.exactly(data)), ListOperation.Append.INSTANCE)), Optional.empty(), Optional.empty(), Optional.empty()));
     }
 }

@@ -15,9 +15,9 @@ import net.minecraft.world.item.component.CustomData;
 
 public class FOTSpawnEggItem extends SpawnEggItem
 {
-    public FOTSpawnEggItem(EntityType<? extends Mob> defaultType, int backgroundColor, int highlightColor, Item.Properties properties)
+    public FOTSpawnEggItem(EntityType<? extends Mob> defaultType, Item.Properties properties)
     {
-        super(defaultType, backgroundColor, highlightColor, properties);
+        super(defaultType, properties);
     }
 
     @Override

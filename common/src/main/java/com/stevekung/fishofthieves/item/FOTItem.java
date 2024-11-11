@@ -60,7 +60,7 @@ public class FOTItem extends Item
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(0));
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(0f), List.of(), List.of(), List.of()));
         }
     }
 
@@ -76,7 +76,7 @@ public class FOTItem extends Item
                 {
                     var customModelData = variant.customModelData();
 
-                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value() == customModelData)
+                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).floats().getFirst() == customModelData)
                     {
                         tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + variant.name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                     }
@@ -99,7 +99,7 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess().lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData())));
+                Util.getRandomSafe(level.registryAccess().lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)variant.customModelData()), List.of(), List.of(), List.of())));
             }
         }
         return itemStack;
@@ -108,7 +108,7 @@ public class FOTItem extends Item
     private static ItemStack create(Item item, int index)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(index));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)index), List.of(), List.of(), List.of()));
         return itemStack;
     }
 }

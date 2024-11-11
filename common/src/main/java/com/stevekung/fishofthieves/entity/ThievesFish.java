@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.entity;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -65,7 +66,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     {
         if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
         {
-            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(this.getVariant().value().customModelData()));
+            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)this.getVariant().value().customModelData()), List.of(), List.of(), List.of()));
         }
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->

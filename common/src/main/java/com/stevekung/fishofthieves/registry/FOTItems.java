@@ -53,16 +53,16 @@ public class FOTItems
     public static final Item WRECKER_BUCKET = item("wrecker_bucket", properties -> new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, properties.stacksTo(1)));
     public static final Item STORMFISH_BUCKET = item("stormfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, properties.stacksTo(1)));
 
-    public static final Item SPLASHTAIL_SPAWN_EGG = item("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, properties));
-    public static final Item PONDIE_SPAWN_EGG = item("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, properties));
-    public static final Item ISLEHOPPER_SPAWN_EGG = item("islehopper_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, properties));
-    public static final Item ANCIENTSCALE_SPAWN_EGG = item("ancientscale_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, properties));
-    public static final Item PLENTIFIN_SPAWN_EGG = item("plentifin_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, properties));
-    public static final Item WILDSPLASH_SPAWN_EGG = item("wildsplash_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, properties));
-    public static final Item DEVILFISH_SPAWN_EGG = item("devilfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, properties));
-    public static final Item BATTLEGILL_SPAWN_EGG = item("battlegill_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, properties));
-    public static final Item WRECKER_SPAWN_EGG = item("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, properties));
-    public static final Item STORMFISH_SPAWN_EGG = item("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, properties));
+    public static final Item SPLASHTAIL_SPAWN_EGG = item("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, properties));
+    public static final Item PONDIE_SPAWN_EGG = item("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, properties));
+    public static final Item ISLEHOPPER_SPAWN_EGG = item("islehopper_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, properties));
+    public static final Item ANCIENTSCALE_SPAWN_EGG = item("ancientscale_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, properties));
+    public static final Item PLENTIFIN_SPAWN_EGG = item("plentifin_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PLENTIFIN, properties));
+    public static final Item WILDSPLASH_SPAWN_EGG = item("wildsplash_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WILDSPLASH, properties));
+    public static final Item DEVILFISH_SPAWN_EGG = item("devilfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.DEVILFISH, properties));
+    public static final Item BATTLEGILL_SPAWN_EGG = item("battlegill_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.BATTLEGILL, properties));
+    public static final Item WRECKER_SPAWN_EGG = item("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, properties));
+    public static final Item STORMFISH_SPAWN_EGG = item("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, properties));
 
     public static void init()
     {

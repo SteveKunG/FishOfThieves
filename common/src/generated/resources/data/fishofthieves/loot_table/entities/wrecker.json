@@ -115,8 +115,13 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 0.0
+              "floats": {
+                "mode": "append",
+                "values": [
+                  0.0
+                ]
+              },
+              "function": "minecraft:set_custom_model_data"
             },
             {
               "conditions": [
@@ -169,8 +174,13 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 1.0
+              "floats": {
+                "mode": "append",
+                "values": [
+                  1.0
+                ]
+              },
+              "function": "minecraft:set_custom_model_data"
             },
             {
               "conditions": [
@@ -223,8 +233,13 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 2.0
+              "floats": {
+                "mode": "append",
+                "values": [
+                  2.0
+                ]
+              },
+              "function": "minecraft:set_custom_model_data"
             },
             {
               "conditions": [
@@ -277,8 +292,13 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 3.0
+              "floats": {
+                "mode": "append",
+                "values": [
+                  3.0
+                ]
+              },
+              "function": "minecraft:set_custom_model_data"
             },
             {
               "conditions": [
@@ -331,8 +351,13 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 4.0
+              "floats": {
+                "mode": "append",
+                "values": [
+                  4.0
+                ]
+              },
+              "function": "minecraft:set_custom_model_data"
             }
           ],
           "name": "fishofthieves:wrecker"
