@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "fishofthieves:block/banana_blossom",
-      "y": 90
-    },
-    "facing=north": {
+    "": {
       "model": "fishofthieves:block/banana_blossom"
-    },
-    "facing=south": {
-      "model": "fishofthieves:block/banana_blossom",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "fishofthieves:block/banana_blossom",
-      "y": 270
     }
   }
 }

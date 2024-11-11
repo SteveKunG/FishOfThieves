@@ -88,6 +88,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
 
         generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTBlocks.BANANA_BLOSSOM.asItem(), ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(FOTBlocks.OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
@@ -145,7 +146,6 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_BOAT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.BANANA_BLOSSOM, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -233,6 +233,8 @@ public class ModelProvider extends FabricModelProvider
         generator.createHangingSign(FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
         this.createBananaShootsPlant(generator);
         this.createBananaBlossom(generator);
+        this.createBananaBlossomPlant(generator);
+        this.createBananaCluster(generator);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -411,6 +413,24 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.BANANA_BLOSSOM;
         generator.skipAutoItemBlock(block);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block)));
+    }
+
+    private void createBananaBlossomPlant(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BANANA_BLOSSOM_PLANT;
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(PropertyDispatch.property(BananaBlossomPlantBlock.HANGING)
+                        .select(true, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_hanging")))
+                        .select(false, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))));
+    }
+
+    private void createBananaCluster(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BANANA_CLUSTER;
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }

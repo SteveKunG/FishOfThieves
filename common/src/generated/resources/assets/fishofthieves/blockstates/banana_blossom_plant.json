@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,hanging=false": {
+      "model": "fishofthieves:block/banana_blossom_plant",
+      "y": 90
+    },
+    "facing=east,hanging=true": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+      "y": 90
+    },
+    "facing=north,hanging=false": {
+      "model": "fishofthieves:block/banana_blossom_plant"
+    },
+    "facing=north,hanging=true": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging"
+    },
+    "facing=south,hanging=false": {
+      "model": "fishofthieves:block/banana_blossom_plant",
+      "y": 180
+    },
+    "facing=south,hanging=true": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+      "y": 180
+    },
+    "facing=west,hanging=false": {
+      "model": "fishofthieves:block/banana_blossom_plant",
+      "y": 270
+    },
+    "facing=west,hanging=true": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+      "y": 270
+    }
+  }
+}
