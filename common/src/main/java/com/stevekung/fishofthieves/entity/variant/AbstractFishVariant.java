@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.entity.variant;
 import java.util.List;
 import java.util.Optional;
 
-import com.mojang.datafixers.util.Function5;
+import com.mojang.datafixers.util.Function4;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -23,8 +23,6 @@ import net.minecraft.world.entity.LivingEntity;
 
 public interface AbstractFishVariant
 {
-    int customModelData();
-
     String name();
 
     ResourceLocation texture();
@@ -37,15 +35,14 @@ public interface AbstractFishVariant
 
     SpawnSettings spawnSettings();
 
-    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function4<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, T> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
-                SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
-                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
+                SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings)
         ).apply(instance, factory));
         //@formatter:on
     }
@@ -66,39 +63,39 @@ public interface AbstractFishVariant
     class RegisterContext<T>
     {
         private final String entityName;
-        private final Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory;
+        private final Function4<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, T> factory;
 
-        RegisterContext(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+        RegisterContext(String entityName, Function4<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, T> factory)
         {
             this.entityName = entityName;
             this.factory = factory;
         }
 
-        public static <T> RegisterContext<T> create(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+        public static <T> RegisterContext<T> create(String entityName, Function4<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition... conditions)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, SpawnCondition... conditions)
         {
-            this.register(context, key, name, customModelData, false, List.of(conditions), List.of());
+            this.register(context, key, name, false, List.of(conditions), List.of());
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
         {
-            this.register(context, key, name, customModelData, false, conditions, fishingOverride);
+            this.register(context, key, name, false, conditions, fishingOverride);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, boolean glow, SpawnCondition... conditions)
         {
-            this.register(context, key, name, customModelData, glow, List.of(conditions), List.of());
+            this.register(context, key, name, glow, List.of(conditions), List.of());
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, boolean glow, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(conditions, fishingOverride.isEmpty() ? Optional.empty() : Optional.of(fishingOverride)), customModelData));
+            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(conditions, fishingOverride.isEmpty() ? Optional.empty() : Optional.of(fishingOverride))));
         }
     }
 
