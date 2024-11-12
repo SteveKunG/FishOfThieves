@@ -1,27 +1,29 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
 	"textures": {
-		"particle": "fishofthieves:block/banana_shoots_plant",
-		"shoot": "fishofthieves:block/banana_shoots_plant"
+		"particle": "fishofthieves:block/banana_shoots",
+		"texture": "fishofthieves:block/banana_shoots"
 	},
 	"elements": [
 		{
-			"from": [4, 0, -7],
-			"to": [20, 16, -7],
-			"rotation": {"angle": -45, "axis": "y", "origin": [4, 0, -7]},
+			"from": [0.8, 0, 3],
+			"to": [15.2, 16, 3],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 3], "rescale": true},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#shoot"},
-				"south": {"uv": [16, 0, 0, 16], "texture": "#shoot"}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"}
 			}
 		},
 		{
-			"from": [12, 0, -7],
-			"to": [12, 16, 9],
-			"rotation": {"angle": -45, "axis": "y", "origin": [12, 0, -7]},
+			"from": [8, 0, -4.2],
+			"to": [8, 16, 10.2],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 3], "rescale": true},
 			"faces": {
-				"east": {"uv": [0, 0, 16, 16], "texture": "#shoot"},
-				"west": {"uv": [16, 0, 0, 16], "texture": "#shoot"}
+				"east": {"uv": [0, 0, 16, 16], "texture": "#texture"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#texture"}
 			}
 		}
 	]

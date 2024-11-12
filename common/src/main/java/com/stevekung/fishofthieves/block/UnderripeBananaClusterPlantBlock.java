@@ -58,11 +58,11 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
 
         if (random.nextFloat() < 0.4f)
         {
-            level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterBlock.HangingType.SMALL_CLUSTER : BananaClusterBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
+            level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterPlantBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterPlantBlock.HangingType.SMALL_CLUSTER : BananaClusterPlantBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
         }
         else
         {
-            level.setBlock(pos, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterBlock.HangingType.SMALL_CLUSTER : BananaClusterBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
+            level.setBlock(pos, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterPlantBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterPlantBlock.HangingType.SMALL_CLUSTER : BananaClusterPlantBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
         }
     }
 

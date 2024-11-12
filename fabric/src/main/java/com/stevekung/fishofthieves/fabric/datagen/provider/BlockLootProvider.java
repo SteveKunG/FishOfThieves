@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -135,9 +134,10 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.COCONUT_WALL_SIGN, FOTItems.COCONUT_SIGN);
         this.dropOther(FOTBlocks.COCONUT_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
         this.dropOther(FOTBlocks.COCONUT_WALL_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
-        this.add(FOTBlocks.BANANA_SHOOTS_PLANT, BlockLootSubProvider::createShearsOnlyDrop);//TODO Add shoots
+        this.add(FOTBlocks.BANANA_SHOOTS_PLANT, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_SHEARS).add(LootItem.lootTableItem(FOTBlocks.BANANA_SHOOTS))));
         this.dropOther(FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.BANANA_BLOSSOM);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
         this.dropOther(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTItems.BANANA);
+        this.dropSelf(FOTBlocks.BANANA_SHOOTS);
     }
 }

@@ -90,6 +90,7 @@ public class ModelProvider extends FabricModelProvider
 
         generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.BANANA_BLOSSOM.asItem(), ModelTemplates.FLAT_ITEM);
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_SHOOTS.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(FOTBlocks.BANANA_SHOOTS)), generator.output);
 
         generator.generateFlatItem(FOTBlocks.OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
@@ -238,6 +239,8 @@ public class ModelProvider extends FabricModelProvider
         this.createUnderripeBananaCluster(generator);
         this.createBananaCluster(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, generator);
         this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, generator);
+        generator.createCrossBlock(FOTBlocks.BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
+        generator.skipAutoItemBlock(FOTBlocks.BANANA_SHOOTS);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -421,12 +424,12 @@ public class ModelProvider extends FabricModelProvider
     {
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                .with(PropertyDispatch.property(BananaClusterBlock.HANGING)
-                        .select(BananaClusterBlock.HangingType.NONE, Variant.variant()
+                .with(PropertyDispatch.property(BananaClusterPlantBlock.HANGING)
+                        .select(BananaClusterPlantBlock.HangingType.NONE, Variant.variant()
                                 .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
-                        .select(BananaClusterBlock.HangingType.SMALL_CLUSTER, Variant.variant()
+                        .select(BananaClusterPlantBlock.HangingType.SMALL_CLUSTER, Variant.variant()
                                 .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_small_cluster")))
-                        .select(BananaClusterBlock.HangingType.STEM, Variant.variant()
+                        .select(BananaClusterPlantBlock.HangingType.STEM, Variant.variant()
                                 .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
                 ));
     }

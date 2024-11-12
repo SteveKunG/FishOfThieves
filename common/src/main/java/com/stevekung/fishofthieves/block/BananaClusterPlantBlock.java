@@ -23,7 +23,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class BananaClusterBlock extends AbstractBananaClusterBlock implements BonemealableBlock
+public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implements BonemealableBlock
 {
     private static final Map<Direction, VoxelShape> SHAPES = Map.of(
             Direction.NORTH, Block.box(2, 0, 0, 14, 16, 12),
@@ -34,7 +34,7 @@ public class BananaClusterBlock extends AbstractBananaClusterBlock implements Bo
 
     public static final EnumProperty<HangingType> HANGING = EnumProperty.create("hanging", HangingType.class);
 
-    public BananaClusterBlock(Properties properties)
+    public BananaClusterPlantBlock(Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, HangingType.NONE).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));

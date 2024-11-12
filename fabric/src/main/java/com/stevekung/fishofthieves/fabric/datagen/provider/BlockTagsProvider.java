@@ -86,5 +86,6 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.GROWABLE_BANANA_STEM);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT).forceAddTag(BlockTags.SAND);
     }
 }

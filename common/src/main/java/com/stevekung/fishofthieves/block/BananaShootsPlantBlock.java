@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
+import java.util.Map;
+
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,7 +13,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -19,7 +20,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 @SuppressWarnings("deprecation")
 public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
 {
-    private static final VoxelShape SHAPE = Block.box(3, 2, -3, 13, 14, 8);
+    private static final Map<Direction, VoxelShape> SHAPES = Map.of(
+            Direction.NORTH, Block.box(3, 0, 0, 13, 13, 8),
+            Direction.WEST, Block.box(0, 0, 3, 8, 13, 13),
+            Direction.SOUTH, Block.box(3, 0, 8, 13, 13, 16),
+            Direction.EAST, Block.box(8, 0, 3, 16, 13, 13)
+    );
 
     public BananaShootsPlantBlock(Properties properties)
     {
@@ -28,16 +34,28 @@ public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
     }
 
     @Override
+    public float getMaxHorizontalOffset()
+    {
+        return 0F;
+    }
+
+    @Override
+    public float getMaxVerticalOffset()
+    {
+        return 0.3F;
+    }
+
+    @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        var blockState = level.getBlockState(pos.relative(state.getValue(FACING)));
-        return blockState.is(FOTTags.Blocks.BANANA_STEMS) && blockState.getValue(BlockStateProperties.AXIS) == Direction.Axis.Y;
+        var blockState = level.getBlockState(pos.below());
+        return blockState.is(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON);
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return SHAPE;
+        return SHAPES.get(state.getValue(FACING));
     }
 
     @Override

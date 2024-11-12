@@ -83,9 +83,9 @@ public class GrowableBananaBunchStemBlock extends BananaStemBlock implements Bon
 
                 if (blockStateBelow.isAir())
                 {
-                    if (banana.hasProperty(BananaClusterBlock.HANGING))
+                    if (banana.hasProperty(BananaClusterPlantBlock.HANGING))
                     {
-                        banana = banana.setValue(BananaClusterBlock.HANGING, yOffset == 0 ? BananaClusterBlock.HangingType.STEM : BananaClusterBlock.HangingType.NONE);
+                        banana = banana.setValue(BananaClusterPlantBlock.HANGING, yOffset == 0 ? BananaClusterPlantBlock.HangingType.STEM : BananaClusterPlantBlock.HangingType.NONE);
                     }
                     else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
                     {
@@ -93,7 +93,7 @@ public class GrowableBananaBunchStemBlock extends BananaStemBlock implements Bon
                         isSmallCluster = true;
                     }
 
-                    level.setBlock(pos.below(i).relative(direction), banana.setValue(BananaClusterBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
+                    level.setBlock(pos.below(i).relative(direction), banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
                     yOffset++;
                 }
                 else

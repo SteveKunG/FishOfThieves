@@ -87,6 +87,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.COCONUT_FRONDS);
         output.accept(FOTBlocks.BANANA_STEM);
         output.accept(FOTBlocks.BANANA_LEAVES);
+        output.accept(FOTBlocks.BANANA_SHOOTS);
+        output.accept(FOTBlocks.BANANA_BLOSSOM);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 

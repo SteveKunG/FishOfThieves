@@ -51,6 +51,7 @@ public interface FOTTags
         TagKey<Block> SMALL_COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("small_coconut_logs"));
         TagKey<Block> BANANA_STEMS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_stems"));
         TagKey<Block> BANANA_CLUSTERS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_clusters"));
+        TagKey<Block> BANANA_SHOOTS_PLACEABLE_ON = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_shoots_placeable_on"));
     }
 
     interface EntityTypes
