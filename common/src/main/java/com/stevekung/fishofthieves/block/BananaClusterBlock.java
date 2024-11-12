@@ -41,6 +41,21 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     }
 
     @Override
+    public boolean isRandomlyTicking(BlockState state)
+    {
+        return this.type == Type.BARELY_RIPE;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (!level.isRaining() && level.canSeeSky(pos) && random.nextInt(5) == 0)
+        {
+            this.growBarelyCluster(level, pos);
+        }
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         var fluidState = context.getLevel().getFluidState(context.getClickedPos());
@@ -66,7 +81,7 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return this.type != Type.RIPE;
+        return this.type == Type.BARELY_RIPE;
     }
 
     @Override
@@ -78,12 +93,12 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
     {
-        //        var fluidState = level.getFluidState(pos);
-        //
-        //        if (state.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT))
-        //        {
-        //            level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HANGING, state.getValue(HANGING)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
-        //        }
+        this.growBarelyCluster(level, pos);
+    }
+
+    private void growBarelyCluster(ServerLevel level, BlockPos pos)
+    {
+        level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER.defaultBlockState().setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER), Block.UPDATE_ALL);
     }
 
     @Override

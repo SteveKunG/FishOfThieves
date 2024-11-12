@@ -143,7 +143,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.BANANA_BLOSSOM);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
 
-        this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, block -> createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
+        this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 8.0F)))
                 .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))
                 .apply(LimitCount.limitCount(IntRange.upperBound(9))))));

@@ -29,6 +29,6 @@ public class FOTFoodProperties
     public static final FoodProperties COOKED_WRECKER = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).build();
     public static final FoodProperties COOKED_STORMFISH = new FoodProperties.Builder().nutrition(6).saturationMod(0.65f).build();
 
-    public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
-    public static final FoodProperties BANANA = new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).build();
+    public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(3).saturationMod(0.125f).build();
+    public static final FoodProperties BANANA = new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build();
 }
