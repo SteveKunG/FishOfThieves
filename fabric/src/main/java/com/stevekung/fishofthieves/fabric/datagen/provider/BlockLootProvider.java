@@ -138,6 +138,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.BANANA_SHOOTS_PLANT, BlockLootSubProvider::createShearsOnlyDrop);//TODO Add shoots
         this.dropOther(FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.BANANA_BLOSSOM);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
-        this.dropOther(FOTBlocks.BANANA_CLUSTER, FOTItems.BANANA);
+        this.dropOther(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTItems.BANANA);
     }
 }

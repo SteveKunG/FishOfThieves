@@ -84,5 +84,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_STEMS).add(FOTBlocks.BANANA_STEM, FOTBlocks.TOP_BANANA_STEM,
                 FOTBlocks.GROWABLE_BANANA_STEM);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
+                FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);
     }
 }

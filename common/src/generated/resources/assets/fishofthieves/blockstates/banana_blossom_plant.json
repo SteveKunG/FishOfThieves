@@ -1,33 +1,48 @@
 {
   "variants": {
-    "facing=east,hanging=false": {
-      "model": "fishofthieves:block/banana_blossom_plant",
+    "facing=east,hanging=cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_cluster",
       "y": 90
     },
-    "facing=east,hanging=true": {
-      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+    "facing=east,hanging=small_cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_small_cluster",
       "y": 90
     },
-    "facing=north,hanging=false": {
-      "model": "fishofthieves:block/banana_blossom_plant"
+    "facing=east,hanging=stem": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_stem",
+      "y": 90
     },
-    "facing=north,hanging=true": {
-      "model": "fishofthieves:block/banana_blossom_plant_hanging"
+    "facing=north,hanging=cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_cluster"
     },
-    "facing=south,hanging=false": {
-      "model": "fishofthieves:block/banana_blossom_plant",
+    "facing=north,hanging=small_cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_small_cluster"
+    },
+    "facing=north,hanging=stem": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_stem"
+    },
+    "facing=south,hanging=cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_cluster",
       "y": 180
     },
-    "facing=south,hanging=true": {
-      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+    "facing=south,hanging=small_cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_small_cluster",
       "y": 180
     },
-    "facing=west,hanging=false": {
-      "model": "fishofthieves:block/banana_blossom_plant",
+    "facing=south,hanging=stem": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_stem",
+      "y": 180
+    },
+    "facing=west,hanging=cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_cluster",
       "y": 270
     },
-    "facing=west,hanging=true": {
-      "model": "fishofthieves:block/banana_blossom_plant_hanging",
+    "facing=west,hanging=small_cluster": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_small_cluster",
+      "y": 270
+    },
+    "facing=west,hanging=stem": {
+      "model": "fishofthieves:block/banana_blossom_plant_hanging_stem",
       "y": 270
     }
   }

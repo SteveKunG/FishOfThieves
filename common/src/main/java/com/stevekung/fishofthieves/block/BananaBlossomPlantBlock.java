@@ -3,9 +3,11 @@ package com.stevekung.fishofthieves.block;
 import java.util.Map;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -13,8 +15,8 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -30,12 +32,12 @@ public class BananaBlossomPlantBlock extends BananaBlossomBlock
             Direction.EAST, Shapes.join(Block.box(8.5, 9, 6.5, 11.5, 11, 9.5), Block.box(7.5, 11, 5.5, 12.5, 16, 10.5), BooleanOp.OR)
     );
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+    public static final EnumProperty<BananaHangingType> HANGING = EnumProperty.create("hanging", BananaHangingType.class);
 
     public BananaBlossomPlantBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(HANGING, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false).setValue(HANGING, BananaHangingType.STEM));
     }
 
     @Override
@@ -47,7 +49,17 @@ public class BananaBlossomPlantBlock extends BananaBlossomBlock
         {
             return blockState.getValue(BananaLeavesBlock.TYPE) == BananaLeavesBlock.Type.UPPER;
         }
-        return blockState.is(FOTBlocks.BANANA_CLUSTER);
+        return blockState.is(FOTTags.Blocks.BANANA_CLUSTERS);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    {
+        if (direction == Direction.UP && (neighborState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT) || neighborState.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT)))
+        {
+            return state.setValue(HANGING, BananaHangingType.CLUSTER);
+        }
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override

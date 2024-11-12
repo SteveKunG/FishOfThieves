@@ -42,7 +42,7 @@ public class GrowableBananaBunchStemBlock extends BananaStemBlock implements Bon
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
         return true;
-//        return random.nextInt(5) == 0;
+        //        return random.nextInt(5) == 0;
     }
 
     @Override
@@ -71,21 +71,40 @@ public class GrowableBananaBunchStemBlock extends BananaStemBlock implements Bon
     {
         Function<BlockPos, Boolean> isWater = blockPos -> level.getFluidState(blockPos).getType() == Fluids.WATER;
         var yOffset = 0;
+        var isSmallCluster = false;
 
         if (random.nextBoolean())
         {
-            for (var i = 0; i < 1 + random.nextInt(3); i++)
+            var banana = random.nextFloat() < 0.2f ? FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : random.nextFloat() < 0.4f ? FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState();
+
+            for (var i = 0; i < 1 + random.nextInt(3) && level.getBlockState(pos.below().relative(direction)).isAir(); i++)
             {
                 var blockStateBelow = level.getBlockState(pos.below(i).relative(direction));
 
-                if (!blockStateBelow.isAir())
+                if (blockStateBelow.isAir())
                 {
-                    continue;
+                    if (banana.hasProperty(BananaClusterBlock.HANGING))
+                    {
+                        banana = banana.setValue(BananaClusterBlock.HANGING, yOffset == 0 ? BananaClusterBlock.HangingType.STEM : BananaClusterBlock.HangingType.NONE);
+                    }
+                    else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
+                    {
+                        banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, yOffset == 0 ? BananaHangingType.STEM : BananaHangingType.SMALL_CLUSTER);
+                        isSmallCluster = true;
+                    }
+
+                    level.setBlock(pos.below(i).relative(direction), banana.setValue(BananaClusterBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
+                    yOffset++;
                 }
-                level.setBlock(pos.below(i).relative(direction), FOTBlocks.BANANA_CLUSTER.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
-                yOffset++;
+                else
+                {
+                    break;
+                }
             }
         }
-        level.setBlock(pos.below(yOffset).relative(direction), FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite()).setValue(BananaBlossomPlantBlock.HANGING, yOffset == 0).setValue(BananaBlossomPlantBlock.WATERLOGGED, isWater.apply(pos.below(yOffset).relative(direction))), Block.UPDATE_CLIENTS);
+        if (level.getBlockState(pos.below(yOffset).relative(direction)).isAir())
+        {
+            level.setBlock(pos.below(yOffset).relative(direction), FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite()).setValue(BananaBlossomPlantBlock.HANGING, yOffset == 0 ? BananaHangingType.STEM : isSmallCluster ? BananaHangingType.SMALL_CLUSTER : BananaHangingType.CLUSTER).setValue(BananaBlossomPlantBlock.WATERLOGGED, isWater.apply(pos.below(yOffset).relative(direction))), Block.UPDATE_CLIENTS);
+        }
     }
 }

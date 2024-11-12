@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"stem": "fishofthieves:block/banana_cluster_stem",
-		"top": "fishofthieves:block/banana_cluster_top",
-		"particle": "fishofthieves:block/banana_cluster_side",
-		"side": "fishofthieves:block/banana_cluster_side",
-		"bottom": "fishofthieves:block/banana_cluster_bottom"
+		"top": "fishofthieves:block/barely_ripe_banana_cluster_top",
+		"particle": "fishofthieves:block/barely_ripe_banana_cluster_side",
+		"side": "fishofthieves:block/barely_ripe_banana_cluster_side",
+		"bottom": "fishofthieves:block/barely_ripe_banana_cluster_bottom"
 	},
 	"elements": [
 		{

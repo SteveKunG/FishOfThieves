@@ -97,7 +97,9 @@ public class FOTBlocks
     public static final Block BANANA_SHOOTS_PLANT = new BananaShootsPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.SMALL_DRIPLEAF).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_BLOSSOM = new BananaBlossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_BLOSSOM_PLANT = new BananaBlossomPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
-    public static final Block BANANA_CLUSTER = new BananaClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block UNDERRIPE_BANANA_CLUSTER_PLANT = new UnderripeBananaClusterPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BARELY_RIPE_BANANA_CLUSTER_PLANT = new BananaClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block RIPE_BANANA_CLUSTER_PLANT = new BananaClusterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -198,7 +200,9 @@ public class FOTBlocks
         register("banana_shoots_plant", BANANA_SHOOTS_PLANT);
         register("banana_blossom", BANANA_BLOSSOM);
         registerNoItem("banana_blossom_plant", BANANA_BLOSSOM_PLANT);
-        registerNoItem("banana_cluster", BANANA_CLUSTER);
+        registerNoItem("underripe_banana_cluster_plant", UNDERRIPE_BANANA_CLUSTER_PLANT);
+        registerNoItem("barely_ripe_banana_cluster_plant", BARELY_RIPE_BANANA_CLUSTER_PLANT);
+        registerNoItem("ripe_banana_cluster_plant", RIPE_BANANA_CLUSTER_PLANT);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);

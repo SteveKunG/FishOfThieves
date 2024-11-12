@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -234,7 +235,9 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaShootsPlant(generator);
         this.createBananaBlossom(generator);
         this.createBananaBlossomPlant(generator);
-        this.createBananaCluster(generator);
+        this.createUnderripeBananaCluster(generator);
+        this.createBananaCluster(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, generator);
+        this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, generator);
     }
 
     private void createBananaStem(BlockModelGenerators generator)
@@ -376,14 +379,8 @@ public class ModelProvider extends FabricModelProvider
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(BlockModelGenerators.createHorizontalFacingDispatchAlt())
                 .with(PropertyDispatch.property(CoconutFrondsBlock.PART)
-                        .select(CoconutFrondsBlock.Part.STEM, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
-                        .select(CoconutFrondsBlock.Part.MIDDLE, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_middle")))
-                        .select(CoconutFrondsBlock.Part.TAIL, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail")))
-                        .select(CoconutFrondsBlock.Part.SINGLE, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_single")))));
+                        .generate(part -> Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_" + part.name().toLowerCase(Locale.ROOT))))));
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_single")), generator.modelOutput);
     }
 
@@ -391,14 +388,9 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.COCONUT_FRUIT;
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
                 .with(PropertyDispatch.property(CoconutFruitBlock.AGE)
-                        .select(0, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_0")))
-                        .select(1, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_1")))
-                        .select(2, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_2"))))
-                .with(BlockModelGenerators.createHorizontalFacingDispatch()));
+                        .generate(age -> Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stage_" + age)))));
     }
 
     private void createBananaShootsPlant(BlockModelGenerators generator)
@@ -422,17 +414,36 @@ public class ModelProvider extends FabricModelProvider
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch())
                 .with(PropertyDispatch.property(BananaBlossomPlantBlock.HANGING)
-                        .select(true, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_hanging")))
-                        .select(false, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))));
+                        .generate(hanging -> Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_hanging_" + hanging.getSerializedName())))));
     }
 
-    private void createBananaCluster(BlockModelGenerators generator)
+    private void createBananaCluster(Block block, BlockModelGenerators generator)
     {
-        var block = FOTBlocks.BANANA_CLUSTER;
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
-                .with(BlockModelGenerators.createHorizontalFacingDispatch()));
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(PropertyDispatch.property(BananaClusterBlock.HANGING)
+                        .select(BananaClusterBlock.HangingType.NONE, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
+                        .select(BananaClusterBlock.HangingType.SMALL_CLUSTER, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_small_cluster")))
+                        .select(BananaClusterBlock.HangingType.STEM, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
+                ));
+    }
+
+    private void createUnderripeBananaCluster(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT;
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(PropertyDispatch.property(UnderripeBananaClusterPlantBlock.HANGING)
+                        .select(BananaHangingType.CLUSTER, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
+                        .select(BananaHangingType.SMALL_CLUSTER, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_small_cluster")))
+                        .select(BananaHangingType.STEM, Variant.variant()
+                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
+                ));
     }
 
     private void createFishPlaque(Block block, Block planks, ModelTemplate template, BlockModelGenerators generator)

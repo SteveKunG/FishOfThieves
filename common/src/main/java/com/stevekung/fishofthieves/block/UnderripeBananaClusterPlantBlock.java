@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import java.util.Locale;
 import java.util.Map;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
@@ -8,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -23,27 +21,27 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class BananaClusterBlock extends AbstractBananaClusterBlock implements BonemealableBlock
+public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock implements BonemealableBlock
 {
-    private static final Map<Direction, VoxelShape> SHAPES = Map.of(
-            Direction.NORTH, Block.box(2, 0, 0, 14, 16, 12),
-            Direction.WEST, Block.box(0, 0, 2, 12, 16, 14),
-            Direction.SOUTH, Block.box(2, 0, 4, 14, 16, 16),
-            Direction.EAST, Block.box(4, 0, 2, 16, 16, 14)
+    private static final Map<Direction, VoxelShape> UNDERRIPE_SHAPES = Map.of(
+            Direction.NORTH, Block.box(4, 4, 2, 12, 16, 10),
+            Direction.WEST, Block.box(2, 4, 4, 10, 16, 12),
+            Direction.SOUTH, Block.box(4, 4, 6, 12, 16, 14),
+            Direction.EAST, Block.box(6, 4, 4, 14, 16, 12)
     );
 
-    public static final EnumProperty<HangingType> HANGING = EnumProperty.create("hanging", HangingType.class);
+    public static final EnumProperty<BananaHangingType> HANGING = EnumProperty.create("hanging", BananaHangingType.class);
 
-    public BananaClusterBlock(Properties properties)
+    public UnderripeBananaClusterPlantBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, HangingType.NONE).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.STEM).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return state.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT);
+        return true;
     }
 
     @Override
@@ -56,10 +54,15 @@ public class BananaClusterBlock extends AbstractBananaClusterBlock implements Bo
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
     {
         var fluidState = level.getFluidState(pos);
+        var otherCluster = level.getBlockState(pos.above());
 
-        if (state.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT))
+        if (random.nextFloat() < 0.4f)
         {
-            level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HANGING, state.getValue(HANGING)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
+            level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterBlock.HangingType.SMALL_CLUSTER : BananaClusterBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
+        }
+        else
+        {
+            level.setBlock(pos, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterBlock.HangingType.SMALL_CLUSTER : BananaClusterBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
         }
     }
 
@@ -68,37 +71,20 @@ public class BananaClusterBlock extends AbstractBananaClusterBlock implements Bo
     {
         if (direction == Direction.UP && (neighborState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT) || neighborState.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT)))
         {
-            return state.getValue(HANGING) == HangingType.STEM ? state : state.setValue(HANGING, HangingType.NONE);
+            return state.setValue(HANGING, BananaHangingType.CLUSTER);
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
-    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
-    {
-        return adjacentState.is(this) && direction.getAxis().isVertical();
-    }
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return SHAPES.get(state.getValue(FACING));
+        return UNDERRIPE_SHAPES.get(state.getValue(FACING));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(FACING, HANGING, WATERLOGGED);
-    }
-
-    public enum HangingType implements StringRepresentable
-    {
-        NONE, SMALL_CLUSTER, STEM;
-
-        @Override
-        public String getSerializedName()
-        {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
     }
 }
