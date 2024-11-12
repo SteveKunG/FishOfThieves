@@ -45,6 +45,9 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(FOTBlocks.COCONUT_WALL_HANGING_SIGN);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS).add(FOTBlocks.COCONUT_TRAPDOOR);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_DOORS).add(FOTBlocks.COCONUT_DOOR);
+        this.getOrCreateTagBuilder(BlockTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING, FOTBlocks.BANANA_SHOOTS);
+        this.getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).add(FOTBlocks.BANANA_BLOSSOM);
+
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
         this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
         this.getOrCreateTagBuilder(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON).forceAddTag(BlockTags.CRYSTAL_SOUND_BLOCKS);

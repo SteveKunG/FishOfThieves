@@ -41,6 +41,19 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);
         this.getOrCreateTagBuilder(ItemTags.WOODEN_DOORS).add(FOTItems.COCONUT_DOOR);
         this.getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS).add(FOTBlocks.COCONUT_TRAPDOOR.asItem());
+        this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
+        this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
+        this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS.asItem(), FOTBlocks.BANANA_LEAVES.asItem());
+        this.getOrCreateTagBuilder(ItemTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS).add(FOTBlocks.COCONUT_STAIRS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).add(FOTBlocks.COCONUT_SLAB.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTBlocks.COCONUT_FENCE_GATE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
+        this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
+        this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING.asItem(), FOTBlocks.BANANA_SHOOTS.asItem());
 
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);
@@ -58,19 +71,6 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);
-
-        this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
-        this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
-        this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS.asItem(), FOTBlocks.BANANA_LEAVES.asItem());
-        this.getOrCreateTagBuilder(ItemTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS).add(FOTBlocks.COCONUT_STAIRS.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).add(FOTBlocks.COCONUT_SLAB.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE.asItem());
-        this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTBlocks.COCONUT_FENCE_GATE.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
-        this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
-        this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
