@@ -40,6 +40,15 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     }
 
     @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (BananaClusterBlock.canClusterPlantGrow(level, pos) && random.nextInt(15) == 0)
+        {
+            this.growBananaCluster(level, random, pos, state);
+        }
+    }
+
+    @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
         return true;
@@ -48,11 +57,16 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
-        return true;
+        return random.nextInt(8) == 0;
     }
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        this.growBananaCluster(level, random, pos, state);
+    }
+
+    private void growBananaCluster(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
     {
         var fluidState = level.getFluidState(pos);
         var otherCluster = level.getBlockState(pos.above());

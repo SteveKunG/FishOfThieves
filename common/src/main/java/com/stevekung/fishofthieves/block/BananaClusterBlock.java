@@ -49,7 +49,7 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (!level.isRaining() && level.canSeeSky(pos) && random.nextInt(5) == 0)
+        if (BananaClusterBlock.canClusterGrow(level) && random.nextInt(5) == 0)
         {
             this.growBarelyCluster(level, pos);
         }
@@ -87,7 +87,7 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
-        return true;
+        return random.nextInt(6) == 0;
     }
 
     @Override
@@ -127,6 +127,16 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
+    }
+
+    public static boolean canClusterGrow(Level level)
+    {
+        return !level.isRaining();
+    }
+
+    public static boolean canClusterPlantGrow(Level level, BlockPos blockPos)
+    {
+        return level.isRaining() && level.isDay() && level.canSeeSky(blockPos);
     }
 
     public enum Type

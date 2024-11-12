@@ -22,7 +22,7 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.isRaining() && random.nextInt(20) == 0)
+        if (level.isRaining() && random.nextInt(10) == 0)
         {
             this.growBananaShoots(level, random, pos);
         }
@@ -37,7 +37,7 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
-        return random.nextInt(6) == 0;
+        return random.nextInt(3) == 0;
     }
 
     @Override
