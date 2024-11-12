@@ -21,6 +21,7 @@
     "animal.MixinCat",
     "animal.MixinChicken",
     "animal.MixinOcelot",
+    "animal.MixinPig",
     "datafix.MixinDataFixers",
     "entity.MixinBoat",
     "entity.MixinBoat$BoatType",
