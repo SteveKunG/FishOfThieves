@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -33,10 +34,12 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     );
 
     public static final EnumProperty<HangingType> HANGING = EnumProperty.create("hanging", HangingType.class);
+    private final BananaClusterBlock.Type type;
 
-    public BananaClusterPlantBlock(Properties properties)
+    public BananaClusterPlantBlock(BananaClusterBlock.Type type, Properties properties)
     {
         super(properties);
+        this.type = type;
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, HangingType.NONE).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
@@ -61,6 +64,12 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
         {
             level.setBlock(pos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HANGING, state.getValue(HANGING)).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
         }
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
+    {
+        return new ItemStack(this.type.block().get());
     }
 
     @Override

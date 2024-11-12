@@ -237,8 +237,11 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaBlossom(generator);
         this.createBananaBlossomPlant(generator);
         this.createUnderripeBananaCluster(generator);
-        this.createBananaCluster(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, generator);
-        this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, ModelLocationUtils.getModelLocation(FOTBlocks.UNDERRIPE_BANANA_CLUSTER)));
+        this.createBananaCluster(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
+        this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER, generator);
+        this.createBananaClusterPlant(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
+        this.createBananaClusterPlant(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER, generator);
         generator.createCrossBlock(FOTBlocks.BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
         generator.skipAutoItemBlock(FOTBlocks.BANANA_SHOOTS);
     }
@@ -422,15 +425,27 @@ public class ModelProvider extends FabricModelProvider
 
     private void createBananaCluster(Block block, BlockModelGenerators generator)
     {
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
+        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(block, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(block, "_bottom"));
+        var normalCluster = FOTModelTemplates.BANANA_CLUSTER.create(block, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, normalCluster));
+    }
+
+    private void createBananaClusterPlant(Block block, Block base, BlockModelGenerators generator)
+    {
+        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(base, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(base, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(base, "_bottom"));
+        var normalCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT.create(block, textureMapping, generator.modelOutput);
+        var smallCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT_SMALL_CLUSTER.create(ModelLocationUtils.getModelLocation(block, "_small_cluster"), textureMapping, generator.modelOutput);
+        var stemCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT_STEM.create(ModelLocationUtils.getModelLocation(block, "_stem"), textureMapping, generator.modelOutput);
+
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(BlockModelGenerators.createHorizontalFacingDispatch())
                 .with(PropertyDispatch.property(BananaClusterPlantBlock.HANGING)
                         .select(BananaClusterPlantBlock.HangingType.NONE, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
+                                .with(VariantProperties.MODEL, normalCluster))
                         .select(BananaClusterPlantBlock.HangingType.SMALL_CLUSTER, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_small_cluster")))
+                                .with(VariantProperties.MODEL, smallCluster))
                         .select(BananaClusterPlantBlock.HangingType.STEM, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
+                                .with(VariantProperties.MODEL, stemCluster))
                 ));
     }
 

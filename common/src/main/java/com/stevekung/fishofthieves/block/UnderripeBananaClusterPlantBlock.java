@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -64,6 +65,12 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
         {
             level.setBlock(pos, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.HANGING, state.getValue(HANGING) == BananaHangingType.STEM ? BananaClusterPlantBlock.HangingType.STEM : otherCluster.is(this) ? BananaClusterPlantBlock.HangingType.SMALL_CLUSTER : BananaClusterPlantBlock.HangingType.NONE).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
         }
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
+    {
+        return new ItemStack(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
     }
 
     @Override

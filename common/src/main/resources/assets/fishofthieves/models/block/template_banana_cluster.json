@@ -1,16 +1,14 @@
 {
 	"credit": "Made with Blockbench",
+    "parent": "block/block",
 	"textures": {
-		"top": "fishofthieves:block/barely_ripe_banana_cluster_top",
-		"particle": "fishofthieves:block/barely_ripe_banana_cluster_side",
-		"side": "fishofthieves:block/barely_ripe_banana_cluster_side",
-		"bottom": "fishofthieves:block/barely_ripe_banana_cluster_bottom"
+		"particle": "#side"
 	},
 	"elements": [
 		{
-			"from": [2, 0, 0],
-			"to": [14, 16, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [3, -1, 0]},
+			"from": [2, 0, 2],
+			"to": [14, 16, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, -1, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 12, 16], "texture": "#side", "cullface": "north"},
 				"east": {"uv": [0, 0, 12, 16], "texture": "#side"},

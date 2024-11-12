@@ -89,6 +89,9 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.BANANA_LEAVES);
         output.accept(FOTBlocks.BANANA_SHOOTS);
         output.accept(FOTBlocks.BANANA_BLOSSOM);
+        output.accept(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        output.accept(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        output.accept(FOTBlocks.RIPE_BANANA_CLUSTER);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 

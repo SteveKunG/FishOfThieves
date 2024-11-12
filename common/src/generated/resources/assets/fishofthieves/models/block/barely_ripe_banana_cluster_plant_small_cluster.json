@@ -1,0 +1,8 @@
+{
+  "parent": "fishofthieves:block/template_banana_cluster_plant_small_cluster",
+  "textures": {
+    "bottom": "fishofthieves:block/barely_ripe_banana_cluster_bottom",
+    "side": "fishofthieves:block/barely_ripe_banana_cluster_side",
+    "top": "fishofthieves:block/barely_ripe_banana_cluster_top"
+  }
+}

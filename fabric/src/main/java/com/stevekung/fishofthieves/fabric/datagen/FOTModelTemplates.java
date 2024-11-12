@@ -15,6 +15,10 @@ public class FOTModelTemplates
     public static final ModelTemplate GILDED_FISH_PLAQUE = create("template_gilded_fish_plaque", PLANKS);
     public static final ModelTemplate SMALL_LOG = create("template_small_log", TextureSlot.TOP, TextureSlot.END, TextureSlot.SIDE);
     public static final ModelTemplate MEDIUM_LOG = create("template_medium_log", TextureSlot.END, TextureSlot.SIDE);
+    public static final ModelTemplate BANANA_CLUSTER = create("template_banana_cluster", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
+    public static final ModelTemplate BANANA_CLUSTER_PLANT = create("template_banana_cluster_plant", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
+    public static final ModelTemplate BANANA_CLUSTER_PLANT_SMALL_CLUSTER = create("template_banana_cluster_plant_small_cluster", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
+    public static final ModelTemplate BANANA_CLUSTER_PLANT_STEM = create("template_banana_cluster_plant_stem", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
