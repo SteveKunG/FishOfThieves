@@ -9,9 +9,13 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -134,10 +138,22 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.COCONUT_WALL_SIGN, FOTItems.COCONUT_SIGN);
         this.dropOther(FOTBlocks.COCONUT_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
         this.dropOther(FOTBlocks.COCONUT_WALL_HANGING_SIGN, FOTItems.COCONUT_HANGING_SIGN);
-        this.add(FOTBlocks.BANANA_SHOOTS_PLANT, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_SHEARS).add(LootItem.lootTableItem(FOTBlocks.BANANA_SHOOTS))));
+        this.dropOther(FOTBlocks.BANANA_SHOOTS_PLANT, FOTBlocks.BANANA_SHOOTS);
+        this.dropSelf(FOTBlocks.BANANA_SHOOTS);
         this.dropOther(FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.BANANA_BLOSSOM);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
-        this.dropOther(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTItems.BANANA);
-        this.dropSelf(FOTBlocks.BANANA_SHOOTS);
+
+        this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, block -> createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 8.0F)))
+                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))
+                .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
+        this.add(FOTBlocks.RIPE_BANANA_CLUSTER, block -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(FOTItems.BANANA)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 8.0F)))
+                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))
+                .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
+        this.dropWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        this.dropWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.otherWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        this.otherWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
     }
 }

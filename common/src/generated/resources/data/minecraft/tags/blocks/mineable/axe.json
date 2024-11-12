@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "#fishofthieves:fish_plaque",
+    "#fishofthieves:banana_cluster_plants",
+    "#fishofthieves:banana_clusters",
     "fishofthieves:coconut_fruit"
   ]
 }

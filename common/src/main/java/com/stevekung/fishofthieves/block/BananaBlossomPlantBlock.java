@@ -49,7 +49,7 @@ public class BananaBlossomPlantBlock extends BananaBlossomBlock
         {
             return blockState.getValue(BananaLeavesBlock.TYPE) == BananaLeavesBlock.Type.UPPER;
         }
-        return blockState.is(FOTTags.Blocks.BANANA_CLUSTERS);
+        return blockState.is(FOTTags.Blocks.BANANA_CLUSTER_PLANTS);
     }
 
     @Override

@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "fishofthieves:ripe_banana_cluster_plant",
-    "fishofthieves:barely_ripe_banana_cluster_plant",
-    "fishofthieves:underripe_banana_cluster_plant"
+    "fishofthieves:ripe_banana_cluster",
+    "fishofthieves:barely_ripe_banana_cluster",
+    "fishofthieves:underripe_banana_cluster"
   ]
 }
