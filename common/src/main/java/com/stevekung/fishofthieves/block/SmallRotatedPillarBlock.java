@@ -1,8 +1,11 @@
 package com.stevekung.fishofthieves.block;
 
+import java.util.function.Supplier;
+
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -25,10 +28,18 @@ public class SmallRotatedPillarBlock extends RotatedPillarBlock implements Simpl
     private static final VoxelShape SHAPE_HORIZONTAL_NS = Block.box(2, 2, 0, 14, 14, 16);
     private static final VoxelShape SHAPE_HORIZONTAL_WE = Block.box(0, 2, 2, 16, 14, 14);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    private Supplier<Block> supplier;
 
     public SmallRotatedPillarBlock(Properties properties)
     {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
+    }
+
+    public SmallRotatedPillarBlock(Supplier<Block> supplier, Properties properties)
+    {
+        super(properties);
+        this.supplier = supplier;
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
     }
 
@@ -43,6 +54,12 @@ public class SmallRotatedPillarBlock extends RotatedPillarBlock implements Simpl
     {
         var fluidState = context.getLevel().getFluidState(context.getClickedPos());
         return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
+    {
+        return this.supplier != null ? new ItemStack(this.supplier.get()) : super.getCloneItemStack(level, pos, state);
     }
 
     @Override
