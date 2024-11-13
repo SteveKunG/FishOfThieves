@@ -14,9 +14,9 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 public class CoconutDecorator extends TreeDecorator
 {
     public static final Codec<CoconutDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(attachedToLeavesDecorator -> attachedToLeavesDecorator.probability),
-                    Codec.floatRange(0.0F, 1.0F).fieldOf("coconut_probability").forGetter(attachedToLeavesDecorator -> attachedToLeavesDecorator.coconutProbability),
-                    Codec.intRange(0, 16).fieldOf("y_to_grow_coconut_at").forGetter(attachedToLeavesDecorator -> attachedToLeavesDecorator.yToGrowCoconutAt))
+                    Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(decorator -> decorator.probability),
+                    Codec.floatRange(0.0F, 1.0F).fieldOf("coconut_probability").forGetter(decorator -> decorator.coconutProbability),
+                    Codec.intRange(0, 16).fieldOf("y_to_grow_coconut_at").forGetter(decorator -> decorator.yToGrowCoconutAt))
             .apply(instance, CoconutDecorator::new));
     private final float probability;
     private final float coconutProbability;

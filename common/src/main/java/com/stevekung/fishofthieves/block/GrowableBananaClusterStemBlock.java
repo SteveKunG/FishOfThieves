@@ -70,13 +70,11 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
 
     private void growRandomBananaCluster(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> this.canGrowBananaBunch(level, pos, direction)).findFirst().ifPresent(direction -> this.setClusterOrBlossomBlockRandomly(direction, level, random, pos.below()));
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> this.canGrowBananaBunch(level, pos, direction)).findFirst().ifPresent(direction -> this.growBananaBlossomOrCluster(direction, level, random, pos.below().relative(direction)));
     }
 
-    private void setClusterOrBlossomBlockRandomly(Direction direction, ServerLevel level, RandomSource random, BlockPos pos)
+    private void growBananaBlossomOrCluster(Direction direction, ServerLevel level, RandomSource random, BlockPos pos)
     {
-        pos = pos.relative(direction);
-
         Function<BlockPos, Boolean> isWater = blockPos -> level.getFluidState(blockPos).getType() == Fluids.WATER;
         var maxY = this.findMaxYBelow(level, pos);
         var isSmallCluster = false;

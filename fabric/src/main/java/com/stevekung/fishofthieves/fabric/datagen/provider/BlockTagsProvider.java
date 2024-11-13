@@ -96,6 +96,6 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlocks.RIPE_BANANA_CLUSTER, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
-        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT).forceAddTag(BlockTags.SAND);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT);
     }
 }
