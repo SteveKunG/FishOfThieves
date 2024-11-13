@@ -39,7 +39,7 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().canSurvive(level, pos) && level.getBlockState(pos.relative(direction)).isAir());
+        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().canSurvive(level, pos.relative(direction)) && level.getBlockState(pos.relative(direction)).isAir());
     }
 
     @Override
