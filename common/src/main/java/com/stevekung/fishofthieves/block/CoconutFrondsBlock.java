@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.client.AngledLeavesComponent;
+import com.stevekung.fishofthieves.utils.ParticleUtils;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
@@ -9,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -155,35 +155,37 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         {
             if (random.nextInt(8) == 0)
             {
-                if (state.getValue(PART) == Part.MIDDLE)
-                {
-                    var blockPos = pos.below();
-                    var blockState = level.getBlockState(blockPos);
+                var direction = state.getValue(FACING);
 
-                    if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
+                switch (state.getValue(PART))
+                {
+                    case MIDDLE ->
                     {
-                        var x = pos.getX() + random.nextDouble();
-                        var y = pos.getY() + 0.75d;
-                        var z = pos.getZ() + random.nextDouble();
-                        level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
+                        var blockPos = pos.below();
+                        var blockState = level.getBlockState(blockPos);
+
+                        if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
+                        {
+                            var x = pos.getX() + random.nextDouble();
+                            var y = pos.getY() + 0.75d;
+                            var z = pos.getZ() + random.nextDouble();
+                            level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
+                        }
                     }
-                }
-                else
-                {
-                    var count = UniformInt.of(1, 2);
-                    var axis = state.getValue(FACING).getAxis();
-                    var d = 0.2;
-                    var vec3 = Vec3.atCenterOf(pos);
-                    var bl = axis == Direction.Axis.X;
-                    var bl3 = axis == Direction.Axis.Z;
-                    var i = count.sample(level.random);
-
-                    for (var j = 0; j < i; j++)
+                    case STEM ->
                     {
-                        var e = vec3.x + Mth.nextDouble(level.random, -1.0, 1.0) * (bl ? 0.5 : d);
-                        var f = vec3.y + Mth.nextDouble(level.random, -0.1, 0.2) * 0.5;
-                        var g = vec3.z + Mth.nextDouble(level.random, -1.0, 1.0) * (bl3 ? 0.5 : d);
-                        level.addParticle(ParticleTypes.DRIPPING_WATER, e, f, g, 0, 0, 0);
+                        var component = new AngledLeavesComponent(-22.5d, 1d, 0d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), 0.3d, 2, true, true, component);
+                    }
+                    case SINGLE ->
+                    {
+                        var component = new AngledLeavesComponent(-22.5d, 1d, 30d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), -0.1d, 2, false, true, component);
+                    }
+                    case TAIL ->
+                    {
+                        var component = new AngledLeavesComponent(22.5d, 0.9d, 35d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 8), 0.25d, 4, false, true, component);
                     }
                 }
             }

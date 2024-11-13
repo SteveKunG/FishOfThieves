@@ -1,6 +1,8 @@
 package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
+import com.stevekung.fishofthieves.client.AngledLeavesComponent;
+import com.stevekung.fishofthieves.utils.ParticleUtils;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
@@ -9,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -129,7 +129,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     {
         if (level.isRainingAt(pos.above()))
         {
-            if (random.nextInt(8) == 0)
+            if (random.nextInt(4) == 0)
             {
                 if (state.getValue(PART) == Part.STEM)
                 {
@@ -147,22 +147,10 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
                 }
                 else
                 {
-                    var ySpawn = state.getValue(TYPE) == Type.UPPER ? Mth.nextDouble(level.random, -0.6, -0.2) : Mth.nextDouble(level.random, -1.2, -0.8);
-                    var count = UniformInt.of(1, 2);
-                    var axis = state.getValue(FACING).getAxis();
-                    var d = 0.2;
-                    var vec3 = Vec3.atCenterOf(pos);
-                    var bl = axis == Direction.Axis.X;
-                    var bl3 = axis == Direction.Axis.Z;
-                    var i = count.sample(level.random);
-
-                    for (var j = 0; j < i; j++)
-                    {
-                        var e = vec3.x + Mth.nextDouble(level.random, -1.0, 1.0) * (bl ? 0.5 : d);
-                        var f = vec3.y + ySpawn * 0.5;
-                        var g = vec3.z + Mth.nextDouble(level.random, -1.0, 1.0) * (bl3 ? 0.5 : d);
-                        level.addParticle(ParticleTypes.DRIPPING_WATER, e, f, g, 0, 0, 0);
-                    }
+                    var direction = state.getValue(FACING);
+                    var yOffset = state.getValue(TYPE) == Type.UPPER ? 0.1d : -0.4d;
+                    var component = new AngledLeavesComponent(22.5d, 0.85d, 60d);
+                    ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), yOffset, 4, false, true, component);
                 }
             }
         }
