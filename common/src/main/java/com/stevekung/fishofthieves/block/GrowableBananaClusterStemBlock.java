@@ -110,7 +110,7 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
                     isSmallCluster = true;
                 }
 
-                level.setBlock(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(pos)), Block.UPDATE_CLIENTS);
+                level.setBlock(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(blockPos)), Block.UPDATE_CLIENTS);
 
                 if (yBottom < i)
                 {
