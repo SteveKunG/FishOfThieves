@@ -29,6 +29,7 @@ public interface FOTTags
         TagKey<Item> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("gilded_frame_fish_plaque"));
         TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
+        TagKey<Item> BANANA_CLUSTERS = TagKey.create(Registries.ITEM, FishOfThieves.id("banana_clusters"));
     }
 
     interface Blocks

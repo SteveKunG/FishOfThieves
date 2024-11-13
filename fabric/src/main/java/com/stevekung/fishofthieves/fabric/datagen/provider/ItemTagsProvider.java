@@ -54,6 +54,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
         this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING.asItem(), FOTBlocks.BANANA_SHOOTS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM.asItem());
+        this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA.asItem());
 
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.getOrCreateTagBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);
@@ -71,6 +73,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);
+        this.copy(FOTTags.Blocks.BANANA_CLUSTERS, FOTTags.Items.BANANA_CLUSTERS);
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
