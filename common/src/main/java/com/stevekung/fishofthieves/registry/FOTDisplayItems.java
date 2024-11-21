@@ -9,6 +9,8 @@ public class FOTDisplayItems
 {
     public static void displayItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
     {
+        var holder = itemDisplayParameters.holders();
+
         output.accept(FOTBlocks.FISH_BONE);
 
         output.accept(FOTBlocks.OAK_FISH_PLAQUE);
@@ -95,15 +97,15 @@ public class FOTDisplayItems
         FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.WRECKER_BUCKET);
         FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.STORMFISH_BUCKET);
 
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.SPLASHTAIL_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PONDIE_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ISLEHOPPER_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ANCIENTSCALE_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PLENTIFIN_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WILDSPLASH_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.DEVILFISH_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.BATTLEGILL_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WRECKER_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.STORMFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.SPLASHTAIL_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.PONDIE_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.ISLEHOPPER_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.ANCIENTSCALE_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.PLENTIFIN_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.WILDSPLASH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.DEVILFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.BATTLEGILL_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.WRECKER_SPAWN_EGG);
+        FOTSpawnEggItem.addTrophySpawnEgg(holder, output, FOTItems.STORMFISH_SPAWN_EGG);
     }
 }

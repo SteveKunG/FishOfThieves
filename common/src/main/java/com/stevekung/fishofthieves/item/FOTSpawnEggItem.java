@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.item;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -40,12 +41,12 @@ public class FOTSpawnEggItem extends SpawnEggItem
         return name;
     }
 
-    public static void addTrophySpawnEgg(CreativeModeTab.Output output, Item item)
+    public static void addTrophySpawnEgg(HolderLookup.Provider provider, CreativeModeTab.Output output, Item item)
     {
         if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
         {
-            output.accept(create(item, false));
-            output.accept(create(item, true));
+            output.accept(create(provider, item, false));
+            output.accept(create(provider, item, true));
         }
         else
         {
@@ -53,12 +54,12 @@ public class FOTSpawnEggItem extends SpawnEggItem
         }
     }
 
-    private static ItemStack create(Item item, boolean trophy)
+    private static ItemStack create(HolderLookup.Provider provider, Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
         CustomData.update(DataComponents.ENTITY_DATA, itemStack, compoundTag ->
         {
-            compoundTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(((SpawnEggItem) item).getType(itemStack)).toString());
+            compoundTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(((SpawnEggItem) item).getType(provider, itemStack)).toString());
             compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy);
         });
         return itemStack;
