@@ -23,21 +23,21 @@ public class BattlegillVariants
     {
         var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
-        registerContext.register(context, JADE, "jade");
-        registerContext.register(context, SKY, "sky", SeeSkyCondition.seeSky().build());
-        registerContext.register(context, RUM, "rum");
-        registerContext.register(context, SAND, "sand", AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
-        registerContext.register(context, BITTERSWEET, "bittersweet", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, JADE, "jade", 0);
+        registerContext.register(context, SKY, "sky", 1, SeeSkyCondition.seeSky().build());
+        registerContext.register(context, RUM, "rum", 2);
+        registerContext.register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
+        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
     {
         var registerContext = AbstractFishVariant.RegisterContext.create("battlegill", BattlegillVariant::new);
-        registerContext.register(context, JADE, "jade");
-        registerContext.register(context, SKY, "sky");
-        registerContext.register(context, RUM, "rum");
-        registerContext.register(context, SAND, "sand", ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, BITTERSWEET, "bittersweet", true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, JADE, "jade", 0);
+        registerContext.register(context, SKY, "sky", 1);
+        registerContext.register(context, RUM, "rum", 2);
+        registerContext.register(context, SAND, "sand", 3, ProbabilityCondition.defaultRareProbablity().build());
+        registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)

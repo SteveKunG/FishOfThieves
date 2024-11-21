@@ -1,5 +1,31 @@
 {
   "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "fishofthieves:item/sapphire_ancientscale_bucket",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "fishofthieves:item/smoke_ancientscale_bucket",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "fishofthieves:item/bone_ancientscale_bucket",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "fishofthieves:item/starshine_ancientscale_bucket",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    }
+  ],
   "textures": {
     "layer0": "fishofthieves:item/ancientscale_bucket"
   }

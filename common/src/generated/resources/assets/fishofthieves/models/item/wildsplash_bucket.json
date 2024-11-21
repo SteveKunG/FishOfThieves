@@ -1,5 +1,31 @@
 {
   "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "fishofthieves:item/sandy_wildsplash_bucket",
+      "predicate": {
+        "custom_model_data": 1
+      }
+    },
+    {
+      "model": "fishofthieves:item/ocean_wildsplash_bucket",
+      "predicate": {
+        "custom_model_data": 2
+      }
+    },
+    {
+      "model": "fishofthieves:item/muddy_wildsplash_bucket",
+      "predicate": {
+        "custom_model_data": 3
+      }
+    },
+    {
+      "model": "fishofthieves:item/coral_wildsplash_bucket",
+      "predicate": {
+        "custom_model_data": 4
+      }
+    }
+  ],
   "textures": {
     "layer0": "fishofthieves:item/wildsplash_bucket"
   }
