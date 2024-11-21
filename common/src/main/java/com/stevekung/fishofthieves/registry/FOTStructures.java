@@ -44,7 +44,10 @@ public class FOTStructures
 
     public interface Type
     {
-        static void init() {}
+        static void init()
+        {
+            FishOfThieves.LOGGER.info("Registering Structure Type");
+        }
 
         StructureType<SeapostStructure> SEAPOST = register("seapost", SeapostStructure.CODEC);
 
@@ -72,11 +75,14 @@ public class FOTStructures
 
     public interface PieceType
     {
-        static void init() {}
+        static void init()
+        {
+            FishOfThieves.LOGGER.info("Registering Structure Piece Type");
+        }
 
-        StructurePieceType SEAPOST_PIECE = setFullContextPieceId(SeapostPieces.SeapostPiece::new, "seapost");
+        StructurePieceType SEAPOST_PIECE = register("seapost", SeapostPieces.SeapostPiece::new);
 
-        private static StructurePieceType setFullContextPieceId(StructurePieceType.StructureTemplateType pieceType, String pieceId)
+        private static StructurePieceType register(String pieceId, StructurePieceType.StructureTemplateType pieceType)
         {
             return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.id(pieceId), pieceType);
         }

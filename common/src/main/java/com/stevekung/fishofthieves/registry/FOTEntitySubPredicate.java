@@ -15,41 +15,32 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 public class FOTEntitySubPredicate
 {
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<SplashtailVariant> SPLASHTAIL = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.SPLASHTAIL_VARIANT, entity -> entity instanceof Splashtail splashtail ? Optional.of(splashtail.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<PondieVariant> PONDIE = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PONDIE_VARIANT, entity -> entity instanceof Pondie pondie ? Optional.of(pondie.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<IslehopperVariant> ISLEHOPPER = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ISLEHOPPER_VARIANT, entity -> entity instanceof Islehopper islehopper ? Optional.of(islehopper.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<AncientscaleVariant> ANCIENTSCALE = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ANCIENTSCALE_VARIANT, entity -> entity instanceof Ancientscale ancientscale ? Optional.of(ancientscale.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<PlentifinVariant> PLENTIFIN = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PLENTIFIN_VARIANT, entity -> entity instanceof Plentifin plentifin ? Optional.of(plentifin.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<WildsplashVariant> WILDSPLASH = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.WILDSPLASH_VARIANT, entity -> entity instanceof Wildsplash wildsplash ? Optional.of(wildsplash.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<DevilfishVariant> DEVILFISH = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.DEVILFISH_VARIANT, entity -> entity instanceof Devilfish devilfish ? Optional.of(devilfish.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<BattlegillVariant> BATTLEGILL = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.BATTLEGILL_VARIANT, entity -> entity instanceof Battlegill battlegill ? Optional.of(battlegill.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<WreckerVariant> WRECKER = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty());
-    public static final EntitySubPredicates.EntityHolderVariantPredicateType<StormfishVariant> STORMFISH = EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty());
-    public static final MapCodec<TrophyFishPredicate> TROPHY = TrophyFishPredicate.CODEC;
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<SplashtailVariant> SPLASHTAIL = register("splashtail", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.SPLASHTAIL_VARIANT, entity -> entity instanceof Splashtail splashtail ? Optional.of(splashtail.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<PondieVariant> PONDIE = register("pondie", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PONDIE_VARIANT, entity -> entity instanceof Pondie pondie ? Optional.of(pondie.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<IslehopperVariant> ISLEHOPPER = register("islehopper", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ISLEHOPPER_VARIANT, entity -> entity instanceof Islehopper islehopper ? Optional.of(islehopper.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<AncientscaleVariant> ANCIENTSCALE = register("ancientscale", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.ANCIENTSCALE_VARIANT, entity -> entity instanceof Ancientscale ancientscale ? Optional.of(ancientscale.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<PlentifinVariant> PLENTIFIN = register("plentifin", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PLENTIFIN_VARIANT, entity -> entity instanceof Plentifin plentifin ? Optional.of(plentifin.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<WildsplashVariant> WILDSPLASH = register("wildsplash", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.WILDSPLASH_VARIANT, entity -> entity instanceof Wildsplash wildsplash ? Optional.of(wildsplash.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<DevilfishVariant> DEVILFISH = register("devilfish", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.DEVILFISH_VARIANT, entity -> entity instanceof Devilfish devilfish ? Optional.of(devilfish.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<BattlegillVariant> BATTLEGILL = register("battlegill", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.BATTLEGILL_VARIANT, entity -> entity instanceof Battlegill battlegill ? Optional.of(battlegill.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<WreckerVariant> WRECKER = register("wrecker", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty()));
+    public static final EntitySubPredicates.EntityHolderVariantPredicateType<StormfishVariant> STORMFISH = register("stormfish", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty()));
+    public static final MapCodec<TrophyFishPredicate> TROPHY = register("trophy", TrophyFishPredicate.CODEC);
 
     public static void init()
     {
-        registerEntitySubPredicates("splashtail", SPLASHTAIL);
-        registerEntitySubPredicates("pondie", PONDIE);
-        registerEntitySubPredicates("islehopper", ISLEHOPPER);
-        registerEntitySubPredicates("ancientscale", ANCIENTSCALE);
-        registerEntitySubPredicates("plentifin", PLENTIFIN);
-        registerEntitySubPredicates("wildsplash", WILDSPLASH);
-        registerEntitySubPredicates("devilfish", DEVILFISH);
-        registerEntitySubPredicates("battlegill", BATTLEGILL);
-        registerEntitySubPredicates("wrecker", WRECKER);
-        registerEntitySubPredicates("stormfish", STORMFISH);
-        registerEntitySubPredicates("trophy", TROPHY);
+        FishOfThieves.LOGGER.info("Registering Entity Sub Predicate");
     }
 
-    private static <T extends EntitySubPredicate> void registerEntitySubPredicates(String key, MapCodec<T> codec)
+    private static <T extends EntitySubPredicate> MapCodec<T> register(String key, MapCodec<T> codec)
     {
-        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.id(key), codec);
+        return Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.id(key), codec);
     }
 
-    private static <V> void registerEntitySubPredicates(String key, EntitySubPredicates.EntityHolderVariantPredicateType<V> predicateType)
+    private static <V> EntitySubPredicates.EntityHolderVariantPredicateType<V> register(String key, EntitySubPredicates.EntityHolderVariantPredicateType<V> predicateType)
     {
-        Registry.register(BuiltInRegistries.ENTITY_SUB_PREDICATE_TYPE, FishOfThieves.id(key), predicateType.codec);
+        register(key, predicateType.codec);
+        return predicateType;
     }
 
     public static EntitySubPredicate splashtail(HolderSet<SplashtailVariant> variant)

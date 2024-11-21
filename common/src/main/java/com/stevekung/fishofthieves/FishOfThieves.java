@@ -7,7 +7,6 @@ import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTItems;
-import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.core.registries.Registries;
@@ -31,11 +30,6 @@ public class FishOfThieves
     public static ResourceLocation id(String path)
     {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-    }
-
-    public static void initGlobal()
-    {
-        FOTSoundEvents.init();
     }
 
     public static void initCommon()
