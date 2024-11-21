@@ -1,8 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -14,13 +15,13 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 
 public class FOTFeatures
 {
-    private static final FishBoneFeature FISH_BONE_FEATURE = new FishBoneFeature(NoneFeatureConfiguration.CODEC);
+    private static final FishBoneFeature FISH_BONE_FEATURE = register("fish_bone", new FishBoneFeature(NoneFeatureConfiguration.CODEC));
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> FISH_BONE = createKey("fish_bone");
 
     public static void init()
     {
-        register("fish_bone", FISH_BONE_FEATURE);
+        FishOfThieves.LOGGER.info("Registering Feature");
     }
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> BootstrapContext)
@@ -28,9 +29,9 @@ public class FOTFeatures
         FeatureUtils.register(BootstrapContext, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
     }
 
-    private static <C extends FeatureConfiguration, F extends Feature<C>> void register(String key, F value)
+    private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F feature)
     {
-        FOTPlatform.registerFeature(key, value);
+        return Registry.register(BuiltInRegistries.FEATURE, FishOfThieves.id(key), feature);
     }
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name)

@@ -9,17 +9,16 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 
 public class FOTLootPoolEntries
 {
-    public static final LootPoolEntryType FOT_ITEM = new LootPoolEntryType(FOTLootItem.CODEC);
-    public static final LootPoolEntryType FOT_TAG = new LootPoolEntryType(FOTTagEntry.CODEC);
+    public static final LootPoolEntryType FOT_ITEM = register("fot_item", new LootPoolEntryType(FOTLootItem.CODEC));
+    public static final LootPoolEntryType FOT_TAG = register("fot_tag", new LootPoolEntryType(FOTTagEntry.CODEC));
 
     public static void init()
     {
-        register("fot_item", FOT_ITEM);
-        register("fot_tag", FOT_TAG);
+        FishOfThieves.LOGGER.info("Registering Loot Pool Entry Type");
     }
 
-    private static void register(String key, LootPoolEntryType type)
+    private static LootPoolEntryType register(String key, LootPoolEntryType type)
     {
-        Registry.register(BuiltInRegistries.LOOT_POOL_ENTRY_TYPE, FishOfThieves.id(key), type);
+        return Registry.register(BuiltInRegistries.LOOT_POOL_ENTRY_TYPE, FishOfThieves.id(key), type);
     }
 }

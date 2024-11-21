@@ -11,15 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
@@ -31,14 +23,6 @@ import net.neoforged.neoforge.registries.*;
 @Mod(FishOfThieves.MOD_ID)
 public class FishOfThievesNeoForge
 {
-    public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(BuiltInRegistries.BLOCK, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<Item> ITEM = DeferredRegister.create(BuiltInRegistries.ITEM, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<EntityType<?>> ENTITY = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(BuiltInRegistries.SENSOR_TYPE, FishOfThieves.MOD_ID);
-    public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.MOD_ID);
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
 
     static
@@ -51,17 +35,7 @@ public class FishOfThievesNeoForge
         var modEventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
         modEventBus.register(this);
         modEventBus.addListener(this::commonSetup);
-        BLOCK.register(modEventBus);
-        ITEM.register(modEventBus);
-        BLOCK_ENTITY_TYPE.register(modEventBus);
-        ENTITY.register(modEventBus);
-        SOUND_EVENTS.register(modEventBus);
-        FEATURES.register(modEventBus);
-        SENSOR_TYPES.register(modEventBus);
-        MEMORY_MODULE_TYPES.register(modEventBus);
         ENTITY_DATA_SERIALIZERS.register(modEventBus);
-
-        FishOfThieves.initGlobal();
 
         if (FMLEnvironment.dist.isClient())
         {
@@ -109,6 +83,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.ITEM, helper -> FOTItems.init());
         event.register(Registries.BLOCK_ENTITY_TYPE, helper -> FOTBlockEntityTypes.init());
         event.register(Registries.ENTITY_TYPE, helper -> FOTEntities.init());
+        event.register(Registries.SOUND_EVENT, helper -> FOTSoundEvents.init());
         event.register(Registries.FEATURE, helper -> FOTFeatures.init());
         event.register(Registries.SENSOR_TYPE, helper -> FOTSensorTypes.init());
         event.register(Registries.MEMORY_MODULE_TYPE, helper -> FOTMemoryModuleTypes.init());
