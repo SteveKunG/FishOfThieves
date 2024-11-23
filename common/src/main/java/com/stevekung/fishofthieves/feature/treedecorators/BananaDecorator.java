@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.feature.treedecorators;
 
 import java.util.Collections;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -93,20 +94,22 @@ public class BananaDecorator extends TreeDecorator
             for (var i = 0; i < randHeight; i++)
             {
                 var blockPos = pos.below(i);
+                Function<Predicate<BlockState>, Boolean> stateAbove = predicate -> level.isStateAtPosition(blockPos.above(), predicate);
                 var banana = random.nextFloat() < this.ripeProbability ? FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : random.nextFloat() < this.barelyRipeProbability ? FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState();
 
                 if (banana.hasProperty(BananaClusterPlantBlock.HANGING))
                 {
                     banana = banana.setValue(BananaClusterPlantBlock.HANGING, i == 0 ? BananaClusterPlantBlock.HangingType.STEM : BananaClusterPlantBlock.HangingType.NONE);
 
-                    if (level.isStateAtPosition(blockPos.above(), blockState -> blockState.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT)))
+                    if (stateAbove.apply(blockState -> blockState.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT)))
                     {
                         banana = banana.setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER);
                     }
                 }
                 else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
                 {
-                    banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : BananaHangingType.SMALL_CLUSTER);
+                    var isLargeCluster = stateAbove.apply(blockState -> blockState.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT) || blockState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT));
+                    banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : isLargeCluster ? BananaHangingType.CLUSTER : BananaHangingType.SMALL_CLUSTER);
                     isSmallCluster = true;
                 }
 

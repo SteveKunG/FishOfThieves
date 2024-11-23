@@ -91,20 +91,22 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
             for (var i = 0; i < randHeight; i++)
             {
                 var blockPos = pos.below(i);
+                var stateAbove = level.getBlockState(blockPos.above());
                 var banana = random.nextFloat() < 0.2f ? FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : random.nextFloat() < 0.4f ? FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState();
 
                 if (banana.hasProperty(BananaClusterPlantBlock.HANGING))
                 {
                     banana = banana.setValue(BananaClusterPlantBlock.HANGING, i == 0 ? BananaClusterPlantBlock.HangingType.STEM : BananaClusterPlantBlock.HangingType.NONE);
 
-                    if (level.getBlockState(blockPos.above()).is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT))
+                    if (stateAbove.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT))
                     {
                         banana = banana.setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER);
                     }
                 }
                 else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
                 {
-                    banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : BananaHangingType.SMALL_CLUSTER);
+                    var isLargeCluster = stateAbove.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT) || stateAbove.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT);
+                    banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : isLargeCluster ? BananaHangingType.CLUSTER : BananaHangingType.SMALL_CLUSTER);
                     isSmallCluster = true;
                 }
 
