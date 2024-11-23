@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import java.util.Map;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -95,6 +96,12 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
             return state.setValue(HANGING, BananaHangingType.CLUSTER);
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
+    @Override
+    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
+    {
+        return adjacentState.is(FOTTags.Blocks.BANANA_CLUSTER_PLANTS) && !adjacentState.is(this) && direction.getAxis().isVertical();
     }
 
     @Override

@@ -102,7 +102,7 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
     {
-        return adjacentState.is(this) && direction.getAxis().isVertical();
+        return adjacentState.is(FOTTags.Blocks.BANANA_CLUSTER_PLANTS) && !adjacentState.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT) && direction.getAxis().isVertical();
     }
 
     @Override
