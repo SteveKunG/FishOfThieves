@@ -1,0 +1,40 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/seashell_devilfish_bucket"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/lava_devilfish_bucket"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/forsaken_devilfish_bucket"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/firelight_devilfish_bucket"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "fishofthieves:item/devilfish_bucket"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

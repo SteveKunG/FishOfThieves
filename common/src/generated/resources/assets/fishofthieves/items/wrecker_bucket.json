@@ -1,0 +1,40 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/sun_wrecker_bucket"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/blackcloud_wrecker_bucket"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/snow_wrecker_bucket"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/moon_wrecker_bucket"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "fishofthieves:item/wrecker_bucket"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

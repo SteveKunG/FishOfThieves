@@ -1,0 +1,40 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/sky_battlegill"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/rum_battlegill"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/sand_battlegill"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/bittersweet_battlegill"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "fishofthieves:item/battlegill"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

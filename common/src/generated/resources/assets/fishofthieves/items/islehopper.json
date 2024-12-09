@@ -1,0 +1,40 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/moss_islehopper"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/honey_islehopper"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/raven_islehopper"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/amethyst_islehopper"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "fishofthieves:item/islehopper"
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}
