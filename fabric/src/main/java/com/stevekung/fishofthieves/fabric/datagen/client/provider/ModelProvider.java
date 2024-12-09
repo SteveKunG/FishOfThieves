@@ -205,7 +205,7 @@ public class ModelProvider extends FabricModelProvider
 
     private <T extends AbstractFishVariant> void generateFlatItemWithFishVariant(Item item, ResourceKey<Registry<T>> registryKey, ItemModelGenerators generator)
     {
-        var unbaked = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+        var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(ModelLocationUtils.getModelLocation(item)), generator.modelOutput));
         generator.itemModelOutput.accept(item, ItemModelUtils.select(new CustomModelDataProperty(0), unbaked, this.createFishVariantModel(item, registryKey, generator)));
     }
 
