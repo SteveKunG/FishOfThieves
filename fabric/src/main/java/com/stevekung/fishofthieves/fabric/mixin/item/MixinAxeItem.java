@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.mixin.item;
+package com.stevekung.fishofthieves.fabric.mixin.item;
 
 import java.util.Map;
 import java.util.Optional;
@@ -7,8 +7,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.AxeItem;

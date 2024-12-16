@@ -1,10 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
@@ -21,6 +20,6 @@ public class FOTFoliagePlacerTypes
 
     private static <P extends FoliagePlacer> void register(String key, FoliagePlacerType<P> type)
     {
-        Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, FishOfThieves.id(key), type);
+        FOTPlatform.registerFoliagePlacerType(key, type);
     }
 }

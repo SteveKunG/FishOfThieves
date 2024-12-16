@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
 import com.stevekung.fishofthieves.registry.*;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -21,6 +22,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -43,6 +46,8 @@ public class FishOfThievesForge
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<SensorType<?>> SENSOR_TYPES = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(ForgeRegistries.MEMORY_MODULE_TYPES, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -64,6 +69,8 @@ public class FishOfThievesForge
         SENSOR_TYPES.register(modEventBus);
         MEMORY_MODULE_TYPES.register(modEventBus);
         STRUCTURE_MODIFIERS.register(modEventBus);
+        TREE_DECORATOR_TYPES.register(modEventBus);
+        FOLIAGE_PLACER_TYPES.register(modEventBus);
 
         FishOfThieves.init();
 
@@ -99,6 +106,9 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.FEATURES, helper -> FOTFeatures.init());
         event.register(ForgeRegistries.Keys.SENSOR_TYPES, helper -> FOTSensorTypes.init());
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());
+        event.register(ForgeRegistries.Keys.TREE_DECORATOR_TYPES, helper -> FOTTreeDecoratorTypes.init());
+        event.register(ForgeRegistries.Keys.FOLIAGE_PLACER_TYPES, helper -> FOTFoliagePlacerTypes.init());
+        event.register(Registries.TRUNK_PLACER_TYPE, helper -> FOTTrunkPlacerTypes.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper ->
         {
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_MAIN, FishOfThieves.getMainCreativeTabBuilder(CreativeModeTab.builder()).build());

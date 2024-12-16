@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -15,6 +14,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 public class FOTPlatform
 {
@@ -104,6 +109,18 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <P extends TreeDecorator> void registerTreeDecoratorType(String key, TreeDecoratorType<P> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <P extends FoliagePlacer> void registerFoliagePlacerType(String key, FoliagePlacerType<P> type)
     {
         throw new AssertionError();
     }

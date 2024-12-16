@@ -8,9 +8,11 @@ import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import me.shedaniel.autoconfig.AutoConfig;
+
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +22,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import me.shedaniel.autoconfig.AutoConfig;
 
 public class ClientProxyForge
 {
@@ -36,6 +40,8 @@ public class ClientProxyForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
