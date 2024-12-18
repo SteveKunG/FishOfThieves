@@ -42,7 +42,7 @@ public class FOTMobBucketItem extends MobBucketItem
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(0f), List.of(), List.of(), List.of()));
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(0)), List.of()));
         }
     }
 
@@ -101,7 +101,7 @@ public class FOTMobBucketItem extends MobBucketItem
     private static ItemStack create(Item item, AbstractFishVariant variant)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)variant.customModelData()), List.of(), List.of(), List.of()));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(variant.customModelData())), List.of()));
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(variant.name()).toString()));
         return itemStack;
     }

@@ -66,7 +66,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     {
         if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
         {
-            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of((float)this.getVariant().value().customModelData()), List.of(), List.of(), List.of()));
+            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant().value().customModelData())), List.of()));
         }
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
