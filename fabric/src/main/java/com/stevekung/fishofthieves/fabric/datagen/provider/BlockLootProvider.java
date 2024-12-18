@@ -4,15 +4,20 @@ import java.util.List;
 
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
+import com.stevekung.fishofthieves.block.PineappleCropBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
@@ -155,5 +160,33 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         this.otherWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.otherWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.add(FOTBlocks.PINEAPPLE_CROP, this::createPineappleCropLoot);
+    }
+
+    private LootTable.Builder createPineappleCropLoot(Block block)
+    {
+        return this.applyExplosionDecay(block, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(AlternativesEntry.alternatives(PineappleCropBlock.AGE.getPossibleValues(), age ->
+                        {
+                            var builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+                            var builder2 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PineappleCropBlock.AGE, age));
+
+                            if (age == 0)
+                            {
+                                return LootItem.lootTableItem(FOTItems.PINEAPPLE_SEEDS)
+                                        .when(builder2)
+                                        .when(builder)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+                            }
+                            else if (age == 6)
+                            {
+                                return LootItem.lootTableItem(FOTItems.PINEAPPLE)
+                                        .when(builder2)
+                                        .when(builder)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+                            }
+                            return LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN).when(builder2).when(builder).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+                        }))));
     }
 }

@@ -148,6 +148,10 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_BOAT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.HALF_PINEAPPLE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.PINEAPPLE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.PINEAPPLE_SEEDS, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.PINEAPPLE_CROWN, ModelTemplates.FLAT_ITEM);
     }
 
     @Override

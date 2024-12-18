@@ -92,6 +92,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         output.accept(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         output.accept(FOTBlocks.RIPE_BANANA_CLUSTER);
+        output.accept(FOTItems.PINEAPPLE_CROWN);
+        output.accept(FOTItems.PINEAPPLE_SEEDS);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 
@@ -151,5 +153,7 @@ public class FOTDisplayItems
 
         output.accept(FOTItems.COCONUT);
         output.accept(FOTItems.BANANA);
+        output.accept(FOTItems.PINEAPPLE);
+        output.accept(FOTItems.HALF_PINEAPPLE);
     }
 }

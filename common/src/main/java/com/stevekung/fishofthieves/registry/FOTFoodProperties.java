@@ -31,4 +31,6 @@ public class FOTFoodProperties
 
     public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(3).saturationMod(0.125f).build();
     public static final FoodProperties BANANA = new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build();
+    public static final FoodProperties PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationMod(1.0f).build();
+    public static final FoodProperties HALF_PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
 }
