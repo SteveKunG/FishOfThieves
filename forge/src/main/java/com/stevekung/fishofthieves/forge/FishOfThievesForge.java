@@ -55,9 +55,9 @@ public class FishOfThievesForge
     private static final String ADD_FISH_BONE = "add_fish_bone";
     public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.id(ADD_FISH_BONE);
 
-    public FishOfThievesForge()
+    public FishOfThievesForge(FMLJavaModLoadingContext context)
     {
-        var modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        var modEventBus = context.getModEventBus();
         modEventBus.register(this);
         modEventBus.addListener(this::commonSetup);
         BLOCK.register(modEventBus);
@@ -80,7 +80,7 @@ public class FishOfThievesForge
 
         if (FMLEnvironment.dist.isClient())
         {
-            new ClientProxyForge().init();
+            new ClientProxyForge().init(context);
         }
         new CommonProxyForge().init();
     }

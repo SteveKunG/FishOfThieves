@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.entity.PartyFish;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
@@ -19,22 +20,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
 public class ClientProxyForge
 {
-    public void init()
+    public void init(FMLJavaModLoadingContext context)
     {
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
+        context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
         MinecraftForge.EVENT_BUS.register(this);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderers);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayerDefinitions);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayers);
+        context.getModEventBus().addListener(this::clientSetup);
+        context.getModEventBus().addListener(this::registerRenderers);
+        context.getModEventBus().addListener(this::registerLayerDefinitions);
+        context.getModEventBus().addListener(this::registerLayers);
     }
 
     public void clientSetup(FMLClientSetupEvent event)
