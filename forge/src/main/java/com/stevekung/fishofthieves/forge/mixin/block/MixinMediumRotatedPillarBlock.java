@@ -5,35 +5,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import com.stevekung.fishofthieves.block.MediumRotatedPillarBlock;
 import com.stevekung.fishofthieves.forge.AxeStrippableDummy;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.extensions.IForgeBlock;
 
 @Mixin(MediumRotatedPillarBlock.class)
-public class MixinMediumRotatedPillarBlock implements IForgeBlock
+public abstract class MixinMediumRotatedPillarBlock implements IForgeBlock
 {
-    @Override
-    public boolean canSustainPlant(BlockState state, BlockGetter level, BlockPos pos, Direction facing, IPlantable plantable)
-    {
-        return false;
-    }
-
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate)
     {
         if (toolAction == ToolActions.AXE_STRIP)
         {
-            if (AxeStrippableDummy.Medium.STRIPPED_BLOCKS.containsKey(state.getBlock()))
-            {
-                return AxeStrippableDummy.Medium.STRIPPED_BLOCKS.get(state.getBlock()).defaultBlockState();
-            }
-            else if (AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
+            if (AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
             {
                 return AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.get(state.getBlock()).withPropertiesOf(state);
             }

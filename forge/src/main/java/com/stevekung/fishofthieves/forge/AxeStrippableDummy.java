@@ -9,6 +9,11 @@ import net.minecraft.world.level.block.Block;
 
 public interface AxeStrippableDummy
 {
+    Map<Block, Block> STRIPPED_BLOCKS = ImmutableMap.<Block, Block>builder()
+            .put(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG)
+            .put(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD)
+            .build();
+
     interface Small
     {
         Map<Block, Block> CUSTOM_STRIPPABLES = new ImmutableMap.Builder<Block, Block>()
@@ -21,11 +26,6 @@ public interface AxeStrippableDummy
 
     interface Medium
     {
-        Map<Block, Block> STRIPPED_BLOCKS = ImmutableMap.<Block, Block>builder()
-                .put(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG)
-                .put(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD)
-                .build();
-
         Map<Block, Block> CUSTOM_STRIPPABLES = new ImmutableMap.Builder<Block, Block>()
                 .put(FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG)
                 .put(FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD)
