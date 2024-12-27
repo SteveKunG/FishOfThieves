@@ -79,9 +79,9 @@ public class FOTBlocks
     public static final Block MEDIUM_COCONUT_LOG = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.STONE);
-    public static final Block COCONUT_WOOD = new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_WOOD = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.COLOR_ORANGE);
-    public static final Block STRIPPED_COCONUT_WOOD = new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_COCONUT_WOOD = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_MEDIUM_COCONUT_LOG = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
@@ -244,9 +244,9 @@ public class FOTBlocks
         FOTPlatform.registerBlock(key, block);
     }
 
-    private static RotatedPillarBlock log(MapColor topMapColor, MapColor sideMapColor)
+    private static FOTRotatedPillarBlock log(MapColor topMapColor, MapColor sideMapColor)
     {
-        return new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+        return new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     }
 
     private static FlowerPotBlock flowerPot(Block content)
