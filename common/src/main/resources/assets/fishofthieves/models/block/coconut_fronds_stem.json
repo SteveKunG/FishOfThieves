@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"particle": "fishofthieves:block/coconut_fronds_stem",
 		"texture": "fishofthieves:block/coconut_fronds_stem",

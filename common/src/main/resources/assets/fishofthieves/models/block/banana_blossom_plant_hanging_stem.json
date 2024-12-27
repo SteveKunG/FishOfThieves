@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
+	"render_type": "cutout",
 	"textures": {
 		"stem": "fishofthieves:block/banana_cluster_stem",
 		"particle": "fishofthieves:block/banana_blossom",

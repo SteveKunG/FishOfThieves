@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"tail": "fishofthieves:block/banana_leaves_tail",
 		"particle": "fishofthieves:block/banana_leaves_stem",
