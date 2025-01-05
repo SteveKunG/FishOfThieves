@@ -1,11 +1,14 @@
 package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -50,9 +53,14 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
+    private int getMaxAge()
+    {
+        return 6;
+    }
+
     private boolean isLowerAge(BlockState state)
     {
-        return state.getValue(AGE) < 6;
+        return state.getValue(AGE) < this.getMaxAge();
     }
 
     @Override
@@ -140,13 +148,13 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
         if (random.nextInt((int) (25.0F / growthSpeed) + 1) == 0)
         {
-            this.grow(level, state, pos);
+            this.grow(level, state, pos, 1);
         }
     }
 
-    private void grow(ServerLevel level, BlockState state, BlockPos pos)
+    private void grow(ServerLevel level, BlockState state, BlockPos pos, int growthAge)
     {
-        var age = Math.min(state.getValue(AGE) + 1, 6);
+        var age = Math.min(state.getValue(AGE) + growthAge, this.getMaxAge());
 
         if (this.canGrow(level, pos, state, age))
         {
@@ -221,7 +229,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
         if (posAndState != null)
         {
-            this.grow(level, posAndState.state, posAndState.pos);
+            this.grow(level, posAndState.state, posAndState.pos, Mth.nextInt(level.random, 1, 2));
         }
     }
 
