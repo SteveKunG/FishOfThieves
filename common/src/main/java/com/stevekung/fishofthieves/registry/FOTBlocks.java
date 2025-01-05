@@ -106,6 +106,7 @@ public class FOTBlocks
     public static final Block BARELY_RIPE_BANANA_CLUSTER = new BananaClusterBlock(BananaClusterBlock.Type.BARELY_RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block RIPE_BANANA_CLUSTER = new BananaClusterBlock(BananaClusterBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block PINEAPPLE_CROP = new PineappleCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block RIPE_PINEAPPLE_BLOCK = new PineappleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -214,6 +215,7 @@ public class FOTBlocks
         register("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
         register("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
         registerNoItem("pineapple_crop", PINEAPPLE_CROP);
+        register("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);

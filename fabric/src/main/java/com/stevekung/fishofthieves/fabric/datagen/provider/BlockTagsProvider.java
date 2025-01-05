@@ -24,7 +24,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE).forceAddTag(FOTTags.Blocks.FISH_PLAQUE)
                 .forceAddTag(FOTTags.Blocks.BANANA_CLUSTER_PLANTS)
                 .forceAddTag(FOTTags.Blocks.BANANA_CLUSTERS)
-                .add(FOTBlocks.COCONUT_FRUIT);
+                .add(FOTBlocks.COCONUT_FRUIT, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG,
                 FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
                 FOTBlocks.MEDIUM_COCONUT_LOG).forceAddTag(FOTTags.Blocks.BANANA_STEMS);
@@ -47,7 +47,8 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.WOODEN_DOORS).add(FOTBlocks.COCONUT_DOOR);
         this.getOrCreateTagBuilder(BlockTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING, FOTBlocks.BANANA_SHOOTS);
         this.getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).add(FOTBlocks.BANANA_BLOSSOM);
-        this.getOrCreateTagBuilder(BlockTags.BEE_GROWABLES).add(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT);
+        this.getOrCreateTagBuilder(BlockTags.BEE_GROWABLES).add(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
+                FOTBlocks.PINEAPPLE_CROP);
         this.getOrCreateTagBuilder(BlockTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT);
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);

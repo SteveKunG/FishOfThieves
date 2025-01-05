@@ -94,6 +94,7 @@ public class RecipeProvider extends FabricRecipeProvider
 
         oneToOneConversionRecipe(consumer, Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
         oneToOneConversionRecipe(consumer, Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
+        oneToOneConversionRecipe(consumer, FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE, null, 4);
         woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
         woodFromLogs(consumer, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
         woodFromLogs(consumer, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);

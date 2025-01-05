@@ -94,6 +94,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.RIPE_BANANA_CLUSTER);
         output.accept(FOTItems.PINEAPPLE_CROWN);
         output.accept(FOTItems.PINEAPPLE_SEEDS);
+        output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 

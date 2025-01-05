@@ -13,8 +13,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -32,13 +34,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * State 2: bush
  * State 3: flowering red bud
  * State 4: green pineapple
- * State 5: light green pineapple
- * State 6: pineapple
+ * State 5: pineapple
  */
 @SuppressWarnings("deprecation")
 public class PineappleCropBlock extends DoublePlantBlock implements BonemealableBlock
 {
-    public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 6);
+    public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 5);
 
     private static final VoxelShape FULL_UPPER_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 15.0, 13.0);
     private static final VoxelShape FULL_LOWER_SHAPE = Block.box(3.0, -1.0, 3.0, 13.0, 16.0, 13.0);
@@ -55,7 +56,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
     private int getMaxAge()
     {
-        return 6;
+        return 5;
     }
 
     private boolean isLowerAge(BlockState state)
@@ -96,6 +97,18 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Override
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos)
+    {
+        if (!isLower(state) && state.getValue(AGE) >= 3)
+        {
+            var destroySpeed = 0.6f;
+            var i = player.hasCorrectToolForDrops(state) ? 30 : 100;
+            return player.getDestroySpeed(state) / destroySpeed / (float)i;
+        }
+        return super.getDestroyProgress(state, player, level, pos);
+    }
+
+    @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
         return !isLower(state) ? super.canSurvive(state, level, pos) : this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) && sufficientLight(level, pos) && (state.getValue(AGE) < 3 || isUpper(level.getBlockState(pos.above())));
@@ -111,6 +124,19 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder)
     {
         super.createBlockStateDefinition(builder.add(AGE));
+    }
+
+    @Override
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player)
+    {
+        var age = state.getValue(AGE);
+
+        if (!level.isClientSide() && age == this.getMaxAge() && EnchantmentHelper.hasSilkTouch(player.getMainHandItem()))
+        {
+            preventCreativeDropFromBottomPart(level, pos, state, player);
+        }
+
+        super.playerWillDestroy(level, pos, state, player);
     }
 
     //    @Override

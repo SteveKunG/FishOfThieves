@@ -53,6 +53,10 @@ public class CommonProxyForge
         ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.COCONUT, 0.5F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.BANANA, 0.3F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE, 0.7F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.HALF_PINEAPPLE, 0.35F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE_SEEDS, 0.1F);
+        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE_CROWN, 0.15F);
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.PINK_PLUMERIA, 0.6F);
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.COCONUT_FRONDS, 0.8F);
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_LEAVES, 0.8F);
@@ -62,6 +66,7 @@ public class CommonProxyForge
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
         ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_STEM, 0.8F);
+        ComposterBlock.COMPOSTABLES.put(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
 
         var fireBlock = (FireBlock)Blocks.FIRE;
         fireBlock.setFlammable(FOTBlocks.COCONUT_FRONDS, 30, 60);

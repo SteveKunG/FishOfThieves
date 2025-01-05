@@ -148,58 +148,85 @@
               "name": "fishofthieves:pineapple_crown"
             },
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "type": "minecraft:alternatives",
+              "children": [
                 {
-                  "block": "fishofthieves:pineapple_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "5"
-                  }
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:match_tool",
+                      "predicate": {
+                        "enchantments": [
+                          {
+                            "enchantment": "minecraft:silk_touch",
+                            "levels": {
+                              "min": 1
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "block": "fishofthieves:pineapple_crop",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "age": "5"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 1.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "fishofthieves:ripe_pineapple_block"
                 },
                 {
-                  "block": "fishofthieves:pineapple_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "half": "lower"
-                  }
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:inverted",
+                      "term": {
+                        "condition": "minecraft:match_tool",
+                        "predicate": {
+                          "enchantments": [
+                            {
+                              "enchantment": "minecraft:silk_touch",
+                              "levels": {
+                                "min": 1
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "block": "fishofthieves:pineapple_crop",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "age": "5"
+                      }
+                    },
+                    {
+                      "block": "fishofthieves:pineapple_crop",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
+                        "half": "lower"
+                      }
+                    }
+                  ],
+                  "functions": [
+                    {
+                      "add": false,
+                      "count": 1.0,
+                      "function": "minecraft:set_count"
+                    }
+                  ],
+                  "name": "fishofthieves:pineapple"
                 }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 1.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "fishofthieves:pineapple_crown"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "fishofthieves:pineapple_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "6"
-                  }
-                },
-                {
-                  "block": "fishofthieves:pineapple_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "half": "lower"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 1.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "fishofthieves:pineapple"
+              ]
             }
           ]
         }

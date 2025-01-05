@@ -248,6 +248,28 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaClusterPlant(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER, generator);
         generator.createCrossBlock(FOTBlocks.BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
         generator.skipAutoItemBlock(FOTBlocks.BANANA_SHOOTS);
+        this.createPineappleCrop(generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.RIPE_PINEAPPLE_BLOCK)));
+    }
+
+    private void createPineappleCrop(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.PINEAPPLE_CROP;
+        var modelLocation = ModelLocationUtils.getModelLocation(block);
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(PropertyDispatch.properties(PineappleCropBlock.AGE, PineappleCropBlock.HALF)
+                        .generate((age, half) -> {
+                            if (age >= 3)
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
+                            return Variant.variant().with(VariantProperties.MODEL, BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_" + age), TextureMapping.cross(block), generator.modelOutput));
+                        })
+                ));
     }
 
     private void createBananaStem(BlockModelGenerators generator)
