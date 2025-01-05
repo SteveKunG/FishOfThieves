@@ -82,7 +82,7 @@ public class FishOfThievesForge
         {
             new ClientProxyForge().init(context);
         }
-        new CommonProxyForge().init();
+        new CommonProxyForge().init(context);
     }
 
     private void commonSetup(FMLCommonSetupEvent event)
