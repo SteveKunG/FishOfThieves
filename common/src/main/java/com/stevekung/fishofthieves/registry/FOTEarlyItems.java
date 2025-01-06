@@ -2,10 +2,10 @@ package com.stevekung.fishofthieves.registry;
 
 import net.minecraft.world.item.ItemStack;
 
-public class FOTEarlyItems
+public interface FOTEarlyItems
 {
     //@formatter:off
-    public static final ItemStack[] CAT_FOODS = {
+    ItemStack[] CAT_FOODS = {
             new ItemStack(FOTItems.SPLASHTAIL),
             new ItemStack(FOTItems.PONDIE),
             new ItemStack(FOTItems.ISLEHOPPER),
@@ -16,6 +16,18 @@ public class FOTEarlyItems
             new ItemStack(FOTItems.BATTLEGILL),
             new ItemStack(FOTItems.WRECKER),
             new ItemStack(FOTItems.STORMFISH)
+    };
+
+    ItemStack[] PIG_FOODS = {
+            new ItemStack(FOTItems.BANANA),
+            new ItemStack(FOTItems.COCONUT),
+            new ItemStack(FOTItems.PINEAPPLE),
+            new ItemStack(FOTItems.HALF_PINEAPPLE),
+            new ItemStack(FOTItems.CROWNLESS_PINEAPPLE)
+    };
+
+    ItemStack[] CHICKEN_FOODS = {
+            new ItemStack(FOTItems.PINEAPPLE_SEEDS)
     };
     //@formatter:on
 }
