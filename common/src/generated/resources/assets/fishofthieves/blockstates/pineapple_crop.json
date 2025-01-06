@@ -25,13 +25,13 @@
       "model": "fishofthieves:block/pineapple_crop_lower_stage_0"
     },
     "age=4,half=lower": {
-      "model": "fishofthieves:block/pineapple_crop_lower_stage_4"
+      "model": "fishofthieves:block/pineapple_crop_lower_stage_full"
     },
     "age=4,half=upper": {
       "model": "fishofthieves:block/pineapple_crop_upper_stage_4"
     },
     "age=5,half=lower": {
-      "model": "fishofthieves:block/pineapple_crop_lower_stage_5"
+      "model": "fishofthieves:block/pineapple_crop_lower_stage_full"
     },
     "age=5,half=upper": {
       "model": "fishofthieves:block/pineapple_crop_upper_stage_5"

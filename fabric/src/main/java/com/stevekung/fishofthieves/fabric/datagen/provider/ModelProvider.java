@@ -259,14 +259,19 @@ public class ModelProvider extends FabricModelProvider
     private void createPineappleCrop(BlockModelGenerators generator)
     {
         var block = FOTBlocks.PINEAPPLE_CROP;
+        var fullStageModel = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_lower_stage_full"), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_lower_stage_full")), generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(PropertyDispatch.properties(PineappleCropBlock.AGE, PineappleCropBlock.HALF).generate((age, half) ->
                         {
                             if (half == DoubleBlockHalf.LOWER)
                             {
-                                if (age != 3)
+                                if (age <= 2)
                                 {
                                     return Variant.variant().with(VariantProperties.MODEL, BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age)), generator.modelOutput));
+                                }
+                                else if (age > 3)
+                                {
+                                    return Variant.variant().with(VariantProperties.MODEL, fullStageModel);
                                 }
                                 else
                                 {

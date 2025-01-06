@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "cutout",
+  "textures": {
+    "cross": "fishofthieves:block/pineapple_crop_lower_stage_0"
+  }
+}

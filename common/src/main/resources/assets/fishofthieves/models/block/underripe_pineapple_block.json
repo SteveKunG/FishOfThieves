@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
+	"render_type": "cutout",
 	"textures": {
 		"crown": "fishofthieves:block/pineapple_crop_upper_stage_4_crown",
 		"particle": "fishofthieves:block/pineapple_crop_upper_stage_4_fruit",
