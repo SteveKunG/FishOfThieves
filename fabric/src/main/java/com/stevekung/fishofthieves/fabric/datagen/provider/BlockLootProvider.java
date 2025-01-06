@@ -169,45 +169,39 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
 
     private LootTable.Builder createPineappleCropLoot(Block block)
     {
+        var isLower = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         return this.applyExplosionDecay(block, LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .add(AlternativesEntry.alternatives(PineappleCropBlock.AGE.getPossibleValues(), age ->
-                        {
-                            var isLower = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
-                            var ageReached = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PineappleCropBlock.AGE, age));
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(AlternativesEntry.alternatives(
 
-                            if (age == 0)
-                            {
-                                return LootItem.lootTableItem(FOTItems.PINEAPPLE_SEEDS)
-                                        .when(ageReached)
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTItems.PINEAPPLE_SEEDS)
                                         .when(isLower)
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
-                            }
-                            else if (age == 4)
-                            {
-                                return LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(PineappleCropBlock.AGE, 0))),
+
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                                .when(HAS_SILK_TOUCH)
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(PineappleCropBlock.AGE, 4))),
+
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK)
                                         .when(HAS_SILK_TOUCH)
-                                        .when(ageReached)
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                                        .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN)
-                                                .when(HAS_NO_SILK_TOUCH)
-                                                .when(ageReached)
-                                                .when(isLower)
-                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))));
-                            }
-                            else if (age == 5)
-                            {
-                                return LootItem.lootTableItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK)
-                                        .when(HAS_SILK_TOUCH)
-                                        .when(ageReached)
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
                                         .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE)
-                                                .when(HAS_NO_SILK_TOUCH)
-                                                .when(ageReached)
                                                 .when(isLower)
-                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))));
-                            }
-                            return LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN).when(ageReached).when(isLower).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
-                        }))));
+                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(PineappleCropBlock.AGE, 5))),
+
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN)
+                                        .apply(List.of(1, 2, 3, 4), age -> SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))
+                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PineappleCropBlock.AGE, age)))))
+                                .when(isLower)
+                ))));
     }
 }
