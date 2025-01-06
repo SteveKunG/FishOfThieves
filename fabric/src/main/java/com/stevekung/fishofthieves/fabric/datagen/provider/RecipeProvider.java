@@ -7,8 +7,10 @@ import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -94,7 +96,7 @@ public class RecipeProvider extends FabricRecipeProvider
 
         oneToOneConversionRecipe(consumer, Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
         oneToOneConversionRecipe(consumer, Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
-        oneToOneConversionRecipe(consumer, FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE, null, 4);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(consumer, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
         woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
         woodFromLogs(consumer, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
         woodFromLogs(consumer, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);
