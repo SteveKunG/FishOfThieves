@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
+import java.util.stream.Stream;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
@@ -24,29 +26,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/**
- * From Crown
- * State 0: crop
- * State 1: crown
- * State 2: bush
- * State 3: flowering red bud
- * State 4: green pineapple
- * State 5: pineapple
- */
 @SuppressWarnings("deprecation")
 public class PineappleCropBlock extends DoublePlantBlock implements BonemealableBlock
 {
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 5);
 
-    private static final VoxelShape FULL_UPPER_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 15.0, 13.0);
-    private static final VoxelShape FULL_LOWER_SHAPE = Block.box(3.0, -1.0, 3.0, 13.0, 16.0, 13.0);
-    private static final VoxelShape COLLISION_SHAPE_BULB = Block.box(5.0, -1.0, 5.0, 11.0, 3.0, 11.0);
-    private static final VoxelShape COLLISION_SHAPE_CROP = Block.box(3.0, -1.0, 3.0, 13.0, 5.0, 13.0);
-    private static final VoxelShape[] UPPER_SHAPE_BY_AGE = new VoxelShape[] { Block.box(3.0, 0.0, 3.0, 13.0, 11.0, 13.0), FULL_UPPER_SHAPE };
-    private static final VoxelShape[] LOWER_SHAPE_BY_AGE = new VoxelShape[] { COLLISION_SHAPE_BULB, Block.box(3.0, -1.0, 3.0, 13.0, 14.0, 13.0), FULL_LOWER_SHAPE, FULL_LOWER_SHAPE, FULL_LOWER_SHAPE };
+    private static final VoxelShape BASE_SHAPE = Block.box(2, 0, 2, 14, 9, 14);
+    private static final VoxelShape STAGE_3_SHAPE = Shapes.join(Block.box(6.5, 9, 6.5, 9.5, 12, 9.5), BASE_SHAPE, BooleanOp.OR);
+    private static final VoxelShape STAGE_4_COLLISION_SHAPE = Block.box(5, -7, 5, 11, 1, 11);
+    private static final VoxelShape STAGE_4_LOWER_SHAPE = Shapes.join(Block.box(5, 9, 5, 11, 17, 11), BASE_SHAPE, BooleanOp.OR);
+    private static final VoxelShape STAGE_4_SHAPE = Shapes.join(STAGE_4_COLLISION_SHAPE, Block.box(5, 1, 5, 11, 5, 11), BooleanOp.OR);
+    private static final VoxelShape STAGE_5_COLLISION_SHAPE = Shapes.join(Block.box(6, -7, 6, 10, -6, 10), Block.box(4, -6, 4, 12, 4, 12), BooleanOp.OR);
+    private static final VoxelShape STAGE_5_LOWER_SHAPE = Stream.of(Block.box(6, 9, 6, 10, 10, 10), Block.box(4, 10, 4, 12, 20, 12), BASE_SHAPE).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+    private static final VoxelShape STAGE_5_SHAPE = Stream.of(STAGE_5_COLLISION_SHAPE, Block.box(4, 4, 4, 12, 11, 12)).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
     public PineappleCropBlock(BlockBehaviour.Properties properties)
     {
@@ -86,20 +83,26 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        if (state.getValue(AGE) == 0)
+        int age = state.getValue(AGE);
+
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER)
         {
-            return COLLISION_SHAPE_BULB;
+            if (age == 4)
+            {
+                return STAGE_4_COLLISION_SHAPE;
+            }
+            else if (age == 5)
+            {
+                return STAGE_5_COLLISION_SHAPE;
+            }
         }
-        else
-        {
-            return state.getValue(HALF) == DoubleBlockHalf.LOWER ? COLLISION_SHAPE_CROP : super.getCollisionShape(state, level, pos, context);
-        }
+        return super.getCollisionShape(state, level, pos, context);
     }
 
     @Override
     public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos)
     {
-        if (!isLower(state) && state.getValue(AGE) >= 3)
+        if (!isLower(state) && state.getValue(AGE) >= 4)
         {
             var destroySpeed = 0.6f;
             var i = player.hasCorrectToolForDrops(state) ? 30 : 100;
@@ -109,9 +112,24 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Override
+    public SoundType getSoundType(BlockState state)
+    {
+        if (state.getValue(HALF) == DoubleBlockHalf.UPPER)
+        {
+            var age = state.getValue(AGE);
+
+            if (age >= 4)
+            {
+                return SoundType.WOOD;
+            }
+        }
+        return super.getSoundType(state);
+    }
+
+    @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        return !isLower(state) ? super.canSurvive(state, level, pos) : this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) && sufficientLight(level, pos) && (state.getValue(AGE) < 3 || isUpper(level.getBlockState(pos.above())));
+        return !isLower(state) ? super.canSurvive(state, level, pos) : this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) && sufficientLight(level, pos) && (state.getValue(AGE) < 4 || isUpper(level.getBlockState(pos.above())));
     }
 
     @Override
@@ -131,7 +149,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     {
         var age = state.getValue(AGE);
 
-        if (!level.isClientSide() && age == this.getMaxAge() && EnchantmentHelper.hasSilkTouch(player.getMainHandItem()))
+        if (!level.isClientSide() && age >= 4 && EnchantmentHelper.hasSilkTouch(player.getMainHandItem()))
         {
             preventCreativeDropFromBottomPart(level, pos, state, player);
         }
@@ -139,11 +157,25 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         super.playerWillDestroy(level, pos, state, player);
     }
 
-    //    @Override
-    //    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
-    //    {
-    //        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? UPPER_SHAPE_BY_AGE[Math.min(Math.abs(4 - (state.getValue(AGE) + 1)), UPPER_SHAPE_BY_AGE.length - 1)] : LOWER_SHAPE_BY_AGE[state.getValue(AGE)];
-    //    }
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    {
+        int age = state.getValue(AGE);
+
+        if (age == 3)
+        {
+            return STAGE_3_SHAPE;
+        }
+        else if (age == 4)
+        {
+            return state.getValue(HALF) == DoubleBlockHalf.UPPER ? STAGE_4_SHAPE : STAGE_4_LOWER_SHAPE;
+        }
+        else if (age == 5)
+        {
+            return state.getValue(HALF) == DoubleBlockHalf.UPPER ? STAGE_5_SHAPE : STAGE_5_LOWER_SHAPE;
+        }
+        return BASE_SHAPE;
+    }
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
@@ -186,7 +218,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         {
             level.setBlock(pos, state.setValue(AGE, age), Block.UPDATE_CLIENTS);
 
-            if (age >= 3)
+            if (age >= 4)
             {
                 var blockPos = pos.above();
                 level.setBlock(blockPos, copyWaterloggedFrom(level, pos, this.defaultBlockState().setValue(AGE, age).setValue(HALF, DoubleBlockHalf.UPPER)), Block.UPDATE_ALL);
@@ -217,7 +249,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
     private boolean canGrow(LevelReader reader, BlockPos pos, BlockState state, int age)
     {
-        return this.isLowerAge(state) && sufficientLight(reader, pos) && (age < 3 || canGrowInto(reader, pos.above()));
+        return this.isLowerAge(state) && sufficientLight(reader, pos) && (age < 4 || canGrowInto(reader, pos.above()));
     }
 
     @Nullable

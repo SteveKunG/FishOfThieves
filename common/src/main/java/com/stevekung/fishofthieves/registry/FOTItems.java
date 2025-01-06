@@ -61,6 +61,7 @@ public class FOTItems
     public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
     public static final Item HALF_PINEAPPLE = new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE));
     public static final Item PINEAPPLE = new PineappleItem(new Item.Properties().craftRemainder(HALF_PINEAPPLE).food(FOTFoodProperties.PINEAPPLE));
+    public static final Item CROWNLESS_PINEAPPLE = new PineappleItem(new Item.Properties().craftRemainder(HALF_PINEAPPLE).food(FOTFoodProperties.PINEAPPLE));
     public static final Item PINEAPPLE_SEEDS = new PineappleBlockItem(false, new Item.Properties());
     public static final Item PINEAPPLE_CROWN = new PineappleBlockItem(true, new Item.Properties());
 
@@ -123,6 +124,7 @@ public class FOTItems
         register("banana", BANANA);
         register("half_pineapple", HALF_PINEAPPLE);
         register("pineapple", PINEAPPLE);
+        register("crownless_pineapple", CROWNLESS_PINEAPPLE);
         register("pineapple_seeds", PINEAPPLE_SEEDS);
         register("pineapple_crown", PINEAPPLE_CROWN);
 

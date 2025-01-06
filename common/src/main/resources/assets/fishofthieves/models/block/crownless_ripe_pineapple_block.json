@@ -3,8 +3,7 @@
 	"ambientocclusion": false,
 	"textures": {
 		"particle": "fishofthieves:block/ripe_pineapple_side",
-		"side": "fishofthieves:block/ripe_pineapple_side",
-		"crown": "fishofthieves:block/pineapple_crown"
+		"side": "fishofthieves:block/ripe_pineapple_side"
 	},
 	"elements": [
 		{
@@ -18,26 +17,6 @@
 				"west": {"uv": [8, 0, 0, 10], "texture": "#side"},
 				"up": {"uv": [8, 0, 16, 8], "texture": "#side"},
 				"down": {"uv": [8, 8, 16, 16], "texture": "#side", "cullface": "down"}
-			}
-		},
-		{
-			"from": [3, 10, 8],
-			"to": [13, 18, 8],
-			"shade": false,
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 10, 8]},
-			"faces": {
-				"north": {"uv": [3, 8, 13, 16], "texture": "#crown"},
-				"south": {"uv": [3, 8, 13, 16], "texture": "#crown"}
-			}
-		},
-		{
-			"from": [3, 10, 8],
-			"to": [13, 18, 8],
-			"shade": false,
-			"rotation": {"angle": -45, "axis": "y", "origin": [8, 10, 8]},
-			"faces": {
-				"north": {"uv": [3, 8, 13, 16], "texture": "#crown"},
-				"south": {"uv": [3, 8, 13, 16], "texture": "#crown"}
 			}
 		}
 	],

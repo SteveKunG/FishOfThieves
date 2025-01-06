@@ -162,7 +162,9 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.otherWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.otherWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         this.add(FOTBlocks.PINEAPPLE_CROP, this::createPineappleCropLoot);
+        this.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE_CROWN));
         this.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE));
+        this.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.CROWNLESS_PINEAPPLE));
     }
 
     private LootTable.Builder createPineappleCropLoot(Block block)
@@ -180,6 +182,18 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                         .when(ageReached)
                                         .when(isLower)
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)));
+                            }
+                            else if (age == 4)
+                            {
+                                return LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)
+                                        .when(HAS_SILK_TOUCH)
+                                        .when(ageReached)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                                        .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN)
+                                                .when(HAS_NO_SILK_TOUCH)
+                                                .when(ageReached)
+                                                .when(isLower)
+                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))));
                             }
                             else if (age == 5)
                             {

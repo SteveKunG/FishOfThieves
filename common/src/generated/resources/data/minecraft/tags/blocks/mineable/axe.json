@@ -6,6 +6,8 @@
     "#fishofthieves:banana_clusters",
     "fishofthieves:coconut_fruit",
     "fishofthieves:pineapple_crop",
-    "fishofthieves:ripe_pineapple_block"
+    "fishofthieves:underripe_pineapple_block",
+    "fishofthieves:ripe_pineapple_block",
+    "fishofthieves:crownless_ripe_pineapple_block"
   ]
 }

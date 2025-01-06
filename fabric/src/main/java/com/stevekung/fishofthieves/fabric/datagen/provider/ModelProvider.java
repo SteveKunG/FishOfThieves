@@ -29,6 +29,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class ModelProvider extends FabricModelProvider
 {
@@ -150,6 +151,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.COCONUT_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.HALF_PINEAPPLE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.PINEAPPLE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.CROWNLESS_PINEAPPLE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.PINEAPPLE_SEEDS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.PINEAPPLE_CROWN, ModelTemplates.FLAT_ITEM);
     }
@@ -250,24 +252,38 @@ public class ModelProvider extends FabricModelProvider
         generator.skipAutoItemBlock(FOTBlocks.BANANA_SHOOTS);
         this.createPineappleCrop(generator);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.RIPE_PINEAPPLE_BLOCK)));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK)));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)));
     }
 
     private void createPineappleCrop(BlockModelGenerators generator)
     {
         var block = FOTBlocks.PINEAPPLE_CROP;
-        var modelLocation = ModelLocationUtils.getModelLocation(block);
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.properties(PineappleCropBlock.AGE, PineappleCropBlock.HALF)
-                        .generate((age, half) -> {
-                            if (age >= 3)
+                .with(PropertyDispatch.properties(PineappleCropBlock.AGE, PineappleCropBlock.HALF).generate((age, half) ->
+                        {
+                            if (half == DoubleBlockHalf.LOWER)
                             {
-
+                                if (age != 3)
+                                {
+                                    return Variant.variant().with(VariantProperties.MODEL, BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age)), generator.modelOutput));
+                                }
+                                else
+                                {
+                                    return Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_lower_stage_3"));
+                                }
                             }
                             else
                             {
-
+                                if (age < 4)
+                                {
+                                    return Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_lower_stage_0"));
+                                }
+                                else
+                                {
+                                    return Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age));
+                                }
                             }
-                            return Variant.variant().with(VariantProperties.MODEL, BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_" + age), TextureMapping.cross(block), generator.modelOutput));
                         })
                 ));
     }

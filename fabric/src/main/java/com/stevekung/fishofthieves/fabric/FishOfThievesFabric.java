@@ -67,6 +67,7 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTItems.COCONUT, 0.5F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.BANANA, 0.3F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.PINEAPPLE, 0.7F);
+        CompostingChanceRegistry.INSTANCE.add(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.HALF_PINEAPPLE, 0.35F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.PINEAPPLE_SEEDS, 0.1F);
         CompostingChanceRegistry.INSTANCE.add(FOTItems.PINEAPPLE_CROWN, 0.15F);
@@ -79,7 +80,9 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.BANANA_STEM, 0.8F);
+        CompostingChanceRegistry.INSTANCE.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
+        CompostingChanceRegistry.INSTANCE.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
 
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_LEAVES, 30, 60);
