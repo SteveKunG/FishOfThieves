@@ -97,6 +97,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        output.accept(FOTBlocks.MANGO_LEAVES);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 

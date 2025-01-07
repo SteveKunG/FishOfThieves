@@ -27,11 +27,13 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 .add(FOTBlocks.COCONUT_FRUIT, FOTBlocks.PINEAPPLE_CROP,
                         FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, FOTBlocks.RIPE_PINEAPPLE_BLOCK,
                         FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE).add(FOTBlocks.MANGO_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG,
                 FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
                 FOTBlocks.MEDIUM_COCONUT_LOG).forceAddTag(FOTTags.Blocks.BANANA_STEMS);
         this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).forceAddTag(FOTTags.Blocks.BANANA_STEMS);
-        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS);
+        this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
+                FOTBlocks.MANGO_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA);
         this.getOrCreateTagBuilder(BlockTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS);

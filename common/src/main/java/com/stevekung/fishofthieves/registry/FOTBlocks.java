@@ -109,6 +109,7 @@ public class FOTBlocks
     public static final Block RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block CROWNLESS_RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.CROWNLESS, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block UNDERRIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.UNDERRIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -220,6 +221,7 @@ public class FOTBlocks
         register("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
         register("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
         register("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
+        register("mango_leaves", MANGO_LEAVES);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);
@@ -266,12 +268,17 @@ public class FOTBlocks
         return new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), setType, 30, true);
     }
 
+    private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
+    {
+        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+    }
+
     private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos)
     {
         return false;
     }
 
-    private static Boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
+    private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
     {
         return false;
     }

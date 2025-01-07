@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -83,6 +84,7 @@ public class FishOfThievesFabric implements ModInitializer
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
         CompostingChanceRegistry.INSTANCE.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
+        CompostingChanceRegistry.INSTANCE.add(FOTBlocks.MANGO_LEAVES, 0.3F);
 
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_LEAVES, 30, 60);
@@ -112,6 +114,7 @@ public class FishOfThievesFabric implements ModInitializer
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.BANANA_STEM, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.TOP_BANANA_STEM, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(FOTBlocks.MANGO_LEAVES, 30, 60);
 
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
