@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"particle": "fishofthieves:block/mango_fruit_stage_0",
 		"fruit": "fishofthieves:block/mango_fruit_stage_0"

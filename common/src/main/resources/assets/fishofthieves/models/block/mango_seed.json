@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
+	"render_type": "cutout",
 	"textures": {
 		"particle": "fishofthieves:block/mango_seed",
 		"sapling": "fishofthieves:block/mango_seed"
