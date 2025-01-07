@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.forge;
 
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
@@ -14,7 +15,11 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -29,6 +34,17 @@ public class FOTPlatformImpl
     public static boolean isModLoaded(String modId)
     {
         return ModList.get().isLoaded(modId);
+    }
+
+    public static void addComposting(ItemLike item, float value)
+    {
+        ComposterBlock.COMPOSTABLES.put(item, value);
+    }
+
+    public static void addFlammableBlock(Block block, int encouragement, int flammability)
+    {
+        var fireBlock = (FireBlock) Blocks.FIRE;
+        fireBlock.setFlammable(block, encouragement, flammability);
     }
 
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)

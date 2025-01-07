@@ -87,8 +87,6 @@ public class FishOfThievesForge
 
     private void commonSetup(FMLCommonSetupEvent event)
     {
-        FishOfThieves.initCommon();
-
         if (ModList.get().isLoaded("aquaculture"))
         {
             Aquaculture2.init();

@@ -84,6 +84,67 @@ public class FishOfThieves
 
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.ISLEHOPPER, Potions.WATER_BREATHING);
+
+        FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.LEECHES, 0.4F);
+        FOTPlatform.addComposting(FOTItems.COCONUT, 0.5F);
+        FOTPlatform.addComposting(FOTItems.BANANA, 0.3F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE, 0.7F);
+        FOTPlatform.addComposting(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
+        FOTPlatform.addComposting(FOTItems.HALF_PINEAPPLE, 0.35F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_SEEDS, 0.1F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_CROWN, 0.15F);
+        FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.MANGO_SEED, 0.2F);
+        FOTPlatform.addComposting(FOTBlocks.PINK_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.COCONUT_FRONDS, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_LEAVES, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_BLOSSOM, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_SHOOTS, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 0.5F);
+        FOTPlatform.addComposting(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_STEM, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
+        FOTPlatform.addComposting(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_LEAVES, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_SAPLING, 0.25F);
+
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.VERTICAL_COCONUT_FRONDS, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.VERTICAL_BANANA_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.PINK_PLUMERIA, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_PLANKS, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FENCE, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FENCE_GATE, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_SLAB, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_STAIRS, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRUIT, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SAPLING, 60, 100);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)

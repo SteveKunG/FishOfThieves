@@ -8,9 +8,7 @@ import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.world.entity.EntityType;
@@ -18,9 +16,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -48,58 +43,7 @@ public class CommonProxyForge
 
     public void commonSetup(FMLCommonSetupEvent event)
     {
-        ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.GRUBS, 0.4F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.COCONUT, 0.5F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.BANANA, 0.3F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE, 0.7F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.HALF_PINEAPPLE, 0.35F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE_SEEDS, 0.1F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.PINEAPPLE_CROWN, 0.15F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.PINK_PLUMERIA, 0.6F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.COCONUT_FRONDS, 0.8F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_LEAVES, 0.8F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_BLOSSOM, 0.3F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_SHOOTS, 0.25F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 0.5F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.BANANA_STEM, 0.8F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
-        ComposterBlock.COMPOSTABLES.put(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
-
-        var fireBlock = (FireBlock)Blocks.FIRE;
-        fireBlock.setFlammable(FOTBlocks.COCONUT_FRONDS, 30, 60);
-        fireBlock.setFlammable(FOTBlocks.BANANA_LEAVES, 30, 60);
-        fireBlock.setFlammable(FOTBlocks.VERTICAL_COCONUT_FRONDS, 30, 60);
-        fireBlock.setFlammable(FOTBlocks.VERTICAL_BANANA_LEAVES, 30, 60);
-        fireBlock.setFlammable(FOTBlocks.PINK_PLUMERIA, 60, 100);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_SAPLING, 60, 100);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_PLANKS, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_FENCE, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_FENCE_GATE, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_SLAB, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_STAIRS, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_FRUIT, 5, 20);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.SMALL_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.TOP_SMALL_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.SMALL_COCONUT_WOOD, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.MEDIUM_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.MEDIUM_COCONUT_WOOD, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.COCONUT_WOOD, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.STRIPPED_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.BANANA_STEM, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.TOP_BANANA_STEM, 5, 5);
-        fireBlock.setFlammable(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
+        FishOfThieves.initCommon();
     }
 
     @SubscribeEvent
