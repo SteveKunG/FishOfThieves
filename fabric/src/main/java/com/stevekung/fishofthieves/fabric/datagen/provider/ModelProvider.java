@@ -91,7 +91,6 @@ public class ModelProvider extends FabricModelProvider
 
         generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.BANANA_BLOSSOM.asItem(), ModelTemplates.FLAT_ITEM);
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_SHOOTS.asItem()), TextureMapping.layer0(TextureMapping.getBlockTexture(FOTBlocks.BANANA_SHOOTS)), generator.output);
 
         generator.generateFlatItem(FOTBlocks.OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
@@ -251,8 +250,7 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER, generator);
         this.createBananaClusterPlant(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
         this.createBananaClusterPlant(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER, generator);
-        generator.createCrossBlock(FOTBlocks.BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
-        generator.skipAutoItemBlock(FOTBlocks.BANANA_SHOOTS);
+        generator.createPlant(FOTBlocks.BANANA_SHOOTS, FOTBlocks.POTTED_BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
         this.createPineappleCrop(generator);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.RIPE_PINEAPPLE_BLOCK)));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK)));

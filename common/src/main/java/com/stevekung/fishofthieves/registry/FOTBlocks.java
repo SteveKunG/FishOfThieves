@@ -97,6 +97,7 @@ public class FOTBlocks
     public static final Block VERTICAL_COCONUT_FRONDS = new VerticalCoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_SHOOTS_PLANT = new BananaShootsPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.FLOWERING_AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_SHOOTS = new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS);
     public static final Block BANANA_BLOSSOM = new BananaBlossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_BLOSSOM_PLANT = new BananaBlossomPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block UNDERRIPE_BANANA_CLUSTER_PLANT = new UnderripeBananaClusterPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
@@ -215,6 +216,7 @@ public class FOTBlocks
         registerNoItem("vertical_coconut_fronds", VERTICAL_COCONUT_FRONDS);
         registerNoItem("banana_shoots_plant", BANANA_SHOOTS_PLANT);
         register("banana_shoots", BANANA_SHOOTS);
+        registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS);
         register("banana_blossom", BANANA_BLOSSOM);
         registerNoItem("banana_blossom_plant", BANANA_BLOSSOM_PLANT);
         registerNoItem("underripe_banana_cluster_plant", UNDERRIPE_BANANA_CLUSTER_PLANT);

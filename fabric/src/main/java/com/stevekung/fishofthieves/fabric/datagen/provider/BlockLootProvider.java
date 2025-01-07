@@ -175,6 +175,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.MANGO_SAPLING);
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SEED);
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
+        this.dropPottedContents(FOTBlocks.POTTED_BANANA_SHOOTS);
     }
 
     private LootTable.Builder createMangoFruitDrops(Block block)
