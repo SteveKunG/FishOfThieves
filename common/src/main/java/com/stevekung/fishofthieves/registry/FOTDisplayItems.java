@@ -92,8 +92,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         output.accept(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         output.accept(FOTBlocks.RIPE_BANANA_CLUSTER);
-        output.accept(FOTItems.PINEAPPLE_CROWN);
         output.accept(FOTItems.PINEAPPLE_SEEDS);
+        output.accept(FOTItems.PINEAPPLE_CROWN);
         output.accept(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
