@@ -54,7 +54,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
         this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
-        this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING.asItem(), FOTBlocks.BANANA_SHOOTS.asItem());
+        this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING.asItem(), FOTBlocks.BANANA_SHOOTS.asItem(),
+                FOTBlocks.MANGO_SAPLING.asItem());
         this.getOrCreateTagBuilder(ItemTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM.asItem());
         this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA.asItem());
 
@@ -82,7 +83,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.WORMS)
-                .add(FOTItems.COCONUT);
+                .add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.HALF_PINEAPPLE, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO);
         this.getOrCreateTagBuilder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTTags.FISH_BUCKETS);
 
         // Croptopia compatibility

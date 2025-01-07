@@ -154,6 +154,9 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.CROWNLESS_PINEAPPLE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.PINEAPPLE_SEEDS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.PINEAPPLE_CROWN, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.MANGO, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.RAW_MANGO, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.MANGO_SEED, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -255,6 +258,58 @@ public class ModelProvider extends FabricModelProvider
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK)));
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)));
         generator.createTrivialBlock(FOTBlocks.MANGO_LEAVES, TexturedModel.LEAVES);
+        this.createMangoFruit(generator);
+        this.createHangingMangoFruit(generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.MANGO_SEED, ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_SEED)));
+        generator.createPlant(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+        this.createPottedMangoSeed(generator);
+    }
+
+    private void createPottedMangoSeed(BlockModelGenerators generator)
+    {
+        var textureMapping = TextureMapping.plant(ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_SEED, "_plant"));
+        var resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCrossPot().create(FOTBlocks.POTTED_MANGO_SEED, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_MANGO_SEED, resourceLocation));
+    }
+
+    private void createHangingMangoFruit(BlockModelGenerators generator)
+    {
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FOTBlocks.HANGING_MANGO_FRUIT)
+                .with(PropertyDispatch.property(HangingMangoFruitBlock.AGE).generate(age ->
+                {
+                    var model = ModelLocationUtils.getModelLocation(FOTBlocks.HANGING_MANGO_FRUIT, "_stage_" + age);
+                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_FRUIT, "_stage_" + age));
+
+                    if (age == 0)
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, model);
+                    }
+                    else
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, FOTModelTemplates.HANGING_MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
+                    }
+                })));
+    }
+
+    private void createMangoFruit(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.MANGO_FRUIT;
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+                .with(BlockModelGenerators.createHorizontalFacingDispatch())
+                .with(PropertyDispatch.property(MangoFruitBlock.AGE).generate(age ->
+                {
+                    var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
+                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, model);
+
+                    if (age == 0)
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, model);
+                    }
+                    else
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, FOTModelTemplates.MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
+                    }
+                })));
     }
 
     private void createPineappleCrop(BlockModelGenerators generator)

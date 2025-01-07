@@ -33,4 +33,11 @@ public class FOTFoodProperties
     public static final FoodProperties BANANA = new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).build();
     public static final FoodProperties PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationMod(1.0f).build();
     public static final FoodProperties HALF_PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationMod(0.5f).build();
+    public static final FoodProperties MANGO = new FoodProperties.Builder().nutrition(5).saturationMod(1.0f).build();
+    public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationMod(0.5f)
+            .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 0.2F)
+            .effect(new MobEffectInstance(MobEffects.DIG_SPEED, 200), 0.15F)
+            .effect(new MobEffectInstance(MobEffects.JUMP, 200), 0.1F)
+            //TODO New juicy effect
+            .build();
 }

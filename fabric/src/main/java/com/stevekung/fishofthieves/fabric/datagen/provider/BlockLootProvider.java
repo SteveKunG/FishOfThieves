@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
+import com.stevekung.fishofthieves.block.MangoFruitBlock;
 import com.stevekung.fishofthieves.block.PineappleCropBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -168,6 +169,29 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE));
         this.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.CROWNLESS_PINEAPPLE));
         this.add(FOTBlocks.MANGO_LEAVES, this::createMangoLeavesDrops);
+        this.add(FOTBlocks.MANGO_FRUIT, this::createMangoFruitDrops);
+        this.add(FOTBlocks.HANGING_MANGO_FRUIT, this::createMangoFruitDrops);
+        this.dropSelf(FOTBlocks.MANGO_SEED);
+        this.dropSelf(FOTBlocks.MANGO_SAPLING);
+        this.dropPottedContents(FOTBlocks.POTTED_MANGO_SEED);
+        this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
+    }
+
+    private LootTable.Builder createMangoFruitDrops(Block block)
+    {
+        return this.applyExplosionDecay(block, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(MangoFruitBlock.AGE, 2)))
+                        .add(LootItem.lootTableItem(FOTItems.MANGO))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))))
+                .withPool(LootPool.lootPool()
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(MangoFruitBlock.AGE, 1)))
+                        .add(LootItem.lootTableItem(FOTItems.RAW_MANGO))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)))));
     }
 
     private LootTable.Builder createMangoLeavesDrops(Block block)

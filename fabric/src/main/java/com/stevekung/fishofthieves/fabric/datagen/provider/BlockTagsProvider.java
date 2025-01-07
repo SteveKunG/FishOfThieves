@@ -35,7 +35,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
                 FOTBlocks.MANGO_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
-        this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA);
+        this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA, FOTBlocks.POTTED_MANGO_SEED, FOTBlocks.POTTED_MANGO_SAPLING);
         this.getOrCreateTagBuilder(BlockTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE);
@@ -52,7 +52,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING, FOTBlocks.BANANA_SHOOTS);
         this.getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).add(FOTBlocks.BANANA_BLOSSOM);
         this.getOrCreateTagBuilder(BlockTags.BEE_GROWABLES).add(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
-                FOTBlocks.PINEAPPLE_CROP);
+                FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT, FOTBlocks.MANGO_SEED);
         this.getOrCreateTagBuilder(BlockTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT);
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);

@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "fishofthieves:block/mango_fruit_stage_0",
+		"fruit": "fishofthieves:block/mango_fruit_stage_0"
+	},
+	"elements": [
+		{
+			"from": [6.5, 5, 0],
+			"to": [9.5, 10, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1.5, 0, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 5], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 5], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 5], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 3, 5], "texture": "#fruit"},
+				"up": {"uv": [6, 3, 3, 0], "texture": "#fruit"},
+				"down": {"uv": [6, 3, 3, 6], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [8, 10, -1],
+			"to": [8, 14, 3],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 0]},
+			"faces": {
+				"east": {"uv": [6, 0, 10, 4], "texture": "#fruit"},
+				"west": {"uv": [10, 0, 6, 4], "texture": "#fruit"}
+			}
+		}
+	]
+}

@@ -109,7 +109,13 @@ public class FOTBlocks
     public static final Block RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block CROWNLESS_RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.CROWNLESS, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block UNDERRIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.UNDERRIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
-    public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
+    public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
+    public static final Block MANGO_FRUIT = new MangoFruitBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().randomTicks().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
+    public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
+    public static final Block MANGO_SEED = new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    public static final Block MANGO_SAPLING = new MangoSaplingBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
+    public static final Block POTTED_MANGO_SEED = flowerPot(MANGO_SEED);
+    public static final Block POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING);
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -182,7 +188,7 @@ public class FOTBlocks
         register("gilded_warped_fish_plaque", GILDED_WARPED_FISH_PLAQUE);
 
         register("pink_plumeria", PINK_PLUMERIA);
-        register("potted_pink_plumeria", POTTED_PINK_PLUMERIA);
+        registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA);
 
         register("coconut_log", COCONUT_LOG);
         register("coconut_wood", COCONUT_WOOD);
@@ -222,6 +228,12 @@ public class FOTBlocks
         register("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
         register("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
         register("mango_leaves", MANGO_LEAVES);
+        registerNoItem("mango_fruit", MANGO_FRUIT);
+        registerNoItem("hanging_mango_fruit", HANGING_MANGO_FRUIT);
+        registerNoItem("mango_seed", MANGO_SEED);
+        register("mango_sapling", MANGO_SAPLING);
+        registerNoItem("potted_mango_seed", POTTED_MANGO_SEED);
+        registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);

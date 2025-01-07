@@ -1,0 +1,42 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "fishofthieves:block/mango_seed",
+		"sapling": "fishofthieves:block/mango_seed"
+	},
+	"elements": [
+		{
+			"from": [5.5, 0, 5.5],
+			"to": [10.5, 2, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.5, 0, 5.5]},
+			"faces": {
+				"north": {"uv": [10, 10, 15, 12], "texture": "#sapling"},
+				"east": {"uv": [10, 10, 15, 12], "texture": "#sapling"},
+				"south": {"uv": [10, 10, 15, 12], "texture": "#sapling"},
+				"west": {"uv": [10, 10, 15, 12], "texture": "#sapling"},
+				"up": {"uv": [5, 10, 10, 15], "texture": "#sapling"}
+			}
+		},
+		{
+			"from": [2, 2, 8],
+			"to": [14, 12, 8],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 2, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 12, 10], "texture": "#sapling"},
+				"south": {"uv": [0, 0, 12, 10], "texture": "#sapling"}
+			}
+		},
+		{
+			"from": [8, 2, 2],
+			"to": [8, 12, 14],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 2, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 12, 10], "texture": "#sapling"},
+				"west": {"uv": [0, 0, 12, 10], "texture": "#sapling"}
+			}
+		}
+	]
+}

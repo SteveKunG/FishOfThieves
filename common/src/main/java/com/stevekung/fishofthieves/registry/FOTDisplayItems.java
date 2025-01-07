@@ -98,6 +98,8 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.MANGO_LEAVES);
+        output.accept(FOTItems.MANGO_SEED);
+        output.accept(FOTBlocks.MANGO_SAPLING);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 
@@ -160,5 +162,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.PINEAPPLE);
         output.accept(FOTItems.CROWNLESS_PINEAPPLE);
         output.accept(FOTItems.HALF_PINEAPPLE);
+        output.accept(FOTItems.MANGO);
+        output.accept(FOTItems.RAW_MANGO);
     }
 }

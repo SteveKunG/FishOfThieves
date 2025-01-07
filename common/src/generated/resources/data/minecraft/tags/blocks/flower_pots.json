@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "fishofthieves:potted_pink_plumeria"
+    "fishofthieves:potted_pink_plumeria",
+    "fishofthieves:potted_mango_seed",
+    "fishofthieves:potted_mango_sapling"
   ]
 }

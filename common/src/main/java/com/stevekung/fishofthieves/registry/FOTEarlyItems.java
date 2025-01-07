@@ -23,7 +23,9 @@ public interface FOTEarlyItems
             new ItemStack(FOTItems.COCONUT),
             new ItemStack(FOTItems.PINEAPPLE),
             new ItemStack(FOTItems.HALF_PINEAPPLE),
-            new ItemStack(FOTItems.CROWNLESS_PINEAPPLE)
+            new ItemStack(FOTItems.CROWNLESS_PINEAPPLE),
+            new ItemStack(FOTItems.MANGO),
+            new ItemStack(FOTItems.RAW_MANGO)
     };
 
     ItemStack[] CHICKEN_FOODS = {

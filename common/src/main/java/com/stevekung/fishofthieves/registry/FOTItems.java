@@ -64,6 +64,9 @@ public class FOTItems
     public static final Item CROWNLESS_PINEAPPLE = new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE));
     public static final Item PINEAPPLE_SEEDS = new PineappleBlockItem(false, new Item.Properties());
     public static final Item PINEAPPLE_CROWN = new PineappleBlockItem(true, new Item.Properties());
+    public static final Item MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO));
+    public static final Item RAW_MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO));
+    public static final Item MANGO_SEED = new ItemNameBlockItem(FOTBlocks.MANGO_SEED, new Item.Properties());
 
     public static final Item COCONUT_SIGN = new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
     public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
@@ -127,6 +130,9 @@ public class FOTItems
         register("crownless_pineapple", CROWNLESS_PINEAPPLE);
         register("pineapple_seeds", PINEAPPLE_SEEDS);
         register("pineapple_crown", PINEAPPLE_CROWN);
+        register("mango", MANGO);
+        register("raw_mango", RAW_MANGO);
+        register("mango_seed", MANGO_SEED);
 
         register("coconut_sign", COCONUT_SIGN);
         register("coconut_hanging_sign", COCONUT_HANGING_SIGN);

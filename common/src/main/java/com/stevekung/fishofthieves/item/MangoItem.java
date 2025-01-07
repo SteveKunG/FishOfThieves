@@ -11,9 +11,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class PineappleItem extends Item
+public class MangoItem extends Item
 {
-    public PineappleItem(Item.Properties properties)
+    public MangoItem(Properties properties)
     {
         super(properties);
     }
@@ -31,13 +31,13 @@ public class PineappleItem extends Item
 
         if (itemStack.isEmpty())
         {
-            return new ItemStack(FOTItems.HALF_PINEAPPLE);
+            return new ItemStack(FOTItems.MANGO_SEED);
         }
         else
         {
             if (livingEntity instanceof Player player && !player.getAbilities().instabuild)
             {
-                var itemStack1 = new ItemStack(FOTItems.HALF_PINEAPPLE);
+                var itemStack1 = new ItemStack(FOTItems.MANGO_SEED);
 
                 if (!player.getInventory().add(itemStack1))
                 {
