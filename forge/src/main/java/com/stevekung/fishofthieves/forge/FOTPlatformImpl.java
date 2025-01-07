@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -36,7 +35,7 @@ public class FOTPlatformImpl
         return ModList.get().isLoaded(modId);
     }
 
-    public static void addComposting(ItemLike item, float value)
+    public static void addComposting(Item item, float value)
     {
         ComposterBlock.COMPOSTABLES.put(item, value);
     }

@@ -188,7 +188,7 @@ public class FOTBlocks
         register("gilded_crimson_fish_plaque", GILDED_CRIMSON_FISH_PLAQUE);
         register("gilded_warped_fish_plaque", GILDED_WARPED_FISH_PLAQUE);
 
-        register("pink_plumeria", PINK_PLUMERIA);
+        registerNoItem("pink_plumeria", PINK_PLUMERIA);
         registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA);
 
         register("coconut_log", COCONUT_LOG);
@@ -207,33 +207,33 @@ public class FOTBlocks
         register("stripped_small_coconut_wood", STRIPPED_SMALL_COCONUT_WOOD);
         registerNoItem("coconut_sapling", COCONUT_SAPLING);
         registerNoItem("coconut_fruit", COCONUT_FRUIT);
-        register("coconut_fronds", COCONUT_FRONDS);
-        register("banana_stem", BANANA_STEM);
+        registerNoItem("coconut_fronds", COCONUT_FRONDS);
+        registerNoItem("banana_stem", BANANA_STEM);
         registerNoItem("top_banana_stem", TOP_BANANA_STEM);
         registerNoItem("growable_banana_stem", GROWABLE_BANANA_STEM);
-        register("banana_leaves", BANANA_LEAVES);
+        registerNoItem("banana_leaves", BANANA_LEAVES);
         registerNoItem("vertical_banana_leaves", VERTICAL_BANANA_LEAVES);
         registerNoItem("vertical_coconut_fronds", VERTICAL_COCONUT_FRONDS);
         registerNoItem("banana_shoots_plant", BANANA_SHOOTS_PLANT);
-        register("banana_shoots", BANANA_SHOOTS);
+        registerNoItem("banana_shoots", BANANA_SHOOTS);
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS);
-        register("banana_blossom", BANANA_BLOSSOM);
+        registerNoItem("banana_blossom", BANANA_BLOSSOM);
         registerNoItem("banana_blossom_plant", BANANA_BLOSSOM_PLANT);
         registerNoItem("underripe_banana_cluster_plant", UNDERRIPE_BANANA_CLUSTER_PLANT);
         registerNoItem("barely_ripe_banana_cluster_plant", BARELY_RIPE_BANANA_CLUSTER_PLANT);
         registerNoItem("ripe_banana_cluster_plant", RIPE_BANANA_CLUSTER_PLANT);
-        register("underripe_banana_cluster", UNDERRIPE_BANANA_CLUSTER);
-        register("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
-        register("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
+        registerNoItem("underripe_banana_cluster", UNDERRIPE_BANANA_CLUSTER);
+        registerNoItem("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
+        registerNoItem("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
         registerNoItem("pineapple_crop", PINEAPPLE_CROP);
-        register("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
-        register("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
-        register("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
-        register("mango_leaves", MANGO_LEAVES);
+        registerNoItem("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
+        registerNoItem("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        registerNoItem("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
+        registerNoItem("mango_leaves", MANGO_LEAVES);
         registerNoItem("mango_fruit", MANGO_FRUIT);
         registerNoItem("hanging_mango_fruit", HANGING_MANGO_FRUIT);
         registerNoItem("mango_seed", MANGO_SEED);
-        register("mango_sapling", MANGO_SAPLING);
+        registerNoItem("mango_sapling", MANGO_SAPLING);
         registerNoItem("potted_mango_seed", POTTED_MANGO_SEED);
         registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING);
 

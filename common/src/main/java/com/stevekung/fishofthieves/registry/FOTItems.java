@@ -74,6 +74,22 @@ public class FOTItems
     public static final Item COCONUT_CHEST_BOAT = new BoatItem(true, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
     public static final Item COCONUT_DOOR = new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, new Item.Properties());
 
+    // Forge being stupid again...
+    public static final Item PINK_PLUMERIA = new BlockItem(FOTBlocks.PINK_PLUMERIA, new Item.Properties());
+    public static final Item COCONUT_FRONDS = new BlockItem(FOTBlocks.COCONUT_FRONDS, new Item.Properties());
+    public static final Item BANANA_LEAVES = new BlockItem(FOTBlocks.BANANA_LEAVES, new Item.Properties());
+    public static final Item BANANA_BLOSSOM = new BlockItem(FOTBlocks.BANANA_BLOSSOM, new Item.Properties());
+    public static final Item BANANA_SHOOTS = new BlockItem(FOTBlocks.BANANA_SHOOTS, new Item.Properties());
+    public static final Item UNDERRIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, new Item.Properties());
+    public static final Item BARELY_RIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, new Item.Properties());
+    public static final Item RIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.RIPE_BANANA_CLUSTER, new Item.Properties());
+    public static final Item BANANA_STEM = new BlockItem(FOTBlocks.BANANA_STEM, new Item.Properties());
+    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, new Item.Properties());
+    public static final Item RIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK, new Item.Properties());
+    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, new Item.Properties());
+    public static final Item MANGO_LEAVES = new BlockItem(FOTBlocks.MANGO_LEAVES, new Item.Properties());
+    public static final Item MANGO_SAPLING = new BlockItem(FOTBlocks.MANGO_SAPLING, new Item.Properties());
+
     public static void init()
     {
         register("earthworms", EARTHWORMS);
@@ -139,6 +155,21 @@ public class FOTItems
         register("coconut_boat", COCONUT_BOAT);
         register("coconut_chest_boat", COCONUT_CHEST_BOAT);
         register("coconut_door", COCONUT_DOOR);
+
+        register("pink_plumeria", PINK_PLUMERIA);
+        register("coconut_fronds", COCONUT_FRONDS);
+        register("banana_leaves", BANANA_LEAVES);
+        register("banana_blossom", BANANA_BLOSSOM);
+        register("banana_shoots", BANANA_SHOOTS);
+        register("underripe_banana_cluster", UNDERRIPE_BANANA_CLUSTER);
+        register("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
+        register("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
+        register("banana_stem", BANANA_STEM);
+        register("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
+        register("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
+        register("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        register("mango_leaves", MANGO_LEAVES);
+        register("mango_sapling", MANGO_SAPLING);
     }
 
     private static void register(String key, Item item)
