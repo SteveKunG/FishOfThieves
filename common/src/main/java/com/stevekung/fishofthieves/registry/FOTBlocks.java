@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.feature.BananaTreeGrower;
 import com.stevekung.fishofthieves.feature.CoconutTreeGrower;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
@@ -69,9 +70,6 @@ public class FOTBlocks
     public static final Block GILDED_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
     public static final Block GILDED_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
-    public static final Block PINK_PLUMERIA = new FlowerBlock(MobEffects.REGENERATION, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
-    public static final Block POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA);
-
     public static final Block SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block GROWABLE_SMALL_COCONUT_LOG = new GrowableCoconutLogBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block TOP_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(() -> SMALL_COCONUT_LOG, BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
@@ -96,8 +94,6 @@ public class FOTBlocks
     public static final Block VERTICAL_BANANA_LEAVES = new VerticalBananaLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block VERTICAL_COCONUT_FRONDS = new VerticalCoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_SHOOTS_PLANT = new BananaShootsPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.FLOWERING_AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
-    public static final Block BANANA_SHOOTS = new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
-    public static final Block POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS);
     public static final Block BANANA_BLOSSOM = new BananaBlossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_BLOSSOM_PLANT = new BananaBlossomPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block UNDERRIPE_BANANA_CLUSTER_PLANT = new UnderripeBananaClusterPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
@@ -113,10 +109,16 @@ public class FOTBlocks
     public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
     public static final Block MANGO_FRUIT = new MangoFruitBlock(BlockBehaviour.Properties.of().noCollission().noOcclusion().randomTicks().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
     public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().noCollission().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
-    public static final Block MANGO_SEED = new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
-    public static final Block MANGO_SAPLING = new MangoSaplingBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
-    public static final Block POTTED_MANGO_SEED = flowerPot(MANGO_SEED);
-    public static final Block POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING);
+
+    public static Block PINK_PLUMERIA;
+    public static Block BANANA_SHOOTS;
+    public static Block MANGO_SEED;
+    public static Block MANGO_SAPLING;
+
+    public static Block POTTED_PINK_PLUMERIA;
+    public static Block POTTED_BANANA_SHOOTS;
+    public static Block POTTED_MANGO_SEED;
+    public static Block POTTED_MANGO_SAPLING;
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -188,9 +190,6 @@ public class FOTBlocks
         register("gilded_crimson_fish_plaque", GILDED_CRIMSON_FISH_PLAQUE);
         register("gilded_warped_fish_plaque", GILDED_WARPED_FISH_PLAQUE);
 
-        registerNoItem("pink_plumeria", PINK_PLUMERIA);
-        registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA);
-
         register("coconut_log", COCONUT_LOG);
         register("coconut_wood", COCONUT_WOOD);
         register("stripped_coconut_log", STRIPPED_COCONUT_LOG);
@@ -215,8 +214,6 @@ public class FOTBlocks
         registerNoItem("vertical_banana_leaves", VERTICAL_BANANA_LEAVES);
         registerNoItem("vertical_coconut_fronds", VERTICAL_COCONUT_FRONDS);
         registerNoItem("banana_shoots_plant", BANANA_SHOOTS_PLANT);
-        registerNoItem("banana_shoots", BANANA_SHOOTS);
-        registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS);
         registerNoItem("banana_blossom", BANANA_BLOSSOM);
         registerNoItem("banana_blossom_plant", BANANA_BLOSSOM_PLANT);
         registerNoItem("underripe_banana_cluster_plant", UNDERRIPE_BANANA_CLUSTER_PLANT);
@@ -232,10 +229,6 @@ public class FOTBlocks
         registerNoItem("mango_leaves", MANGO_LEAVES);
         registerNoItem("mango_fruit", MANGO_FRUIT);
         registerNoItem("hanging_mango_fruit", HANGING_MANGO_FRUIT);
-        registerNoItem("mango_seed", MANGO_SEED);
-        registerNoItem("mango_sapling", MANGO_SAPLING);
-        registerNoItem("potted_mango_seed", POTTED_MANGO_SEED);
-        registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);
@@ -256,6 +249,19 @@ public class FOTBlocks
         register("gilded_coconut_fish_plaque", GILDED_COCONUT_FISH_PLAQUE);
     }
 
+    public static void initFabric()
+    {
+        registerNoItem("pink_plumeria", PINK_PLUMERIA = new FlowerBlock(MobEffects.REGENERATION, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+        registerNoItem("banana_shoots", BANANA_SHOOTS = new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
+        registerNoItem("mango_seed", MANGO_SEED = new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
+        registerNoItem("mango_sapling", MANGO_SAPLING = new MangoSaplingBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY)));
+
+        registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
+        registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
+        registerNoItem("potted_mango_seed", POTTED_MANGO_SEED = flowerPot(MANGO_SEED));
+        registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
+    }
+
     private static void register(String key, Block block)
     {
         FOTPlatform.registerBlockWithItem(key, block);
@@ -271,7 +277,7 @@ public class FOTBlocks
         return new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     }
 
-    private static FlowerPotBlock flowerPot(Block content)
+    public static FlowerPotBlock flowerPot(Block content)
     {
         var properties = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
         return new FlowerPotBlock(content, properties);

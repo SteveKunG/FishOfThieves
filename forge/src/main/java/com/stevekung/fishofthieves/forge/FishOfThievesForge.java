@@ -2,6 +2,10 @@ package com.stevekung.fishofthieves.forge;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.block.BananaShootsBlock;
+import com.stevekung.fishofthieves.block.MangoSaplingBlock;
+import com.stevekung.fishofthieves.block.MangoSeedBlock;
+import com.stevekung.fishofthieves.feature.BananaTreeGrower;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
@@ -14,16 +18,24 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -96,8 +108,29 @@ public class FishOfThievesForge
     @SubscribeEvent
     public void onRegister(RegisterEvent event)
     {
-        event.register(ForgeRegistries.Keys.BLOCKS, helper -> FOTBlocks.init());
-        event.register(ForgeRegistries.Keys.ITEMS, helper -> FOTItems.init());
+        event.register(ForgeRegistries.Keys.BLOCKS, helper ->
+        {
+            FOTBlocks.init();
+
+            helper.register("pink_plumeria", FOTBlocks.PINK_PLUMERIA = new FlowerBlock(() -> MobEffects.REGENERATION, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            helper.register("banana_shoots", FOTBlocks.BANANA_SHOOTS = new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
+            helper.register("mango_seed", FOTBlocks.MANGO_SEED = new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
+            helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = new MangoSaplingBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY)));
+
+            helper.register("potted_pink_plumeria", FOTBlocks.POTTED_PINK_PLUMERIA = FOTBlocks.flowerPot(FOTBlocks.PINK_PLUMERIA));
+            helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
+            helper.register("potted_mango_seed", FOTBlocks.POTTED_MANGO_SEED = FOTBlocks.flowerPot(FOTBlocks.MANGO_SEED));
+            helper.register("potted_mango_sapling", FOTBlocks.POTTED_MANGO_SAPLING = FOTBlocks.flowerPot(FOTBlocks.MANGO_SAPLING));
+        });
+        event.register(ForgeRegistries.Keys.ITEMS, helper ->
+        {
+            FOTItems.init();
+
+            helper.register("pink_plumeria", FOTItems.PINK_PLUMERIA = new BlockItem(FOTBlocks.PINK_PLUMERIA, new Item.Properties()));
+            helper.register("banana_shoots", FOTItems.BANANA_SHOOTS = new BlockItem(FOTBlocks.BANANA_SHOOTS, new Item.Properties()));
+            helper.register("mango_seed", FOTItems.MANGO_SEED = new ItemNameBlockItem(FOTBlocks.MANGO_SEED, new Item.Properties()));
+            helper.register("mango_sapling", FOTItems.MANGO_SAPLING = new BlockItem(FOTBlocks.MANGO_SAPLING, new Item.Properties()));
+        });
         event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());
         event.register(ForgeRegistries.Keys.BIOMES, helper -> FOTLootItemConditions.init());
