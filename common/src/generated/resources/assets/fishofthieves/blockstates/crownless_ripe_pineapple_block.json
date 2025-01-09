@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "fishofthieves:block/crownless_ripe_pineapple_block"
-    }
+    "": [
+      {
+        "model": "fishofthieves:block/crownless_ripe_pineapple_block"
+      },
+      {
+        "model": "fishofthieves:block/crownless_ripe_pineapple_block",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/crownless_ripe_pineapple_block",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/crownless_ripe_pineapple_block",
+        "y": 270
+      }
+    ]
   }
 }

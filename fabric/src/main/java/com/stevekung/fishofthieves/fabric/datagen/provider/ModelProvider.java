@@ -232,7 +232,7 @@ public class ModelProvider extends FabricModelProvider
         this.createMediumLog(generator, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
         this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
         this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.COCONUT_SAPLING, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_SAPLING)));
+        this.generateRotatedExistedModel(generator, FOTBlocks.COCONUT_SAPLING);
         this.createCoconutFruit(generator);
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
@@ -247,20 +247,20 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaBlossom(generator);
         this.createBananaBlossomPlant(generator);
         this.createUnderripeBananaCluster(generator);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, ModelLocationUtils.getModelLocation(FOTBlocks.UNDERRIPE_BANANA_CLUSTER)));
-        this.createBananaCluster(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
-        this.createBananaCluster(FOTBlocks.RIPE_BANANA_CLUSTER, generator);
+        this.generateRotatedExistedModel(generator, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        this.createBananaCluster(generator, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.createBananaCluster(generator, FOTBlocks.RIPE_BANANA_CLUSTER);
         this.createBananaClusterPlant(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
         this.createBananaClusterPlant(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER, generator);
         generator.createPlant(FOTBlocks.BANANA_SHOOTS, FOTBlocks.POTTED_BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
         this.createPineappleCrop(generator);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.RIPE_PINEAPPLE_BLOCK)));
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK)));
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, ModelLocationUtils.getModelLocation(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)));
+        this.generateRotatedExistedModel(generator, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
+        this.generateRotatedExistedModel(generator, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        this.generateRotatedExistedModel(generator, FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
         generator.createTrivialBlock(FOTBlocks.MANGO_LEAVES, TexturedModel.LEAVES);
         this.createMangoFruit(generator);
         this.createHangingMangoFruit(generator);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.MANGO_SEED, ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_SEED)));
+        this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_SEED);
         generator.createPlant(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
         this.createPottedMangoSeed(generator);
     }
@@ -282,18 +282,18 @@ public class ModelProvider extends FabricModelProvider
 
                     if (age == 0)
                     {
-                        return createRotatedVariants(model);
+                        return this.createRotatedVariants(model);
                     }
                     else
                     {
-                        return createRotatedVariants(FOTModelTemplates.HANGING_MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
+                        return this.createRotatedVariants(FOTModelTemplates.HANGING_MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
                     }
                 })));
     }
 
-    private static List<Variant> createRotatedVariants(ResourceLocation modelLocation)
+    private void generateRotatedExistedModel(BlockModelGenerators generator, Block block)
     {
-        return List.of(Variant.variant().with(VariantProperties.MODEL, modelLocation), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, this.createRotatedVariants(ModelLocationUtils.getModelLocation(block)).toArray(Variant[]::new)));
     }
 
     private void createMangoFruit(BlockModelGenerators generator)
@@ -531,11 +531,11 @@ public class ModelProvider extends FabricModelProvider
                         .generate(hanging -> Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_hanging_" + hanging.getSerializedName())))));
     }
 
-    private void createBananaCluster(Block block, BlockModelGenerators generator)
+    private void createBananaCluster(BlockModelGenerators generator, Block block)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(block, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(block, "_bottom"));
         var normalCluster = FOTModelTemplates.BANANA_CLUSTER.create(block, textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, normalCluster));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, this.createRotatedVariants(normalCluster).toArray(Variant[]::new)));
     }
 
     private void createBananaClusterPlant(Block block, Block base, BlockModelGenerators generator)
@@ -620,5 +620,10 @@ public class ModelProvider extends FabricModelProvider
     private ResourceLocation getCustomModelLocation(ResourceLocation resourceLocation, String item)
     {
         return new ResourceLocation(resourceLocation.getNamespace(), "item/" + item);
+    }
+
+    private List<Variant> createRotatedVariants(ResourceLocation modelLocation)
+    {
+        return List.of(Variant.variant().with(VariantProperties.MODEL, modelLocation), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
     }
 }

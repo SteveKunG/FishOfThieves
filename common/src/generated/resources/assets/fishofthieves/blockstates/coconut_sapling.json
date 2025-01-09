@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "fishofthieves:block/coconut_sapling"
-    }
+    "": [
+      {
+        "model": "fishofthieves:block/coconut_sapling"
+      },
+      {
+        "model": "fishofthieves:block/coconut_sapling",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/coconut_sapling",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/coconut_sapling",
+        "y": 270
+      }
+    ]
   }
 }

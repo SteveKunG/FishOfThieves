@@ -1,7 +1,21 @@
 {
   "variants": {
-    "": {
-      "model": "fishofthieves:block/mango_seed"
-    }
+    "": [
+      {
+        "model": "fishofthieves:block/mango_seed"
+      },
+      {
+        "model": "fishofthieves:block/mango_seed",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/mango_seed",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/mango_seed",
+        "y": 270
+      }
+    ]
   }
 }
