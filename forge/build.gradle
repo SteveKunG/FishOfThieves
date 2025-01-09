@@ -48,7 +48,7 @@ dependencies {
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
-List<String> commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "architectury.common.json"]
+List<String> commonExcludes = [".cache", "data/fabric/**", "architectury.common.json"]
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE

@@ -24,6 +24,12 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("croptopia", "fishes"));
 
+    // Forge
+    private static final TagKey<Item> FORGE_RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "raw_fishes"));
+    private static final TagKey<Item> FORGE_COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "cooked_fishes"));
+    private static final TagKey<Item> FORGE_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "crops"));
+    private static final TagKey<Item> FORGE_SEEDS = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "seeds"));
+
     public ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider)
     {
         super(dataOutput, provider, blockTagProvider);
@@ -88,5 +94,11 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
 
         // Croptopia compatibility
         this.getOrCreateTagBuilder(CROPTOPIA_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
+
+        // Forge
+        this.getOrCreateTagBuilder(FORGE_RAW_FISHES).add(rawFishes);
+        this.getOrCreateTagBuilder(FORGE_COOKED_FISHES).add(cookedFishes);
+        this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO);
+        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_SEED, FOTItems.PINEAPPLE_SEEDS);
     }
 }
