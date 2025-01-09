@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.block.BananaShootsBlock;
 import com.stevekung.fishofthieves.block.MangoSaplingBlock;
 import com.stevekung.fishofthieves.block.MangoSeedBlock;
 import com.stevekung.fishofthieves.feature.BananaTreeGrower;
+import com.stevekung.fishofthieves.feature.MangoTreeGrower;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -60,6 +62,7 @@ public class FishOfThievesForge
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(ForgeRegistries.MEMORY_MODULE_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -83,6 +86,7 @@ public class FishOfThievesForge
         STRUCTURE_MODIFIERS.register(modEventBus);
         TREE_DECORATOR_TYPES.register(modEventBus);
         FOLIAGE_PLACER_TYPES.register(modEventBus);
+        BLOCK_STATE_PROVIDER_TYPES.register(modEventBus);
 
         FishOfThieves.init();
 
@@ -115,7 +119,7 @@ public class FishOfThievesForge
             helper.register("pink_plumeria", FOTBlocks.PINK_PLUMERIA = new FlowerBlock(() -> MobEffects.REGENERATION, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
             helper.register("banana_shoots", FOTBlocks.BANANA_SHOOTS = new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
             helper.register("mango_seed", FOTBlocks.MANGO_SEED = new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY)));
-            helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = new MangoSaplingBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY)));
+            helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = new MangoSaplingBlock(new MangoTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY)));
 
             helper.register("potted_pink_plumeria", FOTBlocks.POTTED_PINK_PLUMERIA = FOTBlocks.flowerPot(FOTBlocks.PINK_PLUMERIA));
             helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
@@ -139,6 +143,7 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.MEMORY_MODULE_TYPES, helper -> FOTMemoryModuleTypes.init());
         event.register(ForgeRegistries.Keys.TREE_DECORATOR_TYPES, helper -> FOTTreeDecoratorTypes.init());
         event.register(ForgeRegistries.Keys.FOLIAGE_PLACER_TYPES, helper -> FOTFoliagePlacerTypes.init());
+        event.register(ForgeRegistries.Keys.BLOCK_STATE_PROVIDER_TYPES, helper -> FOTBlockStateProviderTypes.init());
         event.register(Registries.TRUNK_PLACER_TYPE, helper -> FOTTrunkPlacerTypes.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper ->
         {
