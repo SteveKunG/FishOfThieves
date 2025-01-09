@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -168,7 +166,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE_CROWN));
         this.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE));
         this.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.CROWNLESS_PINEAPPLE));
-        this.add(FOTBlocks.MANGO_LEAVES, this::createMangoLeavesDrops);
+        this.add(FOTBlocks.MANGO_LEAVES, block -> this.createLeavesDrops(block, FOTBlocks.MANGO_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(FOTBlocks.MANGO_FRUIT, this::createMangoFruitDrops);
         this.add(FOTBlocks.HANGING_MANGO_FRUIT, this::createMangoFruitDrops);
         this.dropSelf(FOTBlocks.MANGO_SEED);
@@ -193,13 +191,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                         .hasProperty(MangoFruitBlock.AGE, 1)))
                         .add(LootItem.lootTableItem(FOTItems.RAW_MANGO))
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)))));
-    }
-
-    private LootTable.Builder createMangoLeavesDrops(Block block)
-    {
-        return createSilkTouchOrShearsDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(Items.STICK)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES)));
     }
 
     private LootTable.Builder createPineappleCropLoot(Block block)
