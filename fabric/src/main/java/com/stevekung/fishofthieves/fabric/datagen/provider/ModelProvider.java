@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.core.Direction;
@@ -273,20 +274,25 @@ public class ModelProvider extends FabricModelProvider
     private void createHangingMangoFruit(BlockModelGenerators generator)
     {
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FOTBlocks.HANGING_MANGO_FRUIT)
-                .with(PropertyDispatch.property(HangingMangoFruitBlock.AGE).generate(age ->
+                .with(PropertyDispatch.property(HangingMangoFruitBlock.AGE).generateList(age ->
                 {
                     var model = ModelLocationUtils.getModelLocation(FOTBlocks.HANGING_MANGO_FRUIT, "_stage_" + age);
                     var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_FRUIT, "_stage_" + age));
 
                     if (age == 0)
                     {
-                        return Variant.variant().with(VariantProperties.MODEL, model);
+                        return createRotatedVariants(model);
                     }
                     else
                     {
-                        return Variant.variant().with(VariantProperties.MODEL, FOTModelTemplates.HANGING_MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
+                        return createRotatedVariants(FOTModelTemplates.HANGING_MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
                     }
                 })));
+    }
+
+    private static List<Variant> createRotatedVariants(ResourceLocation modelLocation)
+    {
+        return List.of(Variant.variant().with(VariantProperties.MODEL, modelLocation), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
     }
 
     private void createMangoFruit(BlockModelGenerators generator)

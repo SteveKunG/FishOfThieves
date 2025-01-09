@@ -38,6 +38,12 @@ public class HangingMangoFruitBlock extends Block implements BonemealableBlock
     }
 
     @Override
+    public float getMaxVerticalOffset()
+    {
+        return 0.05F;
+    }
+
+    @Override
     public boolean isRandomlyTicking(BlockState state)
     {
         return state.getValue(AGE) < 2;
@@ -68,7 +74,8 @@ public class HangingMangoFruitBlock extends Block implements BonemealableBlock
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         var age = Math.min(state.getValue(AGE), 1);
-        return age == 0 ? STAGE_0 : STAGE_FULL;
+        var offset = state.getOffset(level, pos);
+        return (age == 0 ? STAGE_0 : STAGE_FULL).move(offset.x, offset.y, offset.z);
     }
 
     @Override

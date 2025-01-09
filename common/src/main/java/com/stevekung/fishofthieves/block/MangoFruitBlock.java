@@ -49,6 +49,12 @@ public class MangoFruitBlock extends HorizontalDirectionalBlock implements Bonem
     }
 
     @Override
+    public float getMaxHorizontalOffset()
+    {
+        return 0F;
+    }
+
+    @Override
     public boolean isRandomlyTicking(BlockState state)
     {
         return state.getValue(AGE) < 2;
@@ -79,13 +85,14 @@ public class MangoFruitBlock extends HorizontalDirectionalBlock implements Bonem
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         var age = Math.min(state.getValue(AGE), 1);
-        return switch (state.getValue(FACING))
+        var offset = state.getOffset(level, pos);
+        return (switch (state.getValue(FACING))
         {
             case SOUTH -> SOUTH_AABB[age];
             case WEST -> WEST_AABB[age];
             case EAST -> EAST_AABB[age];
             default -> NORTH_AABB[age];
-        };
+        }).move(offset.x, offset.y, offset.z);
     }
 
     @Override
