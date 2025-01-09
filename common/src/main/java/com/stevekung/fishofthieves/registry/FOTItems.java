@@ -3,8 +3,10 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.*;
+
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
@@ -79,17 +81,17 @@ public class FOTItems
     public static Item MANGO_SEED;
     public static Item MANGO_SAPLING;
 
-    public static final Item COCONUT_FRONDS = new BlockItem(FOTBlocks.COCONUT_FRONDS, new Item.Properties());
-    public static final Item BANANA_LEAVES = new BlockItem(FOTBlocks.BANANA_LEAVES, new Item.Properties());
-    public static final Item BANANA_BLOSSOM = new BlockItem(FOTBlocks.BANANA_BLOSSOM, new Item.Properties());
-    public static final Item UNDERRIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, new Item.Properties());
-    public static final Item BARELY_RIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, new Item.Properties());
-    public static final Item RIPE_BANANA_CLUSTER = new BlockItem(FOTBlocks.RIPE_BANANA_CLUSTER, new Item.Properties());
-    public static final Item BANANA_STEM = new BlockItem(FOTBlocks.BANANA_STEM, new Item.Properties());
-    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, new Item.Properties());
-    public static final Item RIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK, new Item.Properties());
-    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = new BlockItem(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, new Item.Properties());
-    public static final Item MANGO_LEAVES = new BlockItem(FOTBlocks.MANGO_LEAVES, new Item.Properties());
+    public static final Item COCONUT_FRONDS = blockItem(FOTBlocks.COCONUT_FRONDS);
+    public static final Item BANANA_LEAVES = blockItem(FOTBlocks.BANANA_LEAVES);
+    public static final Item BANANA_BLOSSOM = blockItem(FOTBlocks.BANANA_BLOSSOM);
+    public static final Item UNDERRIPE_BANANA_CLUSTER = blockItem(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+    public static final Item BARELY_RIPE_BANANA_CLUSTER = blockItem(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+    public static final Item RIPE_BANANA_CLUSTER = blockItem(FOTBlocks.RIPE_BANANA_CLUSTER);
+    public static final Item BANANA_STEM = blockItem(FOTBlocks.BANANA_STEM);
+    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
+    public static final Item RIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
+    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+    public static final Item MANGO_LEAVES = blockItem(FOTBlocks.MANGO_LEAVES);
 
     public static void init()
     {
@@ -171,10 +173,15 @@ public class FOTItems
 
     public static void initFabric()
     {
-        register("pink_plumeria", PINK_PLUMERIA = new BlockItem(FOTBlocks.PINK_PLUMERIA, new Item.Properties()));
-        register("banana_shoots", BANANA_SHOOTS = new BlockItem(FOTBlocks.BANANA_SHOOTS, new Item.Properties()));
+        register("pink_plumeria", PINK_PLUMERIA = blockItem(FOTBlocks.PINK_PLUMERIA));
+        register("banana_shoots", BANANA_SHOOTS = blockItem(FOTBlocks.BANANA_SHOOTS));
         register("mango_seed", MANGO_SEED = new ItemNameBlockItem(FOTBlocks.MANGO_SEED, new Item.Properties()));
-        register("mango_sapling", MANGO_SAPLING = new BlockItem(FOTBlocks.MANGO_SAPLING, new Item.Properties()));
+        register("mango_sapling", MANGO_SAPLING = blockItem(FOTBlocks.MANGO_SAPLING));
+    }
+
+    public static Item blockItem(Block block)
+    {
+        return new BlockItem(block, new Item.Properties());
     }
 
     private static void register(String key, Item item)
