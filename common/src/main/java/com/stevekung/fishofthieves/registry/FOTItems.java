@@ -68,6 +68,7 @@ public class FOTItems
     public static final Item PINEAPPLE_CROWN = new PineappleBlockItem(true, new Item.Properties());
     public static final Item MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO));
     public static final Item RAW_MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO));
+    public static final Item POMEGRANATE = new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE));
 
     public static final Item COCONUT_SIGN = new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
     public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
@@ -151,6 +152,7 @@ public class FOTItems
         register("pineapple_crown", PINEAPPLE_CROWN);
         register("mango", MANGO);
         register("raw_mango", RAW_MANGO);
+        register("pomegranate", POMEGRANATE);
 
         register("coconut_sign", COCONUT_SIGN);
         register("coconut_hanging_sign", COCONUT_HANGING_SIGN);

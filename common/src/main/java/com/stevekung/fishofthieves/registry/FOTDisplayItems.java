@@ -164,5 +164,6 @@ public class FOTDisplayItems
         output.accept(FOTItems.HALF_PINEAPPLE);
         output.accept(FOTItems.MANGO);
         output.accept(FOTItems.RAW_MANGO);
+        output.accept(FOTItems.POMEGRANATE);
     }
 }

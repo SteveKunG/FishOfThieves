@@ -157,6 +157,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.MANGO, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.RAW_MANGO, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MANGO_SEED, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.POMEGRANATE, ModelTemplates.FLAT_ITEM);
     }
 
     @Override

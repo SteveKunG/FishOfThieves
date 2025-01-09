@@ -27,6 +27,7 @@
     "entity.MixinBoat$BoatType",
     "entity.MixinChestBoat",
     "entity.MixinEntityType",
+    "entity.MixinFallingBlockEntity",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "item.MixinRecordItem",
