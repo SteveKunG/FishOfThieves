@@ -49,7 +49,7 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (BananaClusterBlock.canClusterGrow(level) && random.nextInt(5) == 0)
+        if (BananaClusterBlock.canClusterGrow(level) && random.nextInt(5) == 0 && level.canSeeSky(pos))
         {
             this.growBarelyCluster(level, pos);
         }
