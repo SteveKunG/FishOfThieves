@@ -12,6 +12,6 @@ public class MangoTreeGrower extends AbstractTreeGrower
     @Override
     protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers)
     {
-        return hasFlowers ? FOTFeatures.MANGO_TREE_BEES_005 : FOTFeatures.MANGO_TREE;
+        return hasFlowers ? FOTFeatures.MANGO_TREE_BEES_02 : FOTFeatures.MANGO_TREE;
     }
 }

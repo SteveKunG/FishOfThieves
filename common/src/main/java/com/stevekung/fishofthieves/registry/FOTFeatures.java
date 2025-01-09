@@ -49,7 +49,7 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_TREE = createKey("coconut_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BANANA_TREE = createKey("banana_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE = createKey("mango_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_005 = createKey("mango_tree_bees_005");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02 = createKey("mango_tree_bees_02");
 
     public static void init()
     {
@@ -71,8 +71,8 @@ public class FOTFeatures
                 .dirt(BlockStateProvider.simple(Blocks.DIRT))
                 .ignoreVines()
                 .build());
-        FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree().build());
-        FeatureUtils.register(context, MANGO_TREE_BEES_005, Feature.TREE, createMangoTree().decorators(List.of(new BeehiveDecorator(0.05F))).build());
+        FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F).build());
+        FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F).build());
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree()
@@ -95,7 +95,7 @@ public class FOTFeatures
                 new ThreeLayersFeatureSize(5, 8, 1, 2, 5, OptionalInt.empty()));
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree()
+    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
     {
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG),
                 new FancyTrunkPlacer(5, 11, 0),
@@ -110,7 +110,7 @@ public class FOTFeatures
                         new AttachedToLeavesDecorator(0.5F, 1, 1,
                                 new DirectionalRandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
                                         MangoFruitBlock.AGE, UniformInt.of(0, 2), MangoFruitBlock.FACING, Direction.Plane.HORIZONTAL.stream().toList()), 1, Direction.Plane.HORIZONTAL.stream().toList()),
-                        new BeehiveDecorator(0.01F)))
+                        new BeehiveDecorator(beehiveChance)))
                 .ignoreVines();
     }
 
