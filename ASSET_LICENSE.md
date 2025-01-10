@@ -1,0 +1,1 @@
+All rights reserved. Copyright (c) 2022-2025, Wasinthorn Suksri.
