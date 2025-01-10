@@ -53,7 +53,7 @@ public class MangoSeedBlock extends BushBlock implements BonemealableBlock
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.getRawBrightness(pos, 0) >= 9 && level.random.nextInt(20) == 0 && level.canSeeSky(pos))
+        if (random.nextInt(20) == 0 && level.canSeeSky(pos) && level.isDay())
         {
             this.growToMangoSapling(level, pos);
         }
