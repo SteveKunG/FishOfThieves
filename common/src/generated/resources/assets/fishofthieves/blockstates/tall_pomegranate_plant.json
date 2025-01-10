@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,half=lower": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+    },
+    "age=0,half=upper": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_0"
+    },
+    "age=1,half=lower": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+    },
+    "age=1,half=upper": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_1"
+    },
+    "age=2,half=lower": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+    },
+    "age=2,half=upper": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_2"
+    },
+    "age=3,half=lower": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+    },
+    "age=3,half=upper": {
+      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_3"
+    }
+  }
+}

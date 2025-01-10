@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "fishofthieves:block/tall_pomegranate_plant_bottom"
+  }
+}

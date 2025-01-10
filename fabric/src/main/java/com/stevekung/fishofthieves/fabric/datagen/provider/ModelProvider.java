@@ -90,61 +90,6 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
 
-        generator.generateFlatItem(FOTBlocks.FISH_BONE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.BANANA_BLOSSOM.asItem(), ModelTemplates.FLAT_ITEM);
-
-        generator.generateFlatItem(FOTBlocks.OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.CHERRY_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.COCONUT_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-
-        generator.generateFlatItem(FOTBlocks.GILDED_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_WARPED_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE.asItem(), ModelTemplates.FLAT_ITEM);
-
         generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COCONUT_BOAT, ModelTemplates.FLAT_ITEM);
@@ -158,14 +103,13 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.RAW_MANGO, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MANGO_SEED, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.POMEGRANATE, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.POMEGRANATE_SEEDS, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators generator)
     {
-        var fishBone = FOTBlocks.FISH_BONE;
-        generator.skipAutoItemBlock(fishBone);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+        this.createFishBone(generator);
 
         this.createFishPlaque(FOTBlocks.OAK_FISH_PLAQUE, Blocks.OAK_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.SPRUCE_FISH_PLAQUE, Blocks.SPRUCE_PLANKS, FOTModelTemplates.WOODEN_FISH_PLAQUE, generator);
@@ -263,6 +207,59 @@ public class ModelProvider extends FabricModelProvider
         this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_SEED);
         generator.createPlant(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
         this.createPottedMangoSeed(generator);
+        this.createPomegranatePlant(generator);
+        this.createTallPomegranatePlant(generator);
+    }
+
+    private void createFishBone(BlockModelGenerators generator)
+    {
+        var fishBone = FOTBlocks.FISH_BONE;
+        generator.createSimpleFlatItemModel(fishBone.asItem());
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+    }
+
+    private void createPomegranatePlant(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.POMEGRANATE_PLANT;
+        generator.delegateItemModel(block, ModelLocationUtils.getModelLocation(block, "_stage_1"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(PropertyDispatch.property(PomegranatePlantBlock.AGE)
+                .generate(age ->
+                {
+                    var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
+                    ResourceLocation resourceLocation;
+
+                    if (age == 0)
+                    {
+                        resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(model, TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_stage_" + age)), generator.modelOutput);
+                    }
+                    else
+                    {
+                        resourceLocation = ModelTemplates.AZALEA.create(model, new TextureMapping().putForced(TextureSlot.PARTICLE, model).putForced(TextureSlot.PLANT, model).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_stage_" + age)).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_stage_" + age)), generator.modelOutput);
+
+                    }
+                    return Variant.variant().with(VariantProperties.MODEL, resourceLocation);
+                })));
+    }
+
+    private void createTallPomegranatePlant(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.TALL_POMEGRANATE_PLANT;
+        var lowerCross = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_bottom"), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_bottom")), generator.modelOutput);
+        generator.delegateItemModel(block, ModelLocationUtils.getModelLocation(block, "_upper_stage_0"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(PropertyDispatch.properties(TallPomegranatePlantBlock.AGE, TallPomegranatePlantBlock.HALF)
+                .generate((age, half) ->
+                {
+                    var model = ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age);
+
+                    if (half == DoubleBlockHalf.LOWER)
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, lowerCross);
+                    }
+                    else
+                    {
+                        return Variant.variant().with(VariantProperties.MODEL, ModelTemplates.AZALEA.create(model, new TextureMapping().putForced(TextureSlot.PARTICLE, model).putForced(TextureSlot.PLANT, model).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.POMEGRANATE_PLANT, "_side_stage_" + (age + 1))).put(TextureSlot.TOP, TextureMapping.getBlockTexture(FOTBlocks.POMEGRANATE_PLANT, "_top_stage_" + (age + 1))), generator.modelOutput));
+                    }
+                })));
     }
 
     private void createPottedMangoSeed(BlockModelGenerators generator)
@@ -510,7 +507,6 @@ public class ModelProvider extends FabricModelProvider
     private void createBananaShootsPlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.BANANA_SHOOTS_PLANT;
-        generator.skipAutoItemBlock(block);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
                 .with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }
@@ -518,7 +514,7 @@ public class ModelProvider extends FabricModelProvider
     private void createBananaBlossom(BlockModelGenerators generator)
     {
         var block = FOTBlocks.BANANA_BLOSSOM;
-        generator.skipAutoItemBlock(block);
+        generator.createSimpleFlatItemModel(block.asItem());
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block)));
     }
 
@@ -574,9 +570,9 @@ public class ModelProvider extends FabricModelProvider
 
     private void createFishPlaque(Block block, Block planks, ModelTemplate template, BlockModelGenerators generator)
     {
-        generator.skipAutoItemBlock(block);
         var textureMapping = this.planks(planks);
         var resourceLocation = template.create(block, textureMapping, generator.modelOutput);
+        generator.createSimpleFlatItemModel(block.asItem());
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, resourceLocation).with(BlockModelGenerators.createHorizontalFacingDispatch()));
     }
 

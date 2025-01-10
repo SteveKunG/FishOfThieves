@@ -100,6 +100,9 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.MANGO_LEAVES);
         output.accept(FOTItems.MANGO_SEED);
         output.accept(FOTBlocks.MANGO_SAPLING);
+        output.accept(FOTBlocks.POMEGRANATE_PLANT);
+        output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);
+        output.accept(FOTItems.POMEGRANATE_SEEDS);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
 
