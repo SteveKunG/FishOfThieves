@@ -122,6 +122,7 @@ public class FOTBlocks
     public static Block POTTED_BANANA_SHOOTS;
     public static Block POTTED_MANGO_SEED;
     public static Block POTTED_MANGO_SAPLING;
+    public static Block POTTED_POMEGRANATE_PLANT;
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -265,6 +266,7 @@ public class FOTBlocks
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
         registerNoItem("potted_mango_seed", POTTED_MANGO_SEED = flowerPot(MANGO_SEED));
         registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
+        registerNoItem("potted_pomegranate_plant", POTTED_POMEGRANATE_PLANT = flowerPot(POMEGRANATE_PLANT));
     }
 
     private static void register(String key, Block block)

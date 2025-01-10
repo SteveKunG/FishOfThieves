@@ -116,6 +116,7 @@ public class FishOfThievesForge
             helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
             helper.register("potted_mango_seed", FOTBlocks.POTTED_MANGO_SEED = FOTBlocks.flowerPot(FOTBlocks.MANGO_SEED));
             helper.register("potted_mango_sapling", FOTBlocks.POTTED_MANGO_SAPLING = FOTBlocks.flowerPot(FOTBlocks.MANGO_SAPLING));
+            helper.register("potted_pomegranate_plant", FOTBlocks.POTTED_POMEGRANATE_PLANT = FOTBlocks.flowerPot(FOTBlocks.POMEGRANATE_PLANT));
         });
         event.register(ForgeRegistries.Keys.ITEMS, helper ->
         {

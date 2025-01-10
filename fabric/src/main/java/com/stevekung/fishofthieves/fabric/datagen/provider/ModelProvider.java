@@ -209,6 +209,7 @@ public class ModelProvider extends FabricModelProvider
         this.createPottedMangoSeed(generator);
         this.createPomegranatePlant(generator);
         this.createTallPomegranatePlant(generator);
+        this.createPottedPomegranatePlant(generator);
     }
 
     private void createFishBone(BlockModelGenerators generator)
@@ -216,6 +217,12 @@ public class ModelProvider extends FabricModelProvider
         var fishBone = FOTBlocks.FISH_BONE;
         generator.createSimpleFlatItemModel(fishBone.asItem());
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(fishBone, ModelLocationUtils.getModelLocation(fishBone)).with(BlockModelGenerators.createHorizontalFacingDispatchAlt()));
+    }
+
+    private void createPottedPomegranatePlant(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.POTTED_POMEGRANATE_PLANT;
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelTemplates.POTTED_AZALEA.create(block, TextureMapping.pottedAzalea(block), generator.modelOutput)));
     }
 
     private void createPomegranatePlant(BlockModelGenerators generator)
