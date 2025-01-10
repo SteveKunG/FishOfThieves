@@ -83,6 +83,17 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     }
 
     @Override
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext context)
+    {
+        var level = context.getLevel();
+        var blockPos = context.getClickedPos();
+        var blockState = super.getStateForPlacement(context);
+        var isUnobstructed = UPPER_COLLISION_SHAPE.isEmpty() || level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+        return blockState != null && isUnobstructed ? blockState : null;
+    }
+
+    @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
     {
         if (entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
