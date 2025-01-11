@@ -1,11 +1,9 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
-import com.stevekung.fishofthieves.block.BananaLeavesBlock;
-import com.stevekung.fishofthieves.block.CoconutFruitBlock;
-import com.stevekung.fishofthieves.block.MangoFruitBlock;
-import com.stevekung.fishofthieves.block.PineappleCropBlock;
+import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
@@ -174,6 +172,58 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SEED);
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
         this.dropPottedContents(FOTBlocks.POTTED_BANANA_SHOOTS);
+        this.add(FOTBlocks.POMEGRANATE_PLANT, this::createPomegranatePlant);
+        this.createTallPomegranatePlant();
+        this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_PLANT);
+    }
+
+    private LootTable.Builder createPomegranatePlant(Block block)
+    {
+        return this.applyExplosionDecay(block, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(IntStream.range(1, 5).boxed().toList(), age -> LootItem.lootTableItem(FOTItems.POMEGRANATE_PLANT)
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                        .hasProperty(PomegranatePlantBlock.AGE, age))))))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(FOTItems.POMEGRANATE)
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(PomegranatePlantBlock.AGE, 4)))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))))
+                .withPool(LootPool.lootPool()
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PomegranatePlantBlock.AGE, 0)))
+                        .add(LootItem.lootTableItem(FOTItems.POMEGRANATE_SEEDS))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                ));
+    }
+
+    private void createTallPomegranatePlant()
+    {
+        var isLower = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FOTBlocks.TALL_POMEGRANATE_PLANT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+
+        this.add(FOTBlocks.TALL_POMEGRANATE_PLANT, blockx -> this.applyExplosionDecay(blockx, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(IntStream.range(0, 4).boxed().toList(), age -> LootItem.lootTableItem(blockx)
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(blockx)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                        .hasProperty(TallPomegranatePlantBlock.AGE, age))))))
+                        .when(isLower)
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(FOTItems.POMEGRANATE)
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(blockx)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(TallPomegranatePlantBlock.AGE, 3)))
+                                .when(isLower)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))))));
     }
 
     private LootTable.Builder createMangoFruitDrops(Block block)
