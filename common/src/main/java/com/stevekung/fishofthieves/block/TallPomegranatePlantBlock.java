@@ -89,8 +89,13 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
         var level = context.getLevel();
         var blockPos = context.getClickedPos();
         var blockState = super.getStateForPlacement(context);
-        var isUnobstructed = UPPER_COLLISION_SHAPE.isEmpty() || level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+        var isUnobstructed = UPPER_COLLISION_SHAPE.isEmpty() || this.isUnobstructed(level, blockPos);
         return blockState != null && isUnobstructed ? blockState : null;
+    }
+
+    private boolean isUnobstructed(Level level, BlockPos pos)
+    {
+        return level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(pos.getX(), pos.getY(), pos.getZ())) && level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(pos.getX(), pos.getY() + 1, pos.getZ()));
     }
 
     @Override
