@@ -98,6 +98,8 @@ public class FishOfThieves
         FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
         FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
         FOTPlatform.addComposting(FOTItems.MANGO_SEED, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE_SEEDS, 0.1F);
         FOTPlatform.addComposting(FOTItems.PINK_PLUMERIA, 0.6F);
         FOTPlatform.addComposting(FOTItems.COCONUT_FRONDS, 0.8F);
         FOTPlatform.addComposting(FOTItems.BANANA_LEAVES, 0.8F);
@@ -112,6 +114,8 @@ public class FishOfThieves
         FOTPlatform.addComposting(FOTItems.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
         FOTPlatform.addComposting(FOTItems.MANGO_LEAVES, 0.3F);
         FOTPlatform.addComposting(FOTItems.MANGO_SAPLING, 0.25F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE_PLANT, 0.25F);
+        FOTPlatform.addComposting(FOTItems.TALL_POMEGRANATE_PLANT, 0.4F);
 
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);
@@ -145,6 +149,8 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.POMEGRANATE_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TALL_POMEGRANATE_PLANT, 60, 100);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
