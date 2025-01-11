@@ -18,6 +18,8 @@
     "accessor.PointedDripstoneBlockAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
+    "animal.MixinBee$MixinBeeGrowCropGoal",
+    "animal.MixinBee$MixinBeePollinateGoal",
     "animal.MixinCat",
     "animal.MixinChicken",
     "animal.MixinOcelot",
