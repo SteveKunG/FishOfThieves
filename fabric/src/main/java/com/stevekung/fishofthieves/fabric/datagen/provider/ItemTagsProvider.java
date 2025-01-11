@@ -89,7 +89,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.WORMS)
-                .add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.HALF_PINEAPPLE, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO);
+                .add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.HALF_PINEAPPLE, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO,
+                        FOTItems.POMEGRANATE);
         this.getOrCreateTagBuilder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTTags.FISH_BUCKETS);
 
         // Croptopia compatibility
@@ -98,7 +99,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         // Forge
         this.getOrCreateTagBuilder(FORGE_RAW_FISHES).add(rawFishes);
         this.getOrCreateTagBuilder(FORGE_COOKED_FISHES).add(cookedFishes);
-        this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO);
-        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_SEED, FOTItems.PINEAPPLE_SEEDS);
+        this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_SEED, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
     }
 }
