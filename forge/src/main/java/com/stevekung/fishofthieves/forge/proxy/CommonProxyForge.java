@@ -33,8 +33,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class CommonProxyForge
 {
-    public void init(FMLJavaModLoadingContext context)
+    public void init()
     {
+        var context = FMLJavaModLoadingContext.get();
         MinecraftForge.EVENT_BUS.register(this);
         context.getModEventBus().addListener(this::commonSetup);
         context.getModEventBus().addListener(this::registerAttributes);
