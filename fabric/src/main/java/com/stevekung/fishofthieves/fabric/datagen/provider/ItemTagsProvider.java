@@ -29,6 +29,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     private static final TagKey<Item> FORGE_COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "cooked_fishes"));
     private static final TagKey<Item> FORGE_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "crops"));
     private static final TagKey<Item> FORGE_SEEDS = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "seeds"));
+    private static final TagKey<Item> FORGE_FRUITS = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "fruits"));
+    private static final TagKey<Item> FORGE_FRUITS_SWEET = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "fruits/sweet"));
 
     public ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider)
     {
@@ -101,5 +103,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(FORGE_COOKED_FISHES).add(cookedFishes);
         this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
         this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_SEED, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
+        this.getOrCreateTagBuilder(FORGE_FRUITS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(FORGE_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE);
     }
 }
