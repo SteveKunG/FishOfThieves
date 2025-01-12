@@ -82,7 +82,6 @@ public interface FOTTags
         TagKey<Biome> DEVILFISH_CANNOT_SPAWN = TagKey.create(Registries.BIOME, FishOfThieves.id("devilfish_cannot_spawn"));
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registries.BIOME, FishOfThieves.id("always_drop_leeches"));
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.id("has_seapost"));
-        TagKey<Biome> ISLEHOPPER_SPAWN_AT_COAST = TagKey.create(Registries.BIOME, FishOfThieves.id("islehopper_spawn_at_coast"));
         TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.id("has_fish_bone"));
     }
 }

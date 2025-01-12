@@ -15,6 +15,7 @@ import com.stevekung.fishofthieves.registry.variant.IslehopperVariants;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -23,7 +24,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -35,7 +35,6 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
@@ -162,15 +161,10 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, MobSpawnType mobSpawnType, BlockPos blockPos, RandomSource random)
     {
-        var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
-        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var isWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, mobSpawnType, blockPos, random);
         var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
         var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);
-
-        if (level.getBiome(blockPos).is(FOTTags.Biomes.ISLEHOPPER_SPAWN_AT_COAST))
-        {
-            return isSurfaceWater && continentalness == Continentalness.COAST && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID || peakTypes == PeakTypes.VALLEY);
-        }
-        return isWater && blockPos.getY() <= 0;
+        var isCoast = continentalness == Continentalness.COAST && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID || peakTypes == PeakTypes.VALLEY);
+        return isWater && (isCoast || blockPos.getY() <= 0);
     }
 }

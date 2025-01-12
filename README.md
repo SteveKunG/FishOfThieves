@@ -11,11 +11,11 @@
 ---
 
 ### **About**
-Ahoy pirates! Have you ever imagined what it would be like if the fish from Sea of Thieves were brought into Minecraft? Here we are!
+Ahoy pirates! Have you ever imagined what it would be like if the fish from the Sea of Thieves were brought into Minecraft? Here we are!
 
 This mod adds fish from Sea of Thieves with Minecrafty feels. Who doesn't want those fish in Minecraft?
 
-If you are Sea of Thieves player and know a lot about fish lore, Feedbacks are welcome!
+If you are a Sea of Thieves player and know a lot about fish lore, Feedbacks are welcome!
 
 ---
 
@@ -41,35 +41,41 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 **Fabric**
 
-- [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are required
-- Install [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) (optional, for in-game configuration)
+- [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
+- Install [Mod Menu](https://modrinth.com/mod/modmenu) (optional, for in-game configuration)
 
-**Forge**
+**Forge (1.20.1)**
 
-- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are required
+- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
+
+
+**NeoForge**
+
+- [NeoForge](https://projects.neoforged.net/neoforged/neoforge) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
 
 ---
 
 ### **FAQ**
-**Can I use this mod into my modpack?**
+**Can I use this mod in my modpack?**
 
-Yes! Feel free to play with your modpack. Just make sure to give credit and do not claim as your own work.
+Absolutely! Make sure to give credit and DO NOT claim as your own work.
 
-**If Sea of Thieves introduce new fish into the game, Will you add them?**
+**If Sea of Thieves introduces new fish into the game, Will you add them?**
 
 Yes, but I don't think SoT will add more fish after all. So we'll see.
+Update: Season 15 might get new contents instead. I do have plans by the way. :)
 
 **When will the mod be updated to [insert version here]?**
 
-Yes, **IF** I have my free time to do so.
+YES, why not.
 
-**Will you backport to 1.16.5 or older versions?**
+**Will you backport to older versions?**
 
-Simply, No.
+No.
 
 ---
 
 ### **Disclaimer**
-I'm not affiliated with Rare Ltd. or Microsoft. This is a fan creation.
+I'm not affiliated with Rare Ltd. or Microsoft. This is purely a fan re-creation.
 
-All fish names and appearances are belong to Rare Ltd.
+All fish names and appearances belong to Rare Ltd.
