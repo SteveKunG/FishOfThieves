@@ -1,1 +1,1 @@
-* Fix crash with Honey Islehopper, closes #51
+* Improved Islehopper spawning, closes #58
