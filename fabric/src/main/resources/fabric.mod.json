@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "fishofthieves",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "Fish of Thieves",
-  "description": "A mod adds all the fish from Sea of Thieves, fish fer ye pirate!",
+  "name": "${display_name}",
+  "description": "${mod_description}",
   "authors": [
     "SteveKunG",
-    "PloyiinGz"
+    "PloyiinGz",
+    "Gucc1Guy"
   ],
   "icon": "logo.png",
   "contact": {
