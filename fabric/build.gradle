@@ -47,7 +47,7 @@ loom {
 }
 
 dependencies {
-    //TODO modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
+    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
 }
 
 processResources {
