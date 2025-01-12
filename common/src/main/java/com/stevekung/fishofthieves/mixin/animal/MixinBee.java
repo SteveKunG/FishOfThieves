@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,7 +31,8 @@ public class MixinBee
     @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
     public static abstract class MixinBeeGrowCropGoal extends Goal
     {
-        @Shadow(aliases = "field_20373")
+        @Shadow(aliases = {"this$0", "f_28021_", "field_20373"}, remap = false)
+        @Final
         Bee $outer;
 
         @Inject(method = "tick", at = @At(value = "JUMP", ordinal = 1))
