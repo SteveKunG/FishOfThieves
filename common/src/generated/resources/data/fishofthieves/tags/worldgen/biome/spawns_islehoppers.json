@@ -1,10 +1,5 @@
 {
   "values": [
-    "#minecraft:is_ocean",
-    "#minecraft:is_beach",
-    "#minecraft:is_jungle",
-    "#minecraft:has_closer_water_fog",
-    "minecraft:lush_caves",
-    "minecraft:dripstone_caves"
+    "#minecraft:is_overworld"
   ]
 }

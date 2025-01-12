@@ -80,7 +80,7 @@ sourcesJar {
 }
 
 tasks.register("apiJar", Jar) {
-    group "build"
+    group = "build"
     from project(":common").sourceSets.main.allJava
     from project(":common").sourceSets.main.output
     include "com/stevekung/fishofthieves/api/**/*"
