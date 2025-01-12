@@ -62,7 +62,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         super.setupRotations(renderState, poseStack, bodyRot, scale);
         var inWater = renderState.isInWater || renderState.isNoFlip;
         var rotationRenderData = this.setupRotations(renderState, inWater);
-        var degree = rotationRenderData.baseDegree * Mth.sin(rotationRenderData.bodyRotBase * rotationRenderData.bodyRotSpeed * renderState.ageInTicks);//TODO Test
+        var degree = rotationRenderData.baseDegree * Mth.sin(rotationRenderData.bodyRotBase * rotationRenderData.bodyRotSpeed * renderState.ageInTicks);
         poseStack.mulPose(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)

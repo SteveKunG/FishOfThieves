@@ -1,1 +1,1 @@
-* Improved Islehopper spawning, closes #58
+* Initial release for Minecraft 1.21.4 (Only Fabric)
