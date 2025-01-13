@@ -24,8 +24,7 @@
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",
     "level.MixinServerLevel",
-    "level.block.state.MixinBlockBehaviour",
-    "level.structure.MixinStructureTemplateManager"
+    "level.block.state.MixinBlockBehaviour"
   ],
   "injectors": {
     "defaultRequire": 1
