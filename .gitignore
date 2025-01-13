@@ -8,3 +8,6 @@ run
 
 /neoforge/**/simple_spawning_condition_pack/
 /fabric/**/simple_spawning_condition_pack/
+
+# files
+*.snbt
