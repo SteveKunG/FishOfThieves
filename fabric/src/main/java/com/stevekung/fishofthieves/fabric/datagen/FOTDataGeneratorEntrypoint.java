@@ -1,12 +1,16 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
 import com.stevekung.fishofthieves.registry.FOTFeatures;
 import com.stevekung.fishofthieves.registry.FOTPlacements;
 import com.stevekung.fishofthieves.registry.FOTStructures;
+
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -14,6 +18,10 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.structures.NbtToSnbt;
+import net.minecraft.data.structures.SnbtToNbt;
+import net.minecraft.data.structures.StructureUpdater;
 
 @SuppressWarnings("unused")
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
@@ -57,6 +65,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(BattlegillVariantTagsProvider::new);
         pack.addProvider(WreckerVariantTagsProvider::new);
         pack.addProvider(StormfishVariantTagsProvider::new);
+
+        var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
+        var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structures");
+        var snbtInputPath = basePath.resolve("common/src/generated/resources");
+
+        pack.addProvider((dataOutput, provider) -> new NbtToSnbt(dataOutput, List.of(inputPath)));
+        pack.addProvider((dataOutput, provider) -> new SnbtToNbt(new PackOutput(inputPath), List.of(snbtInputPath))
+                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structures/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
     }
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
