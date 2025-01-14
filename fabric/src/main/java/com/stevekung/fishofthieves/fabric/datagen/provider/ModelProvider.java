@@ -847,10 +847,107 @@ public class ModelProvider extends FabricModelProvider
     private void createBananaBlossomPlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.BANANA_BLOSSOM_PLANT;
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
-                .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                .with(PropertyDispatch.property(BananaBlossomPlantBlock.HANGING)
-                        .generate(hanging -> Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_hanging_" + hanging.getSerializedName())))));
+        var clusterModel = ModelLocationUtils.getModelLocation(block, "_cluster");
+        var smallCluster = ModelLocationUtils.getModelLocation(block, "_small_cluster");
+        var stemCluster = ModelLocationUtils.getModelLocation(block, "_stem");
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Normal Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, clusterModel)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, clusterModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, clusterModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, clusterModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Small Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, smallCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, stemCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaBlossomPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
     }
 
     private void createBananaCluster(BlockModelGenerators generator, Block block)
