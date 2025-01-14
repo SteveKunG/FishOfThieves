@@ -1,49 +1,121 @@
 {
-  "variants": {
-    "facing=east,hanging=cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "fishofthieves:block/underripe_banana_cluster_plant"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "cluster|stem|small_cluster"
+      }
     },
-    "facing=east,hanging=small_cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_small_cluster",
-      "y": 90
+    {
+      "apply": {
+        "model": "fishofthieves:block/underripe_banana_cluster_plant",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "cluster|stem|small_cluster"
+      }
     },
-    "facing=east,hanging=stem": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_stem",
-      "y": 90
+    {
+      "apply": {
+        "model": "fishofthieves:block/underripe_banana_cluster_plant",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "cluster|stem|small_cluster"
+      }
     },
-    "facing=north,hanging=cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant"
+    {
+      "apply": {
+        "model": "fishofthieves:block/underripe_banana_cluster_plant",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "cluster|stem|small_cluster"
+      }
     },
-    "facing=north,hanging=small_cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_small_cluster"
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "small_cluster"
+      }
     },
-    "facing=north,hanging=stem": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_stem"
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "small_cluster"
+      }
     },
-    "facing=south,hanging=cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant",
-      "y": 180
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "small_cluster"
+      }
     },
-    "facing=south,hanging=small_cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_small_cluster",
-      "y": 180
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "small_cluster"
+      }
     },
-    "facing=south,hanging=stem": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_stem",
-      "y": 180
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "stem"
+      }
     },
-    "facing=west,hanging=cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant",
-      "y": 270
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "stem"
+      }
     },
-    "facing=west,hanging=small_cluster": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_small_cluster",
-      "y": 270
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "stem"
+      }
     },
-    "facing=west,hanging=stem": {
-      "model": "fishofthieves:block/underripe_banana_cluster_plant_stem",
-      "y": 270
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "stem"
+      }
     }
-  }
+  ]
 }

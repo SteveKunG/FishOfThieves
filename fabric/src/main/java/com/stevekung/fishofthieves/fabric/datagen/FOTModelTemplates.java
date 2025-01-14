@@ -18,8 +18,6 @@ public class FOTModelTemplates
     public static final ModelTemplate MEDIUM_LOG = create("template_medium_log", TextureSlot.END, TextureSlot.SIDE);
     public static final ModelTemplate BANANA_CLUSTER = create("template_banana_cluster", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
     public static final ModelTemplate BANANA_CLUSTER_PLANT = create("template_banana_cluster_plant", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
-    public static final ModelTemplate BANANA_CLUSTER_PLANT_SMALL_CLUSTER = create("template_banana_cluster_plant_small_cluster", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
-    public static final ModelTemplate BANANA_CLUSTER_PLANT_STEM = create("template_banana_cluster_plant_stem", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
     public static final ModelTemplate MANGO_FRUIT = create("template_mango_fruit", FRUIT);
     public static final ModelTemplate HANGING_MANGO_FRUIT = create("template_hanging_mango_fruit", FRUIT);
 

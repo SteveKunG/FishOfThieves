@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
@@ -191,8 +192,8 @@ public class ModelProvider extends FabricModelProvider
         this.generateRotatedExistedModel(generator, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.createBananaCluster(generator, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         this.createBananaCluster(generator, FOTBlocks.RIPE_BANANA_CLUSTER);
-        this.createBananaClusterPlant(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, generator);
-        this.createBananaClusterPlant(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER, generator);
+        this.createBananaClusterPlant(generator, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.createBananaClusterPlant(generator, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER);
         generator.createPlant(FOTBlocks.BANANA_SHOOTS, FOTBlocks.POTTED_BANANA_SHOOTS, BlockModelGenerators.TintState.NOT_TINTED);
         this.createPineappleCrop(generator);
         this.generateRotatedExistedModel(generator, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
@@ -859,38 +860,216 @@ public class ModelProvider extends FabricModelProvider
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, this.createRotatedVariants(normalCluster).toArray(Variant[]::new)));
     }
 
-    private void createBananaClusterPlant(Block block, Block base, BlockModelGenerators generator)
+    private void createBananaClusterPlant(BlockModelGenerators generator, Block block, Block base)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(base, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(base, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(base, "_bottom"));
         var normalCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT.create(block, textureMapping, generator.modelOutput);
-        var smallCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT_SMALL_CLUSTER.create(ModelLocationUtils.getModelLocation(block, "_small_cluster"), textureMapping, generator.modelOutput);
-        var stemCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT_STEM.create(ModelLocationUtils.getModelLocation(block, "_stem"), textureMapping, generator.modelOutput);
+        var smallCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_small_cluster");
+        var stemCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_stem");
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                .with(PropertyDispatch.property(BananaClusterPlantBlock.HANGING)
-                        .select(BananaClusterPlantBlock.HangingType.NONE, Variant.variant()
-                                .with(VariantProperties.MODEL, normalCluster))
-                        .select(BananaClusterPlantBlock.HangingType.SMALL_CLUSTER, Variant.variant()
-                                .with(VariantProperties.MODEL, smallCluster))
-                        .select(BananaClusterPlantBlock.HangingType.STEM, Variant.variant()
-                                .with(VariantProperties.MODEL, stemCluster))
-                ));
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Normal Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.NONE, BananaClusterPlantBlock.HangingType.STEM, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, normalCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.NONE, BananaClusterPlantBlock.HangingType.STEM, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.NONE, BananaClusterPlantBlock.HangingType.STEM, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.NONE, BananaClusterPlantBlock.HangingType.STEM, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Small Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, smallCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Cluster
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, stemCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
     }
 
     private void createUnderripeBananaCluster(BlockModelGenerators generator)
     {
         var block = FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT;
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelLocationUtils.getModelLocation(block))
-                .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                .with(PropertyDispatch.property(UnderripeBananaClusterPlantBlock.HANGING)
-                        .select(BananaHangingType.CLUSTER, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block)))
-                        .select(BananaHangingType.SMALL_CLUSTER, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_small_cluster")))
-                        .select(BananaHangingType.STEM, Variant.variant()
-                                .with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem")))
-                ));
+        var normalCluster = ModelLocationUtils.getModelLocation(block);
+        var smallCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_small_cluster");
+        var stemCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_stem");
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Normal Cluster
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, normalCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.CLUSTER, BananaHangingType.STEM, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, normalCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Small Cluster
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, smallCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, smallCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Cluster
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant().with(VariantProperties.MODEL, stemCluster)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(UnderripeBananaClusterPlantBlock.HANGING, BananaHangingType.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemCluster)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
     }
 
     private void createFishPlaque(Block block, Block planks, ModelTemplate template, BlockModelGenerators generator)
