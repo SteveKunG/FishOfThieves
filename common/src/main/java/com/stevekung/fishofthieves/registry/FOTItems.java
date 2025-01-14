@@ -79,7 +79,7 @@ public class FOTItems
     // Forge being stupid again...
     public static Item PINK_PLUMERIA;
     public static Item BANANA_SHOOTS;
-    public static Item MANGO_SEED;
+    public static Item MANGO_PIT;
     public static Item MANGO_SAPLING;
     public static Item POMEGRANATE_PLANT;
     public static Item TALL_POMEGRANATE_PLANT;
@@ -180,7 +180,7 @@ public class FOTItems
     {
         register("pink_plumeria", PINK_PLUMERIA = blockItem(FOTBlocks.PINK_PLUMERIA));
         register("banana_shoots", BANANA_SHOOTS = blockItem(FOTBlocks.BANANA_SHOOTS));
-        register("mango_seed", MANGO_SEED = new ItemNameBlockItem(FOTBlocks.MANGO_SEED, new Item.Properties()));
+        register("mango_pit", MANGO_PIT = new ItemNameBlockItem(FOTBlocks.MANGO_PIT, new Item.Properties()));
         register("mango_sapling", MANGO_SAPLING = blockItem(FOTBlocks.MANGO_SAPLING));
         register("pomegranate_plant", POMEGRANATE_PLANT = blockItem(FOTBlocks.POMEGRANATE_PLANT));
         register("tall_pomegranate_plant", TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));

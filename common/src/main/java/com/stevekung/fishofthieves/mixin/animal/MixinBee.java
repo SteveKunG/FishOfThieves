@@ -68,7 +68,7 @@ public class MixinBee
         )
         private void fishofthieves$addGrowableBlocksWithBonemeal(CallbackInfo info, @Local BlockPos blockPos, @Local(ordinal = 0) BlockState stateToCheck)
         {
-            if (stateToCheck.is(FOTBlocks.MANGO_SEED) ||
+            if (stateToCheck.is(FOTBlocks.MANGO_PIT) ||
                     stateToCheck.is(FOTBlocks.PINEAPPLE_CROP) ||
                     stateToCheck.is(FOTBlocks.POMEGRANATE_PLANT) ||
                     stateToCheck.is(FOTBlocks.TALL_POMEGRANATE_PLANT))

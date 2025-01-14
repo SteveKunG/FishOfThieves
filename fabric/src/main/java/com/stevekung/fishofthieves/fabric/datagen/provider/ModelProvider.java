@@ -99,7 +99,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.PINEAPPLE_CROWN, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MANGO, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.RAW_MANGO, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.MANGO_SEED, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.MANGO_PIT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.POMEGRANATE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.POMEGRANATE_SEEDS, ModelTemplates.FLAT_ITEM);
     }
@@ -202,9 +202,9 @@ public class ModelProvider extends FabricModelProvider
         generator.createTrivialBlock(FOTBlocks.MANGO_LEAVES, TexturedModel.LEAVES);
         this.createMangoFruit(generator);
         this.createHangingMangoFruit(generator);
-        this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_SEED);
+        this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_PIT);
         generator.createPlant(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
-        this.createPottedMangoSeed(generator);
+        this.createPottedMangoPit(generator);
         this.createPomegranatePlant(generator);
         this.createTallPomegranatePlant(generator);
         this.createPottedPomegranatePlant(generator);
@@ -267,11 +267,11 @@ public class ModelProvider extends FabricModelProvider
                 })));
     }
 
-    private void createPottedMangoSeed(BlockModelGenerators generator)
+    private void createPottedMangoPit(BlockModelGenerators generator)
     {
-        var textureMapping = TextureMapping.plant(ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_SEED, "_plant"));
-        var resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCrossPot().create(FOTBlocks.POTTED_MANGO_SEED, textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_MANGO_SEED, resourceLocation));
+        var textureMapping = TextureMapping.plant(ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_PIT, "_plant"));
+        var resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCrossPot().create(FOTBlocks.POTTED_MANGO_PIT, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_MANGO_PIT, resourceLocation));
     }
 
     private void createHangingMangoFruit(BlockModelGenerators generator)

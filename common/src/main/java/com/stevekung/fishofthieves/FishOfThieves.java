@@ -99,7 +99,7 @@ public class FishOfThieves
         FOTPlatform.addComposting(FOTItems.PINEAPPLE_CROWN, 0.15F);
         FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
         FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
-        FOTPlatform.addComposting(FOTItems.MANGO_SEED, 0.2F);
+        FOTPlatform.addComposting(FOTItems.MANGO_PIT, 0.2F);
         FOTPlatform.addComposting(FOTItems.POMEGRANATE, 0.2F);
         FOTPlatform.addComposting(FOTItems.POMEGRANATE_SEEDS, 0.1F);
         FOTPlatform.addComposting(FOTItems.PINK_PLUMERIA, 0.6F);
@@ -152,7 +152,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SAPLING, 60, 100);
-        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SEED, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_PIT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_FRUIT, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.POMEGRANATE_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.TALL_POMEGRANATE_PLANT, 60, 100);

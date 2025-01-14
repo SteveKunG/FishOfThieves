@@ -16,11 +16,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class MangoSeedBlock extends BushBlock implements BonemealableBlock
+public class MangoPitBlock extends BushBlock implements BonemealableBlock
 {
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 12, 13);
 
-    public MangoSeedBlock(Properties properties)
+    public MangoPitBlock(Properties properties)
     {
         super(properties);
     }

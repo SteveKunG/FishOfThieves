@@ -3,8 +3,8 @@
 	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
-		"particle": "fishofthieves:block/mango_seed",
-		"sapling": "fishofthieves:block/mango_seed"
+		"particle": "fishofthieves:block/mango_pit",
+		"sapling": "fishofthieves:block/mango_pit"
 	},
 	"elements": [
 		{

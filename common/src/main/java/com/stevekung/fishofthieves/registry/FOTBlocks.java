@@ -114,13 +114,13 @@ public class FOTBlocks
 
     public static Block PINK_PLUMERIA;
     public static Block BANANA_SHOOTS;
-    public static Block MANGO_SEED;
+    public static Block MANGO_PIT;
     public static Block MANGO_SAPLING;
     public static Block POMEGRANATE_PLANT;
 
     public static Block POTTED_PINK_PLUMERIA;
     public static Block POTTED_BANANA_SHOOTS;
-    public static Block POTTED_MANGO_SEED;
+    public static Block POTTED_MANGO_PIT;
     public static Block POTTED_MANGO_SAPLING;
     public static Block POTTED_POMEGRANATE_PLANT;
 
@@ -258,13 +258,13 @@ public class FOTBlocks
     {
         registerNoItem("pink_plumeria", PINK_PLUMERIA = getPinkPlumeria());
         registerNoItem("banana_shoots", BANANA_SHOOTS = getBananaShoots());
-        registerNoItem("mango_seed", MANGO_SEED = getMangoSeed());
+        registerNoItem("mango_pit", MANGO_PIT = getMangoPit());
         registerNoItem("mango_sapling", MANGO_SAPLING = getMangoSapling());
         registerNoItem("pomegranate_plant", POMEGRANATE_PLANT = getPomegranatePlant());
 
         registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
-        registerNoItem("potted_mango_seed", POTTED_MANGO_SEED = flowerPot(MANGO_SEED));
+        registerNoItem("potted_mango_pit", POTTED_MANGO_PIT = flowerPot(MANGO_PIT));
         registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
         registerNoItem("potted_pomegranate_plant", POTTED_POMEGRANATE_PLANT = flowerPot(POMEGRANATE_PLANT));
     }
@@ -305,9 +305,9 @@ public class FOTBlocks
         return new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
     }
 
-    public static Block getMangoSeed()
+    public static Block getMangoPit()
     {
-        return new MangoSeedBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+        return new MangoPitBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
     }
 
     public static Block getMangoSapling()

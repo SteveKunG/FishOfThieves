@@ -102,7 +102,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(FORGE_RAW_FISHES).add(rawFishes);
         this.getOrCreateTagBuilder(FORGE_COOKED_FISHES).add(cookedFishes);
         this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
-        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_SEED, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
+        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_PIT, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
         this.getOrCreateTagBuilder(FORGE_FRUITS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
         this.getOrCreateTagBuilder(FORGE_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE);
     }

@@ -14,6 +14,6 @@ public class MangoItem extends ReturnedOnConsumeItem
     @Override
     protected Item getReturnedItem()
     {
-        return FOTItems.MANGO_SEED;
+        return FOTItems.MANGO_PIT;
     }
 }

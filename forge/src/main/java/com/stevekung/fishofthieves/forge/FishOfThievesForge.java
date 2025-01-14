@@ -108,13 +108,13 @@ public class FishOfThievesForge
 
             helper.register("pink_plumeria", FOTBlocks.PINK_PLUMERIA = FOTBlocks.getPinkPlumeria());
             helper.register("banana_shoots", FOTBlocks.BANANA_SHOOTS = FOTBlocks.getBananaShoots());
-            helper.register("mango_seed", FOTBlocks.MANGO_SEED = FOTBlocks.getMangoSeed());
+            helper.register("mango_pit", FOTBlocks.MANGO_PIT = FOTBlocks.getMangoPit());
             helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = FOTBlocks.getMangoSapling());
             helper.register("pomegranate_plant", FOTBlocks.POMEGRANATE_PLANT = FOTBlocks.getPomegranatePlant());
 
             helper.register("potted_pink_plumeria", FOTBlocks.POTTED_PINK_PLUMERIA = FOTBlocks.flowerPot(FOTBlocks.PINK_PLUMERIA));
             helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
-            helper.register("potted_mango_seed", FOTBlocks.POTTED_MANGO_SEED = FOTBlocks.flowerPot(FOTBlocks.MANGO_SEED));
+            helper.register("potted_mango_pit", FOTBlocks.POTTED_MANGO_PIT = FOTBlocks.flowerPot(FOTBlocks.MANGO_PIT));
             helper.register("potted_mango_sapling", FOTBlocks.POTTED_MANGO_SAPLING = FOTBlocks.flowerPot(FOTBlocks.MANGO_SAPLING));
             helper.register("potted_pomegranate_plant", FOTBlocks.POTTED_POMEGRANATE_PLANT = FOTBlocks.flowerPot(FOTBlocks.POMEGRANATE_PLANT));
         });
@@ -124,7 +124,7 @@ public class FishOfThievesForge
 
             helper.register("pink_plumeria", FOTItems.PINK_PLUMERIA = FOTItems.blockItem(FOTBlocks.PINK_PLUMERIA));
             helper.register("banana_shoots", FOTItems.BANANA_SHOOTS = FOTItems.blockItem(FOTBlocks.BANANA_SHOOTS));
-            helper.register("mango_seed", FOTItems.MANGO_SEED = new ItemNameBlockItem(FOTBlocks.MANGO_SEED, new Item.Properties()));
+            helper.register("mango_pit", FOTItems.MANGO_PIT = new ItemNameBlockItem(FOTBlocks.MANGO_PIT, new Item.Properties()));
             helper.register("mango_sapling", FOTItems.MANGO_SAPLING = FOTItems.blockItem(FOTBlocks.MANGO_SAPLING));
             helper.register("pomegranate_plant", FOTItems.POMEGRANATE_PLANT = FOTItems.blockItem(FOTBlocks.POMEGRANATE_PLANT));
             helper.register("tall_pomegranate_plant", FOTItems.TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));

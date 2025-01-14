@@ -98,7 +98,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTBlocks.MANGO_LEAVES);
-        output.accept(FOTItems.MANGO_SEED);
+        output.accept(FOTItems.MANGO_PIT);
         output.accept(FOTBlocks.MANGO_SAPLING);
         output.accept(FOTBlocks.POMEGRANATE_PLANT);
         output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);

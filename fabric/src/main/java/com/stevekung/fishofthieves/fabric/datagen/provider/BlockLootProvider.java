@@ -167,9 +167,9 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.MANGO_LEAVES, block -> this.createLeavesDrops(block, FOTBlocks.MANGO_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(FOTBlocks.MANGO_FRUIT, this::createMangoFruitDrops);
         this.add(FOTBlocks.HANGING_MANGO_FRUIT, this::createMangoFruitDrops);
-        this.dropSelf(FOTBlocks.MANGO_SEED);
+        this.dropSelf(FOTBlocks.MANGO_PIT);
         this.dropSelf(FOTBlocks.MANGO_SAPLING);
-        this.dropPottedContents(FOTBlocks.POTTED_MANGO_SEED);
+        this.dropPottedContents(FOTBlocks.POTTED_MANGO_PIT);
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
         this.dropPottedContents(FOTBlocks.POTTED_BANANA_SHOOTS);
         this.add(FOTBlocks.POMEGRANATE_PLANT, this::createPomegranatePlant);
