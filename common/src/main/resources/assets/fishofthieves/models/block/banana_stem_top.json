@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/block",
 	"textures": {
 		"top": "fishofthieves:block/banana_stem_trunk",
 		"end": "fishofthieves:block/banana_stem_top",

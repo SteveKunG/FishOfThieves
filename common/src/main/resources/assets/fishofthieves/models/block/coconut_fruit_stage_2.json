@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/block",
 	"textures": {
 		"particle": "fishofthieves:block/coconut_fruit_stage_2_top",
 		"top": "fishofthieves:block/coconut_fruit_stage_2_top",
