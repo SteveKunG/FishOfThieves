@@ -20,10 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.PropertyDispatch;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
+import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -454,19 +451,340 @@ public class ModelProvider extends FabricModelProvider
     private void createBananaLeaves(BlockModelGenerators generator)
     {
         var block = FOTBlocks.BANANA_LEAVES;
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(BlockModelGenerators.createHorizontalFacingDispatchAlt())
-                .with(PropertyDispatch.properties(BananaLeavesBlock.TYPE, BananaLeavesBlock.PART, BananaLeavesBlock.COUNT)
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower")))
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, 1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper")))
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.STEM, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_lower_2")))
-                        .select(BananaLeavesBlock.Type.LOWER, BananaLeavesBlock.Part.TAIL, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_lower_2")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.STEM, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_stem_upper_2")))
-                        .select(BananaLeavesBlock.Type.UPPER, BananaLeavesBlock.Part.TAIL, 2, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_tail_upper_2")))
-                ));
+
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
+
+        var stemLower = ModelLocationUtils.getModelLocation(block, "_stem_lower");
+        var stem2Lower = ModelLocationUtils.getModelLocation(block, "_stem_lower_2");
+        var tailLower = ModelLocationUtils.getModelLocation(block, "_tail_lower");
+        var tail2Lower = ModelLocationUtils.getModelLocation(block, "_tail_lower_2");
+
+        var stemUpper = ModelLocationUtils.getModelLocation(block, "_stem_upper");
+        var stem2Upper = ModelLocationUtils.getModelLocation(block, "_stem_upper_2");
+        var tailUpper = ModelLocationUtils.getModelLocation(block, "_tail_upper");
+        var tail2Upper = ModelLocationUtils.getModelLocation(block, "_tail_upper_2");
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Stem Lower
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, stemLower)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Lower 2
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, stem2Lower)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Tail Lower
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, tailLower)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailLower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Tail Lower 2
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, tail2Lower)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.LOWER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Lower)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Upper
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, stemUpper)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stemUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Stem Upper 2
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, stem2Upper)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, stem2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Tail Upper
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, tailUpper)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 1, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tailUpper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+
+                // Tail Upper 2
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                        Variant.variant().with(VariantProperties.MODEL, tail2Upper)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BananaLeavesBlock.COUNT, 2)
+                                .term(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)
+                                .term(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL)
+                                .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, tail2Upper)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
     }
 
     private void createVerticalLeaves(BlockModelGenerators generator, Block block)
