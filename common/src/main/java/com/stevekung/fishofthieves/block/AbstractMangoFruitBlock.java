@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.block;
 
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.core.BlockPos;
@@ -36,18 +37,21 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     }
 
     @Override
+    public boolean isRandomlyTicking(BlockState state)
+    {
+        return state.getValue(AGE) < 2 || state.getValue(FALLING);
+    }
+
+    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
         int age = state.getValue(AGE);
 
-        if (random.nextInt(5) == 0)
+        if (age < 2 && random.nextInt(5) == 0)
         {
-            if (age < 2)
-            {
-                level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
-            }
+            level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
         }
-        if (state.getValue(FALLING) && isFree(level.getBlockState(pos.below())) && (age == 1 && random.nextFloat() > 0.9f || age == 2 && random.nextFloat() > 0.75f))
+        if (canMangoFall(level.getBlockState(pos.below())) && (age == 1 && random.nextFloat() > 0.9f || age == 2 && random.nextFloat() > 0.75f))
         {
             level.scheduleTick(pos, this, 2);
         }
@@ -79,7 +83,7 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
+        if (canMangoFall(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
         {
             var fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
             this.falling(fallingBlockEntity);
@@ -139,5 +143,10 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
     {
         return state.getValue(AGE) == 1 ? new ItemStack(FOTItems.RAW_MANGO) : new ItemStack(FOTItems.MANGO);
+    }
+
+    public static boolean canMangoFall(BlockState state)
+    {
+        return state.is(FOTBlocks.MANGO_FRUIT) || FallingBlock.isFree(state);
     }
 }

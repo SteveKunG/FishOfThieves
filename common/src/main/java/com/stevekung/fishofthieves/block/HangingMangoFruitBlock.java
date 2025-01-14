@@ -51,7 +51,7 @@ public class HangingMangoFruitBlock extends AbstractMangoFruitBlock
     {
         var otherBlockState = level.getBlockState(pos.above());
 
-        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !isFree(level.getBlockState(pos.below())))
+        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !canMangoFall(level.getBlockState(pos.below())))
         {
             return Blocks.AIR.defaultBlockState();
         }

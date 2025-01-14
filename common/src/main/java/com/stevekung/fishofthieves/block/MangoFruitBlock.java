@@ -74,7 +74,7 @@ public class MangoFruitBlock extends AbstractMangoFruitBlock
     {
         var otherBlockState = level.getBlockState(pos.relative(state.getValue(FACING)));
 
-        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !isFree(level.getBlockState(pos.below())))
+        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !canMangoFall(level.getBlockState(pos.below())))
         {
             return Blocks.AIR.defaultBlockState();
         }
