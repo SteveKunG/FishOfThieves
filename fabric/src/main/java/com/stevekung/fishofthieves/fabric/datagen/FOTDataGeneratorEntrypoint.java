@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
+import com.stevekung.fishofthieves.registry.FOTDamageTypes;
 import com.stevekung.fishofthieves.registry.FOTFeatures;
 import com.stevekung.fishofthieves.registry.FOTPlacements;
 import com.stevekung.fishofthieves.registry.FOTStructures;
@@ -33,6 +34,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
+        builder.add(Registries.DAMAGE_TYPE, FOTDamageTypes::bootstrap);
     }
 
     @Override
@@ -89,6 +91,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
             entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
+            entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
         }
 
         @Override

@@ -103,5 +103,6 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlocks.RIPE_BANANA_CLUSTER, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.MANGO_FRUITS).add(FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
     }
 }

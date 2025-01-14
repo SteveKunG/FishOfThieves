@@ -12,10 +12,12 @@ import com.stevekung.fishofthieves.block.MangoFruitBlock;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
-import com.stevekung.fishofthieves.feature.stateproviders.DirectionalRandomizedIntStateProvider;
+import com.stevekung.fishofthieves.feature.stateproviders.DirectionalRandomizedIntBooleanStateProvider;
+import com.stevekung.fishofthieves.feature.stateproviders.RandomizedIntBooleanStateProvider;
 import com.stevekung.fishofthieves.feature.treedecorators.BananaDecorator;
 import com.stevekung.fishofthieves.feature.treedecorators.BananaShootsDecorator;
 import com.stevekung.fishofthieves.feature.treedecorators.CoconutDecorator;
+import com.stevekung.fishofthieves.feature.treedecorators.DirectionalAttachedToLeavesDecorator;
 import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
 
@@ -24,6 +26,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -36,7 +39,6 @@ import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeature
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -105,11 +107,14 @@ public class FOTFeatures
                 new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
                 .decorators(List.of(
                         new AttachedToLeavesDecorator(0.1F, 2, 0,
-                                new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
-                                        HangingMangoFruitBlock.AGE, UniformInt.of(0, 2)), 2, List.of(Direction.DOWN)),
-                        new AttachedToLeavesDecorator(0.5F, 1, 1,
-                                new DirectionalRandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
-                                        MangoFruitBlock.AGE, UniformInt.of(0, 2), MangoFruitBlock.FACING, Direction.Plane.HORIZONTAL.stream().toList()), 1, Direction.Plane.HORIZONTAL.stream().toList()),
+                                new RandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
+                                        HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
+                        new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
+                                new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
+                                        MangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                        MangoFruitBlock.FACING,
+                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
                         new BeehiveDecorator(beehiveChance)))
                 .ignoreVines();
     }

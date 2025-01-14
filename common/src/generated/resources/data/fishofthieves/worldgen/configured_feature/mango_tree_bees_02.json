@@ -5,22 +5,25 @@
       {
         "type": "minecraft:attached_to_leaves",
         "block_provider": {
-          "type": "minecraft:randomized_int_state_provider",
-          "property": "age",
+          "type": "fishofthieves:randomized_int_boolean_state_provider",
+          "boolean_chance": 0.6,
+          "boolean_property": "falling",
+          "integer_property": "age",
+          "integer_values": {
+            "type": "minecraft:uniform",
+            "value": {
+              "max_inclusive": 2,
+              "min_inclusive": 0
+            }
+          },
           "source": {
             "type": "minecraft:simple_state_provider",
             "state": {
               "Name": "fishofthieves:hanging_mango_fruit",
               "Properties": {
-                "age": "0"
+                "age": "0",
+                "falling": "false"
               }
-            }
-          },
-          "values": {
-            "type": "minecraft:uniform",
-            "value": {
-              "max_inclusive": 2,
-              "min_inclusive": 0
             }
           }
         },
@@ -33,31 +36,27 @@
         "required_empty_blocks": 2
       },
       {
-        "type": "minecraft:attached_to_leaves",
+        "type": "fishofthieves:directional_attached_to_leaves",
         "block_provider": {
-          "type": "fishofthieves:directional_randomized_int_state_provider",
-          "age_property": "age",
-          "age_values": {
+          "boolean_chance": 0.6,
+          "boolean_property": "falling",
+          "direction_property": "facing",
+          "integer_property": "age",
+          "integer_values": {
             "type": "minecraft:uniform",
             "value": {
               "max_inclusive": 2,
               "min_inclusive": 0
             }
           },
-          "direction_property": "facing",
-          "direction_values": [
-            "north",
-            "east",
-            "south",
-            "west"
-          ],
           "source": {
             "type": "minecraft:simple_state_provider",
             "state": {
               "Name": "fishofthieves:mango_fruit",
               "Properties": {
                 "age": "0",
-                "facing": "north"
+                "facing": "north",
+                "falling": "false"
               }
             }
           }
@@ -70,6 +69,7 @@
         ],
         "exclusion_radius_xz": 1,
         "exclusion_radius_y": 1,
+        "opposite": true,
         "probability": 0.5,
         "required_empty_blocks": 1
       },

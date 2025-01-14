@@ -44,18 +44,18 @@ public class MangoLeavesBlock extends LeavesBlock implements BonemealableBlock
 
     private void growMangos(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Util.shuffledCopy(Direction.values(), random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, direction));
+        Util.shuffledCopy(Direction.values(), random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, random, direction));
     }
 
-    private void setMangoBlock(ServerLevel level, BlockPos pos, Direction direction)
+    private void setMangoBlock(ServerLevel level, BlockPos pos, RandomSource random, Direction direction)
     {
         if (direction == Direction.DOWN)
         {
-            level.setBlock(pos.relative(direction), FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState(), Block.UPDATE_CLIENTS);
+            level.setBlock(pos.relative(direction), FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(AbstractMangoFruitBlock.FALLING, random.nextFloat() < 0.6f), Block.UPDATE_CLIENTS);
         }
         else
         {
-            level.setBlock(pos.relative(direction), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS);
+            level.setBlock(pos.relative(direction), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, direction.getOpposite()).setValue(AbstractMangoFruitBlock.FALLING, random.nextFloat() < 0.6f), Block.UPDATE_CLIENTS);
         }
     }
 }

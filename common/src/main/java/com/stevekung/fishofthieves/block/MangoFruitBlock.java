@@ -1,31 +1,25 @@
 package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class MangoFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock
+public class MangoFruitBlock extends AbstractMangoFruitBlock
 {
     private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
             Block.box(13, 5, 6.5, 16, 10, 9.5),
@@ -40,38 +34,18 @@ public class MangoFruitBlock extends HorizontalDirectionalBlock implements Bonem
             Block.box(6.5, 5, 13, 9.5, 10, 16),
             Block.box(5.5, 3, 11, 10.5, 10, 16) };
 
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public MangoFruitBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0).setValue(FALLING, false));
     }
 
     @Override
     public float getMaxHorizontalOffset()
     {
         return 0F;
-    }
-
-    @Override
-    public boolean isRandomlyTicking(BlockState state)
-    {
-        return state.getValue(AGE) < 2;
-    }
-
-    @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
-    {
-        if (level.random.nextInt(5) == 0)
-        {
-            int i = state.getValue(AGE);
-
-            if (i < 2)
-            {
-                level.setBlock(pos, state.setValue(AGE, i + 1), Block.UPDATE_CLIENTS);
-            }
-        }
     }
 
     @Override
@@ -98,42 +72,35 @@ public class MangoFruitBlock extends HorizontalDirectionalBlock implements Bonem
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        return direction == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
-    }
+        var otherBlockState = level.getBlockState(pos.relative(state.getValue(FACING)));
 
-    @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
-    {
-        return state.getValue(AGE) < 2;
-    }
+        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !isFree(level.getBlockState(pos.below())))
+        {
+            return Blocks.AIR.defaultBlockState();
+        }
 
-    @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
-    {
-        return true;
-    }
-
-    @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
-    {
-        level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), Block.UPDATE_CLIENTS);
+        if (!state.canSurvive(level, pos))
+        {
+            level.scheduleTick(pos, this, 2);
+        }
+        return state;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(FACING, AGE);
+        super.createBlockStateDefinition(builder.add(FACING));
     }
 
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type)
+    public BlockState rotate(BlockState state, Rotation rotation)
     {
-        return false;
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
+    public BlockState mirror(BlockState state, Mirror mirror)
     {
-        return state.getValue(AGE) == 1 ? new ItemStack(FOTItems.RAW_MANGO) : new ItemStack(FOTItems.MANGO);
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 }
