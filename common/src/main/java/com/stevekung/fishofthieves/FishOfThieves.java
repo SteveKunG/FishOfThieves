@@ -3,10 +3,12 @@ package com.stevekung.fishofthieves;
 import java.util.List;
 
 import org.slf4j.Logger;
+
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.*;
+
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
@@ -142,6 +144,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_STEM, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.TOP_BANANA_STEM, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
@@ -149,8 +152,21 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SEED, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_FRUIT, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.POMEGRANATE_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.TALL_POMEGRANATE_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_BLOSSOM, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_BLOSSOM_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 30, 20);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
