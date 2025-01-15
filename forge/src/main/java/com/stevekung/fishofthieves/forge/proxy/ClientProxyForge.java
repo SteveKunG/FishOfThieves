@@ -92,6 +92,7 @@ public class ClientProxyForge
     private void registerBlockColors(RegisterColorHandlersEvent.Block event)
     {
         event.register((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
+        event.register((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
     }
 
     private void registerItemColors(RegisterColorHandlersEvent.Item event)

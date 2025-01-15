@@ -8,9 +8,11 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -43,7 +45,9 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         //@formatter:on
 
         ColorProviderRegistry.BLOCK.register((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
+        ColorProviderRegistry.BLOCK.register((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
         ColorProviderRegistry.ITEM.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
+        ParticleRenderEvents.ALLOW_BLOCK_DUST_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
         BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
         BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);

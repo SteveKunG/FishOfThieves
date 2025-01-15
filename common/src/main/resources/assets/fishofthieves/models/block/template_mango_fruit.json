@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
+		"stem": "fishofthieves:block/mango_fruit_stem",
 		"particle": "#fruit"
 	},
 	"elements": [
@@ -11,9 +12,9 @@
 			"rotation": {"angle": 0, "axis": "y", "origin": [0.5, 0, 0]},
 			"faces": {
 				"north": {"uv": [0, 0, 5, 7], "texture": "#fruit"},
-				"east": {"uv": [0, 0, 5, 7], "texture": "#fruit"},
+				"east": {"uv": [5, 0, 0, 7], "texture": "#fruit"},
 				"south": {"uv": [0, 0, 5, 7], "texture": "#fruit"},
-				"west": {"uv": [0, 0, 5, 7], "texture": "#fruit"},
+				"west": {"uv": [5, 0, 0, 7], "texture": "#fruit"},
 				"up": {"uv": [10, 5, 5, 0], "texture": "#fruit"},
 				"down": {"uv": [10, 5, 5, 10], "texture": "#fruit"}
 			}
@@ -24,8 +25,8 @@
 			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 0]},
 			"faces": {
-				"east": {"uv": [10, 0, 16, 4], "texture": "#fruit"},
-				"west": {"uv": [16, 0, 10, 4], "texture": "#fruit"}
+				"east": {"uv": [4, 0, 10, 4], "texture": "#stem", "tintindex": 1},
+				"west": {"uv": [10, 0, 4, 4], "texture": "#stem", "tintindex": 1}
 			}
 		}
 	]

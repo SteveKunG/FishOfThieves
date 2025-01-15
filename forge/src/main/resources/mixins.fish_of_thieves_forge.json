@@ -6,6 +6,7 @@
   "mixins": [
     "block.MixinCoconutSaplingBlock",
     "block.MixinFOTRotatedPillarBlock",
+    "block.MixinMangoFruitBlock",
     "block.MixinMediumRotatedPillarBlock",
     "block.MixinSmallRotatedPillarBlock",
     "MixinBuiltInRegistries",
