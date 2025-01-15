@@ -360,45 +360,21 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.BANANA_STEM;
         var modelLocation = ModelLocationUtils.getModelLocation(block);
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
     private void createGrowableBananaStem(BlockModelGenerators generator)
     {
         var block = FOTBlocks.GROWABLE_BANANA_STEM;
         var modelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM);
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
     private void createTopBananaStem(BlockModelGenerators generator)
     {
         var block = FOTBlocks.TOP_BANANA_STEM;
         var topModelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM, "_top");
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, topModelLocation);
     }
 
     private void createSmallCoconutLog(BlockModelGenerators generator)
@@ -406,15 +382,7 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.SMALL_COCONUT_LOG;
         var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, modelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, modelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
     private void createTopSmallCoconutLog(BlockModelGenerators generator)
@@ -422,15 +390,7 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.TOP_SMALL_COCONUT_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, topModelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, topModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, topModelLocation);
     }
 
     private void createGrowableSmallCoconutLog(BlockModelGenerators generator)
@@ -438,15 +398,12 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.GROWABLE_SMALL_COCONUT_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
         var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_growable"), textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
-                .with(PropertyDispatch.property(BlockStateProperties.AXIS)
-                        .select(Direction.Axis.Y, Variant.variant().with(VariantProperties.MODEL, growableModelLocation))
-                        .select(Direction.Axis.Z, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
-                        .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, growableModelLocation)
-                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
-                ));
+        this.createRotatedPillarWithHorizontalVariant(generator, block, growableModelLocation);
+    }
+
+    private void createRotatedPillarWithHorizontalVariant(BlockModelGenerators generator, Block block, ResourceLocation modelLocation)
+    {
+        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, modelLocation, modelLocation));
     }
 
     private void createBananaLeaves(BlockModelGenerators generator)
@@ -799,15 +756,15 @@ public class ModelProvider extends FabricModelProvider
     private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, sideTexture);
-        var resourceLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
+        var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
+        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
     private void createMediumLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
-        var resourceLocation = FOTModelTemplates.MEDIUM_LOG.create(block, textureMapping, generator.modelOutput);
-        generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, resourceLocation, resourceLocation));
+        var modelLocation = FOTModelTemplates.MEDIUM_LOG.create(block, textureMapping, generator.modelOutput);
+        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
     private void createCoconutFronds(BlockModelGenerators generator)
