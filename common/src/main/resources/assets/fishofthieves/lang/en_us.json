@@ -305,6 +305,8 @@
   "subtitles.entity.stormfish.flop": "Stormfish flops",
   "subtitles.entity.stormfish.hurt": "Stormfish hurts",
   "subtitles.block.fish_plaque.rotate": "Fish Plaque clicks",
+  "subtitles.block.pomegranate_plant.pick_pomegranates": "Pomegranates pop",
+  "subtitles.item.pomegranate.crush": "Pomegranates crushes",
   "death.attack.falling_mango": "%1$s has discovered gravity under the mango tree.",
   "advancements.fot.root.title": "Fish of Thieves",
   "advancements.fot.root.description": "Fishing and Hunting",

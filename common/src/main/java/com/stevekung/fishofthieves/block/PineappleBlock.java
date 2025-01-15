@@ -2,10 +2,10 @@ package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -68,7 +68,7 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock
         {
             if (!level.isClientSide())
             {
-                level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(null, pos, FOTSoundEvents.PINEAPPLE_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.setBlock(pos, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK.defaultBlockState(), Block.UPDATE_ALL_IMMEDIATE);
                 Block.popResource(level, pos, new ItemStack(FOTItems.PINEAPPLE_CROWN));
                 itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));

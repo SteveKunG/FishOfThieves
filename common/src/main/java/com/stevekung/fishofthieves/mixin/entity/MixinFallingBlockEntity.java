@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -47,7 +47,7 @@ public abstract class MixinFallingBlockEntity extends Entity
 
             if (sound)
             {
-                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SNIFFER_EGG_PLOP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), FOTSoundEvents.CRUSH_POMEGRANTE, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
     }

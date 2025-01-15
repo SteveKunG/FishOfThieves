@@ -4,10 +4,10 @@ import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -133,7 +133,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
         {
             var count = 1 + level.random.nextInt(2);
             popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
-            level.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+            level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
             var blockState = state.setValue(AGE, 0);
             level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
 
