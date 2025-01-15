@@ -4,5 +4,5 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class FOTBlockSetTypes
 {
-    public static final BlockSetType COCONUT = BlockSetType.register(new BlockSetType("coconut"));
+    public static final BlockSetType COCONUT = BlockSetType.register(new BlockSetType("fot_coconut"));
 }

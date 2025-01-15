@@ -78,14 +78,14 @@ public class MixinBoat
         @Inject(method = "<clinit>", at = @At("TAIL"))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
-            var entry = create("COCONUT", $VALUES.length, Blocks.OAK_PLANKS, "coconut"); // Forge is always weird, so using oak planks as temporary instead.
+            var entry = create("FOT_COCONUT", $VALUES.length, Blocks.OAK_PLANKS, "coconut"); // Forge is always weird, so using oak planks as temporary instead.
             $VALUES = ArrayUtils.add($VALUES, entry);
 
             // Re-initialize
             CODEC = StringRepresentable.fromEnum(() -> $VALUES);
             BY_ID = ByIdMap.continuous(Enum::ordinal, $VALUES, ByIdMap.OutOfBoundsStrategy.ZERO);
 
-            FishOfThieves.LOGGER.info("Added new enum to {}: {}", Boat.Type.class, FOTBoatTypes.COCONUT);
+            FishOfThieves.LOGGER.info("Added new enum to {}: {}|{}", Boat.Type.class, FOTBoatTypes.COCONUT.name(), FOTBoatTypes.COCONUT);
         }
     }
 }
