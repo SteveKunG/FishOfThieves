@@ -3,12 +3,9 @@ package com.stevekung.fishofthieves.block;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -44,22 +41,5 @@ public class HangingMangoFruitBlock extends AbstractMangoFruitBlock
         var age = Math.min(state.getValue(AGE), 1);
         var offset = state.getOffset(level, pos);
         return (age == 0 ? STAGE_0 : STAGE_FULL).move(offset.x, offset.y, offset.z);
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
-    {
-        var otherBlockState = level.getBlockState(pos.above());
-
-        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !canMangoFall(level.getBlockState(pos.below())))
-        {
-            return Blocks.AIR.defaultBlockState();
-        }
-
-        if (!state.canSurvive(level, pos))
-        {
-            level.scheduleTick(pos, this, 2);
-        }
-        return state;
     }
 }

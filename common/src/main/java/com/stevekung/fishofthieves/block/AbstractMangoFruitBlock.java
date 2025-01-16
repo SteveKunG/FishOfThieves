@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,11 +13,9 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.FallingBlock;
-import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -81,6 +80,20 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     }
 
     @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    {
+        if (!state.canSurvive(level, pos))
+        {
+            if (!canMangoFall(level.getBlockState(pos.below())))
+            {
+                return Blocks.AIR.defaultBlockState();
+            }
+            level.scheduleTick(pos, this, 2);
+        }
+        return state;
+    }
+
+    @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
         if (canMangoFall(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
@@ -95,18 +108,9 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     {
         var vec3 = fallingBlock.getBoundingBox().getCenter();
         var blockState = fallingBlock.getBlockState();
-        int age = blockState.getValue(AGE);
         level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, BlockPos.containing(vec3), Block.getId(fallingBlock.getBlockState()));
         level.gameEvent(fallingBlock, GameEvent.BLOCK_DESTROY, vec3);
-
-        if (age == 1)
-        {
-            fallingBlock.spawnAtLocation(FOTItems.RAW_MANGO);
-        }
-        else if (age == 2)
-        {
-            fallingBlock.spawnAtLocation(FOTItems.MANGO);
-        }
+        Block.dropResources(blockState, level, pos);
     }
 
     @Override

@@ -5,10 +5,8 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -67,23 +65,6 @@ public class MangoFruitBlock extends AbstractMangoFruitBlock
             case EAST -> EAST_AABB[age];
             default -> NORTH_AABB[age];
         }).move(offset.x, offset.y, offset.z);
-    }
-
-    @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
-    {
-        var otherBlockState = level.getBlockState(pos.relative(state.getValue(FACING)));
-
-        if (!otherBlockState.is(FOTBlocks.MANGO_LEAVES) && !canMangoFall(level.getBlockState(pos.below())))
-        {
-            return Blocks.AIR.defaultBlockState();
-        }
-
-        if (!state.canSurvive(level, pos))
-        {
-            level.scheduleTick(pos, this, 2);
-        }
-        return state;
     }
 
     @Override

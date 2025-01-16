@@ -2,29 +2,31 @@ package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class CoconutFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock
+public class CoconutFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, Fallable
 {
     private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
             Block.box(12, 8, 5, 18, 14, 11),
@@ -60,15 +62,42 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.random.nextInt(5) == 0)
-        {
-            int i = state.getValue(AGE);
+        int age = state.getValue(AGE);
 
-            if (i < 2)
+        if (age < 2)
+        {
+            if (random.nextInt(5) == 0)
             {
-                level.setBlock(pos, state.setValue(AGE, i + 1), Block.UPDATE_CLIENTS);
+                level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
             }
         }
+    }
+
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
+        {
+            var fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
+            fallingBlockEntity.setHurtsEntities(0.5f * Math.max(1, state.getValue(AGE)), 20);
+            fallingBlockEntity.disableDrop();
+        }
+    }
+
+    @Override
+    public DamageSource getFallDamageSource(Entity entity)
+    {
+        return entity.damageSources().fallingCoconut(entity);
+    }
+
+    @Override
+    public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock)
+    {
+        var vec3 = fallingBlock.getBoundingBox().getCenter();
+        var blockState = fallingBlock.getBlockState();
+        level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, BlockPos.containing(vec3), Block.getId(fallingBlock.getBlockState()));
+        level.gameEvent(fallingBlock, GameEvent.BLOCK_DESTROY, vec3);
+        Block.dropResources(blockState, level, pos);
     }
 
     @Override
@@ -94,7 +123,15 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        return direction == state.getValue(FACING) && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        if (!state.canSurvive(level, pos))
+        {
+            if (!FallingBlock.isFree(level.getBlockState(pos.below())))
+            {
+                return Blocks.AIR.defaultBlockState();
+            }
+            level.scheduleTick(pos, this, 2);
+        }
+        return state;
     }
 
     @Override

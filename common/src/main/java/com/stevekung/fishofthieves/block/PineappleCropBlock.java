@@ -287,7 +287,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
         if (posAndState != null)
         {
-            this.grow(level, posAndState.state, posAndState.pos, Mth.nextInt(level.random, 1, 2));
+            this.grow(level, posAndState.state, posAndState.pos, Mth.nextInt(random, 1, 2));
         }
     }
 

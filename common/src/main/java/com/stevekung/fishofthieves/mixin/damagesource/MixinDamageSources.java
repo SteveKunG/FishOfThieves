@@ -27,4 +27,10 @@ public class MixinDamageSources implements FOTDamageSources
     {
         return this.source(FOTDamageTypes.MANGO, entity);
     }
+
+    @Override
+    public DamageSource fallingCoconut(Entity entity)
+    {
+        return this.source(FOTDamageTypes.COCONUT, entity);
+    }
 }

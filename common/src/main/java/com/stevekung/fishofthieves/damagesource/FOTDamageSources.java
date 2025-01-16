@@ -9,4 +9,9 @@ public interface FOTDamageSources
     {
         throw new AssertionError("Implemented via mixin");
     }
+
+    default DamageSource fallingCoconut(Entity entity)
+    {
+        throw new AssertionError("Implemented via mixin");
+    }
 }
