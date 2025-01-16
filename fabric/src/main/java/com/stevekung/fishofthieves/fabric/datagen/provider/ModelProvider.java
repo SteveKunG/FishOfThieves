@@ -208,7 +208,15 @@ public class ModelProvider extends FabricModelProvider
         this.createPomegranatePlant(generator);
         this.createTallPomegranatePlant(generator);
         this.createPottedPomegranatePlant(generator);
-        generator.createCrossBlock(FOTBlocks.POMEGRANATE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+        this.createPlant(generator, FOTBlocks.POMEGRANATE_SAPLING, FOTBlocks.POTTED_POMEGRANATE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+    }
+
+    private void createPlant(BlockModelGenerators generator, Block plantBlock, Block pottedPlantBlock, BlockModelGenerators.TintState tintState)
+    {
+        generator.createCrossBlock(plantBlock, tintState);
+        var textureMapping = TextureMapping.plant(plantBlock);
+        var resourceLocation = tintState.getCrossPot().create(pottedPlantBlock, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedPlantBlock, resourceLocation));
     }
 
     private void createFishBone(BlockModelGenerators generator)

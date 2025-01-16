@@ -172,6 +172,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_PIT);
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
         this.dropPottedContents(FOTBlocks.POTTED_BANANA_SHOOTS);
+        this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_SAPLING);
         this.add(FOTBlocks.POMEGRANATE_PLANT, this::createPomegranatePlant);
         this.createTallPomegranatePlant();
         this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_PLANT);
