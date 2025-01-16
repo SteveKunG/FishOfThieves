@@ -117,6 +117,7 @@ public class FOTBlocks
     public static Block MANGO_PIT;
     public static Block MANGO_SAPLING;
     public static Block POMEGRANATE_PLANT;
+    public static Block POMEGRANATE_SAPLING;
 
     public static Block POTTED_PINK_PLUMERIA;
     public static Block POTTED_BANANA_SHOOTS;
@@ -261,6 +262,7 @@ public class FOTBlocks
         registerNoItem("mango_pit", MANGO_PIT = getMangoPit());
         registerNoItem("mango_sapling", MANGO_SAPLING = getMangoSapling());
         registerNoItem("pomegranate_plant", POMEGRANATE_PLANT = getPomegranatePlant());
+        registerNoItem("pomegranate_sapling", POMEGRANATE_SAPLING = getPomegranateSapling());
 
         registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
@@ -317,7 +319,12 @@ public class FOTBlocks
 
     public static Block getPomegranatePlant()
     {
-        return new PomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
+        return new PomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.AZALEA).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getPomegranateSapling()
+    {
+        return new PomegranateSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
     }
 
     private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)

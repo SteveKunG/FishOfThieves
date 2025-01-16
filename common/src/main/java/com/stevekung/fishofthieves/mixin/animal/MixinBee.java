@@ -71,7 +71,8 @@ public class MixinBee
             if (stateToCheck.is(FOTBlocks.MANGO_PIT) ||
                     stateToCheck.is(FOTBlocks.PINEAPPLE_CROP) ||
                     stateToCheck.is(FOTBlocks.POMEGRANATE_PLANT) ||
-                    stateToCheck.is(FOTBlocks.TALL_POMEGRANATE_PLANT))
+                    stateToCheck.is(FOTBlocks.TALL_POMEGRANATE_PLANT) ||
+                    stateToCheck.is(FOTBlocks.POMEGRANATE_SAPLING))
             {
                 ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.$outer.level(), this.$outer.getRandom(), blockPos, stateToCheck);
             }
@@ -86,7 +87,7 @@ public class MixinBee
         {
             if (blockState.is(FOTBlocks.POMEGRANATE_PLANT))
             {
-                info.setReturnValue(blockState.getValue(PomegranatePlantBlock.AGE) == 2);
+                info.setReturnValue(blockState.getValue(PomegranatePlantBlock.AGE) == 1);
             }
             else if (blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT))
             {

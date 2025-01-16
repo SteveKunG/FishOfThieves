@@ -1,7 +1,8 @@
 package com.stevekung.fishofthieves.item;
 
+import com.stevekung.fishofthieves.registry.FOTItems;
+
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 public class PomegranateItem extends ReturnedOnConsumeItem
 {
@@ -13,6 +14,6 @@ public class PomegranateItem extends ReturnedOnConsumeItem
     @Override
     protected Item getReturnedItem()
     {
-        return Items.WHEAT_SEEDS;
+        return FOTItems.POMEGRANATE_SEEDS;
     }
 }

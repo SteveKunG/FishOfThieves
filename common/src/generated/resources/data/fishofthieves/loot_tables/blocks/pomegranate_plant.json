@@ -22,6 +22,19 @@
                       "block": "fishofthieves:pomegranate_plant",
                       "condition": "minecraft:block_state_property",
                       "properties": {
+                        "age": "0"
+                      }
+                    }
+                  ],
+                  "name": "fishofthieves:pomegranate_plant"
+                },
+                {
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "block": "fishofthieves:pomegranate_plant",
+                      "condition": "minecraft:block_state_property",
+                      "properties": {
                         "age": "1"
                       }
                     }
@@ -53,19 +66,6 @@
                     }
                   ],
                   "name": "fishofthieves:pomegranate_plant"
-                },
-                {
-                  "type": "minecraft:item",
-                  "conditions": [
-                    {
-                      "block": "fishofthieves:pomegranate_plant",
-                      "condition": "minecraft:block_state_property",
-                      "properties": {
-                        "age": "4"
-                      }
-                    }
-                  ],
-                  "name": "fishofthieves:pomegranate_plant"
                 }
               ]
             }
@@ -91,7 +91,7 @@
               "block": "fishofthieves:pomegranate_plant",
               "condition": "minecraft:block_state_property",
               "properties": {
-                "age": "4"
+                "age": "3"
               }
             }
           ],
@@ -115,32 +115,6 @@
             }
           ],
           "name": "fishofthieves:pomegranate"
-        }
-      ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "fishofthieves:pomegranate_plant",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "0"
-          }
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "fishofthieves:pomegranate_seeds"
-        }
-      ],
-      "functions": [
-        {
-          "add": false,
-          "count": 1.0,
-          "function": "minecraft:set_count"
         }
       ],
       "rolls": 1.0

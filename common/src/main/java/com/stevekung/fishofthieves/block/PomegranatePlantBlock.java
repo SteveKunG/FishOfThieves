@@ -1,8 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import org.jetbrains.annotations.Nullable;
-
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
@@ -17,11 +14,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,9 +35,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 @SuppressWarnings("deprecation")
 public class PomegranatePlantBlock extends BushBlock implements BonemealableBlock
 {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
-    private static final VoxelShape STAGE_0_SHAPE = Block.box(3, 0, 3, 13, 12, 13);
     private static final VoxelShape SHAPE = Shapes.or(Block.box(1, 4, 1, 15, 16, 15), Block.box(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
 
     public PomegranatePlantBlock(BlockBehaviour.Properties properties)
@@ -49,40 +46,21 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     }
 
     @Override
-    public SoundType getSoundType(BlockState state)
-    {
-        return state.getValue(AGE) > 0 ? SoundType.AZALEA : super.getSoundType(state);
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
-    {
-        return state.getValue(AGE) == 0 ? new ItemStack(FOTItems.POMEGRANATE_SEEDS) : new ItemStack(FOTBlocks.POMEGRANATE_PLANT);
-    }
-
-    @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return state.getValue(AGE) == 0 ? STAGE_0_SHAPE : SHAPE;
+        return SHAPE;
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return state.getValue(AGE) == 0 ? Shapes.empty() : SHAPE;
+        return SHAPE;
     }
 
     @Override
     public boolean isRandomlyTicking(BlockState state)
     {
-        return !state.getValue(PERSISTENT) && state.getValue(AGE) < 4;
-    }
-
-    @Override
-    @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        return context.getItemInHand().is(FOTItems.POMEGRANATE_SEEDS) ? super.getStateForPlacement(context) : this.defaultBlockState().setValue(AGE, 1);
+        return !state.getValue(PERSISTENT) && state.getValue(AGE) < 3;
     }
 
     @Override
@@ -90,20 +68,11 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     {
         int age = state.getValue(AGE);
 
-        if (age < 4 && random.nextInt(5) == 0 && level.getRawBrightness(pos.above(), 0) >= 9)
+        if (age < 3 && random.nextInt(5) == 0 && level.getRawBrightness(pos.above(), 0) >= 9)
         {
-            var doublePlantBlock = (DoublePlantBlock) FOTBlocks.TALL_POMEGRANATE_PLANT;
-
-            if (age == 0 && random.nextInt(5) == 0 && doublePlantBlock.defaultBlockState().canSurvive(level, pos) && level.isEmptyBlock(pos.above()))
-            {
-                DoublePlantBlock.placeAt(level, doublePlantBlock.defaultBlockState(), pos, Block.UPDATE_CLIENTS);
-            }
-            else
-            {
-                var blockState = state.setValue(AGE, age + 1);
-                level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-                level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockState));
-            }
+            var blockState = state.setValue(AGE, age + 1);
+            level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockState));
         }
     }
 
@@ -112,7 +81,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     {
         var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
-        var canHarvest = age == 4;
+        var canHarvest = age == 3;
 
         if (!state.getValue(PERSISTENT) && itemStack.is(Items.SHEARS))
         {
@@ -135,7 +104,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
             var count = 1 + level.random.nextInt(2);
             popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
             level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-            var blockState = state.setValue(AGE, 1);
+            var blockState = state.setValue(AGE, 0);
             level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -155,7 +124,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
-        return state.getValue(AGE) < 4;
+        return state.getValue(AGE) < 3;
     }
 
     @Override
@@ -167,19 +136,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
     {
-        var doublePlantBlock = (DoublePlantBlock) FOTBlocks.TALL_POMEGRANATE_PLANT;
-
-        if (state.getValue(AGE) == 0 && random.nextInt(10) == 0)
-        {
-            if (doublePlantBlock.defaultBlockState().canSurvive(level, pos) && level.isEmptyBlock(pos.above()))
-            {
-                DoublePlantBlock.placeAt(level, doublePlantBlock.defaultBlockState(), pos, Block.UPDATE_CLIENTS);
-            }
-        }
-        else
-        {
-            var age = Math.min(4, state.getValue(AGE) + 1);
-            level.setBlock(pos, state.setValue(AGE, age), Block.UPDATE_CLIENTS);
-        }
+        var age = Math.min(3, state.getValue(AGE) + 1);
+        level.setBlock(pos, state.setValue(AGE, age), Block.UPDATE_CLIENTS);
     }
 }

@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cross",
   "render_type": "cutout",
   "textures": {
-    "cross": "fishofthieves:block/pomegranate_plant_sapling"
+    "cross": "fishofthieves:block/pomegranate_sapling"
   }
 }

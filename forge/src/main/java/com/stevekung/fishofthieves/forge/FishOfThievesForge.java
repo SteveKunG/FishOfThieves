@@ -7,7 +7,6 @@ import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
 import com.stevekung.fishofthieves.forge.proxy.ClientProxyForge;
 import com.stevekung.fishofthieves.forge.proxy.CommonProxyForge;
-import com.stevekung.fishofthieves.item.PomegranateSeedsItem;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.core.Registry;
@@ -111,6 +110,7 @@ public class FishOfThievesForge
             helper.register("mango_pit", FOTBlocks.MANGO_PIT = FOTBlocks.getMangoPit());
             helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = FOTBlocks.getMangoSapling());
             helper.register("pomegranate_plant", FOTBlocks.POMEGRANATE_PLANT = FOTBlocks.getPomegranatePlant());
+            helper.register("pomegranate_sapling", FOTBlocks.POMEGRANATE_SAPLING = FOTBlocks.getPomegranateSapling());
 
             helper.register("potted_pink_plumeria", FOTBlocks.POTTED_PINK_PLUMERIA = FOTBlocks.flowerPot(FOTBlocks.PINK_PLUMERIA));
             helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
@@ -128,7 +128,7 @@ public class FishOfThievesForge
             helper.register("mango_sapling", FOTItems.MANGO_SAPLING = FOTItems.blockItem(FOTBlocks.MANGO_SAPLING));
             helper.register("pomegranate_plant", FOTItems.POMEGRANATE_PLANT = FOTItems.blockItem(FOTBlocks.POMEGRANATE_PLANT));
             helper.register("tall_pomegranate_plant", FOTItems.TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
-            helper.register("pomegranate_seeds", FOTItems.POMEGRANATE_SEEDS = new PomegranateSeedsItem(FOTBlocks.POMEGRANATE_PLANT, new Item.Properties()));
+            helper.register("pomegranate_seeds", FOTItems.POMEGRANATE_SEEDS = new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
         });
         event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());

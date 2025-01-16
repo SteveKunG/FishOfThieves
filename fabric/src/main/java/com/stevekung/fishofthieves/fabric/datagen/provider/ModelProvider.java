@@ -208,6 +208,7 @@ public class ModelProvider extends FabricModelProvider
         this.createPomegranatePlant(generator);
         this.createTallPomegranatePlant(generator);
         this.createPottedPomegranatePlant(generator);
+        generator.createCrossBlock(FOTBlocks.POMEGRANATE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
     }
 
     private void createFishBone(BlockModelGenerators generator)
@@ -228,44 +229,36 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.POMEGRANATE_PLANT;
         var textureMapping = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block)).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"));
         var textureMappingFlowering = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block, "_flowering")).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_flowering")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_flowering"));
-        var stage0Model = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_sapling"), TextureMapping.cross(TextureMapping.getBlockTexture(block, "_sapling")), generator.modelOutput);
-        var stage1Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block), textureMapping, generator.modelOutput);
-        var stage2Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block, "_flowering"), textureMappingFlowering, generator.modelOutput);
+        var stage0Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block), textureMapping, generator.modelOutput);
+        var stage1Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block, "_flowering"), textureMappingFlowering, generator.modelOutput);
 
-        generator.delegateItemModel(block, stage1Model);
+        generator.delegateItemModel(block, stage0Model);
         generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
-                // Age 1
-                .with(
-                        Condition.condition()
-                                .term(PomegranatePlantBlock.AGE, 1, 3, 4),
-                        this.createRotatedVariants(stage1Model)
-                )
-
                 // Age 0
                 .with(
                         Condition.condition()
-                                .term(PomegranatePlantBlock.AGE, 0),
-                        Variant.variant().with(VariantProperties.MODEL, stage0Model)
+                                .term(PomegranatePlantBlock.AGE, 0, 2, 3),
+                        this.createRotatedVariants(stage0Model)
                 )
 
-                // Age 2 Flowering
+                // Age 1 Flowering
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 1),
+                        this.createRotatedVariants(stage1Model)
+                )
+
+                // Age 2 Fruiting
                 .with(
                         Condition.condition()
                                 .term(PomegranatePlantBlock.AGE, 2),
-                        this.createRotatedVariants(stage2Model)
-                )
-
-                // Age 3 Fruiting
-                .with(
-                        Condition.condition()
-                                .term(PomegranatePlantBlock.AGE, 3),
                         this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruiting"))
                 )
 
-                // Age 4 Fruit
+                // Age 3 Fruit
                 .with(
                         Condition.condition()
-                                .term(PomegranatePlantBlock.AGE, 4),
+                                .term(PomegranatePlantBlock.AGE, 3),
                         this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruit"))
                 )
         );
