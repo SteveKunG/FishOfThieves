@@ -1,28 +1,104 @@
 {
-  "variants": {
-    "age=0,half=lower": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper"
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "0|2|3",
+        "half": "upper"
+      }
     },
-    "age=0,half=upper": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_0"
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper_flowering"
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper_flowering",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper_flowering",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_upper_flowering",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "1",
+        "half": "upper"
+      }
     },
-    "age=1,half=lower": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruiting"
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruiting",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruiting",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruiting",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "2",
+        "half": "upper"
+      }
     },
-    "age=1,half=upper": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_1"
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruit"
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruit",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruit",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/tall_pomegranate_plant_fruit",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "3",
+        "half": "upper"
+      }
     },
-    "age=2,half=lower": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
-    },
-    "age=2,half=upper": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_2"
-    },
-    "age=3,half=lower": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_bottom"
-    },
-    "age=3,half=upper": {
-      "model": "fishofthieves:block/tall_pomegranate_plant_upper_stage_3"
+    {
+      "apply": {
+        "model": "fishofthieves:block/tall_pomegranate_plant_lower"
+      },
+      "when": {
+        "half": "lower"
+      }
     }
-  }
+  ]
 }

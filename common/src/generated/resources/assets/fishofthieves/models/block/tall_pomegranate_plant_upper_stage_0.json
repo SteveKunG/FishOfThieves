@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/template_azalea",
-  "textures": {
-    "particle": "fishofthieves:block/tall_pomegranate_plant_upper_stage_0",
-    "plant": "fishofthieves:block/tall_pomegranate_plant_upper_stage_0",
-    "side": "fishofthieves:block/pomegranate_plant_side_stage_1",
-    "top": "fishofthieves:block/pomegranate_plant_top_stage_1"
-  }
-}

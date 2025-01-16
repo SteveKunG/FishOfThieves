@@ -19,10 +19,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -39,12 +36,18 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
     private static final VoxelShape STAGE_0_SHAPE = Block.box(3, 0, 3, 13, 12, 13);
-    private static final VoxelShape SHAPE = Shapes.or(Block.box(0.0, 8.0, 0.0, 16.0, 16.0, 16.0), Block.box(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
+    private static final VoxelShape SHAPE = Shapes.or(Block.box(1, 4, 1, 15, 16, 15), Block.box(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
 
     public PomegranatePlantBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+    }
+
+    @Override
+    public SoundType getSoundType(BlockState state)
+    {
+        return state.getValue(AGE) > 0 ? SoundType.AZALEA : super.getSoundType(state);
     }
 
     @Override

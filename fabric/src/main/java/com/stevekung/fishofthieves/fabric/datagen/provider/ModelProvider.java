@@ -220,51 +220,106 @@ public class ModelProvider extends FabricModelProvider
     private void createPottedPomegranatePlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.POTTED_POMEGRANATE_PLANT;
-        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelTemplates.POTTED_AZALEA.create(block, TextureMapping.pottedAzalea(block), generator.modelOutput)));
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, ModelTemplates.POTTED_AZALEA.create(block, new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block)).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top")), generator.modelOutput)));
     }
 
     private void createPomegranatePlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.POMEGRANATE_PLANT;
-        generator.delegateItemModel(block, ModelLocationUtils.getModelLocation(block, "_stage_1"));
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(PropertyDispatch.property(PomegranatePlantBlock.AGE)
-                .generate(age ->
-                {
-                    var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
-                    ResourceLocation resourceLocation;
+        var textureMapping = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block)).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"));
+        var textureMappingFlowering = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block, "_flowering")).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_flowering")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_flowering"));
+        var stage0Model = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_sapling"), TextureMapping.cross(TextureMapping.getBlockTexture(block, "_sapling")), generator.modelOutput);
+        var stage1Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block), textureMapping, generator.modelOutput);
+        var stage2Model = FOTModelTemplates.POMEGRANATE_PLANT.create(ModelLocationUtils.getModelLocation(block, "_flowering"), textureMappingFlowering, generator.modelOutput);
 
-                    if (age == 0)
-                    {
-                        resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(model, TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_stage_" + age)), generator.modelOutput);
-                    }
-                    else
-                    {
-                        resourceLocation = ModelTemplates.AZALEA.create(model, new TextureMapping().putForced(TextureSlot.PARTICLE, model).putForced(TextureSlot.PLANT, model).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_stage_" + age)).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_stage_" + age)), generator.modelOutput);
+        generator.delegateItemModel(block, stage1Model);
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Age 1
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 1, 3, 4),
+                        this.createRotatedVariants(stage1Model)
+                )
 
-                    }
-                    return Variant.variant().with(VariantProperties.MODEL, resourceLocation);
-                })));
+                // Age 0
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 0),
+                        Variant.variant().with(VariantProperties.MODEL, stage0Model)
+                )
+
+                // Age 2 Flowering
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 2),
+                        this.createRotatedVariants(stage2Model)
+                )
+
+                // Age 3 Fruiting
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 3),
+                        this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruiting"))
+                )
+
+                // Age 4 Fruit
+                .with(
+                        Condition.condition()
+                                .term(PomegranatePlantBlock.AGE, 4),
+                        this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruit"))
+                )
+        );
     }
 
     private void createTallPomegranatePlant(BlockModelGenerators generator)
     {
         var block = FOTBlocks.TALL_POMEGRANATE_PLANT;
-        var lowerCross = BlockModelGenerators.TintState.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_bottom"), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_bottom")), generator.modelOutput);
-        generator.delegateItemModel(block, ModelLocationUtils.getModelLocation(block, "_upper_stage_0"));
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(PropertyDispatch.properties(TallPomegranatePlantBlock.AGE, TallPomegranatePlantBlock.HALF)
-                .generate((age, half) ->
-                {
-                    var model = ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age);
+        var textureMapping = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block)).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"));
+        var textureMappingFlowering = new TextureMapping().put(TextureSlot.PLANT, TextureMapping.getBlockTexture(block, "_flowering")).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_flowering")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top_flowering"));
+        var upperModel = FOTModelTemplates.TALL_POMEGRANATE_PLANT_UPPER.create(ModelLocationUtils.getModelLocation(block, "_upper"), textureMapping, generator.modelOutput);
+        var upperFloweringModel = FOTModelTemplates.TALL_POMEGRANATE_PLANT_UPPER.create(ModelLocationUtils.getModelLocation(block, "_upper_flowering"), textureMappingFlowering, generator.modelOutput);
 
-                    if (half == DoubleBlockHalf.LOWER)
-                    {
-                        return Variant.variant().with(VariantProperties.MODEL, lowerCross);
-                    }
-                    else
-                    {
-                        return Variant.variant().with(VariantProperties.MODEL, ModelTemplates.AZALEA.create(model, new TextureMapping().putForced(TextureSlot.PARTICLE, model).putForced(TextureSlot.PLANT, model).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.POMEGRANATE_PLANT, "_side_stage_" + (age + 1))).put(TextureSlot.TOP, TextureMapping.getBlockTexture(FOTBlocks.POMEGRANATE_PLANT, "_top_stage_" + (age + 1))), generator.modelOutput));
-                    }
-                })));
+        generator.delegateItemModel(block, upperModel);
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Upper
+                .with(
+                        Condition.condition()
+                                .term(TallPomegranatePlantBlock.AGE, 0, 2, 3)
+                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                        this.createRotatedVariants(upperModel)
+                )
+
+                // Upper
+                .with(
+                        Condition.condition()
+                                .term(TallPomegranatePlantBlock.AGE, 1)
+                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                        this.createRotatedVariants(upperFloweringModel)
+                )
+
+                // Fruiting
+                .with(
+                        Condition.condition()
+                                .term(TallPomegranatePlantBlock.AGE, 2)
+                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                        this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruiting"))
+                )
+
+                // Fruit
+                .with(
+                        Condition.condition()
+                                .term(TallPomegranatePlantBlock.AGE, 3)
+                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                        this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruit"))
+                )
+
+                // Lower
+                .with(
+                        Condition.condition()
+                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.LOWER),
+                        Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(block, "_lower"))
+                )
+        );
     }
 
     private void createPottedMangoPit(BlockModelGenerators generator)

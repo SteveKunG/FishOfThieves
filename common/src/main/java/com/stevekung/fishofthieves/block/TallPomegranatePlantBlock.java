@@ -43,8 +43,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     private static final VoxelShape LOWER_SHAPE = Block.box(3, 0, 3, 13, 16, 13);
-    private static final VoxelShape UPPER_COLLISION_SHAPE = Block.box(0.0, 8.0, 0.0, 16.0, 16.0, 16.0);
-    private static final VoxelShape UPPER_SHAPE = Shapes.or(UPPER_COLLISION_SHAPE, LOWER_SHAPE);
+    private static final VoxelShape UPPER_SHAPE = Block.box(1, 0, 1, 15, 16, 15);
 
     public TallPomegranatePlantBlock(BlockBehaviour.Properties properties)
     {
@@ -60,7 +59,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? UPPER_COLLISION_SHAPE : Shapes.empty();
+        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? UPPER_SHAPE : Shapes.empty();
     }
 
     @Override
@@ -82,13 +81,13 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
         var level = context.getLevel();
         var blockPos = context.getClickedPos();
         var blockState = super.getStateForPlacement(context);
-        var isUnobstructed = UPPER_COLLISION_SHAPE.isEmpty() || this.isUnobstructed(level, blockPos);
+        var isUnobstructed = UPPER_SHAPE.isEmpty() || this.isUnobstructed(level, blockPos);
         return blockState != null && isUnobstructed ? blockState : null;
     }
 
     private boolean isUnobstructed(Level level, BlockPos pos)
     {
-        return level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(pos.getX(), pos.getY(), pos.getZ())) && level.isUnobstructed(null, UPPER_COLLISION_SHAPE.move(pos.getX(), pos.getY() + 1, pos.getZ()));
+        return level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY(), pos.getZ())) && level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY() + 1, pos.getZ()));
     }
 
     @Override

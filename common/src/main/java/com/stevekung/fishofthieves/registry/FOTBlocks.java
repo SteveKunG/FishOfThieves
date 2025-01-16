@@ -317,7 +317,7 @@ public class FOTBlocks
 
     public static Block getPomegranatePlant()
     {
-        return new PomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.AZALEA).pushReaction(PushReaction.DESTROY));
+        return new PomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
     }
 
     private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)

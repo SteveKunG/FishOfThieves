@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/template_potted_azalea_bush",
+  "render_type": "cutout",
   "textures": {
     "plant": "fishofthieves:block/potted_pomegranate_plant",
     "side": "fishofthieves:block/potted_pomegranate_plant_side",

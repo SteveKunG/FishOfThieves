@@ -20,6 +20,8 @@ public class FOTModelTemplates
     public static final ModelTemplate BANANA_CLUSTER_PLANT = create("template_banana_cluster_plant", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.BOTTOM);
     public static final ModelTemplate MANGO_FRUIT = create("template_mango_fruit", FRUIT);
     public static final ModelTemplate HANGING_MANGO_FRUIT = create("template_hanging_mango_fruit", FRUIT);
+    public static final ModelTemplate POMEGRANATE_PLANT = create("template_pomegranate_plant", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PLANT);
+    public static final ModelTemplate TALL_POMEGRANATE_PLANT_UPPER = create("template_tall_pomegranate_plant_upper", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PLANT);
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {
