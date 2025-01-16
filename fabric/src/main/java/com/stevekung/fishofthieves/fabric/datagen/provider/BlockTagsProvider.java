@@ -55,6 +55,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT, FOTBlocks.MANGO_PIT,
                 FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT, FOTBlocks.POMEGRANATE_SAPLING);
         this.getOrCreateTagBuilder(BlockTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
+        this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
         this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
