@@ -8,7 +8,9 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -35,13 +38,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class PomegranatePlantBlock extends BushBlock implements BonemealableBlock
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     private static final VoxelShape STAGE_0_SHAPE = Block.box(3, 0, 3, 13, 12, 13);
     private static final VoxelShape SHAPE = Shapes.or(Block.box(1, 4, 1, 15, 16, 15), Block.box(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
 
     public PomegranatePlantBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(PERSISTENT, false));
     }
 
     @Override
@@ -71,7 +75,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     @Override
     public boolean isRandomlyTicking(BlockState state)
     {
-        return state.getValue(AGE) < 4;
+        return !state.getValue(PERSISTENT) && state.getValue(AGE) < 4;
     }
 
     @Override
@@ -106,10 +110,23 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
+        var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
         var canHarvest = age == 4;
 
-        if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
+        if (!state.getValue(PERSISTENT) && itemStack.is(Items.SHEARS))
+        {
+            if (!level.isClientSide())
+            {
+                level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.setBlock(pos, state.setValue(PERSISTENT, true), Block.UPDATE_ALL_IMMEDIATE);
+                itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+                level.gameEvent(player, GameEvent.SHEAR, pos);
+                player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        }
+        else if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
         {
             return InteractionResult.PASS;
         }
@@ -132,7 +149,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        builder.add(AGE);
+        builder.add(AGE, PERSISTENT);
     }
 
     @Override

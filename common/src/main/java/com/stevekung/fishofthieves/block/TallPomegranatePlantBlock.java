@@ -8,7 +8,9 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -42,18 +45,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class TallPomegranatePlantBlock extends DoublePlantBlock implements BonemealableBlock
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     private static final VoxelShape LOWER_SHAPE = Block.box(3, 0, 3, 13, 16, 13);
     private static final VoxelShape UPPER_SHAPE = Block.box(1, 0, 1, 15, 16, 15);
 
     public TallPomegranatePlantBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(AGE, 0).setValue(PERSISTENT, false));
     }
 
     @Override
     public boolean isRandomlyTicking(BlockState state)
     {
-        return state.getValue(HALF) == DoubleBlockHalf.LOWER && state.getValue(AGE) <= 2;
+        return !state.getValue(PERSISTENT) && state.getValue(HALF) == DoubleBlockHalf.LOWER && state.getValue(AGE) <= 2;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
-        super.createBlockStateDefinition(builder.add(AGE));
+        super.createBlockStateDefinition(builder.add(AGE, PERSISTENT));
     }
 
     @Override
@@ -121,10 +126,33 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit)
     {
+        var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
         var canHarvest = age == 3;
 
-        if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
+        if (!state.getValue(PERSISTENT) && itemStack.is(Items.SHEARS))
+        {
+            if (!level.isClientSide())
+            {
+                level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.setBlock(pos, state.setValue(PERSISTENT, true), Block.UPDATE_ALL_IMMEDIATE);
+
+                if (state.getValue(HALF) == DoubleBlockHalf.LOWER)
+                {
+                    level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER).setValue(PERSISTENT, true), Block.UPDATE_ALL_IMMEDIATE);
+                }
+                else
+                {
+                    level.setBlock(pos.below(), state.setValue(HALF, DoubleBlockHalf.LOWER).setValue(PERSISTENT, true), Block.UPDATE_ALL_IMMEDIATE);
+                }
+
+                itemStack.hurtAndBreak(1, player, playerx -> playerx.broadcastBreakEvent(hand));
+                level.gameEvent(player, GameEvent.SHEAR, pos);
+                player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        }
+        else if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
         {
             return InteractionResult.PASS;
         }
@@ -157,11 +185,12 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     private void grow(ServerLevel level, BlockState state, BlockPos pos)
     {
         var i = Math.min(state.getValue(AGE) + 1, 3);
+        var persistent = state.getValue(PERSISTENT);
 
         if (this.canGrow(level, pos, state))
         {
-            level.setBlock(pos, state.setValue(AGE, i), Block.UPDATE_CLIENTS);
-            level.setBlock(pos.above(), copyWaterloggedFrom(level, pos.above(), this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(AGE, i)), Block.UPDATE_ALL);
+            level.setBlock(pos, state.setValue(AGE, i).setValue(PERSISTENT, persistent), Block.UPDATE_CLIENTS);
+            level.setBlock(pos.above(), copyWaterloggedFrom(level, pos.above(), this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER).setValue(AGE, i).setValue(PERSISTENT, persistent)), Block.UPDATE_ALL);
         }
     }
 
