@@ -6,11 +6,13 @@
   "mixins": [
     "block.MixinCoconutSaplingBlock",
     "block.MixinFOTRotatedPillarBlock",
-    "block.MixinMangoFruitBlock",
     "block.MixinMediumRotatedPillarBlock",
     "block.MixinSmallRotatedPillarBlock",
     "MixinBuiltInRegistries",
     "MobBucketItemAccessor"
+  ],
+  "client": [
+    "client.MixinMangoFruitBlock"
   ],
   "injectors": {
     "defaultRequire": 1

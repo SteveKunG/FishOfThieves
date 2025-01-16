@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.forge.mixin.block;
+package com.stevekung.fishofthieves.forge.mixin.client;
 
 import java.util.function.Consumer;
 
