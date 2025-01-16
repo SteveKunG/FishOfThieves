@@ -18,6 +18,7 @@
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [
+    "accessor.DecoratedPotPatternsAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
@@ -38,6 +39,7 @@
     "entity.monster.MixinGuardian",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
+    "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour"
   ],
   "injectors": {

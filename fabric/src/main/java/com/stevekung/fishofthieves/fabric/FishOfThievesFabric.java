@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.mixin.accessor.DecoratedPotPatternsAccessor;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 
@@ -48,6 +49,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTBlockStateProviderTypes.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
+        FOTDecoratedPotPatterns.init();
+        DecoratedPotPatternsAccessor.getItemToPotTexture().put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
 
         SplashtailVariants.init();
         PondieVariants.init();

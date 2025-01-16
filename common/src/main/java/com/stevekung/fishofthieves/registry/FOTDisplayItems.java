@@ -168,5 +168,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.MANGO);
         output.accept(FOTItems.RAW_MANGO);
         output.accept(FOTItems.POMEGRANATE);
+
+        output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
     }
 }
