@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.fabric;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.mixin.accessor.DecoratedPotPatternsAccessor;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 
@@ -23,6 +22,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -49,8 +49,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTBlockStateProviderTypes.init();
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
-        FOTDecoratedPotPatterns.init();
-        DecoratedPotPatternsAccessor.getItemToPotTexture().put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
+
+        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
 
         SplashtailVariants.init();
         PondieVariants.init();
