@@ -50,6 +50,7 @@ public class FishOfThievesFabric implements ModInitializer
         FishOfThieves.initCommon();
         FOTLootItemConditions.init();
 
+        FOTDecoratedPotPatterns.init();
         DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
 
         SplashtailVariants.init();

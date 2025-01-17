@@ -87,8 +87,6 @@ public class FishOfThieves
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.PLENTIFIN, Potions.LUCK);
         PotionBrewing.addMix(Potions.AWKWARD, FOTItems.ISLEHOPPER, Potions.WATER_BREATHING);
 
-        FOTDecoratedPotPatterns.init();
-
         FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
         FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);
         FOTPlatform.addComposting(FOTItems.LEECHES, 0.4F);
