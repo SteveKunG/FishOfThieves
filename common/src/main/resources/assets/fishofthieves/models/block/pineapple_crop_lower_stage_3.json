@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
 		"flower": "fishofthieves:block/pineapple_crop_lower_stage_3_flower",
