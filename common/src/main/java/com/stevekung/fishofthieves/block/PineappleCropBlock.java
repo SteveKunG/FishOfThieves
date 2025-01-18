@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -129,7 +130,11 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        return !isLower(state) ? super.canSurvive(state, level, pos) : this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) && sufficientLight(level, pos) && (state.getValue(AGE) < 4 || isUpper(level.getBlockState(pos.above())));
+        if (!isLower(state))
+        {
+            return super.canSurvive(state, level, pos);
+        }
+        return (this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) || level.getBlockState(pos.below()).is(BlockTags.DIRT)) && sufficientLight(level, pos) && (state.getValue(AGE) < 4 || isUpper(level.getBlockState(pos.above())));
     }
 
     @Override
