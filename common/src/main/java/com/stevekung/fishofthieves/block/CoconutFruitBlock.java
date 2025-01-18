@@ -6,10 +6,12 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -168,5 +171,23 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state)
     {
         return new ItemStack(FOTItems.COCONUT);
+    }
+
+    @Override
+    public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile)
+    {
+        var blockPos = hit.getBlockPos();
+
+        if (!level.isClientSide() && projectile.mayInteract(level, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        {
+            if (!FallingBlock.isFree(level.getBlockState(blockPos.below())))
+            {
+                level.destroyBlock(blockPos, true, projectile);
+            }
+            else
+            {
+                level.scheduleTick(blockPos, this, 2);
+            }
+        }
     }
 }

@@ -6,10 +6,12 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 
 @SuppressWarnings("deprecation")
 public class AbstractMangoFruitBlock extends FallingBlock implements BonemealableBlock
@@ -91,6 +94,24 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
             level.scheduleTick(pos, this, 2);
         }
         return state;
+    }
+
+    @Override
+    public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile)
+    {
+        var blockPos = hit.getBlockPos();
+
+        if (!level.isClientSide() && projectile.mayInteract(level, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        {
+            if (!canMangoFall(level.getBlockState(blockPos.below())))
+            {
+                level.destroyBlock(blockPos, true, projectile);
+            }
+            else
+            {
+                level.scheduleTick(blockPos, this, 2);
+            }
+        }
     }
 
     @Override
