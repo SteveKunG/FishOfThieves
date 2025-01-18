@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTFeatures;
 import com.stevekung.fishofthieves.registry.FOTPlacements;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
@@ -17,6 +18,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -30,6 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class FOTBiomeModifiers
 {
     private static final ResourceKey<BiomeModifier> ADD_FISH_BONE = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThievesForge.ADD_FISH_BONE_RL);
+    private static final ResourceKey<BiomeModifier> ADD_COCONUT_TREE = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThievesForge.ADD_COCONUT_TREE_RL);
 
     //@formatter:off
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
@@ -49,6 +52,7 @@ public class FOTBiomeModifiers
                 context.register(key("add_stormfish"), spawn(context, FOTTags.Biomes.SPAWNS_STORMFISH, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8)));
 
                 context.register(ADD_FISH_BONE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(FOTTags.Biomes.HAS_FISH_BONE), HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(FOTPlacements.FISH_BONE)), GenerationStep.Decoration.VEGETAL_DECORATION));
+                context.register(ADD_COCONUT_TREE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH), HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(FOTPlacements.TREES_COCONUT)), GenerationStep.Decoration.VEGETAL_DECORATION));
             });
     //@formatter:on
 
