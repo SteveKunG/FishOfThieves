@@ -2,17 +2,24 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 public class BiomeTagsProvider extends FabricTagProvider<Biome>
 {
+    private static final TagKey<Biome> FORGE_IS_SPARSE_OVERWORLD = forgeTag("is_sparse/overworld");
+    private static final TagKey<Biome> IS_LUSH = forgeTag("is_lush");
+
     public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, Registries.BIOME, provider);
@@ -44,5 +51,22 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_FISH_BONE).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+
+        this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLANDS);
+
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_SPARSE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
+
+        this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(IS_LUSH).add(FOTBiomes.TROPICAL_ISLANDS);
+    }
+
+    private static TagKey<Biome> forgeTag(String name)
+    {
+        return TagKey.create(Registries.BIOME, new ResourceLocation("forge", name));
     }
 }

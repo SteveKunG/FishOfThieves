@@ -9,7 +9,12 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.HangingMangoFruitBlock;
 import com.stevekung.fishofthieves.block.MangoFruitBlock;
+import com.stevekung.fishofthieves.block.PineappleCropBlock;
+import com.stevekung.fishofthieves.block.PomegranatePlantBlock;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
+import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
+import com.stevekung.fishofthieves.feature.SingleBlockFeature;
+import com.stevekung.fishofthieves.feature.configurations.SimpleAgeBlockConfiguration;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
 import com.stevekung.fishofthieves.feature.stateproviders.DirectionalRandomizedIntBooleanStateProvider;
@@ -22,30 +27,41 @@ import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class FOTFeatures
 {
     private static final FishBoneFeature FISH_BONE_FEATURE = new FishBoneFeature(NoneFeatureConfiguration.CODEC);
+    private static final Feature<SimpleAgeBlockConfiguration> SIMPLE_AGE_BLOCK = new SimpleAgeBlockFeature(SimpleAgeBlockConfiguration.CODEC);
+    private static final Feature<SimpleBlockConfiguration> SINGLE_BLOCK = new SingleBlockFeature(SimpleBlockConfiguration.CODEC);
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> FISH_BONE = createKey("fish_bone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_TREE = createKey("coconut_tree");
@@ -53,13 +69,28 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE = createKey("mango_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02 = createKey("mango_tree_bees_02");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TROPICAL_FLOWER = createKey("tropical_flower");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TROPICAL_ISLANDS = createKey("trees_tropical_islands");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_PINEAPPLE = createKey("wild_pineapple");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_PINEAPPLE = createKey("tall_wild_pineapple");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_PINEAPPLE = createKey("patch_wild_pineapple");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TROPICAL_MELON = createKey("patch_tropical_melon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_COCONUT = createKey("trees_coconut");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_POMEGRANATE = createKey("wild_pomegranate");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
+
     public static void init()
     {
         register("fish_bone", FISH_BONE_FEATURE);
+        register("simple_age_block", SIMPLE_AGE_BLOCK);
+        register("single_block", SINGLE_BLOCK);
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context)
     {
+        var placedFeature = context.lookup(Registries.PLACED_FEATURE);
+
         FeatureUtils.register(context, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
         FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree()
                 .decorators(ImmutableList.of(new CoconutDecorator(0.6F, 0.45F, 2)))
@@ -75,6 +106,44 @@ public class FOTFeatures
                 .build());
         FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F).build());
         FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F).build());
+
+        FeatureUtils.register(context, TREES_TROPICAL_ISLANDS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+                new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.05F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED), 0.1F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F)),
+                placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
+        FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
+                .add(Blocks.AZURE_BLUET.defaultBlockState(), 2)
+        ), 64));
+        FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
+                .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 1), 6)
+                .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 2), 4)
+                .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 3), 2)
+        ), 16));
+        FeatureUtils.register(context, TALL_WILD_PINEAPPLE, SIMPLE_AGE_BLOCK, new SimpleAgeBlockConfiguration(
+                new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState()), PineappleCropBlock.AGE, UniformInt.of(4, 5))));
+        FeatureUtils.register(context, PATCH_WILD_PINEAPPLE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE), 0.85F)),
+                placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE)));
+        FeatureUtils.register(context, PATCH_TROPICAL_MELON, Feature.RANDOM_PATCH, new RandomPatchConfiguration(16, 7, 3, PlacementUtils.filtered(Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MELON)), BlockPredicate.allOf(
+                        BlockPredicate.replaceable(),
+                        BlockPredicate.noFluid(),
+                        BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
+        FeatureUtils.register(context, TREES_COCONUT, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(), placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED)));
+        FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
+                .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 1), 6)
+                .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 2), 4)
+                .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3), 2)
+        ), 16));
+        FeatureUtils.register(context, TALL_WILD_POMEGRANATE, SIMPLE_AGE_BLOCK, new SimpleAgeBlockConfiguration(
+                new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState()), PomegranatePlantBlock.AGE, UniformInt.of(0, 3))));
+        FeatureUtils.register(context, PATCH_WILD_POMEGRANATE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE), 0.5F)),
+                placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE)));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree()
@@ -117,6 +186,38 @@ public class FOTFeatures
                                         MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
                         new BeehiveDecorator(beehiveChance)))
                 .ignoreVines();
+    }
+
+    private static RandomPatchConfiguration grassPatch(BlockStateProvider blockStateProvider, int tries)
+    {
+        return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
+    }
+
+    private static RandomPatchConfiguration wildPineapplePatch(BlockStateProvider blockStateProvider, int tries)
+    {
+        return new RandomPatchConfiguration(tries, 4, 2, PlacementUtils.onlyWhenEmpty(SINGLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
+    }
+
+    private static RandomPatchConfiguration wildPomegranatePatch(BlockStateProvider blockStateProvider, int tries)
+    {
+        return new RandomPatchConfiguration(tries, 5, 3, PlacementUtils.onlyWhenEmpty(SINGLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
+    }
+
+    private static Holder<PlacedFeature> makePineappleCrop()
+    {
+        return PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(
+                BlockColumnConfiguration.layer(ConstantInt.of(1), BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER).setValue(PineappleCropBlock.AGE, 5))),
+                BlockColumnConfiguration.layer(ConstantInt.of(0), BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.HALF, DoubleBlockHalf.UPPER).setValue(PineappleCropBlock.AGE, 5)))
+        ), Direction.UP, BlockPredicate.ONLY_IN_AIR_PREDICATE, true));
+    }
+
+    private static Holder<PlacedFeature> makePineappleCrown()
+    {
+        return PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 5)
+                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 1).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 3)
+                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 2).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 1))));
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> void register(String key, F value)

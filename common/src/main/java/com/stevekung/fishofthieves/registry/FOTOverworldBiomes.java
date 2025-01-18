@@ -1,0 +1,68 @@
+package com.stevekung.fishofthieves.registry;
+
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.core.HolderGetter;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.sounds.Music;
+import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+public class FOTOverworldBiomes extends OverworldBiomes
+{
+    public static Biome tropicalIslands(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers)
+    {
+        var mobSpawnBuilder = new MobSpawnSettings.Builder();
+        var biomeSettingsBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+
+        islandSpawns(mobSpawnBuilder);
+
+        OverworldBiomes.globalOverworldGeneration(biomeSettingsBuilder);
+        BiomeDefaultFeatures.addDefaultOres(biomeSettingsBuilder);
+        BiomeDefaultFeatures.addDefaultSoftDisks(biomeSettingsBuilder);
+        BiomeDefaultFeatures.addDefaultMushrooms(biomeSettingsBuilder);
+        BiomeDefaultFeatures.addJungleGrass(biomeSettingsBuilder);
+
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_MELON_TROPICAL);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_TROPICAL_ISLANDS);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TROPICAL_FLOWER);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_PINEAPPLE);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_POMEGRANATE);
+
+        return biome(true, 0.9F, 1.0F, 4159204, 329011, null, null, mobSpawnBuilder, biomeSettingsBuilder, Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE));
+    }
+
+    private static Biome biome(boolean hasPrecipitation, float temperature, float downfall, int waterColor, int waterFogColor, @Nullable Integer grassColorOverride, @Nullable Integer foliageColorOverride, MobSpawnSettings.Builder mobSpawnSettings, BiomeGenerationSettings.Builder generationSettings, @Nullable Music backgroundMusic)
+    {
+        var builder = new BiomeSpecialEffects.Builder().waterColor(waterColor).waterFogColor(waterFogColor).fogColor(12638463).skyColor(OverworldBiomes.calculateSkyColor(temperature)).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(backgroundMusic);
+
+        if (grassColorOverride != null)
+        {
+            builder.grassColorOverride(grassColorOverride);
+        }
+        if (foliageColorOverride != null)
+        {
+            builder.foliageColorOverride(foliageColorOverride);
+        }
+
+        return new Biome.BiomeBuilder().hasPrecipitation(hasPrecipitation).temperature(temperature).downfall(downfall).specialEffects(builder.build()).mobSpawnSettings(mobSpawnSettings.build()).generationSettings(generationSettings.build()).build();
+    }
+
+    public static void islandSpawns(MobSpawnSettings.Builder builder)
+    {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 8, 4, 4));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 8, 4, 4));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 20, 1, 2));
+        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 2, 1, 3));
+        BiomeDefaultFeatures.commonSpawns(builder);
+    }
+}

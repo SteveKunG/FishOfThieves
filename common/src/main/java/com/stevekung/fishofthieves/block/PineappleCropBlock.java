@@ -130,17 +130,17 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        if (!isLower(state))
+        if (!sufficientLight(level, pos))
         {
-            return super.canSurvive(state, level, pos);
+            return false;
         }
-        return (this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below()) || level.getBlockState(pos.below()).is(BlockTags.DIRT)) && sufficientLight(level, pos) && (state.getValue(AGE) < 4 || isUpper(level.getBlockState(pos.above())));
+        return super.canSurvive(state, level, pos);
     }
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos)
     {
-        return state.is(Blocks.FARMLAND);
+        return state.is(Blocks.FARMLAND) || state.is(BlockTags.DIRT);
     }
 
     @Override
@@ -245,11 +245,6 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     private static boolean isLower(BlockState state)
     {
         return state.is(FOTBlocks.PINEAPPLE_CROP) && state.getValue(HALF) == DoubleBlockHalf.LOWER;
-    }
-
-    private static boolean isUpper(BlockState state)
-    {
-        return state.is(FOTBlocks.PINEAPPLE_CROP) && state.getValue(HALF) == DoubleBlockHalf.UPPER;
     }
 
     private boolean canGrow(LevelReader reader, BlockPos pos, BlockState state, int age)
