@@ -54,7 +54,7 @@ public class VerticalLeavesBlock extends Block implements SimpleWaterloggedBlock
         return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
     }
 
-    protected static Direction getConnectedDirection(BlockState state)
+    public static Direction getConnectedDirection(BlockState state)
     {
         return state.getValue(CEILING) ? Direction.DOWN : Direction.UP;
     }
@@ -62,13 +62,13 @@ public class VerticalLeavesBlock extends Block implements SimpleWaterloggedBlock
     @Override
     public FluidState getFluidState(BlockState state)
     {
-        return state.hasProperty(WATERLOGGED) && state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        if (state.hasProperty(WATERLOGGED) && state.getValue(WATERLOGGED))
+        if (state.getValue(WATERLOGGED))
         {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }

@@ -52,6 +52,7 @@ public class FishOfThieves
         FOTLootPoolEntries.init();
         FOTStructures.init();
         FOTEntitySubPredicate.init();
+        FOTBlockPredicateTypes.init();
 
         // Naturalist compatibility
         if (FOTPlatform.isModLoaded("naturalist"))

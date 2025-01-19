@@ -339,7 +339,7 @@ public class FOTBlocks
 
     public static Block getTropicalRedFern()
     {
-        return new TropicalRedFernBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).replaceable().mapColor(MapColor.COLOR_RED).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+        return new TropicalRedFernBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).mapColor(MapColor.COLOR_RED).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     }
 
     public static Block getTropicalMonstera()

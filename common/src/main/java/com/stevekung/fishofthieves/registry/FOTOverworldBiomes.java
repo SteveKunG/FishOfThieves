@@ -28,13 +28,14 @@ public class FOTOverworldBiomes extends OverworldBiomes
         OverworldBiomes.globalOverworldGeneration(biomeSettingsBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeSettingsBuilder);
         BiomeDefaultFeatures.addDefaultSoftDisks(biomeSettingsBuilder);
-        BiomeDefaultFeatures.addDefaultMushrooms(biomeSettingsBuilder);
         BiomeDefaultFeatures.addJungleGrass(biomeSettingsBuilder);
+        BiomeDefaultFeatures.addDefaultMushrooms(biomeSettingsBuilder);
 
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_MELON_TROPICAL);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_TROPICAL_ISLANDS);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TROPICAL_FLOWER);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_TROPICAL_BUSH);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_PINEAPPLE);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_POMEGRANATE);
 

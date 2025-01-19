@@ -63,10 +63,14 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
 
         var replaceableTagAppender = this.tag(BlockTags.REPLACEABLE);
-        provider.lookupOrThrow(Registries.BLOCK)
+        var replaceableList = provider.lookupOrThrow(Registries.BLOCK)
                 .filterElements(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FishOfThieves.MOD_ID) && block.defaultBlockState().canBeReplaced())
-                .listElementIds()
-                .forEach(replaceableTagAppender::add);
+                .listElementIds().toList();
+
+        if (!replaceableList.isEmpty())
+        {
+            replaceableList.forEach(replaceableTagAppender::add);
+        }
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
         this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
@@ -97,8 +101,8 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(FOTTags.Blocks.FISH_PLAQUE).forceAddTag(FOTTags.Blocks.WOODEN_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE).forceAddTag(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE);
         this.getOrCreateTagBuilder(FOTTags.Blocks.NON_FULL_LOGS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).forceAddTag(FOTTags.Blocks.BANANA_STEMS)
                 .add(FOTBlocks.MEDIUM_COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_WOOD,
-                FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
-                FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+                        FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
+                        FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
         this.getOrCreateTagBuilder(FOTTags.Blocks.COCONUT_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.MEDIUM_COCONUT_LOG,
                 FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
                 FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD,

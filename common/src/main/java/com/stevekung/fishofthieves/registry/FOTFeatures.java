@@ -14,6 +14,8 @@ import com.stevekung.fishofthieves.block.PomegranatePlantBlock;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
 import com.stevekung.fishofthieves.feature.SingleBlockFeature;
+import com.stevekung.fishofthieves.feature.blockpredicates.BlockBrightnessPredicate;
+import com.stevekung.fishofthieves.feature.blockpredicates.SeeSkyPredicate;
 import com.stevekung.fishofthieves.feature.configurations.SimpleAgeBlockConfiguration;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
@@ -76,6 +78,7 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_POMEGRANATE = createKey("wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
 
     public static void init()
     {
@@ -141,6 +144,17 @@ public class FOTFeatures
         FeatureUtils.register(context, PATCH_WILD_POMEGRANATE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE), 0.5F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE)));
+        FeatureUtils.register(context, PATCH_TROPICAL_BUSH, Feature.FLOWER,
+                new RandomPatchConfiguration(32, 4, 2, PlacementUtils.filtered(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+                                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                                        .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 4)
+                                        .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 2)
+                                        .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))),
+                        BlockPredicate.allOf(
+                                BlockPredicate.replaceable(),
+                                BlockPredicate.not(BlockBrightnessPredicate.value(13)),
+                                BlockPredicate.not(SeeSkyPredicate.INSTANCE),
+                                BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree()

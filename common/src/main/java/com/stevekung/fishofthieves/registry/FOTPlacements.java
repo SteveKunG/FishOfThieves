@@ -28,6 +28,7 @@ public class FOTPlacements
     public static final ResourceKey<PlacedFeature> WILD_POMEGRANATE = createKey("wild_pomegranate");
     public static final ResourceKey<PlacedFeature> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
     public static final ResourceKey<PlacedFeature> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
+    public static final ResourceKey<PlacedFeature> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context)
     {
@@ -48,6 +49,7 @@ public class FOTPlacements
         PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), PlacementUtils.countExtra(8, 0.1F, 1), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
+        PlacementUtils.register(context, PATCH_TROPICAL_BUSH, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_BUSH), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
     }
 
     private static ResourceKey<PlacedFeature> createKey(String key)
