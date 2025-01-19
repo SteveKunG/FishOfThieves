@@ -29,6 +29,9 @@
     ],
     "modmenu": [
       "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
+    ],
+    "terrablender": [
+      "com.stevekung.fishofthieves.fabric.terrablender.FishOfThievesTerraBlenderFabric"
     ]
   },
   "mixins": [

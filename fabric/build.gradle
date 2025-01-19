@@ -41,6 +41,8 @@ loom {
 
 dependencies {
     modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
+    modRuntimeOnly "maven.modrinth:cyanide:${cyanide_fabric_version}"
+    modImplementation "com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"

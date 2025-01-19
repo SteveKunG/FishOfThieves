@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlenderBiomeBuilder;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -44,7 +45,11 @@ public class CommonProxyForge
 
     public void commonSetup(FMLCommonSetupEvent event)
     {
-        FishOfThieves.initCommon();
+        event.enqueueWork(() ->
+        {
+            FishOfThieves.initCommon();
+            FOTTerraBlenderBiomeBuilder.build();
+        });
     }
 
     @SubscribeEvent
