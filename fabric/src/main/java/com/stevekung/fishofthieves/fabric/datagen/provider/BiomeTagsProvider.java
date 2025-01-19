@@ -18,7 +18,7 @@ import net.minecraft.world.level.biome.Biomes;
 public class BiomeTagsProvider extends FabricTagProvider<Biome>
 {
     private static final TagKey<Biome> FORGE_IS_SPARSE_OVERWORLD = forgeTag("is_sparse/overworld");
-    private static final TagKey<Biome> IS_LUSH = forgeTag("is_lush");
+    private static final TagKey<Biome> FORGE_IS_LUSH = forgeTag("is_lush");
 
     public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
@@ -62,7 +62,7 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
 
         this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(IS_LUSH).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(FORGE_IS_LUSH).add(FOTBiomes.TROPICAL_ISLANDS);
     }
 
     private static TagKey<Biome> forgeTag(String name)

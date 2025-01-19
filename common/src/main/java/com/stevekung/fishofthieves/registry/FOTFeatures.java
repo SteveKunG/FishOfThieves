@@ -27,7 +27,6 @@ import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
 
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -40,7 +39,6 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -55,7 +53,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class FOTFeatures
 {
@@ -201,23 +198,6 @@ public class FOTFeatures
     private static RandomPatchConfiguration wildPomegranatePatch(BlockStateProvider blockStateProvider, int tries)
     {
         return new RandomPatchConfiguration(tries, 5, 3, PlacementUtils.onlyWhenEmpty(SINGLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
-    }
-
-    private static Holder<PlacedFeature> makePineappleCrop()
-    {
-        return PlacementUtils.inlinePlaced(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(
-                BlockColumnConfiguration.layer(ConstantInt.of(1), BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER).setValue(PineappleCropBlock.AGE, 5))),
-                BlockColumnConfiguration.layer(ConstantInt.of(0), BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.HALF, DoubleBlockHalf.UPPER).setValue(PineappleCropBlock.AGE, 5)))
-        ), Direction.UP, BlockPredicate.ONLY_IN_AIR_PREDICATE, true));
-    }
-
-    private static Holder<PlacedFeature> makePineappleCrown()
-    {
-        return PlacementUtils.inlinePlaced(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
-                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 5)
-                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 1).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 3)
-                        .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 2).setValue(PineappleCropBlock.HALF, DoubleBlockHalf.LOWER), 1))));
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> void register(String key, F value)
