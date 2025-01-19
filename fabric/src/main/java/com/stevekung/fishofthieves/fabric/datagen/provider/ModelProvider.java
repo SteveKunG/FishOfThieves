@@ -210,6 +210,26 @@ public class ModelProvider extends FabricModelProvider
         this.createTallPomegranatePlant(generator);
         this.createPottedPomegranatePlant(generator);
         this.createPlant(generator, FOTBlocks.POMEGRANATE_SAPLING, FOTBlocks.POTTED_POMEGRANATE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
+        this.createTropicalRedFern(generator);
+        this.createTropicalMonstera(generator);
+    }
+
+    private void createTropicalMonstera(BlockModelGenerators generator)
+    {
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.TROPICAL_MONSTERA, ModelLocationUtils.getModelLocation(FOTBlocks.TROPICAL_MONSTERA)));
+        generator.createSimpleFlatItemModel(FOTBlocks.TROPICAL_MONSTERA, "_leaf_1");
+
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_TROPICAL_MONSTERA, ModelLocationUtils.getModelLocation(FOTBlocks.POTTED_TROPICAL_MONSTERA)));
+    }
+
+    private void createTropicalRedFern(BlockModelGenerators generator)
+    {
+        this.createVerticalLeaves(generator, FOTBlocks.TROPICAL_RED_FERN);
+        generator.createSimpleFlatItemModel(FOTBlocks.TROPICAL_RED_FERN, "_tip");
+
+        var textureMapping = TextureMapping.plant(TextureMapping.getBlockTexture(FOTBlocks.TROPICAL_RED_FERN, "_tip"));
+        var resourceLocation = BlockModelGenerators.TintState.NOT_TINTED.getCrossPot().create(FOTBlocks.POTTED_TROPICAL_RED_FERN, textureMapping, generator.modelOutput);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_TROPICAL_RED_FERN, resourceLocation));
     }
 
     private void createPlant(BlockModelGenerators generator, Block plantBlock, Block pottedPlantBlock, BlockModelGenerators.TintState tintState)

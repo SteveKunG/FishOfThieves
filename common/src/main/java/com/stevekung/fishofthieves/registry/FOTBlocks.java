@@ -110,7 +110,7 @@ public class FOTBlocks
     public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
     public static final Block MANGO_FRUIT = new MangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().noOcclusion().randomTicks().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
     public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
-    public static final Block TALL_POMEGRANATE_PLANT = new TallPomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().instabreak().sound(SoundType.AZALEA).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block TALL_POMEGRANATE_PLANT = new TallPomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().sound(SoundType.AZALEA).ignitedByLava().pushReaction(PushReaction.DESTROY));
 
     public static Block PINK_PLUMERIA;
     public static Block BANANA_SHOOTS;
@@ -118,6 +118,8 @@ public class FOTBlocks
     public static Block MANGO_SAPLING;
     public static Block POMEGRANATE_PLANT;
     public static Block POMEGRANATE_SAPLING;
+    public static Block TROPICAL_RED_FERN;
+    public static Block TROPICAL_MONSTERA;
 
     public static Block POTTED_PINK_PLUMERIA;
     public static Block POTTED_BANANA_SHOOTS;
@@ -125,6 +127,8 @@ public class FOTBlocks
     public static Block POTTED_MANGO_SAPLING;
     public static Block POTTED_POMEGRANATE_PLANT;
     public static Block POTTED_POMEGRANATE_SAPLING;
+    public static Block POTTED_TROPICAL_RED_FERN;
+    public static Block POTTED_TROPICAL_MONSTERA;
 
     public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
@@ -264,6 +268,8 @@ public class FOTBlocks
         registerNoItem("mango_sapling", MANGO_SAPLING = getMangoSapling());
         registerNoItem("pomegranate_plant", POMEGRANATE_PLANT = getPomegranatePlant());
         registerNoItem("pomegranate_sapling", POMEGRANATE_SAPLING = getPomegranateSapling());
+        registerNoItem("tropical_red_fern", TROPICAL_RED_FERN = getTropicalRedFern());
+        registerNoItem("tropical_monstera", TROPICAL_MONSTERA = getTropicalMonstera());
 
         registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
@@ -271,6 +277,8 @@ public class FOTBlocks
         registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
         registerNoItem("potted_pomegranate_plant", POTTED_POMEGRANATE_PLANT = flowerPot(POMEGRANATE_PLANT));
         registerNoItem("potted_pomegranate_sapling", POTTED_POMEGRANATE_SAPLING = flowerPot(POMEGRANATE_SAPLING));
+        registerNoItem("potted_tropical_red_fern", POTTED_TROPICAL_RED_FERN = flowerPot(TROPICAL_RED_FERN));
+        registerNoItem("potted_tropical_monstera", POTTED_TROPICAL_MONSTERA = flowerPot(TROPICAL_MONSTERA));
     }
 
     private static void register(String key, Block block)
@@ -327,6 +335,16 @@ public class FOTBlocks
     public static Block getPomegranateSapling()
     {
         return new PomegranateSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getTropicalRedFern()
+    {
+        return new TropicalRedFernBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).replaceable().mapColor(MapColor.COLOR_RED).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getTropicalMonstera()
+    {
+        return new TropicalMonsteraBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).mapColor(MapColor.COLOR_GREEN).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     }
 
     private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)

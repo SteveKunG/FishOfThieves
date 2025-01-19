@@ -86,6 +86,8 @@ public class FOTItems
     public static Item POMEGRANATE_PLANT;
     public static Item TALL_POMEGRANATE_PLANT;
     public static Item POMEGRANATE_SEEDS;
+    public static Item TROPICAL_RED_FERN;
+    public static Item TROPICAL_MONSTERA;
 
     public static final Item COCONUT_FRONDS = blockItem(FOTBlocks.COCONUT_FRONDS);
     public static final Item BANANA_LEAVES = blockItem(FOTBlocks.BANANA_LEAVES);
@@ -189,6 +191,8 @@ public class FOTItems
         register("pomegranate_plant", POMEGRANATE_PLANT = blockItem(FOTBlocks.POMEGRANATE_PLANT));
         register("tall_pomegranate_plant", TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
         register("pomegranate_seeds", POMEGRANATE_SEEDS = new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
+        register("tropical_red_fern", TROPICAL_RED_FERN = blockItem(FOTBlocks.TROPICAL_RED_FERN));
+        register("tropical_monstera", TROPICAL_MONSTERA = blockItem(FOTBlocks.TROPICAL_MONSTERA));
     }
 
     public static Item blockItem(Block block)

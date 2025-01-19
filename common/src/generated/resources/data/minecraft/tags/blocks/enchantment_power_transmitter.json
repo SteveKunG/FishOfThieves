@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "fishofthieves:banana_blossom"
+    "fishofthieves:banana_blossom",
+    "fishofthieves:tropical_red_fern",
+    "fishofthieves:tropical_monstera"
   ]
 }

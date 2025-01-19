@@ -114,6 +114,8 @@ public class FishOfThievesForge
             helper.register("mango_sapling", FOTBlocks.MANGO_SAPLING = FOTBlocks.getMangoSapling());
             helper.register("pomegranate_plant", FOTBlocks.POMEGRANATE_PLANT = FOTBlocks.getPomegranatePlant());
             helper.register("pomegranate_sapling", FOTBlocks.POMEGRANATE_SAPLING = FOTBlocks.getPomegranateSapling());
+            helper.register("tropical_red_fern", FOTBlocks.TROPICAL_RED_FERN = FOTBlocks.getTropicalRedFern());
+            helper.register("tropical_monstera", FOTBlocks.TROPICAL_MONSTERA = FOTBlocks.getTropicalMonstera());
 
             helper.register("potted_pink_plumeria", FOTBlocks.POTTED_PINK_PLUMERIA = FOTBlocks.flowerPot(FOTBlocks.PINK_PLUMERIA));
             helper.register("potted_banana_shoots", FOTBlocks.POTTED_BANANA_SHOOTS = FOTBlocks.flowerPot(FOTBlocks.BANANA_SHOOTS));
@@ -121,6 +123,8 @@ public class FishOfThievesForge
             helper.register("potted_mango_sapling", FOTBlocks.POTTED_MANGO_SAPLING = FOTBlocks.flowerPot(FOTBlocks.MANGO_SAPLING));
             helper.register("potted_pomegranate_plant", FOTBlocks.POTTED_POMEGRANATE_PLANT = FOTBlocks.flowerPot(FOTBlocks.POMEGRANATE_PLANT));
             helper.register("potted_pomegranate_sapling", FOTBlocks.POTTED_POMEGRANATE_SAPLING = FOTBlocks.flowerPot(FOTBlocks.POMEGRANATE_SAPLING));
+            helper.register("potted_tropical_red_fern", FOTBlocks.POTTED_TROPICAL_RED_FERN = FOTBlocks.flowerPot(FOTBlocks.TROPICAL_RED_FERN));
+            helper.register("potted_tropical_monstera", FOTBlocks.POTTED_TROPICAL_MONSTERA = FOTBlocks.flowerPot(FOTBlocks.TROPICAL_MONSTERA));
         });
         event.register(ForgeRegistries.Keys.ITEMS, helper ->
         {
@@ -133,6 +137,8 @@ public class FishOfThievesForge
             helper.register("pomegranate_plant", FOTItems.POMEGRANATE_PLANT = FOTItems.blockItem(FOTBlocks.POMEGRANATE_PLANT));
             helper.register("tall_pomegranate_plant", FOTItems.TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
             helper.register("pomegranate_seeds", FOTItems.POMEGRANATE_SEEDS = new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
+            helper.register("tropical_red_fern", FOTItems.TROPICAL_RED_FERN = FOTItems.blockItem(FOTBlocks.TROPICAL_RED_FERN));
+            helper.register("tropical_monstera", FOTItems.TROPICAL_MONSTERA = FOTItems.blockItem(FOTBlocks.TROPICAL_MONSTERA));
         });
         event.register(ForgeRegistries.Keys.BLOCK_ENTITY_TYPES, helper -> FOTBlockEntityTypes.init());
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> FOTEntities.init());

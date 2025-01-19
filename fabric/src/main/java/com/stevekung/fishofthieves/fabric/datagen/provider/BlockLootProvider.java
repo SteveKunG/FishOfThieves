@@ -177,6 +177,10 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.createTallPomegranatePlant();
         this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_PLANT);
         this.dropSelf(FOTBlocks.POMEGRANATE_SAPLING);
+        this.dropSelf(FOTBlocks.TROPICAL_RED_FERN);
+        this.dropPottedContents(FOTBlocks.POTTED_TROPICAL_RED_FERN);
+        this.dropSelf(FOTBlocks.TROPICAL_MONSTERA);
+        this.dropPottedContents(FOTBlocks.POTTED_TROPICAL_MONSTERA);
     }
 
     private LootTable.Builder createPomegranatePlant(Block block)

@@ -2,11 +2,15 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 
@@ -35,7 +39,8 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
                 FOTBlocks.MANGO_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA);
-        this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA, FOTBlocks.POTTED_MANGO_PIT, FOTBlocks.POTTED_MANGO_SAPLING, FOTBlocks.POTTED_BANANA_SHOOTS, FOTBlocks.POTTED_POMEGRANATE_PLANT, FOTBlocks.POTTED_POMEGRANATE_SAPLING);
+        this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(FOTBlocks.POTTED_PINK_PLUMERIA, FOTBlocks.POTTED_MANGO_PIT, FOTBlocks.POTTED_MANGO_SAPLING, FOTBlocks.POTTED_BANANA_SHOOTS,
+                FOTBlocks.POTTED_POMEGRANATE_PLANT, FOTBlocks.POTTED_POMEGRANATE_SAPLING, FOTBlocks.POTTED_TROPICAL_RED_FERN, FOTBlocks.POTTED_TROPICAL_MONSTERA);
         this.getOrCreateTagBuilder(BlockTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE);
@@ -50,12 +55,18 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS).add(FOTBlocks.COCONUT_TRAPDOOR);
         this.getOrCreateTagBuilder(BlockTags.WOODEN_DOORS).add(FOTBlocks.COCONUT_DOOR);
         this.getOrCreateTagBuilder(BlockTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING, FOTBlocks.BANANA_SHOOTS, FOTBlocks.MANGO_SAPLING);
-        this.getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).add(FOTBlocks.BANANA_BLOSSOM);
+        this.getOrCreateTagBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.TROPICAL_RED_FERN, FOTBlocks.TROPICAL_MONSTERA);
         this.getOrCreateTagBuilder(BlockTags.BEE_GROWABLES).add(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
                 FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT, FOTBlocks.MANGO_PIT,
                 FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT, FOTBlocks.POMEGRANATE_SAPLING);
         this.getOrCreateTagBuilder(BlockTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
         this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
+
+        var replaceableTagAppender = this.tag(BlockTags.REPLACEABLE);
+        provider.lookupOrThrow(Registries.BLOCK)
+                .filterElements(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FishOfThieves.MOD_ID) && block.defaultBlockState().canBeReplaced())
+                .listElementIds()
+                .forEach(replaceableTagAppender::add);
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);
         this.getOrCreateTagBuilder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
