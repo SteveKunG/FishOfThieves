@@ -69,7 +69,7 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02 = createKey("mango_tree_bees_02");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> TROPICAL_FLOWER = createKey("tropical_flower");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TROPICAL_ISLANDS = createKey("trees_tropical_islands");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TROPICAL_ISLAND = createKey("trees_tropical_island");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILD_PINEAPPLE = createKey("wild_pineapple");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_PINEAPPLE = createKey("tall_wild_pineapple");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_PINEAPPLE = createKey("patch_wild_pineapple");
@@ -107,7 +107,7 @@ public class FOTFeatures
         FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F).build());
         FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F).build());
 
-        FeatureUtils.register(context, TREES_TROPICAL_ISLANDS, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+        FeatureUtils.register(context, TREES_TROPICAL_ISLAND, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.05F),
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED), 0.1F),
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F)),

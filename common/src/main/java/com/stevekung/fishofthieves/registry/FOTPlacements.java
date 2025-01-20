@@ -19,7 +19,7 @@ public class FOTPlacements
     public static final ResourceKey<PlacedFeature> BANANA_TREE_CHECKED = createKey("banana_tree_checked");
 
     public static final ResourceKey<PlacedFeature> TROPICAL_FLOWER = createKey("tropical_flower");
-    public static final ResourceKey<PlacedFeature> TREES_TROPICAL_ISLANDS = createKey("trees_tropical_islands");
+    public static final ResourceKey<PlacedFeature> TREES_TROPICAL_ISLAND = createKey("trees_tropical_island");
     public static final ResourceKey<PlacedFeature> WILD_PINEAPPLE = createKey("wild_pineapple");
     public static final ResourceKey<PlacedFeature> TALL_WILD_PINEAPPLE = createKey("tall_wild_pineapple");
     public static final ResourceKey<PlacedFeature> PATCH_WILD_PINEAPPLE = createKey("patch_wild_pineapple");
@@ -40,7 +40,7 @@ public class FOTPlacements
         PlacementUtils.register(context, BANANA_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.BANANA_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.BANANA_SHOOTS));
 
         PlacementUtils.register(context, TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-        PlacementUtils.register(context, TREES_TROPICAL_ISLANDS, holderGetter.getOrThrow(FOTFeatures.TREES_TROPICAL_ISLANDS), VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.1F, 1)));
+        PlacementUtils.register(context, TREES_TROPICAL_ISLAND, holderGetter.getOrThrow(FOTFeatures.TREES_TROPICAL_ISLAND), VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.1F, 1)));
         PlacementUtils.register(context, PATCH_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_PINEAPPLE), VegetationPlacements.treePlacement(PlacementUtils.countExtra(12, 0.1F, 1)));
         PlacementUtils.register(context, WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));

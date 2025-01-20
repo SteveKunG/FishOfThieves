@@ -52,17 +52,17 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_FISH_BONE).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 
-        this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLAND);
 
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_SPARSE).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.VEGETATION_SPARSE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.TREE_JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);
 
-        this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLANDS);
-        this.getOrCreateTagBuilder(FORGE_IS_LUSH).add(FOTBiomes.TROPICAL_ISLANDS);
+        this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(FORGE_IS_LUSH).add(FOTBiomes.TROPICAL_ISLAND);
     }
 
     private static TagKey<Biome> forgeTag(String name)

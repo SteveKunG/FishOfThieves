@@ -14,9 +14,9 @@ import terrablender.api.ParameterUtils;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
 
-public class TropicalIslandsRegion extends Region
+public class TropicalIslandRegion extends Region
 {
-    public TropicalIslandsRegion(ResourceLocation name, int weight)
+    public TropicalIslandRegion(ResourceLocation name, int weight)
     {
         super(name, RegionType.OVERWORLD, weight);
     }
@@ -30,6 +30,6 @@ public class TropicalIslandsRegion extends Region
                 ParameterUtils.Continentalness.MUSHROOM_FIELDS.parameter(),
                 ParameterUtils.Erosion.FULL_RANGE.parameter(),
                 ParameterUtils.Weirdness.FULL_RANGE.parameter(),
-                ParameterUtils.Depth.SURFACE.parameter(), 0.0f, FOTBiomes.TROPICAL_ISLANDS);
+                ParameterUtils.Depth.SURFACE.parameter(), 0.0f, FOTBiomes.TROPICAL_ISLAND);
     }
 }

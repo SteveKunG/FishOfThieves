@@ -62,14 +62,13 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
         this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
 
-        var replaceableTagAppender = this.tag(BlockTags.REPLACEABLE);
         var replaceableList = provider.lookupOrThrow(Registries.BLOCK)
                 .filterElements(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FishOfThieves.MOD_ID) && block.defaultBlockState().canBeReplaced())
                 .listElementIds().toList();
 
         if (!replaceableList.isEmpty())
         {
-            replaceableList.forEach(replaceableTagAppender::add);
+            replaceableList.forEach(this.getOrCreateTagBuilder(BlockTags.REPLACEABLE)::add);
         }
 
         this.getOrCreateTagBuilder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(Blocks.MAGMA_BLOCK);

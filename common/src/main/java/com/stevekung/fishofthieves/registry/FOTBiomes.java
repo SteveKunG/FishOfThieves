@@ -9,13 +9,13 @@ import net.minecraft.world.level.biome.Biome;
 
 public class FOTBiomes
 {
-    public static final ResourceKey<Biome> TROPICAL_ISLANDS = register("tropical_islands");
+    public static final ResourceKey<Biome> TROPICAL_ISLAND = register("tropical_island");
 
     public static void bootstrap(BootstapContext<Biome> context)
     {
         var placedFeature = context.lookup(Registries.PLACED_FEATURE);
         var configuredCarver = context.lookup(Registries.CONFIGURED_CARVER);
-        context.register(TROPICAL_ISLANDS, FOTOverworldBiomes.tropicalIslands(placedFeature, configuredCarver));
+        context.register(TROPICAL_ISLAND, FOTOverworldBiomes.tropicalIsland(placedFeature, configuredCarver));
     }
 
     private static ResourceKey<Biome> register(String key)
