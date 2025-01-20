@@ -165,7 +165,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext)
     {
-        return !useContext.isSecondaryUseActive() && useContext.getItemInHand().is(this.asItem()) && state.getValue(PART) != Part.TAIL && state.getValue(COUNT) < 2 || super.canBeReplaced(state, useContext);
+        return !useContext.isSecondaryUseActive() && useContext.getItemInHand().is(this.asItem()) && state.getValue(COUNT) < 2 || super.canBeReplaced(state, useContext);
     }
 
     @Nullable
@@ -188,16 +188,23 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
             }
             else
             {
-                if (blockState.getValue(PART) == Part.STEM)
+                if (blockState.getValue(PART) == Part.TAIL)
                 {
-                    return blockState.setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1));
+                    var blockPos1 = blockPos.relative(blockState.getValue(FACING).getOpposite());
+                    level.setBlock(blockPos1, level.getBlockState(blockPos1).setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1)), Block.UPDATE_CLIENTS);
                 }
+                return blockState.setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1));
             }
         }
         else
         {
-            if (blockState.is(this) && blockState.getValue(PART) == Part.STEM)
+            if (blockState.is(this))
             {
+                if (blockState.getValue(PART) == Part.TAIL)
+                {
+                    var blockPos1 = blockPos.relative(blockState.getValue(FACING).getOpposite());
+                    level.setBlock(blockPos1, level.getBlockState(blockPos1).setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1)), Block.UPDATE_CLIENTS);
+                }
                 return blockState.setValue(COUNT, Math.min(2, blockState.getValue(COUNT) + 1));
             }
             else
@@ -261,7 +268,12 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
         {
             var blockPos = pos.relative(state.getValue(FACING));
             var fluidState = level.getFluidState(blockPos);
-            level.setBlock(blockPos, state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);
+
+            if (state.is(this) && state.getValue(PART) != Part.TAIL)
+            {
+                level.setBlock(blockPos, state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);
+            }
+
             level.blockUpdated(pos, Blocks.AIR);
             state.updateNeighbourShapes(level, pos, Block.UPDATE_ALL);
         }
