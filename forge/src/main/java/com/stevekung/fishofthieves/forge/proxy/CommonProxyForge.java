@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.common.collect.Lists;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.entity.animal.*;
@@ -48,7 +49,11 @@ public class CommonProxyForge
         event.enqueueWork(() ->
         {
             FishOfThieves.initCommon();
-            FOTTerraBlender.init();
+
+            if (FOTPlatform.isModLoaded("terrablender"))
+            {
+                FOTTerraBlender.init();
+            }
         });
     }
 
