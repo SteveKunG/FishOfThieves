@@ -380,18 +380,21 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.MANGO_FRUIT;
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
                 .with(BlockModelGenerators.createHorizontalFacingDispatch())
-                .with(PropertyDispatch.property(MangoFruitBlock.AGE).generate(age ->
+                .with(PropertyDispatch.property(MangoFruitBlock.AGE).generateList(age ->
                 {
                     var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
+                    var mirroredModel = ModelLocationUtils.getModelLocation(block, "_stage_" + age + "_mirrored");
                     var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, model);
 
                     if (age == 0)
                     {
-                        return Variant.variant().with(VariantProperties.MODEL, model);
+                        return this.createMirroredVariants(model, mirroredModel);
                     }
                     else
                     {
-                        return Variant.variant().with(VariantProperties.MODEL, FOTModelTemplates.MANGO_FRUIT.create(model, textureMapping, generator.modelOutput));
+                        return this.createMirroredVariants(
+                                FOTModelTemplates.MANGO_FRUIT.create(model, textureMapping, generator.modelOutput),
+                                FOTModelTemplates.MANGO_FRUIT_MIRRORED.create(mirroredModel, textureMapping, generator.modelOutput));
                     }
                 })));
     }
@@ -1255,6 +1258,19 @@ public class ModelProvider extends FabricModelProvider
 
     private List<Variant> createRotatedVariants(ResourceLocation modelLocation)
     {
-        return List.of(Variant.variant().with(VariantProperties.MODEL, modelLocation), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180), Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270));
+        return List.of(
+                Variant.variant().with(VariantProperties.MODEL, modelLocation),
+                Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90),
+                Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180),
+                Variant.variant().with(VariantProperties.MODEL, modelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+        );
+    }
+
+    private List<Variant> createMirroredVariants(ResourceLocation modelLocation, ResourceLocation mirroredModelLocation)
+    {
+        return List.of(
+                Variant.variant().with(VariantProperties.MODEL, modelLocation),
+                Variant.variant().with(VariantProperties.MODEL, mirroredModelLocation)
+        );
     }
 }

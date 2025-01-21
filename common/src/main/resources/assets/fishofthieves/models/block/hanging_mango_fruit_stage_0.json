@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
 		"stem": "fishofthieves:block/mango_fruit_stem",
