@@ -27,7 +27,7 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.isRaining() && level.canSeeSky(pos) && random.nextInt(10) == 0)
+        if (level.isRaining() && level.canSeeSky(pos) && random.nextInt(8) == 0)
         {
             this.growRandomBananaCluster(level, random, pos);
         }
@@ -48,7 +48,7 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
     @Override
     public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
     {
-        return random.nextInt(4) == 0;
+        return random.nextInt(level.isRaining() ? 3 : 4) == 0;
     }
 
     @Override
