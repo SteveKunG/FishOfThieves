@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
 	"textures": {
 		"particle": "fishofthieves:block/ripe_pineapple_side",
 		"side": "fishofthieves:block/ripe_pineapple_side"

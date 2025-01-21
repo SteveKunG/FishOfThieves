@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
 	"render_type": "cutout",
 	"textures": {
 		"tail": "fishofthieves:block/coconut_fronds_tail",
