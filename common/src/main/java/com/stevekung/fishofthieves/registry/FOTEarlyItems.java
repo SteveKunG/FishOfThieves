@@ -29,7 +29,8 @@ public interface FOTEarlyItems
     };
 
     ItemStack[] CHICKEN_FOODS = {
-            new ItemStack(FOTItems.PINEAPPLE_SEEDS)
+            new ItemStack(FOTItems.PINEAPPLE_SEEDS),
+            new ItemStack(FOTItems.POMEGRANATE_SEEDS)
     };
     //@formatter:on
 }
