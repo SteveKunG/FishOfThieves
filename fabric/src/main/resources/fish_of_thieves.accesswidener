@@ -32,3 +32,4 @@ accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 accessible class net/minecraft/world/item/CreativeModeTab$Output
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
+extendable class net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier

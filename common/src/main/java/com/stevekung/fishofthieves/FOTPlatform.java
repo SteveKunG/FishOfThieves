@@ -11,6 +11,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -50,6 +51,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
     {
         throw new AssertionError();
     }

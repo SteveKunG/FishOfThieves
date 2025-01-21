@@ -8,7 +8,9 @@
   },
   "downfall": 1.0,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 8313586,
+    "foliage_color": 1495563,
+    "grass_color_modifier": "fot_tropical_island",
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -21,9 +23,9 @@
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.sparse_jungle"
     },
-    "sky_color": 7842047,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "sky_color": 4304607,
+    "water_color": 54489,
+    "water_fog_color": 38295
   },
   "features": [
     [],

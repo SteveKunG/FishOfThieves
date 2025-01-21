@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.forge;
 
 import com.mojang.serialization.Codec;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
@@ -81,6 +82,7 @@ public class FishOfThievesForge
         BLOCK_STATE_PROVIDER_TYPES.register(modEventBus);
 
         FishOfThieves.init();
+        FOTGrassColorModifier.TROPICAL_ISLAND = FOTPlatform.getTropicalIslandGrassColor();
 
         modEventBus.addListener(FOTBiomeModifiers::generateBiomeModifiers);
         STRUCTURE_MODIFIERS.register(THIEVES_FISH_SPAWNS_IN_STRUCTURE, FOTStructureModifiers.Modifier::makeCodec);

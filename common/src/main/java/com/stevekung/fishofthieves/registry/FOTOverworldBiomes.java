@@ -39,12 +39,12 @@ public class FOTOverworldBiomes extends OverworldBiomes
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_PINEAPPLE);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_POMEGRANATE);
 
-        return biome(true, 0.9F, 1.0F, 4159204, 329011, null, null, mobSpawnBuilder, biomeSettingsBuilder, Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE));
+        return biome(true, 0.9F, 1.0F, 54489, 38295, null, 1495563, mobSpawnBuilder, biomeSettingsBuilder, Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE));
     }
 
     private static Biome biome(boolean hasPrecipitation, float temperature, float downfall, int waterColor, int waterFogColor, @Nullable Integer grassColorOverride, @Nullable Integer foliageColorOverride, MobSpawnSettings.Builder mobSpawnSettings, BiomeGenerationSettings.Builder generationSettings, @Nullable Music backgroundMusic)
     {
-        var builder = new BiomeSpecialEffects.Builder().waterColor(waterColor).waterFogColor(waterFogColor).fogColor(12638463).skyColor(OverworldBiomes.calculateSkyColor(temperature)).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(backgroundMusic);
+        var builder = new BiomeSpecialEffects.Builder().grassColorModifier(FOTGrassColorModifier.TROPICAL_ISLAND).waterColor(waterColor).waterFogColor(waterFogColor).fogColor(8313586).skyColor(4304607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(backgroundMusic);
 
         if (grassColorOverride != null)
         {

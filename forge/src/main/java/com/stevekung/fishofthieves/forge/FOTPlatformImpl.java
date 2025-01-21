@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.forge;
 
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
+import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -56,6 +58,11 @@ public class FOTPlatformImpl
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
         return ((MobBucketItemAccessor) bucket).invokeGetEmptySound();
+    }
+
+    public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
+    {
+        return BiomeSpecialEffects.GrassColorModifier.create("FOT_TROPICAL_ISLAND", "fot_tropical_island", (x, z, grassColor) -> FOTGrassColorModifier.getGrassColor(x, z));
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)

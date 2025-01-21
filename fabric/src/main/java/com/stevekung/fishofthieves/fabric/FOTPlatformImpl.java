@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -57,6 +59,11 @@ public class FOTPlatformImpl
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
         return bucket.emptySound;
+    }
+
+    public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
+    {
+        return ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FOT_TROPICAL_ISLAND");
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
