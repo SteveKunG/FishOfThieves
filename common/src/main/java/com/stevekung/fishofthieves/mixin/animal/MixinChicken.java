@@ -24,6 +24,6 @@ public class MixinChicken
     @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/ai/goal/TemptGoal.<init>(Lnet/minecraft/world/entity/PathfinderMob;DLnet/minecraft/world/item/crafting/Ingredient;Z)V"), index = 2)
     private Ingredient fishofthieves$addNewTempt(Ingredient original)
     {
-        return FOOD_ITEMS = Ingredient.of(ObjectArrays.concat(FOOD_ITEMS.getItems(), ObjectArrays.concat(Ingredient.of(FOTTags.Items.WORMS).getItems(), FOTEarlyItems.CHICKEN_FOODS, ItemStack.class), ItemStack.class));
+        return FOOD_ITEMS = Ingredient.of(ObjectArrays.concat(FOOD_ITEMS.getItems(), ObjectArrays.concat(Ingredient.of(FOTTags.Items.WORMS).getItems(), FOTEarlyItems.Chicken.CHICKEN_FOODS, ItemStack.class), ItemStack.class));
     }
 }
