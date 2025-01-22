@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.Climate;
 import terrablender.api.ParameterUtils;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
+import terrablender.api.VanillaParameterOverlayBuilder;
 
 public class TropicalIslandRegion extends Region
 {
@@ -24,12 +25,22 @@ public class TropicalIslandRegion extends Region
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
     {
-        this.addBiome(mapper,
-                Climate.Parameter.span(0.2F, 0.55F),
-                Climate.Parameter.span(0.1F, 0.3F),
-                ParameterUtils.Continentalness.MUSHROOM_FIELDS.parameter(),
-                ParameterUtils.Erosion.FULL_RANGE.parameter(),
-                ParameterUtils.Weirdness.FULL_RANGE.parameter(),
-                ParameterUtils.Depth.SURFACE.parameter(), 0.0f, FOTBiomes.TROPICAL_ISLAND);
+        var temperature = Climate.Parameter.span(0.25F, 0.3F);
+        var humidity = Climate.Parameter.span(-0.2F, -0.1F);
+        var continentalness = Climate.Parameter.span(-1.5F, -1.1F);
+        var erosion = Climate.Parameter.span(0.4F, 1.0F);
+        var weirdness = Climate.Parameter.span(-0.125F, 0.25F);
+        var depth = Climate.Parameter.span(-1.0F, -0.1F);
+
+        var builder = new VanillaParameterOverlayBuilder();
+        new ParameterUtils.ParameterPointListBuilder()
+                .temperature(temperature)
+                .humidity(humidity)
+                .continentalness(continentalness)
+                .erosion(erosion)
+                .weirdness(weirdness)
+                .depth(depth)
+                .build().forEach(point -> builder.add(point, FOTBiomes.TROPICAL_ISLAND));
+        builder.build().forEach(mapper);
     }
 }
