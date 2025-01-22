@@ -58,10 +58,6 @@ public class FishOfThievesForge
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
     public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.id(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
-    private static final String ADD_FISH_BONE = "add_fish_bone";
-    private static final String ADD_COCONUT_TREE = "add_coconut_tree";
-    public static final ResourceLocation ADD_FISH_BONE_RL = FishOfThieves.id(ADD_FISH_BONE);
-    public static final ResourceLocation ADD_COCONUT_TREE_RL = FishOfThieves.id(ADD_COCONUT_TREE);
 
     public FishOfThievesForge()
     {

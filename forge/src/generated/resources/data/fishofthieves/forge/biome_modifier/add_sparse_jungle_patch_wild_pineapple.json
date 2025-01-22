@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:sparse_jungle",
+  "features": "fishofthieves:sparse_jungle_patch_wild_pineapple",
+  "step": "vegetal_decoration"
+}

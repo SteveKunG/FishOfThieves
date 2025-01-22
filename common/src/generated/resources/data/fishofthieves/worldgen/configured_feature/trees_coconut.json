@@ -1,7 +1,6 @@
 {
-  "type": "minecraft:random_selector",
+  "type": "minecraft:simple_random_selector",
   "config": {
-    "default": "fishofthieves:coconut_tree_checked",
-    "features": []
+    "features": "fishofthieves:coconut_tree_checked"
   }
 }

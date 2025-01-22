@@ -23,6 +23,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -147,6 +148,12 @@ public class FishOfThievesFabric implements ModInitializer
 
         BiomeModifications.addFeature(BiomeSelectors.tag(FOTTags.Biomes.HAS_FISH_BONE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.FISH_BONE);
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_BEACH), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_COCONUT);
+
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.SPARSE_JUNGLE_TROPICAL_FLOWER);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.SPARSE_JUNGLE_FRUIT_TREES);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SPARSE_JUNGLE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.SPARSE_JUNGLE_PATCH_TROPICAL_BUSH);
 
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_SPLASHTAILS), FOTEntities.SPLASHTAIL.getCategory(), FOTEntities.SPLASHTAIL, FishOfThieves.CONFIG.spawnRate.fishWeight.splashtail, 4, 8);
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_PONDIES), FOTEntities.PONDIE.getCategory(), FOTEntities.PONDIE, FishOfThieves.CONFIG.spawnRate.fishWeight.pondie, 2, 4);

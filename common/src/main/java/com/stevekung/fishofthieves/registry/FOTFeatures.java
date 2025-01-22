@@ -29,6 +29,7 @@ import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -79,6 +80,11 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_TROPICAL_FLOWER = createKey("sparse_jungle_tropical_flower");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_FRUIT_TREES = createKey("sparse_jungle_fruit_trees");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE = createKey("sparse_jungle_patch_wild_pineapple");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE = createKey("sparse_jungle_patch_wild_pomegranate");
 
     public static void init()
     {
@@ -132,7 +138,7 @@ public class FOTFeatures
                         BlockPredicate.replaceable(),
                         BlockPredicate.noFluid(),
                         BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
-        FeatureUtils.register(context, TREES_COCONUT, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(), placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED)));
+        FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED))));
         FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 1), 6)
@@ -155,6 +161,19 @@ public class FOTFeatures
                                 BlockPredicate.not(BlockBrightnessPredicate.value(13)),
                                 BlockPredicate.not(SeeSkyPredicate.INSTANCE),
                                 BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
+
+        FeatureUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
+        ), 64));
+        FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+                placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED),
+                placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED))));
+        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+                placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE),
+                placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE))));
+        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+                placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE),
+                placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE))));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree()

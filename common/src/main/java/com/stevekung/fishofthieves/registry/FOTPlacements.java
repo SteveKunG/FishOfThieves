@@ -30,6 +30,12 @@ public class FOTPlacements
     public static final ResourceKey<PlacedFeature> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
     public static final ResourceKey<PlacedFeature> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
 
+    public static final ResourceKey<PlacedFeature> SPARSE_JUNGLE_TROPICAL_FLOWER = createKey("sparse_jungle_tropical_flower");
+    public static final ResourceKey<PlacedFeature> SPARSE_JUNGLE_FRUIT_TREES = createKey("sparse_jungle_fruit_trees");
+    public static final ResourceKey<PlacedFeature> SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE = createKey("sparse_jungle_patch_wild_pineapple");
+    public static final ResourceKey<PlacedFeature> SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE = createKey("sparse_jungle_patch_wild_pomegranate");
+    public static final ResourceKey<PlacedFeature> SPARSE_JUNGLE_PATCH_TROPICAL_BUSH = createKey("sparse_jungle_patch_tropical_bush");
+
     public static void bootstrap(BootstapContext<PlacedFeature> context)
     {
         var holderGetter = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -50,6 +56,12 @@ public class FOTPlacements
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, PATCH_TROPICAL_BUSH, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_BUSH), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+        PlacementUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+        PlacementUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_FRUIT_TREES), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(40)));
+        PlacementUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(16)));
+        PlacementUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(16)));
+        PlacementUtils.register(context, SPARSE_JUNGLE_PATCH_TROPICAL_BUSH, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_BUSH), RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
     }
 
     private static ResourceKey<PlacedFeature> createKey(String key)

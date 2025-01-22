@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:sparse_jungle",
+  "features": "fishofthieves:sparse_jungle_tropical_flower",
+  "step": "vegetal_decoration"
+}
