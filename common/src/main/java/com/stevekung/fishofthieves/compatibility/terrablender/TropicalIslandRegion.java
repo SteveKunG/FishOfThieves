@@ -25,12 +25,12 @@ public class TropicalIslandRegion extends Region
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
     {
-        var temperature = Climate.Parameter.span(0.25F, 0.3F);
-        var humidity = Climate.Parameter.span(-0.2F, -0.1F);
-        var continentalness = Climate.Parameter.span(-1.5F, -1.1F);
-        var erosion = Climate.Parameter.span(0.4F, 1.0F);
-        var weirdness = Climate.Parameter.span(-0.125F, 0.25F);
-        var depth = Climate.Parameter.span(-1.0F, -0.1F);
+        var temperature = Climate.Parameter.span(-1.0F, 1.0F);
+        var humidity = Climate.Parameter.span(-1.0F, 1.0F);
+        var continentalness = Climate.Parameter.span(-1.5F, -0.95F);
+        var erosion = Climate.Parameter.span(-1.0F, 1.0F);
+        var weirdness = Climate.Parameter.span(-1.0F, 1.0F);
+        var depth = Climate.Parameter.point(0.0F);
 
         var builder = new VanillaParameterOverlayBuilder();
         new ParameterUtils.ParameterPointListBuilder()

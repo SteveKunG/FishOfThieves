@@ -1,6 +1,7 @@
 {
   "text.autoconfig.fishofthieves.title": "Fish of Thieves Config",
   "text.autoconfig.fishofthieves.category.general": "General",
+  "text.autoconfig.fishofthieves.category.biome": "Biome",
   "text.autoconfig.fishofthieves.category.spawn_rate": "Spawn Rate",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "Trophy Max Health",
   "text.autoconfig.fishofthieves.option.general.enableEarthwormsDrop": "Enable Earthworms Drop",
@@ -20,6 +21,7 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "This applies to Fish Bucket and loot tables as well.",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Display Trophy Spawn Egg in Creative Tab",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Display trophy and non-trophy fish spawn egg in Creative Tab.",
+  "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "Tropical Island Region Weight (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Trophy Probability",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "Chance to spawn Trophy fish size.",
   "text.autoconfig.fishofthieves.option.spawnRate.variant": "Fish Variants Probability",
