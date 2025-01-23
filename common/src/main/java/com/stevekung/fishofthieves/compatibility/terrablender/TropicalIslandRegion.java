@@ -27,7 +27,7 @@ public class TropicalIslandRegion extends Region
     {
         var temperature = Climate.Parameter.span(-1.0F, 1.0F);
         var humidity = Climate.Parameter.span(-1.0F, 1.0F);
-        var continentalness = Climate.Parameter.span(-1.5F, -0.95F);
+        var continentalness = Climate.Parameter.span(-1.5F, -0.9F);
         var erosion = Climate.Parameter.span(-1.0F, 1.0F);
         var weirdness = Climate.Parameter.span(-1.0F, 1.0F);
         var depth = Climate.Parameter.point(0.0F);
