@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "fishofthieves:stormfish_pottery_sherd"
+    "fishofthieves:stormfish_pottery_sherd",
+    "fishofthieves:kraken_pottery_sherd",
+    "fishofthieves:megalodon_pottery_sherd"
   ]
 }

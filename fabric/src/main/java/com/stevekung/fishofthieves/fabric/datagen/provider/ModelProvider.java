@@ -103,6 +103,8 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.POMEGRANATE, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.POMEGRANATE_SEEDS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.STORMFISH_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.KRAKEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.MEGALODON_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
     }
 
     @Override

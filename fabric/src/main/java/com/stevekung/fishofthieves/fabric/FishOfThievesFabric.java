@@ -24,7 +24,6 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -53,7 +52,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemConditions.init();
 
         FOTDecoratedPotPatterns.init();
-        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
+        FOTDecoratedPotPatterns.putItemsToPotTexture();
 
         SplashtailVariants.init();
         PondieVariants.init();
