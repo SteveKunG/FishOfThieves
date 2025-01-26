@@ -33,6 +33,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, FOTDamageTypes::bootstrap);
         builder.add(Registries.BIOME, FOTBiomes::bootstrap);
+        builder.add(Registries.NOISE, FOTNoises::bootstrap);
     }
 
     @Override
@@ -91,6 +92,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
             entries.addAll(registries.lookupOrThrow(Registries.BIOME));
+            entries.addAll(registries.lookupOrThrow(Registries.NOISE));
         }
 
         @Override

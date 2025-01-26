@@ -34,7 +34,8 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "fishofthieves:tropical_island_rock"
     ],
     [
       "minecraft:monster_room",
@@ -83,6 +84,9 @@
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",
+      "minecraft:seagrass_warm",
+      "minecraft:sea_pickle",
+      "minecraft:kelp_warm",
       "fishofthieves:patch_melon_tropical",
       "fishofthieves:trees_tropical_island",
       "fishofthieves:tropical_flower",

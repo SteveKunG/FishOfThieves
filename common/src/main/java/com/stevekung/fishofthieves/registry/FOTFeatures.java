@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.block.PomegranatePlantBlock;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
 import com.stevekung.fishofthieves.feature.SingleBlockFeature;
+import com.stevekung.fishofthieves.feature.TropicalIslandBlockBlobFeature;
 import com.stevekung.fishofthieves.feature.blockpredicates.BlockBrightnessPredicate;
 import com.stevekung.fishofthieves.feature.blockpredicates.SeeSkyPredicate;
 import com.stevekung.fishofthieves.feature.configurations.SimpleAgeBlockConfiguration;
@@ -62,6 +63,7 @@ public class FOTFeatures
     private static final FishBoneFeature FISH_BONE_FEATURE = new FishBoneFeature(NoneFeatureConfiguration.CODEC);
     private static final Feature<SimpleAgeBlockConfiguration> SIMPLE_AGE_BLOCK = new SimpleAgeBlockFeature(SimpleAgeBlockConfiguration.CODEC);
     private static final Feature<SimpleBlockConfiguration> SINGLE_BLOCK = new SingleBlockFeature(SimpleBlockConfiguration.CODEC);
+    private static final Feature<BlockStateConfiguration> TROPICAL_ISLAND_BLOB = new TropicalIslandBlockBlobFeature(BlockStateConfiguration.CODEC);
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> FISH_BONE = createKey("fish_bone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_TREE = createKey("coconut_tree");
@@ -80,6 +82,7 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TROPICAL_ISLAND_ROCK = createKey("tropical_island_rock");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_TROPICAL_FLOWER = createKey("sparse_jungle_tropical_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_FRUIT_TREES = createKey("sparse_jungle_fruit_trees");
@@ -91,6 +94,7 @@ public class FOTFeatures
         register("fish_bone", FISH_BONE_FEATURE);
         register("simple_age_block", SIMPLE_AGE_BLOCK);
         register("single_block", SINGLE_BLOCK);
+        register("tropical_island_blob", TROPICAL_ISLAND_BLOB);
     }
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context)
@@ -161,6 +165,7 @@ public class FOTFeatures
                                 BlockPredicate.not(BlockBrightnessPredicate.value(13)),
                                 BlockPredicate.not(SeeSkyPredicate.INSTANCE),
                                 BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
+        FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockStateConfiguration(Blocks.STONE.defaultBlockState()));
 
         FeatureUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)

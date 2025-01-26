@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.compatibility.terrablender;
 
+import com.stevekung.fishofthieves.feature.surfacerules.BlockStateConditionSource;
+import com.stevekung.fishofthieves.feature.surfacerules.WaterSurroundedConditionSource;
 import com.stevekung.fishofthieves.registry.FOTBiomes;
+import com.stevekung.fishofthieves.registry.FOTNoises;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -14,24 +17,68 @@ public class FOTSurfaceRuleData
 
     public static SurfaceRules.RuleSource overworld()
     {
-        var oceanGravelCheck = SurfaceRules.waterStartCheck(-6, -1);
+        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules()));
+    }
+
+    private static SurfaceRules.RuleSource makeRules()
+    {
+        var waterAboveCheck = SurfaceRules.waterBlockCheck(1, 0);
+        var y62 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
+        var airAboveCheck = blockStateCheck(Blocks.AIR, 1);
+        var sixBelowWater = SurfaceRules.waterStartCheck(-6, -1);
         var sandWithSandstone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND);
 
-        var underSurfaceNoTop = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(FOTBiomes.TROPICAL_ISLAND), SurfaceRules.ifTrue(
-                        SurfaceRules.not(
-                                SurfaceRules.yStartCheck(
-                                        VerticalAnchor.absolute(64), 0)), sandWithSandstone))
-        );
+        var surfaceBelow64 = SurfaceRules.not(
+                SurfaceRules.yStartCheck(
+                        VerticalAnchor.absolute(64), 0));
 
-        var buildSurface = SurfaceRules.sequence(
-                SurfaceRules.ifTrue(oceanGravelCheck, SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, underSurfaceNoTop)
+        return SurfaceRules.sequence(
+
+                SurfaceRules.ifTrue(
+                        sixBelowWater,
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.sequence(
+                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(FOTBiomes.TROPICAL_ISLAND),
+                                                        SurfaceRules.sequence(
+                                                                SurfaceRules.ifTrue(surfaceBelow64,
+                                                                        SurfaceRules.sequence(
+                                                                                SurfaceRules.ifTrue(SurfaceRules.not(waterAboveCheck), sandWithSandstone),
+
+                                                                                SurfaceRules.ifTrue(y62, SurfaceRules.ifTrue(waterSurrounded(), sandWithSandstone))
+                                                                        ))
+                                                        )
+                                                )
+                                        ))
                         )
-                ));
+                ),
 
-        var surfaceBlocks = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), buildSurface);
-        return SurfaceRules.sequence(surfaceBlocks);
+                SurfaceRules.ifTrue(
+                        SurfaceRules.ON_FLOOR,
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(SurfaceRules.isBiome(FOTBiomes.TROPICAL_ISLAND),
+                                        SurfaceRules.ifTrue(airAboveCheck, SurfaceRules.sequence(
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.noiseCondition(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
+
+                                                SurfaceRules.ifTrue(
+                                                        SurfaceRules.noiseCondition(FOTNoises.SAND_PATCHES, 0.1, 0.2), SAND)
+                                        )))
+                        )
+                )
+
+        );
+    }
+
+    private static SurfaceRules.ConditionSource waterSurrounded()
+    {
+        return new WaterSurroundedConditionSource();
+    }
+
+    private static SurfaceRules.ConditionSource blockStateCheck(Block block, int offset)
+    {
+        return new BlockStateConditionSource(block.defaultBlockState(), offset);
     }
 
     private static SurfaceRules.RuleSource makeStateRule(Block block)
