@@ -31,6 +31,7 @@ public class CauldronUtils
         {
             var blockPos2 = optional.get();
             var blockState2 = level.getBlockState(blockPos2);
+            var trigger = false;
 
             if (blockState2.getBlock() != Blocks.WATER_CAULDRON)
             {
@@ -38,6 +39,7 @@ public class CauldronUtils
                 level.setBlockAndUpdate(blockPos2, blockState);
                 level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos2, GameEvent.Context.of(blockState));
                 level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, blockPos2, 0);
+                trigger = true;
             }
             else if (!((LayeredCauldronBlock) blockState2.getBlock()).isFull(blockState2))
             {
@@ -45,11 +47,16 @@ public class CauldronUtils
                 level.setBlockAndUpdate(blockPos2, blockState);
                 level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos2, GameEvent.Context.of(blockState));
                 level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, blockPos2, 0);
+                trigger = true;
             }
-        }
-        for (var serverPlayer : level.getNearbyPlayers(TargetingConditions.forNonCombat(), null, new AABB(pos).inflate(8)).stream().map(ServerPlayer.class::cast).toList())
-        {
-            FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.trigger(level, pos, serverPlayer, state);
+
+            if (trigger)
+            {
+                for (var serverPlayer : level.getNearbyPlayers(TargetingConditions.forNonCombat(), null, new AABB(pos).inflate(8)).stream().map(ServerPlayer.class::cast).toList())
+                {
+                    FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.trigger(level, pos, serverPlayer, state);
+                }
+            }
         }
     }
 

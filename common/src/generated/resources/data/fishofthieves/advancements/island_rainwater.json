@@ -4,14 +4,9 @@
     "water_drip_from_banana_leaves": {
       "conditions": {
         "block": "fishofthieves:banana_leaves",
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "biome": "fishofthieves:tropical_island"
-            }
-          }
-        ]
+        "location": {
+          "biome": "fishofthieves:tropical_island"
+        }
       },
       "trigger": "fishofthieves:water_drip_on_block"
     },
