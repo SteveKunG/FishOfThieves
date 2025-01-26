@@ -10,7 +10,9 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -31,7 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class PineappleBlock extends Block implements SimpleWaterloggedBlock
+public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equipable
 {
     private static final VoxelShape UNDERRIPE_SHAPE = Block.box(5, 0, 5, 11, 8, 11);
     private static final VoxelShape NORMAL_SHAPE = Block.box(4, 0, 4, 12, 10, 12);
@@ -103,6 +105,12 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
+    }
+
+    @Override
+    public EquipmentSlot getEquipmentSlot()
+    {
+        return EquipmentSlot.HEAD;
     }
 
     public enum Type
