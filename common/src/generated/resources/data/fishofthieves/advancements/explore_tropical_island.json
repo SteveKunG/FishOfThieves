@@ -1,0 +1,42 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "explore_tropical_island": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "fishofthieves:tropical_island"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.explore_tropical_island.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:tropical_monstera"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.explore_tropical_island.title"
+    }
+  },
+  "requirements": [
+    [
+      "explore_tropical_island"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

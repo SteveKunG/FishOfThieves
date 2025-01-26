@@ -52,7 +52,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     {
         if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
         {
-            CauldronUtils.fillCauldronFromLeavesTail(level, pos);
+            CauldronUtils.fillCauldronFromLeavesTail(state, level, pos);
         }
     }
 

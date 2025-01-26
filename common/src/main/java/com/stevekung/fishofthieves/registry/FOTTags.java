@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -116,5 +117,10 @@ public interface FOTTags
         TagKey<BattlegillVariant> DEFAULT_BATTLEGILL_SPAWNS = TagKey.create(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, FishOfThieves.id("default_battlegill_spawns"));
         TagKey<WreckerVariant> DEFAULT_WRECKER_SPAWNS = TagKey.create(FOTRegistries.WRECKER_VARIANT_REGISTRY, FishOfThieves.id("default_wrecker_spawns"));
         TagKey<StormfishVariant> DEFAULT_STORMFISH_SPAWNS = TagKey.create(FOTRegistries.STORMFISH_VARIANT_REGISTRY, FishOfThieves.id("default_stormfish_spawns"));
+    }
+
+    interface DamageTypes
+    {
+        TagKey<DamageType> IS_MANGO = TagKey.create(Registries.DAMAGE_TYPE, FishOfThieves.id("is_mango"));
     }
 }

@@ -1,0 +1,47 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "water_drip_from_banana_leaves": {
+      "conditions": {
+        "block": "fishofthieves:banana_leaves",
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "biome": "fishofthieves:tropical_island"
+            }
+          }
+        ]
+      },
+      "trigger": "fishofthieves:water_drip_on_block"
+    },
+    "water_drip_from_coconut_fronds": {
+      "conditions": {
+        "block": "fishofthieves:coconut_fronds"
+      },
+      "trigger": "fishofthieves:water_drip_on_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.island_rainwater.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:coconut_fronds"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.island_rainwater.title"
+    }
+  },
+  "requirements": [
+    [
+      "water_drip_from_coconut_fronds",
+      "water_drip_from_banana_leaves"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
