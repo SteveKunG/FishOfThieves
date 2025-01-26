@@ -12,7 +12,7 @@
 				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
-				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "west"},
 				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
 				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
 			}
@@ -24,7 +24,7 @@
 			"faces": {
 				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
-				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "south"},
 				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
 				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
@@ -37,7 +37,7 @@
 			"faces": {
 				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
-				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "south"},
 				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
 				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
@@ -49,7 +49,7 @@
 			"rotation": {"angle": 0, "axis": "y", "origin": [13, 12, 3]},
 			"faces": {
 				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
-				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "east"},
 				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
@@ -61,7 +61,7 @@
 			"to": [8, 12, 3],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 9, 0]},
 			"faces": {
-				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "north"},
 				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
 				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},

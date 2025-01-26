@@ -190,4 +190,10 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
             }
         }
     }
+
+    @Override
+    public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
+    {
+        return adjacentState.is(FOTTags.Blocks.SMALL_COCONUT_LOGS) && state.getValue(FACING) == direction;
+    }
 }
