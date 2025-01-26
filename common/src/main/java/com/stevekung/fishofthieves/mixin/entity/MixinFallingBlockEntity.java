@@ -31,7 +31,7 @@ public abstract class MixinFallingBlockEntity extends Entity
     }
 
     @Inject(method = "causeFallDamage", at = @At(value = "RETURN", ordinal = 2))
-    private void fishofthieves$crushPomegranteToRedDye(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> info)
+    private void fishofthieves$crushPomegranateToRedDye(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> info)
     {
         if (this.blockState.is(BlockTags.ANVIL))
         {
@@ -47,7 +47,7 @@ public abstract class MixinFallingBlockEntity extends Entity
 
             if (sound)
             {
-                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), FOTSoundEvents.CRUSH_POMEGRANTE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.level().playSound(null, this.getX(), this.getY(), this.getZ(), FOTSoundEvents.CRUSH_POMEGRANATE, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
     }
