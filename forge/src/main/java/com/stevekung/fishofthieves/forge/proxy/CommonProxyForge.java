@@ -109,6 +109,14 @@ public class CommonProxyForge
         {
             table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
         }
+        else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
+        {
+            table.addPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()).build());
+        }
+        else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
+        {
+            table.addPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool()).build());
+        }
         // Archaeology
         else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
         {

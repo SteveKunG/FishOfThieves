@@ -116,6 +116,14 @@ public class FishOfThievesFabric implements ModInitializer
             {
                 tableBuilder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
             }
+            else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
+            {
+                tableBuilder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
+            }
+            else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
+            {
+                tableBuilder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool()));
+            }
             // Archaeology
             else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
             {
