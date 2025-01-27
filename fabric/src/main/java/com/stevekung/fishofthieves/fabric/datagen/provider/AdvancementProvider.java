@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
+import com.stevekung.fishofthieves.trigger.FallingAnvilCrushItemTrigger;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
 import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
 
@@ -236,6 +237,25 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fot.island_rainwater.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("island_rainwater"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland).requirements(RequirementsStrategy.OR)
+                .addCriterion("has_ancient_sherds", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
+                        .of(FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD)
+                        .build()))
+                .display(FOTItems.MEGALODON_POTTERY_SHERD,
+                        Component.translatable("advancements.fot.ancient_myth.title"),
+                        Component.translatable("advancements.fot.ancient_myth.description"),
+                        null, FrameType.TASK, true, true, false)
+                .save(consumer, this.mod("ancient_myth"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland)
+                .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
+                        .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.exactly(8))))
+                .display(Items.RED_DYE,
+                        Component.translatable("advancements.fot.crush_pomegranate.title"),
+                        Component.translatable("advancements.fot.crush_pomegranate.description"),
+                        null, FrameType.TASK, true, true, false)
+                .save(consumer, this.mod("crush_pomegranate"));
     }
     //@formatter:on
 

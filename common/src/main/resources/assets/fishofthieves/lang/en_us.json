@@ -340,11 +340,15 @@
   "advancements.fot.explore_tropical_island.title": "Island of Thieves",
   "advancements.fot.explore_tropical_island.description": "Explore Tropical Island",
   "advancements.fot.mango_gravity.title": "Eureka",
-  "advancements.fot.mango_gravity.description": "Get hurt by a falling mango, Ouch!",
+  "advancements.fot.mango_gravity.description": "Get hurt by a falling mango, Bonk!",
   "advancements.fot.equip_pineapple_block.title": "Pirate Crown",
-  "advancements.fot.equip_pineapple_block.description": "Equip any Pineapple Block, you are the pirate king, Kinda...",
+  "advancements.fot.equip_pineapple_block.description": "Equip any Pineapple Block. Now you are the pirate king! Kinda...",
   "advancements.fot.fruit_diet.title": "A Fruit Diet",
   "advancements.fot.fruit_diet.description": "Eat every fruit from the Tropical Island",
   "advancements.fot.island_rainwater.title": "Island Rainwater",
-  "advancements.fot.island_rainwater.description": "Fill water to a cauldron by using a Coconut Fronds or Banana Leaves"
+  "advancements.fot.island_rainwater.description": "Fill water to a cauldron by using a Coconut Fronds or Banana Leaves",
+  "advancements.fot.ancient_myth.title": "Ancient Myth",
+  "advancements.fot.ancient_myth.description": "Obtain a Kraken Pottery Sherd or Megalodon Pottery Sherd",
+  "advancements.fot.crush_pomegranate.title": "Fresh Red",
+  "advancements.fot.crush_pomegranate.description": "Obtain Red Dyes using falling anvil to crush 8 Pomegranates"
 }
