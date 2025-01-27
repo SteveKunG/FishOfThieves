@@ -250,7 +250,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(tropicalIsland)
                 .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
-                        .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.exactly(8))))
+                        .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
                 .display(Items.RED_DYE,
                         Component.translatable("advancements.fot.crush_pomegranate.title"),
                         Component.translatable("advancements.fot.crush_pomegranate.description"),

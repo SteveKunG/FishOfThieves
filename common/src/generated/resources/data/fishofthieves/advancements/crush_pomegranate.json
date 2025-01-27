@@ -4,7 +4,9 @@
     "crush_pomegranate": {
       "conditions": {
         "item": {
-          "count": 8,
+          "count": {
+            "min": 8
+          },
           "items": [
             "fishofthieves:pomegranate"
           ]
