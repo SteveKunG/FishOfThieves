@@ -84,7 +84,6 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TROPICAL_BUSH = createKey("patch_tropical_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TROPICAL_ISLAND_ROCK = createKey("tropical_island_rock");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_TROPICAL_FLOWER = createKey("sparse_jungle_tropical_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_FRUIT_TREES = createKey("sparse_jungle_fruit_trees");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE = createKey("sparse_jungle_patch_wild_pineapple");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE = createKey("sparse_jungle_patch_wild_pomegranate");
@@ -124,7 +123,7 @@ public class FOTFeatures
                 placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
         FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
-                .add(Blocks.AZURE_BLUET.defaultBlockState(), 2)
+                .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 6)
         ), 64));
         FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
@@ -167,9 +166,6 @@ public class FOTFeatures
                                 BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
         FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockStateConfiguration(Blocks.STONE.defaultBlockState()));
 
-        FeatureUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
-        ), 64));
         FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED))));

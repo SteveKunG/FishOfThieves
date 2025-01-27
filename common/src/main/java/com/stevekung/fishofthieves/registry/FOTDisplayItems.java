@@ -105,6 +105,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.POMEGRANATE_SEEDS);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
+        output.accept(FOTBlocks.LIGHT_BLUE_PLUMERIA);
         output.accept(FOTBlocks.TROPICAL_RED_FERN);
         output.accept(FOTBlocks.TROPICAL_MONSTERA);
 

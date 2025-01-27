@@ -95,6 +95,7 @@ public class RecipeProvider extends FabricRecipeProvider
         addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
 
         oneToOneConversionRecipe(consumer, Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
+        oneToOneConversionRecipe(consumer, Items.LIGHT_BLUE_DYE, FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
         oneToOneConversionRecipe(consumer, Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(consumer, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
         woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);

@@ -82,6 +82,7 @@ public class FOTItems
 
     // Forge being stupid again...
     public static Item PINK_PLUMERIA;
+    public static Item LIGHT_BLUE_PLUMERIA;
     public static Item BANANA_SHOOTS;
     public static Item MANGO_PIT;
     public static Item MANGO_SAPLING;
@@ -189,6 +190,7 @@ public class FOTItems
     public static void initFabric()
     {
         register("pink_plumeria", PINK_PLUMERIA = blockItem(FOTBlocks.PINK_PLUMERIA));
+        register("light_blue_plumeria", LIGHT_BLUE_PLUMERIA = blockItem(FOTBlocks.LIGHT_BLUE_PLUMERIA));
         register("banana_shoots", BANANA_SHOOTS = blockItem(FOTBlocks.BANANA_SHOOTS));
         register("mango_pit", MANGO_PIT = new ItemNameBlockItem(FOTBlocks.MANGO_PIT, new Item.Properties()));
         register("mango_sapling", MANGO_SAPLING = blockItem(FOTBlocks.MANGO_SAPLING));
