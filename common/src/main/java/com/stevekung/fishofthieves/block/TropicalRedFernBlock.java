@@ -41,8 +41,7 @@ public class TropicalRedFernBlock extends Block
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        var direction = VerticalLeavesBlock.getConnectedDirection(state).getOpposite();
-        return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
+        return VerticalLeavesBlock.canVerticalLeavesSurvive(state, level, pos);
     }
 
     @Override

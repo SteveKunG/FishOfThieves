@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -50,13 +51,7 @@ public class VerticalLeavesBlock extends Block implements SimpleWaterloggedBlock
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        var direction = getConnectedDirection(state).getOpposite();
-        return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite());
-    }
-
-    public static Direction getConnectedDirection(BlockState state)
-    {
-        return state.getValue(CEILING) ? Direction.DOWN : Direction.UP;
+        return canVerticalLeavesSurvive(state, level, pos);
     }
 
     @Override
@@ -77,5 +72,17 @@ public class VerticalLeavesBlock extends Block implements SimpleWaterloggedBlock
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
+    public static boolean canVerticalLeavesSurvive(BlockState state, LevelReader level, BlockPos pos)
+    {
+        var direction = getConnectedDirection(state).getOpposite();
+        var otherState = level.getBlockState(pos.relative(direction));
+        return Block.canSupportCenter(level, pos.relative(direction), direction.getOpposite()) || otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos);
+    }
+
+    private static Direction getConnectedDirection(BlockState state)
+    {
+        return state.getValue(CEILING) ? Direction.DOWN : Direction.UP;
     }
 }
