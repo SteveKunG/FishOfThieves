@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.*;
 
+import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -221,12 +223,16 @@ public class FOTLootManager
         return builder.setRolls(UniformGenerator.between(1.0F, 2.0F))
                 .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(9)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
                 .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
                 .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(4)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
                 .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(2)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
                 ;
     }
 }
