@@ -3,11 +3,12 @@ package com.stevekung.fishofthieves.structure;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTStructures;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,7 +42,8 @@ public class SeapostPieces
     private static final ResourceLocation SEAPOST_BASE = FishOfThieves.id("seapost_base");
     private static final Map<ResourceLocation, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-5, 0, 11));
     private static final Map<ResourceLocation, BlockPos> OFFSETS = ImmutableMap.of(SEAPOST, new BlockPos(0, 8, 0), SEAPOST_BASE, BlockPos.ZERO);
-    private static final List<Block> POTTED_BLOCKS = ImmutableList.of(Blocks.POTTED_POPPY, Blocks.POTTED_DANDELION, Blocks.POTTED_AZURE_BLUET, Blocks.POTTED_DEAD_BUSH, Blocks.POTTED_MANGROVE_PROPAGULE, Blocks.POTTED_AZALEA, Blocks.POTTED_FLOWERING_AZALEA);
+    private static final List<Block> POTTED_BLOCKS = List.of(Blocks.POTTED_POPPY, Blocks.POTTED_DANDELION, Blocks.POTTED_AZURE_BLUET, Blocks.POTTED_DEAD_BUSH,
+            Blocks.POTTED_MANGROVE_PROPAGULE, Blocks.POTTED_AZALEA, Blocks.POTTED_FLOWERING_AZALEA, FOTBlocks.POTTED_PINK_PLUMERIA, FOTBlocks.POTTED_WHITE_PLUMERIA, FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA);
 
     public static void addPieces(StructureTemplateManager structureTemplateManager, BlockPos pos, Rotation rotation, StructurePieceAccessor pieces)
     {
