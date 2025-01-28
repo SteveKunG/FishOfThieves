@@ -115,6 +115,7 @@ public class FOTBlocks
 
     public static Block PINK_PLUMERIA;
     public static Block LIGHT_BLUE_PLUMERIA;
+    public static Block WHITE_PLUMERIA;
     public static Block BANANA_SHOOTS;
     public static Block MANGO_PIT;
     public static Block MANGO_SAPLING;
@@ -125,6 +126,7 @@ public class FOTBlocks
 
     public static Block POTTED_PINK_PLUMERIA;
     public static Block POTTED_LIGHT_BLUE_PLUMERIA;
+    public static Block POTTED_WHITE_PLUMERIA;
     public static Block POTTED_BANANA_SHOOTS;
     public static Block POTTED_MANGO_PIT;
     public static Block POTTED_MANGO_SAPLING;
@@ -267,6 +269,7 @@ public class FOTBlocks
     {
         registerNoItem("pink_plumeria", PINK_PLUMERIA = getPinkPlumeria());
         registerNoItem("light_blue_plumeria", LIGHT_BLUE_PLUMERIA = getLightBluePlumeria());
+        registerNoItem("white_plumeria", WHITE_PLUMERIA = getWhitePlumeria());
         registerNoItem("banana_shoots", BANANA_SHOOTS = getBananaShoots());
         registerNoItem("mango_pit", MANGO_PIT = getMangoPit());
         registerNoItem("mango_sapling", MANGO_SAPLING = getMangoSapling());
@@ -277,6 +280,7 @@ public class FOTBlocks
 
         registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
         registerNoItem("potted_light_blue_plumeria", POTTED_LIGHT_BLUE_PLUMERIA = flowerPot(LIGHT_BLUE_PLUMERIA));
+        registerNoItem("potted_white_plumeria", POTTED_WHITE_PLUMERIA = flowerPot(WHITE_PLUMERIA));
         registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
         registerNoItem("potted_mango_pit", POTTED_MANGO_PIT = flowerPot(MANGO_PIT));
         registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
@@ -320,6 +324,11 @@ public class FOTBlocks
     public static Block getLightBluePlumeria()
     {
         return new FlowerBlock(MobEffects.MOVEMENT_SPEED, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getWhitePlumeria()
+    {
+        return new FlowerBlock(MobEffects.SLOW_FALLING, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
     }
 
     public static Block getBananaShoots()

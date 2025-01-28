@@ -19,6 +19,12 @@
                   "Name": "fishofthieves:light_blue_plumeria"
                 },
                 "weight": 6
+              },
+              {
+                "data": {
+                  "Name": "fishofthieves:white_plumeria"
+                },
+                "weight": 3
               }
             ]
           }

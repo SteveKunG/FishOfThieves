@@ -24,6 +24,7 @@ processResources {
                 "pineapple_crop_lower_stage_2",
                 "pineapple_crop_lower_stage_full",
                 "pink_plumeria",
+                "white_plumeria",
                 "pomegranate_sapling",
                 "potted_banana_shoots",
                 "potted_light_blue_plumeria",
@@ -32,7 +33,8 @@ processResources {
                 "potted_pink_plumeria",
                 "potted_pomegranate_plant",
                 "potted_pomegranate_sapling",
-                "potted_tropical_red_fern"
+                "potted_tropical_red_fern",
+                "potted_white_plumeria"
         ]
 
         if (jsonDir.exists() && jsonDir.isDirectory()) {

@@ -124,6 +124,7 @@ public class FOTFeatures
         FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
                 .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 6)
+                .add(FOTBlocks.WHITE_PLUMERIA.defaultBlockState(), 3)
         ), 64));
         FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
