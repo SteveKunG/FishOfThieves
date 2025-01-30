@@ -54,7 +54,7 @@ public class FOTPlacements
         PlacementUtils.register(context, WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, PATCH_MELON_TROPICAL, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_MELON), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-        PlacementUtils.register(context, TREES_COCONUT, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.1F, 1)));
+        PlacementUtils.register(context, TREES_COCONUT, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1F, 1)));
         PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), PlacementUtils.countExtra(8, 0.1F, 1), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
