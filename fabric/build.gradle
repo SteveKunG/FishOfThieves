@@ -62,6 +62,9 @@ dependencies {
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.18.2"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
