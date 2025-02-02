@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 
@@ -54,7 +53,8 @@ public class LanguageSyncProvider implements DataProvider
 
                             // Sync keys with main JSON file
                             var modified = false;
-                            var updatedJson = Maps.<String, String>newLinkedHashMap();
+                            var updatedJson = new StringBuilder();
+                            updatedJson.append("{");
 
                             for (var entry : orderedMainJson.entrySet())
                             {
@@ -62,27 +62,25 @@ public class LanguageSyncProvider implements DataProvider
 
                                 if (orderedTranslationJson.containsKey(key))
                                 {
-                                    updatedJson.put(key, orderedTranslationJson.get(key));
+                                    updatedJson.append(String.format("\n  \"%s\": \"%s\",", key, orderedTranslationJson.get(key)));
                                 }
                                 else
                                 {
-                                    updatedJson.put(key, entry.getValue());
+                                    updatedJson.append(String.format("\n  \"%s\": \"%s\",", key, entry.getValue()));
                                     modified = true;
                                 }
                             }
 
-                            // Check if any keys were removed
-                            if (!orderedTranslationJson.keySet().equals(orderedMainJson.keySet()))
+                            if (updatedJson.charAt(updatedJson.length() - 1) == ',')
                             {
-                                modified = true;
+                                updatedJson.setCharAt(updatedJson.length() - 1, '\n');
                             }
+                            updatedJson.append("}");
 
                             // Save changes if any modifications were made
                             if (modified)
                             {
-                                var updatedNode = JsonNodeFactory.instance.objectNode();
-                                updatedJson.forEach(updatedNode::put);
-                                mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), updatedNode);
+                                Files.writeString(path, updatedJson.toString());
                                 FishOfThieves.LOGGER.info("Updated: {}", path.getFileName());
                             }
                         }

@@ -112,6 +112,7 @@ public class FOTBlocks
     public static final Block MANGO_FRUIT = new MangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().noOcclusion().randomTicks().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
     public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
     public static final Block TALL_POMEGRANATE_PLANT = new TallPomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().sound(SoundType.AZALEA).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block PRISMARIZED_LOG = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().emissiveRendering(FOTBlocks::always));
 
     public static Block PINK_PLUMERIA;
     public static Block LIGHT_BLUE_PLUMERIA;
@@ -245,6 +246,7 @@ public class FOTBlocks
         registerNoItem("mango_fruit", MANGO_FRUIT);
         registerNoItem("hanging_mango_fruit", HANGING_MANGO_FRUIT);
         registerNoItem("tall_pomegranate_plant", TALL_POMEGRANATE_PLANT);
+        register("prismarized_log", PRISMARIZED_LOG);
 
         register("coconut_planks", COCONUT_PLANKS);
         register("coconut_button", COCONUT_BUTTON);
@@ -379,5 +381,10 @@ public class FOTBlocks
     private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
     {
         return false;
+    }
+
+    private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos)
+    {
+        return true;
     }
 }

@@ -216,6 +216,7 @@ public class ModelProvider extends FabricModelProvider
         this.createPlant(generator, FOTBlocks.POMEGRANATE_SAPLING, FOTBlocks.POTTED_POMEGRANATE_SAPLING, BlockModelGenerators.TintState.NOT_TINTED);
         this.createTropicalRedFern(generator);
         this.createTropicalMonstera(generator);
+        generator.woodProvider(FOTBlocks.PRISMARIZED_LOG).logWithHorizontal(FOTBlocks.PRISMARIZED_LOG);
     }
 
     private void createTropicalMonstera(BlockModelGenerators generator)

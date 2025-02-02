@@ -103,6 +103,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.POMEGRANATE_PLANT);
         output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);
         output.accept(FOTItems.POMEGRANATE_SEEDS);
+        output.accept(FOTBlocks.PRISMARIZED_LOG);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
         output.accept(FOTBlocks.LIGHT_BLUE_PLUMERIA);
