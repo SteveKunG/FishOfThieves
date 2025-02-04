@@ -1,0 +1,380 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower"
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "south",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower",
+        "y": 90
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "west",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower",
+        "y": 180
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "north",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower",
+        "y": 270
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "east",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower_2"
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "south",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower_2",
+        "y": 90
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "west",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower_2",
+        "y": 180
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "north",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_lower_2",
+        "y": 270
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "east",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower"
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "south",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower",
+        "y": 90
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "west",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower",
+        "y": 180
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "north",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower",
+        "y": 270
+      },
+      "when": {
+        "type": "lower",
+        "count": "1|2",
+        "facing": "east",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower_2"
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "south",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower_2",
+        "y": 90
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "west",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower_2",
+        "y": 180
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "north",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_lower_2",
+        "y": 270
+      },
+      "when": {
+        "type": "lower",
+        "count": "2",
+        "facing": "east",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper"
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "south",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper",
+        "y": 90
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "west",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper",
+        "y": 180
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "north",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper",
+        "y": 270
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "east",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper_2"
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "south",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper_2",
+        "y": 90
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "west",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper_2",
+        "y": 180
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "north",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_stem_upper_2",
+        "y": 270
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "east",
+        "part": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper"
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "south",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper",
+        "y": 90
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "west",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper",
+        "y": 180
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "north",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper",
+        "y": 270
+      },
+      "when": {
+        "type": "upper",
+        "count": "1|2",
+        "facing": "east",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper_2"
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "south",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper_2",
+        "y": 90
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "west",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper_2",
+        "y": 180
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "north",
+        "part": "tail"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_leaves_tail_upper_2",
+        "y": 270
+      },
+      "when": {
+        "type": "upper",
+        "count": "2",
+        "facing": "east",
+        "part": "tail"
+      }
+    }
+  ]
+}

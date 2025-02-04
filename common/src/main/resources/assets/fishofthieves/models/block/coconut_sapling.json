@@ -1,0 +1,44 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"particle": "fishofthieves:block/coconut_sapling_base",
+		"base": "fishofthieves:block/coconut_sapling_base",
+		"sapling": "fishofthieves:block/coconut_sapling"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 3],
+			"to": [13, 5, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 0, 2]},
+			"faces": {
+				"north": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"east": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"south": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"west": {"uv": [0, 10, 10, 15], "texture": "#base"},
+				"up": {"uv": [0, 0, 10, 10], "texture": "#base"}
+			}
+		},
+		{
+			"from": [0, 5, 8],
+			"to": [16, 21, 8],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
+            "shade": false,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#sapling"}
+			}
+		},
+		{
+			"from": [8, 5, 0],
+			"to": [8, 21, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
+            "shade": false,
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#sapling"}
+			}
+		}
+	]
+}

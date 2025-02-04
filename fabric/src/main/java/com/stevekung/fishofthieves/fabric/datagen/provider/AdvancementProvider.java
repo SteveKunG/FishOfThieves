@@ -14,7 +14,10 @@ import com.stevekung.fishofthieves.item.predicate.BucketNbtPredicate;
 import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
+import com.stevekung.fishofthieves.trigger.FallingAnvilCrushItemTrigger;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
+import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.Util;
@@ -52,6 +55,13 @@ public class AdvancementProvider extends FabricAdvancementProvider
         map.put(FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT);
         map.put(FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT);
     });
+    private static final Item[] FRUITS = new Item[] {
+            FOTItems.BANANA,
+            FOTItems.COCONUT,
+            FOTItems.POMEGRANATE,
+            FOTItems.MANGO,
+            FOTItems.PINEAPPLE
+    };
 
     public AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
@@ -76,7 +86,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                         .of(Fluids.WATER))))
                 .save(consumer, this.mod("root"));
 
-        var advancement2 = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
+        var fishCollectors = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
                 .display(FOTItems.SPLASHTAIL_BUCKET,
                         Component.translatable("advancements.fot.fish_collectors.title"),
                         Component.translatable("advancements.fot.fish_collectors.description"),
@@ -84,7 +94,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
                 .save(consumer, this.mod("fish_collectors"));
 
-        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), false)
+        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), false)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
                         Component.translatable("advancements.fot.master_fish_collectors.title"),
                         Component.translatable("advancements.fot.master_fish_collectors.description"),
@@ -92,7 +102,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
                 .save(consumer, this.mod("master_fish_collectors"));
 
-        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(advancement2), true)
+        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), true)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
                         Component.translatable("advancements.fot.legendary_fish_collectors.title"),
                         Component.translatable("advancements.fot.legendary_fish_collectors.description"),
@@ -100,7 +110,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                 .save(consumer, this.mod("legendary_fish_collectors"));
 
-        Advancement.Builder.advancement().parent(advancement).addCriterion(BuiltInRegistries.ITEM.getKey(FOTItems.DEVILFISH_BUCKET).getPath(),
+        Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
                                 ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentPredicate.builder()
                                         .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
@@ -111,7 +121,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         null, AdvancementType.TASK, true, true, false)
                 .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
-        var battlegill = BuiltInRegistries.ITEM.getKey(FOTItems.BATTLEGILL).getPath();
+        var battlegill = this.getItemName(FOTItems.BATTLEGILL);
         Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion(battlegill + "_village",
                         FishingRodHookedTrigger.TriggerInstance.fishedItem(Optional.empty(), Optional.of(EntityPredicate.Builder.entity().located(LocationPredicate.Builder.location().setStructures(provider.lookupOrThrow(Registries.STRUCTURE).getOrThrow(StructureTags.VILLAGE))).build()), Optional.of(ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build())))
@@ -164,6 +174,76 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fot.lost_sally.description"),
                         null, AdvancementType.TASK, true, true, true)
                 .save(consumer, this.mod("lost_sally"));
+
+        var isTropicalIsland = LocationPredicate.Builder.inBiome(provider.lookupOrThrow(Registries.BIOME).getOrThrow(FOTBiomes.TROPICAL_ISLAND));
+
+        var tropicalIsland = Advancement.Builder.advancement().parent(advancement)
+                .addCriterion("explore_tropical_island", PlayerTrigger.TriggerInstance.located(isTropicalIsland))
+                .display(FOTBlocks.TROPICAL_MONSTERA,
+                        Component.translatable("advancements.fot.explore_tropical_island.title"),
+                        Component.translatable("advancements.fot.explore_tropical_island.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("explore_tropical_island"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland)
+                .addCriterion("mango_gravity", EntityHurtPlayerTrigger.TriggerInstance.entityHurtPlayer(
+                        DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType()
+                                .tag(TagPredicate.is(FOTTags.DamageTypes.IS_MANGO))
+                                .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.FALLING_BLOCK)))
+                        ))
+                )
+                .display(FOTItems.MANGO,
+                        Component.translatable("advancements.fot.mango_gravity.title"),
+                        Component.translatable("advancements.fot.mango_gravity.description"),
+                        null, AdvancementType.TASK, true, true, true)
+                .save(consumer, this.mod("mango_gravity"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland)
+                .addCriterion("equip_pineapple_block", PlayerTrigger.TriggerInstance.located(EntityPredicate.Builder.entity()
+                        .equipment(EntityEquipmentPredicate.Builder.equipment()
+                                .head(ItemPredicate.Builder.item()
+                                        .of(FOTBlocks.RIPE_PINEAPPLE_BLOCK, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)))))
+                .display(FOTBlocks.RIPE_PINEAPPLE_BLOCK,
+                        Component.translatable("advancements.fot.equip_pineapple_block.title"),
+                        Component.translatable("advancements.fot.equip_pineapple_block.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("equip_pineapple_block"));
+
+        this.addFruits(Advancement.Builder.advancement()).parent(tropicalIsland)
+                .display(FOTItems.BANANA,
+                        Component.translatable("advancements.fot.fruit_diet.title"),
+                        Component.translatable("advancements.fot.fruit_diet.description"),
+                        null, AdvancementType.CHALLENGE, true, true, false)
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .save(consumer, this.mod("fruit_diet"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland).requirements(AdvancementRequirements.Strategy.OR)
+                .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS))
+                .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, isTropicalIsland))
+                .display(FOTBlocks.COCONUT_FRONDS,
+                        Component.translatable("advancements.fot.island_rainwater.title"),
+                        Component.translatable("advancements.fot.island_rainwater.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("island_rainwater"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland).requirements(AdvancementRequirements.Strategy.OR)
+                .addCriterion("has_ancient_sherds", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
+                        .of(FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD)
+                        .build()))
+                .display(FOTItems.MEGALODON_POTTERY_SHERD,
+                        Component.translatable("advancements.fot.ancient_myth.title"),
+                        Component.translatable("advancements.fot.ancient_myth.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("ancient_myth"));
+
+        Advancement.Builder.advancement().parent(tropicalIsland)
+                .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
+                        .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
+                .display(Items.RED_DYE,
+                        Component.translatable("advancements.fot.crush_pomegranate.title"),
+                        Component.translatable("advancements.fot.crush_pomegranate.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("crush_pomegranate"));
     }
     //@formatter:on
 
@@ -176,7 +256,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
     {
         for (var item : FOTTags.FISH_BUCKETS)
         {
-            builder.addCriterion(BuiltInRegistries.ITEM.getKey(item).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item)));
+            builder.addCriterion(this.getItemName(item), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item)));
         }
         return builder;
     }
@@ -201,5 +281,19 @@ public class AdvancementProvider extends FabricAdvancementProvider
             }
         }
         return builder;
+    }
+
+    private Advancement.Builder addFruits(Advancement.Builder builder)
+    {
+        for (var item : FRUITS)
+        {
+            builder.addCriterion(this.getItemName(item), ConsumeItemTrigger.TriggerInstance.usedItem(item));
+        }
+        return builder;
+    }
+
+    private String getItemName(Item item)
+    {
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 }

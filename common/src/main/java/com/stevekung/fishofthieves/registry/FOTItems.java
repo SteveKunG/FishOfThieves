@@ -1,13 +1,12 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.item.FOTItem;
-import com.stevekung.fishofthieves.item.FOTMobBucketItem;
-import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
+import com.stevekung.fishofthieves.item.*;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
@@ -59,6 +58,31 @@ public class FOTItems
     public static final Item BATTLEGILL_SPAWN_EGG = register("battlegill_spawn_egg", new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties()));
     public static final Item WRECKER_SPAWN_EGG = register("wrecker_spawn_egg", new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties()));
     public static final Item STORMFISH_SPAWN_EGG = register("stormfish_spawn_egg", new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties()));
+
+    public static final Item COCONUT = register("coconut", new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT)));
+    public static final Item BANANA = register("banana", new Item(new Item.Properties().food(FOTFoodProperties.BANANA)));
+    public static final Item HALF_PINEAPPLE = register("half_pineapple", new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE)));
+    public static final Item PINEAPPLE = register("pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
+    public static final Item CROWNLESS_PINEAPPLE = register("crownless_pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
+    public static final Item PINEAPPLE_SEEDS = register("pineapple_seeds", new PineappleBlockItem(false, new Item.Properties()));
+    public static final Item PINEAPPLE_CROWN = register("pineapple_crown", new PineappleBlockItem(true, new Item.Properties()));
+    public static final Item MANGO = register("mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO)));
+    public static final Item RAW_MANGO = register("raw_mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO)));
+    public static final Item POMEGRANATE = register("pomegranate", new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE)));
+
+    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item(new Item.Properties()));
+    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item(new Item.Properties()));
+    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item(new Item.Properties()));
+
+    public static final Item COCONUT_SIGN = register("coconut_sign", new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN));
+    public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16)));
+    public static final Item COCONUT_BOAT = register("coconut_boat", new BoatItem(false, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
+    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", new BoatItem(true, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
+    public static final Item COCONUT_DOOR = register("coconut_door", new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, new Item.Properties()));
+
+    public static final Item MANGO_PIT = register("mango_pit", new ItemNameBlockItem(FOTBlocks.MANGO_PIT, new Item.Properties()));
+    public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
+    public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
 
     public static void init()
     {

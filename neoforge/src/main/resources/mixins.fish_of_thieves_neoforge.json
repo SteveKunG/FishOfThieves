@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.stevekung.fishofthieves.neoforge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "block.MixinFOTRotatedPillarBlock",
+    "block.MixinMediumRotatedPillarBlock",
+    "block.MixinSmallRotatedPillarBlock"
+  ],
+  "client": [
+    "client.MixinMangoFruitBlock"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -3,12 +3,18 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.concurrent.CompletableFuture;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,6 +33,7 @@ public class RecipeProvider extends FabricRecipeProvider
     @Override
     public void buildRecipes(RecipeOutput output)
     {
+        generateForFOTBlockFamilies(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(output, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
         addWoodenFishPlaqueRecipe(FOTBlocks.OAK_FISH_PLAQUE, Items.OAK_PLANKS, output);
@@ -87,6 +94,27 @@ public class RecipeProvider extends FabricRecipeProvider
         addCookingRecipes(output, 0.45F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
         addCookingRecipes(output, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
         addCookingRecipes(output, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+
+        oneToOneConversionRecipe(output, Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
+        oneToOneConversionRecipe(output, Items.LIGHT_BLUE_DYE, FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
+        oneToOneConversionRecipe(output, Items.WHITE_DYE, FOTBlocks.WHITE_PLUMERIA, "white_dye");
+        oneToOneConversionRecipe(output, Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(output, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
+        woodFromLogs(output, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
+        woodFromLogs(output, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
+        woodFromLogs(output, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);
+        woodFromLogs(output, FOTBlocks.STRIPPED_COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_LOG);
+        woodFromLogs(output, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+        woodFromLogs(output, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+        planksFromLogs(output, FOTBlocks.COCONUT_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
+        woodenBoat(output, FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
+        chestBoat(output, FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
+        hangingSign(output, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
+    }
+
+    private static void generateForFOTBlockFamilies(RecipeOutput output)
+    {
+        FOTBlockFamilies.getAllFamilies().forEach(blockFamily -> generateRecipes(output, blockFamily, FeatureFlagSet.of(FeatureFlags.VANILLA)));
     }
 
     private static void addWoodenFishPlaqueRecipe(Block block, ItemLike baseMaterial, RecipeOutput output)

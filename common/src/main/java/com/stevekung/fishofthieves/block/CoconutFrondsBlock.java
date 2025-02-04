@@ -1,0 +1,296 @@
+package com.stevekung.fishofthieves.block;
+
+import org.jetbrains.annotations.Nullable;
+
+import com.mojang.serialization.MapCodec;
+import com.stevekung.fishofthieves.client.AngledLeavesComponent;
+import com.stevekung.fishofthieves.utils.ParticleUtils;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.utils.CauldronUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock
+{
+    public static final MapCodec<CoconutFrondsBlock> CODEC = simpleCodec(CoconutFrondsBlock::new);
+    public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    private static final VoxelShape BASE = Block.box(0, 12, 0, 16, 15, 16);
+    private static final VoxelShape NOT_MIDDLE = Block.box(0, 9, 0, 16, 15, 16);
+
+    public CoconutFrondsBlock(BlockBehaviour.Properties properties)
+    {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.SINGLE).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
+    {
+        return CODEC;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        {
+            CauldronUtils.fillCauldronFromLeavesTail(state, level, pos);
+        }
+    }
+
+    @Override
+    public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    {
+        return Shapes.empty();
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    {
+        var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
+        return otherState.canBeReplaced();
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        var fluidState = level.getFluidState(pos.relative(state.getValue(FACING)));
+        level.setBlock(pos.relative(state.getValue(FACING)), state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    {
+        var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
+
+        if (state.getValue(WATERLOGGED))
+        {
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+        }
+
+        switch (state.getValue(PART))
+        {
+            case SINGLE ->
+            {
+                // Update leaf to stem state
+                if (otherState.is(this) && otherState.getValue(FACING) == state.getValue(FACING))
+                {
+                    return state.setValue(PART, Part.STEM);
+                }
+            }
+            case STEM ->
+            {
+                // Update leaf to single state if destroyed
+                if (!otherState.is(this))
+                {
+                    return state.setValue(PART, Part.SINGLE);
+                }
+            }
+            case MIDDLE ->
+            {
+                // Update leaf to tail state if destroyed
+                if (!otherState.is(this))
+                {
+                    return state.setValue(PART, Part.TAIL);
+                }
+            }
+            case TAIL ->
+            {
+                // Update leaf to middle state if placing more leaf
+                if (otherState.is(this) && otherState.getValue(FACING) == state.getValue(FACING) && otherState.getValue(PART) == Part.TAIL)
+                {
+                    return state.setValue(PART, Part.MIDDLE);
+                }
+            }
+        }
+        return state.canSurvive(level, pos) ? super.updateShape(state, direction, neighborState, level, pos, neighborPos) : Blocks.AIR.defaultBlockState();
+    }
+
+    @Override
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos)
+    {
+        return Shapes.empty();
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
+    {
+        var otherState = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
+
+        if (otherState.is(this))
+        {
+            return state.getValue(FACING) == otherState.getValue(FACING);
+        }
+        return otherState.is(FOTTags.Blocks.COCONUT_LOGS) || otherState.is(FOTTags.Blocks.SMALL_COCONUT_LOGS) || otherState.is(BlockTags.LEAVES) && otherState.isCollisionShapeFullBlock(level, pos) || otherState.isFaceSturdy(level, pos, state.getValue(FACING));
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
+    {
+        if (level.isRainingAt(pos.above()))
+        {
+            if (random.nextInt(8) == 0)
+            {
+                var direction = state.getValue(FACING);
+
+                switch (state.getValue(PART))
+                {
+                    case MIDDLE ->
+                    {
+                        var blockPos = pos.below();
+                        var blockState = level.getBlockState(blockPos);
+
+                        if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
+                        {
+                            var x = pos.getX() + random.nextDouble();
+                            var y = pos.getY() + 0.75d;
+                            var z = pos.getZ() + random.nextDouble();
+                            level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
+                        }
+                    }
+                    case STEM ->
+                    {
+                        var component = new AngledLeavesComponent(-22.5d, 1d, 0d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), 0.3d, 2, true, true, component);
+                    }
+                    case SINGLE ->
+                    {
+                        var component = new AngledLeavesComponent(-22.5d, 1d, 30d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), -0.1d, 2, false, true, component);
+                    }
+                    case TAIL ->
+                    {
+                        var component = new AngledLeavesComponent(22.5d, 0.9d, 35d);
+                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 8), 0.25d, 4, false, true, component);
+                    }
+                }
+            }
+        }
+    }
+
+    private BlockState placeVerticalLeaves(Direction direction, boolean isWater)
+    {
+        var blockState = FOTBlocks.VERTICAL_COCONUT_FRONDS.defaultBlockState().setValue(VerticalLeavesBlock.WATERLOGGED, isWater);
+        return direction == Direction.DOWN ? blockState.setValue(VerticalLeavesBlock.CEILING, true) : blockState;
+    }
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context)
+    {
+        var fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        var direction = context.getClickedFace();
+        var isWater = fluidState.getType() == Fluids.WATER;
+
+        if (direction.getAxis() == Direction.Axis.Y)
+        {
+            return this.placeVerticalLeaves(direction, isWater);
+        }
+        else
+        {
+            var blockState = this.defaultBlockState().setValue(FACING, direction);
+
+            var otherState = context.getLevel().getBlockState(context.getClickedPos().relative(blockState.getValue(FACING).getOpposite()));
+
+            if (otherState.is(this))
+            {
+                if (otherState.getValue(PART) == Part.SINGLE || otherState.getValue(PART) == Part.TAIL)
+                {
+                    blockState = blockState.setValue(PART, Part.TAIL);
+                }
+            }
+
+            if (blockState.canSurvive(context.getLevel(), context.getClickedPos()))
+            {
+                return blockState.setValue(WATERLOGGED, isWater);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    {
+        if (state.getValue(PART) != Part.MIDDLE)
+        {
+            return NOT_MIDDLE;
+        }
+        return BASE;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder)
+    {
+        builder.add(FACING, PART, WATERLOGGED);
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState state, PathComputationType pathComputationType)
+    {
+        return false;
+    }
+
+    @Override
+    public FluidState getFluidState(BlockState state)
+    {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    public enum Part implements StringRepresentable
+    {
+        SINGLE("single"),
+        STEM("stem"),
+        MIDDLE("middle"),
+        TAIL("tail");
+
+        private final String name;
+
+        Part(String name)
+        {
+            this.name = name;
+        }
+
+        public String toString()
+        {
+            return this.name;
+        }
+
+        @Override
+        public String getSerializedName()
+        {
+            return this.name;
+        }
+    }
+}

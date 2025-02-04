@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "fishofthieves:block/light_blue_plumeria"
+  }
+}

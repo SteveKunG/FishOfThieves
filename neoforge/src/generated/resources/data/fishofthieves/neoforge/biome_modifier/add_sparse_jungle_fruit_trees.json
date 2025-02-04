@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:sparse_jungle",
+  "features": "fishofthieves:sparse_jungle_fruit_trees",
+  "step": "vegetal_decoration"
+}

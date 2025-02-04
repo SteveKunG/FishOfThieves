@@ -1,0 +1,92 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/pomegranate_plant"
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "0|2|3"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/pomegranate_plant_flowering"
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_flowering",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_flowering",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_flowering",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "1"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruiting"
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruiting",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruiting",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruiting",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "2"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruit"
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruit",
+          "y": 90
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruit",
+          "y": 180
+        },
+        {
+          "model": "fishofthieves:block/pomegranate_plant_fruit",
+          "y": 270
+        }
+      ],
+      "when": {
+        "age": "3"
+      }
+    }
+  ]
+}

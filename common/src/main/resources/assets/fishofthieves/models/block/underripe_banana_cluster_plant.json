@@ -1,0 +1,24 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"top": "fishofthieves:block/underripe_banana_cluster_top",
+		"particle": "fishofthieves:block/underripe_banana_cluster_side",
+		"side": "fishofthieves:block/underripe_banana_cluster_side",
+		"bottom": "fishofthieves:block/underripe_banana_cluster_bottom"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 2],
+			"to": [12, 16, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 8, 12], "texture": "#side"},
+				"east": {"uv": [0, 0, 8, 12], "texture": "#side"},
+				"south": {"uv": [0, 0, 8, 12], "texture": "#side"},
+				"west": {"uv": [0, 0, 8, 12], "texture": "#side"},
+				"up": {"uv": [8, 8, 0, 0], "texture": "#top", "cullface": "up"},
+				"down": {"uv": [8, 0, 0, 8], "texture": "#bottom"}
+			}
+		}
+	]
+}

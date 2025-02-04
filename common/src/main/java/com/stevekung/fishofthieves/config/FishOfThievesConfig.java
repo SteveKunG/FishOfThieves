@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.config;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -13,6 +14,10 @@ public final class FishOfThievesConfig implements ConfigData
     @ConfigEntry.Gui.TransitiveObject
     public General general;
 
+    @ConfigEntry.Category("biome")
+    @ConfigEntry.Gui.TransitiveObject
+    public Biome biome;
+
     @ConfigEntry.Category("spawn_rate")
     @ConfigEntry.Gui.TransitiveObject
     public SpawnRate spawnRate;
@@ -20,6 +25,7 @@ public final class FishOfThievesConfig implements ConfigData
     public FishOfThievesConfig()
     {
         this.general = new General();
+        this.biome = new Biome();
         this.spawnRate = new SpawnRate();
     }
 
@@ -44,6 +50,12 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.Tooltip
         public boolean displayTrophySpawnEggInCreativeTab = false;
+    }
+
+    public static class Biome
+    {
+        @ConfigEntry.Gui.RequiresRestart
+        public int tropicalIslandRegionWeight = 8;
     }
 
     public static class SpawnRate

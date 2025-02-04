@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      "fishofthieves:tall_wild_pomegranate",
+      "fishofthieves:wild_pomegranate"
+    ]
+  }
+}
