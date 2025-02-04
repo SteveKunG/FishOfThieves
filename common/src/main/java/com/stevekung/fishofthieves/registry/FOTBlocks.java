@@ -1,15 +1,25 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
-import com.stevekung.fishofthieves.block.FishBoneBlock;
-import com.stevekung.fishofthieves.block.FishPlaqueBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import com.stevekung.fishofthieves.block.*;
+import com.stevekung.fishofthieves.feature.BananaTreeGrower;
+import com.stevekung.fishofthieves.feature.CoconutTreeGrower;
+import com.stevekung.fishofthieves.feature.MangoTreeGrower;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
+@SuppressWarnings("deprecation")
 public class FOTBlocks
 {
     public static final Block FISH_BONE = new FishBoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).pushReaction(PushReaction.DESTROY).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XYZ).sound(SoundType.BONE_BLOCK));
@@ -62,6 +72,88 @@ public class FOTBlocks
     public static final Block GILDED_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
     public static final Block GILDED_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
+    public static final Block SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block GROWABLE_SMALL_COCONUT_LOG = new GrowableCoconutLogBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block TOP_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(() -> SMALL_COCONUT_LOG, BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block SMALL_COCONUT_WOOD = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block MEDIUM_COCONUT_LOG = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_ORANGE : MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.STONE);
+    public static final Block COCONUT_WOOD = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_COCONUT_LOG = log(MapColor.COLOR_ORANGE, MapColor.COLOR_ORANGE);
+    public static final Block STRIPPED_COCONUT_WOOD = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_MEDIUM_COCONUT_LOG = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block STRIPPED_SMALL_COCONUT_WOOD = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_SAPLING = new CoconutSaplingBlock(new CoconutTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    public static final Block COCONUT_FRUIT = new CoconutFruitBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD).strength(1.0F).pushReaction(PushReaction.DESTROY));
+    public static final Block COCONUT_FRONDS = new CoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().ignitedByLava().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BANANA_STEM = new BananaStemBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_GREEN : MapColor.COLOR_BROWN).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block TOP_BANANA_STEM = new GrowableBananaClusterStemBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_GREEN : MapColor.COLOR_BROWN).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block GROWABLE_BANANA_STEM = new GrowableBananaStemBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).randomTicks().noOcclusion().instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block BANANA_LEAVES = new BananaLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().ignitedByLava().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block VERTICAL_BANANA_LEAVES = new VerticalBananaLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block VERTICAL_COCONUT_FRONDS = new VerticalCoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BANANA_SHOOTS_PLANT = new BananaShootsPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.FLOWERING_AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BANANA_BLOSSOM = new BananaBlossomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BANANA_BLOSSOM_PLANT = new BananaBlossomPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block UNDERRIPE_BANANA_CLUSTER_PLANT = new UnderripeBananaClusterPlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BARELY_RIPE_BANANA_CLUSTER_PLANT = new BananaClusterPlantBlock(BananaClusterBlock.Type.BARELY_RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).randomTicks().ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block RIPE_BANANA_CLUSTER_PLANT = new BananaClusterPlantBlock(BananaClusterBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block UNDERRIPE_BANANA_CLUSTER = new BananaClusterBlock(BananaClusterBlock.Type.UNDERRIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block BARELY_RIPE_BANANA_CLUSTER = new BananaClusterBlock(BananaClusterBlock.Type.BARELY_RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().randomTicks().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block RIPE_BANANA_CLUSTER = new BananaClusterBlock(BananaClusterBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).ignitedByLava().noOcclusion().strength(1.0f).sound(SoundType.WOOD).isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block PINEAPPLE_CROP = new PineappleCropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.AZALEA).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.RIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block CROWNLESS_RIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.CROWNLESS, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block UNDERRIPE_PINEAPPLE_BLOCK = new PineappleBlock(PineappleBlock.Type.UNDERRIPE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.6F).sound(SoundType.WOOD).ignitedByLava().noOcclusion().isSuffocating(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    public static final Block MANGO_LEAVES = new MangoLeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion().isValidSpawn(FOTBlocks::ocelotOrParrot).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(FOTBlocks::never));
+    public static final Block MANGO_FRUIT = new MangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().noOcclusion().randomTicks().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
+    public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
+    public static final Block TALL_POMEGRANATE_PLANT = new TallPomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().sound(SoundType.AZALEA).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block PRISMARIZED_LOG = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().emissiveRendering(FOTBlocks::always));
+
+    public static Block PINK_PLUMERIA;
+    public static Block LIGHT_BLUE_PLUMERIA;
+    public static Block WHITE_PLUMERIA;
+    public static Block BANANA_SHOOTS;
+    public static Block MANGO_PIT;
+    public static Block MANGO_SAPLING;
+    public static Block POMEGRANATE_PLANT;
+    public static Block POMEGRANATE_SAPLING;
+    public static Block TROPICAL_RED_FERN;
+    public static Block TROPICAL_MONSTERA;
+
+    public static Block POTTED_PINK_PLUMERIA;
+    public static Block POTTED_LIGHT_BLUE_PLUMERIA;
+    public static Block POTTED_WHITE_PLUMERIA;
+    public static Block POTTED_BANANA_SHOOTS;
+    public static Block POTTED_MANGO_PIT;
+    public static Block POTTED_MANGO_SAPLING;
+    public static Block POTTED_POMEGRANATE_PLANT;
+    public static Block POTTED_POMEGRANATE_SAPLING;
+    public static Block POTTED_TROPICAL_RED_FERN;
+    public static Block POTTED_TROPICAL_MONSTERA;
+
+    public static final Block COCONUT_PLANKS = new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_BUTTON = woodenButton(FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_FENCE = new FenceBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(0.5F).ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_SLAB = new SlabBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sound(SoundType.WOOD).ignitedByLava());
+    public static final Block COCONUT_STAIRS = new StairBlock(COCONUT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.copy(COCONUT_PLANKS));
+    public static final Block COCONUT_TRAPDOOR = new TrapDoorBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).strength(3.0F).noOcclusion().isValidSpawn(FOTBlocks::never).ignitedByLava(), FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_DOOR = new DoorBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).instrument(NoteBlockInstrument.BASS).strength(3.0F).noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY), FOTBlockSetTypes.COCONUT);
+    public static final Block COCONUT_SIGN = new FOTStandingSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_WALL_SIGN = new FOTWallSignBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_HANGING_SIGN = new FOTCeilingHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_WALL_HANGING_SIGN = new FOTWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
+    public static final Block COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
+    public static final Block IRON_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block GOLDEN_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block GILDED_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
+
     public static void init()
     {
         register("fish_bone", FISH_BONE);
@@ -113,10 +205,186 @@ public class FOTBlocks
         register("gilded_bamboo_fish_plaque", GILDED_BAMBOO_FISH_PLAQUE);
         register("gilded_crimson_fish_plaque", GILDED_CRIMSON_FISH_PLAQUE);
         register("gilded_warped_fish_plaque", GILDED_WARPED_FISH_PLAQUE);
+
+        register("coconut_log", COCONUT_LOG);
+        register("coconut_wood", COCONUT_WOOD);
+        register("stripped_coconut_log", STRIPPED_COCONUT_LOG);
+        register("stripped_coconut_wood", STRIPPED_COCONUT_WOOD);
+        register("small_coconut_log", SMALL_COCONUT_LOG);
+        registerNoItem("growable_small_coconut_log", GROWABLE_SMALL_COCONUT_LOG);
+        registerNoItem("top_small_coconut_log", TOP_SMALL_COCONUT_LOG);
+        register("small_coconut_wood", SMALL_COCONUT_WOOD);
+        register("medium_coconut_log", MEDIUM_COCONUT_LOG);
+        register("medium_coconut_wood", MEDIUM_COCONUT_WOOD);
+        register("stripped_medium_coconut_log", STRIPPED_MEDIUM_COCONUT_LOG);
+        register("stripped_medium_coconut_wood", STRIPPED_MEDIUM_COCONUT_WOOD);
+        register("stripped_small_coconut_log", STRIPPED_SMALL_COCONUT_LOG);
+        register("stripped_small_coconut_wood", STRIPPED_SMALL_COCONUT_WOOD);
+        registerNoItem("coconut_sapling", COCONUT_SAPLING);
+        registerNoItem("coconut_fruit", COCONUT_FRUIT);
+        registerNoItem("coconut_fronds", COCONUT_FRONDS);
+        registerNoItem("banana_stem", BANANA_STEM);
+        registerNoItem("top_banana_stem", TOP_BANANA_STEM);
+        registerNoItem("growable_banana_stem", GROWABLE_BANANA_STEM);
+        registerNoItem("banana_leaves", BANANA_LEAVES);
+        registerNoItem("vertical_banana_leaves", VERTICAL_BANANA_LEAVES);
+        registerNoItem("vertical_coconut_fronds", VERTICAL_COCONUT_FRONDS);
+        registerNoItem("banana_shoots_plant", BANANA_SHOOTS_PLANT);
+        registerNoItem("banana_blossom", BANANA_BLOSSOM);
+        registerNoItem("banana_blossom_plant", BANANA_BLOSSOM_PLANT);
+        registerNoItem("underripe_banana_cluster_plant", UNDERRIPE_BANANA_CLUSTER_PLANT);
+        registerNoItem("barely_ripe_banana_cluster_plant", BARELY_RIPE_BANANA_CLUSTER_PLANT);
+        registerNoItem("ripe_banana_cluster_plant", RIPE_BANANA_CLUSTER_PLANT);
+        registerNoItem("underripe_banana_cluster", UNDERRIPE_BANANA_CLUSTER);
+        registerNoItem("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
+        registerNoItem("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
+        registerNoItem("pineapple_crop", PINEAPPLE_CROP);
+        registerNoItem("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
+        registerNoItem("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        registerNoItem("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
+        registerNoItem("mango_leaves", MANGO_LEAVES);
+        registerNoItem("mango_fruit", MANGO_FRUIT);
+        registerNoItem("hanging_mango_fruit", HANGING_MANGO_FRUIT);
+        registerNoItem("tall_pomegranate_plant", TALL_POMEGRANATE_PLANT);
+        register("prismarized_log", PRISMARIZED_LOG);
+
+        register("coconut_planks", COCONUT_PLANKS);
+        register("coconut_button", COCONUT_BUTTON);
+        register("coconut_fence", COCONUT_FENCE);
+        register("coconut_fence_gate", COCONUT_FENCE_GATE);
+        register("coconut_pressure_plate", COCONUT_PRESSURE_PLATE);
+        register("coconut_slab", COCONUT_SLAB);
+        register("coconut_stairs", COCONUT_STAIRS);
+        register("coconut_trapdoor", COCONUT_TRAPDOOR);
+        registerNoItem("coconut_door", COCONUT_DOOR);
+        registerNoItem("coconut_sign", COCONUT_SIGN);
+        registerNoItem("coconut_wall_sign", COCONUT_WALL_SIGN);
+        registerNoItem("coconut_hanging_sign", COCONUT_HANGING_SIGN);
+        registerNoItem("coconut_wall_hanging_sign", COCONUT_WALL_HANGING_SIGN);
+        register("coconut_fish_plaque", COCONUT_FISH_PLAQUE);
+        register("iron_frame_coconut_fish_plaque", IRON_FRAME_COCONUT_FISH_PLAQUE);
+        register("golden_frame_coconut_fish_plaque", GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
+        register("gilded_coconut_fish_plaque", GILDED_COCONUT_FISH_PLAQUE);
+    }
+
+    public static void initFabric()
+    {
+        registerNoItem("pink_plumeria", PINK_PLUMERIA = getPinkPlumeria());
+        registerNoItem("light_blue_plumeria", LIGHT_BLUE_PLUMERIA = getLightBluePlumeria());
+        registerNoItem("white_plumeria", WHITE_PLUMERIA = getWhitePlumeria());
+        registerNoItem("banana_shoots", BANANA_SHOOTS = getBananaShoots());
+        registerNoItem("mango_pit", MANGO_PIT = getMangoPit());
+        registerNoItem("mango_sapling", MANGO_SAPLING = getMangoSapling());
+        registerNoItem("pomegranate_plant", POMEGRANATE_PLANT = getPomegranatePlant());
+        registerNoItem("pomegranate_sapling", POMEGRANATE_SAPLING = getPomegranateSapling());
+        registerNoItem("tropical_red_fern", TROPICAL_RED_FERN = getTropicalRedFern());
+        registerNoItem("tropical_monstera", TROPICAL_MONSTERA = getTropicalMonstera());
+
+        registerNoItem("potted_pink_plumeria", POTTED_PINK_PLUMERIA = flowerPot(PINK_PLUMERIA));
+        registerNoItem("potted_light_blue_plumeria", POTTED_LIGHT_BLUE_PLUMERIA = flowerPot(LIGHT_BLUE_PLUMERIA));
+        registerNoItem("potted_white_plumeria", POTTED_WHITE_PLUMERIA = flowerPot(WHITE_PLUMERIA));
+        registerNoItem("potted_banana_shoots", POTTED_BANANA_SHOOTS = flowerPot(BANANA_SHOOTS));
+        registerNoItem("potted_mango_pit", POTTED_MANGO_PIT = flowerPot(MANGO_PIT));
+        registerNoItem("potted_mango_sapling", POTTED_MANGO_SAPLING = flowerPot(MANGO_SAPLING));
+        registerNoItem("potted_pomegranate_plant", POTTED_POMEGRANATE_PLANT = flowerPot(POMEGRANATE_PLANT));
+        registerNoItem("potted_pomegranate_sapling", POTTED_POMEGRANATE_SAPLING = flowerPot(POMEGRANATE_SAPLING));
+        registerNoItem("potted_tropical_red_fern", POTTED_TROPICAL_RED_FERN = flowerPot(TROPICAL_RED_FERN));
+        registerNoItem("potted_tropical_monstera", POTTED_TROPICAL_MONSTERA = flowerPot(TROPICAL_MONSTERA));
     }
 
     private static void register(String key, Block block)
     {
+        FOTPlatform.registerBlockWithItem(key, block);
+    }
+
+    private static void registerNoItem(String key, Block block)
+    {
         FOTPlatform.registerBlock(key, block);
+    }
+
+    private static FOTRotatedPillarBlock log(MapColor topMapColor, MapColor sideMapColor)
+    {
+        return new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
+    }
+
+    public static FlowerPotBlock flowerPot(Block content)
+    {
+        var properties = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
+        return new FlowerPotBlock(content, properties);
+    }
+
+    private static ButtonBlock woodenButton(BlockSetType setType)
+    {
+        return new ButtonBlock(BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY), setType, 30, true);
+    }
+
+    public static Block getPinkPlumeria()
+    {
+        return new FlowerBlock(MobEffects.REGENERATION, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getLightBluePlumeria()
+    {
+        return new FlowerBlock(MobEffects.MOVEMENT_SPEED, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getWhitePlumeria()
+    {
+        return new FlowerBlock(MobEffects.SLOW_FALLING, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.CHERRY_LEAVES).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getBananaShoots()
+    {
+        return new BananaShootsBlock(new BananaTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).offsetType(BlockBehaviour.OffsetType.XYZ).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getMangoPit()
+    {
+        return new MangoPitBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getMangoSapling()
+    {
+        return new MangoSaplingBlock(new MangoTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getPomegranatePlant()
+    {
+        return new PomegranatePlantBlock(BlockBehaviour.Properties.of().forceSolidOff().mapColor(MapColor.PLANT).randomTicks().sound(SoundType.AZALEA).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getPomegranateSapling()
+    {
+        return new PomegranateSaplingBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().randomTicks().instabreak().sound(SoundType.CHERRY_SAPLING).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getTropicalRedFern()
+    {
+        return new TropicalRedFernBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).mapColor(MapColor.COLOR_RED).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    }
+
+    public static Block getTropicalMonstera()
+    {
+        return new TropicalMonsteraBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).mapColor(MapColor.COLOR_GREEN).ignitedByLava().noCollission().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
+    }
+
+    private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
+    {
+        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+    }
+
+    private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos)
+    {
+        return false;
+    }
+
+    private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
+    {
+        return false;
+    }
+
+    private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos)
+    {
+        return true;
     }
 }

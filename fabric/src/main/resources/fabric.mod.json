@@ -29,6 +29,12 @@
     ],
     "modmenu": [
       "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
+    ],
+    "terrablender": [
+      "com.stevekung.fishofthieves.fabric.terrablender.FishOfThievesTerraBlenderFabric"
+    ],
+    "mm:early_risers": [
+      "com.stevekung.fishofthieves.fabric.asm.EarlyRisers"
     ]
   },
   "mixins": [
@@ -36,7 +42,7 @@
     "mixins.fish_of_thieves_fabric.json"
   ],
   "depends": {
-    "fabricloader": ">=0.15",
+    "fabricloader": ">=0.16",
     "fabric": ">=0.83",
     "cloth-config": ">=11.0",
     "minecraft": ">=1.20"
@@ -50,6 +56,9 @@
     "loom:injected_interfaces": {
       "net/minecraft/class_1422": [
         "com/stevekung/fishofthieves/entity/PartyFish"
+      ],
+      "net/minecraft/class_8109": [
+        "com/stevekung/fishofthieves/damagesource/FOTDamageSources"
       ]
     }
   }

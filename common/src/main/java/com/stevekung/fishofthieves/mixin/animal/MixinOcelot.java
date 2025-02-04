@@ -24,6 +24,6 @@ public class MixinOcelot
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void fishofthieves$addFoods(CallbackInfo info)
     {
-        TEMPT_INGREDIENT = Ingredient.of(ObjectArrays.concat(TEMPT_INGREDIENT.getItems(), FOTEarlyItems.CAT_FOODS, ItemStack.class));
+        TEMPT_INGREDIENT = Ingredient.of(ObjectArrays.concat(TEMPT_INGREDIENT.getItems(), FOTEarlyItems.Cat.CAT_FOODS, ItemStack.class));
     }
 }

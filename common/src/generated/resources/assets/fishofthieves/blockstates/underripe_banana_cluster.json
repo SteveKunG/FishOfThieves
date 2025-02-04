@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "fishofthieves:block/underripe_banana_cluster"
+      },
+      {
+        "model": "fishofthieves:block/underripe_banana_cluster",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/underripe_banana_cluster",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/underripe_banana_cluster",
+        "y": 270
+      }
+    ]
+  }
+}

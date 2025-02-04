@@ -1,0 +1,48 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "equip_pineapple_block": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "equipment": {
+                "head": {
+                  "items": [
+                    "fishofthieves:ripe_pineapple_block",
+                    "fishofthieves:crownless_ripe_pineapple_block",
+                    "fishofthieves:underripe_pineapple_block"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.equip_pineapple_block.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:ripe_pineapple_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.equip_pineapple_block.title"
+    }
+  },
+  "requirements": [
+    [
+      "equip_pineapple_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

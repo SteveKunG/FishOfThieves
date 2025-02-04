@@ -6,6 +6,8 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.*;
+
+import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -180,7 +183,12 @@ public class FOTLootManager
 
     public static LootPool.Builder getOceanRuinsArchaeologyLoot(LootPool.Builder builder)
     {
-        return builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE));
+        return builder
+                .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
+                .add(LootItem.lootTableItem(FOTItems.STORMFISH_POTTERY_SHERD))
+                .add(LootItem.lootTableItem(FOTItems.KRAKEN_POTTERY_SHERD))
+                .add(LootItem.lootTableItem(FOTItems.MEGALODON_POTTERY_SHERD))
+                ;
     }
 
     public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder)
@@ -190,6 +198,41 @@ public class FOTLootManager
 
     public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder)
     {
-        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(FOTTags.Items.COOKED_THIEVES_FISH).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(FOTTags.Items.COOKED_THIEVES_FISH)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+    }
+
+    public static LootPool.Builder getShipwreckSupplyLoot(LootPool.Builder builder)
+    {
+        return builder.setRolls(UniformGenerator.between(1.0F, 3.0F))
+                .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(9)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                .add(LootItem.lootTableItem(FOTItems.COCONUT).setWeight(7)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(5)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(4)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+                .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(2)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F))))
+                ;
+    }
+
+    public static LootPool.Builder getJungleTempleLoot(LootPool.Builder builder)
+    {
+        return builder.setRolls(UniformGenerator.between(1.0F, 2.0F))
+                .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(9)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
+                .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(5)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
+                .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(4)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
+                .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(2)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND)))
+                ;
     }
 }

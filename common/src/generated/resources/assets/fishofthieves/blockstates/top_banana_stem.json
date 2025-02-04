@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "fishofthieves:block/banana_stem_top",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "fishofthieves:block/banana_stem_top"
+    },
+    "axis=z": {
+      "model": "fishofthieves:block/banana_stem_top",
+      "x": 90
+    }
+  }
+}

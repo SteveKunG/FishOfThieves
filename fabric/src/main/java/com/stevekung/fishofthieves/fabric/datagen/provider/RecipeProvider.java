@@ -3,10 +3,14 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -24,6 +28,7 @@ public class RecipeProvider extends FabricRecipeProvider
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer)
     {
+        generateForFOTBlockFamilies(consumer);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), has(FOTBlocks.FISH_BONE)).save(consumer, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
         addWoodenFishPlaqueRecipe(FOTBlocks.OAK_FISH_PLAQUE, Items.OAK_PLANKS, consumer);
@@ -37,6 +42,7 @@ public class RecipeProvider extends FabricRecipeProvider
         addWoodenFishPlaqueRecipe(FOTBlocks.BAMBOO_FISH_PLAQUE, Items.BAMBOO_PLANKS, consumer);
         addWoodenFishPlaqueRecipe(FOTBlocks.CRIMSON_FISH_PLAQUE, Items.CRIMSON_PLANKS, consumer);
         addWoodenFishPlaqueRecipe(FOTBlocks.WARPED_FISH_PLAQUE, Items.WARPED_PLANKS, consumer);
+        addWoodenFishPlaqueRecipe(FOTBlocks.COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, consumer);
 
         addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE, consumer);
         addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, consumer);
@@ -49,6 +55,7 @@ public class RecipeProvider extends FabricRecipeProvider
         addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, consumer);
         addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, consumer);
         addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, consumer);
+        addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE, consumer);
 
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE, consumer);
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, consumer);
@@ -61,6 +68,7 @@ public class RecipeProvider extends FabricRecipeProvider
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, consumer);
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, consumer);
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, consumer);
+        addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE, consumer);
 
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE, consumer);
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, consumer);
@@ -73,6 +81,7 @@ public class RecipeProvider extends FabricRecipeProvider
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, consumer);
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, consumer);
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, consumer);
+        addGildedFishPlaqueRecipe(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE, consumer);
 
         addCookingRecipes(consumer, 0.3F, FOTItems.SPLASHTAIL, FOTItems.COOKED_SPLASHTAIL);
         addCookingRecipes(consumer, 0.25F, FOTItems.PONDIE, FOTItems.COOKED_PONDIE);
@@ -84,6 +93,27 @@ public class RecipeProvider extends FabricRecipeProvider
         addCookingRecipes(consumer, 0.45F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
         addCookingRecipes(consumer, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
         addCookingRecipes(consumer, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+
+        oneToOneConversionRecipe(consumer, Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
+        oneToOneConversionRecipe(consumer, Items.LIGHT_BLUE_DYE, FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
+        oneToOneConversionRecipe(consumer, Items.WHITE_DYE, FOTBlocks.WHITE_PLUMERIA, "white_dye");
+        oneToOneConversionRecipe(consumer, Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(consumer, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
+        woodFromLogs(consumer, FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.STRIPPED_COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+        woodFromLogs(consumer, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+        planksFromLogs(consumer, FOTBlocks.COCONUT_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
+        woodenBoat(consumer, FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
+        chestBoat(consumer, FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
+        hangingSign(consumer, FOTItems.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
+    }
+
+    private static void generateForFOTBlockFamilies(Consumer<FinishedRecipe> consumer)
+    {
+        FOTBlockFamilies.getAllFamilies().forEach(blockFamily -> generateRecipes(consumer, blockFamily));
     }
 
     private static void addWoodenFishPlaqueRecipe(Block block, ItemLike baseMaterial, Consumer<FinishedRecipe> consumer)

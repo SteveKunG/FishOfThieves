@@ -1,7 +1,11 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
@@ -18,16 +22,33 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 public class FOTPlatformImpl
 {
     public static boolean isModLoaded(String modId)
     {
         return FabricLoader.getInstance().isModLoaded(modId);
+    }
+
+    public static void addComposting(Item item, float value)
+    {
+        CompostingChanceRegistry.INSTANCE.add(item, value);
+    }
+
+    public static void addFlammableBlock(Block block, int encouragement, int flammability)
+    {
+        FlammableBlockRegistry.getDefaultInstance().add(block, encouragement, flammability);
     }
 
     public static EntityType<?> getMobInBucketItem(MobBucketItem bucket)
@@ -38,6 +59,11 @@ public class FOTPlatformImpl
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
     {
         return bucket.emptySound;
+    }
+
+    public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
+    {
+        return ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FOT_TROPICAL_ISLAND");
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)
@@ -68,6 +94,11 @@ public class FOTPlatformImpl
     public static void registerBlock(String key, Block block)
     {
         Registry.register(BuiltInRegistries.BLOCK, FishOfThieves.id(key), block);
+    }
+
+    public static void registerBlockWithItem(String key, Block block)
+    {
+        registerBlock(key, block);
         registerItem(key, new BlockItem(block, new Item.Properties()));
     }
 
@@ -94,5 +125,20 @@ public class FOTPlatformImpl
     public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
     {
         Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, FishOfThieves.id(key), type);
+    }
+
+    public static <P extends TreeDecorator> void registerTreeDecoratorType(String key, TreeDecoratorType<P> type)
+    {
+        Registry.register(BuiltInRegistries.TREE_DECORATOR_TYPE, FishOfThieves.id(key), type);
+    }
+
+    public static <P extends FoliagePlacer> void registerFoliagePlacerType(String key, FoliagePlacerType<P> type)
+    {
+        Registry.register(BuiltInRegistries.FOLIAGE_PLACER_TYPE, FishOfThieves.id(key), type);
+    }
+
+    public static <P extends BlockStateProvider> void registerBlockStateProviderType(String key, BlockStateProviderType<P> type)
+    {
+        Registry.register(BuiltInRegistries.BLOCKSTATE_PROVIDER_TYPE, FishOfThieves.id(key), type);
     }
 }

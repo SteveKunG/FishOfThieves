@@ -43,12 +43,15 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_1.19.4:${aquaculture_version}:api"
+    modImplementation "com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}"
+    modRuntimeOnly "maven.modrinth:cyanide:${cyanide_forge_version}"
+
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
-List<String> commonExcludes = [".cache", "**/datagen/", "data/fabric/**", "architectury.common.json"]
+List<String> commonExcludes = [".cache", "data/fabric/**", "*.snbt", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:small_coconut_log",
+    "fishofthieves:small_coconut_wood",
+    "fishofthieves:growable_small_coconut_log",
+    "fishofthieves:top_small_coconut_log",
+    "fishofthieves:stripped_small_coconut_log",
+    "fishofthieves:stripped_small_coconut_wood"
+  ]
+}

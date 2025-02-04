@@ -1,0 +1,39 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "has_ancient_sherds": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:kraken_pottery_sherd",
+              "fishofthieves:megalodon_pottery_sherd"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.ancient_myth.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:megalodon_pottery_sherd"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.ancient_myth.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_ancient_sherds"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -7,3 +7,15 @@ plugins {
 }
 
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/main.gradle"
+
+allprojects {
+    repositories {
+        maven {
+            name = "TerraBlender"
+            url = "https://maven.minecraftforge.net/"
+            content {
+                includeGroup "com.github.glitchfiend"
+            }
+        }
+    }
+}

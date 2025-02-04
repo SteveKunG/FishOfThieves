@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "fishofthieves:wild_pomegranate",
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": "fishofthieves:tall_wild_pomegranate"
+      }
+    ]
+  }
+}

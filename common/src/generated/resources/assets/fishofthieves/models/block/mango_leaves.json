@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "fishofthieves:block/mango_leaves"
+  }
+}

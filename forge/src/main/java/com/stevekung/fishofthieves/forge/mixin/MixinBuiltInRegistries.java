@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTDecoratedPotPatterns;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -16,5 +17,6 @@ public class MixinBuiltInRegistries
     {
         FishOfThieves.LOGGER.warn("This is the stupidest thing I've ever made in Minecraft modding history...");
         FOTRegistry.forge();
+        FOTDecoratedPotPatterns.init();
     }
 }

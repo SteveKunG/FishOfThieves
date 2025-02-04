@@ -3,19 +3,21 @@ package com.stevekung.fishofthieves.forge.proxy;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+
 import com.google.common.collect.Lists;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -35,17 +37,24 @@ public class CommonProxyForge
 {
     public void init()
     {
+        var context = FMLJavaModLoadingContext.get();
         MinecraftForge.EVENT_BUS.register(this);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSpawnPlacement);
+        context.getModEventBus().addListener(this::commonSetup);
+        context.getModEventBus().addListener(this::registerAttributes);
+        context.getModEventBus().addListener(this::registerSpawnPlacement);
     }
 
     public void commonSetup(FMLCommonSetupEvent event)
     {
-        ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.GRUBS, 0.4F);
-        ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
+        event.enqueueWork(() ->
+        {
+            FishOfThieves.initCommon();
+
+            if (FOTPlatform.isModLoaded("terrablender"))
+            {
+                FOTTerraBlender.init();
+            }
+        });
     }
 
     @SubscribeEvent
@@ -99,6 +108,14 @@ public class CommonProxyForge
         else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
         {
             table.addPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()).build());
+        }
+        else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
+        {
+            table.addPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()).build());
+        }
+        else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
+        {
+            table.addPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool()).build());
         }
         // Archaeology
         else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))

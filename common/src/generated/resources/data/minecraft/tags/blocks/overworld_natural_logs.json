@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:coconut_log",
+    "fishofthieves:small_coconut_log",
+    "fishofthieves:growable_small_coconut_log",
+    "fishofthieves:top_small_coconut_log",
+    "fishofthieves:medium_coconut_log",
+    "#fishofthieves:banana_stems"
+  ]
+}

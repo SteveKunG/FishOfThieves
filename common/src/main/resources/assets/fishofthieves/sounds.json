@@ -709,5 +709,29 @@
       }
     ],
     "subtitle": "subtitles.item.axe.wax_off"
+  },
+  "block.pineapple.shear": {
+    "sounds": [
+      "mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
+  "block.pomegranate_plant.pick_pomegranates": {
+    "sounds": [
+      {
+        "name": "block.sweet_berry_bush.pick_berries",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.block.pomegranate_plant.pick_pomegranates"
+  },
+  "item.pomegranate.crush": {
+    "sounds": [
+      {
+        "name": "block.sniffer_egg.plop",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.item.pomegranate.crush"
   }
 }

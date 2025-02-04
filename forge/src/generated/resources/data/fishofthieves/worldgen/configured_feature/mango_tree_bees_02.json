@@ -1,0 +1,129 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "fishofthieves:randomized_int_boolean_state_provider",
+          "boolean_chance": 0.6,
+          "boolean_property": "falling",
+          "integer_property": "age",
+          "integer_values": {
+            "type": "minecraft:uniform",
+            "value": {
+              "max_inclusive": 2,
+              "min_inclusive": 0
+            }
+          },
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "fishofthieves:hanging_mango_fruit",
+              "Properties": {
+                "age": "0",
+                "falling": "false"
+              }
+            }
+          }
+        },
+        "directions": [
+          "down"
+        ],
+        "exclusion_radius_xz": 2,
+        "exclusion_radius_y": 0,
+        "probability": 0.1,
+        "required_empty_blocks": 2
+      },
+      {
+        "type": "fishofthieves:directional_attached_to_leaves",
+        "block_provider": {
+          "boolean_chance": 0.6,
+          "boolean_property": "falling",
+          "direction_property": "facing",
+          "integer_property": "age",
+          "integer_values": {
+            "type": "minecraft:uniform",
+            "value": {
+              "max_inclusive": 2,
+              "min_inclusive": 0
+            }
+          },
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "fishofthieves:mango_fruit",
+              "Properties": {
+                "age": "0",
+                "facing": "north",
+                "falling": "false"
+              }
+            }
+          }
+        },
+        "directions": [
+          "north",
+          "east",
+          "south",
+          "west"
+        ],
+        "exclusion_radius_xz": 1,
+        "exclusion_radius_y": 1,
+        "opposite": true,
+        "probability": 0.5,
+        "required_empty_blocks": 1
+      },
+      {
+        "type": "minecraft:beehive",
+        "probability": 0.2
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:fancy_foliage_placer",
+      "height": 4,
+      "offset": 4,
+      "radius": 3
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "fishofthieves:mango_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 0,
+      "lower_size": 0,
+      "min_clipped_height": 4,
+      "upper_size": 0
+    },
+    "trunk_placer": {
+      "type": "minecraft:fancy_trunk_placer",
+      "base_height": 5,
+      "height_rand_a": 11,
+      "height_rand_b": 0
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

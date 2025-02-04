@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "fishofthieves:block/underripe_pineapple_block"
+      },
+      {
+        "model": "fishofthieves:block/underripe_pineapple_block",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/underripe_pineapple_block",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/underripe_pineapple_block",
+        "y": 270
+      }
+    ]
+  }
+}

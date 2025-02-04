@@ -2,11 +2,11 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.item.FOTItem;
-import com.stevekung.fishofthieves.item.FOTMobBucketItem;
-import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
+import com.stevekung.fishofthieves.item.*;
+
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
@@ -59,6 +59,52 @@ public class FOTItems
     public static final Item WRECKER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties());
     public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties());
 
+    public static final Item COCONUT = new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT));
+    public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
+    public static final Item HALF_PINEAPPLE = new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE));
+    public static final Item PINEAPPLE = new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE));
+    public static final Item CROWNLESS_PINEAPPLE = new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE));
+    public static final Item PINEAPPLE_SEEDS = new PineappleBlockItem(false, new Item.Properties());
+    public static final Item PINEAPPLE_CROWN = new PineappleBlockItem(true, new Item.Properties());
+    public static final Item MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO));
+    public static final Item RAW_MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO));
+    public static final Item POMEGRANATE = new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE));
+
+    public static final Item STORMFISH_POTTERY_SHERD = new Item(new Item.Properties());
+    public static final Item KRAKEN_POTTERY_SHERD = new Item(new Item.Properties());
+    public static final Item MEGALODON_POTTERY_SHERD = new Item(new Item.Properties());
+
+    public static final Item COCONUT_SIGN = new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
+    public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
+    public static final Item COCONUT_BOAT = new BoatItem(false, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
+    public static final Item COCONUT_CHEST_BOAT = new BoatItem(true, FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1));
+    public static final Item COCONUT_DOOR = new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, new Item.Properties());
+
+    // Forge being stupid again...
+    public static Item PINK_PLUMERIA;
+    public static Item LIGHT_BLUE_PLUMERIA;
+    public static Item WHITE_PLUMERIA;
+    public static Item BANANA_SHOOTS;
+    public static Item MANGO_PIT;
+    public static Item MANGO_SAPLING;
+    public static Item POMEGRANATE_PLANT;
+    public static Item TALL_POMEGRANATE_PLANT;
+    public static Item POMEGRANATE_SEEDS;
+    public static Item TROPICAL_RED_FERN;
+    public static Item TROPICAL_MONSTERA;
+
+    public static final Item COCONUT_FRONDS = blockItem(FOTBlocks.COCONUT_FRONDS);
+    public static final Item BANANA_LEAVES = blockItem(FOTBlocks.BANANA_LEAVES);
+    public static final Item BANANA_BLOSSOM = blockItem(FOTBlocks.BANANA_BLOSSOM);
+    public static final Item UNDERRIPE_BANANA_CLUSTER = blockItem(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+    public static final Item BARELY_RIPE_BANANA_CLUSTER = blockItem(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+    public static final Item RIPE_BANANA_CLUSTER = blockItem(FOTBlocks.RIPE_BANANA_CLUSTER);
+    public static final Item BANANA_STEM = blockItem(FOTBlocks.BANANA_STEM);
+    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
+    public static final Item RIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
+    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = blockItem(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+    public static final Item MANGO_LEAVES = blockItem(FOTBlocks.MANGO_LEAVES);
+
     public static void init()
     {
         register("earthworms", EARTHWORMS);
@@ -107,6 +153,59 @@ public class FOTItems
         register("battlegill_spawn_egg", BATTLEGILL_SPAWN_EGG);
         register("wrecker_spawn_egg", WRECKER_SPAWN_EGG);
         register("stormfish_spawn_egg", STORMFISH_SPAWN_EGG);
+
+        register("coconut", COCONUT);
+        register("banana", BANANA);
+        register("half_pineapple", HALF_PINEAPPLE);
+        register("pineapple", PINEAPPLE);
+        register("crownless_pineapple", CROWNLESS_PINEAPPLE);
+        register("pineapple_seeds", PINEAPPLE_SEEDS);
+        register("pineapple_crown", PINEAPPLE_CROWN);
+        register("mango", MANGO);
+        register("raw_mango", RAW_MANGO);
+        register("pomegranate", POMEGRANATE);
+
+        register("stormfish_pottery_sherd", STORMFISH_POTTERY_SHERD);
+        register("kraken_pottery_sherd", KRAKEN_POTTERY_SHERD);
+        register("megalodon_pottery_sherd", MEGALODON_POTTERY_SHERD);
+
+        register("coconut_sign", COCONUT_SIGN);
+        register("coconut_hanging_sign", COCONUT_HANGING_SIGN);
+        register("coconut_boat", COCONUT_BOAT);
+        register("coconut_chest_boat", COCONUT_CHEST_BOAT);
+        register("coconut_door", COCONUT_DOOR);
+
+        register("coconut_fronds", COCONUT_FRONDS);
+        register("banana_leaves", BANANA_LEAVES);
+        register("banana_blossom", BANANA_BLOSSOM);
+        register("underripe_banana_cluster", UNDERRIPE_BANANA_CLUSTER);
+        register("barely_ripe_banana_cluster", BARELY_RIPE_BANANA_CLUSTER);
+        register("ripe_banana_cluster", RIPE_BANANA_CLUSTER);
+        register("banana_stem", BANANA_STEM);
+        register("underripe_pineapple_block", UNDERRIPE_PINEAPPLE_BLOCK);
+        register("ripe_pineapple_block", RIPE_PINEAPPLE_BLOCK);
+        register("crownless_ripe_pineapple_block", CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        register("mango_leaves", MANGO_LEAVES);
+    }
+
+    public static void initFabric()
+    {
+        register("pink_plumeria", PINK_PLUMERIA = blockItem(FOTBlocks.PINK_PLUMERIA));
+        register("light_blue_plumeria", LIGHT_BLUE_PLUMERIA = blockItem(FOTBlocks.LIGHT_BLUE_PLUMERIA));
+        register("white_plumeria", WHITE_PLUMERIA = blockItem(FOTBlocks.WHITE_PLUMERIA));
+        register("banana_shoots", BANANA_SHOOTS = blockItem(FOTBlocks.BANANA_SHOOTS));
+        register("mango_pit", MANGO_PIT = new ItemNameBlockItem(FOTBlocks.MANGO_PIT, new Item.Properties()));
+        register("mango_sapling", MANGO_SAPLING = blockItem(FOTBlocks.MANGO_SAPLING));
+        register("pomegranate_plant", POMEGRANATE_PLANT = blockItem(FOTBlocks.POMEGRANATE_PLANT));
+        register("tall_pomegranate_plant", TALL_POMEGRANATE_PLANT = new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
+        register("pomegranate_seeds", POMEGRANATE_SEEDS = new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
+        register("tropical_red_fern", TROPICAL_RED_FERN = blockItem(FOTBlocks.TROPICAL_RED_FERN));
+        register("tropical_monstera", TROPICAL_MONSTERA = blockItem(FOTBlocks.TROPICAL_MONSTERA));
+    }
+
+    public static Item blockItem(Block block)
+    {
+        return new BlockItem(block, new Item.Properties());
     }
 
     private static void register(String key, Item item)

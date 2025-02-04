@@ -11,15 +11,34 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 public class FOTPlatform
 {
     @ExpectPlatform
     public static boolean isModLoaded(String modId)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void addComposting(Item item, float value)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void addFlammableBlock(Block block, int encouragement, int flammability)
     {
         throw new AssertionError();
     }
@@ -32,6 +51,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static SoundEvent getEmptySoundInBucketItem(MobBucketItem bucket)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
     {
         throw new AssertionError();
     }
@@ -73,6 +98,12 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static void registerBlockWithItem(String key, Block block)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static void registerItem(String key, Item item)
     {
         throw new AssertionError();
@@ -98,6 +129,24 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerMemoryModuleType(String key, MemoryModuleType<?> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <P extends TreeDecorator> void registerTreeDecoratorType(String key, TreeDecoratorType<P> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <P extends FoliagePlacer> void registerFoliagePlacerType(String key, FoliagePlacerType<P> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <P extends BlockStateProvider> void registerBlockStateProviderType(String key, BlockStateProviderType<P> type)
     {
         throw new AssertionError();
     }

@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -28,6 +29,8 @@ public interface FOTTags
         TagKey<Item> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("iron_frame_fish_plaque"));
         TagKey<Item> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("gilded_frame_fish_plaque"));
+        TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
+        TagKey<Item> BANANA_CLUSTERS = TagKey.create(Registries.ITEM, FishOfThieves.id("banana_clusters"));
     }
 
     interface Blocks
@@ -45,6 +48,14 @@ public interface FOTTags
         TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("iron_frame_fish_plaque"));
         TagKey<Block> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Block> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("gilded_frame_fish_plaque"));
+        TagKey<Block> NON_FULL_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("non_full_logs"));
+        TagKey<Block> COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_logs"));
+        TagKey<Block> SMALL_COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("small_coconut_logs"));
+        TagKey<Block> BANANA_STEMS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_stems"));
+        TagKey<Block> BANANA_CLUSTER_PLANTS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_cluster_plants"));
+        TagKey<Block> BANANA_CLUSTERS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_clusters"));
+        TagKey<Block> BANANA_SHOOTS_PLACEABLE_ON = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_shoots_placeable_on"));
+        TagKey<Block> MANGO_FRUITS = TagKey.create(Registries.BLOCK, FishOfThieves.id("mango_fruits"));
     }
 
     interface EntityTypes
@@ -106,5 +117,10 @@ public interface FOTTags
         TagKey<BattlegillVariant> DEFAULT_BATTLEGILL_SPAWNS = TagKey.create(FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, FishOfThieves.id("default_battlegill_spawns"));
         TagKey<WreckerVariant> DEFAULT_WRECKER_SPAWNS = TagKey.create(FOTRegistries.WRECKER_VARIANT_REGISTRY, FishOfThieves.id("default_wrecker_spawns"));
         TagKey<StormfishVariant> DEFAULT_STORMFISH_SPAWNS = TagKey.create(FOTRegistries.STORMFISH_VARIANT_REGISTRY, FishOfThieves.id("default_stormfish_spawns"));
+    }
+
+    interface DamageTypes
+    {
+        TagKey<DamageType> IS_MANGO = TagKey.create(Registries.DAMAGE_TYPE, FishOfThieves.id("is_mango"));
     }
 }

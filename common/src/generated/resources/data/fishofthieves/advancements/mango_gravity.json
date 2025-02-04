@@ -1,0 +1,44 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "mango_gravity": {
+      "conditions": {
+        "damage": {
+          "type": {
+            "source_entity": {
+              "type": "minecraft:falling_block"
+            },
+            "tags": [
+              {
+                "expected": true,
+                "id": "fishofthieves:is_mango"
+              }
+            ]
+          }
+        }
+      },
+      "trigger": "minecraft:entity_hurt_player"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.mango_gravity.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "fishofthieves:mango"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.mango_gravity.title"
+    }
+  },
+  "requirements": [
+    [
+      "mango_gravity"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

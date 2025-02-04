@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coconut_fish_plaque": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishofthieves:coconut_fish_plaque"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fishofthieves:gilded_coconut_fish_plaque"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_coconut_fish_plaque",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fishofthieves:gilded_coconut_fish_plaque"
+    ]
+  },
+  "sends_telemetry_event": false
+}

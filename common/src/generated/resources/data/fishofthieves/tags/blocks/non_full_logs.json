@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#fishofthieves:small_coconut_logs",
+    "#fishofthieves:banana_stems",
+    "fishofthieves:medium_coconut_log",
+    "fishofthieves:medium_coconut_wood",
+    "fishofthieves:stripped_medium_coconut_log",
+    "fishofthieves:stripped_medium_coconut_wood"
+  ]
+}

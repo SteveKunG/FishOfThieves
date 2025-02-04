@@ -4,13 +4,14 @@ import java.util.function.BiConsumer;
 
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.function.SetRandomFireworkFunction;
+import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.StructureTags;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.functions.SetStewEffectFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -38,26 +38,22 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(UniformGenerator.between(4.0F, 12.0F))
-                        .add(LootItem.lootTableItem(Items.SUSPICIOUS_STEW).setWeight(10)
-                                .apply(SetStewEffectFunction.stewEffect()
-                                        .withEffect(MobEffects.NIGHT_VISION, UniformGenerator.between(7.0F, 10.0F))
-                                        .withEffect(MobEffects.JUMP, UniformGenerator.between(7.0F, 10.0F))
-                                        .withEffect(MobEffects.WEAKNESS, UniformGenerator.between(6.0F, 8.0F))
-                                        .withEffect(MobEffects.BLINDNESS, UniformGenerator.between(5.0F, 7.0F))
-                                        .withEffect(MobEffects.POISON, UniformGenerator.between(10.0F, 20.0F))
-                                        .withEffect(MobEffects.SATURATION, UniformGenerator.between(7.0F, 10.0F))))
-                        .add(LootItem.lootTableItem(Items.APPLE).setWeight(9)
+                        .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(12)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))))
-                        .add(LootItem.lootTableItem(Items.CARROT).setWeight(9)
+                        .add(LootItem.lootTableItem(FOTItems.COCONUT).setWeight(10)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
-                        .add(LootItem.lootTableItem(Items.POTATO).setWeight(9)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
-                        .add(LootItem.lootTableItem(Items.OAK_LOG).setWeight(8)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
-                        .add(LootItem.lootTableItem(Items.BAMBOO).setWeight(7)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 24.0F))))
+                        .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(8)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                        .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(5)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F))))
+                        .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(3)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+                        .add(LootItem.lootTableItem(Items.OAK_PLANKS).setWeight(8)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))))
                         .add(TagEntry.expandTag(FOTTags.Items.WORMS).setWeight(5)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
+                        .add(LootItem.lootTableItem(Items.OAK_LOG).setWeight(2)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
                         .add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
                         .add(LootItem.lootTableItem(Items.MAP)

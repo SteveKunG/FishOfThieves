@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "fishofthieves:block/coconut_log",
+    "side": "fishofthieves:block/coconut_log"
+  }
+}

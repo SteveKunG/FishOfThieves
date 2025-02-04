@@ -39,6 +39,10 @@ public class FOTSoundEvents
 
     public static final SoundEvent FISH_PLAQUE_ROTATE = create("block.fish_plaque.rotate");
     public static final SoundEvent FISH_PLAQUE_WAX_OFF = create("block.fish_plaque.wax_off");
+    public static final SoundEvent PINEAPPLE_SHEAR = create("block.pineapple.shear");
+    public static final SoundEvent POMEGRANATE_PLANT_PICK = create("block.pomegranate_plant.pick_pomegranates");
+
+    public static final SoundEvent CRUSH_POMEGRANATE = create("item.pomegranate.crush");
 
     public static void init()
     {
@@ -74,6 +78,9 @@ public class FOTSoundEvents
         register(STORMFISH_HURT);
         register(FISH_PLAQUE_ROTATE);
         register(FISH_PLAQUE_WAX_OFF);
+        register(PINEAPPLE_SHEAR);
+        register(POMEGRANATE_PLANT_PICK);
+        register(CRUSH_POMEGRANATE);
     }
 
     private static SoundEvent create(String key)

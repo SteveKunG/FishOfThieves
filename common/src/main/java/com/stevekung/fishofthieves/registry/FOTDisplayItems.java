@@ -7,58 +7,8 @@ import net.minecraft.world.item.CreativeModeTab;
 
 public class FOTDisplayItems
 {
-    public static void displayItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
+    public static void displayFishItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
     {
-        output.accept(FOTBlocks.FISH_BONE);
-
-        output.accept(FOTBlocks.OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.SPRUCE_FISH_PLAQUE);
-        output.accept(FOTBlocks.BIRCH_FISH_PLAQUE);
-        output.accept(FOTBlocks.JUNGLE_FISH_PLAQUE);
-        output.accept(FOTBlocks.ACACIA_FISH_PLAQUE);
-        output.accept(FOTBlocks.DARK_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.MANGROVE_FISH_PLAQUE);
-        output.accept(FOTBlocks.CHERRY_FISH_PLAQUE);
-        output.accept(FOTBlocks.BAMBOO_FISH_PLAQUE);
-        output.accept(FOTBlocks.CRIMSON_FISH_PLAQUE);
-        output.accept(FOTBlocks.WARPED_FISH_PLAQUE);
-
-        output.accept(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
-        output.accept(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
-
-        output.accept(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
-        output.accept(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
-
-        output.accept(FOTBlocks.GILDED_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
-        output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
-
         output.accept(FOTItems.EARTHWORMS);
         output.accept(FOTItems.GRUBS);
         output.accept(FOTItems.LEECHES);
@@ -105,5 +55,127 @@ public class FOTDisplayItems
         FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.BATTLEGILL_SPAWN_EGG);
         FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WRECKER_SPAWN_EGG);
         FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.STORMFISH_SPAWN_EGG);
+    }
+
+    public static void displayMainItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)
+    {
+        output.accept(FOTBlocks.COCONUT_LOG);
+        output.accept(FOTBlocks.COCONUT_WOOD);
+        output.accept(FOTBlocks.MEDIUM_COCONUT_LOG);
+        output.accept(FOTBlocks.MEDIUM_COCONUT_WOOD);
+        output.accept(FOTBlocks.SMALL_COCONUT_LOG);
+        output.accept(FOTBlocks.SMALL_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+        output.accept(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+        output.accept(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+        output.accept(FOTBlocks.COCONUT_PLANKS);
+        output.accept(FOTBlocks.COCONUT_STAIRS);
+        output.accept(FOTBlocks.COCONUT_SLAB);
+        output.accept(FOTBlocks.COCONUT_FENCE);
+        output.accept(FOTBlocks.COCONUT_FENCE_GATE);
+        output.accept(FOTItems.COCONUT_DOOR);
+        output.accept(FOTBlocks.COCONUT_TRAPDOOR);
+        output.accept(FOTBlocks.COCONUT_PRESSURE_PLATE);
+        output.accept(FOTBlocks.COCONUT_BUTTON);
+        output.accept(FOTItems.COCONUT_SIGN);
+        output.accept(FOTItems.COCONUT_HANGING_SIGN);
+        output.accept(FOTItems.COCONUT_BOAT);
+        output.accept(FOTItems.COCONUT_CHEST_BOAT);
+        output.accept(FOTBlocks.COCONUT_FRONDS);
+        output.accept(FOTBlocks.BANANA_STEM);
+        output.accept(FOTBlocks.BANANA_LEAVES);
+        output.accept(FOTBlocks.BANANA_SHOOTS);
+        output.accept(FOTBlocks.BANANA_BLOSSOM);
+        output.accept(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        output.accept(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        output.accept(FOTBlocks.RIPE_BANANA_CLUSTER);
+        output.accept(FOTItems.PINEAPPLE_SEEDS);
+        output.accept(FOTItems.PINEAPPLE_CROWN);
+        output.accept(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
+        output.accept(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
+        output.accept(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+        output.accept(FOTBlocks.MANGO_LEAVES);
+        output.accept(FOTItems.MANGO_PIT);
+        output.accept(FOTBlocks.MANGO_SAPLING);
+        output.accept(FOTBlocks.POMEGRANATE_PLANT);
+        output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);
+        output.accept(FOTItems.POMEGRANATE_SEEDS);
+        output.accept(FOTBlocks.PRISMARIZED_LOG);
+
+        output.accept(FOTBlocks.PINK_PLUMERIA);
+        output.accept(FOTBlocks.LIGHT_BLUE_PLUMERIA);
+        output.accept(FOTBlocks.WHITE_PLUMERIA);
+        output.accept(FOTBlocks.TROPICAL_RED_FERN);
+        output.accept(FOTBlocks.TROPICAL_MONSTERA);
+
+        output.accept(FOTBlocks.FISH_BONE);
+
+        output.accept(FOTBlocks.OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.CHERRY_FISH_PLAQUE);
+        output.accept(FOTBlocks.BAMBOO_FISH_PLAQUE);
+        output.accept(FOTBlocks.CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.COCONUT_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
+
+        output.accept(FOTBlocks.GILDED_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+        output.accept(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+
+        output.accept(FOTItems.COCONUT);
+        output.accept(FOTItems.BANANA);
+        output.accept(FOTItems.PINEAPPLE);
+        output.accept(FOTItems.CROWNLESS_PINEAPPLE);
+        output.accept(FOTItems.HALF_PINEAPPLE);
+        output.accept(FOTItems.MANGO);
+        output.accept(FOTItems.RAW_MANGO);
+        output.accept(FOTItems.POMEGRANATE);
+
+        output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
+        output.accept(FOTItems.KRAKEN_POTTERY_SHERD);
+        output.accept(FOTItems.MEGALODON_POTTERY_SHERD);
     }
 }
