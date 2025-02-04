@@ -8,8 +8,11 @@ import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
 import com.stevekung.fishofthieves.registry.*;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -91,6 +94,11 @@ public class FishOfThievesNeoForge
         event.register(Registries.STRUCTURE_TYPE, helper -> FOTStructures.init());
         event.register(Registries.LOOT_CONDITION_TYPE, helper -> FOTLootItemConditions.init());
         event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
+        event.register(Registries.CREATIVE_MODE_TAB, helper ->
+        {
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_MAIN, FishOfThieves.getMainCreativeTabBuilder(CreativeModeTab.builder()).build());
+            Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_FISH, FishOfThieves.getFishCreativeTabBuilder(CreativeModeTab.builder()).build());
+        });
         event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
         event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, helper -> FOTEntitySubPredicate.init());
         event.register(Registries.ITEM_SUB_PREDICATE_TYPE, helper -> FOTItemSubPredicates.init());
