@@ -20,7 +20,14 @@ public class MixinBoatRenderer
     {
         if (type == FOTBoatTypes.COCONUT)
         {
-            info.setReturnValue(FishOfThieves.id("textures/entity/boat/" + type.getName() + ".png"));
+            if (chestBoat)
+            {
+                info.setReturnValue(FishOfThieves.id("textures/entity/chest_boat/" + type.getName() + ".png"));
+            }
+            else
+            {
+                info.setReturnValue(FishOfThieves.id("textures/entity/boat/" + type.getName() + ".png"));
+            }
         }
     }
 }

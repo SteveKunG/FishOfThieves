@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTBoatTypes;
@@ -25,7 +23,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 @Mixin(Boat.class)
 public class MixinBoat
@@ -37,16 +34,6 @@ public class MixinBoat
         {
             info.setReturnValue(FOTItems.COCONUT_BOAT);
         }
-    }
-
-    @WrapOperation(method = "checkFallDamage", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/vehicle/Boat$Type.getPlanks()Lnet/minecraft/world/level/block/Block;"))
-    private Block fishofthieves$getBoatPlanksDrop(Boat.Type boatType, Operation<Block> operation)
-    {
-        if (boatType == FOTBoatTypes.COCONUT)
-        {
-            return FOTBlocks.COCONUT_PLANKS;
-        }
-        return operation.call(boatType);
     }
 
     @SuppressWarnings("deprecation")
@@ -78,7 +65,7 @@ public class MixinBoat
         @Inject(method = "<clinit>", at = @At("TAIL"))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
-            var entry = create("FOT_COCONUT", $VALUES.length, Blocks.OAK_PLANKS, "coconut"); // Forge is always weird, so using oak planks as temporary instead.
+            var entry = create("FOT_COCONUT", $VALUES.length, FOTBlocks.COCONUT_PLANKS, "coconut");
             $VALUES = ArrayUtils.add($VALUES, entry);
 
             // Re-initialize
