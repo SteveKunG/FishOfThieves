@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.registry.FOTDecoratedPotPatterns;
 import com.stevekung.fishofthieves.registry.FOTWoodTypes;
 
 import net.minecraft.client.renderer.Sheets;
@@ -39,7 +38,7 @@ public class MixinSheets
     @Inject(method = "createDecoratedPotMaterial", cancellable = true, at = @At("HEAD"))
     private static void fishofthieves$createDecoratedPotMaterial(ResourceKey<String> key, CallbackInfoReturnable<Material> info)
     {
-        if (key.equals(FOTDecoratedPotPatterns.STORMFISH))
+        if (key.location().getNamespace().equals(FishOfThieves.MOD_ID))
         {
             info.setReturnValue(new Material(Sheets.DECORATED_POT_SHEET, FishOfThieves.id(DecoratedPotPatterns.location(key).getPath())));
         }
