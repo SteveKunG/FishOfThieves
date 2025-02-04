@@ -21,12 +21,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("croptopia", "fishes"));
 
     // Forge
-    private static final TagKey<Item> FORGE_RAW_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "raw_fishes"));
-    private static final TagKey<Item> FORGE_COOKED_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "cooked_fishes"));
-    private static final TagKey<Item> FORGE_CROPS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "crops"));
-    private static final TagKey<Item> FORGE_SEEDS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "seeds"));
-    private static final TagKey<Item> FORGE_FRUITS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "fruits"));
-    private static final TagKey<Item> FORGE_FRUITS_SWEET = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("forge", "fruits/sweet"));
+    private static final TagKey<Item> C_SEEDS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "seeds"));
+    private static final TagKey<Item> C_FRUITS_SWEET = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "fruits/sweet"));
 
     public ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider)
     {
@@ -100,12 +96,10 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         // Croptopia compatibility
         this.getOrCreateTagBuilder(CROPTOPIA_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
 
-        // Forge
-        this.getOrCreateTagBuilder(FORGE_RAW_FISHES).add(rawFishes);
-        this.getOrCreateTagBuilder(FORGE_COOKED_FISHES).add(cookedFishes);
-        this.getOrCreateTagBuilder(FORGE_CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
-        this.getOrCreateTagBuilder(FORGE_SEEDS).add(FOTItems.MANGO_PIT, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
-        this.getOrCreateTagBuilder(FORGE_FRUITS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
-        this.getOrCreateTagBuilder(FORGE_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE);
+        // NeoForge
+        this.getOrCreateTagBuilder(ConventionalItemTags.CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(C_SEEDS).add(FOTItems.MANGO_PIT, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
+        this.getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(C_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE);
     }
 }

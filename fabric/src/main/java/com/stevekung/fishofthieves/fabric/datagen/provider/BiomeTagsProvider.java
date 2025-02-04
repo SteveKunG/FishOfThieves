@@ -18,8 +18,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public class BiomeTagsProvider extends FabricTagProvider<Biome>
 {
-    private static final TagKey<Biome> FORGE_IS_SPARSE_OVERWORLD = forgeTag("is_sparse/overworld");
-    private static final TagKey<Biome> FORGE_IS_LUSH = forgeTag("is_lush");
+    private static final TagKey<Biome> C_IS_LUSH = cTag("is_lush");
 
     public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
@@ -49,16 +48,15 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLAND);
 
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_TEMPERATE).add(FOTBiomes.TROPICAL_ISLAND);
-        this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_VEGETATION_SPARSE).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_TEMPERATE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_VEGETATION_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_JUNGLE_TREE).add(FOTBiomes.TROPICAL_ISLAND);
 
-        this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
-        this.getOrCreateTagBuilder(FORGE_IS_LUSH).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(C_IS_LUSH).add(FOTBiomes.TROPICAL_ISLAND);
     }
 
-    private static TagKey<Biome> forgeTag(String name)
+    private static TagKey<Biome> cTag(String name)
     {
-        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("forge", name));
+        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("c", name));
     }
 }
