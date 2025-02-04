@@ -70,8 +70,8 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
         {
             box.encapsulate(boundingBox);
             super.postProcess(level, structureManager, generator, random, box, chunkPos, pos);
-            this.spreadNetherrack(random, level);
-            this.addNetherrackDripColumnsBelowPortal(random, level);
+            this.spreadPrismarine(random, level);
+            this.addPrismarineDripColumnsBelow(random, level);
         }
     }
 
@@ -84,7 +84,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
         }
     }
 
-    private void addNetherrackDripColumnsBelowPortal(RandomSource random, LevelAccessor level)
+    private void addPrismarineDripColumnsBelow(RandomSource random, LevelAccessor level)
     {
         for (var i = this.boundingBox.minX() + 1; i < this.boundingBox.maxX(); i++)
         {
@@ -114,7 +114,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
         }
     }
 
-    private void spreadNetherrack(RandomSource random, LevelAccessor level)
+    private void spreadPrismarine(RandomSource random, LevelAccessor level)
     {
         var blockPos = this.boundingBox.getCenter();
         var i = blockPos.getX();
