@@ -78,7 +78,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : state;
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
