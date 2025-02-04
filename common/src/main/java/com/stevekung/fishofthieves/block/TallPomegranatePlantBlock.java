@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -27,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -115,7 +115,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        var growthSpeed = CropBlock.getGrowthSpeed(this, level, pos);
+        var growthSpeed = FOTPlatform.getGrowthSpeedFromCropBlock(this.defaultBlockState(), level, pos);
 
         if (random.nextInt((int) (25.0F / growthSpeed) + 1) == 0)
         {

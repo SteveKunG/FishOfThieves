@@ -20,7 +20,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("croptopia", "fishes"));
 
-    // Forge
+    // Common
     private static final TagKey<Item> C_SEEDS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "seeds"));
     private static final TagKey<Item> C_FRUITS_SWEET = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "fruits/sweet"));
 

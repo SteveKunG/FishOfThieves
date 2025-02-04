@@ -4,6 +4,7 @@ import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -207,7 +208,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        var growthSpeed = CropBlock.getGrowthSpeed(this, level, pos);
+        var growthSpeed = FOTPlatform.getGrowthSpeedFromCropBlock(this.defaultBlockState(), level, pos);
 
         if (random.nextInt((int) (25.0F / growthSpeed) + 1) == 0)
         {
