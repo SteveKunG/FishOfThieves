@@ -16,9 +16,15 @@
               },
               {
                 "data": {
-                  "Name": "minecraft:azure_bluet"
+                  "Name": "fishofthieves:light_blue_plumeria"
                 },
-                "weight": 2
+                "weight": 6
+              },
+              {
+                "data": {
+                  "Name": "fishofthieves:white_plumeria"
+                },
+                "weight": 3
               }
             ]
           }
