@@ -85,8 +85,8 @@ public class FishOfThievesFabric implements ModInitializer
                 .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
         //@formatter:on
 
-        FOTItems.init();
         FOTBlocks.init();
+        FOTItems.init();
         FOTItemSubPredicates.init();
         FOTBlockEntityTypes.init();
         FOTSoundEvents.init();

@@ -2,9 +2,9 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
@@ -43,29 +43,29 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.CAT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
         this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD).forceAddTag(FOTTags.Items.WORMS).add(FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
         this.getOrCreateTagBuilder(ItemTags.OCELOT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
-        this.getOrCreateTagBuilder(ItemTags.PIG_FOOD).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.HALF_PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTBlocks.BANANA_BLOSSOM.asItem());
+        this.getOrCreateTagBuilder(ItemTags.PIG_FOOD).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.HALF_PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.BANANA_BLOSSOM);
         this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
-        this.getOrCreateTagBuilder(ItemTags.SIGNS).add(FOTBlocks.COCONUT_SIGN.asItem());
-        this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTBlocks.COCONUT_HANGING_SIGN.asItem());
+        this.getOrCreateTagBuilder(ItemTags.SIGNS).add(FOTItems.COCONUT_SIGN);
+        this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);
         this.getOrCreateTagBuilder(ItemTags.WOODEN_DOORS).add(FOTItems.COCONUT_DOOR);
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS).add(FOTBlocks.COCONUT_TRAPDOOR.asItem());
-        this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
-        this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTBlocks.BANANA_STEM.asItem());
-        this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS.asItem(), FOTBlocks.BANANA_LEAVES.asItem(),
-                FOTBlocks.MANGO_LEAVES.asItem());
-        this.getOrCreateTagBuilder(ItemTags.PLANKS).add(FOTBlocks.COCONUT_PLANKS.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS).add(FOTBlocks.COCONUT_BUTTON.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS).add(FOTBlocks.COCONUT_STAIRS.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).add(FOTBlocks.COCONUT_SLAB.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTBlocks.COCONUT_FENCE.asItem());
-        this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTBlocks.COCONUT_FENCE_GATE.asItem());
-        this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTBlocks.COCONUT_PRESSURE_PLATE.asItem());
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS).add(FOTItems.COCONUT_TRAPDOOR);
+        this.getOrCreateTagBuilder(ItemTags.LOGS).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTItems.BANANA_STEM);
+        this.getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Items.COCONUT_LOGS).add(FOTItems.BANANA_STEM);
+        this.getOrCreateTagBuilder(ItemTags.LEAVES).add(FOTItems.COCONUT_FRONDS, FOTItems.BANANA_LEAVES,
+                FOTItems.MANGO_LEAVES);
+        this.getOrCreateTagBuilder(ItemTags.PLANKS).add(FOTItems.COCONUT_PLANKS);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS).add(FOTItems.COCONUT_BUTTON);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS).add(FOTItems.COCONUT_STAIRS);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_SLABS).add(FOTItems.COCONUT_SLAB);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_FENCES).add(FOTItems.COCONUT_FENCE);
+        this.getOrCreateTagBuilder(ItemTags.FENCE_GATES).add(FOTItems.COCONUT_FENCE_GATE);
+        this.getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES).add(FOTItems.COCONUT_PRESSURE_PLATE);
         this.getOrCreateTagBuilder(ItemTags.BOATS).add(FOTItems.COCONUT_BOAT);
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(FOTItems.COCONUT_CHEST_BOAT);
-        this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTBlocks.COCONUT_SAPLING.asItem(), FOTBlocks.BANANA_SHOOTS.asItem(),
-                FOTBlocks.MANGO_SAPLING.asItem());
-        this.getOrCreateTagBuilder(ItemTags.FLOWERS).add(FOTBlocks.BANANA_BLOSSOM.asItem());
-        this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).add(FOTBlocks.PINK_PLUMERIA.asItem(), FOTBlocks.LIGHT_BLUE_PLUMERIA.asItem(), FOTBlocks.WHITE_PLUMERIA.asItem());
+        this.getOrCreateTagBuilder(ItemTags.SAPLINGS).add(FOTItems.COCONUT, FOTItems.BANANA_SHOOTS,
+                FOTItems.MANGO_SAPLING);
+        this.getOrCreateTagBuilder(ItemTags.FLOWERS).add(FOTItems.BANANA_BLOSSOM);
+        this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).add(FOTItems.PINK_PLUMERIA, FOTItems.LIGHT_BLUE_PLUMERIA, FOTItems.WHITE_PLUMERIA);
         this.getOrCreateTagBuilder(ItemTags.DECORATED_POT_SHERDS).add(FOTItems.STORMFISH_POTTERY_SHERD,
                 FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD);
 
@@ -77,10 +77,10 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(FOTTags.Items.GRUBS_FOOD).add(FOTItems.GRUBS);
         this.getOrCreateTagBuilder(FOTTags.Items.LEECHES_FOOD).add(FOTItems.LEECHES);
         this.getOrCreateTagBuilder(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST);
-        this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlocks.OAK_FISH_PLAQUE.asItem(), FOTBlocks.SPRUCE_FISH_PLAQUE.asItem(),
-                FOTBlocks.BIRCH_FISH_PLAQUE.asItem(), FOTBlocks.JUNGLE_FISH_PLAQUE.asItem(), FOTBlocks.ACACIA_FISH_PLAQUE.asItem(),
-                FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.CHERRY_FISH_PLAQUE.asItem(),
-                FOTBlocks.BAMBOO_FISH_PLAQUE.asItem(), FOTBlocks.COCONUT_FISH_PLAQUE.asItem());
+        this.getOrCreateTagBuilder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTItems.OAK_FISH_PLAQUE, FOTItems.SPRUCE_FISH_PLAQUE,
+                FOTItems.BIRCH_FISH_PLAQUE, FOTItems.JUNGLE_FISH_PLAQUE, FOTItems.ACACIA_FISH_PLAQUE,
+                FOTItems.DARK_OAK_FISH_PLAQUE, FOTItems.MANGROVE_FISH_PLAQUE, FOTItems.CHERRY_FISH_PLAQUE,
+                FOTItems.BAMBOO_FISH_PLAQUE, FOTItems.COCONUT_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);

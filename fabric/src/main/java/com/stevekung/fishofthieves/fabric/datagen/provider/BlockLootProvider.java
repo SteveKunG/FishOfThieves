@@ -99,8 +99,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropPottedContents(FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA);
         this.dropPottedContents(FOTBlocks.POTTED_WHITE_PLUMERIA);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_LOG);
-        this.dropOther(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG);
-        this.dropOther(FOTBlocks.TOP_SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG);
         this.dropSelf(FOTBlocks.SMALL_COCONUT_WOOD);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_LOG);
         this.dropSelf(FOTBlocks.MEDIUM_COCONUT_WOOD);
@@ -122,10 +120,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
         this.dropSelf(FOTBlocks.COCONUT_FRONDS);
         this.dropSelf(FOTBlocks.BANANA_STEM);
-        this.dropOther(FOTBlocks.TOP_BANANA_STEM, FOTBlocks.BANANA_STEM);
-        this.dropOther(FOTBlocks.GROWABLE_BANANA_STEM, FOTBlocks.BANANA_STEM);
-        this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.BANANA_LEAVES);
-        this.dropOther(FOTBlocks.VERTICAL_COCONUT_FRONDS, FOTBlocks.COCONUT_FRONDS);
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
@@ -151,9 +145,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.COCONUT_SIGN);
         this.dropSelf(FOTBlocks.COCONUT_HANGING_SIGN);
-        this.dropOther(FOTBlocks.BANANA_SHOOTS_PLANT, FOTBlocks.BANANA_SHOOTS);
         this.dropSelf(FOTBlocks.BANANA_SHOOTS);
-        this.dropOther(FOTBlocks.BANANA_BLOSSOM_PLANT, FOTBlocks.BANANA_BLOSSOM);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
 
         this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, this.createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
