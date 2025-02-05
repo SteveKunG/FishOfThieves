@@ -66,7 +66,7 @@ public class VerticalLeavesBlock extends Block implements SimpleWaterloggedBlock
         {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        if (getConnectedDirection(state).getOpposite() == direction && !state.canSurvive(level, pos))
+        if (!state.canSurvive(level, pos))
         {
             return Blocks.AIR.defaultBlockState();
         }
