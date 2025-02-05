@@ -74,12 +74,12 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
 
         var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
-        var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structures");
+        var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structure");
         var snbtInputPath = basePath.resolve("common/src/generated/resources");
 
         pack.addProvider((dataOutput, provider) -> new NbtToSnbt(dataOutput, List.of(inputPath)));
         pack.addProvider((dataOutput, provider) -> new SnbtToNbt(new PackOutput(inputPath), List.of(snbtInputPath))
-                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structures/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
+                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structure/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
     }
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
