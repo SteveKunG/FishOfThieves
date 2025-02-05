@@ -16,7 +16,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-@SuppressWarnings("deprecation")
 public class MediumRotatedPillarBlock extends RotatedPillarBlock
 {
     private static final VoxelShape SHAPE_VERTICAL = Block.box(1, 0, 1, 15, 16, 15);

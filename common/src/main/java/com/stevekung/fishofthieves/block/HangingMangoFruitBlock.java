@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-@SuppressWarnings("deprecation")
 public class HangingMangoFruitBlock extends AbstractMangoFruitBlock
 {
     private static final VoxelShape STAGE_0 = Block.box(6.5, 7, 6.5, 9.5, 16, 9.5);

@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import java.util.Locale;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
@@ -42,7 +43,10 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
     private static final VoxelShape UNDERRIPE_SHAPE = Block.box(5, 0, 5, 11, 8, 11);
     private static final VoxelShape NORMAL_SHAPE = Block.box(4, 0, 4, 12, 10, 12);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-
+    public static final MapCodec<PineappleBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Type.CODEC.fieldOf("type").forGetter(PineappleBlock::getPineappleType),
+            propertiesCodec()
+    ).apply(instance, PineappleBlock::new));
     private final Type type;
 
     public PineappleBlock(Type type, Properties properties)
@@ -52,8 +56,13 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
+    public Type getPineappleType()
+    {
+        return this.type;
+    }
+
     @Override
-    protected MapCodec<? extends Block> codec()
+    protected MapCodec<? extends PineappleBlock> codec()
     {
         return CODEC;
     }

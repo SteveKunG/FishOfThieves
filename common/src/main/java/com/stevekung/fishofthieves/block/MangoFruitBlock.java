@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-@SuppressWarnings("deprecation")
 public class MangoFruitBlock extends AbstractMangoFruitBlock
 {
     private static final VoxelShape[] EAST_AABB = new VoxelShape[] {

@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
-import java.util.function.Supplier;
-
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
@@ -25,23 +25,33 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SmallRotatedPillarBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock
 {
+    private static final MapCodec<SmallRotatedPillarBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockState.CODEC.fieldOf("block_state").forGetter(block -> block.blockState),
+            propertiesCodec()
+    ).apply(instance, SmallRotatedPillarBlock::new));
     private static final VoxelShape SHAPE_VERTICAL = Block.box(2, 0, 2, 14, 16, 14);
     private static final VoxelShape SHAPE_HORIZONTAL_NS = Block.box(2, 2, 0, 14, 14, 16);
     private static final VoxelShape SHAPE_HORIZONTAL_WE = Block.box(0, 2, 2, 16, 14, 14);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    private Supplier<Block> supplier;
+    private final BlockState blockState;
 
     public SmallRotatedPillarBlock(Properties properties)
     {
-        super(properties);
+        this(null, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
     }
 
-    public SmallRotatedPillarBlock(Supplier<Block> supplier, Properties properties)
+    public SmallRotatedPillarBlock(BlockState blockState, Properties properties)
     {
         super(properties);
-        this.supplier = supplier;
+        this.blockState = blockState;
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public MapCodec<? extends SmallRotatedPillarBlock> codec()
+    {
+        return CODEC;
     }
 
     @Override
@@ -60,7 +70,7 @@ public class SmallRotatedPillarBlock extends RotatedPillarBlock implements Simpl
     @Override
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
     {
-        return this.supplier != null ? new ItemStack(this.supplier.get()) : super.getCloneItemStack(level, pos, state);
+        return this.blockState != null ? new ItemStack(this.blockState.getBlock()) : super.getCloneItemStack(level, pos, state);
     }
 
     @Override
