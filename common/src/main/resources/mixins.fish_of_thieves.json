@@ -4,6 +4,7 @@
   "package": "com.stevekung.fishofthieves.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.accessor.ModelLayersAccessor",
     "client.MixinCreativeModeTabs",
     "client.MixinLevelEventHandler",
     "client.MixinLocalPlayer",

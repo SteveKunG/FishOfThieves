@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
+import com.stevekung.fishofthieves.client.FOTModelLayers;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
@@ -17,11 +18,13 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.FoliageColor;
 
@@ -65,6 +68,9 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         EntityRendererRegistry.register(FOTEntities.WRECKER, WreckerRenderer::new);
         EntityRendererRegistry.register(FOTEntities.STORMFISH, StormfishRenderer::new);
 
+        EntityRendererRegistry.register(FOTEntities.COCONUT_BOAT, context -> new BoatRenderer(context, FOTModelLayers.COCONUT_BOAT));
+        EntityRendererRegistry.register(FOTEntities.COCONUT_CHEST_BOAT, context -> new BoatRenderer(context, FOTModelLayers.COCONUT_CHEST_BOAT));
+
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) ->
         {
             if (entityType == EntityType.COD)
@@ -99,6 +105,9 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         EntityModelLayerRegistry.registerModelLayer(BattlegillModel.LAYER, BattlegillModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(WreckerModel.LAYER, WreckerModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(StormfishModel.LAYER, StormfishModel::createBodyLayer);
+
+        EntityModelLayerRegistry.registerModelLayer(FOTModelLayers.COCONUT_BOAT, BoatModel::createBoatModel);
+        EntityModelLayerRegistry.registerModelLayer(FOTModelLayers.COCONUT_CHEST_BOAT, BoatModel::createChestBoatModel);
 
         EntityModelLayerRegistry.registerModelLayer(HeadphoneModel.LAYER, HeadphoneModel::createBodyLayer);
     }
