@@ -1,0 +1,42 @@
+package com.stevekung.fishofthieves.feature.blockpredicates;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.registry.FOTBlockPredicateTypes;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
+
+public class BlockBrightnessPredicate implements BlockPredicate
+{
+    public static final MapCodec<BlockBrightnessPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    Codec.intRange(0, 15).fieldOf("raw_brightness").forGetter(predicate -> predicate.rawBrightness))
+            .apply(instance, BlockBrightnessPredicate::new));
+
+    private final int rawBrightness;
+
+    private BlockBrightnessPredicate(int rawBrightness)
+    {
+        this.rawBrightness = rawBrightness;
+    }
+
+    public static BlockBrightnessPredicate value(int rawBrightness)
+    {
+        return new BlockBrightnessPredicate(rawBrightness);
+    }
+
+    @Override
+    public boolean test(WorldGenLevel worldGenLevel, BlockPos blockPos)
+    {
+        return worldGenLevel.getRawBrightness(blockPos, 0) >= this.rawBrightness;
+    }
+
+    @Override
+    public BlockPredicateType<?> type()
+    {
+        return FOTBlockPredicateTypes.BLOCK_BRIGHTNESS;
+    }
+}

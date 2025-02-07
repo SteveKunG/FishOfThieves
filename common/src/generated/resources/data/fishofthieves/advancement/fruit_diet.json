@@ -1,0 +1,79 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "banana": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:banana"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "coconut": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:coconut"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "mango": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:mango"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "pineapple": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:pineapple"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    },
+    "pomegranate": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:pomegranate"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.fruit_diet.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "fishofthieves:banana"
+    },
+    "title": {
+      "translate": "advancements.fot.fruit_diet.title"
+    }
+  },
+  "requirements": [
+    [
+      "banana"
+    ],
+    [
+      "coconut"
+    ],
+    [
+      "pomegranate"
+    ],
+    [
+      "mango"
+    ],
+    [
+      "pineapple"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

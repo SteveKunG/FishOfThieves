@@ -43,6 +43,8 @@ dependencies {
     modImplementation("org.sinytra.forgified-fabric-api:fabric-resource-loader-v0:${ffapi_fabric_resource_loader_v0_version}")
     modImplementation("org.sinytra.forgified-fabric-api:fabric-loot-api-v3:${ffapi_fabric_loot_api_v3_version}")
     modImplementation("org.sinytra:forgified-fabric-loader:${forgified_fabric_loader_version}")
+    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+    modRuntimeOnly "maven.modrinth:cyanide:${cyanide_neoforge_version}"
 }
 
 processResources {
@@ -56,7 +58,7 @@ processResources {
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
-List<String> commonExcludes = [".cache", "**/datagen/", "**/resourcepacks/", "data/fabric/**", "architectury.common.json"]
+List<String> commonExcludes = [".cache", "**/datagen/", "**/resourcepacks/", "*.snbt", "data/fabric/**", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]

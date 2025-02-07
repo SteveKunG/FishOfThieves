@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      {
+        "item": "fishofthieves:pineapple"
+      },
+      {
+        "item": "fishofthieves:crownless_pineapple"
+      }
+    ]
+  ],
+  "result": {
+    "count": 4,
+    "id": "fishofthieves:pineapple_seeds"
+  }
+}

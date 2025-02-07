@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "fishofthieves:block/banana_shoots_plant",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "fishofthieves:block/banana_shoots_plant"
+    },
+    "facing=south": {
+      "model": "fishofthieves:block/banana_shoots_plant",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fishofthieves:block/banana_shoots_plant",
+      "y": 270
+    }
+  }
+}

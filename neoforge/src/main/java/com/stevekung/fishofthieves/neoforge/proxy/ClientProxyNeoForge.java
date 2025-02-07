@@ -7,16 +7,23 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.PartyFish;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.FoliageColor;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 public class ClientProxyNeoForge
@@ -29,11 +36,15 @@ public class ClientProxyNeoForge
         eventBus.addListener(this::registerRenderers);
         eventBus.addListener(this::registerLayerDefinitions);
         eventBus.addListener(this::registerLayers);
+        eventBus.addListener(this::registerBlockColors);
+        eventBus.addListener(this::registerItemColors);
     }
 
     public void clientSetup(FMLClientSetupEvent event)
     {
         BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
@@ -73,6 +84,17 @@ public class ClientProxyNeoForge
         addHeadphoneLayer(event, EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH);
         addHeadphoneLayer(event, EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH);
         addHeadphoneLayer(event, EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE);
+    }
+
+    private void registerBlockColors(RegisterColorHandlersEvent.Block event)
+    {
+        event.register((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
+        event.register((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
+    }
+
+    private void registerItemColors(RegisterColorHandlersEvent.Item event)
+    {
+        event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
     }
 
     private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)

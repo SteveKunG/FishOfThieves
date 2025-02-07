@@ -6,9 +6,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -29,16 +30,19 @@ public abstract class MixinServerLevel extends Level
         super(null, null, null, null, false, false, 0, 0);
     }
 
-    @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"), locals = LocalCapture.CAPTURE_FAILSOFT)
-    private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 4, ordinal = 0) boolean isRaining, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z)
+    @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))
+    private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z)
     {
-        var blockPos = this.findNearestStormfish(this.getBlockRandomPos(x, 0, z, 15));
-
-        if (blockPos.isPresent() && isRaining && this.isThundering() && this.random.nextInt(5000) == 0)
+        if (this.isThundering() && this.random.nextInt(5000) == 0)
         {
-            var lightningBolt = EntityType.LIGHTNING_BOLT.create(this, EntitySpawnReason.EVENT);
-            lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos.get()));
-            this.addFreshEntity(lightningBolt);
+            var blockPos = this.findNearestStormfish(this.getBlockRandomPos(x, 0, z, 15));
+
+            if (blockPos.isPresent())
+            {
+                var lightningBolt = EntityType.LIGHTNING_BOLT.create(this, EntitySpawnReason.EVENT);
+                lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos.get()));
+                this.addFreshEntity(lightningBolt);
+            }
         }
     }
 

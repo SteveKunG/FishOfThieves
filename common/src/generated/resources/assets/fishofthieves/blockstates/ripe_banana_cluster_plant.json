@@ -1,0 +1,121 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fishofthieves:block/ripe_banana_cluster_plant"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "none|stem|small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/ripe_banana_cluster_plant",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "none|stem|small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/ripe_banana_cluster_plant",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "none|stem|small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/ripe_banana_cluster_plant",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "none|stem|small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_small_cluster",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "small_cluster"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem"
+      },
+      "when": {
+        "facing": "north",
+        "hanging": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hanging": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hanging": "stem"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/banana_cluster_plant_stem",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hanging": "stem"
+      }
+    }
+  ]
+}

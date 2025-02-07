@@ -3,19 +3,124 @@ package com.stevekung.fishofthieves.registry;
 import java.util.function.Function;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.item.FOTItem;
-import com.stevekung.fishofthieves.item.FOTMobBucketItem;
-import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
+import com.stevekung.fishofthieves.item.*;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
 {
+    // Block Item
+    public static final Item FISH_BONE = registerBlock(FOTBlocks.FISH_BONE);
+
+    public static final Item OAK_FISH_PLAQUE = registerBlock(FOTBlocks.OAK_FISH_PLAQUE);
+    public static final Item SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.SPRUCE_FISH_PLAQUE);
+    public static final Item BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.BIRCH_FISH_PLAQUE);
+    public static final Item JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.JUNGLE_FISH_PLAQUE);
+    public static final Item ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.ACACIA_FISH_PLAQUE);
+    public static final Item DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.DARK_OAK_FISH_PLAQUE);
+    public static final Item MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.MANGROVE_FISH_PLAQUE);
+    public static final Item CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.CHERRY_FISH_PLAQUE);
+    public static final Item BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.BAMBOO_FISH_PLAQUE);
+    public static final Item CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.CRIMSON_FISH_PLAQUE);
+    public static final Item WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.WARPED_FISH_PLAQUE);
+
+    public static final Item IRON_FRAME_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
+    public static final Item IRON_FRAME_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
+    public static final Item IRON_FRAME_BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_BIRCH_FISH_PLAQUE);
+    public static final Item IRON_FRAME_JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_JUNGLE_FISH_PLAQUE);
+    public static final Item IRON_FRAME_ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_ACACIA_FISH_PLAQUE);
+    public static final Item IRON_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
+    public static final Item IRON_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
+    public static final Item IRON_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item IRON_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
+    public static final Item IRON_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
+    public static final Item IRON_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
+
+    public static final Item GOLDEN_FRAME_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
+
+    public static final Item GILDED_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_OAK_FISH_PLAQUE);
+    public static final Item GILDED_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE);
+    public static final Item GILDED_BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE);
+    public static final Item GILDED_JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE);
+    public static final Item GILDED_ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_ACACIA_FISH_PLAQUE);
+    public static final Item GILDED_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
+    public static final Item GILDED_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
+    public static final Item GILDED_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE);
+    public static final Item GILDED_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
+    public static final Item GILDED_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
+    public static final Item GILDED_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
+
+    public static final Item SMALL_COCONUT_LOG = registerBlock(FOTBlocks.SMALL_COCONUT_LOG);
+    public static final Item SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.SMALL_COCONUT_WOOD);
+    public static final Item MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.MEDIUM_COCONUT_LOG);
+    public static final Item MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.MEDIUM_COCONUT_WOOD);
+    public static final Item COCONUT_LOG = registerBlock(FOTBlocks.COCONUT_LOG);
+    public static final Item COCONUT_WOOD = registerBlock(FOTBlocks.COCONUT_WOOD);
+    public static final Item STRIPPED_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_COCONUT_LOG);
+    public static final Item STRIPPED_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_COCONUT_WOOD);
+    public static final Item STRIPPED_MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+    public static final Item STRIPPED_MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
+    public static final Item STRIPPED_SMALL_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+    public static final Item STRIPPED_SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+    public static final Item COCONUT_FRONDS = registerBlock(FOTBlocks.COCONUT_FRONDS);
+    public static final Item BANANA_STEM = registerBlock(FOTBlocks.BANANA_STEM);
+    public static final Item BANANA_LEAVES = registerBlock(FOTBlocks.BANANA_LEAVES);
+    public static final Item BANANA_BLOSSOM = registerBlock(FOTBlocks.BANANA_BLOSSOM);
+    public static final Item UNDERRIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+    public static final Item BARELY_RIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+    public static final Item RIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.RIPE_BANANA_CLUSTER);
+    public static final Item RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
+    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
+    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
+    public static final Item MANGO_LEAVES = registerBlock(FOTBlocks.MANGO_LEAVES);
+    public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
+    public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG);
+
+    public static final Item PINK_PLUMERIA = registerBlock(FOTBlocks.PINK_PLUMERIA);
+    public static final Item LIGHT_BLUE_PLUMERIA = registerBlock(FOTBlocks.LIGHT_BLUE_PLUMERIA);
+    public static final Item WHITE_PLUMERIA = registerBlock(FOTBlocks.WHITE_PLUMERIA);
+    public static final Item BANANA_SHOOTS = registerBlock(FOTBlocks.BANANA_SHOOTS);
+    public static final Item MANGO_PIT = register("mango_pit", new BlockItem(FOTBlocks.MANGO_PIT, new Item.Properties().useItemDescriptionPrefix()));
+    public static final Item MANGO_SAPLING = registerBlock(FOTBlocks.MANGO_SAPLING);
+    public static final Item POMEGRANATE_PLANT = registerBlock(FOTBlocks.POMEGRANATE_PLANT);
+    public static final Item TROPICAL_RED_FERN = registerBlock(FOTBlocks.TROPICAL_RED_FERN);
+    public static final Item TROPICAL_MONSTERA = registerBlock(FOTBlocks.TROPICAL_MONSTERA);
+
+    public static final Item COCONUT_PLANKS = registerBlock(FOTBlocks.COCONUT_PLANKS);
+    public static final Item COCONUT_BUTTON = registerBlock(FOTBlocks.COCONUT_BUTTON);
+    public static final Item COCONUT_FENCE = registerBlock(FOTBlocks.COCONUT_FENCE);
+    public static final Item COCONUT_FENCE_GATE = registerBlock(FOTBlocks.COCONUT_FENCE_GATE);
+    public static final Item COCONUT_PRESSURE_PLATE = registerBlock(FOTBlocks.COCONUT_PRESSURE_PLATE);
+    public static final Item COCONUT_SLAB = registerBlock(FOTBlocks.COCONUT_SLAB);
+    public static final Item COCONUT_STAIRS = registerBlock(FOTBlocks.COCONUT_STAIRS);
+    public static final Item COCONUT_TRAPDOOR = registerBlock(FOTBlocks.COCONUT_TRAPDOOR);
+    public static final Item COCONUT_DOOR = register("coconut_door", new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, new Item.Properties()));
+    public static final Item COCONUT_SIGN = register("coconut_sign", new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN));
+    public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16)));
+    public static final Item COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COCONUT_FISH_PLAQUE);
+    public static final Item IRON_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
+    public static final Item GILDED_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+
+    // Item
     public static final Item EARTHWORMS = register("earthworms", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
     public static final Item GRUBS = register("grubs", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
     public static final Item LEECHES = register("leeches", properties -> new Item(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
@@ -64,6 +169,25 @@ public class FOTItems
     public static final Item WRECKER_SPAWN_EGG = register("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, properties));
     public static final Item STORMFISH_SPAWN_EGG = register("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, properties));
 
+    public static final Item COCONUT = register("coconut", new BlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().useItemDescriptionPrefix().food(FOTFoodProperties.COCONUT)));
+    public static final Item BANANA = register("banana", new Item(new Item.Properties().food(FOTFoodProperties.BANANA)));
+    public static final Item HALF_PINEAPPLE = register("half_pineapple", new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE)));
+    public static final Item PINEAPPLE = register("pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
+    public static final Item CROWNLESS_PINEAPPLE = register("crownless_pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
+    public static final Item PINEAPPLE_SEEDS = register("pineapple_seeds", new PineappleBlockItem(false, new Item.Properties()));
+    public static final Item PINEAPPLE_CROWN = register("pineapple_crown", new PineappleBlockItem(true, new Item.Properties()));
+    public static final Item MANGO = register("mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO)));
+    public static final Item RAW_MANGO = register("raw_mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO)));
+    public static final Item POMEGRANATE = register("pomegranate", new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE)));
+    public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties().useItemDescriptionPrefix()));
+
+    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item(new Item.Properties()));
+    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item(new Item.Properties()));
+    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item(new Item.Properties()));
+
+    public static final Item COCONUT_BOAT = register("coconut_boat", new BoatItem(FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
+    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", new BoatItem(FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
+
     public static void init()
     {
         FishOfThieves.LOGGER.info("Registering Item");
@@ -83,5 +207,34 @@ public class FOTItems
     {
         var item = function.apply(properties.setId(ResourceKey.create(Registries.ITEM, FishOfThieves.id(key))));
         return register(key, item);
+    }
+
+    public static Item registerBlock(Block block)
+    {
+        return registerBlock(new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix()));
+    }
+
+    public static Item registerBlock(BlockItem item)
+    {
+        return registerBlock(item.getBlock(), item);
+    }
+
+    public static Item registerBlock(Block block, Item item)
+    {
+        return registerItem(BuiltInRegistries.BLOCK.getKey(block), item);
+    }
+
+    public static Item registerItem(ResourceLocation key, Item item)
+    {
+        return registerItem(ResourceKey.create(BuiltInRegistries.ITEM.key(), key), item);
+    }
+
+    public static Item registerItem(ResourceKey<Item> key, Item item)
+    {
+        if (item instanceof BlockItem blockItem)
+        {
+            blockItem.registerBlocks(Item.BY_BLOCK, item);
+        }
+        return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 }

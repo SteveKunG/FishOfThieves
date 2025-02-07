@@ -1,0 +1,83 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"render_type": "cutout",
+	"textures": {
+		"stalk_1": "fishofthieves:block/tropical_monstera_stalk_1",
+		"stalk_2": "fishofthieves:block/tropical_monstera_stalk_2",
+		"particle": "fishofthieves:block/tropical_monstera_leaf_1",
+		"leaf_1": "fishofthieves:block/tropical_monstera_leaf_1",
+		"leaf_2": "fishofthieves:block/tropical_monstera_leaf_2"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 8],
+			"to": [16, 16, 8],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#stalk_1"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#stalk_1"}
+			}
+		},
+		{
+			"from": [8, 0, 0],
+			"to": [8, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#stalk_2"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#stalk_2"}
+			}
+		},
+		{
+			"from": [-8.75, 11.75, -0.5],
+			"to": [7.25, 11.75, 15.5],
+			"shade": false,
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.25, 11.75, -0.5]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#leaf_1"},
+				"down": {"uv": [16, 0, 0, 16], "rotation": 90, "texture": "#leaf_1"}
+			}
+		},
+		{
+			"from": [8.75, 11.75, -0.5],
+			"to": [24.75, 11.75, 15.5],
+			"shade": false,
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8.75, 11.75, -0.5]},
+			"faces": {
+				"up": {"uv": [0, 16, 16, 0], "rotation": 90, "texture": "#leaf_1"},
+				"down": {"uv": [16, 16, 0, 0], "rotation": 90, "texture": "#leaf_1"}
+			}
+		},
+		{
+			"from": [-0.5, 9.75, -8.75],
+			"to": [15.5, 9.75, 7.25],
+			"shade": false,
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [15.5, 9.75, 7.25]},
+			"faces": {
+				"up": {"uv": [16, 0, 0, 16], "rotation": 180, "texture": "#leaf_2"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#leaf_2"}
+			}
+		},
+		{
+			"from": [-0.5, 9.75, 8.75],
+			"to": [15.5, 9.75, 24.75],
+			"shade": false,
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [15.5, 9.75, 8.75]},
+			"faces": {
+				"up": {"uv": [16, 16, 0, 0], "rotation": 180, "texture": "#leaf_2"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#leaf_2"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"shade": false,
+			"children": [0, 1, 2, 3, 4, 5]
+		}
+	]
+}

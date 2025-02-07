@@ -6,6 +6,7 @@
   "client": [
   ],
   "mixins": [
+    "item.MixinAxeItem",
     "world.level.MixinNaturalSpawner"
   ],
   "injectors": {

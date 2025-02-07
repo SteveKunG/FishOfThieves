@@ -1,12 +1,15 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
 import com.google.common.collect.Lists;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.network.chat.Component;
@@ -82,6 +85,14 @@ public class CommonProxyNeoForge
             {
                 tableBuilder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
             }
+            else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
+            {
+                tableBuilder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
+            }
+            else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
+            {
+                tableBuilder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool(), provider));
+            }
             // Archaeology
             else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
             {
@@ -96,6 +107,14 @@ public class CommonProxyNeoForge
         ComposterBlock.COMPOSTABLES.put(FOTItems.EARTHWORMS, 0.4F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.GRUBS, 0.4F);
         ComposterBlock.COMPOSTABLES.put(FOTItems.LEECHES, 0.4F);
+
+        event.enqueueWork(() ->
+        {
+            if (FOTPlatform.isModLoaded("terrablender"))
+            {
+                FOTTerraBlender.init();
+            }
+        });
     }
 
     @SubscribeEvent

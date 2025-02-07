@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 91579157,
+    "separation": 24,
+    "spacing": 32
+  },
+  "structures": [
+    {
+      "structure": "fishofthieves:guardian_fruit_tree",
+      "weight": 1
+    }
+  ]
+}

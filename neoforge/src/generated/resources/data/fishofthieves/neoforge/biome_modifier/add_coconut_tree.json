@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_beach",
+  "features": "fishofthieves:trees_coconut",
+  "step": "vegetal_decoration"
+}

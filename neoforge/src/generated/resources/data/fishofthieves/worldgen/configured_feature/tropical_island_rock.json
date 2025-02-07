@@ -1,0 +1,8 @@
+{
+  "type": "fishofthieves:tropical_island_blob",
+  "config": {
+    "state": {
+      "Name": "minecraft:stone"
+    }
+  }
+}

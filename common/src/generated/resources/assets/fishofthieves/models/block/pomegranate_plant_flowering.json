@@ -1,0 +1,8 @@
+{
+  "parent": "fishofthieves:block/template_pomegranate_plant",
+  "textures": {
+    "plant": "fishofthieves:block/pomegranate_plant_flowering",
+    "side": "fishofthieves:block/pomegranate_plant_side_flowering",
+    "top": "fishofthieves:block/pomegranate_plant_top_flowering"
+  }
+}

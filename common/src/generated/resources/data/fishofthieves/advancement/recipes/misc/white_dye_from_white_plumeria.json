@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:white_dye_from_white_plumeria"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_plumeria": {
+      "conditions": {
+        "items": [
+          {
+            "items": "fishofthieves:white_plumeria"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_white_plumeria"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:white_dye_from_white_plumeria"
+    ]
+  }
+}

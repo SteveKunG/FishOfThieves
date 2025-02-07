@@ -1,0 +1,34 @@
+{
+  "parent": "fishofthieves:explore_tropical_island",
+  "criteria": {
+    "crush_pomegranate": {
+      "conditions": {
+        "item": {
+          "count": {
+            "min": 8
+          },
+          "items": "fishofthieves:pomegranate"
+        }
+      },
+      "trigger": "fishofthieves:falling_anvil_crush_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.crush_pomegranate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:red_dye"
+    },
+    "title": {
+      "translate": "advancements.fot.crush_pomegranate.title"
+    }
+  },
+  "requirements": [
+    [
+      "crush_pomegranate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -8,10 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
 import com.stevekung.fishofthieves.item.FishPlaqueInteractions;
-import com.stevekung.fishofthieves.registry.FOTFeatures;
-import com.stevekung.fishofthieves.registry.FOTPlacements;
-import com.stevekung.fishofthieves.registry.FOTRegistries;
-import com.stevekung.fishofthieves.registry.FOTStructures;
+import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
 
 import net.fabricmc.api.EnvType;
@@ -38,6 +35,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
+        builder.add(Registries.DAMAGE_TYPE, FOTDamageTypes::bootstrap);
+        builder.add(Registries.BIOME, FOTBiomes::bootstrap);
+        builder.add(Registries.NOISE, FOTNoises::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -81,19 +81,22 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(EntityTagsProvider::new);
         pack.addProvider(BiomeTagsProvider::new);
         pack.addProvider(StructureTagsProvider::new);
+        pack.addProvider(DamageTagsProvider::new);
+        pack.addProvider(EnchantmentTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(ModFishingRealProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
+        pack.addProvider((dataOutput, provider) -> new LanguageSyncProvider(provider));
 
         new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
 
         var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
-        var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structures");
+        var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structure");
         var snbtInputPath = basePath.resolve("common/src/generated/resources");
 
         pack.addProvider((dataOutput, provider) -> new NbtToSnbt(dataOutput, List.of(inputPath)));
         pack.addProvider((dataOutput, provider) -> new SnbtToNbt(new PackOutput(inputPath), List.of(snbtInputPath))
-                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structures/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
+                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structure/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
     }
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
@@ -110,6 +113,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
             entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
+            entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
+            entries.addAll(registries.lookupOrThrow(Registries.BIOME));
+            entries.addAll(registries.lookupOrThrow(Registries.NOISE));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

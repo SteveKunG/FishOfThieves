@@ -1,0 +1,6 @@
+{
+  "parent": "fishofthieves:block/template_mango_fruit",
+  "textures": {
+    "fruit": "fishofthieves:block/mango_fruit_stage_2"
+  }
+}

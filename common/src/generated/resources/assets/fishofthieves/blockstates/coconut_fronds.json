@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,part=middle": {
+      "model": "fishofthieves:block/coconut_fronds_middle",
+      "y": 270
+    },
+    "facing=east,part=single": {
+      "model": "fishofthieves:block/coconut_fronds_single",
+      "y": 270
+    },
+    "facing=east,part=stem": {
+      "model": "fishofthieves:block/coconut_fronds_stem",
+      "y": 270
+    },
+    "facing=east,part=tail": {
+      "model": "fishofthieves:block/coconut_fronds_tail",
+      "y": 270
+    },
+    "facing=north,part=middle": {
+      "model": "fishofthieves:block/coconut_fronds_middle",
+      "y": 180
+    },
+    "facing=north,part=single": {
+      "model": "fishofthieves:block/coconut_fronds_single",
+      "y": 180
+    },
+    "facing=north,part=stem": {
+      "model": "fishofthieves:block/coconut_fronds_stem",
+      "y": 180
+    },
+    "facing=north,part=tail": {
+      "model": "fishofthieves:block/coconut_fronds_tail",
+      "y": 180
+    },
+    "facing=south,part=middle": {
+      "model": "fishofthieves:block/coconut_fronds_middle"
+    },
+    "facing=south,part=single": {
+      "model": "fishofthieves:block/coconut_fronds_single"
+    },
+    "facing=south,part=stem": {
+      "model": "fishofthieves:block/coconut_fronds_stem"
+    },
+    "facing=south,part=tail": {
+      "model": "fishofthieves:block/coconut_fronds_tail"
+    },
+    "facing=west,part=middle": {
+      "model": "fishofthieves:block/coconut_fronds_middle",
+      "y": 90
+    },
+    "facing=west,part=single": {
+      "model": "fishofthieves:block/coconut_fronds_single",
+      "y": 90
+    },
+    "facing=west,part=stem": {
+      "model": "fishofthieves:block/coconut_fronds_stem",
+      "y": 90
+    },
+    "facing=west,part=tail": {
+      "model": "fishofthieves:block/coconut_fronds_tail",
+      "y": 90
+    }
+  }
+}

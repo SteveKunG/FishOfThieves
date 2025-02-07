@@ -1,1 +1,85 @@
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
+
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/common.gradle"
+
+dependencies {
+    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
+}
+
+processResources {
+    doFirst {
+        // Define source and destination directories
+        File jsonDir = file("src/generated/resources/assets/fishofthieves/models/block")
+        File modifiedModelDir = project(":neoforge").file("build/resources/main/assets/fishofthieves/models/block")
+        List<String> cutoutModelToProcess = [
+                "banana_shoots",
+                "light_blue_plumeria",
+                "mango_sapling",
+                "pineapple_crop_lower_stage_0",
+                "pineapple_crop_lower_stage_1",
+                "pineapple_crop_lower_stage_2",
+                "pineapple_crop_lower_stage_full",
+                "pink_plumeria",
+                "white_plumeria",
+                "pomegranate_sapling",
+                "potted_banana_shoots",
+                "potted_light_blue_plumeria",
+                "potted_mango_pit",
+                "potted_mango_sapling",
+                "potted_pink_plumeria",
+                "potted_pomegranate_plant",
+                "potted_pomegranate_sapling",
+                "potted_tropical_red_fern",
+                "potted_white_plumeria"
+        ]
+
+        if (jsonDir.exists() && jsonDir.isDirectory()) {
+            // Ensure the destination directory exists
+            if (!modifiedModelDir.exists()) {
+                modifiedModelDir.mkdirs()
+            }
+
+            cutoutModelToProcess.each { jsonFileName ->
+                jsonFileName = jsonFileName + ".json"
+                File sourceFile = new File(jsonDir, jsonFileName)
+                File destinationFile = new File(modifiedModelDir, jsonFileName)
+
+                try {
+                    if (sourceFile.exists()) {
+                        // Log file being processed
+                        logger.lifecycle("Processing file: ${sourceFile.name}")
+
+                        // Copy the file to the modifiedModelDir (overwrite if exists)
+                        sourceFile.withInputStream { input ->
+                            destinationFile.withOutputStream { output ->
+                                output << input
+                            }
+                        }
+
+                        // Parse and modify the JSON file in the destination directory
+                        def jsonContent = new JsonSlurper().parse(destinationFile)
+
+                        // Add or update the "render_type" field
+                        jsonContent["render_type"] = "cutout"
+
+                        // Write the updated JSON back to the destination file
+                        destinationFile.text = new JsonBuilder(jsonContent).toPrettyString()
+
+                        // Log successful update
+                        logger.lifecycle("Injected render_type=cutout into: ${destinationFile.name}")
+                    } else {
+                        logger.warn("File '${jsonFileName}' not found in source directory: ${jsonDir.path}")
+                    }
+                } catch (Exception e) {
+                    logger.error("Failed to process file: ${jsonFileName}", e)
+                }
+            }
+        } else {
+            logger.warn("Source directory '${jsonDir.path}' not found or is not a directory")
+        }
+    }
+}

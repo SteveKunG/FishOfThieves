@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier",
+      "name": "FISHOFTHIEVES_TROPICAL_ISLAND",
+      "constructor": "(Ljava/lang/String;Lnet/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier$ColorModifier;)V",
+      "parameters": {
+        "class": "com/stevekung/fishofthieves/neoforge/FishOfThievesNeoForge",
+        "method": "getTropicalIslandGrassColorParameters"
+      }
+    }
+  ]
+}

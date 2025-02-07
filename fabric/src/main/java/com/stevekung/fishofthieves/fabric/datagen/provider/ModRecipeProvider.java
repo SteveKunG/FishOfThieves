@@ -3,16 +3,24 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.concurrent.CompletableFuture;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -23,14 +31,18 @@ import net.minecraft.world.level.block.Block;
 
 public class ModRecipeProvider extends RecipeProvider
 {
+    private final HolderGetter<Item> items;
+
     protected ModRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput)
     {
         super(provider, recipeOutput);
+        this.items = provider.lookupOrThrow(Registries.ITEM);
     }
 
     @Override
     public void buildRecipes()
     {
+        this.generateForFOTBlockFamilies();
         this.shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), this.has(FOTBlocks.FISH_BONE)).save(this.output, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
         this.addWoodenFishPlaqueRecipe(FOTBlocks.OAK_FISH_PLAQUE, Items.OAK_PLANKS);
@@ -91,6 +103,27 @@ public class ModRecipeProvider extends RecipeProvider
         this.addCookingRecipes(this.output, 0.45F, FOTItems.BATTLEGILL, FOTItems.COOKED_BATTLEGILL);
         this.addCookingRecipes(this.output, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
         this.addCookingRecipes(this.output, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
+
+        this.oneToOneConversionRecipe(Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
+        this.oneToOneConversionRecipe(Items.LIGHT_BLUE_DYE, FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
+        this.oneToOneConversionRecipe(Items.WHITE_DYE, FOTBlocks.WHITE_PLUMERIA, "white_dye");
+        this.oneToOneConversionRecipe(Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
+        this.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(this.items, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(this.output, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
+        this.woodFromLogs(FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
+        this.woodFromLogs(FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);
+        this.woodFromLogs(FOTBlocks.MEDIUM_COCONUT_WOOD, FOTBlocks.MEDIUM_COCONUT_LOG);
+        this.woodFromLogs(FOTBlocks.STRIPPED_COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_LOG);
+        this.woodFromLogs(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
+        this.woodFromLogs(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
+        this.planksFromLogs(FOTBlocks.COCONUT_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
+        this.woodenBoat(FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
+        this.chestBoat(FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
+        this.hangingSign(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
+    }
+
+    private void generateForFOTBlockFamilies()
+    {
+        FOTBlockFamilies.getAllFamilies().forEach(blockFamily -> this.generateRecipes(blockFamily, FeatureFlagSet.of(FeatureFlags.VANILLA)));
     }
 
     private void addWoodenFishPlaqueRecipe(Block block, ItemLike baseMaterial)

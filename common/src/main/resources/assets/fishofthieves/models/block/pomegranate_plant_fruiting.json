@@ -1,0 +1,73 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"fruit": "fishofthieves:block/pomegranate_plant_fruiting"
+	},
+	"elements": [
+		{
+			"from": [0, 7, 4],
+			"to": [3, 10, 7],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 7, 4]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "west"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [4, 11, 13],
+			"to": [7, 14, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 11, 13]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "south"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [11, 7, 13],
+			"to": [14, 10, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 7, 13]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "south"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [13, 12, 3],
+			"to": [16, 15, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 12, 3]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "east"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
+			}
+		},
+		{
+			"from": [5, 9, 0],
+			"to": [8, 12, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 9, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "texture": "#fruit", "cullface": "north"},
+				"east": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"south": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"west": {"uv": [0, 0, 3, 3], "texture": "#fruit"},
+				"up": {"uv": [3, 0, 6, 3], "texture": "#fruit"},
+				"down": {"uv": [6, 0, 9, 3], "texture": "#fruit"}
+			}
+		}
+	]
+}

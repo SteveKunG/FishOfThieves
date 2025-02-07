@@ -1,0 +1,7 @@
+{
+  "type": "fishofthieves:guardian_fruit_tree",
+  "biomes": "#minecraft:is_ocean",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin"
+}

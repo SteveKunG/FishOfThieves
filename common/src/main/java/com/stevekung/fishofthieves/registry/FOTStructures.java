@@ -4,13 +4,17 @@ import java.util.List;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.structure.GuardianFruitTreePiece;
+import com.stevekung.fishofthieves.structure.GuardianFruitTreeStructure;
 import com.stevekung.fishofthieves.structure.SeapostPieces;
 import com.stevekung.fishofthieves.structure.SeapostStructure;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -25,6 +29,7 @@ public class FOTStructures
     {
         var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(new Structure.StructureSettings.Builder(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
+        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(new Structure.StructureSettings.Builder(holderGetter.getOrThrow(BiomeTags.IS_OCEAN)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
     }
 
     public static void init()
@@ -39,6 +44,7 @@ public class FOTStructures
         {
             var holderGetter = context.lookup(Registries.STRUCTURE);
             context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(512, 64, RandomSpreadType.LINEAR, 26384127)));
+            context.register(Key.GUARDIAN_FRUIT_TREES, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.GUARDIAN_FRUIT_TREE))), new RandomSpreadStructurePlacement(32, 24, RandomSpreadType.LINEAR, 91579157)));
         }
     }
 
@@ -50,6 +56,7 @@ public class FOTStructures
         }
 
         StructureType<SeapostStructure> SEAPOST = register("seapost", SeapostStructure.CODEC);
+        StructureType<GuardianFruitTreeStructure> GUARDIAN_FRUIT_TREE = register("guardian_fruit_tree", GuardianFruitTreeStructure.CODEC);
 
         private static <S extends Structure> StructureType<S> register(String name, MapCodec<S> codec)
         {
@@ -60,7 +67,9 @@ public class FOTStructures
     public interface Key
     {
         ResourceKey<Structure> SEAPOST = registerStructure("seapost");
+        ResourceKey<Structure> GUARDIAN_FRUIT_TREE = registerStructure("guardian_fruit_tree");
         ResourceKey<StructureSet> SEAPOSTS = registerStructureSet("seapost");
+        ResourceKey<StructureSet> GUARDIAN_FRUIT_TREES = registerStructureSet("guardian_fruit_trees");
 
         private static ResourceKey<Structure> registerStructure(String name)
         {
@@ -81,6 +90,7 @@ public class FOTStructures
         }
 
         StructurePieceType SEAPOST_PIECE = register("seapost", SeapostPieces.SeapostPiece::new);
+        StructurePieceType GUARDIAN_FRUIT_TREE_PIECE = register("guardian_fruit_tree", GuardianFruitTreePiece::new);
 
         private static StructurePieceType register(String pieceId, StructurePieceType.StructureTemplateType pieceType)
         {

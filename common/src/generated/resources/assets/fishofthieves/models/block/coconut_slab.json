@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "fishofthieves:block/coconut_planks",
+    "side": "fishofthieves:block/coconut_planks",
+    "top": "fishofthieves:block/coconut_planks"
+  }
+}

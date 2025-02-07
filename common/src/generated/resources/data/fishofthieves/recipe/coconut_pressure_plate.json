@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": {
+      "item": "fishofthieves:coconut_planks"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "fishofthieves:coconut_pressure_plate"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "fishofthieves:block/mango_pit"
+      },
+      {
+        "model": "fishofthieves:block/mango_pit",
+        "y": 90
+      },
+      {
+        "model": "fishofthieves:block/mango_pit",
+        "y": 180
+      },
+      {
+        "model": "fishofthieves:block/mango_pit",
+        "y": 270
+      }
+    ]
+  }
+}

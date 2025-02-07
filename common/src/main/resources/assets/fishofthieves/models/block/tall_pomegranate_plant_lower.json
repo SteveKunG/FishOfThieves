@@ -1,0 +1,30 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "cutout",
+	"textures": {
+		"bottom": "fishofthieves:block/tall_pomegranate_plant_bottom",
+		"particle": "fishofthieves:block/tall_pomegranate_plant_bottom"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 0.1],
+			"to": [8, 16, 15.9],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#bottom"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [0.1, 0, 8],
+			"to": [15.9, 16, 8],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#bottom"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		}
+	]
+}

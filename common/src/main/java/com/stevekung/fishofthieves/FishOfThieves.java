@@ -3,12 +3,17 @@ package com.stevekung.fishofthieves;
 import java.util.List;
 
 import org.slf4j.Logger;
+
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTBoatTypes;
 import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTItems;
+
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -25,7 +30,8 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
-    public static final ResourceKey<CreativeModeTab> FOT = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
+    public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
+    public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
     public static ResourceLocation id(String path)
     {
@@ -45,6 +51,99 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
+        DispenserBlock.registerBehavior(FOTItems.COCONUT_BOAT, new BoatDispenseItemBehavior(FOTBoatTypes.COCONUT));
+        DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTBoatTypes.COCONUT, true));
+
+        FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.LEECHES, 0.4F);
+        FOTPlatform.addComposting(FOTItems.COCONUT, 0.5F);
+        FOTPlatform.addComposting(FOTItems.BANANA, 0.3F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE, 0.7F);
+        FOTPlatform.addComposting(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
+        FOTPlatform.addComposting(FOTItems.HALF_PINEAPPLE, 0.35F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_SEEDS, 0.1F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_CROWN, 0.15F);
+        FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.MANGO_PIT, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE_SEEDS, 0.1F);
+        FOTPlatform.addComposting(FOTBlocks.PINK_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.LIGHT_BLUE_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.WHITE_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.COCONUT_FRONDS, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_LEAVES, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_BLOSSOM, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_SHOOTS, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 0.5F);
+        FOTPlatform.addComposting(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_STEM, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
+        FOTPlatform.addComposting(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_LEAVES, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_SAPLING, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.POMEGRANATE_PLANT, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.TALL_POMEGRANATE_PLANT, 0.4F);
+        FOTPlatform.addComposting(FOTBlocks.TROPICAL_RED_FERN, 0.4F);
+        FOTPlatform.addComposting(FOTBlocks.TROPICAL_MONSTERA, 0.3F);
+
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.VERTICAL_COCONUT_FRONDS, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.VERTICAL_BANANA_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.PINK_PLUMERIA, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.LIGHT_BLUE_PLUMERIA, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.WHITE_PLUMERIA, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_PLANKS, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FENCE, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FENCE_GATE, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_SLAB, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_STAIRS, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRUIT, 5, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.PRISMARIZED_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_LEAVES, 30, 60);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_PIT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_FRUIT, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.POMEGRANATE_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TALL_POMEGRANATE_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_BLOSSOM, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_BLOSSOM_PLANT, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.POMEGRANATE_SAPLING, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TROPICAL_RED_FERN, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.TROPICAL_MONSTERA, 60, 100);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_BANANA_CLUSTER, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 30, 20);
     }
 
     public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
@@ -108,8 +207,13 @@ public class FishOfThieves
         return list;
     }
 
-    public static CreativeModeTab.Builder getCreativeTabBuilder(CreativeModeTab.Builder builder)
+    public static CreativeModeTab.Builder getFishCreativeTabBuilder(CreativeModeTab.Builder builder)
     {
-        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayItems);
+        return builder.title(Component.translatable("itemGroup.fishofthieves.fish")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayFishItems);
+    }
+
+    public static CreativeModeTab.Builder getMainCreativeTabBuilder(CreativeModeTab.Builder builder)
+    {
+        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTBlocks.COCONUT_LOG)).displayItems(FOTDisplayItems::displayMainItems);
     }
 }
