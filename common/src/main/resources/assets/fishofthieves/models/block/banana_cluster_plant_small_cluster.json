@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
-		"stem": "fishofthieves:block/underripe_banana_cluster_stem"
+		"stem": "fishofthieves:block/underripe_banana_cluster_stem",
+		"particle": "fishofthieves:block/underripe_banana_cluster_stem"
 	},
 	"elements": [
 		{

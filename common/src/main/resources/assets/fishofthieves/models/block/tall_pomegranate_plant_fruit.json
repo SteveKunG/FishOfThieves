@@ -1,7 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"fruit": "fishofthieves:block/pomegranate_plant_fruit"
+		"fruit": "fishofthieves:block/pomegranate_plant_fruit",
+		"particle": "fishofthieves:block/pomegranate_plant"
 	},
 	"elements": [
 		{
