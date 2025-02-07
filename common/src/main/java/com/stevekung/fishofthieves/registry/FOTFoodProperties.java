@@ -3,6 +3,9 @@ package com.stevekung.fishofthieves.registry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
 public class FOTFoodProperties
 {
@@ -34,11 +37,13 @@ public class FOTFoodProperties
     public static final FoodProperties PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationModifier(1.0f).build();
     public static final FoodProperties HALF_PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationModifier(0.5f).build();
     public static final FoodProperties MANGO = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
-    public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationModifier(0.5f)
-            .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 0.2F)
-            .effect(new MobEffectInstance(MobEffects.DIG_SPEED, 200), 0.15F)
-            .effect(new MobEffectInstance(MobEffects.JUMP, 200), 0.1F)
-            //TODO New juicy effect
-            .build();
+    public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationModifier(0.5f).build();
     public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
+
+    //TODO New juicy effect
+    public static final Consumable RAW_MANGO_CONSUMABLE = Consumables.defaultFood()
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0), 0.2f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 0), 0.15f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP, 200, 0), 0.1f))
+            .build();
 }

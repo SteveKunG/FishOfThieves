@@ -19,12 +19,6 @@ public class PineappleBlockItem extends BlockItem
     }
 
     @Override
-    public String getDescriptionId()
-    {
-        return this.getOrCreateDescriptionId();
-    }
-
-    @Override
     public BlockState getPlacementState(BlockPlaceContext context)
     {
         var blockState = super.getPlacementState(context);

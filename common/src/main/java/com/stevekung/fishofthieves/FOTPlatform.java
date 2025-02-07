@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 public class FOTPlatform
 {
@@ -39,7 +40,13 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static <T extends Entity> EntityType<T> createEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    public static <T extends Entity> EntityType<T> createFishEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <T extends Entity> EntityType<T> createBoatEntityType(String key, EntityType.EntityFactory<T> entityFactory)
     {
         throw new AssertionError();
     }

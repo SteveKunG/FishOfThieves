@@ -181,10 +181,10 @@ public class FOTItems
     public static final Item HALF_PINEAPPLE = register("half_pineapple", new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE)));
     public static final Item PINEAPPLE = register("pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
     public static final Item CROWNLESS_PINEAPPLE = register("crownless_pineapple", new PineappleItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE)));
-    public static final Item PINEAPPLE_SEEDS = register("pineapple_seeds", new PineappleBlockItem(false, new Item.Properties()));
-    public static final Item PINEAPPLE_CROWN = register("pineapple_crown", new PineappleBlockItem(true, new Item.Properties()));
+    public static final Item PINEAPPLE_SEEDS = register("pineapple_seeds", new PineappleBlockItem(false, new Item.Properties().useItemDescriptionPrefix()));
+    public static final Item PINEAPPLE_CROWN = register("pineapple_crown", new PineappleBlockItem(true, new Item.Properties().useItemDescriptionPrefix()));
     public static final Item MANGO = register("mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO)));
-    public static final Item RAW_MANGO = register("raw_mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO)));
+    public static final Item RAW_MANGO = register("raw_mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO, FOTFoodProperties.RAW_MANGO_CONSUMABLE)));
     public static final Item POMEGRANATE = register("pomegranate", new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE)));
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties().useItemDescriptionPrefix()));
 
@@ -192,8 +192,8 @@ public class FOTItems
     public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item(new Item.Properties()));
     public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item(new Item.Properties()));
 
-    public static final Item COCONUT_BOAT = register("coconut_boat", new BoatItem(FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
-    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", new BoatItem(FOTBoatTypes.COCONUT, new Item.Properties().stacksTo(1)));
+    public static final Item COCONUT_BOAT = register("coconut_boat", new BoatItem(FOTEntities.COCONUT_BOAT, new Item.Properties().stacksTo(1)));
+    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, new Item.Properties().stacksTo(1)));
 
     public static void init()
     {

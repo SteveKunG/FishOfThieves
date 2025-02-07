@@ -15,12 +15,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 
 @Mixin(FallingBlockEntity.class)
@@ -58,7 +59,7 @@ public abstract class MixinFallingBlockEntity extends Entity
 
                 if (!itemStack.isEmpty())
                 {
-                    for (var serverPlayer : this.level().getNearbyPlayers(TargetingConditions.forNonCombat(), null, new AABB(this.blockPosition()).inflate(8)).stream().map(ServerPlayer.class::cast).toList())
+                    for (var serverPlayer : this.level().getEntities(EntityTypeTest.forClass(Player.class), new AABB(this.blockPosition()).inflate(8), ServerPlayer.class::isInstance).stream().map(ServerPlayer.class::cast).toList())
                     {
                         FOTCriteriaTriggers.FALLING_ANVIL_CRUSH_ITEM.trigger(serverPlayer, itemStack);
                     }

@@ -44,9 +44,14 @@ public class FOTPlatformImpl
         return new BlockEntityType<>(factory, Set.of(validBlocks));
     }
 
-    public static <T extends Entity> EntityType<T> createEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    public static <T extends Entity> EntityType<T> createFishEntityType(String key, EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
         return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build(ResourceKey.create(Registries.ENTITY_TYPE, FishOfThieves.id(key)));
+    }
+
+    public static <T extends Entity> EntityType<T> createBoatEntityType(String key, EntityType.EntityFactory<T> entityFactory)
+    {
+        return EntityType.Builder.of(entityFactory, MobCategory.MISC).noLootTable().sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10).build(ResourceKey.create(Registries.ENTITY_TYPE, FishOfThieves.id(key)));
     }
 
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
