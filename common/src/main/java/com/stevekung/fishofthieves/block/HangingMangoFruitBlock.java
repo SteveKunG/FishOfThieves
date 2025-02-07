@@ -38,7 +38,7 @@ public class HangingMangoFruitBlock extends AbstractMangoFruitBlock
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         var age = Math.min(state.getValue(AGE), 1);
-        var offset = state.getOffset(level, pos);
+        var offset = state.getOffset(pos);
         return (age == 0 ? STAGE_0 : STAGE_FULL).move(offset.x, offset.y, offset.z);
     }
 }

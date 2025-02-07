@@ -26,8 +26,26 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
+@Mixin(Bee.class)
 public class MixinBee
 {
+    @Inject(method = "attractsBees", cancellable = true, at = @At(value = "RETURN", ordinal = 2))
+    private static void fishofthieves$addCheckForFloweringPlants(BlockState blockState, CallbackInfoReturnable<Boolean> info)
+    {
+        if (blockState.is(FOTBlocks.POMEGRANATE_PLANT))
+        {
+            info.setReturnValue(blockState.getValue(PomegranatePlantBlock.AGE) == 1);
+        }
+        else if (blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT))
+        {
+            info.setReturnValue(blockState.getValue(TallPomegranatePlantBlock.AGE) == 1 && blockState.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER);
+        }
+        else if (blockState.is(FOTBlocks.PINEAPPLE_CROP))
+        {
+            info.setReturnValue(blockState.getValue(PineappleCropBlock.AGE) == 3 && blockState.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER);
+        }
+    }
+
     @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
     public static abstract class MixinBeeGrowCropGoal extends Goal
     {
@@ -75,27 +93,6 @@ public class MixinBee
                     stateToCheck.is(FOTBlocks.POMEGRANATE_SAPLING))
             {
                 ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.$outer.level(), this.$outer.getRandom(), blockPos, stateToCheck);
-            }
-        }
-    }
-
-    @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeePollinateGoal")
-    public static class MixinBeePollinateGoal
-    {
-        @Inject(method = "method_21819(Lnet/minecraft/world/level/block/state/BlockState;)Z", cancellable = true, at = @At(value = "RETURN", ordinal = 2))
-        private static void fishofthieves$addCheckForPomegranateFlowering(BlockState blockState, CallbackInfoReturnable<Boolean> info)
-        {
-            if (blockState.is(FOTBlocks.POMEGRANATE_PLANT))
-            {
-                info.setReturnValue(blockState.getValue(PomegranatePlantBlock.AGE) == 1);
-            }
-            else if (blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT))
-            {
-                info.setReturnValue(blockState.getValue(TallPomegranatePlantBlock.AGE) == 1 && blockState.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER);
-            }
-            else if (blockState.is(FOTBlocks.PINEAPPLE_CROP))
-            {
-                info.setReturnValue(blockState.getValue(PineappleCropBlock.AGE) == 3 && blockState.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER);
             }
         }
     }

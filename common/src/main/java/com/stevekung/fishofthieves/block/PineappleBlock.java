@@ -12,19 +12,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,7 +38,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equipable
+public class PineappleBlock extends Block implements SimpleWaterloggedBlock
 {
     private static final VoxelShape UNDERRIPE_SHAPE = Block.box(5, 0, 5, 11, 8, 11);
     private static final VoxelShape NORMAL_SHAPE = Block.box(4, 0, 4, 12, 10, 12);
@@ -81,7 +81,7 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
     {
         var itemStack = player.getItemInHand(hand);
 
@@ -96,7 +96,7 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
                 level.gameEvent(player, GameEvent.SHEAR, pos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
         else
         {
@@ -105,13 +105,13 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
         if (state.getValue(WATERLOGGED))
         {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
     }
 
     @Override
@@ -124,12 +124,6 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock, Equ
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(WATERLOGGED);
-    }
-
-    @Override
-    public EquipmentSlot getEquipmentSlot()
-    {
-        return EquipmentSlot.HEAD;
     }
 
     @SuppressWarnings("deprecation")

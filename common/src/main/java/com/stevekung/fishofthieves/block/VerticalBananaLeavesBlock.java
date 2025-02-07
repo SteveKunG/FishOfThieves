@@ -29,7 +29,7 @@ public class VerticalBananaLeavesBlock extends VerticalLeavesBlock
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(FOTBlocks.BANANA_LEAVES);
     }

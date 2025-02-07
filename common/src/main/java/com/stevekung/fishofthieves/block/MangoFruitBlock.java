@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -31,7 +31,7 @@ public class MangoFruitBlock extends AbstractMangoFruitBlock
             Block.box(6.5, 5, 13, 9.5, 10, 16),
             Block.box(5.5, 3, 11, 10.5, 10, 16) };
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public MangoFruitBlock(Properties properties)
     {
@@ -56,7 +56,7 @@ public class MangoFruitBlock extends AbstractMangoFruitBlock
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         var age = Math.min(state.getValue(AGE), 1);
-        var offset = state.getOffset(level, pos);
+        var offset = state.getOffset(pos);
         return (switch (state.getValue(FACING))
         {
             case SOUTH -> SOUTH_AABB[age];

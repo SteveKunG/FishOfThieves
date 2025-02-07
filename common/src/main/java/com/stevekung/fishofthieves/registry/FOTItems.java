@@ -1,17 +1,24 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.*;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BoatItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 
@@ -87,9 +94,9 @@ public class FOTItems
     public static final Item UNDERRIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
     public static final Item BARELY_RIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
     public static final Item RIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.RIPE_BANANA_CLUSTER);
-    public static final Item RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK);
-    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
-    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
+    public static final Item RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, properties -> properties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()));
+    public static final Item CROWNLESS_RIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, properties -> properties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()));
+    public static final Item UNDERRIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, properties -> properties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()));
     public static final Item MANGO_LEAVES = registerBlock(FOTBlocks.MANGO_LEAVES);
     public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
     public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG);
@@ -209,32 +216,41 @@ public class FOTItems
         return register(key, item);
     }
 
+    public static Item registerBlock(Block block, UnaryOperator<Item.Properties> propertiesModifier)
+    {
+        return registerBlock(block, (blockx, properties) -> new BlockItem(blockx, propertiesModifier.apply(properties)));
+    }
+
+    public static Item registerBlock(Block block, BiFunction<Block, Item.Properties, Item> factory)
+    {
+        return registerBlock(block, factory, new Item.Properties());
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Item registerBlock(Block block, BiFunction<Block, Item.Properties, Item> factory, Item.Properties properties)
+    {
+        return registerItem(blockIdToItemId(block.builtInRegistryHolder().key()), propertiesx -> factory.apply(block, propertiesx), properties.useBlockDescriptionPrefix());
+    }
+
+    private static ResourceKey<Item> blockIdToItemId(ResourceKey<Block> blockId)
+    {
+        return ResourceKey.create(Registries.ITEM, blockId.location());
+    }
+
     public static Item registerBlock(Block block)
     {
-        return registerBlock(new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix()));
+        return registerBlock(block, BlockItem::new);
     }
 
-    public static Item registerBlock(BlockItem item)
+    public static Item registerItem(ResourceKey<Item> key, Function<Item.Properties, Item> factory, Item.Properties properties)
     {
-        return registerBlock(item.getBlock(), item);
-    }
+        var item = factory.apply(properties.setId(key));
 
-    public static Item registerBlock(Block block, Item item)
-    {
-        return registerItem(BuiltInRegistries.BLOCK.getKey(block), item);
-    }
-
-    public static Item registerItem(ResourceLocation key, Item item)
-    {
-        return registerItem(ResourceKey.create(BuiltInRegistries.ITEM.key(), key), item);
-    }
-
-    public static Item registerItem(ResourceKey<Item> key, Item item)
-    {
         if (item instanceof BlockItem blockItem)
         {
             blockItem.registerBlocks(Item.BY_BLOCK, item);
         }
+
         return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 }

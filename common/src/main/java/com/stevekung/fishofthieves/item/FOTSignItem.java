@@ -17,12 +17,12 @@ public class FOTSignItem extends StandingAndWallBlockItem
 {
     public FOTSignItem(Item.Properties properties, Block standingBlock, Block wallBlock)
     {
-        super(standingBlock, wallBlock, properties, Direction.DOWN);
+        super(standingBlock, wallBlock, Direction.DOWN, properties);
     }
 
     public FOTSignItem(Item.Properties properties, Block standingBlock, Block wallBlock, Direction attachmentDirection)
     {
-        super(standingBlock, wallBlock, properties, attachmentDirection);
+        super(standingBlock, wallBlock, attachmentDirection, properties);
     }
 
     @Override

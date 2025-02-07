@@ -35,7 +35,7 @@ public class MangoPitBlock extends BushBlock implements BonemealableBlock
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        var vec3 = state.getOffset(level, pos);
+        var vec3 = state.getOffset(pos);
         return SHAPE.move(vec3.x, vec3.y, vec3.z);
     }
 

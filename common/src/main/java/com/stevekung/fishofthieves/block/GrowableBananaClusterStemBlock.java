@@ -33,7 +33,7 @@ public class GrowableBananaClusterStemBlock extends BananaStemBlock implements B
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(FOTBlocks.BANANA_STEM);
     }

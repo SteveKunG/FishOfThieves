@@ -5,12 +5,14 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -57,13 +59,13 @@ public abstract class AbstractBananaClusterBlock extends HorizontalDirectionalBl
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
         if (state.getValue(WATERLOGGED))
         {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
     }
 
     @Override
@@ -77,7 +79,7 @@ public abstract class AbstractBananaClusterBlock extends HorizontalDirectionalBl
     {
         var blockPos = hit.getBlockPos();
 
-        if (!level.isClientSide() && projectile.mayInteract(level, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
         {
             level.destroyBlock(blockPos, true, projectile);
         }

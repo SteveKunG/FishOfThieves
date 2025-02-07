@@ -182,11 +182,10 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
     {
-        if (entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
+        if (level instanceof ServerLevel serverLevel && entity instanceof Ravager && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
-            level.destroyBlock(pos, true, entity);
+            serverLevel.destroyBlock(pos, true, entity);
         }
-
         super.entityInside(state, level, pos, entity);
     }
 
@@ -289,7 +288,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER)
         {

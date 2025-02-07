@@ -14,7 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
@@ -98,9 +98,9 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
     {
-        if (entity instanceof Ravager && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
+        if (level instanceof ServerLevel serverLevel && entity instanceof Ravager && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
-            level.destroyBlock(pos, true, entity);
+            serverLevel.destroyBlock(pos, true, entity);
         }
 
         super.entityInside(state, level, pos, entity);
@@ -124,7 +124,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult)
     {
         var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
@@ -150,11 +150,11 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
                 level.gameEvent(player, GameEvent.SHEAR, pos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
         else if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
         {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
         else if (canHarvest)
         {
@@ -174,7 +174,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
             }
 
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
         else
         {

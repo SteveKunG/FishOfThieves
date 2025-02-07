@@ -4,10 +4,11 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.client.AngledLeavesComponent;
-import com.stevekung.fishofthieves.utils.ParticleUtils;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
+import com.stevekung.fishofthieves.utils.ParticleUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,8 +20,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -91,13 +92,13 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
-        var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
+        var otherState = level.getBlockState(currentPos.relative(state.getValue(FACING)));
 
         if (state.getValue(WATERLOGGED))
         {
-            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         switch (state.getValue(PART))
@@ -135,7 +136,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
                 }
             }
         }
-        return state.canSurvive(level, pos) ? super.updateShape(state, direction, neighborState, level, pos, neighborPos) : Blocks.AIR.defaultBlockState();
+        return state.canSurvive(level, currentPos) ? super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource) : Blocks.AIR.defaultBlockState();
     }
 
     @Override

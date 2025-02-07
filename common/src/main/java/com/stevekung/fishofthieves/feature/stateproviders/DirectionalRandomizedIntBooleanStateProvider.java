@@ -14,7 +14,8 @@ import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -37,13 +38,13 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
     private final IntProvider integerValues;
     private final String directionPropertyName;
     @Nullable
-    private DirectionProperty directionProperty;
+    private EnumProperty<Direction> directionProperty;
     private final String booleanPropertyName;
     @Nullable
     private BooleanProperty booleanProperty;
     private final ConstantFloat booleanChance;
 
-    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, DirectionProperty directionProperty, BooleanProperty booleanProperty, ConstantFloat booleanChance)
+    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, EnumProperty<Direction> directionProperty, BooleanProperty booleanProperty, ConstantFloat booleanChance)
     {
         this.source = source;
         this.integerProperty = integerProperty;
@@ -87,6 +88,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("unchecked")
     public BlockState getState(RandomSource random, BlockPos pos, Direction direction)
     {
         var blockState = this.source.getState(random, pos);
@@ -97,7 +99,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
         }
         if (this.directionProperty == null || !blockState.hasProperty(this.directionProperty))
         {
-            this.directionProperty = findProperty(blockState, this.directionPropertyName, DirectionProperty.class);
+            this.directionProperty = findProperty(blockState, this.directionPropertyName, EnumProperty.class);
         }
         if (this.booleanProperty == null || !blockState.hasProperty(this.booleanProperty))
         {

@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTBoatTypes;
 import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
@@ -52,7 +51,7 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.COCONUT_BOAT, new BoatDispenseItemBehavior(FOTBoatTypes.COCONUT));
-        DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTBoatTypes.COCONUT, true));
+        DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTBoatTypes.COCONUT));
 
         FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
         FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);

@@ -15,8 +15,8 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -89,15 +89,15 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
-        if (!state.canSurvive(level, pos))
+        if (!state.canSurvive(level, currentPos))
         {
-            if (!canMangoFall(level.getBlockState(pos.below())))
+            if (!canMangoFall(level.getBlockState(currentPos.below())))
             {
                 return Blocks.AIR.defaultBlockState();
             }
-            level.scheduleTick(pos, this, 2);
+            scheduledTickAccess.scheduleTick(currentPos, this, 2);
         }
         return state;
     }
@@ -107,7 +107,7 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     {
         var blockPos = hit.getBlockPos();
 
-        if (!level.isClientSide() && projectile.mayInteract(level, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
         {
             if (!canMangoFall(level.getBlockState(blockPos.below())))
             {
@@ -115,7 +115,7 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
             }
             else
             {
-                level.scheduleTick(blockPos, this, 2);
+                serverLevel.scheduleTick(blockPos, this, 2);
             }
         }
     }
@@ -123,7 +123,7 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (canMangoFall(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
+        if (canMangoFall(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY())
         {
             var fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
             this.falling(fallingBlockEntity);
@@ -171,7 +171,7 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return state.getValue(AGE) == 1 ? new ItemStack(FOTItems.RAW_MANGO) : new ItemStack(FOTItems.MANGO);
     }

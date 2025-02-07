@@ -24,7 +24,7 @@ public class TropicalIslandBlockBlobFeature extends Feature<BlockStateConfigurat
 
         BlockStateConfiguration blockStateConfiguration;
 
-        for (blockStateConfiguration = context.config(); blockPos.getY() > worldGenLevel.getMinBuildHeight() + 3; blockPos = blockPos.below())
+        for (blockStateConfiguration = context.config(); blockPos.getY() > worldGenLevel.getMinY() + 3; blockPos = blockPos.below())
         {
             if (!worldGenLevel.isEmptyBlock(blockPos.below()))
             {
@@ -37,7 +37,7 @@ public class TropicalIslandBlockBlobFeature extends Feature<BlockStateConfigurat
             }
         }
 
-        if (blockPos.getY() <= worldGenLevel.getMinBuildHeight() + 3)
+        if (blockPos.getY() <= worldGenLevel.getMinY() + 3)
         {
             return false;
         }

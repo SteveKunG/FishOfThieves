@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -12,8 +13,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -91,19 +92,19 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
         if (direction == Direction.UP && (neighborState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT) || neighborState.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT)))
         {
             return state.setValue(HANGING, BananaHangingType.CLUSTER);
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
     }
 
     @Override

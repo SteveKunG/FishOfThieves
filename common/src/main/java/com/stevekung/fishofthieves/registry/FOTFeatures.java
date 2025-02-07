@@ -139,7 +139,7 @@ public class FOTFeatures
                 new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MELON)), BlockPredicate.allOf(
                         BlockPredicate.replaceable(),
                         BlockPredicate.noFluid(),
-                        BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
+                        BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)))));
         FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED))));
         FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
@@ -162,7 +162,7 @@ public class FOTFeatures
                                 BlockPredicate.replaceable(),
                                 BlockPredicate.not(BlockBrightnessPredicate.value(13)),
                                 BlockPredicate.not(SeeSkyPredicate.INSTANCE),
-                                BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
+                                BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)))));
         FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockStateConfiguration(Blocks.STONE.defaultBlockState()));
 
         FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(

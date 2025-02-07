@@ -16,8 +16,8 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -86,7 +86,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinBuildHeight())
+        if (FallingBlock.isFree(level.getBlockState(pos.below())) && pos.getY() >= level.getMinY())
         {
             var fallingBlockEntity = FallingBlockEntity.fall(level, pos, state);
             fallingBlockEntity.setHurtsEntities(0.5f * Math.max(1, state.getValue(AGE)), 20);
@@ -131,15 +131,15 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
-        if (!state.canSurvive(level, pos))
+        if (!state.canSurvive(level, currentPos))
         {
-            if (!FallingBlock.isFree(level.getBlockState(pos.below())))
+            if (!FallingBlock.isFree(level.getBlockState(currentPos.below())))
             {
                 return Blocks.AIR.defaultBlockState();
             }
-            level.scheduleTick(pos, this, 2);
+            scheduledTickAccess.scheduleTick(currentPos, this, 2);
         }
         return state;
     }
@@ -175,7 +175,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(FOTItems.COCONUT);
     }
@@ -185,7 +185,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     {
         var blockPos = hit.getBlockPos();
 
-        if (!level.isClientSide() && projectile.mayInteract(level, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
         {
             if (!FallingBlock.isFree(level.getBlockState(blockPos.below())))
             {
@@ -193,7 +193,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
             }
             else
             {
-                level.scheduleTick(blockPos, this, 2);
+                serverLevel.scheduleTick(blockPos, this, 2);
             }
         }
     }

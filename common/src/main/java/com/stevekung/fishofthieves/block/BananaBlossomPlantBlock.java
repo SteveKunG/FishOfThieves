@@ -4,18 +4,19 @@ import java.util.Map;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -30,7 +31,7 @@ public class BananaBlossomPlantBlock extends BananaBlossomBlock
             Direction.SOUTH, Shapes.join(Block.box(6.5, 9, 8.5, 9.5, 11, 11.5), Block.box(5.5, 11, 7.5, 10.5, 16, 12.5), BooleanOp.OR),
             Direction.EAST, Shapes.join(Block.box(8.5, 9, 6.5, 11.5, 11, 9.5), Block.box(7.5, 11, 5.5, 12.5, 16, 10.5), BooleanOp.OR)
     );
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<BananaHangingType> HANGING = EnumProperty.create("hanging", BananaHangingType.class);
 
     public BananaBlossomPlantBlock(Properties properties)
@@ -52,13 +53,13 @@ public class BananaBlossomPlantBlock extends BananaBlossomBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
         if (direction == Direction.UP && (neighborState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT) || neighborState.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT)))
         {
             return state.setValue(HANGING, BananaHangingType.CLUSTER);
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
     }
 
     @Override

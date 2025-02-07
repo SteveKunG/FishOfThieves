@@ -16,8 +16,8 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -87,13 +87,13 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(this.type.block().get());
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
         if (direction == Direction.UP && neighborState.is(FOTTags.Blocks.BANANA_CLUSTER_PLANTS))
         {
@@ -103,7 +103,7 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
             }
             return state.getValue(HANGING) == HangingType.STEM || state.getValue(HANGING) == HangingType.SMALL_CLUSTER ? state : state.setValue(HANGING, HangingType.NONE);
         }
-        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
     }
 
     @Override

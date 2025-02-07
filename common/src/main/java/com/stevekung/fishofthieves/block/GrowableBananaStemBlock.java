@@ -30,7 +30,7 @@ public class GrowableBananaStemBlock extends BananaStemBlock implements Bonemeal
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state)
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
         return new ItemStack(FOTBlocks.BANANA_STEM);
     }
