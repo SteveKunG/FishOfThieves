@@ -31,6 +31,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -211,7 +212,7 @@ public class ModelProvider extends FabricModelProvider
         this.generateRotatedExistedModel(generator, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         this.generateRotatedExistedModel(generator, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
         this.generateRotatedExistedModel(generator, FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK);
-        generator.createTrivialBlock(FOTBlocks.MANGO_LEAVES, TexturedModel.LEAVES);
+        generator.createTintedLeaves(FOTBlocks.MANGO_LEAVES, TexturedModel.LEAVES, FoliageColor.FOLIAGE_DEFAULT);
         this.createMangoFruit(generator);
         this.createHangingMangoFruit(generator);
         this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_PIT);

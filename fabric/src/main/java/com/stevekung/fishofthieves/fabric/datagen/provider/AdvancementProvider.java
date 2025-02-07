@@ -193,7 +193,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("mango_gravity", EntityHurtPlayerTrigger.TriggerInstance.entityHurtPlayer(
                         DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType()
                                 .tag(TagPredicate.is(FOTTags.DamageTypes.IS_MANGO))
-                                .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.FALLING_BLOCK)))
+                                .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityLookup, EntityType.FALLING_BLOCK)))
                         ))
                 )
                 .display(FOTItems.MANGO,
@@ -206,14 +206,14 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("equip_pineapple_block", PlayerTrigger.TriggerInstance.located(EntityPredicate.Builder.entity()
                         .equipment(EntityEquipmentPredicate.Builder.equipment()
                                 .head(ItemPredicate.Builder.item()
-                                        .of(FOTBlocks.RIPE_PINEAPPLE_BLOCK, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)))))
+                                        .of(itemLookup, FOTBlocks.RIPE_PINEAPPLE_BLOCK, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)))))
                 .display(FOTBlocks.RIPE_PINEAPPLE_BLOCK,
                         Component.translatable("advancements.fot.equip_pineapple_block.title"),
                         Component.translatable("advancements.fot.equip_pineapple_block.description"),
                         null, AdvancementType.TASK, true, true, false)
                 .save(consumer, this.mod("equip_pineapple_block"));
 
-        this.addFruits(Advancement.Builder.advancement()).parent(tropicalIsland)
+        this.addFruits(Advancement.Builder.advancement(), itemLookup).parent(tropicalIsland)
                 .display(FOTItems.BANANA,
                         Component.translatable("advancements.fot.fruit_diet.title"),
                         Component.translatable("advancements.fot.fruit_diet.description"),
@@ -232,7 +232,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(tropicalIsland).requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("has_ancient_sherds", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
-                        .of(FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD)
+                        .of(itemLookup, FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD)
                         .build()))
                 .display(FOTItems.MEGALODON_POTTERY_SHERD,
                         Component.translatable("advancements.fot.ancient_myth.title"),
@@ -242,7 +242,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(tropicalIsland)
                 .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
-                        .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
+                        .of(itemLookup, FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
                 .display(Items.RED_DYE,
                         Component.translatable("advancements.fot.crush_pomegranate.title"),
                         Component.translatable("advancements.fot.crush_pomegranate.description"),
@@ -287,11 +287,11 @@ public class AdvancementProvider extends FabricAdvancementProvider
         return builder;
     }
 
-    private Advancement.Builder addFruits(Advancement.Builder builder)
+    private Advancement.Builder addFruits(Advancement.Builder builder, HolderGetter<Item> itemRegistry)
     {
         for (var item : FRUITS)
         {
-            builder.addCriterion(this.getItemName(item), ConsumeItemTrigger.TriggerInstance.usedItem(item));
+            builder.addCriterion(this.getItemName(item), ConsumeItemTrigger.TriggerInstance.usedItem(itemRegistry, item));
         }
         return builder;
     }
