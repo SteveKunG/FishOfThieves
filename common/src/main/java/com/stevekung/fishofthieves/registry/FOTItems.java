@@ -14,10 +14,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BoatItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
@@ -188,9 +185,9 @@ public class FOTItems
     public static final Item POMEGRANATE = register("pomegranate", properties -> new PomegranateItem(properties.food(FOTFoodProperties.POMEGRANATE)));
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", properties -> new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, properties.useItemDescriptionPrefix()));
 
-    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd");
-    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd");
-    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd");
+    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static final Item COCONUT_BOAT = register("coconut_boat", properties -> new BoatItem(FOTEntities.COCONUT_BOAT, properties.stacksTo(1)));
     public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", properties -> new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, properties.stacksTo(1)));
