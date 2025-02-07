@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_door",
   "key": {
-    "#": {
-      "item": "fishofthieves:coconut_planks"
-    }
+    "#": "fishofthieves:coconut_planks"
   },
   "pattern": [
     "##",

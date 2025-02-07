@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_stairs",
   "key": {
-    "#": {
-      "item": "fishofthieves:coconut_planks"
-    }
+    "#": "fishofthieves:coconut_planks"
   },
   "pattern": [
     "#  ",

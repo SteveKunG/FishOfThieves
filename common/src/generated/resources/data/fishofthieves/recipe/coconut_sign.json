@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "wooden_sign",
   "key": {
-    "#": {
-      "item": "fishofthieves:coconut_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "fishofthieves:coconut_planks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

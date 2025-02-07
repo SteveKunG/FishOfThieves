@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "light_blue_dye",
   "ingredients": [
-    {
-      "item": "fishofthieves:light_blue_plumeria"
-    }
+    "fishofthieves:light_blue_plumeria"
   ],
   "result": {
     "count": 1,

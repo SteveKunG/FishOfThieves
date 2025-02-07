@@ -3,9 +3,7 @@
   "category": "building",
   "group": "bark",
   "key": {
-    "#": {
-      "item": "fishofthieves:stripped_medium_coconut_log"
-    }
+    "#": "fishofthieves:stripped_medium_coconut_log"
   },
   "pattern": [
     "##",

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "wooden_fence",
   "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "W": {
-      "item": "fishofthieves:coconut_planks"
-    }
+    "#": "minecraft:stick",
+    "W": "fishofthieves:coconut_planks"
   },
   "pattern": [
     "W#W",

@@ -3,12 +3,8 @@
   "category": "misc",
   "ingredients": [
     [
-      {
-        "item": "fishofthieves:pineapple"
-      },
-      {
-        "item": "fishofthieves:crownless_pineapple"
-      }
+      "fishofthieves:pineapple",
+      "fishofthieves:crownless_pineapple"
     ]
   ],
   "result": {

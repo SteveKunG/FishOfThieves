@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "pink_dye",
   "ingredients": [
-    {
-      "item": "fishofthieves:pink_plumeria"
-    }
+    "fishofthieves:pink_plumeria"
   ],
   "result": {
     "count": 1,

@@ -3,9 +3,7 @@
   "category": "redstone",
   "group": "wooden_button",
   "ingredients": [
-    {
-      "item": "fishofthieves:coconut_planks"
-    }
+    "fishofthieves:coconut_planks"
   ],
   "result": {
     "count": 1,

@@ -3,9 +3,7 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {
-      "tag": "fishofthieves:coconut_logs"
-    }
+    "#fishofthieves:coconut_logs"
   ],
   "result": {
     "count": 4,

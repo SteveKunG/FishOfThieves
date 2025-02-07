@@ -3,9 +3,7 @@
   "category": "building",
   "group": "wooden_slab",
   "key": {
-    "#": {
-      "item": "fishofthieves:coconut_planks"
-    }
+    "#": "fishofthieves:coconut_planks"
   },
   "pattern": [
     "###"

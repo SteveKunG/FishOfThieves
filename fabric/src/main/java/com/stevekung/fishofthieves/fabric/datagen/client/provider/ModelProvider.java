@@ -172,9 +172,9 @@ public class ModelProvider extends FabricModelProvider
         this.createFishPlaque(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
 
-        generator.createPlant(FOTBlocks.PINK_PLUMERIA, FOTBlocks.POTTED_PINK_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
-        generator.createPlant(FOTBlocks.LIGHT_BLUE_PLUMERIA, FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
-        generator.createPlant(FOTBlocks.WHITE_PLUMERIA, FOTBlocks.POTTED_WHITE_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
+        generator.createPlantWithDefaultItem(FOTBlocks.PINK_PLUMERIA, FOTBlocks.POTTED_PINK_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
+        generator.createPlantWithDefaultItem(FOTBlocks.LIGHT_BLUE_PLUMERIA, FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
+        generator.createPlantWithDefaultItem(FOTBlocks.WHITE_PLUMERIA, FOTBlocks.POTTED_WHITE_PLUMERIA, BlockModelGenerators.PlantType.NOT_TINTED);
         generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
         generator.woodProvider(FOTBlocks.STRIPPED_COCONUT_LOG).logWithHorizontal(FOTBlocks.STRIPPED_COCONUT_LOG).wood(FOTBlocks.STRIPPED_COCONUT_WOOD);
         this.createSmallCoconutLog(generator);
@@ -207,7 +207,7 @@ public class ModelProvider extends FabricModelProvider
         this.createBananaCluster(generator, FOTBlocks.RIPE_BANANA_CLUSTER);
         this.createBananaClusterPlant(generator, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         this.createBananaClusterPlant(generator, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.RIPE_BANANA_CLUSTER);
-        generator.createPlant(FOTBlocks.BANANA_SHOOTS, FOTBlocks.POTTED_BANANA_SHOOTS, BlockModelGenerators.PlantType.NOT_TINTED);
+        generator.createPlantWithDefaultItem(FOTBlocks.BANANA_SHOOTS, FOTBlocks.POTTED_BANANA_SHOOTS, BlockModelGenerators.PlantType.NOT_TINTED);
         this.createPineappleCrop(generator);
         this.generateRotatedExistedModel(generator, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         this.generateRotatedExistedModel(generator, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
@@ -216,7 +216,7 @@ public class ModelProvider extends FabricModelProvider
         this.createMangoFruit(generator);
         this.createHangingMangoFruit(generator);
         this.generateRotatedExistedModel(generator, FOTBlocks.MANGO_PIT);
-        generator.createPlant(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
+        generator.createPlantWithDefaultItem(FOTBlocks.MANGO_SAPLING, FOTBlocks.POTTED_MANGO_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
         this.createPottedMangoPit(generator);
         this.createPomegranatePlant(generator);
         this.createTallPomegranatePlant(generator);

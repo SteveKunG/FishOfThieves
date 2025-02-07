@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "white_dye",
   "ingredients": [
-    {
-      "item": "fishofthieves:white_plumeria"
-    }
+    "fishofthieves:white_plumeria"
   ],
   "result": {
     "count": 1,
