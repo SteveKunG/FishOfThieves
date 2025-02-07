@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.registry.FOTWoodTypes;
 
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 @Mixin(Sheets.class)
@@ -31,15 +30,6 @@ public class MixinSheets
         if (woodType == FOTWoodTypes.COCONUT)
         {
             info.setReturnValue(new Material(Sheets.SIGN_SHEET, FishOfThieves.id("entity/signs/hanging/coconut")));
-        }
-    }
-
-    @Inject(method = "createDecoratedPotMaterial", cancellable = true, at = @At("HEAD"))
-    private static void fishofthieves$createDecoratedPotMaterial(ResourceLocation key, CallbackInfoReturnable<Material> info)
-    {
-        if (key.getNamespace().equals(FishOfThieves.MOD_ID))
-        {
-            info.setReturnValue(new Material(Sheets.DECORATED_POT_SHEET, FishOfThieves.id(key.getPath()).withPrefix("entity/decorated_pot/")));
         }
     }
 }

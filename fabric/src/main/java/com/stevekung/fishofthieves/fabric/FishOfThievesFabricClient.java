@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
+import com.stevekung.fishofthieves.client.FOTDecoratedPotPatternsClient;
 import com.stevekung.fishofthieves.client.FOTModelLayers;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
@@ -34,6 +35,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     public void onInitializeClient()
     {
         FishOfThievesClient.init();
+        FOTDecoratedPotPatternsClient.init();
 
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(), FOTBlocks.FISH_BONE, FOTBlocks.MANGO_LEAVES);
         //@formatter:off

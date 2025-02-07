@@ -11,9 +11,9 @@ import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 
 public class FOTDecoratedPotPatterns
 {
-    private static final String STORMFISH_NAME = "stormfish_pottery_pattern";
-    private static final String KRAKEN_NAME = "kraken_pottery_pattern";
-    private static final String MEGALODON_NAME = "megalodon_pottery_pattern";
+    public static final String STORMFISH_NAME = "stormfish_pottery_pattern";
+    public static final String KRAKEN_NAME = "kraken_pottery_pattern";
+    public static final String MEGALODON_NAME = "megalodon_pottery_pattern";
 
     public static final ResourceKey<DecoratedPotPattern> STORMFISH = create(STORMFISH_NAME);
     public static final ResourceKey<DecoratedPotPattern> KRAKEN = create(KRAKEN_NAME);
