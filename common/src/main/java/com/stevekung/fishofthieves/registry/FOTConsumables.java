@@ -12,4 +12,10 @@ public class FOTConsumables
     public static final Consumable DEVILFISH = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200), 0.05F)).build();
     public static final Consumable COOKED_PLENTIFIN = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.LUCK, 200), 0.1F)).build();
     public static final Consumable COOKED_BATTLEGILL = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200), 0.1F)).build();
+    //TODO New juicy effect
+    public static final Consumable RAW_MANGO_CONSUMABLE = Consumables.defaultFood()
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0), 0.2f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 0), 0.15f))
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP, 200, 0), 0.1f))
+            .build();
 }
