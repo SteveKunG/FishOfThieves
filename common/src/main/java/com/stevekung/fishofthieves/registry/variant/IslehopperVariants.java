@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -29,7 +30,10 @@ public class IslehopperVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", IslehopperVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, STONE, "stone", 0);
-        registerContext.register(context, MOSS, "moss", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES)))).build());
+        registerContext.register(context, MOSS, "moss", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)),
+                MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)),
+                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES))),
+                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build());
         registerContext.register(context, HONEY, "honey", 2, HasBeehiveCondition.beehive(5, 9).build());
         registerContext.register(context, RAVEN, "raven", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), HeightCondition.height(MinMaxBounds.Ints.atMost(0))).build());
         registerContext.register(context, AMETHYST, "amethyst", 4, true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16).build());

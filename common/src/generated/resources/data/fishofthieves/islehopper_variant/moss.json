@@ -17,6 +17,10 @@
           {
             "biomes": "minecraft:lush_caves",
             "condition": "fishofthieves:match_biome"
+          },
+          {
+            "biomes": "fishofthieves:tropical_island",
+            "condition": "fishofthieves:match_biome"
           }
         ]
       }

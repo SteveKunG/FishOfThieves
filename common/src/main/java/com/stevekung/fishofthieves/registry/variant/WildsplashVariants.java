@@ -6,9 +6,11 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
+
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -29,7 +31,8 @@ public class WildsplashVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("wildsplash", WildsplashVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, RUSSET, "russet", 0);
-        registerContext.register(context, SANDY, "sandy", 1, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)).build());
+        registerContext.register(context, SANDY, "sandy", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)).and(ContinentalnessCondition.builder().continentalness(Continentalness.COAST)),
+                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build());
         registerContext.register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)).build());
         registerContext.register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))).build());
         registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
