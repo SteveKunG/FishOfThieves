@@ -150,6 +150,16 @@
     - Without Jungle Bush, Fewer melons, and no Big Oak trees
     - Has sand trail randomly generated around the biome
 
+## Fish
+### Islehopper
+- Moss Islehopper is now spawn in the Tropical Island
+
+### Stormfish
+- Wild Stormfish is now spawn in the Tropical Island
+
+### Wildsplash
+- Sandy Wildsplash is now spawn in the Tropical Island
+
 ## Structures
 ### Seapost
 - Potted Plumerias are now included

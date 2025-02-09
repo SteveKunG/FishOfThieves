@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sparse_jungle"
+    "minecraft:sparse_jungle",
+    "fishofthieves:tropical_island"
   ]
 }

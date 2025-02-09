@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:is_ocean",
-    "minecraft:sparse_jungle",
     "fishofthieves:tropical_island"
   ]
 }
