@@ -37,13 +37,14 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_DEVILFISH).forceAddTag(BiomeTags.IS_OVERWORLD);
         this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_BATTLEGILLS).forceAddTag(BiomeTags.IS_OVERWORLD);
         this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_WRECKERS).forceAddTag(BiomeTags.IS_OCEAN);
-        this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE);
+        this.getOrCreateTagBuilder(FOTTags.Biomes.SPAWNS_STORMFISH).forceAddTag(BiomeTags.IS_OCEAN).add(Biomes.SPARSE_JUNGLE, FOTBiomes.TROPICAL_ISLAND);
 
         this.getOrCreateTagBuilder(FOTTags.Biomes.DEVILFISH_CANNOT_SPAWN).add(Biomes.LUSH_CAVES, Biomes.DEEP_DARK);
         this.getOrCreateTagBuilder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
         this.getOrCreateTagBuilder(FOTTags.Biomes.HAS_FISH_BONE).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 
+        this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLAND);
