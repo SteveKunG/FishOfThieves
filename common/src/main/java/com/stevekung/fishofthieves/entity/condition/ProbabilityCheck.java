@@ -7,9 +7,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record ProbabilityCondition(float chance) implements SpawnCondition
+public record ProbabilityCheck(float chance) implements SpawnCondition
 {
-    public static final MapCodec<ProbabilityCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ProbabilityCondition::chance)).apply(instance, ProbabilityCondition::new));
+    public static final MapCodec<ProbabilityCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ProbabilityCheck::chance)).apply(instance, ProbabilityCheck::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -25,11 +25,11 @@ public record ProbabilityCondition(float chance) implements SpawnCondition
 
     public static SpawnCondition chance(float chance)
     {
-        return new ProbabilityCondition(chance);
+        return new ProbabilityCheck(chance);
     }
 
     public static SpawnCondition defaultRareProbablity()
     {
-        return new ProbabilityCondition(0.05f);
+        return new ProbabilityCheck(0.05f);
     }
 }

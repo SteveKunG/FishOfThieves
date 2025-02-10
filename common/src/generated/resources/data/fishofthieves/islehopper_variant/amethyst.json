@@ -6,7 +6,7 @@
     "entity": [
       {
         "condition": {
-          "type": "fishofthieves:match_minimum_blocks_in_range",
+          "type": "fishofthieves:minimum_block_range",
           "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
           "range": 4,
           "size": 16

@@ -8,9 +8,9 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record ContinentalnessCondition(Continentalness continentalness) implements SpawnCondition
+public record ContinentalnessCheck(Continentalness continentalness) implements SpawnCondition
 {
-    public static final MapCodec<ContinentalnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Continentalness.CODEC.fieldOf("continentalness").forGetter(ContinentalnessCondition::continentalness)).apply(instance, ContinentalnessCondition::new));
+    public static final MapCodec<ContinentalnessCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Continentalness.CODEC.fieldOf("continentalness").forGetter(ContinentalnessCheck::continentalness)).apply(instance, ContinentalnessCheck::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -27,6 +27,6 @@ public record ContinentalnessCondition(Continentalness continentalness) implemen
 
     public static SpawnCondition continentalness(Continentalness continentalness)
     {
-        return new ContinentalnessCondition(continentalness);
+        return new ContinentalnessCheck(continentalness);
     }
 }

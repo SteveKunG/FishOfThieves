@@ -12,7 +12,7 @@
               "type": "fishofthieves:is_night"
             },
             {
-              "type": "fishofthieves:match_blocks_in_range",
+              "type": "fishofthieves:block_range",
               "blocks": "#fishofthieves:firelight_devilfish_warm_blocks",
               "fluids": "#minecraft:lava",
               "range": 4

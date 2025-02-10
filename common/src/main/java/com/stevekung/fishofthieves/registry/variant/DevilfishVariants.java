@@ -26,10 +26,10 @@ public class DevilfishVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("devilfish", DevilfishVariant::new);
         registerContext.register(context, ASHEN, "ashen", 0);
         registerContext.register(context, SEASHELL, "seashell", 1);
-        registerContext.register(context, LAVA, "lava", 2, MatchBlocksInRangeCondition.blocksInRange(Optional.empty(), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4));
-        registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(),
-                MatchBlocksInRangeCondition.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)));
+        registerContext.register(context, LAVA, "lava", 2, BlockRangeCheck.blocksInRange(Optional.empty(), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4));
+        registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllConditionCheck.allOf(NightCheck.night(),
+                BlockRangeCheck.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)));
     }
 
     public static void bootstrapSimple(BootstrapContext<DevilfishVariant> context)
@@ -38,8 +38,8 @@ public class DevilfishVariants
         registerContext.register(context, ASHEN, "ashen", 0);
         registerContext.register(context, SEASHELL, "seashell", 1);
         registerContext.register(context, LAVA, "lava", 2);
-        registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }
 
     private static ResourceKey<DevilfishVariant> createKey(String name)

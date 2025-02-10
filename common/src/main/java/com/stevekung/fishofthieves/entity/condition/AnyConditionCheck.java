@@ -7,11 +7,11 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.world.entity.variant.SpawnCondition;
 
-public class AnyOfCondition extends CompositeSpawnCondition
+public class AnyConditionCheck extends CompositeSpawnCondition
 {
-    public static final MapCodec<AnyOfCondition> CODEC = createCodec(AnyOfCondition::new);
+    public static final MapCodec<AnyConditionCheck> CODEC = createCodec(AnyConditionCheck::new);
 
-    AnyOfCondition(List<SpawnCondition> conditions)
+    AnyConditionCheck(List<SpawnCondition> conditions)
     {
         super(conditions, Util.anyOf(conditions));
     }
@@ -22,9 +22,9 @@ public class AnyOfCondition extends CompositeSpawnCondition
         return CODEC;
     }
 
-    public static AnyOfCondition.Builder anyOf(SpawnCondition... conditions)
+    public static AnyConditionCheck.Builder anyOf(SpawnCondition... conditions)
     {
-        return new AnyOfCondition.Builder(conditions);
+        return new AnyConditionCheck.Builder(conditions);
     }
 
     public static class Builder extends CompositeSpawnCondition.Builder
@@ -34,7 +34,7 @@ public class AnyOfCondition extends CompositeSpawnCondition
             super(builders);
         }
 
-        public AnyOfCondition.Builder or(SpawnCondition builder)
+        public AnyConditionCheck.Builder or(SpawnCondition builder)
         {
             this.addTerm(builder);
             return this;
@@ -43,7 +43,7 @@ public class AnyOfCondition extends CompositeSpawnCondition
         @Override
         protected SpawnCondition create(List<SpawnCondition> conditions)
         {
-            return new AnyOfCondition(conditions);
+            return new AnyConditionCheck(conditions);
         }
     }
 }

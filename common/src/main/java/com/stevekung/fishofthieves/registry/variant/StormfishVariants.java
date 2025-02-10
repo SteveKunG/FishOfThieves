@@ -29,14 +29,14 @@ public class StormfishVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ANCIENT, "ancient", 0);
-        registerContext.register(context, SHORES, "shores", 1, ContinentalnessCondition.continentalness(Continentalness.COAST));
+        registerContext.register(context, SHORES, "shores", 1, ContinentalnessCheck.continentalness(Continentalness.COAST));
         registerContext.register(context, WILD, "wild", 2, new BiomeCheck(HolderSet.direct(
                 biomeLookup.getOrThrow(Biomes.SPARSE_JUNGLE),
                 biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND))));
         registerContext.register(context, SHADOW, "shadow", 3,
-                registerContext.select(AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), SkyBrightnessCondition.skyBrightness(MinMaxBounds.Ints.atMost(4))), 1),
-                registerContext.select(ProbabilityCondition.defaultRareProbablity(), 0));
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(MinMaxBounds.Ints.between(9, 16)));
+                registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), SkyBrightnessCheck.skyBrightness(MinMaxBounds.Ints.atMost(4))), 1),
+                registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCheck.skyDarken(MinMaxBounds.Ints.between(9, 16)));
     }
 
     public static void bootstrapSimple(BootstrapContext<StormfishVariant> context)
@@ -45,8 +45,8 @@ public class StormfishVariants
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1);
         registerContext.register(context, WILD, "wild", 2);
-        registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)

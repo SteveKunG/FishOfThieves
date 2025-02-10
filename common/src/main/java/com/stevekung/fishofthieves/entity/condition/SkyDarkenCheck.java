@@ -7,9 +7,9 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record SkyDarkenCondition(MinMaxBounds.Ints darken) implements SpawnCondition
+public record SkyDarkenCheck(MinMaxBounds.Ints darken) implements SpawnCondition
 {
-    public static final MapCodec<SkyDarkenCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("darken").forGetter(SkyDarkenCondition::darken)).apply(instance, SkyDarkenCondition::new));
+    public static final MapCodec<SkyDarkenCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("darken").forGetter(SkyDarkenCheck::darken)).apply(instance, SkyDarkenCheck::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -25,6 +25,6 @@ public record SkyDarkenCondition(MinMaxBounds.Ints darken) implements SpawnCondi
 
     public static SpawnCondition skyDarken(MinMaxBounds.Ints darken)
     {
-        return new SkyDarkenCondition(darken);
+        return new SkyDarkenCheck(darken);
     }
 }

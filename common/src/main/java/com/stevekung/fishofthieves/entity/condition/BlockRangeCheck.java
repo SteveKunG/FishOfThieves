@@ -15,14 +15,14 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-public record MatchBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range) implements SpawnCondition
+public record BlockRangeCheck(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range) implements SpawnCondition
 {
     //@formatter:off
-    public static final MapCodec<MatchBlocksInRangeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MatchBlocksInRangeCondition::blocks),
-            RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MatchBlocksInRangeCondition::fluids),
-            Codec.intRange(1, 32).fieldOf("range").forGetter(MatchBlocksInRangeCondition::range)
-    ).apply(instance, MatchBlocksInRangeCondition::new));
+    public static final MapCodec<BlockRangeCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(BlockRangeCheck::blocks),
+            RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(BlockRangeCheck::fluids),
+            Codec.intRange(1, 32).fieldOf("range").forGetter(BlockRangeCheck::range)
+    ).apply(instance, BlockRangeCheck::new));
     //@formatter:on
 
     @Override
@@ -48,6 +48,6 @@ public record MatchBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Opt
 
     public static SpawnCondition blocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range)
     {
-        return new MatchBlocksInRangeCondition(blocks, fluids, range);
+        return new BlockRangeCheck(blocks, fluids, range);
     }
 }

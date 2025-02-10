@@ -6,9 +6,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record InvertedSpawnCondition(SpawnCondition term) implements SpawnCondition
+public record InvertedCondition(SpawnCondition term) implements SpawnCondition
 {
-    public static final MapCodec<InvertedSpawnCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(SpawnCondition.CODEC.fieldOf("term").forGetter(InvertedSpawnCondition::term)).apply(instance, InvertedSpawnCondition::new));
+    public static final MapCodec<InvertedCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(SpawnCondition.CODEC.fieldOf("term").forGetter(InvertedCondition::term)).apply(instance, InvertedCondition::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -24,6 +24,6 @@ public record InvertedSpawnCondition(SpawnCondition term) implements SpawnCondit
 
     public static SpawnCondition invert(SpawnCondition toInvert)
     {
-        return new InvertedSpawnCondition(toInvert);
+        return new InvertedCondition(toInvert);
     }
 }

@@ -8,9 +8,9 @@ import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.LightLayer;
 
-public record SkyBrightnessCondition(MinMaxBounds.Ints brightness) implements SpawnCondition
+public record SkyBrightnessCheck(MinMaxBounds.Ints brightness) implements SpawnCondition
 {
-    public static final MapCodec<SkyBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("brightness").forGetter(SkyBrightnessCondition::brightness)).apply(instance, SkyBrightnessCondition::new));
+    public static final MapCodec<SkyBrightnessCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("brightness").forGetter(SkyBrightnessCheck::brightness)).apply(instance, SkyBrightnessCheck::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -26,6 +26,6 @@ public record SkyBrightnessCondition(MinMaxBounds.Ints brightness) implements Sp
 
     public static SpawnCondition skyBrightness(MinMaxBounds.Ints brightness)
     {
-        return new SkyBrightnessCondition(brightness);
+        return new SkyBrightnessCheck(brightness);
     }
 }

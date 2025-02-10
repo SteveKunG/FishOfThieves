@@ -5,10 +5,10 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record SeeSkyCondition() implements SpawnCondition
+public record SeeSkyCheck() implements SpawnCondition
 {
-    private static final SeeSkyCondition INSTANCE = new SeeSkyCondition();
-    public static final MapCodec<SeeSkyCondition> CODEC = MapCodec.unit(INSTANCE);
+    private static final SeeSkyCheck INSTANCE = new SeeSkyCheck();
+    public static final MapCodec<SeeSkyCheck> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()

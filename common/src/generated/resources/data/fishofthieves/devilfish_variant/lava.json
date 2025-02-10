@@ -5,7 +5,7 @@
     "entity": [
       {
         "condition": {
-          "type": "fishofthieves:match_blocks_in_range",
+          "type": "fishofthieves:block_range",
           "fluids": "#minecraft:lava",
           "range": 4
         },

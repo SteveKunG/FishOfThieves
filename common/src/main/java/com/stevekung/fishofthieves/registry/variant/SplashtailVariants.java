@@ -21,10 +21,10 @@ public class SplashtailVariants
     {
         var registerContext = AbstractFishVariant.RegisterContext.create("splashtail", SplashtailVariant::new);
         registerContext.register(context, RUBY, "ruby", 0);
-        registerContext.register(context, SUNNY, "sunny", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, SUNNY, "sunny", 1, AllConditionCheck.allOf(DayCheck.day(), SeeSkyCheck.seeSky()));
         registerContext.register(context, INDIGO, "indigo", 2);
-        registerContext.register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, UMBER, "umber", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }
 
     public static void bootstrapSimple(BootstrapContext<SplashtailVariant> context)
@@ -33,8 +33,8 @@ public class SplashtailVariants
         registerContext.register(context, RUBY, "ruby", 0);
         registerContext.register(context, SUNNY, "sunny", 1);
         registerContext.register(context, INDIGO, "indigo", 2);
-        registerContext.register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, UMBER, "umber", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }
 
     private static ResourceKey<SplashtailVariant> createKey(String name)

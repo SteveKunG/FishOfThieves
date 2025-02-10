@@ -15,15 +15,15 @@ import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size) implements SpawnCondition
+public record MinimumBlockRangeCheck(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size) implements SpawnCondition
 {
     //@formatter:off
-    public static final MapCodec<MatchMinimumBlocksInRangeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MatchMinimumBlocksInRangeCondition::blocks),
-            RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MatchMinimumBlocksInRangeCondition::fluids),
-            Codec.intRange(1, 32).fieldOf("range").forGetter(MatchMinimumBlocksInRangeCondition::range),
-            Codec.intRange(1, 64).fieldOf("size").forGetter(MatchMinimumBlocksInRangeCondition::size)
-    ).apply(instance, MatchMinimumBlocksInRangeCondition::new));
+    public static final MapCodec<MinimumBlockRangeCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MinimumBlockRangeCheck::blocks),
+            RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MinimumBlockRangeCheck::fluids),
+            Codec.intRange(1, 32).fieldOf("range").forGetter(MinimumBlockRangeCheck::range),
+            Codec.intRange(1, 64).fieldOf("size").forGetter(MinimumBlockRangeCheck::size)
+    ).apply(instance, MinimumBlockRangeCheck::new));
     //@formatter:on
 
     @Override
@@ -49,6 +49,6 @@ public record MatchMinimumBlocksInRangeCondition(Optional<HolderSet<Block>> bloc
 
     public static SpawnCondition minimumBlocksInRange(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size)
     {
-        return new MatchMinimumBlocksInRangeCondition(blocks, fluids, range, size);
+        return new MinimumBlockRangeCheck(blocks, fluids, range, size);
     }
 }

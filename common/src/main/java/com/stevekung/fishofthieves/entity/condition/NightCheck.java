@@ -5,10 +5,10 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public class DayCondition implements SpawnCondition
+public class NightCheck implements SpawnCondition
 {
-    private static final DayCondition INSTANCE = new DayCondition();
-    public static final MapCodec<DayCondition> CODEC = MapCodec.unit(INSTANCE);
+    private static final NightCheck INSTANCE = new NightCheck();
+    public static final MapCodec<NightCheck> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -19,10 +19,10 @@ public class DayCondition implements SpawnCondition
     @Override
     public boolean test(SpawnContext context)
     {
-        return context.level().getLevel().isBrightOutside();
+        return context.level().getLevel().isDarkOutside();
     }
 
-    public static SpawnCondition day()
+    public static SpawnCondition night()
     {
         return INSTANCE;
     }

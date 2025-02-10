@@ -7,12 +7,12 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record HeightCondition(MinMaxBounds.Ints height) implements SpawnCondition
+public record HeightCheck(MinMaxBounds.Ints height) implements SpawnCondition
 {
-    public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("height").forGetter(HeightCondition::height)).apply(instance, HeightCondition::new));
+    public static final MapCodec<HeightCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("height").forGetter(HeightCheck::height)).apply(instance, HeightCheck::new));
 
     @Override
-    public MapCodec<HeightCondition> codec()
+    public MapCodec<HeightCheck> codec()
     {
         return CODEC;
     }
@@ -25,6 +25,6 @@ public record HeightCondition(MinMaxBounds.Ints height) implements SpawnConditio
 
     public static SpawnCondition height(MinMaxBounds.Ints height)
     {
-        return new HeightCondition(height);
+        return new HeightCheck(height);
     }
 }

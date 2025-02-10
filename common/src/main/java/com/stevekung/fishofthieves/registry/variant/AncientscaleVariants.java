@@ -31,10 +31,10 @@ public class AncientscaleVariants
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
         registerContext.register(context, BONE, "bone", 3,
-                registerContext.select(AllOfCondition.allOf(new StructureCheck(structureLookup.getOrThrow(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN)), RandomChanceCondition.chance(10)), 1),
-                registerContext.select(ProbabilityCondition.defaultRareProbablity(), 0));
+                registerContext.select(AllConditionCheck.allOf(new StructureCheck(structureLookup.getOrThrow(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN)), RandomChanceCheck.chance(10)), 1),
+                registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
         registerContext.register(context, STARSHINE, "starshine", 4, true,
-                AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), new MoonBrightnessCheck(MinMaxBounds.Doubles.atMost(0.25d))));
+                AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(), new MoonBrightnessCheck(MinMaxBounds.Doubles.atMost(0.25d))));
     }
 
     public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)
@@ -43,8 +43,8 @@ public class AncientscaleVariants
         registerContext.register(context, ALMOND, "almond", 0);
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
-        registerContext.register(context, BONE, "bone", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, BONE, "bone", 3, ProbabilityCheck.defaultRareProbablity());
+        registerContext.register(context, STARSHINE, "starshine", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }
 
     private static ResourceKey<AncientscaleVariant> createKey(String name)

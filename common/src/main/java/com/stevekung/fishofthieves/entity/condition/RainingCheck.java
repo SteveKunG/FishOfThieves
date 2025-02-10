@@ -9,9 +9,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
-public record RainingCondition(Optional<Boolean> thundering) implements SpawnCondition
+public record RainingCheck(Optional<Boolean> thundering) implements SpawnCondition
 {
-    public static final MapCodec<RainingCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("thundering").forGetter(RainingCondition::thundering)).apply(instance, RainingCondition::new));
+    public static final MapCodec<RainingCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("thundering").forGetter(RainingCheck::thundering)).apply(instance, RainingCheck::new));
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
@@ -26,24 +26,24 @@ public record RainingCondition(Optional<Boolean> thundering) implements SpawnCon
         return level.isRaining() || this.thundering.isPresent() && this.thundering.get() == level.isThundering();
     }
 
-    public static RainingCondition.Builder raining()
+    public static RainingCheck.Builder raining()
     {
-        return new RainingCondition.Builder();
+        return new RainingCheck.Builder();
     }
 
     public static class Builder
     {
         private Optional<Boolean> thundering = Optional.empty();
 
-        public RainingCondition.Builder thundering(boolean thundering)
+        public RainingCheck.Builder thundering(boolean thundering)
         {
             this.thundering = Optional.of(thundering);
             return this;
         }
 
-        public RainingCondition build()
+        public RainingCheck build()
         {
-            return new RainingCondition(this.thundering);
+            return new RainingCheck(this.thundering);
         }
     }
 }

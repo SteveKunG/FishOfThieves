@@ -19,7 +19,7 @@
               "biomes": "minecraft:warm_ocean"
             },
             {
-              "type": "fishofthieves:match_minimum_blocks_in_range",
+              "type": "fishofthieves:minimum_block_range",
               "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
               "range": 4,
               "size": 24
