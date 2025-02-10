@@ -11,7 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 public record AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<AncientscaleVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(AncientscaleVariant::new);
+    public static final Codec<AncientscaleVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(AncientscaleVariant::new);
     public static final Codec<Holder<AncientscaleVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ANCIENTSCALE_VARIANT, DIRECT_CODEC);
+
+    public AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, int customModelData)
+    {
+        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+    }
 
     @Override
     public ResourceLocation fullTexture()

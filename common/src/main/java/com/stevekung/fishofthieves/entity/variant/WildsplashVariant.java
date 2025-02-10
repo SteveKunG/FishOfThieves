@@ -11,7 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 public record WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<WildsplashVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(WildsplashVariant::new);
+    public static final Codec<WildsplashVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(WildsplashVariant::new);
     public static final Codec<Holder<WildsplashVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.WILDSPLASH_VARIANT, DIRECT_CODEC);
+
+    public WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, int customModelData)
+    {
+        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+    }
 
     @Override
     public ResourceLocation fullTexture()

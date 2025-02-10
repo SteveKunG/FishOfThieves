@@ -11,7 +11,13 @@ import net.minecraft.resources.ResourceLocation;
 public record BattlegillVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<BattlegillVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(BattlegillVariant::new);
+    public static final Codec<BattlegillVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(BattlegillVariant::new);
     public static final Codec<Holder<BattlegillVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.BATTLEGILL_VARIANT, DIRECT_CODEC);
+
+    public BattlegillVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, int customModelData)
+    {
+        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+    }
 
     @Override
     public ResourceLocation fullTexture()
