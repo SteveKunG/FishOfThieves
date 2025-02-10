@@ -10,8 +10,7 @@ dependencies {
     }
 }
 
-//TODO Enable
-if (false) {
+if (findProject(":neoforge") != null) {
     processResources {
         doFirst {
             // Define source and destination directories

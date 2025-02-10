@@ -102,7 +102,7 @@ sourcesJar {
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
     excludes = devExcludes
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.register("apiJar", Jar) {
