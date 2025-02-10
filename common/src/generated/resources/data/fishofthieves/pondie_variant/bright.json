@@ -4,19 +4,22 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "chance": 0.05,
-            "condition": "fishofthieves:probability"
-          },
-          {
-            "condition": "fishofthieves:is_day"
-          },
-          {
-            "condition": "fishofthieves:see_sky"
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:probability",
+              "chance": 0.05
+            },
+            {
+              "type": "fishofthieves:is_day"
+            },
+            {
+              "type": "fishofthieves:see_sky"
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

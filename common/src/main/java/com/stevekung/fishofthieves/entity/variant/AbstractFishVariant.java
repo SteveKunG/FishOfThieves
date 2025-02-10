@@ -2,14 +2,15 @@ package com.stevekung.fishofthieves.entity.variant;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
+import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.Util;
+import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -30,13 +31,13 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     String name();
 
-    ResourceLocation texture();
+    ClientAsset texture();
 
     ResourceLocation fullTexture();
 
     Optional<ResourceLocation> fullGlowTexture();
 
-    Optional<ResourceLocation> glowTexture();
+    Optional<ClientAsset> glowTexture();
 
     SpawnSettings spawnSettings();
 
@@ -46,22 +47,29 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         return this.spawnSettings().entity().selectors();
     }
 
-    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
-                ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
-                ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                ClientAsset.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ClientAsset.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(SpawnPrioritySelectors.fallback(0), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
     }
 
-    static ResourceLocation fullTextureId(ResourceLocation texture)
+    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ClientAsset, Optional<ClientAsset>, Integer, T> factory)
     {
-        return texture.withPath(string -> "textures/" + string + ".png");
+        //@formatter:off
+        return RecordCodecBuilder.create(instance -> instance.group(
+                ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
+                ClientAsset.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ClientAsset.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
+        ).apply(instance, factory));
+        //@formatter:on
     }
 
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
@@ -80,15 +88,15 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
     class RegisterContext<T>
     {
         private final String entityName;
-        private final Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory;
+        private final Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory;
 
-        RegisterContext(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+        RegisterContext(String entityName, Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
         {
             this.entityName = entityName;
             this.factory = factory;
         }
 
-        public static <T> RegisterContext<T> create(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
+        public static <T> RegisterContext<T> create(String entityName, Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
@@ -103,12 +111,6 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
             return new PriorityProvider.Selector<>(condition, priority);
         }
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Predicate<Context> condition, int priority)
-        {
-            return new PriorityProvider.Selector(Optional.of(condition), priority);
-        }
-
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData)
         {
             this.register(context, key, name, customModelData, false, PriorityProvider.alwaysTrue(0), Optional.empty());
@@ -117,11 +119,6 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition condition)
         {
             this.register(context, key, name, customModelData, false, List.of(this.select(condition, 0)), Optional.empty());
-        }
-
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, Predicate<SpawnContext> conditions)
-        {
-            this.register(context, key, name, customModelData, false, List.of(this.select(conditions, 0)), Optional.empty());
         }
 
         @SafeVarargs
@@ -145,11 +142,6 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
             this.register(context, key, name, customModelData, glow, List.of(this.select(condition, 0)), Optional.empty());
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Predicate<SpawnContext> predicate)
-        {
-            this.register(context, key, name, customModelData, glow, List.of(this.select(predicate, 0)), Optional.empty());
-        }
-
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)
         {
             this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.of(fishingOverride));
@@ -159,7 +151,7 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
+            context.register(key, this.factory.apply(name, new ClientAsset(texture), glow ? Optional.of(new ClientAsset(glowTexture)) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
         }
     }
 
@@ -171,5 +163,7 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
                         SpawnPrioritySelectors.CODEC.optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
                 .apply(instance, SpawnSettings::new));
         //@formatter:on
+
+        public static final SpawnSettings EMPTY = new SpawnSettings(SpawnPrioritySelectors.EMPTY, Optional.empty());
     }
 }

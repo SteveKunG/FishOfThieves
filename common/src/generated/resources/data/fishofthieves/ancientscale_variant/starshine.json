@@ -5,21 +5,24 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "condition": "fishofthieves:is_night"
-          },
-          {
-            "condition": "fishofthieves:see_sky"
-          },
-          {
-            "brightness": {
-              "max": 0.25
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:is_night"
             },
-            "condition": "fishofthieves:moon_brightness"
-          }
-        ]
+            {
+              "type": "fishofthieves:see_sky"
+            },
+            {
+              "type": "minecraft:moon_brightness",
+              "range": {
+                "max": 0.25
+              }
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

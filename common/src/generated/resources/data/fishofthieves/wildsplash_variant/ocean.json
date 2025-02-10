@@ -4,8 +4,11 @@
   "spawn_settings": {
     "entity": [
       {
-        "biomes": "#minecraft:is_ocean",
-        "condition": "fishofthieves:match_biome"
+        "condition": {
+          "type": "minecraft:biome",
+          "biomes": "#minecraft:is_ocean"
+        },
+        "priority": 0
       }
     ]
   },

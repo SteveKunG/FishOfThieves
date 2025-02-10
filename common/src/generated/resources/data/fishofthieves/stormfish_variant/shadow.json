@@ -4,25 +4,29 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "chance": 0.05,
-            "condition": "fishofthieves:probability"
-          },
-          {
-            "brightness": {
-              "max": 4
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:probability",
+              "chance": 0.05
             },
-            "condition": "fishofthieves:sky_brightness"
-          }
-        ]
-      }
-    ],
-    "fishing": [
+            {
+              "type": "fishofthieves:sky_brightness",
+              "brightness": {
+                "max": 4
+              }
+            }
+          ]
+        },
+        "priority": 1
+      },
       {
-        "chance": 0.05,
-        "condition": "fishofthieves:probability"
+        "condition": {
+          "type": "fishofthieves:probability",
+          "chance": 0.05
+        },
+        "priority": 0
       }
     ]
   },

@@ -4,8 +4,11 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:continentalness",
-        "continentalness": "coast"
+        "condition": {
+          "type": "fishofthieves:continentalness",
+          "continentalness": "coast"
+        },
+        "priority": 0
       }
     ]
   },

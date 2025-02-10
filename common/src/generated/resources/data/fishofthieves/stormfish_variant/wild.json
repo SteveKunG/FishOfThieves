@@ -4,17 +4,14 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:any_of",
-        "terms": [
-          {
-            "biomes": "minecraft:sparse_jungle",
-            "condition": "fishofthieves:match_biome"
-          },
-          {
-            "biomes": "fishofthieves:tropical_island",
-            "condition": "fishofthieves:match_biome"
-          }
-        ]
+        "condition": {
+          "type": "minecraft:biome",
+          "biomes": [
+            "minecraft:sparse_jungle",
+            "fishofthieves:tropical_island"
+          ]
+        },
+        "priority": 0
       }
     ]
   },

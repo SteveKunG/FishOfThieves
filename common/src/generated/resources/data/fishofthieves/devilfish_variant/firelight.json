@@ -5,18 +5,21 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "condition": "fishofthieves:is_night"
-          },
-          {
-            "blocks": "#fishofthieves:firelight_devilfish_warm_blocks",
-            "condition": "fishofthieves:match_blocks_in_range",
-            "fluids": "#minecraft:lava",
-            "range": 4
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:is_night"
+            },
+            {
+              "type": "fishofthieves:match_blocks_in_range",
+              "blocks": "#fishofthieves:firelight_devilfish_warm_blocks",
+              "fluids": "#minecraft:lava",
+              "range": 4
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

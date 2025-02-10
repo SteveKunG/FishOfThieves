@@ -4,26 +4,27 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:any_of",
-        "terms": [
-          {
-            "condition": "fishofthieves:all_of",
-            "terms": [
-              {
-                "biomes": "#minecraft:is_beach",
-                "condition": "fishofthieves:match_biome"
-              },
-              {
-                "condition": "fishofthieves:continentalness",
-                "continentalness": "coast"
-              }
-            ]
-          },
-          {
-            "biomes": "fishofthieves:tropical_island",
-            "condition": "fishofthieves:match_biome"
-          }
-        ]
+        "condition": {
+          "type": "minecraft:biome",
+          "biomes": "fishofthieves:tropical_island"
+        },
+        "priority": 1
+      },
+      {
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "minecraft:biome",
+              "biomes": "#minecraft:is_beach"
+            },
+            {
+              "type": "fishofthieves:continentalness",
+              "continentalness": "coast"
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

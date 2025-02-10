@@ -5,10 +5,13 @@
   "spawn_settings": {
     "entity": [
       {
-        "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
-        "condition": "fishofthieves:match_minimum_blocks_in_range",
-        "range": 4,
-        "size": 16
+        "condition": {
+          "type": "fishofthieves:match_minimum_blocks_in_range",
+          "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
+          "range": 4,
+          "size": 16
+        },
+        "priority": 0
       }
     ]
   },

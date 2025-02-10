@@ -4,15 +4,18 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "condition": "fishofthieves:is_raining"
-          },
-          {
-            "condition": "fishofthieves:see_sky"
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:is_raining"
+            },
+            {
+              "type": "fishofthieves:see_sky"
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

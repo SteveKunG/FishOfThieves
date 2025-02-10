@@ -11,6 +11,10 @@ import net.minecraft.world.entity.variant.SpawnCondition;
 @SuppressWarnings("unused")
 public interface FOTSpawnConditions
 {
+    MapCodec<? extends SpawnCondition> ALL_OF = register("all_of", AllOfCondition.CODEC);
+    MapCodec<? extends SpawnCondition> ANY_OF = register("any_of", AnyOfCondition.CODEC);
+    MapCodec<? extends SpawnCondition> INVERTED = register("inverted", InvertedSpawnCondition.CODEC);
+
     MapCodec<? extends SpawnCondition> IS_DAY = register("is_day", DayCondition.CODEC);
     MapCodec<? extends SpawnCondition> IS_NIGHT = register("is_night", NightCondition.CODEC);
     MapCodec<? extends SpawnCondition> IS_RAINING = register("is_raining", RainingCondition.CODEC);

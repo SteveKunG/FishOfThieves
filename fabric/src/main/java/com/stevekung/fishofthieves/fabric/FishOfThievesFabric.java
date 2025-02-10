@@ -46,16 +46,16 @@ public class FishOfThievesFabric implements ModInitializer
     @Override
     public void onInitialize()
     {
-        DynamicRegistries.registerSynced(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
-        DynamicRegistries.registerSynced(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, SplashtailVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, PondieVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, IslehopperVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, AncientscaleVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, PlentifinVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, WildsplashVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DevilfishVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, BattlegillVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, WreckerVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
+        DynamicRegistries.registerSynced(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, StormfishVariant.NETWORK_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
         DynamicRegistries.registerSynced(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, DynamicRegistries.SyncOption.SKIP_WHEN_EMPTY);
 
         DynamicRegistrySetupCallback.EVENT.register(registryView ->

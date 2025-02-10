@@ -4,8 +4,11 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:has_beehive",
-        "distance": 9
+        "condition": {
+          "type": "fishofthieves:has_beehive",
+          "distance": 9
+        },
+        "priority": 0
       }
     ]
   },

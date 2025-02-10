@@ -1,10 +1,7 @@
 package com.stevekung.fishofthieves.registry.variant;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.condition.DayCondition;
-import com.stevekung.fishofthieves.entity.condition.NightCondition;
-import com.stevekung.fishofthieves.entity.condition.ProbabilityCondition;
-import com.stevekung.fishofthieves.entity.condition.SeeSkyCondition;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
@@ -26,8 +23,8 @@ public class PondieVariants
         registerContext.register(context, CHARCOAL, "charcoal", 0);
         registerContext.register(context, ORCHID, "orchid", 1);
         registerContext.register(context, BRONZE, "bronze", 2);
-        registerContext.register(context, BRIGHT, "bright", 3, ProbabilityCondition.defaultRareProbablity().and(DayCondition.day()).and(SeeSkyCondition.seeSky()));
-        registerContext.register(context, MOONSKY, "moonsky", 4, true, NightCondition.night().and(SeeSkyCondition.seeSky()));
+        registerContext.register(context, BRIGHT, "bright", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyCondition.seeSky()));
+        registerContext.register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
     }
 
     public static void bootstrapSimple(BootstrapContext<PondieVariant> context)
@@ -37,7 +34,7 @@ public class PondieVariants
         registerContext.register(context, ORCHID, "orchid", 1);
         registerContext.register(context, BRONZE, "bronze", 2);
         registerContext.register(context, BRIGHT, "bright", 3, ProbabilityCondition.defaultRareProbablity());
-        registerContext.register(context, MOONSKY, "moonsky", 4, true, NightCondition.night().and(SeeSkyCondition.seeSky()));
+        registerContext.register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()));
     }
 
     private static ResourceKey<PondieVariant> createKey(String name)

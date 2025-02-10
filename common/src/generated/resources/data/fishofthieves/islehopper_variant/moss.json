@@ -4,25 +4,27 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:any_of",
-        "terms": [
-          {
-            "biomes": "#minecraft:is_jungle",
-            "condition": "fishofthieves:match_biome"
-          },
-          {
-            "biomes": "#minecraft:has_closer_water_fog",
-            "condition": "fishofthieves:match_biome"
-          },
-          {
-            "biomes": "minecraft:lush_caves",
-            "condition": "fishofthieves:match_biome"
-          },
-          {
-            "biomes": "fishofthieves:tropical_island",
-            "condition": "fishofthieves:match_biome"
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:any_of",
+          "terms": [
+            {
+              "type": "minecraft:biome",
+              "biomes": "#minecraft:is_jungle"
+            },
+            {
+              "type": "minecraft:biome",
+              "biomes": "#minecraft:has_closer_water_fog"
+            },
+            {
+              "type": "minecraft:biome",
+              "biomes": [
+                "minecraft:lush_caves",
+                "fishofthieves:tropical_island"
+              ]
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

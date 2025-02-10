@@ -5,25 +5,28 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "condition": "fishofthieves:is_night"
-          },
-          {
-            "condition": "fishofthieves:see_sky"
-          },
-          {
-            "biomes": "minecraft:warm_ocean",
-            "condition": "fishofthieves:match_biome"
-          },
-          {
-            "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
-            "condition": "fishofthieves:match_minimum_blocks_in_range",
-            "range": 4,
-            "size": 24
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:is_night"
+            },
+            {
+              "type": "fishofthieves:see_sky"
+            },
+            {
+              "type": "minecraft:biome",
+              "biomes": "minecraft:warm_ocean"
+            },
+            {
+              "type": "fishofthieves:match_minimum_blocks_in_range",
+              "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
+              "range": 4,
+              "size": 24
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

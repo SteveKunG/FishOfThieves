@@ -5,11 +5,14 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:sky_darken",
-        "darken": {
-          "max": 16,
-          "min": 9
-        }
+        "condition": {
+          "type": "fishofthieves:sky_darken",
+          "darken": {
+            "max": 16,
+            "min": 9
+          }
+        },
+        "priority": 0
       }
     ]
   },

@@ -4,8 +4,11 @@
   "spawn_settings": {
     "entity": [
       {
-        "chance": 0.05,
-        "condition": "fishofthieves:probability"
+        "condition": {
+          "type": "fishofthieves:probability",
+          "chance": 0.05
+        },
+        "priority": 0
       }
     ]
   },

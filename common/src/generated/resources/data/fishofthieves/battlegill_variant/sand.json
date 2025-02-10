@@ -4,22 +4,25 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:all_of",
-        "terms": [
-          {
-            "chance": 0.05,
-            "condition": "fishofthieves:probability"
-          },
-          {
-            "biomes": [
-              "minecraft:desert",
-              "minecraft:warm_ocean",
-              "minecraft:lukewarm_ocean",
-              "minecraft:deep_lukewarm_ocean"
-            ],
-            "condition": "fishofthieves:match_biome"
-          }
-        ]
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:probability",
+              "chance": 0.05
+            },
+            {
+              "type": "minecraft:biome",
+              "biomes": [
+                "minecraft:desert",
+                "minecraft:warm_ocean",
+                "minecraft:lukewarm_ocean",
+                "minecraft:deep_lukewarm_ocean"
+              ]
+            }
+          ]
+        },
+        "priority": 0
       }
     ]
   },

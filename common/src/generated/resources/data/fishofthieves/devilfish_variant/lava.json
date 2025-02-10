@@ -4,9 +4,12 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:match_blocks_in_range",
-        "fluids": "#minecraft:lava",
-        "range": 4
+        "condition": {
+          "type": "fishofthieves:match_blocks_in_range",
+          "fluids": "#minecraft:lava",
+          "range": 4
+        },
+        "priority": 0
       }
     ]
   },
