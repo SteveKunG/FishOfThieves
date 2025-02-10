@@ -24,7 +24,7 @@ public class FOTRegistries
     public static final ResourceKey<Registry<FishPlaqueInteraction>> FISH_PLAQUE_INTERACTION = create("fish_plaque_interaction");
 
     public static final ResourceKey<Registry<SpawnCondition>> SPAWN_CONDITION = create("spawn_condition");
-    public static final ResourceKey<Registry<SpawnConditionType>> SPAWN_CONDITION_TYPE = create("spawn_condition_type");
+    public static final ResourceKey<Registry<SpawnConditionType>> SPAWN_CONDITION_TYPE = create("fot_spawn_condition_type"); //TODO Use vanilla system
 
     private static <T> ResourceKey<Registry<T>> create(String key)
     {

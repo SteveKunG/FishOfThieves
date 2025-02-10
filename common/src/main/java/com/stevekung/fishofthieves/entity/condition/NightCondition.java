@@ -17,7 +17,7 @@ public class NightCondition implements SpawnCondition
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.level().isNight();
+        return context.level().isDarkOutside();
     }
 
     public static Builder night()

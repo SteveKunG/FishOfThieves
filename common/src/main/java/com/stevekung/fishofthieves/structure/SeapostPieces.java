@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -101,6 +102,9 @@ public class SeapostPieces
         @Override
         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box)
         {
+            var villagerTypeLookup = level.holderLookup(Registries.VILLAGER_TYPE);
+            var villagerProfessionLookup = level.holderLookup(Registries.VILLAGER_PROFESSION);
+
             switch (name)
             {
                 case "seapost_barrel" ->
@@ -125,9 +129,9 @@ public class SeapostPieces
                 case "seapost_leather_worker" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LEATHERWORKER, 1));
+                    villager.setVillagerData(new VillagerData(villagerTypeLookup.getOrThrow(VillagerType.PLAINS), villagerProfessionLookup.getOrThrow(VillagerProfession.LEATHERWORKER), 1));
                     villager.setPersistenceRequired();
-                    villager.moveTo(pos, 0.0F, 0.0F);
+                    villager.snapTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
@@ -135,9 +139,9 @@ public class SeapostPieces
                 case "seapost_fisherman" ->
                 {
                     var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
-                    villager.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.FISHERMAN, 1));
+                    villager.setVillagerData(new VillagerData(villagerTypeLookup.getOrThrow(VillagerType.PLAINS), villagerProfessionLookup.getOrThrow(VillagerProfession.FISHERMAN), 1));
                     villager.setPersistenceRequired();
-                    villager.moveTo(pos, 0.0F, 0.0F);
+                    villager.snapTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);

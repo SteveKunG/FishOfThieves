@@ -13,15 +13,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class MangoLeavesBlock extends LeavesBlock implements BonemealableBlock
+public class MangoLeavesBlock extends TintedParticleLeavesBlock implements BonemealableBlock
 {
     public MangoLeavesBlock(BlockBehaviour.Properties properties)
     {
-        super(properties);
+        super(0.05f, properties);
     }
 
     @Override

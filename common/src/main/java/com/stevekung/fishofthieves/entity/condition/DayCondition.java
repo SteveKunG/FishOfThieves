@@ -17,7 +17,7 @@ public class DayCondition implements SpawnCondition
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.level().isDay();
+        return context.level().isBrightOutside();
     }
 
     public static SpawnCondition.Builder day()

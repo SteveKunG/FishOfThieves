@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:splashtail",
-                    "type_specific": {
-                      "type": "fishofthieves:splashtail",
-                      "variant": "fishofthieves:ruby"
+                    "components": {
+                      "fishofthieves:splashtail/variant": "fishofthieves:ruby"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:splashtail",
-                    "type_specific": {
-                      "type": "fishofthieves:splashtail",
-                      "variant": "fishofthieves:sunny"
+                    "components": {
+                      "fishofthieves:splashtail/variant": "fishofthieves:sunny"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:splashtail",
-                    "type_specific": {
-                      "type": "fishofthieves:splashtail",
-                      "variant": "fishofthieves:indigo"
+                    "components": {
+                      "fishofthieves:splashtail/variant": "fishofthieves:indigo"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:splashtail",
-                    "type_specific": {
-                      "type": "fishofthieves:splashtail",
-                      "variant": "fishofthieves:umber"
+                    "components": {
+                      "fishofthieves:splashtail/variant": "fishofthieves:umber"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:splashtail",
-                    "type_specific": {
-                      "type": "fishofthieves:splashtail",
-                      "variant": "fishofthieves:seafoam"
+                    "components": {
+                      "fishofthieves:splashtail/variant": "fishofthieves:seafoam"
                     }
                   }
                 },

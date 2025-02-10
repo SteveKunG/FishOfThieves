@@ -72,7 +72,7 @@ public class WreckerAi
                 Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(0.8F), 2),
                         Pair.of(SetWalkTargetFromLookTarget.create(0.8F, 3), 3),
-                        Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
+                        Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5))))));
     }
 
     private static void initFightActivity(Brain<Wrecker> brain)

@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.GlowFishLayer;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.VariantHolder;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 
 import net.minecraft.client.model.EntityModel;
@@ -18,7 +19,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.AbstractFish;
 
 public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S extends ThievesFishRenderState, T extends AbstractFish & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<S> & HeadphoneModel.Scaleable<S>> extends MobRenderer<T, S, M>

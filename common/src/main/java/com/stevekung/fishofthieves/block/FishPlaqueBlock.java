@@ -219,7 +219,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             bucketable.loadFromBucketTag(customData.copyTag());
                         }
                         entityToSave.saveWithoutId(tag);
-                        entityToSave.moveTo(pos, 0, 0); // Move entity position to this fish plaque pos
+                        entityToSave.snapTo(pos, 0, 0); // Move entity position to this fish plaque pos
                         entityToSave.discard(); // Remove spawned entity from the world
                         fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
                     }
@@ -291,18 +291,15 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving)
+    public void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean isMoving)
     {
-        if (!state.is(newState.getBlock()))
-        {
-            var blockEntity = level.getBlockEntity(pos);
+        var blockEntity = level.getBlockEntity(pos);
 
-            if (blockEntity instanceof FishPlaqueBlockEntity)
-            {
-                level.updateNeighbourForOutputSignal(pos, state.getBlock());
-            }
-            super.onRemove(state, level, pos, newState, isMoving);
+        if (blockEntity instanceof FishPlaqueBlockEntity)
+        {
+            level.updateNeighbourForOutputSignal(pos, state.getBlock());
         }
+        super.affectNeighborsAfterRemoval(state, level, pos, isMoving);
     }
 
     @Override
@@ -420,7 +417,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 entity.setAirSupply(100);
             }
 
-            entity.moveTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, direction.toYRot(), 0.0f);
+            entity.snapTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, direction.toYRot(), 0.0f);
             entity.setDeltaMovement(level.random.triangle(direction.getStepX() * random, 0.0172275), 0.4, level.random.triangle(direction.getStepZ() * random, 0.0172275));
             level.addFreshEntity(entity);
         }

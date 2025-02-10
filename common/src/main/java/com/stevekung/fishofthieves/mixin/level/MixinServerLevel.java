@@ -30,8 +30,8 @@ public abstract class MixinServerLevel extends Level
         super(null, null, null, null, false, false, 0, 0);
     }
 
-    @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))
-    private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z)
+    @Inject(method = "tickThunder", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))
+    private void fishofthieves$specialThunderTick(LevelChunk chunk, CallbackInfo info, @Local(index = 4, ordinal = 0) int x, @Local(index = 5, ordinal = 1) int z)
     {
         if (this.isThundering() && this.random.nextInt(5000) == 0)
         {
@@ -40,7 +40,7 @@ public abstract class MixinServerLevel extends Level
             if (blockPos.isPresent())
             {
                 var lightningBolt = EntityType.LIGHTNING_BOLT.create(this, EntitySpawnReason.EVENT);
-                lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos.get()));
+                lightningBolt.snapTo(Vec3.atBottomCenterOf(blockPos.get()));
                 this.addFreshEntity(lightningBolt);
             }
         }

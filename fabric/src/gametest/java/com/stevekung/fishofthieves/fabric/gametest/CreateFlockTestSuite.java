@@ -5,13 +5,15 @@ import java.util.function.Predicate;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 
 public class CreateFlockTestSuite implements FOTGameTest
 {
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(maxTicks = 300)
     public void fiveNonTrophyTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -42,16 +44,16 @@ public class CreateFlockTestSuite implements FOTGameTest
 
             if (leaderCount != 1)
             {
-                helper.fail("Leader should have only one per flock!, got " + leaderCount + " instead");
+                helper.fail(Component.literal("Leader should have only one per flock!, got " + leaderCount + " instead"));
             }
             if (followerCount != 4)
             {
-                helper.fail("Followers should have 4 per flock!, got " + followerCount + " instead");
+                helper.fail(Component.literal("Followers should have 4 per flock!, got " + followerCount + " instead"));
             }
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(maxTicks = 300)
     public void fiveTrophyTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -84,16 +86,16 @@ public class CreateFlockTestSuite implements FOTGameTest
 
             if (leaderCount != 1)
             {
-                helper.fail("Leader should have only one per flock!, got " + leaderCount + " instead");
+                helper.fail(Component.literal("Leader should have only one per flock!, got " + leaderCount + " instead"));
             }
             if (followerCount != 4)
             {
-                helper.fail("Followers should have 4 per flock!, got " + followerCount + " instead");
+                helper.fail(Component.literal("Followers should have 4 per flock!, got " + followerCount + " instead"));
             }
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(maxTicks = 300)
     public void oneTrophyFourFollowerTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -131,20 +133,20 @@ public class CreateFlockTestSuite implements FOTGameTest
 
             if (leader.isEmpty())
             {
-                helper.fail("Leader is not found! Is it dead? :(");
+                helper.fail(Component.literal("Leader is not found! Is it dead? :("));
             }
             if (!leader.getFirst().isTrophy())
             {
-                helper.fail("Leader is not trophy!");
+                helper.fail(Component.literal("Leader is not trophy!"));
             }
             if (follower.anyMatch(AbstractSchoolingThievesFish::isLeader))
             {
-                helper.fail("Follower should not be a leader!");
+                helper.fail(Component.literal("Follower should not be a leader!"));
             }
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(maxTicks = 300)
     public void fourTrophyOneFollowerTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -184,15 +186,15 @@ public class CreateFlockTestSuite implements FOTGameTest
 
             if (leader.isEmpty())
             {
-                helper.fail("Leader is not found! Is it dead? :(");
+                helper.fail(Component.literal("Leader is not found! Is it dead? :("));
             }
             if (!leader.getFirst().isTrophy())
             {
-                helper.fail("Leader is not trophy!");
+                helper.fail(Component.literal("Leader is not trophy!"));
             }
             if (trophyFollowerCount != 3 && nonTrophyFollowerCount != 1)
             {
-                helper.fail("Trophy follower should have 3 and Non-trophy follower should have only one!, got trophyFollowerCount:" + trophyFollowerCount + " and nonTrophyFollowerCount: " + nonTrophyFollowerCount);
+                helper.fail(Component.literal("Trophy follower should have 3 and Non-trophy follower should have only one!, got trophyFollowerCount: " + trophyFollowerCount + " and nonTrophyFollowerCount: " + nonTrophyFollowerCount));
             }
         });
     }

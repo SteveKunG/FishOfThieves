@@ -4,7 +4,11 @@ import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
+
 import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
@@ -12,6 +16,7 @@ public record SplashtailVariant(String name, ResourceLocation texture, Optional<
 {
     public static final Codec<SplashtailVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(SplashtailVariant::new);
     public static final Codec<Holder<SplashtailVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.SPLASHTAIL_VARIANT, DIRECT_CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<SplashtailVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.SPLASHTAIL_VARIANT);
 
     @Override
     public ResourceLocation fullTexture()

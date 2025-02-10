@@ -21,7 +21,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     }
 
     @Override
-    public void render(FishPlaqueBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay)
+    public void render(FishPlaqueBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 vec3)
     {
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
@@ -38,7 +38,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             var stepMultiplier = isHorizontal ? 0.3f : 0.4f;
             var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
             var yDegree = -facing.toYRot() + 90f;
-            var vec3 = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
+            var vec3Translate = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
 
             if (maxScale > 1.0f)
             {
@@ -46,7 +46,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             }
 
             // Rotate by facing state
-            poseStack.translate(-vec3.x(), -vec3.y(), -vec3.z());
+            poseStack.translate(-vec3Translate.x(), -vec3Translate.y(), -vec3Translate.z());
 
             // Rotate by rotation state
             poseStack.mulPose(Axis.YP.rotationDegrees(yDegree));

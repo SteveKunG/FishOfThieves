@@ -71,7 +71,7 @@ public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
         };
         HeadphoneModel.Scaleable<TropicalFishRenderState> TROPICAL_FISH = (renderState, poseStack) ->
         {
-            var baseVariant = renderState.variant.base();
+            var baseVariant = renderState.pattern.base();
             var y = 0.0f;
             var z = 0.0f;
 

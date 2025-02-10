@@ -5,6 +5,9 @@ import java.util.Optional;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
@@ -12,6 +15,7 @@ public record AncientscaleVariant(String name, ResourceLocation texture, Optiona
 {
     public static final Codec<AncientscaleVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(AncientscaleVariant::new);
     public static final Codec<Holder<AncientscaleVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ANCIENTSCALE_VARIANT, DIRECT_CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<AncientscaleVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.ANCIENTSCALE_VARIANT);
 
     @Override
     public ResourceLocation fullTexture()

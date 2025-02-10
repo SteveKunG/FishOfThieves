@@ -38,7 +38,7 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -119,12 +119,12 @@ public class FOTFeatures
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED), 0.1F),
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F)),
                 placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
-        FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+        FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
                 .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 6)
                 .add(FOTBlocks.WHITE_PLUMERIA.defaultBlockState(), 3)
         ), 64));
-        FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+        FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 1), 6)
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 2), 4)
@@ -141,7 +141,7 @@ public class FOTFeatures
                         BlockPredicate.noFluid(),
                         BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)))));
         FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED))));
-        FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+        FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 1), 6)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 2), 4)
@@ -154,7 +154,7 @@ public class FOTFeatures
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE)));
         FeatureUtils.register(context, PATCH_TROPICAL_BUSH, Feature.FLOWER,
                 new RandomPatchConfiguration(32, 4, 2, PlacementUtils.filtered(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
-                                new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                                new WeightedStateProvider(WeightedList.<BlockState>builder()
                                         .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 4)
                                         .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 2)
                                         .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))),

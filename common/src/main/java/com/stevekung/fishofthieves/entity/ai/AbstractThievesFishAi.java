@@ -99,7 +99,7 @@ public class AbstractThievesFishAi
                 Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(1.0F), 2),
                         Pair.of(SetWalkTargetFromLookTarget.create(0.5F, 3), 3),
-                        Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
+                        Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5))))));
     }
 
     private static void initRetreatActivity(Brain<AbstractThievesFish<?>> brain)

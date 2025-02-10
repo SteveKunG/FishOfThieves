@@ -283,7 +283,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
                 level.setBlock(blockPos, state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);
             }
 
-            level.blockUpdated(pos, Blocks.AIR);
+            level.updateNeighborsAt(pos, Blocks.AIR);
             state.updateNeighbourShapes(level, pos, Block.UPDATE_ALL);
         }
     }

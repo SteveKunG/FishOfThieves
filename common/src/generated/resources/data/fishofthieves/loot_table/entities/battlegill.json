@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:battlegill",
-                    "type_specific": {
-                      "type": "fishofthieves:battlegill",
-                      "variant": "fishofthieves:jade"
+                    "components": {
+                      "fishofthieves:battlegill/variant": "fishofthieves:jade"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:battlegill",
-                    "type_specific": {
-                      "type": "fishofthieves:battlegill",
-                      "variant": "fishofthieves:sky"
+                    "components": {
+                      "fishofthieves:battlegill/variant": "fishofthieves:sky"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:battlegill",
-                    "type_specific": {
-                      "type": "fishofthieves:battlegill",
-                      "variant": "fishofthieves:rum"
+                    "components": {
+                      "fishofthieves:battlegill/variant": "fishofthieves:rum"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:battlegill",
-                    "type_specific": {
-                      "type": "fishofthieves:battlegill",
-                      "variant": "fishofthieves:sand"
+                    "components": {
+                      "fishofthieves:battlegill/variant": "fishofthieves:sand"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:battlegill",
-                    "type_specific": {
-                      "type": "fishofthieves:battlegill",
-                      "variant": "fishofthieves:bittersweet"
+                    "components": {
+                      "fishofthieves:battlegill/variant": "fishofthieves:bittersweet"
                     }
                   }
                 },

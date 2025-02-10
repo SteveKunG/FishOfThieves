@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:stormfish",
-                    "type_specific": {
-                      "type": "fishofthieves:stormfish",
-                      "variant": "fishofthieves:ancient"
+                    "components": {
+                      "fishofthieves:stormfish/variant": "fishofthieves:ancient"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:stormfish",
-                    "type_specific": {
-                      "type": "fishofthieves:stormfish",
-                      "variant": "fishofthieves:shores"
+                    "components": {
+                      "fishofthieves:stormfish/variant": "fishofthieves:shores"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:stormfish",
-                    "type_specific": {
-                      "type": "fishofthieves:stormfish",
-                      "variant": "fishofthieves:wild"
+                    "components": {
+                      "fishofthieves:stormfish/variant": "fishofthieves:wild"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:stormfish",
-                    "type_specific": {
-                      "type": "fishofthieves:stormfish",
-                      "variant": "fishofthieves:shadow"
+                    "components": {
+                      "fishofthieves:stormfish/variant": "fishofthieves:shadow"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:stormfish",
-                    "type_specific": {
-                      "type": "fishofthieves:stormfish",
-                      "variant": "fishofthieves:twilight"
+                    "components": {
+                      "fishofthieves:stormfish/variant": "fishofthieves:twilight"
                     }
                   }
                 },

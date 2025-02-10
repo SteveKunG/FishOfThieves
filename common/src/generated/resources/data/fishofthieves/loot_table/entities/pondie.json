@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:pondie",
-                    "type_specific": {
-                      "type": "fishofthieves:pondie",
-                      "variant": "fishofthieves:charcoal"
+                    "components": {
+                      "fishofthieves:pondie/variant": "fishofthieves:charcoal"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:pondie",
-                    "type_specific": {
-                      "type": "fishofthieves:pondie",
-                      "variant": "fishofthieves:orchid"
+                    "components": {
+                      "fishofthieves:pondie/variant": "fishofthieves:orchid"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:pondie",
-                    "type_specific": {
-                      "type": "fishofthieves:pondie",
-                      "variant": "fishofthieves:bronze"
+                    "components": {
+                      "fishofthieves:pondie/variant": "fishofthieves:bronze"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:pondie",
-                    "type_specific": {
-                      "type": "fishofthieves:pondie",
-                      "variant": "fishofthieves:bright"
+                    "components": {
+                      "fishofthieves:pondie/variant": "fishofthieves:bright"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:pondie",
-                    "type_specific": {
-                      "type": "fishofthieves:pondie",
-                      "variant": "fishofthieves:moonsky"
+                    "components": {
+                      "fishofthieves:pondie/variant": "fishofthieves:moonsky"
                     }
                   }
                 },

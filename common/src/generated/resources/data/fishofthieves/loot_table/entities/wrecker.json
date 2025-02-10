@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wrecker",
-                    "type_specific": {
-                      "type": "fishofthieves:wrecker",
-                      "variant": "fishofthieves:rose"
+                    "components": {
+                      "fishofthieves:wrecker/variant": "fishofthieves:rose"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wrecker",
-                    "type_specific": {
-                      "type": "fishofthieves:wrecker",
-                      "variant": "fishofthieves:sun"
+                    "components": {
+                      "fishofthieves:wrecker/variant": "fishofthieves:sun"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wrecker",
-                    "type_specific": {
-                      "type": "fishofthieves:wrecker",
-                      "variant": "fishofthieves:blackcloud"
+                    "components": {
+                      "fishofthieves:wrecker/variant": "fishofthieves:blackcloud"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wrecker",
-                    "type_specific": {
-                      "type": "fishofthieves:wrecker",
-                      "variant": "fishofthieves:snow"
+                    "components": {
+                      "fishofthieves:wrecker/variant": "fishofthieves:snow"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wrecker",
-                    "type_specific": {
-                      "type": "fishofthieves:wrecker",
-                      "variant": "fishofthieves:moon"
+                    "components": {
+                      "fishofthieves:wrecker/variant": "fishofthieves:moon"
                     }
                   }
                 },

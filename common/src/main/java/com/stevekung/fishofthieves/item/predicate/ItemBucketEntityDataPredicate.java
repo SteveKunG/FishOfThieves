@@ -1,17 +1,18 @@
 package com.stevekung.fishofthieves.item.predicate;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.advancements.critereon.ItemSubPredicate;
-import net.minecraft.world.item.ItemStack;
 
-public record ItemBucketEntityDataPredicate(BucketNbtPredicate value) implements ItemSubPredicate
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
+
+public record ItemBucketEntityDataPredicate(BucketNbtPredicate value) implements DataComponentPredicate
 {
     public static final Codec<ItemBucketEntityDataPredicate> CODEC = BucketNbtPredicate.CODEC.xmap(ItemBucketEntityDataPredicate::new, ItemBucketEntityDataPredicate::value);
 
     @Override
-    public boolean matches(ItemStack stack)
+    public boolean matches(DataComponentGetter dataComponentGetter)
     {
-        return this.value.matches(stack);
+        return this.value.matches(dataComponentGetter);
     }
 
     public static ItemBucketEntityDataPredicate bucketEntityData(BucketNbtPredicate value)

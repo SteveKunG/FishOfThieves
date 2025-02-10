@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.core.BlockPos;
@@ -20,18 +19,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PomegranateSaplingBlock extends BushBlock implements BonemealableBlock
 {
-    public static final MapCodec<PomegranateSaplingBlock> CODEC = simpleCodec(PomegranateSaplingBlock::new);
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 12, 13);
 
     public PomegranateSaplingBlock(Properties properties)
     {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BushBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

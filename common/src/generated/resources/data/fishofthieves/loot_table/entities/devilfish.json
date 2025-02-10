@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:devilfish",
-                    "type_specific": {
-                      "type": "fishofthieves:devilfish",
-                      "variant": "fishofthieves:ashen"
+                    "components": {
+                      "fishofthieves:devilfish/variant": "fishofthieves:ashen"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:devilfish",
-                    "type_specific": {
-                      "type": "fishofthieves:devilfish",
-                      "variant": "fishofthieves:seashell"
+                    "components": {
+                      "fishofthieves:devilfish/variant": "fishofthieves:seashell"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:devilfish",
-                    "type_specific": {
-                      "type": "fishofthieves:devilfish",
-                      "variant": "fishofthieves:lava"
+                    "components": {
+                      "fishofthieves:devilfish/variant": "fishofthieves:lava"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:devilfish",
-                    "type_specific": {
-                      "type": "fishofthieves:devilfish",
-                      "variant": "fishofthieves:forsaken"
+                    "components": {
+                      "fishofthieves:devilfish/variant": "fishofthieves:forsaken"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:devilfish",
-                    "type_specific": {
-                      "type": "fishofthieves:devilfish",
-                      "variant": "fishofthieves:firelight"
+                    "components": {
+                      "fishofthieves:devilfish/variant": "fishofthieves:firelight"
                     }
                   }
                 },

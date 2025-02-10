@@ -3,14 +3,16 @@ package com.stevekung.fishofthieves.fabric.gametest;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Blocks;
 
 public class MergeFlockTestSuite implements FOTGameTest
 {
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 400)
+    @GameTest(maxTicks = 400)
     public void oneSmallFlockMergeIntoSmallLeaderFlock(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -45,16 +47,16 @@ public class MergeFlockTestSuite implements FOTGameTest
 
             if (leaderCount != 1)
             {
-                helper.fail("Leader should have only one per flock!, got " + leaderCount + " instead");
+                helper.fail(Component.literal("Leader should have only one per flock!, got " + leaderCount + " instead"));
             }
             if (followerCount != 4)
             {
-                helper.fail("Followers should have 7 per flock!, got " + followerCount + " instead");
+                helper.fail(Component.literal("Followers should have 7 per flock!, got " + followerCount + " instead"));
             }
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 400)
+    @GameTest(maxTicks = 400)
     public void oneSmallFlockMergeIntoTrophyLeaderFlock(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
@@ -95,11 +97,11 @@ public class MergeFlockTestSuite implements FOTGameTest
 
             if (leaderCount != 1)
             {
-                helper.fail("Leader should have only one per flock!, got " + leaderCount + " instead");
+                helper.fail(Component.literal("Leader should have only one per flock!, got " + leaderCount + " instead"));
             }
             if (followerCount != 4)
             {
-                helper.fail("Followers should have 7 per flock!, got " + followerCount + " instead");
+                helper.fail(Component.literal("Followers should have 7 per flock!, got " + followerCount + " instead"));
             }
         });
     }

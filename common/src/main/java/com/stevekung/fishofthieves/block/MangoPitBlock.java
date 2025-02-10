@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.core.BlockPos;
@@ -18,18 +17,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MangoPitBlock extends BushBlock implements BonemealableBlock
 {
-    public static final MapCodec<MangoPitBlock> CODEC = simpleCodec(MangoPitBlock::new);
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 12, 13);
 
     public MangoPitBlock(Properties properties)
     {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BushBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override
@@ -60,7 +52,7 @@ public class MangoPitBlock extends BushBlock implements BonemealableBlock
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (random.nextInt(20) == 0 && level.canSeeSky(pos) && level.isDay())
+        if (random.nextInt(20) == 0 && level.canSeeSky(pos) && level.isBrightOutside())
         {
             this.growToMangoSapling(level, pos);
         }

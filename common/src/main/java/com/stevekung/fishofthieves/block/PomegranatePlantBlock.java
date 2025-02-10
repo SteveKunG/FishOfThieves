@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
@@ -36,7 +35,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class PomegranatePlantBlock extends BushBlock implements BonemealableBlock
 {
-    public static final MapCodec<PomegranatePlantBlock> CODEC = simpleCodec(PomegranatePlantBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
     private static final VoxelShape SHAPE = Shapes.or(Block.box(1, 4, 1, 15, 16, 15), Block.box(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
@@ -45,12 +43,6 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(PERSISTENT, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BushBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

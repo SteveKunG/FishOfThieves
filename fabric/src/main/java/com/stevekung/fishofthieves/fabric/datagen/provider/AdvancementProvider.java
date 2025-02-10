@@ -25,8 +25,10 @@ import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.JukeboxPlayablePredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -116,7 +118,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
-                                ItemPredicate.Builder.item().of(itemLookup, FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentPredicate.builder()
+                                ItemPredicate.Builder.item().of(itemLookup, FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentExactPredicate.builder()
                                         .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
                                 ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
                 .display(FOTItems.DEVILFISH,
@@ -159,20 +161,20 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location()
                                 .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.JUKEBOX)),
-                        ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.JUKEBOX_PLAYABLE, ItemJukeboxPlayablePredicate.any()),
+                        ItemPredicate.Builder.item().withSubPredicate(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any()),
                         EntityPredicate.Builder.entity().of(entityLookup, FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE)))
                 .addCriterion("play_jukebox_near_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location()
                                 .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.JUKEBOX)),
-                        ItemPredicate.Builder.item().withSubPredicate(ItemSubPredicates.JUKEBOX_PLAYABLE, ItemJukeboxPlayablePredicate.any()),
+                        ItemPredicate.Builder.item().withSubPredicate(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any()),
                         EntityPredicate.Builder.entity().of(entityLookup, EntityTypeTags.AXOLOTL_HUNT_TARGETS)))
                 .save(consumer, this.mod("play_jukebox_near_fish"));
 
         Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion(BuiltInRegistries.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
-                        ItemPredicate.Builder.item().of(itemLookup, Items.NAME_TAG).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build()),
+                        ItemPredicate.Builder.item().of(itemLookup, Items.NAME_TAG).hasComponents(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build()),
                         Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.SALMON)))))
-                .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.WATER)), ItemPredicate.Builder.item().of(itemLookup, Items.SALMON_BUCKET).hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build())))
+                .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.WATER)), ItemPredicate.Builder.item().of(itemLookup, Items.SALMON_BUCKET).hasComponents(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build())))
                 .display(Items.SALMON,
                         Component.translatable("advancements.fot.lost_sally.title"),
                         Component.translatable("advancements.fot.lost_sally.description"),
@@ -281,7 +283,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                     compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 }
-                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(itemLookup, bucket).withSubPredicate(FOTItemSubPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
+                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(itemLookup, bucket).withSubPredicate(FOTDataComponentPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
             }
         }
         return builder;

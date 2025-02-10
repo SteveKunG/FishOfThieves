@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.item;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.material.Fluid;
 
 public class FOTMobBucketItem extends MobBucketItem
@@ -46,8 +48,9 @@ public class FOTMobBucketItem extends MobBucketItem
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
         if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE))
         {
@@ -65,7 +68,7 @@ public class FOTMobBucketItem extends MobBucketItem
                     {
                         type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
                     }
-                    tooltipComponents.add(type);
+                    consumer.accept(type);
                 }
             }
         }

@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:ancientscale",
-                    "type_specific": {
-                      "type": "fishofthieves:ancientscale",
-                      "variant": "fishofthieves:almond"
+                    "components": {
+                      "fishofthieves:ancientscale/variant": "fishofthieves:almond"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:ancientscale",
-                    "type_specific": {
-                      "type": "fishofthieves:ancientscale",
-                      "variant": "fishofthieves:sapphire"
+                    "components": {
+                      "fishofthieves:ancientscale/variant": "fishofthieves:sapphire"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:ancientscale",
-                    "type_specific": {
-                      "type": "fishofthieves:ancientscale",
-                      "variant": "fishofthieves:smoke"
+                    "components": {
+                      "fishofthieves:ancientscale/variant": "fishofthieves:smoke"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:ancientscale",
-                    "type_specific": {
-                      "type": "fishofthieves:ancientscale",
-                      "variant": "fishofthieves:bone"
+                    "components": {
+                      "fishofthieves:ancientscale/variant": "fishofthieves:bone"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:ancientscale",
-                    "type_specific": {
-                      "type": "fishofthieves:ancientscale",
-                      "variant": "fishofthieves:starshine"
+                    "components": {
+                      "fishofthieves:ancientscale/variant": "fishofthieves:starshine"
                     }
                   }
                 },

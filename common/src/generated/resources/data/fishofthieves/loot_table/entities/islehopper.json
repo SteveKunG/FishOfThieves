@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:islehopper",
-                    "type_specific": {
-                      "type": "fishofthieves:islehopper",
-                      "variant": "fishofthieves:stone"
+                    "components": {
+                      "fishofthieves:islehopper/variant": "fishofthieves:stone"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:islehopper",
-                    "type_specific": {
-                      "type": "fishofthieves:islehopper",
-                      "variant": "fishofthieves:moss"
+                    "components": {
+                      "fishofthieves:islehopper/variant": "fishofthieves:moss"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:islehopper",
-                    "type_specific": {
-                      "type": "fishofthieves:islehopper",
-                      "variant": "fishofthieves:honey"
+                    "components": {
+                      "fishofthieves:islehopper/variant": "fishofthieves:honey"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:islehopper",
-                    "type_specific": {
-                      "type": "fishofthieves:islehopper",
-                      "variant": "fishofthieves:raven"
+                    "components": {
+                      "fishofthieves:islehopper/variant": "fishofthieves:raven"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:islehopper",
-                    "type_specific": {
-                      "type": "fishofthieves:islehopper",
-                      "variant": "fishofthieves:amethyst"
+                    "components": {
+                      "fishofthieves:islehopper/variant": "fishofthieves:amethyst"
                     }
                   }
                 },

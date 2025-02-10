@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.item;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
 
 public class FOTItem extends Item
@@ -64,8 +66,9 @@ public class FOTItem extends Item
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {
@@ -78,7 +81,7 @@ public class FOTItem extends Item
 
                     if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && !itemStack.get(DataComponents.CUSTOM_MODEL_DATA).strings().isEmpty() && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).strings().getFirst().equals(String.valueOf(customModelData)))
                     {
-                        tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + variant.name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+                        consumer.accept(Component.translatable(this.entityType.getDescriptionId() + "." + variant.name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                     }
                 }));
             }

@@ -74,9 +74,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wildsplash",
-                    "type_specific": {
-                      "type": "fishofthieves:wildsplash",
-                      "variant": "fishofthieves:russet"
+                    "components": {
+                      "fishofthieves:wildsplash/variant": "fishofthieves:russet"
                     }
                   }
                 },
@@ -133,9 +132,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wildsplash",
-                    "type_specific": {
-                      "type": "fishofthieves:wildsplash",
-                      "variant": "fishofthieves:sandy"
+                    "components": {
+                      "fishofthieves:wildsplash/variant": "fishofthieves:sandy"
                     }
                   }
                 },
@@ -192,9 +190,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wildsplash",
-                    "type_specific": {
-                      "type": "fishofthieves:wildsplash",
-                      "variant": "fishofthieves:ocean"
+                    "components": {
+                      "fishofthieves:wildsplash/variant": "fishofthieves:ocean"
                     }
                   }
                 },
@@ -251,9 +248,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wildsplash",
-                    "type_specific": {
-                      "type": "fishofthieves:wildsplash",
-                      "variant": "fishofthieves:muddy"
+                    "components": {
+                      "fishofthieves:wildsplash/variant": "fishofthieves:muddy"
                     }
                   }
                 },
@@ -310,9 +306,8 @@
                   "entity": "this",
                   "predicate": {
                     "type": "fishofthieves:wildsplash",
-                    "type_specific": {
-                      "type": "fishofthieves:wildsplash",
-                      "variant": "fishofthieves:coral"
+                    "components": {
+                      "fishofthieves:wildsplash/variant": "fishofthieves:coral"
                     }
                   }
                 },

@@ -9,7 +9,7 @@ import com.stevekung.fishofthieves.entity.animal.*;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -36,11 +36,11 @@ public class FOTEntities
 
     public interface SpawnData
     {
-        WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 12, 4, 8));
-        WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
-        WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE_AND_PLENTIFIN = WeightedRandomList.create(ANCIENTSCALE.unwrap().getFirst(), PLENTIFIN.unwrap().getFirst());
-        WeightedRandomList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
-        WeightedRandomList<MobSpawnSettings.SpawnerData> WRECKER = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8));
+        WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 4, 8), 12).build();
+        WeightedList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 4, 8), 12).build();
+        WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE_AND_PLENTIFIN = WeightedList.of(ANCIENTSCALE.unwrap().getFirst(), PLENTIFIN.unwrap().getFirst());
+        WeightedList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 2, 4), 5).build();
+        WeightedList<MobSpawnSettings.SpawnerData> WRECKER = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 4, 8), 50).build();
     }
 
     public static void init()

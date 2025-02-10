@@ -27,7 +27,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-@SuppressWarnings("deprecation")
 public class BananaClusterBlock extends Block implements BonemealableBlock, SimpleWaterloggedBlock
 {
     private static final VoxelShape UNDERRIPE_SHAPE = Block.box(4, 0, 4, 12, 12, 12);
@@ -148,12 +147,12 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
 
     public static boolean canClusterGrow(Level level, BlockPos pos)
     {
-        return !level.isRaining() && level.canSeeSky(pos) && level.isDay();
+        return !level.isRaining() && level.canSeeSky(pos) && level.isBrightOutside();
     }
 
     public static boolean canClusterPlantGrow(Level level, BlockPos blockPos)
     {
-        return level.isRaining() && level.isDay() && level.canSeeSky(blockPos);
+        return level.isRaining() && level.isBrightOutside() && level.canSeeSky(blockPos);
     }
 
     public enum Type implements StringRepresentable

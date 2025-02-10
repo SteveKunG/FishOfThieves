@@ -5,6 +5,9 @@ import java.util.Optional;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
@@ -12,6 +15,7 @@ public record StormfishVariant(String name, ResourceLocation texture, Optional<R
 {
     public static final Codec<StormfishVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(StormfishVariant::new);
     public static final Codec<Holder<StormfishVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.STORMFISH_VARIANT, DIRECT_CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, Holder<StormfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.STORMFISH_VARIANT);
 
     @Override
     public ResourceLocation fullTexture()

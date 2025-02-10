@@ -36,7 +36,7 @@ public abstract class MixinFallingBlockEntity extends Entity
     }
 
     @Inject(method = "causeFallDamage", at = @At(value = "RETURN", ordinal = 2))
-    private void fishofthieves$crushPomegranateToRedDye(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> info)
+    private void fishofthieves$crushPomegranateToRedDye(double fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> info)
     {
         if (this.blockState.is(BlockTags.ANVIL))
         {

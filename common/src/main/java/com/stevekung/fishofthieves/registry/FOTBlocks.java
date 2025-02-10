@@ -118,7 +118,7 @@ public class FOTBlocks
     public static final Block PRISMARIZED_LOG = register("prismarized_log", FOTRotatedPillarBlock::new, BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().emissiveRendering(FOTBlocks::always));
 
     public static final Block PINK_PLUMERIA = register("pink_plumeria", properties -> new FlowerBlock(MobEffects.REGENERATION, 5, properties), plumeriaProperties());
-    public static final Block LIGHT_BLUE_PLUMERIA = register("light_blue_plumeria", properties -> new FlowerBlock(MobEffects.MOVEMENT_SPEED, 5, properties), plumeriaProperties());
+    public static final Block LIGHT_BLUE_PLUMERIA = register("light_blue_plumeria", properties -> new FlowerBlock(MobEffects.SPEED, 5, properties), plumeriaProperties());
     public static final Block WHITE_PLUMERIA = register("white_plumeria", properties -> new FlowerBlock(MobEffects.SLOW_FALLING, 5, properties), plumeriaProperties());
 
     public static final Block MANGO_PIT = register("mango_pit", MangoPitBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).noCollission().randomTicks().offsetType(BlockBehaviour.OffsetType.XYZ).instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));

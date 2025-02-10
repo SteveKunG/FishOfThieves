@@ -20,7 +20,7 @@ public class FishAttackablesSensor extends NearestVisibleLivingEntitySensor
     @Override
     protected boolean isMatchingEntity(ServerLevel serverLevel, LivingEntity attacker, LivingEntity target)
     {
-        return this.isClose(attacker, target) && target.isInWaterOrBubble() && this.isAttackableTarget(target) && Sensor.isEntityAttackable(serverLevel, attacker, target);
+        return this.isClose(attacker, target) && target.isInWater() && this.isAttackableTarget(target) && Sensor.isEntityAttackable(serverLevel, attacker, target);
     }
 
     @Override

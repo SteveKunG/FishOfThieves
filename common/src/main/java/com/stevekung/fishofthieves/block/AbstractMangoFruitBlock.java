@@ -27,7 +27,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class AbstractMangoFruitBlock extends FallingBlock implements BonemealableBlock
+public class AbstractMangoFruitBlock extends Block implements BonemealableBlock, Fallable
 {
     public static final MapCodec<AbstractMangoFruitBlock> CODEC = simpleCodec(AbstractMangoFruitBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
@@ -36,12 +36,6 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     public AbstractMangoFruitBlock(Properties properties)
     {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends FallingBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override
@@ -65,12 +59,6 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
         }
     }
 
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
-    {
-    }
-
-    @Override
     protected void falling(FallingBlockEntity entity)
     {
         entity.setHurtsEntities(1.0f, 1);
@@ -81,11 +69,6 @@ public class AbstractMangoFruitBlock extends FallingBlock implements Bonemealabl
     public DamageSource getFallDamageSource(Entity entity)
     {
         return entity.damageSources().fallingMango(entity);
-    }
-
-    @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston)
-    {
     }
 
     @Override
