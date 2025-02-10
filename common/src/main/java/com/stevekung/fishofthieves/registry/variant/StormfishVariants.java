@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.registry.variant;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -15,6 +13,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.level.biome.Biomes;
 
 public class StormfishVariants
@@ -30,11 +29,14 @@ public class StormfishVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("stormfish", StormfishVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ANCIENT, "ancient", 0);
-        registerContext.register(context, SHORES, "shores", 1, ContinentalnessCondition.builder().continentalness(Continentalness.COAST).build());
-        registerContext.register(context, WILD, "wild", 2, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.SPARSE_JUNGLE))),
-                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build());
-        registerContext.register(context, SHADOW, "shadow", 3, List.of(AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), SkyBrightnessCondition.skyBrightness(MinMaxBounds.Ints.atMost(4))).build()), List.of(ProbabilityCondition.defaultRareProbablity().build()));
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(MinMaxBounds.Ints.between(9, 16)).build());
+        registerContext.register(context, SHORES, "shores", 1, ContinentalnessCondition.continentalness(Continentalness.COAST));
+        registerContext.register(context, WILD, "wild", 2, new BiomeCheck(HolderSet.direct(
+                biomeLookup.getOrThrow(Biomes.SPARSE_JUNGLE),
+                biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND))));
+        registerContext.register(context, SHADOW, "shadow", 3,
+                registerContext.select(ProbabilityCondition.defaultRareProbablity().and(SkyBrightnessCondition.skyBrightness(MinMaxBounds.Ints.atMost(4))), 0),
+                registerContext.select(ProbabilityCondition.defaultRareProbablity(), 1));
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCondition.skyDarken(MinMaxBounds.Ints.between(9, 16)));
     }
 
     public static void bootstrapSimple(BootstrapContext<StormfishVariant> context)
@@ -43,8 +45,8 @@ public class StormfishVariants
         registerContext.register(context, ANCIENT, "ancient", 0);
         registerContext.register(context, SHORES, "shores", 1);
         registerContext.register(context, WILD, "wild", 2);
-        registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, TWILIGHT, "twilight", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCondition.defaultRareProbablity());
+        registerContext.register(context, TWILIGHT, "twilight", 4, true, NightCondition.night().and(SeeSkyCondition.seeSky()));
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)

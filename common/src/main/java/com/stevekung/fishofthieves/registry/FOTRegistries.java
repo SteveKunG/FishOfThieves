@@ -1,9 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
-import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
-import com.stevekung.fishofthieves.entity.condition.SpawnConditionType;
 import com.stevekung.fishofthieves.entity.variant.*;
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -22,9 +21,6 @@ public class FOTRegistries
     public static final ResourceKey<Registry<StormfishVariant>> STORMFISH_VARIANT = create("stormfish_variant");
 
     public static final ResourceKey<Registry<FishPlaqueInteraction>> FISH_PLAQUE_INTERACTION = create("fish_plaque_interaction");
-
-    public static final ResourceKey<Registry<SpawnCondition>> SPAWN_CONDITION = create("spawn_condition");
-    public static final ResourceKey<Registry<SpawnConditionType>> SPAWN_CONDITION_TYPE = create("fot_spawn_condition_type"); //TODO Use vanilla system
 
     private static <T> ResourceKey<Registry<T>> create(String key)
     {

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
+
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

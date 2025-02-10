@@ -3,9 +3,11 @@ package com.stevekung.fishofthieves.entity.condition;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
@@ -19,16 +21,16 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
     //@formatter:on
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.HAS_BEEHIVE;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        var poiManager = context.level().getPoiManager();
-        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), context.blockPos(), this.distance, PoiManager.Occupancy.ANY);
+        var poiManager = context.level().getLevel().getPoiManager();
+        var optional = poiManager.findClosest(type -> type.is(PoiTypes.BEEHIVE) || type.is(PoiTypes.BEE_NEST), context.pos(), this.distance, PoiManager.Occupancy.ANY);
 
         if (optional.isPresent())
         {
@@ -38,8 +40,8 @@ public record HasBeehiveCondition(int honeyLevel, int distance) implements Spawn
         return false;
     }
 
-    public static Builder beehive(int honeyLevel, int distance)
+    public static SpawnCondition beehive(int honeyLevel, int distance)
     {
-        return () -> new HasBeehiveCondition(honeyLevel, distance);
+        return new HasBeehiveCondition(honeyLevel, distance);
     }
 }

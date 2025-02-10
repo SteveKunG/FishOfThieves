@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -101,8 +102,12 @@ public class FOTItem extends Item
 
             if (vec3 != null)
             {
-                var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess().lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(variant.customModelData())), List.of())));
+                var blockPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
+                var context = new SpawnContext(blockPos, level, level.getBiome(blockPos));
+                //TODO
+//                Util.getRandomSafe(level.registryAccess().lookupOrThrow(registryKey).listElements()
+//                        .map(Holder.Reference::value)
+//                        .filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(variant.customModelData())), List.of())));
             }
         }
         return itemStack;

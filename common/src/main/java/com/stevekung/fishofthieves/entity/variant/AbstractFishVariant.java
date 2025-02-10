@@ -2,14 +2,13 @@ package com.stevekung.fishofthieves.entity.variant;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
-import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -20,8 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.variant.PriorityProvider;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
+import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 
-public interface AbstractFishVariant
+public interface AbstractFishVariant extends PriorityProvider<SpawnContext, SpawnCondition>
 {
     int customModelData();
 
@@ -37,6 +40,12 @@ public interface AbstractFishVariant
 
     SpawnSettings spawnSettings();
 
+    @Override
+    default List<Selector<SpawnContext, SpawnCondition>> selectors()
+    {
+        return this.spawnSettings().entity().selectors();
+    }
+
     static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
     {
         //@formatter:off
@@ -44,7 +53,7 @@ public interface AbstractFishVariant
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
-                SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
+                SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(SpawnPrioritySelectors.fallback(0), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
@@ -58,9 +67,14 @@ public interface AbstractFishVariant
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
         var registry = registryAccess.lookupOrThrow(registryKey);
-        var context = new SpawnConditionContext(serverLevel, registryAccess, livingEntity.blockPosition(), livingEntity.getRandom());
-        var muha = Util.getRandomSafe(registry.listElements().filter(variant -> fromBucket || Util.allOf(variant.value().spawnSettings().entity()).test(context)).toList(), livingEntity.getRandom());
-        return muha.orElseGet(() -> registry.getOrThrow(defaultKey));
+        var context = new SpawnContext(livingEntity.blockPosition(), serverLevel, serverLevel.getBiome(livingEntity.blockPosition()));
+
+        if (fromBucket)
+        {
+            var muha = Util.getRandomSafe(registry.listElements().toList(), livingEntity.getRandom());
+            return muha.orElseGet(() -> registry.getOrThrow(defaultKey));
+        }
+        return PriorityProvider.pick(registryAccess.lookupOrThrow(registryKey).listElements(), Holder::value, livingEntity.getRandom(), context).orElseGet(() -> registry.getOrThrow(defaultKey));
     }
 
     class RegisterContext<T>
@@ -79,35 +93,82 @@ public interface AbstractFishVariant
             return new RegisterContext<>(entityName, factory);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition... conditions)
+        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Optional<Condition> condition, int priority)
         {
-            this.register(context, key, name, customModelData, false, List.of(conditions), List.of());
+            return new PriorityProvider.Selector<>(condition, priority);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
+        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Condition condition, int priority)
         {
-            this.register(context, key, name, customModelData, false, conditions, fishingOverride);
+            return new PriorityProvider.Selector<>(condition, priority);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, SpawnCondition... conditions)
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Predicate<Context> condition, int priority)
         {
-            this.register(context, key, name, customModelData, glow, List.of(conditions), List.of());
+            return new PriorityProvider.Selector(Optional.of(condition), priority);
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<SpawnCondition> conditions, List<SpawnCondition> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData)
+        {
+            this.register(context, key, name, customModelData, false, PriorityProvider.alwaysTrue(0), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition condition)
+        {
+            this.register(context, key, name, customModelData, false, List.of(this.select(condition, 0)), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, Predicate<SpawnContext> conditions)
+        {
+            this.register(context, key, name, customModelData, false, List.of(this.select(conditions, 0)), Optional.empty());
+        }
+
+        @SafeVarargs
+        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, PriorityProvider.Selector<SpawnContext, SpawnCondition>... conditions)
+        {
+            this.register(context, key, name, customModelData, false, List.of(conditions), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)
+        {
+            this.register(context, key, name, customModelData, false, conditions, Optional.of(fishingOverride));
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition> conditions)
+        {
+            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, SpawnCondition condition)
+        {
+            this.register(context, key, name, customModelData, glow, List.of(this.select(condition, 0)), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Predicate<SpawnContext> predicate)
+        {
+            this.register(context, key, name, customModelData, glow, List.of(this.select(predicate, 0)), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)
+        {
+            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.of(fishingOverride));
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> conditions, Optional<List<PriorityProvider.Selector<SpawnContext, SpawnCondition>>> fishingOverride)
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(conditions, fishingOverride.isEmpty() ? Optional.empty() : Optional.of(fishingOverride)), customModelData));
+            context.register(key, this.factory.apply(name, texture, glow ? Optional.of(glowTexture) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
         }
     }
 
-    record SpawnSettings(List<SpawnCondition> entity, Optional<List<SpawnCondition>> fishing)
+    record SpawnSettings(SpawnPrioritySelectors entity, Optional<SpawnPrioritySelectors> fishing)
     {
         //@formatter:off
         public static final Codec<SpawnSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                        FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("entity", List.of()).forGetter(SpawnSettings::entity),
-                        FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
+                        SpawnPrioritySelectors.CODEC.optionalFieldOf("entity", SpawnPrioritySelectors.fallback(0)).forGetter(SpawnSettings::entity),
+                        SpawnPrioritySelectors.CODEC.optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
                 .apply(instance, SpawnSettings::new));
         //@formatter:on
     }

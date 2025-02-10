@@ -9,12 +9,14 @@ import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
 import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.level.biome.Biomes;
 
 public class IslehopperVariants
@@ -30,13 +32,13 @@ public class IslehopperVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("islehopper", IslehopperVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, STONE, "stone", 0);
-        registerContext.register(context, MOSS, "moss", 1, AnyOfCondition.anyOf(MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)),
-                MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)),
-                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES))),
-                MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build());
-        registerContext.register(context, HONEY, "honey", 2, HasBeehiveCondition.beehive(5, 9).build());
-        registerContext.register(context, RAVEN, "raven", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), HeightCondition.height(MinMaxBounds.Ints.atMost(0))).build());
-        registerContext.register(context, AMETHYST, "amethyst", 4, true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16).build());
+        registerContext.register(context, MOSS, "moss", 1, new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE))
+                .or(new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)))
+                .or(new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES), biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND))))
+        );
+        registerContext.register(context, HONEY, "honey", 2, HasBeehiveCondition.beehive(5, 9));
+        registerContext.register(context, RAVEN, "raven", 3, ProbabilityCondition.defaultRareProbablity().and(HeightCondition.height(MinMaxBounds.Ints.atMost(0))));
+        registerContext.register(context, AMETHYST, "amethyst", 4, true, MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16));
     }
 
     public static void bootstrapSimple(BootstrapContext<IslehopperVariant> context)
@@ -45,8 +47,8 @@ public class IslehopperVariants
         registerContext.register(context, STONE, "stone", 0);
         registerContext.register(context, MOSS, "moss", 1);
         registerContext.register(context, HONEY, "honey", 2);
-        registerContext.register(context, RAVEN, "raven", 3, ProbabilityCondition.defaultRareProbablity().build());
-        registerContext.register(context, AMETHYST, "amethyst", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, RAVEN, "raven", 3, ProbabilityCondition.defaultRareProbablity());
+        registerContext.register(context, AMETHYST, "amethyst", 4, true, NightCondition.night().and(SeeSkyCondition.seeSky()));
     }
 
     private static ResourceKey<IslehopperVariant> createKey(String name)

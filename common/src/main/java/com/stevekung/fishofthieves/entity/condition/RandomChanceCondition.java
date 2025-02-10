@@ -2,8 +2,10 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record RandomChanceCondition(int chance) implements SpawnCondition
 {
@@ -14,19 +16,19 @@ public record RandomChanceCondition(int chance) implements SpawnCondition
     //@formatter:on
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.RANDOM_CHANCE;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return context.random().nextInt(this.chance) == 0;
+        return context.level().getRandom().nextInt(this.chance) == 0;
     }
 
-    public static Builder chance(int chance)
+    public static SpawnCondition chance(int chance)
     {
-        return () -> new RandomChanceCondition(chance);
+        return new RandomChanceCondition(chance);
     }
 }

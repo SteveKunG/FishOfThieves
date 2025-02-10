@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record SeeSkyCondition() implements SpawnCondition
 {
@@ -9,19 +11,19 @@ public record SeeSkyCondition() implements SpawnCondition
     public static final MapCodec<SeeSkyCondition> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.SEE_SKY;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return context.level().canSeeSkyFromBelowWater(context.blockPos());
+        return context.level().canSeeSkyFromBelowWater(context.pos());
     }
 
-    public static SpawnCondition.Builder seeSky()
+    public static SpawnCondition seeSky()
     {
-        return () -> INSTANCE;
+        return INSTANCE;
     }
 }

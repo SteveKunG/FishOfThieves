@@ -2,46 +2,31 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record ContinentalnessCondition(Continentalness continentalness) implements SpawnCondition
 {
     public static final MapCodec<ContinentalnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Continentalness.CODEC.fieldOf("continentalness").forGetter(ContinentalnessCondition::continentalness)).apply(instance, ContinentalnessCondition::new));
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.CONTINENTALNESS;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        var continentalness = TerrainUtils.getContinentalness(context.level(), context.blockPos());
+        var continentalness = TerrainUtils.getContinentalness(context.level().getLevel(), context.pos());
         return continentalness == this.continentalness;
     }
 
-    public static ContinentalnessCondition.Builder builder()
+    public static SpawnCondition continentalness(Continentalness continentalness)
     {
-        return new ContinentalnessCondition.Builder();
-    }
-
-    public static class Builder implements SpawnCondition.Builder
-    {
-        private Continentalness continentalness = Continentalness.OCEAN;
-
-        public ContinentalnessCondition.Builder continentalness(Continentalness continentalness)
-        {
-            this.continentalness = continentalness;
-            return this;
-        }
-
-        @Override
-        public ContinentalnessCondition build()
-        {
-            return new ContinentalnessCondition(this.continentalness);
-        }
+        return new ContinentalnessCondition(continentalness);
     }
 }

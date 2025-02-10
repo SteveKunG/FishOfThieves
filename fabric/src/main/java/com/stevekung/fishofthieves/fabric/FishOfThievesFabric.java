@@ -43,11 +43,6 @@ import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
 {
-    static
-    {
-        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE = BuiltInRegistries.registerSimple(FOTRegistries.SPAWN_CONDITION_TYPE, registry -> FOTSpawnConditions.ANY_OF);
-    }
-
     @Override
     public void onInitialize()
     {
@@ -107,6 +102,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTCriteriaTriggers.init();
         FOTEntitySubPredicate.init();
         FOTDataComponentTypes.init();
+        FOTSpawnConditions.init();
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();

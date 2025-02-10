@@ -4,7 +4,10 @@
   "spawn_settings": {
     "entity": [
       {
-        "condition": "fishofthieves:see_sky"
+        "condition": {
+          "type": "fishofthieves:see_sky"
+        },
+        "priority": 0
       }
     ]
   },

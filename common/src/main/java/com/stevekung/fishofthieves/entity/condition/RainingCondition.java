@@ -5,22 +5,24 @@ import java.util.Optional;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record RainingCondition(Optional<Boolean> thundering) implements SpawnCondition
 {
     public static final MapCodec<RainingCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("thundering").forGetter(RainingCondition::thundering)).apply(instance, RainingCondition::new));
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.IS_RAINING;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        var level = context.level();
+        var level = context.level().getLevel();
         return level.isRaining() || this.thundering.isPresent() && this.thundering.get() == level.isThundering();
     }
 
@@ -29,7 +31,7 @@ public record RainingCondition(Optional<Boolean> thundering) implements SpawnCon
         return new RainingCondition.Builder();
     }
 
-    public static class Builder implements SpawnCondition.Builder
+    public static class Builder
     {
         private Optional<Boolean> thundering = Optional.empty();
 
@@ -39,7 +41,6 @@ public record RainingCondition(Optional<Boolean> thundering) implements SpawnCon
             return this;
         }
 
-        @Override
         public RainingCondition build()
         {
             return new RainingCondition(this.thundering);

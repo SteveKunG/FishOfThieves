@@ -2,8 +2,10 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.LightLayer;
 
 public record SkyBrightnessCondition(MinMaxBounds.Ints brightness) implements SpawnCondition
@@ -11,19 +13,19 @@ public record SkyBrightnessCondition(MinMaxBounds.Ints brightness) implements Sp
     public static final MapCodec<SkyBrightnessCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("brightness").forGetter(SkyBrightnessCondition::brightness)).apply(instance, SkyBrightnessCondition::new));
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.SKY_BRIGHTNESS;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return this.brightness.matches(context.level().getBrightness(LightLayer.SKY, context.blockPos()));
+        return this.brightness.matches(context.level().getBrightness(LightLayer.SKY, context.pos()));
     }
 
-    public static Builder skyBrightness(MinMaxBounds.Ints brightness)
+    public static SpawnCondition skyBrightness(MinMaxBounds.Ints brightness)
     {
-        return () -> new SkyBrightnessCondition(brightness);
+        return new SkyBrightnessCondition(brightness);
     }
 }

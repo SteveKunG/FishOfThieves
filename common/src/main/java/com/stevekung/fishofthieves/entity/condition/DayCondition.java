@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public class DayCondition implements SpawnCondition
 {
@@ -9,19 +11,19 @@ public class DayCondition implements SpawnCondition
     public static final MapCodec<DayCondition> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.IS_DAY;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return context.level().isBrightOutside();
+        return context.level().getLevel().isBrightOutside();
     }
 
-    public static SpawnCondition.Builder day()
+    public static SpawnCondition day()
     {
-        return () -> INSTANCE;
+        return INSTANCE;
     }
 }

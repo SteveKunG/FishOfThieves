@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public class NightCondition implements SpawnCondition
 {
@@ -9,19 +11,19 @@ public class NightCondition implements SpawnCondition
     public static final MapCodec<NightCondition> CODEC = MapCodec.unit(INSTANCE);
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.IS_NIGHT;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return context.level().isDarkOutside();
+        return context.level().getLevel().isDarkOutside();
     }
 
-    public static Builder night()
+    public static SpawnCondition night()
     {
-        return () -> INSTANCE;
+        return INSTANCE;
     }
 }

@@ -2,27 +2,29 @@ package com.stevekung.fishofthieves.entity.condition;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record HeightCondition(MinMaxBounds.Ints height) implements SpawnCondition
 {
     public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(MinMaxBounds.Ints.CODEC.fieldOf("height").forGetter(HeightCondition::height)).apply(instance, HeightCondition::new));
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<HeightCondition> codec()
     {
-        return FOTSpawnConditions.HEIGHT;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return this.height.matches(context.blockPos().getY());
+        return this.height.matches(context.pos().getY());
     }
 
-    public static HeightCondition.Builder height(MinMaxBounds.Ints height)
+    public static SpawnCondition height(MinMaxBounds.Ints height)
     {
-        return () -> new HeightCondition(height);
+        return new HeightCondition(height);
     }
 }

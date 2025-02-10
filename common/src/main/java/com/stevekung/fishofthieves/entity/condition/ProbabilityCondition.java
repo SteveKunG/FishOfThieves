@@ -3,31 +3,33 @@ package com.stevekung.fishofthieves.entity.condition;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
+import net.minecraft.world.entity.variant.SpawnCondition;
+import net.minecraft.world.entity.variant.SpawnContext;
 
 public record ProbabilityCondition(float chance) implements SpawnCondition
 {
     public static final MapCodec<ProbabilityCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ProbabilityCondition::chance)).apply(instance, ProbabilityCondition::new));
 
     @Override
-    public SpawnConditionType getType()
+    public MapCodec<? extends SpawnCondition> codec()
     {
-        return FOTSpawnConditions.PROBABILITY;
+        return CODEC;
     }
 
     @Override
-    public boolean test(SpawnConditionContext context)
+    public boolean test(SpawnContext context)
     {
-        return context.random().nextFloat() < this.chance;
+        return context.level().getRandom().nextFloat() < this.chance;
     }
 
-    public static SpawnCondition.Builder chance(float chance)
+    public static SpawnCondition chance(float chance)
     {
-        return () -> new ProbabilityCondition(chance);
+        return new ProbabilityCondition(chance);
     }
 
-    public static SpawnCondition.Builder defaultRareProbablity()
+    public static SpawnCondition defaultRareProbablity()
     {
-        return () -> new ProbabilityCondition(0.05f);
+        return new ProbabilityCondition(0.05f);
     }
 }
