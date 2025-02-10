@@ -2,7 +2,11 @@ package com.stevekung.fishofthieves.entity.variant;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
+import com.google.common.collect.Lists;
+import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
@@ -19,6 +23,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.variant.PriorityProvider;
 import net.minecraft.world.entity.variant.SpawnCondition;
@@ -45,6 +50,51 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
     default List<Selector<SpawnContext, SpawnCondition>> selectors()
     {
         return this.spawnSettings().entity().selectors();
+    }
+
+    static <T> Stream<T> select(Stream<T> stream, Function<T, AbstractFishVariant> function, SpawnContext object)
+    {
+        var list = Lists.<PriorityProvider.UnpackedEntry<SpawnContext, T>>newArrayList();
+
+        stream.forEach(objectx ->
+        {
+            var priorityProvider = function.apply(objectx);
+            var listx = priorityProvider.spawnSettings().fishing().isPresent() ? priorityProvider.spawnSettings().fishing().get().selectors() : priorityProvider.selectors();
+
+            for (var selector : listx)
+            {
+                list.add(new PriorityProvider.UnpackedEntry<>(objectx, selector.priority(), DataFixUtils.orElseGet(selector.condition(), PriorityProvider.SelectorCondition::alwaysTrue)));
+            }
+        });
+
+        list.sort(PriorityProvider.UnpackedEntry.HIGHEST_PRIORITY_FIRST);
+        var iterator = list.iterator();
+        var i = Integer.MIN_VALUE;
+
+        while (iterator.hasNext())
+        {
+            var unpackedEntry = iterator.next();
+
+            if (unpackedEntry.priority() < i)
+            {
+                iterator.remove();
+            }
+            else if (unpackedEntry.condition().test(object))
+            {
+                i = unpackedEntry.priority();
+            }
+            else
+            {
+                iterator.remove();
+            }
+        }
+        return list.stream().map(PriorityProvider.UnpackedEntry::entry);
+    }
+
+    static <T> Optional<T> pick(Stream<T> stream, Function<T, AbstractFishVariant> function, RandomSource randomSource, SpawnContext object)
+    {
+        var list = select(stream, function, object).toList();
+        return Util.getRandomSafe(list, randomSource);
     }
 
     static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
