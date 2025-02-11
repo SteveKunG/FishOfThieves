@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.entity.variant.*;
+
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 

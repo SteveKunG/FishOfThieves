@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.animal;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
@@ -11,6 +12,7 @@ import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

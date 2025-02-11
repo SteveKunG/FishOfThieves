@@ -1,10 +1,12 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

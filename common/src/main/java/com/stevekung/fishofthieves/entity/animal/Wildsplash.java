@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

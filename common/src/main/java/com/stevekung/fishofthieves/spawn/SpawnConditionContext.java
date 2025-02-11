@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.spawn;
 
 import com.stevekung.fishofthieves.utils.Continentalness;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;

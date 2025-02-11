@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.feature;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.block.FishBoneBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;

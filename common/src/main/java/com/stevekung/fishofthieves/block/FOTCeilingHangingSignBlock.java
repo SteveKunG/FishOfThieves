@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.blockentity.FOTHangingSignBlockEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

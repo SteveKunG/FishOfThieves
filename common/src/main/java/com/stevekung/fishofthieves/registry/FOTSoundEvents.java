@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.sounds.SoundEvent;
 
 public class FOTSoundEvents

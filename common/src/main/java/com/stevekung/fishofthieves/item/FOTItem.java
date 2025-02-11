@@ -3,8 +3,10 @@ package com.stevekung.fishofthieves.item;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;

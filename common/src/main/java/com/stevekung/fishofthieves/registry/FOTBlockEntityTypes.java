@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.blockentity.FOTHangingSignBlockEntity;
 import com.stevekung.fishofthieves.blockentity.FOTSignBlockEntity;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
+
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTBlockEntityTypes

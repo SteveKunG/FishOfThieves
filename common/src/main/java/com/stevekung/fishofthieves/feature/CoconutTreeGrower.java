@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.feature;
 
 import com.stevekung.fishofthieves.registry.FOTFeatures;
+
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;

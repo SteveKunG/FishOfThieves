@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.blockentity.FOTSignBlockEntity;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

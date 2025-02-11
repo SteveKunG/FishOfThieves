@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.mixin.client.renderer.entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
 import net.minecraft.client.renderer.entity.TropicalFishRenderer;
 import net.minecraft.world.entity.animal.TropicalFish;
 

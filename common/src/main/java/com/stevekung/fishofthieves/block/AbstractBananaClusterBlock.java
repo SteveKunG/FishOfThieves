@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.EntityTypeTags;

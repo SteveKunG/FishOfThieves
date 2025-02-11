@@ -5,8 +5,10 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.spawn.SpawnConditionContext;
+
 import net.minecraft.resources.ResourceLocation;
 
 public class AbstractFishVariant implements FishData

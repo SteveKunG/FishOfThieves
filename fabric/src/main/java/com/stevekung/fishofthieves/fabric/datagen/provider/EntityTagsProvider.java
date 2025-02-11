@@ -3,8 +3,10 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.lang3.ArrayUtils;
+
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;

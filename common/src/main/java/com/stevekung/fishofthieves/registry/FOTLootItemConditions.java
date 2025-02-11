@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
+
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;

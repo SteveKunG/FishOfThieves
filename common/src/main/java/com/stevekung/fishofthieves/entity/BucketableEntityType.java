@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

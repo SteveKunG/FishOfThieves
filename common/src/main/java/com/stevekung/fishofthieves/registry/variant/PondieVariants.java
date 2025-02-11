@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
+
 import net.minecraft.core.Registry;
 
 public class PondieVariants

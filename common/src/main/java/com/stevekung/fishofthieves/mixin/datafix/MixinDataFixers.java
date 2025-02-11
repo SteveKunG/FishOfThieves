@@ -11,9 +11,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.AdvancementsRenameFix;
 

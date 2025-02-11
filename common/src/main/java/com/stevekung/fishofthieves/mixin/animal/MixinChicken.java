@@ -6,9 +6,11 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+
 import com.google.common.collect.ObjectArrays;
 import com.stevekung.fishofthieves.registry.FOTEarlyItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;

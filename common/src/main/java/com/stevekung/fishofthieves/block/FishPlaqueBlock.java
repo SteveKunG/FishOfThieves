@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FOTPlatform;
@@ -12,6 +13,7 @@ import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;

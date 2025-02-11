@@ -1,10 +1,12 @@
 package com.stevekung.fishofthieves.loot.predicate;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTEntitySubPredicate;
+
 import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;

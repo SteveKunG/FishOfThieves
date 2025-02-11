@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.debug;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 

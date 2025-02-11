@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;

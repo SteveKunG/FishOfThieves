@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.registry.FOTRegistry;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import com.stevekung.fishofthieves.utils.Continentalness;
+
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.LightLayer;
 

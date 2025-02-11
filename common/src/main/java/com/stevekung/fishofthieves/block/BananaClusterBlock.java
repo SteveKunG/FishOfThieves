@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

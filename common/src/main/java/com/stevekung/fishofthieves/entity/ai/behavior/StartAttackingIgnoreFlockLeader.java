@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;

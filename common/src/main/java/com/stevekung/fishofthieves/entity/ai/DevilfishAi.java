@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.entity.ai.behavior.StartAttackingIgnoreFlockLeader;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

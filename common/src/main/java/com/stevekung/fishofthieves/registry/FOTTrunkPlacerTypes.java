@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;

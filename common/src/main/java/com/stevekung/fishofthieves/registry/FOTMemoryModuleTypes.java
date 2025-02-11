@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;

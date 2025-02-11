@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SaplingBlock;
