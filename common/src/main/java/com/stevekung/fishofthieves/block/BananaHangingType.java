@@ -6,7 +6,9 @@ import net.minecraft.util.StringRepresentable;
 
 public enum BananaHangingType implements StringRepresentable
 {
-    SMALL_CLUSTER, CLUSTER, STEM;
+    SMALL_CLUSTER,
+    CLUSTER,
+    STEM;
 
     @Override
     public String getSerializedName()

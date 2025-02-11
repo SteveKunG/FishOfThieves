@@ -31,7 +31,7 @@ public class MixinBee
     @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
     public static abstract class MixinBeeGrowCropGoal extends Goal
     {
-        @Shadow(aliases = {"this$0", "f_28021_", "field_20373"}, remap = false)
+        @Shadow(aliases = { "this$0", "f_28021_", "field_20373" }, remap = false)
         @Final
         Bee $outer;
 

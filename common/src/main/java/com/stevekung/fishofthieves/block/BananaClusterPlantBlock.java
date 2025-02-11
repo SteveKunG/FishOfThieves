@@ -120,7 +120,9 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
 
     public enum HangingType implements StringRepresentable
     {
-        NONE, SMALL_CLUSTER, STEM;
+        NONE,
+        SMALL_CLUSTER,
+        STEM;
 
         @Override
         public String getSerializedName()
