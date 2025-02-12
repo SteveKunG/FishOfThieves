@@ -50,27 +50,7 @@
     "trunk_placer": {
       "type": "fishofthieves:banana_trunk_placer",
       "base_height": 3,
-      "bottom_log": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "fishofthieves:growable_banana_stem",
-          "Properties": {
-            "axis": "y",
-            "waterlogged": "false"
-          }
-        }
-      },
       "height_rand_a": 6,
-      "log": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "fishofthieves:banana_stem",
-          "Properties": {
-            "axis": "y",
-            "waterlogged": "false"
-          }
-        }
-      },
       "top_log": {
         "type": "minecraft:simple_state_provider",
         "state": {

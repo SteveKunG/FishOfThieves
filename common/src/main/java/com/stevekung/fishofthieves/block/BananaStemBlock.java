@@ -1,16 +1,23 @@
 package com.stevekung.fishofthieves.block;
 
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BananaStemBlock extends SmallRotatedPillarBlock
+@SuppressWarnings("deprecation")
+public class BananaStemBlock extends SmallRotatedPillarBlock implements BonemealableBlock
 {
     private static final VoxelShape SHAPE_VERTICAL = Block.box(3, 0, 3, 13, 16, 13);
     private static final VoxelShape SHAPE_HORIZONTAL_NS = Block.box(3, 3, 0, 13, 13, 16);
@@ -46,5 +53,39 @@ public class BananaStemBlock extends SmallRotatedPillarBlock
                 return SHAPE_VERTICAL;
             }
         }
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        if (level.isRaining() && random.nextInt(10) == 0)
+        {
+            this.growBananaShoots(level, random, pos);
+        }
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
+    {
+        return Direction.Plane.HORIZONTAL.stream().anyMatch(direction -> FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().canSurvive(level, pos.relative(direction)) && level.getBlockState(pos.relative(direction)).isAir());
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        return random.nextInt(3) == 0;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        this.growBananaShoots(level, random, pos);
+    }
+
+    private void growBananaShoots(ServerLevel level, RandomSource random, BlockPos pos)
+    {
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream()
+                .filter(direction -> level.getBlockState(pos.relative(direction)).isAir() && FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().canSurvive(level, pos.relative(direction))).findFirst()
+                .ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }

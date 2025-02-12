@@ -192,7 +192,7 @@ public class FOTFeatures
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.BANANA_STEM),
-                new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.GROWABLE_BANANA_STEM), BlockStateProvider.simple(FOTBlocks.BANANA_STEM), BlockStateProvider.simple(FOTBlocks.TOP_BANANA_STEM)),
+                new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.TOP_BANANA_STEM)),
                 BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES),
                 new BananaLeavesPlacer(0.2f),
                 new ThreeLayersFeatureSize(5, 8, 1, 2, 5, OptionalInt.empty()));

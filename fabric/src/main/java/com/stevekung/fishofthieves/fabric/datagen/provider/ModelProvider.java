@@ -184,7 +184,6 @@ public class ModelProvider extends FabricModelProvider
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
         this.createBananaStem(generator);
-        this.createGrowableBananaStem(generator);
         this.createTopBananaStem(generator);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
@@ -445,13 +444,6 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.BANANA_STEM;
         var modelLocation = ModelLocationUtils.getModelLocation(block);
-        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
-    }
-
-    private void createGrowableBananaStem(BlockModelGenerators generator)
-    {
-        var block = FOTBlocks.GROWABLE_BANANA_STEM;
-        var modelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM);
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 

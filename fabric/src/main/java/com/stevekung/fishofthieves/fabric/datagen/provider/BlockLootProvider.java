@@ -117,7 +117,6 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.COCONUT_FRONDS);
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.dropOther(FOTBlocks.TOP_BANANA_STEM, FOTBlocks.BANANA_STEM);
-        this.dropOther(FOTBlocks.GROWABLE_BANANA_STEM, FOTBlocks.BANANA_STEM);
         this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.BANANA_LEAVES);
         this.dropOther(FOTBlocks.VERTICAL_COCONUT_FRONDS, FOTBlocks.COCONUT_FRONDS);
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
