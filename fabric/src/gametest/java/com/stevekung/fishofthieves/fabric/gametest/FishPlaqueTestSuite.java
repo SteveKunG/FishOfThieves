@@ -64,7 +64,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     }
 
     @GameTest(template = FISH_PLAQUE)
-    public void splashtailMushSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
+    public void splashtailMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 2, 1);
         var player = helper.makeMockPlayer();
@@ -119,7 +119,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     }
 
     @GameTest(template = FISH_PLAQUE)
-    public void salmonMushSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
+    public void salmonMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 2, 1);
         var player = helper.makeMockPlayer();
@@ -170,7 +170,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     }
 
     @GameTest(template = FISH_PLAQUE)
-    public void tropicalFishMushSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
+    public void tropicalFishMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 2, 1);
         var player = helper.makeMockPlayer();
@@ -233,7 +233,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     }
 
     @GameTest(template = FISH_PLAQUE)
-    public void axolotlMushSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
+    public void axolotlMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 2, 1);
         var player = helper.makeMockPlayer();
