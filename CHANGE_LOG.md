@@ -173,6 +173,7 @@
 - Simple item tags support for other mods
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
+- Fixed loading entity data from bucket in fish plaque
 - Remove structure validation and update structure data version through datagen
 
 ## Credits

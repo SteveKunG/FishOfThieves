@@ -193,6 +193,12 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                     if (level instanceof ServerLevel serverLevel)
                     {
                         var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, player, MobSpawnType.BUCKET);
+
+                        if (entityToSave instanceof Bucketable bucketable)
+                        {
+                            bucketable.loadFromBucketTag(tag);
+                        }
+
                         entityToSave.saveWithoutId(tag);
                         entityToSave.moveTo(pos, 0, 0); // Move entity position to this fish plaque pos
                         entityToSave.discard(); // Remove spawned entity from the world
