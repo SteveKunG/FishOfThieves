@@ -7,4 +7,4 @@ build
 run
 
 # files
-*.snbt
+common/src/generated/resources/*.snbt
