@@ -170,8 +170,8 @@ public class ModelProvider extends FabricModelProvider
         generator.woodProvider(FOTBlocks.COCONUT_LOG).logWithHorizontal(FOTBlocks.COCONUT_LOG).wood(FOTBlocks.COCONUT_WOOD);
         generator.woodProvider(FOTBlocks.STRIPPED_COCONUT_LOG).logWithHorizontal(FOTBlocks.STRIPPED_COCONUT_LOG).wood(FOTBlocks.STRIPPED_COCONUT_WOOD);
         this.createSmallCoconutLog(generator);
-        this.createGrowableSmallCoconutLog(generator);
-        this.createTopSmallCoconutLog(generator);
+        this.createCoconutFruitGrowableLog(generator);
+        this.createSmallTopCoconutLog(generator);
         this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
@@ -184,7 +184,7 @@ public class ModelProvider extends FabricModelProvider
         this.createCoconutFronds(generator);
         this.createBananaLeaves(generator);
         this.createBananaStem(generator);
-        this.createTopBananaStem(generator);
+        this.createBananaClusterGrowableStem(generator);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
@@ -447,9 +447,9 @@ public class ModelProvider extends FabricModelProvider
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
-    private void createTopBananaStem(BlockModelGenerators generator)
+    private void createBananaClusterGrowableStem(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.TOP_BANANA_STEM;
+        var block = FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM;
         var topModelLocation = ModelLocationUtils.getModelLocation(FOTBlocks.BANANA_STEM, "_top");
         this.createRotatedPillarWithHorizontalVariant(generator, block, topModelLocation);
     }
@@ -462,19 +462,19 @@ public class ModelProvider extends FabricModelProvider
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
-    private void createTopSmallCoconutLog(BlockModelGenerators generator)
+    private void createSmallTopCoconutLog(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.TOP_SMALL_COCONUT_LOG;
+        var block = FOTBlocks.SMALL_TOP_COCONUT_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, topModelLocation);
     }
 
-    private void createGrowableSmallCoconutLog(BlockModelGenerators generator)
+    private void createCoconutFruitGrowableLog(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.GROWABLE_SMALL_COCONUT_LOG;
-        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG, "_growable"));
-        var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_growable"), textureMapping, generator.modelOutput);
+        var block = FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG;
+        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG));
+        var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block), textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, growableModelLocation);
     }
 

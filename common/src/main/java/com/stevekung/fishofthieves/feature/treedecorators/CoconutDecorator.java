@@ -50,7 +50,7 @@ public class CoconutDecorator extends TreeDecorator
 
             list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).forEach(blockPos ->
             {
-                context.setBlock(blockPos, FOTBlocks.GROWABLE_SMALL_COCONUT_LOG.defaultBlockState());
+                context.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG.defaultBlockState());
 
                 for (var direction : Direction.Plane.HORIZONTAL)
                 {

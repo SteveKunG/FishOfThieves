@@ -15,9 +15,9 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("deprecation")
-public class GrowableCoconutLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
+public class CoconutFruitGrowableLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
 {
-    public GrowableCoconutLogBlock(Properties properties)
+    public CoconutFruitGrowableLogBlock(Properties properties)
     {
         super(properties);
     }

@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
 @SuppressWarnings("deprecation")
-public class GrowableBananaClusterStemBlock extends BananaStemBlock implements BonemealableBlock
+public class BananaClusterGrowableStemBlock extends BananaStemBlock implements BonemealableBlock
 {
-    public GrowableBananaClusterStemBlock(Properties properties)
+    public BananaClusterGrowableStemBlock(Properties properties)
     {
         super(properties);
     }

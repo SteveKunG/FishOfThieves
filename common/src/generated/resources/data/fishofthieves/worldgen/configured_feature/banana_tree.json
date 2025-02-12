@@ -54,7 +54,7 @@
       "top_log": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "fishofthieves:top_banana_stem",
+          "Name": "fishofthieves:banana_cluster_growable_stem",
           "Properties": {
             "axis": "y",
             "waterlogged": "false"
