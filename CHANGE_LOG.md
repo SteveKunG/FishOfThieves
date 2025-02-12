@@ -174,6 +174,8 @@
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
 - Fixed loading entity data from bucket in fish plaque
+- Fixed waxing fish plaque will rotate fish by one cycle
+- Fixed waxed fish plaque can take out the fish when using bucket
 - Remove structure validation and update structure data version through datagen
 
 ## Credits

@@ -116,7 +116,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
                 var interactItem = FishPlaqueRegistry.getInteractionItem().getOrDefault(fishPlaque.getEntityKeyFromPlaqueData(), Items.WATER_BUCKET);
 
-                if (itemStack.is(interactItem))
+                if (itemStack.is(interactItem) && !fishPlaque.isWaxed())
                 {
                     if (entity instanceof Bucketable bucketable)
                     {
@@ -170,7 +170,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                                 itemStack.shrink(1);
                             }
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-                            level.levelEvent(player, 3003, pos, 0);
+                            level.levelEvent(player, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, pos, 0);
+                            return InteractionResult.sidedSuccess(level.isClientSide());
                         }
                         level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);

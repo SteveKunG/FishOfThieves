@@ -258,4 +258,193 @@ public class FishPlaqueTestSuite implements FOTGameTest
             }
         });
     }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void checkSplashtailBucketFromFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var level = helper.getLevel();
+        var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
+        var compoundTag = itemStack.getOrCreateTag();
+
+        var fishRegistry = level.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY);
+        var ruby = fishRegistry.getKey(SplashtailVariants.RUBY).toString();
+
+        compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+        compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WATER_BUCKET));
+            helper.useBlock(blockPos, player);
+
+            var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+            var bucketCompoundTag = mainHandItem.getOrCreateTag();
+
+            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketCompoundTag.getString(ThievesFish.VARIANT_TAG).equals(ruby))
+            {
+                helper.succeed();
+            }
+            else
+            {
+                helper.fail("Item is not a splashtail bucket with their variant");
+            }
+        });
+    }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void checkSalmonBucketFromFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var itemStack = new ItemStack(Items.SALMON_BUCKET);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WATER_BUCKET));
+            helper.useBlock(blockPos, player);
+
+            var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+
+            if (mainHandItem.is(Items.SALMON_BUCKET))
+            {
+                helper.succeed();
+            }
+            else
+            {
+                helper.fail("Item is not a salmon bucket");
+            }
+        });
+    }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void checkTropicalFishBucketFromFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
+        var compoundTag = itemStack.getOrCreateTag();
+
+        compoundTag.putInt(TropicalFish.BUCKET_VARIANT_TAG, 65536);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WATER_BUCKET));
+            helper.useBlock(blockPos, player);
+
+            var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+            var bucketCompoundTag = mainHandItem.getOrCreateTag();
+
+            if (mainHandItem.is(Items.TROPICAL_FISH_BUCKET) && bucketCompoundTag.getInt(TropicalFish.BUCKET_VARIANT_TAG) == 65536)
+            {
+                helper.succeed();
+            }
+            else
+            {
+                helper.fail("Item is not a tropical fish bucket with their variant");
+            }
+        });
+    }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void checkAxolotlBucketFromFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
+        var compoundTag = itemStack.getOrCreateTag();
+
+        compoundTag.putInt(Axolotl.VARIANT_TAG, Axolotl.Variant.CYAN.getId());
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.WATER_BUCKET));
+            helper.useBlock(blockPos, player);
+
+            var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
+            var bucketCompoundTag = mainHandItem.getOrCreateTag();
+
+            if (mainHandItem.is(Items.AXOLOTL_BUCKET) && bucketCompoundTag.getInt(Axolotl.VARIANT_TAG) == Axolotl.Variant.CYAN.getId())
+            {
+                helper.succeed();
+            }
+            else
+            {
+                helper.fail("Item is not an axolotl bucket with their variant");
+            }
+        });
+    }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void waxFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var itemStack = new ItemStack(Items.SALMON_BUCKET);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.HONEYCOMB));
+            helper.useBlock(blockPos, player);
+
+            if (helper.getBlockEntity(blockPos) instanceof FishPlaqueBlockEntity fishPlaque)
+            {
+                if (fishPlaque.isWaxed())
+                {
+                    helper.succeed();
+                }
+                else
+                {
+                    helper.fail("Fish Plaque is not waxed!");
+                }
+            }
+        });
+    }
+
+    @GameTest(template = FISH_PLAQUE)
+    public void unwaxFishPlaqueTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 2, 1);
+        var player = helper.makeMockPlayer();
+        var itemStack = new ItemStack(Items.SALMON_BUCKET);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
+        helper.useBlock(blockPos, player);
+
+        helper.runAtTickTime(20, () ->
+        {
+            if (helper.getBlockEntity(blockPos) instanceof FishPlaqueBlockEntity fishPlaque)
+            {
+                fishPlaque.setWaxed(true);
+
+                player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_AXE));
+                helper.useBlock(blockPos, player);
+
+                if (!fishPlaque.isWaxed())
+                {
+                    helper.succeed();
+                }
+                else
+                {
+                    helper.fail("Fish Plaque is still waxed!");
+                }
+            }
+        });
+    }
 }
