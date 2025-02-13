@@ -138,7 +138,9 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     @SuppressWarnings("deprecation")
     public enum HangingType implements StringRepresentable
     {
-        NONE, SMALL_CLUSTER, STEM;
+        NONE,
+        SMALL_CLUSTER,
+        STEM;
 
         public static final StringRepresentable.EnumCodec<HangingType> CODEC = StringRepresentable.fromEnum(HangingType::values);
 

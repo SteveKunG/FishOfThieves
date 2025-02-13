@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.animal.Plentifin;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class PlentifinRenderer<S extends ThievesFishRenderState> extends ThievesFishRenderer<PlentifinVariant, S, Plentifin, PlentifinModel<S>>

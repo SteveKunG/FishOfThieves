@@ -3,8 +3,10 @@ package com.stevekung.fishofthieves.blockentity;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

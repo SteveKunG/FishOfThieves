@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;

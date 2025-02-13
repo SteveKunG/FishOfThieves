@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.animal.Ancientscale;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class AncientscaleRenderer<S extends ThievesFishRenderState> extends ThievesFishRenderer<AncientscaleVariant, S, Ancientscale, AncientscaleModel<S>>

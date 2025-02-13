@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
+
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +12,13 @@ import net.minecraft.resources.ResourceLocation;
 public record PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<PlentifinVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(PlentifinVariant::new);
+    public static final Codec<PlentifinVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(PlentifinVariant::new);
     public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC);
+
+    public PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, int customModelData)
+    {
+        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+    }
 
     @Override
     public ResourceLocation fullTexture()

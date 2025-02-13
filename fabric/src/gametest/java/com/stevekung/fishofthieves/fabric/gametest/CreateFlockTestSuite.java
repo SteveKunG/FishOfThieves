@@ -4,18 +4,19 @@ import java.util.function.Predicate;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
+import com.stevekung.fishofthieves.fabric.gametest.core.FOTGameTest;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 
 public class CreateFlockTestSuite implements FOTGameTest
 {
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(template = FISH_TANK, timeoutTicks = 300)
     public void fiveNonTrophyTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 5; i++)
         {
@@ -51,11 +52,10 @@ public class CreateFlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(template = FISH_TANK, timeoutTicks = 300)
     public void fiveTrophyTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 5; i++)
         {
@@ -93,11 +93,10 @@ public class CreateFlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(template = FISH_TANK, timeoutTicks = 300)
     public void oneTrophyFourFollowerTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 5; i++)
         {
@@ -144,11 +143,10 @@ public class CreateFlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(template = EMPTY_STRUCTURE, timeoutTicks = 300)
+    @GameTest(template = FISH_TANK, timeoutTicks = 300)
     public void fourTrophyOneFollowerTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 5; i++)
         {

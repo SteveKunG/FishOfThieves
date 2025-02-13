@@ -4,9 +4,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;

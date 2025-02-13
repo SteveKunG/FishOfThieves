@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.item.FOTSpawnEggItem;
+
 import net.minecraft.world.item.CreativeModeTab;
 
 public class FOTDisplayItems

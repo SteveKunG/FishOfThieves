@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "fishofthieves:block/small_top_coconut_log_trunk",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "fishofthieves:block/small_top_coconut_log_trunk"
+    },
+    "axis=z": {
+      "model": "fishofthieves:block/small_top_coconut_log_trunk",
+      "x": 90
+    }
+  }
+}

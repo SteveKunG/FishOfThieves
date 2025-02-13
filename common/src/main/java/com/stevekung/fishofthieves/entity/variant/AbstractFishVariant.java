@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.entity.variant;
 import java.util.List;
 import java.util.Optional;
 
+import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -10,6 +11,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionContext;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -45,6 +47,18 @@ public interface AbstractFishVariant
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
+        ).apply(instance, factory));
+        //@formatter:on
+    }
+
+    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ResourceLocation, Optional<ResourceLocation>, Integer, T> factory)
+    {
+        //@formatter:off
+        return RecordCodecBuilder.create(instance -> instance.group(
+                ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
+                ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
@@ -110,5 +124,7 @@ public interface AbstractFishVariant
                         FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
                 .apply(instance, SpawnSettings::new));
         //@formatter:on
+
+        public static final SpawnSettings EMPTY = new SpawnSettings(List.of(), Optional.empty());
     }
 }

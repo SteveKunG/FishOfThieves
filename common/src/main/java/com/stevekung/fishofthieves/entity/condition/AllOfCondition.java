@@ -5,6 +5,7 @@ import java.util.List;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.Util;
 
 public class AllOfCondition extends CompositeSpawnCondition

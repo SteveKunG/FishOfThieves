@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.entity.condition;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
+
 import net.minecraft.advancements.critereon.MinMaxBounds;
 
 public record MoonBrightnessCondition(MinMaxBounds.Doubles brightness) implements SpawnCondition

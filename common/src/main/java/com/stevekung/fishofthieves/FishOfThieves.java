@@ -11,6 +11,8 @@ import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -21,9 +23,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
-
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 public class FishOfThieves
 {
@@ -107,8 +106,8 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRUIT, 5, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_LOG, 5, 5);
-        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, 5, 5);
-        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_SMALL_COCONUT_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_TOP_COCONUT_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.SMALL_COCONUT_WOOD, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.MEDIUM_COCONUT_WOOD, 5, 5);
@@ -120,8 +119,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_STEM, 5, 5);
-        FOTPlatform.addFlammableBlock(FOTBlocks.TOP_BANANA_STEM, 5, 5);
-        FOTPlatform.addFlammableBlock(FOTBlocks.GROWABLE_BANANA_STEM, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.PRISMARIZED_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_LEAVES, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);

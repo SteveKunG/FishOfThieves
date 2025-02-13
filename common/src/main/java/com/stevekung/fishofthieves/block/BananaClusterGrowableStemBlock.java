@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import java.util.function.Function;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -16,9 +17,9 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
-public class GrowableBananaClusterStemBlock extends BananaStemBlock implements BonemealableBlock
+public class BananaClusterGrowableStemBlock extends BananaStemBlock implements BonemealableBlock
 {
-    public GrowableBananaClusterStemBlock(Properties properties)
+    public BananaClusterGrowableStemBlock(Properties properties)
     {
         super(properties);
     }

@@ -25,19 +25,13 @@ public class BananaTrunkPlacer extends TrunkPlacer
     public static final MapCodec<BananaTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.intRange(0, 16).fieldOf("base_height").forGetter(trunkPlacer -> trunkPlacer.baseHeight),
                     Codec.intRange(0, 12).fieldOf("height_rand_a").forGetter(trunkPlacer -> trunkPlacer.heightRandA),
-                    BlockStateProvider.CODEC.fieldOf("bottom_log").forGetter(trunkPlacer -> trunkPlacer.bottomLog),
-                    BlockStateProvider.CODEC.fieldOf("log").forGetter(trunkPlacer -> trunkPlacer.log),
                     BlockStateProvider.CODEC.fieldOf("top_log").forGetter(trunkPlacer -> trunkPlacer.topLog))
             .apply(instance, BananaTrunkPlacer::new));
-    private final BlockStateProvider bottomLog;
-    private final BlockStateProvider log;
     private final BlockStateProvider topLog;
 
-    public BananaTrunkPlacer(int baseHeight, int heightRandA, BlockStateProvider bottomLog, BlockStateProvider log, BlockStateProvider topLog)
+    public BananaTrunkPlacer(int baseHeight, int heightRandA, BlockStateProvider topLog)
     {
         super(baseHeight, heightRandA, 0);
-        this.bottomLog = bottomLog;
-        this.log = log;
         this.topLog = topLog;
     }
 
@@ -63,17 +57,8 @@ public class BananaTrunkPlacer extends TrunkPlacer
     {
         if (this.validTreePos(level, pos))
         {
-            var blockState = propertySetter.apply(config.trunkProvider.getState(random, pos));
-
-            if (height == 0)
-            {
-                blockState = propertySetter.apply(this.bottomLog.getState(random, pos));
-            }
-            else
-            {
-                var log = isTop ? this.topLog : this.log;
-                blockState = propertySetter.apply(log.getState(random, pos));
-            }
+            var log = isTop ? this.topLog : config.trunkProvider;
+            var blockState = propertySetter.apply(log.getState(random, pos));
             blockSetter.accept(pos, blockState);
         }
     }

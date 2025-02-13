@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.animal.Devilfish;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class DevilfishRenderer<S extends ThievesFishRenderState> extends ThievesFishRenderer<DevilfishVariant, S, Devilfish, DevilfishModel<S>>

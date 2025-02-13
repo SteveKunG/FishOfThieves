@@ -14,7 +14,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -146,14 +149,19 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
         builder.add(WATERLOGGED);
     }
 
-    public static boolean canClusterGrow(Level level, BlockPos pos)
+    public static boolean canClusterGrow(Level level, BlockPos blockPos)
     {
-        return !level.isRaining() && level.canSeeSky(pos) && level.isDay();
+        return !level.isRaining() && isDaySeeSky(level, blockPos);
     }
 
     public static boolean canClusterPlantGrow(Level level, BlockPos blockPos)
     {
-        return level.isRaining() && level.isDay() && level.canSeeSky(blockPos);
+        return level.isRaining() && isDaySeeSky(level, blockPos);
+    }
+
+    private static boolean isDaySeeSky(Level level, BlockPos blockPos)
+    {
+        return level.isDay() && level.canSeeSky(blockPos);
     }
 
     public enum Type implements StringRepresentable

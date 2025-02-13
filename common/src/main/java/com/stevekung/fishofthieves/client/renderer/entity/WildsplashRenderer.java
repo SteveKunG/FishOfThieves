@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.animal.Wildsplash;
 import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class WildsplashRenderer<S extends ThievesFishRenderState> extends ThievesFishRenderer<WildsplashVariant, S, Wildsplash, WildsplashModel<S>>
