@@ -148,7 +148,7 @@ public class BlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(structure = EMPTY_3X3, maxAttempts = 3)
+    @GameTest(structure = EMPTY_3X3, maxAttempts = 3, maxTicks = 100)
     public void growCoconutFruitsTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 2, 1);
@@ -165,7 +165,7 @@ public class BlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(structure = COCONUT_FALL)
+    @GameTest(structure = COCONUT_FALL, maxTicks = 40)
     public void coconutFallTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 8, 2);
@@ -179,7 +179,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, targetPos));
     }
 
-    @GameTest(structure = COCONUT_FALL)
+    @GameTest(structure = COCONUT_FALL, maxTicks = 40)
     public void coconutFallHurtChickenTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 8, 2);
@@ -196,7 +196,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertEntityNotPresent(EntityType.CHICKEN, targetPos));
     }
 
-    @GameTest(structure = EMPTY_3X3)
+    @GameTest(structure = EMPTY_3X3, maxTicks = 100)
     public void growBananaShootsTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 1, 1);
@@ -247,7 +247,7 @@ public class BlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(structure = BANANA_CLUSTERS)
+    @GameTest(structure = BANANA_CLUSTERS, maxTicks = 40)
     public void shotArrowToBreakBananaClustersTest(GameTestHelper helper)
     {
         var buttonPos = new BlockPos(1, 3, 0);
@@ -269,7 +269,7 @@ public class BlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(structure = EMPTY_3X4)
+    @GameTest(structure = EMPTY_3X4, maxTicks = 40)
     public void shotArrowToBreakCoconutFruitTest(GameTestHelper helper)
     {
         var dispenserPos = new BlockPos(1, 3, 0);
@@ -341,7 +341,7 @@ public class BlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(structure = EMPTY_3X4)
+    @GameTest(structure = EMPTY_3X4, maxTicks = 40)
     public void mangoFallTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 4, 3);
@@ -355,7 +355,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, targetPos));
     }
 
-    @GameTest(structure = EMPTY_3X4)
+    @GameTest(structure = EMPTY_3X4, maxTicks = 40)
     public void mangoFallHurtChickenTest(GameTestHelper helper)
     {
         var blockPos = new BlockPos(1, 4, 3);

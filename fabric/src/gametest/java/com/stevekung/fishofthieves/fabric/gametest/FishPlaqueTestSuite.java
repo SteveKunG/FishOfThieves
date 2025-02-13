@@ -16,7 +16,10 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Salmon;
+import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -95,6 +98,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
+        itemStack.set(DataComponents.SALMON_SIZE, Salmon.Variant.LARGE);
+
         var entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -106,8 +111,9 @@ public class FishPlaqueTestSuite implements FOTGameTest
         {
             var plaqueData = fishPlaque.getPlaqueData();
             var matchId = plaqueData.getString("id").equals(entityTypeRegistry.getKey(EntityType.SALMON).toString());
+            var matchVariant = plaqueData.getString("type").equals(Salmon.Variant.LARGE.getSerializedName());
 
-            if (matchId)
+            if (matchId && matchVariant)
             {
                 helper.succeed();
             }
@@ -125,6 +131,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
+        itemStack.set(DataComponents.SALMON_SIZE, Salmon.Variant.LARGE);
+
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
 
@@ -141,7 +149,9 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt("Variant", 65536));
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN, TropicalFish.Pattern.KOB);
+        itemStack.set(DataComponents.TROPICAL_FISH_BASE_COLOR, DyeColor.ORANGE);
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN_COLOR, DyeColor.WHITE);
 
         var entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
 
@@ -174,7 +184,9 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt("Variant", 65536));
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN, TropicalFish.Pattern.KOB);
+        itemStack.set(DataComponents.TROPICAL_FISH_BASE_COLOR, DyeColor.ORANGE);
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN_COLOR, DyeColor.WHITE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -201,7 +213,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt(Axolotl.VARIANT_TAG, Axolotl.Variant.CYAN.getId()));
+        itemStack.set(DataComponents.AXOLOTL_VARIANT, Axolotl.Variant.CYAN);
 
         var entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
 
@@ -234,7 +246,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt(Axolotl.VARIANT_TAG, Axolotl.Variant.CYAN.getId()));
+        itemStack.set(DataComponents.AXOLOTL_VARIANT, Axolotl.Variant.CYAN);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -297,6 +309,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
+        itemStack.set(DataComponents.SALMON_SIZE, Salmon.Variant.LARGE);
+
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
 
@@ -307,7 +321,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
 
-            if (mainHandItem.is(Items.SALMON_BUCKET))
+            if (mainHandItem.is(Items.SALMON_BUCKET) && mainHandItem.get(DataComponents.SALMON_SIZE) == Salmon.Variant.LARGE)
             {
                 helper.succeed();
             }
@@ -325,7 +339,9 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt("Variant", 65536));
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN, TropicalFish.Pattern.KOB);
+        itemStack.set(DataComponents.TROPICAL_FISH_BASE_COLOR, DyeColor.ORANGE);
+        itemStack.set(DataComponents.TROPICAL_FISH_PATTERN_COLOR, DyeColor.WHITE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -336,9 +352,12 @@ public class FishPlaqueTestSuite implements FOTGameTest
             helper.useBlock(blockPos, player);
 
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
-            var bucketEntityData = mainHandItem.get(DataComponents.BUCKET_ENTITY_DATA);
+            var tropicalFishPattern = mainHandItem.get(DataComponents.TROPICAL_FISH_PATTERN);
+            var tropicalFishBaseColor = mainHandItem.get(DataComponents.TROPICAL_FISH_BASE_COLOR);
+            var tropicalFishPatternColor = mainHandItem.get(DataComponents.TROPICAL_FISH_PATTERN_COLOR);
 
-            if (mainHandItem.is(Items.TROPICAL_FISH_BUCKET) && bucketEntityData.copyTag().getInt("Variant") == 65536)
+            if (mainHandItem.is(Items.TROPICAL_FISH_BUCKET) && tropicalFishPattern == TropicalFish.Pattern.KOB &&
+                    tropicalFishBaseColor == DyeColor.ORANGE && tropicalFishPatternColor == DyeColor.WHITE)
             {
                 helper.succeed();
             }
@@ -356,7 +375,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putInt(Axolotl.VARIANT_TAG, Axolotl.Variant.CYAN.getId()));
+        itemStack.set(DataComponents.AXOLOTL_VARIANT, Axolotl.Variant.CYAN);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -367,9 +386,9 @@ public class FishPlaqueTestSuite implements FOTGameTest
             helper.useBlock(blockPos, player);
 
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
-            var bucketEntityData = mainHandItem.get(DataComponents.BUCKET_ENTITY_DATA);
+            var axolotlVariant = mainHandItem.get(DataComponents.AXOLOTL_VARIANT);
 
-            if (mainHandItem.is(Items.AXOLOTL_BUCKET) && bucketEntityData.copyTag().getInt(Axolotl.VARIANT_TAG) == Axolotl.Variant.CYAN.getId())
+            if (mainHandItem.is(Items.AXOLOTL_BUCKET) && axolotlVariant == Axolotl.Variant.CYAN)
             {
                 helper.succeed();
             }
@@ -386,6 +405,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
+
+        itemStack.set(DataComponents.SALMON_SIZE, Salmon.Variant.LARGE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -414,6 +435,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
+
+        itemStack.set(DataComponents.SALMON_SIZE, Salmon.Variant.LARGE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
