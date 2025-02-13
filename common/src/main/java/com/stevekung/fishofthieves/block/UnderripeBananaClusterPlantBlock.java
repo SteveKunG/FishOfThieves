@@ -38,7 +38,7 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     public UnderripeBananaClusterPlantBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.STEM).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.CLUSTER).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
     @Override
