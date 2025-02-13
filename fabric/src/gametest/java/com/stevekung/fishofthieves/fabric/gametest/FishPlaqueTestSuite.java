@@ -28,7 +28,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void putSplashtailInFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var level = helper.getLevel();
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
@@ -68,7 +68,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void splashtailMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
@@ -91,7 +91,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void putSalmonInFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
@@ -123,7 +123,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void salmonMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
@@ -138,7 +138,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void putTropicalFishInFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
@@ -173,7 +173,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void tropicalFishMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
 
@@ -199,7 +199,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void putAxolotlInFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var level = helper.getLevel();
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
@@ -234,7 +234,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void axolotlMustSpawnWhenDestroyFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
 
@@ -260,7 +260,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void checkSplashtailBucketFromFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
@@ -297,7 +297,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void checkSalmonBucketFromFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
@@ -325,7 +325,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void checkTropicalFishBucketFromFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.TROPICAL_FISH_BUCKET);
 
@@ -356,7 +356,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void checkAxolotlBucketFromFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.AXOLOTL_BUCKET);
 
@@ -387,7 +387,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void waxFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 
@@ -416,7 +416,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
     @GameTest(template = FISH_PLAQUE)
     public void unwaxFishPlaqueTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(Items.SALMON_BUCKET);
 

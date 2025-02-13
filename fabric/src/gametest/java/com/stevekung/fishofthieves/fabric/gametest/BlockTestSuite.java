@@ -98,8 +98,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void bonemealCoconutFrondsTest(GameTestHelper helper)
     {
-        var polePos = new BlockPos(1, 2, 3);
-        var blockPos = new BlockPos(1, 4, 2);
+        var polePos = new BlockPos(1, 1, 3);
+        var blockPos = new BlockPos(1, 3, 2);
         var player = helper.makeMockPlayer(GameType.CREATIVE);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL));
@@ -198,7 +198,7 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X3)
     public void growBananaShootsTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL, 64));
 
@@ -249,8 +249,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = BANANA_CLUSTERS)
     public void shotArrowToBreakBananaClustersTest(GameTestHelper helper)
     {
-        var buttonPos = new BlockPos(1, 4, 0);
-        var blockPos = new BlockPos(1, 5, 2);
+        var buttonPos = new BlockPos(1, 3, 0);
+        var blockPos = new BlockPos(1, 4, 2);
 
         helper.setBlock(blockPos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH).setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM));
         helper.setBlock(blockPos.below(), FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH));
@@ -263,7 +263,7 @@ public class BlockTestSuite implements FOTGameTest
         {
             for (var i = 0; i < 4; i++)
             {
-                helper.assertBlock(new BlockPos(1, 2, 2).above(i), block -> block == Blocks.AIR, () -> "Expected air block!");
+                helper.assertBlock(new BlockPos(1, 1, 2).above(i), block -> block == Blocks.AIR, () -> "Expected air block!");
             }
         });
     }
@@ -271,8 +271,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void shotArrowToBreakCoconutFruitTest(GameTestHelper helper)
     {
-        var dispenserPos = new BlockPos(1, 4, 0);
-        var blockPos = new BlockPos(1, 4, 2);
+        var dispenserPos = new BlockPos(1, 3, 0);
+        var blockPos = new BlockPos(1, 3, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
         helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
@@ -293,18 +293,18 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = SHOT_MANGO, attempts = 64, timeoutTicks = 60)
     public void shotArrowToBreakMangoFruitTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 0);
+        var blockPos = new BlockPos(1, 2, 0);
 
         helper.runAtTickTime(20, () -> helper.pressButton(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, new BlockPos(1, 2, 6)));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, new BlockPos(1, 1, 6)));
     }
 
     @GameTest(template = EMPTY_3X4, attempts = 64, timeoutTicks = 60)
     public void shotArrowToBreakHangingMangoFruitTest(GameTestHelper helper)
     {
-        var dispenserPos = new BlockPos(1, 4, 0);
-        var blockPos = new BlockPos(1, 4, 2);
+        var dispenserPos = new BlockPos(1, 3, 0);
+        var blockPos = new BlockPos(1, 3, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
         helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
@@ -394,7 +394,7 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X3)
     public void bonemealPomegranatePlantTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL, 3));
 
@@ -415,7 +415,7 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X3)
     public void bonemealTallPomegranatePlantTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL, 3));
 
