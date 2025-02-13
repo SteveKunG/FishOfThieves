@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric.datagen.client;
 import java.util.Optional;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureSlot;
 

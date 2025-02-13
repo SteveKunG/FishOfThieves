@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 

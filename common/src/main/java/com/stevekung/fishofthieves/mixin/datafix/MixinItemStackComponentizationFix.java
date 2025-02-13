@@ -10,9 +10,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+
 import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
 
 @Mixin(ItemStackComponentizationFix.class)

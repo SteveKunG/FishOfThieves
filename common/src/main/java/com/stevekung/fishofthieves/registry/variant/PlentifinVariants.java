@@ -5,13 +5,15 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
-import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.world.entity.variant.StructureCheck;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class PlentifinVariants
 {
@@ -32,7 +34,10 @@ public class PlentifinVariants
                 SeeSkyCheck.seeSky()));
         registerContext.register(context, CLOUDY, "cloudy", 2, AllConditionCheck.allOf(RainingCheck.raining().build(), SeeSkyCheck.seeSky()));
         registerContext.register(context, BONEDUST, "bonedust", 3,
-                registerContext.select(AllConditionCheck.allOf(new StructureCheck(structureLookup.getOrThrow(FOTTags.Structures.BONEDUST_PLENTIFINS_SPAWN_IN)), RandomChanceCheck.chance(10)), 1),
+                registerContext.select(AllConditionCheck.allOf(AnyConditionCheck.anyOf(
+                        new StructureCheck(HolderSet.direct(structureLookup.getOrThrow(BuiltinStructures.STRONGHOLD))),
+                        new StructureCheck(structureLookup.getOrThrow(StructureTags.MINESHAFT))
+                ).build(), RandomChanceCheck.chance(10)), 1),
                 registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
         registerContext.register(context, WATERY, "watery", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
     }

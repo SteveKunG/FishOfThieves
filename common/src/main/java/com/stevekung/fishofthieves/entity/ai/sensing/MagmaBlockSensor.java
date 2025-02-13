@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;

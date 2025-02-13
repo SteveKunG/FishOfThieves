@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 import com.stevekung.fishofthieves.entity.animal.Stormfish;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class StormfishRenderer<S extends ThievesFishRenderState> extends ThievesFishRenderer<StormfishVariant, S, Stormfish, StormfishModel<S>>

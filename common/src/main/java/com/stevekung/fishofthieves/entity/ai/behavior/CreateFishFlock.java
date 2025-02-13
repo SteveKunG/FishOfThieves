@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFixUtils;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

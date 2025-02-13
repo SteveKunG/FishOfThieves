@@ -7,7 +7,9 @@ import net.minecraft.util.StringRepresentable;
 @SuppressWarnings("deprecation")
 public enum BananaHangingType implements StringRepresentable
 {
-    SMALL_CLUSTER, CLUSTER, STEM;
+    SMALL_CLUSTER,
+    CLUSTER,
+    STEM;
 
     public static final StringRepresentable.EnumCodec<BananaHangingType> CODEC = StringRepresentable.fromEnum(BananaHangingType::values);
 

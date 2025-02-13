@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTStructures;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.Heightmap;

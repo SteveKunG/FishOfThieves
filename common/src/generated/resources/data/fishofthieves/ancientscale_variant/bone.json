@@ -4,6 +4,7 @@
   "spawn_settings": {
     "entity": [
       {
+<<<<<<< HEAD
         "condition": {
           "type": "fishofthieves:all_of",
           "terms": [
@@ -25,6 +26,37 @@
           "chance": 0.05
         },
         "priority": 0
+=======
+        "condition": "fishofthieves:any_of",
+        "terms": [
+          {
+            "chance": 0.05,
+            "condition": "fishofthieves:probability"
+          },
+          {
+            "condition": "fishofthieves:all_of",
+            "terms": [
+              {
+                "chance": 10,
+                "condition": "fishofthieves:random_chance"
+              },
+              {
+                "condition": "fishofthieves:any_of",
+                "terms": [
+                  {
+                    "condition": "fishofthieves:match_structure",
+                    "structures": "minecraft:stronghold"
+                  },
+                  {
+                    "condition": "fishofthieves:match_structure",
+                    "structures": "#minecraft:mineshaft"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+>>>>>>> d7c1d2d74a67b6c78563f9140a434d85ec04fdb6
       }
     ]
   },

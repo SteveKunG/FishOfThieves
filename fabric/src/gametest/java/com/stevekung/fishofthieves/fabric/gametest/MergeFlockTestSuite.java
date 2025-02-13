@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.fabric.gametest;
 
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
+import com.stevekung.fishofthieves.fabric.gametest.core.FOTGameTest;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
@@ -12,13 +13,12 @@ import net.minecraft.world.level.block.Blocks;
 
 public class MergeFlockTestSuite implements FOTGameTest
 {
-    @GameTest(maxTicks = 400)
+    @GameTest(structure = FISH_TANK_SPLIT, maxTicks = 400)
     public void oneSmallFlockMergeIntoSmallLeaderFlock(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
         var blockPos1 = new BlockPos(1, 3, 1);
         var blockPos2 = new BlockPos(6, 3, 1);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 8; i++)
         {
@@ -56,13 +56,12 @@ public class MergeFlockTestSuite implements FOTGameTest
         });
     }
 
-    @GameTest(maxTicks = 400)
+    @GameTest(structure = FISH_TANK_SPLIT, maxTicks = 400)
     public void oneSmallFlockMergeIntoTrophyLeaderFlock(GameTestHelper helper)
     {
         var blockPos = new BlockPos(3, 3, 3);
         var blockPos1 = new BlockPos(1, 3, 1);
         var blockPos2 = new BlockPos(6, 3, 1);
-        this.createFishTank(helper);
 
         for (var i = 0; i < 8; i++)
         {
@@ -106,44 +105,12 @@ public class MergeFlockTestSuite implements FOTGameTest
         });
     }
 
-    @Override
-    public void createFishTank(GameTestHelper helper)
-    {
-        var relative = 0;
-        var size = 8;
-
-        for (var x = relative; x < size; x++)
-        {
-            for (var y = 1; y < size; y++)
-            {
-                for (var z = relative; z < size; z++)
-                {
-                    if (x == relative || x == size - 1 || z == relative || z == size - 1)
-                    {
-                        helper.setBlock(new BlockPos(x, y, z), Blocks.GLASS.defaultBlockState());
-                        continue;
-                    }
-
-                    if (x == 3 || x == 4)
-                    {
-                        helper.setBlock(new BlockPos(x, y, z), Blocks.TINTED_GLASS.defaultBlockState());
-                    }
-                    else
-                    {
-                        helper.setBlock(new BlockPos(x, y, z), Blocks.WATER.defaultBlockState());
-                    }
-                    helper.setBlock(new BlockPos(x, 0, z), Blocks.GLASS.defaultBlockState());
-                }
-            }
-        }
-    }
-
     private void removeTintedGlass(GameTestHelper helper)
     {
         helper.runAtTickTime(200, () ->
         {
             var relative = 0;
-            var size = 8;
+            var size = 9;
 
             for (var x = relative; x < size; x++)
             {

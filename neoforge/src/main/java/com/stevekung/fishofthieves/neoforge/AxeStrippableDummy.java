@@ -19,8 +19,8 @@ public interface AxeStrippableDummy
         Map<Block, Block> CUSTOM_STRIPPABLES = new ImmutableMap.Builder<Block, Block>()
                 .put(FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD)
                 .put(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG)
-                .put(FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG)
-                .put(FOTBlocks.TOP_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD)
+                .put(FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG)
+                .put(FOTBlocks.SMALL_TOP_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD)
                 .build();
     }
 

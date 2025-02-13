@@ -5,14 +5,16 @@ import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
-import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.world.entity.variant.MoonBrightnessCheck;
 import net.minecraft.world.entity.variant.StructureCheck;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class AncientscaleVariants
 {
@@ -31,7 +33,10 @@ public class AncientscaleVariants
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
         registerContext.register(context, BONE, "bone", 3,
-                registerContext.select(AllConditionCheck.allOf(new StructureCheck(structureLookup.getOrThrow(FOTTags.Structures.BONE_ANCIENTSCALES_SPAWN_IN)), RandomChanceCheck.chance(10)), 1),
+                registerContext.select(AllConditionCheck.allOf(AnyConditionCheck.anyOf(
+                        new StructureCheck(HolderSet.direct(structureLookup.getOrThrow(BuiltinStructures.STRONGHOLD))),
+                        new StructureCheck(structureLookup.getOrThrow(StructureTags.MINESHAFT))
+                ).build(), RandomChanceCheck.chance(10)), 1),
                 registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
         registerContext.register(context, STARSHINE, "starshine", 4, true,
                 AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(), new MoonBrightnessCheck(MinMaxBounds.Doubles.atMost(0.25d))));

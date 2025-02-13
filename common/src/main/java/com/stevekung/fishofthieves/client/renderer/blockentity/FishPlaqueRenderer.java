@@ -5,6 +5,7 @@ import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

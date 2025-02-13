@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.WreckerBulbLaye
 import com.stevekung.fishofthieves.client.renderer.entity.state.WreckerRenderState;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class WreckerRenderer extends ThievesFishRenderer<WreckerVariant, WreckerRenderState, Wrecker, WreckerModel>
