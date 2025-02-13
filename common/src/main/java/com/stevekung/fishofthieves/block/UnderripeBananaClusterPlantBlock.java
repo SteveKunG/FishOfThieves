@@ -5,6 +5,7 @@ import java.util.Map;
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -39,7 +40,7 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     public UnderripeBananaClusterPlantBlock(Properties properties)
     {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.STEM).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.CLUSTER).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.item.predicate;
 
 import com.mojang.serialization.Codec;
+
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;

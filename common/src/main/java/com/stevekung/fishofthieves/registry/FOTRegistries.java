@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionType;
 import com.stevekung.fishofthieves.entity.variant.*;
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

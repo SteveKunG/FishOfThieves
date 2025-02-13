@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.item;
 
 import com.stevekung.fishofthieves.block.FOTWallHangingSignBlock;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;

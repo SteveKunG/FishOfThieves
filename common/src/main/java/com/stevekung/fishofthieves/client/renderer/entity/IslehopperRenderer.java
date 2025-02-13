@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.client.model.IslehopperModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Islehopper;
 import com.stevekung.fishofthieves.entity.variant.IslehopperVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.Mth;
 

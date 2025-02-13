@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.entity.ai.behavior.MergeOtherFlock;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;

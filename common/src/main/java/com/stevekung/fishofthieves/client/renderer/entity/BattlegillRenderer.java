@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.client.model.BattlegillModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class BattlegillRenderer extends ThievesFishRenderer<BattlegillVariant, Battlegill, BattlegillModel<Battlegill>>

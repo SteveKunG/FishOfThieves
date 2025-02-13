@@ -3,9 +3,11 @@ package com.stevekung.fishofthieves.entity;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;

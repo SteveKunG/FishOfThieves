@@ -4,10 +4,11 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.client.AngledLeavesComponent;
-import com.stevekung.fishofthieves.utils.ParticleUtils;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.CauldronUtils;
+import com.stevekung.fishofthieves.utils.ParticleUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

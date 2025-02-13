@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import com.stevekung.fishofthieves.fabric.datagen.FishingRealProvider;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 

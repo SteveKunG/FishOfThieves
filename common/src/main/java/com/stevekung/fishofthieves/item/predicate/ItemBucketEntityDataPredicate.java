@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.item.predicate;
 
 import com.mojang.serialization.Codec;
+
 import net.minecraft.advancements.critereon.ItemSubPredicate;
 import net.minecraft.world.item.ItemStack;
 

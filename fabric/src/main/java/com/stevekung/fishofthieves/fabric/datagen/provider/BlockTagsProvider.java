@@ -33,7 +33,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                         FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, FOTBlocks.PRISMARIZED_LOG);
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE).add(FOTBlocks.MANGO_LEAVES);
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlocks.COCONUT_LOG, FOTBlocks.SMALL_COCONUT_LOG,
-                FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
+                FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, FOTBlocks.SMALL_TOP_COCONUT_LOG,
                 FOTBlocks.MEDIUM_COCONUT_LOG).forceAddTag(FOTTags.Blocks.BANANA_STEMS);
         this.getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).forceAddTag(FOTTags.Blocks.BANANA_STEMS);
         this.getOrCreateTagBuilder(BlockTags.LEAVES).add(FOTBlocks.COCONUT_FRONDS, FOTBlocks.BANANA_LEAVES, FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
@@ -112,10 +112,9 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_WOOD, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG,
                 FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
         this.getOrCreateTagBuilder(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
-                FOTBlocks.GROWABLE_SMALL_COCONUT_LOG, FOTBlocks.TOP_SMALL_COCONUT_LOG,
+                FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, FOTBlocks.SMALL_TOP_COCONUT_LOG,
                 FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
-        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_STEMS).add(FOTBlocks.BANANA_STEM, FOTBlocks.TOP_BANANA_STEM,
-                FOTBlocks.GROWABLE_BANANA_STEM);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_STEMS).add(FOTBlocks.BANANA_STEM, FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTER_PLANTS).add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlocks.RIPE_BANANA_CLUSTER, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER,

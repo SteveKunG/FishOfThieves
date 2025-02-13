@@ -149,14 +149,19 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
         builder.add(WATERLOGGED);
     }
 
-    public static boolean canClusterGrow(Level level, BlockPos pos)
+    public static boolean canClusterGrow(Level level, BlockPos blockPos)
     {
-        return !level.isRaining() && level.canSeeSky(pos) && level.isDay();
+        return !level.isRaining() && isDaySeeSky(level, blockPos);
     }
 
     public static boolean canClusterPlantGrow(Level level, BlockPos blockPos)
     {
-        return level.isRaining() && level.isDay() && level.canSeeSky(blockPos);
+        return level.isRaining() && isDaySeeSky(level, blockPos);
+    }
+
+    private static boolean isDaySeeSky(Level level, BlockPos blockPos)
+    {
+        return level.isDay() && level.canSeeSky(blockPos);
     }
 
     public enum Type implements StringRepresentable

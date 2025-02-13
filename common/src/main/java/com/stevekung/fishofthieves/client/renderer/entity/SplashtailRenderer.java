@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.client.model.SplashtailModel;
 import com.stevekung.fishofthieves.client.renderer.ThievesFishRenderer;
 import com.stevekung.fishofthieves.entity.animal.Splashtail;
 import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
+
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
 public class SplashtailRenderer extends ThievesFishRenderer<SplashtailVariant, Splashtail, SplashtailModel<Splashtail>>

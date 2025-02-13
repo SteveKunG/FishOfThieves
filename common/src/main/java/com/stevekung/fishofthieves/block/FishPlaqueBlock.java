@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
@@ -14,6 +15,7 @@ import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import com.stevekung.fishofthieves.registry.FOTTags;
+
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -130,7 +132,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
                 var interactionOptional = level.registryAccess().registryOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).holders().map(Holder.Reference::value).filter(interaction -> fishPlaque.getEntityKeyFromPlaqueData().equals(interaction.entityType().toString())).findFirst();
 
-                if (itemStack.is(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.get(interaction.item())).orElse(Items.WATER_BUCKET)))
+                if (itemStack.is(interactionOptional.map(interaction -> BuiltInRegistries.ITEM.get(interaction.item())).orElse(Items.WATER_BUCKET)) && !fishPlaque.isWaxed())
                 {
                     if (entity instanceof Bucketable bucketable)
                     {
@@ -184,7 +186,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                                 itemStack.shrink(1);
                             }
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-                            level.levelEvent(player, 3003, pos, 0);
+                            level.levelEvent(player, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, pos, 0);
+                            return ItemInteractionResult.sidedSuccess(level.isClientSide());
                         }
                         level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.sendBlockUpdated(pos, state, state, Block.UPDATE_ALL);

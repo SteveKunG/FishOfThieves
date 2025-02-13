@@ -75,7 +75,7 @@
       "top_log": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "fishofthieves:top_small_coconut_log",
+          "Name": "fishofthieves:small_top_coconut_log",
           "Properties": {
             "axis": "y",
             "waterlogged": "false"
