@@ -5,8 +5,7 @@
         "model": "fishofthieves:block/barely_ripe_banana_cluster_plant"
       },
       "when": {
-        "facing": "north",
-        "hanging": "none|stem|small_cluster"
+        "facing": "north"
       }
     },
     {
@@ -15,8 +14,7 @@
         "y": 90
       },
       "when": {
-        "facing": "east",
-        "hanging": "none|stem|small_cluster"
+        "facing": "east"
       }
     },
     {
@@ -25,8 +23,7 @@
         "y": 180
       },
       "when": {
-        "facing": "south",
-        "hanging": "none|stem|small_cluster"
+        "facing": "south"
       }
     },
     {
@@ -35,8 +32,7 @@
         "y": 270
       },
       "when": {
-        "facing": "west",
-        "hanging": "none|stem|small_cluster"
+        "facing": "west"
       }
     },
     {

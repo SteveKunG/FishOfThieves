@@ -6,7 +6,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "south",
         "part": "stem"
       }
@@ -18,7 +17,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "west",
         "part": "stem"
       }
@@ -30,7 +28,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "north",
         "part": "stem"
       }
@@ -42,7 +39,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "east",
         "part": "stem"
       }
@@ -100,7 +96,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "south",
         "part": "tail"
       }
@@ -112,7 +107,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "west",
         "part": "tail"
       }
@@ -124,7 +118,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "north",
         "part": "tail"
       }
@@ -136,7 +129,6 @@
       },
       "when": {
         "type": "lower",
-        "count": "1|2",
         "facing": "east",
         "part": "tail"
       }
@@ -194,7 +186,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "south",
         "part": "stem"
       }
@@ -206,7 +197,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "west",
         "part": "stem"
       }
@@ -218,7 +208,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "north",
         "part": "stem"
       }
@@ -230,7 +219,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "east",
         "part": "stem"
       }
@@ -288,7 +276,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "south",
         "part": "tail"
       }
@@ -300,7 +287,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "west",
         "part": "tail"
       }
@@ -312,7 +298,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "north",
         "part": "tail"
       }
@@ -324,7 +309,6 @@
       },
       "when": {
         "type": "upper",
-        "count": "1|2",
         "facing": "east",
         "part": "tail"
       }

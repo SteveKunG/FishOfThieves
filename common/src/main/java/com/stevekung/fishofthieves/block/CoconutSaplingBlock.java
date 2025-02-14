@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GameRules;
@@ -27,13 +28,13 @@ public class CoconutSaplingBlock extends SaplingBlock
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier)
     {
         if (level instanceof ServerLevel serverLevel && entity instanceof Ravager && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
             serverLevel.destroyBlock(pos, true, entity);
         }
-        super.entityInside(state, level, pos, entity);
+        super.entityInside(state, level, pos, entity, insideBlockEffectApplier);
     }
 
     @Override

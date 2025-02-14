@@ -15,6 +15,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.player.Player;
@@ -180,13 +181,13 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity)
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier)
     {
         if (level instanceof ServerLevel serverLevel && entity instanceof Ravager && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
             serverLevel.destroyBlock(pos, true, entity);
         }
-        super.entityInside(state, level, pos, entity);
+        super.entityInside(state, level, pos, entity, insideBlockEffectApplier);
     }
 
     @Override
