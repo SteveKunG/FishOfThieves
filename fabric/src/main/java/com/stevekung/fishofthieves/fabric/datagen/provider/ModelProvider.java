@@ -216,6 +216,242 @@ public class ModelProvider extends FabricModelProvider
         this.createTropicalRedFern(generator);
         this.createTropicalMonstera(generator);
         generator.woodProvider(FOTBlocks.PRISMARIZED_LOG).logWithHorizontal(FOTBlocks.PRISMARIZED_LOG);
+        this.createBuddingPrismarizedLog(generator);
+    }
+
+    private void createBuddingPrismarizedLog(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BUDDING_GUARDIAN_FRUIT;
+        var buddingModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_budding"),
+                TextureMapping.defaultTexture(Blocks.BUDDING_AMETHYST), generator.modelOutput);
+        var logModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block),
+                TextureMapping.defaultTexture(FOTBlocks.PRISMARIZED_LOG), generator.modelOutput);
+        var logHorizontalModel = FOTModelTemplates.SINGLE_FACE_HORIZONTAL.create(ModelLocationUtils.getModelLocation(block, "_horizontal"),
+                TextureMapping.defaultTexture(FOTBlocks.PRISMARIZED_LOG), generator.modelOutput);
+        var logTopModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_top"),
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top")), generator.modelOutput);
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Budding All Axis
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.NORTH, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.EAST, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.SOUTH, true),
+                        Variant.variant().with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.WEST, true),
+                        Variant.variant().with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.UP, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y, Direction.Axis.Z, Direction.Axis.X)
+                                .term(BlockStateProperties.DOWN, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+
+                // No Budding Axis Y
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.NORTH, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.EAST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.SOUTH, false),
+                        Variant.variant().with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.WEST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.UP, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BlockStateProperties.DOWN, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+
+                // No Budding Axis Z
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.NORTH, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.EAST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.SOUTH, false),
+                        Variant.variant().with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.WEST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.UP, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BlockStateProperties.DOWN, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+
+                // No Budding Axis X
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.NORTH, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.EAST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.SOUTH, false),
+                        Variant.variant().with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.WEST, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.UP, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BlockStateProperties.DOWN, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+        );
+
+        generator.delegateItemModel(block, ModelTemplates.CUBE_ALL.create(ModelLocationUtils.getModelLocation(block, "_inventory"),
+                TextureMapping.cube(Blocks.BUDDING_AMETHYST), generator.modelOutput));
     }
 
     private void createTropicalMonstera(BlockModelGenerators generator)

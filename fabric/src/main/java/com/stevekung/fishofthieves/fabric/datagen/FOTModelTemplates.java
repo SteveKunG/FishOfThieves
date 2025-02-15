@@ -24,6 +24,7 @@ public class FOTModelTemplates
     public static final ModelTemplate HANGING_MANGO_FRUIT = create("template_hanging_mango_fruit", FRUIT);
     public static final ModelTemplate POMEGRANATE_PLANT = create("template_pomegranate_plant", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PLANT);
     public static final ModelTemplate TALL_POMEGRANATE_PLANT_UPPER = create("template_tall_pomegranate_plant_upper", TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PLANT);
+    public static final ModelTemplate SINGLE_FACE_HORIZONTAL = create("template_single_face_horizontal", TextureSlot.TEXTURE);
 
     private static ModelTemplate create(String blockModelLocation, TextureSlot... requiredSlots)
     {

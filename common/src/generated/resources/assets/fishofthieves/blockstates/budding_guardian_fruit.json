@@ -1,0 +1,266 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding"
+      },
+      "when": {
+        "axis": "y|z|x",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "axis": "y|z|x",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "axis": "y|z|x",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "axis": "y|z|x",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "axis": "y|z|x",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "axis": "y|z|x",
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit"
+      },
+      "when": {
+        "axis": "y",
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "y": 90
+      },
+      "when": {
+        "axis": "y",
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "y": 180
+      },
+      "when": {
+        "axis": "y",
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "y": 270
+      },
+      "when": {
+        "axis": "y",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "axis": "y",
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "axis": "y",
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top"
+      },
+      "when": {
+        "axis": "z",
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "uvlock": false,
+        "y": 90
+      },
+      "when": {
+        "axis": "z",
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "uvlock": false,
+        "y": 180
+      },
+      "when": {
+        "axis": "z",
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "uvlock": false,
+        "x": 180,
+        "y": 90
+      },
+      "when": {
+        "axis": "z",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "x": 270,
+        "y": 180
+      },
+      "when": {
+        "axis": "z",
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "x": 90
+      },
+      "when": {
+        "axis": "z",
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "x": 180,
+        "y": 180
+      },
+      "when": {
+        "axis": "x",
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "uvlock": false,
+        "y": 90
+      },
+      "when": {
+        "axis": "x",
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "uvlock": false,
+        "y": 180
+      },
+      "when": {
+        "axis": "x",
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "uvlock": false,
+        "y": 270
+      },
+      "when": {
+        "axis": "x",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "x": 270,
+        "y": 270
+      },
+      "when": {
+        "axis": "x",
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/budding_guardian_fruit",
+        "uvlock": false,
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "axis": "x",
+        "down": "false"
+      }
+    }
+  ]
+}

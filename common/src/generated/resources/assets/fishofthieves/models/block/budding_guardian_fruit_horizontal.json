@@ -1,0 +1,6 @@
+{
+  "parent": "fishofthieves:block/template_single_face_horizontal",
+  "textures": {
+    "texture": "fishofthieves:block/prismarized_log"
+  }
+}
