@@ -112,7 +112,7 @@ public class FOTBlocks
     public static final Block HANGING_MANGO_FRUIT = new HangingMangoFruitBlock(BlockBehaviour.Properties.of().offsetType(BlockBehaviour.OffsetType.XYZ).dynamicShape().randomTicks().noOcclusion().sound(SoundType.WOOD).instabreak().pushReaction(PushReaction.DESTROY));
     public static final Block TALL_POMEGRANATE_PLANT = new TallPomegranatePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().sound(SoundType.AZALEA).ignitedByLava().pushReaction(PushReaction.DESTROY));
     public static final Block PRISMARIZED_LOG = new FOTRotatedPillarBlock(BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.NETHER_WOOD).ignitedByLava().emissiveRendering(FOTBlocks::always));
-    public static final Block BUDDING_GUARDIAN_FRUIT = new BuddingGuardianFruitBlock(BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).randomTicks().strength(2.0F).instrument(NoteBlockInstrument.BASS).sound(SoundType.NETHER_WOOD).noLootTable().pushReaction(PushReaction.DESTROY).ignitedByLava().emissiveRendering(FOTBlocks::always));
+    public static final Block BUDDING_GUARDIAN_FRUIT = new BuddingGuardianFruitBlock(BlockBehaviour.Properties.of().lightLevel(blockState -> 3).mapColor(MapColor.COLOR_LIGHT_BLUE).randomTicks().strength(2.0F).instrument(NoteBlockInstrument.BASS).sound(SoundType.NETHER_WOOD).pushReaction(PushReaction.DESTROY).ignitedByLava().emissiveRendering(FOTBlocks::always));
 
     public static Block PINK_PLUMERIA;
     public static Block LIGHT_BLUE_PLUMERIA;
