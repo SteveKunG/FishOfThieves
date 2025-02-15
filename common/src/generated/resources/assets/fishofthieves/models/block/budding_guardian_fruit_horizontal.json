@@ -1,6 +1,7 @@
 {
-  "parent": "fishofthieves:block/template_single_face_horizontal",
+  "parent": "fishofthieves:block/cube_no_bottom_horizontal",
   "textures": {
-    "texture": "fishofthieves:block/prismarized_log"
+    "side": "fishofthieves:block/prismarized_log",
+    "top": "fishofthieves:block/prismarized_log_top"
   }
 }
