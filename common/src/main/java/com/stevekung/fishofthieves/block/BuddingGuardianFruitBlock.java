@@ -1,8 +1,12 @@
 package com.stevekung.fishofthieves.block;
 
+import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -25,14 +29,15 @@ public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (random.nextInt(5) == 0)
+        if (random.nextInt(80) == 0)
         {
             var blockState = level.getBlockState(pos.below());
 
             if (canFruitGrowAtState(blockState))
             {
-                var blockState2 = Blocks.DIAMOND_BLOCK.defaultBlockState();
+                var blockState2 = FOTBlocks.GUARDIAN_FRUIT.defaultBlockState();
                 level.setBlockAndUpdate(pos.below(), blockState2);
+                level.playSound(null, pos, FOTSoundEvents.GUARDIAN_FRUIT_GROW, SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
     }

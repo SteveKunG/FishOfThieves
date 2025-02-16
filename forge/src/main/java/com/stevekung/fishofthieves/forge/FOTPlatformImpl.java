@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -139,5 +140,10 @@ public class FOTPlatformImpl
     public static <P extends BlockStateProvider> void registerBlockStateProviderType(String key, BlockStateProviderType<P> type)
     {
         FishOfThievesForge.BLOCK_STATE_PROVIDER_TYPES.register(key, () -> type);
+    }
+
+    public static void registerMobEffect(int id, String key, MobEffect mobEffect)
+    {
+        FishOfThievesForge.MOB_EFFECTS.register(key, () -> mobEffect);
     }
 }

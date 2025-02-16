@@ -175,6 +175,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.MANGO);
         output.accept(FOTItems.RAW_MANGO);
         output.accept(FOTItems.POMEGRANATE);
+        output.accept(FOTItems.GUARDIAN_FRUIT);
 
         output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
         output.accept(FOTItems.KRAKEN_POTTERY_SHERD);

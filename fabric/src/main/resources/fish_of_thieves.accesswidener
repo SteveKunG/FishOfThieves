@@ -29,6 +29,7 @@ accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProviderType <init> (Lcom/mojang/serialization/Codec;)V
 accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
 accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVariant ()I
+accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
 accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems

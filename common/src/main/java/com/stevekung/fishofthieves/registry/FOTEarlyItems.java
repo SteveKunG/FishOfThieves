@@ -32,6 +32,7 @@ public interface FOTEarlyItems
                 new ItemStack(FOTItems.MANGO),
                 new ItemStack(FOTItems.RAW_MANGO),
                 new ItemStack(FOTItems.POMEGRANATE),
+                new ItemStack(FOTItems.GUARDIAN_FRUIT),
                 new ItemStack(FOTBlocks.BANANA_BLOSSOM)
         };
     }

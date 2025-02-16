@@ -42,6 +42,7 @@ public class FOTSoundEvents
     public static final SoundEvent FISH_PLAQUE_WAX_OFF = create("block.fish_plaque.wax_off");
     public static final SoundEvent PINEAPPLE_SHEAR = create("block.pineapple.shear");
     public static final SoundEvent POMEGRANATE_PLANT_PICK = create("block.pomegranate_plant.pick_pomegranates");
+    public static final SoundEvent GUARDIAN_FRUIT_GROW = create("block.guardian_fruit.grow");
 
     public static final SoundEvent CRUSH_POMEGRANATE = create("item.pomegranate.crush");
 
@@ -82,6 +83,7 @@ public class FOTSoundEvents
         register(PINEAPPLE_SHEAR);
         register(POMEGRANATE_PLANT_PICK);
         register(CRUSH_POMEGRANATE);
+        register(GUARDIAN_FRUIT_GROW);
     }
 
     private static SoundEvent create(String key)

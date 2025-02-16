@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -147,6 +148,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static <P extends BlockStateProvider> void registerBlockStateProviderType(String key, BlockStateProviderType<P> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         throw new AssertionError();
     }

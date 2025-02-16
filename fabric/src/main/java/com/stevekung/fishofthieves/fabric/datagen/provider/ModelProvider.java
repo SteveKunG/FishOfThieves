@@ -105,6 +105,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.STORMFISH_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.KRAKEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MEGALODON_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.GUARDIAN_FRUIT, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -217,6 +218,7 @@ public class ModelProvider extends FabricModelProvider
         this.createTropicalMonstera(generator);
         generator.woodProvider(FOTBlocks.PRISMARIZED_LOG).logWithHorizontal(FOTBlocks.PRISMARIZED_LOG);
         this.createBuddingPrismarizedLog(generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.GUARDIAN_FRUIT, ModelLocationUtils.getModelLocation(FOTBlocks.GUARDIAN_FRUIT)));
     }
 
     private void createBuddingPrismarizedLog(BlockModelGenerators generator)

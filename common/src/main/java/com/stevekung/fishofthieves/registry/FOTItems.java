@@ -69,6 +69,7 @@ public class FOTItems
     public static final Item MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.MANGO));
     public static final Item RAW_MANGO = new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO));
     public static final Item POMEGRANATE = new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE));
+    public static final Item GUARDIAN_FRUIT = new GuardianFruitItem(new Item.Properties().food(FOTFoodProperties.GUARDIAN_FRUIT));
 
     public static final Item STORMFISH_POTTERY_SHERD = new Item(new Item.Properties());
     public static final Item KRAKEN_POTTERY_SHERD = new Item(new Item.Properties());
@@ -164,6 +165,7 @@ public class FOTItems
         register("mango", MANGO);
         register("raw_mango", RAW_MANGO);
         register("pomegranate", POMEGRANATE);
+        register("guardian_fruit", GUARDIAN_FRUIT);
 
         register("stormfish_pottery_sherd", STORMFISH_POTTERY_SHERD);
         register("kraken_pottery_sherd", KRAKEN_POTTERY_SHERD);

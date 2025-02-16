@@ -15,6 +15,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -53,6 +54,7 @@ public class FishOfThievesForge
     public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATOR_TYPES = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<FoliagePlacerType<?>> FOLIAGE_PLACER_TYPES = DeferredRegister.create(ForgeRegistries.FOLIAGE_PLACER_TYPES, FishOfThieves.MOD_ID);
     public static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, FishOfThieves.MOD_ID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, FishOfThieves.MOD_ID);
     public static final DeferredRegister<Codec<? extends StructureModifier>> STRUCTURE_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, FishOfThieves.MOD_ID);
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
@@ -75,6 +77,7 @@ public class FishOfThievesForge
         TREE_DECORATOR_TYPES.register(modEventBus);
         FOLIAGE_PLACER_TYPES.register(modEventBus);
         BLOCK_STATE_PROVIDER_TYPES.register(modEventBus);
+        MOB_EFFECTS.register(modEventBus);
 
         FishOfThieves.init();
         FOTGrassColorModifier.TROPICAL_ISLAND = FOTPlatform.getTropicalIslandGrassColor();
@@ -156,6 +159,7 @@ public class FishOfThievesForge
         event.register(ForgeRegistries.Keys.TREE_DECORATOR_TYPES, helper -> FOTTreeDecoratorTypes.init());
         event.register(ForgeRegistries.Keys.FOLIAGE_PLACER_TYPES, helper -> FOTFoliagePlacerTypes.init());
         event.register(ForgeRegistries.Keys.BLOCK_STATE_PROVIDER_TYPES, helper -> FOTBlockStateProviderTypes.init());
+        event.register(ForgeRegistries.Keys.MOB_EFFECTS, helper -> FOTMobEffects.init());
         event.register(Registries.TRUNK_PLACER_TYPE, helper -> FOTTrunkPlacerTypes.init());
         event.register(Registries.CREATIVE_MODE_TAB, helper ->
         {
