@@ -114,6 +114,14 @@
 ### Guardian Fruit
 - Added Guardian Fruit Tree
   - Generate under the ocean floor
+  - Has random chances to generate magma block and prismarized log on the floor
+- Added Prismarized Log
+  - Can be placed horizontal
+  - Can be used as a fuel
+- Added Budding Guardian Fruit
+  - Grow a Guardian Fruit under the block
+  - Must be in the water and cannot obtain via Silk Touch
+  - Drop a Prismarized Log regardless of using Silk Touch
 
 ## Blocks and Items
 ### Coconut Wood
@@ -140,6 +148,12 @@
   - Can be placed like log block
   - Cannot strip or using it as a fuel
   - Has emissive rendering
+
+### Fish Plaque
+- Powered Fish Plaque will animate entity inside correctly
+  - By simulating entity is touching the water
+  - Developer Note: If your entity is rendering like attached to the fish plaque, please add
+  your Entity ID to `fishofthieves:fish_plaque_horizontal_render_on_powered` entity type tag
 
 ## Biome
 ### Tropical Island
@@ -170,13 +184,15 @@
 - Added new fruits to Seapost Supply Barrel and removed vanilla food items
 - Added 7 new advancements
 - Added Traditional Chinese (zh_tw.json) (Thanks to [yichifauzi](https://github.com/yichifauzi))
+- [Developer] Added GameTest for those who interested
 - Simple item tags support for other mods
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
-- Fixed loading entity data from bucket in fish plaque
+- Fixed loading entity data from bucket in fish plaque (1.20.1)
 - Fixed waxing fish plaque will rotate fish by one cycle
 - Fixed waxed fish plaque can take out the fish when using bucket
 - Remove structure validation and update structure data version through datagen
 
 ## Credits
+- [Gucc1Guy](https://www.youtube.com/@realgucc1guy) as a Creative Design
 - [RottenKiwi2004](https://github.com/RottenKiwi2004) for helping me to make custom water dripping particles function.
