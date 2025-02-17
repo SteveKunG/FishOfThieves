@@ -22,12 +22,12 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void coconutFrondsSingleStateTest(GameTestHelper helper)
     {
-        var polePos = new BlockPos(1, 2, 3);
-        var blockPos = new BlockPos(1, 4, 2);
+        var polePos = new BlockPos(1, 1, 3);
+        var blockPos = new BlockPos(1, 3, 2);
 
         for (var y = 0; y < 3; y++)
         {
-            helper.setBlock(polePos.above(y), Blocks.POLISHED_ANDESITE);
+            helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRONDS);
@@ -44,12 +44,12 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void coconutFrondsStemAndTailStateTest(GameTestHelper helper)
     {
-        var polePos = new BlockPos(1, 2, 3);
-        var blockPos = new BlockPos(1, 4, 2);
+        var polePos = new BlockPos(1, 1, 3);
+        var blockPos = new BlockPos(1, 3, 2);
 
         for (var y = 0; y < 3; y++)
         {
-            helper.setBlock(polePos.above(y), Blocks.POLISHED_ANDESITE);
+            helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRONDS);
@@ -70,12 +70,12 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X5)
     public void coconutFrondsAllStateTest(GameTestHelper helper)
     {
-        var polePos = new BlockPos(1, 2, 4);
-        var blockPos = new BlockPos(1, 4, 3);
+        var polePos = new BlockPos(1, 1, 4);
+        var blockPos = new BlockPos(1, 3, 3);
 
         for (var y = 0; y < 3; y++)
         {
-            helper.setBlock(polePos.above(y), Blocks.POLISHED_ANDESITE);
+            helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.STEM));
@@ -106,7 +106,7 @@ public class BlockTestSuite implements FOTGameTest
 
         for (var y = 0; y < 3; y++)
         {
-            helper.setBlock(polePos.above(y), Blocks.POLISHED_ANDESITE);
+            helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRONDS);
@@ -121,14 +121,14 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4, timeoutTicks = 200, attempts = 3, skyAccess = true)
     public void waterFromCoconutFrondsTest(GameTestHelper helper)
     {
-        var polePos = new BlockPos(1, 2, 3);
-        var blockPos = new BlockPos(1, 4, 2);
-        var cauldronPos = new BlockPos(1, 2, 1);
+        var polePos = new BlockPos(1, 1, 3);
+        var blockPos = new BlockPos(1, 3, 2);
+        var cauldronPos = new BlockPos(1, 1, 1);
         var level = helper.getLevel();
 
         for (var y = 0; y < 3; y++)
         {
-            helper.setBlock(polePos.above(y), Blocks.POLISHED_ANDESITE);
+            helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
         level.setWeatherParameters(0, 10000, true, false);
@@ -150,7 +150,7 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X3, attempts = 3)
     public void growCoconutFruitsTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
         helper.onEachTick(() -> helper.randomTick(blockPos));
@@ -167,8 +167,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = COCONUT_FALL)
     public void coconutFallTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 8, 2);
-        var targetPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 7, 2);
+        var targetPos = new BlockPos(1, 1, 1);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
         helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
@@ -181,8 +181,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = COCONUT_FALL)
     public void coconutFallHurtChickenTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 8, 2);
-        var targetPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 7, 2);
+        var targetPos = new BlockPos(1, 1, 1);
 
         var chicken = helper.spawnWithNoFreeWill(EntityType.CHICKEN, targetPos);
         helper.withLowHealth(chicken);
@@ -204,7 +204,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
-            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            if (helper.getBlockState(blockPos1).is(Blocks.BEDROCK))
             {
                 helper.setBlock(blockPos1, Blocks.DIRT);
             }
@@ -225,8 +225,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4, timeoutTicks = 200, attempts = 3, skyAccess = true)
     public void waterFromBananaLeavesTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 4, 3);
-        var cauldronPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 3, 3);
+        var cauldronPos = new BlockPos(1, 1, 1);
         var level = helper.getLevel();
 
         level.setWeatherParameters(0, 10000, true, false);
@@ -271,8 +271,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void shotArrowToBreakCoconutFruitTest(GameTestHelper helper)
     {
-        var dispenserPos = new BlockPos(1, 3, 0);
-        var blockPos = new BlockPos(1, 3, 2);
+        var dispenserPos = new BlockPos(1, 2, 0);
+        var blockPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
         helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
@@ -287,7 +287,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below(2)));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below()));
     }
 
     @GameTest(template = SHOT_MANGO, attempts = 64, timeoutTicks = 60)
@@ -303,8 +303,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4, attempts = 64, timeoutTicks = 60)
     public void shotArrowToBreakHangingMangoFruitTest(GameTestHelper helper)
     {
-        var dispenserPos = new BlockPos(1, 3, 0);
-        var blockPos = new BlockPos(1, 3, 2);
+        var dispenserPos = new BlockPos(1, 2, 0);
+        var blockPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
         helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
@@ -319,13 +319,13 @@ public class BlockTestSuite implements FOTGameTest
         helper.setBlock(blockPos.above(), FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
         helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(HangingMangoFruitBlock.AGE, 2));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below(2)));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below()));
     }
 
     @GameTest(template = EMPTY_3X3)
     public void growMangoesTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(1, 2, 1);
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.BONE_MEAL, 64));
 
@@ -351,8 +351,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void mangoFallTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 4, 3);
-        var targetPos = new BlockPos(1, 2, 2);
+        var blockPos = new BlockPos(1, 3, 3);
+        var targetPos = new BlockPos(1, 1, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
         helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
@@ -365,8 +365,8 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X4)
     public void mangoFallHurtChickenTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 4, 3);
-        var targetPos = new BlockPos(1, 2, 2);
+        var blockPos = new BlockPos(1, 3, 3);
+        var targetPos = new BlockPos(1, 1, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
         helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
@@ -381,7 +381,7 @@ public class BlockTestSuite implements FOTGameTest
     @GameTest(template = EMPTY_3X3)
     public void shearsRipePineappleBlockTest(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
         var player = helper.makeMockPlayer(GameType.CREATIVE);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.SHEARS));
 
@@ -400,7 +400,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
-            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            if (helper.getBlockState(blockPos1).is(Blocks.BEDROCK))
             {
                 helper.setBlock(blockPos1, Blocks.DIRT);
             }
@@ -421,7 +421,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
-            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            if (helper.getBlockState(blockPos1).is(Blocks.BEDROCK))
             {
                 helper.setBlock(blockPos1, Blocks.DIRT);
             }
