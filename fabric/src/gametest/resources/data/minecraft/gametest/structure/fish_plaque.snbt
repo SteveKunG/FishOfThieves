@@ -1,5 +1,5 @@
 {
-    DataVersion: 3465,
+    DataVersion: 4189,
     size: [3, 3, 3],
     data: [
         {pos: [0, 0, 0], state: "minecraft:air"},
@@ -16,7 +16,7 @@
         {pos: [0, 1, 2], state: "minecraft:air"},
         {pos: [1, 1, 0], state: "minecraft:air"},
         {pos: [1, 1, 1], state: "fishofthieves:oak_fish_plaque{facing:north,powered:false,rotation:1,waterlogged:false}", nbt: {Waxed: 0b, id: "fishofthieves:fish_plaque"}},
-        {pos: [1, 1, 2], state: "minecraft:polished_andesite"},
+        {pos: [1, 1, 2], state: "minecraft:bedrock"},
         {pos: [2, 1, 0], state: "minecraft:air"},
         {pos: [2, 1, 1], state: "minecraft:air"},
         {pos: [2, 1, 2], state: "minecraft:air"},
@@ -32,7 +32,7 @@
     ],
     entities: [],
     palette: [
-        "minecraft:polished_andesite",
+        "minecraft:bedrock",
         "minecraft:air",
         "fishofthieves:oak_fish_plaque{facing:north,powered:false,rotation:1,waterlogged:false}"
     ]
