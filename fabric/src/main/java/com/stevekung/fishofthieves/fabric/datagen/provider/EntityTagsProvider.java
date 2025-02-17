@@ -34,7 +34,10 @@ public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
         this.getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
-        this.getOrCreateTagBuilder(FOTTags.EntityTypes.HORIZONTAL_MOB_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
+        this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
+        this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED)
+                .add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.AXOLOTL)
+                .forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE).add(EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN, EntityType.PILLAGER);
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE).add(EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.WRECKER_ATTACKABLE).add(EntityType.PLAYER, EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);

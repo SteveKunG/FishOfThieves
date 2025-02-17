@@ -21,7 +21,7 @@
     - Can be used to breed Pig
     - Can be used to grow a Coconut Tree by placing on the Sand
     - Can be found inside Shipwreck Supply Chest, Jungle Temple Chest and Seapost Supply Barrel
-        - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
+      - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
 
 ### Banana
 - Added Banana Clusters
@@ -54,7 +54,7 @@
 - Added Banana (Item)
     - Can be used to breed Pig
     - Can be found inside Shipwreck Supply Chest, Jungle Temple Chest and Seapost Supply Barrel
-        - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
+      - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
 
 ### Pineapple
 - Added Pineapple Crop
@@ -72,7 +72,7 @@
 - Added Pineapple (Item)
     - Can be used to breed Pig
     - Can be found inside Shipwreck Supply Chest, Jungle Temple Chest and Seapost Supply Barrel
-        - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
+      - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
 - Added Pineapple Seeds
     - Can be used to breed Chicken
 
@@ -92,7 +92,7 @@
     - Can be used to breed Pig
     - When eating Raw Mango, it gives you random positive effects
     - Can be found inside Shipwreck Supply Chest, Jungle Temple Chest and Seapost Supply Barrel
-        - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
+      - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
 
 ### Pomegranate
 - Added Pomegranate Plant
@@ -106,14 +106,29 @@
     - When crushed by a falling anvil, it transforms into Red Dye
     - Can be used to breed Pig
     - Can be found inside Shipwreck Supply Chest, Jungle Temple Chest and Seapost Supply Barrel
-        - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
+      - For Jungle Temple Chest, only if Jungle Template is generated in the Tropical Island
 - Added Pomegranate Seeds
     - Can be used to breed Chicken
     - Can be placed in the Flower Pot
 
 ### Guardian Fruit
 - Added Guardian Fruit Tree
-  - Generate under the ocean floor
+    - Generate under the ocean floor
+    - Has random chances to generate magma block and prismarized log on the floor
+    - 1/20 chance to generate Guardian Fruit during world generation
+- Added Prismarized Log
+    - Can be placed horizontal
+    - Can be used as a fuel
+- Added Budding Guardian Fruit
+    - 1/80 chance to grow a Guardian Fruit under the block
+    - Must be in the water and cannot obtain via Silk Touch
+    - Drop a Prismarized Log regardless of using Silk Touch
+- Added Guardian Fruit (Item)
+    - Can be used to breed Pig
+    - When eating it applies Guardian Stifle effect for 3 minutes to the player
+      - Guardian and Elder Guardian will avoid the player
+      - All fish will not flee from the player
+      - Remove Mining Fatigue when eaten
 
 ## Blocks and Items
 ### Coconut Wood
@@ -137,9 +152,15 @@
     - Can be found occasionally in the Sparse Jungle biome
     - Can be placed in the Flower Pot
 - Added Prismarized Log
-  - Can be placed like log block
-  - Cannot strip or using it as a fuel
-  - Has emissive rendering
+    - Can be placed like log block
+    - Cannot strip or using it as a fuel
+    - Has emissive rendering
+
+### Fish Plaque
+- Powered Fish Plaque will animate entity inside correctly
+    - By simulating entity is touching the water
+    - Developer Note: If your entity is rendering like attached to the fish plaque, please add
+    your Entity ID to `fishofthieves:fish_plaque_horizontal_render_on_powered` entity type tag
 
 ## Biome
 ### Tropical Island
@@ -150,7 +171,17 @@
     - Without Jungle Bush, Fewer melons, and no Big Oak trees
     - Has sand trail randomly generated around the biome
 
-## Fish
+## Entities
+- All fish no longer flee when player has Guardian Stifle effect
+
+### Guardian
+- When player has Guardian Stifle effect active
+    - Randomly avoid the player
+    - Not targeted to attack the player
+
+### Elder Guardian
+- Elder Guardian will randomly avoid the player when has Guardian Stifle effect active
+
 ### Islehopper
 - Moss Islehopper is now spawn in the Tropical Island
 
@@ -170,13 +201,15 @@
 - Added new fruits to Seapost Supply Barrel and removed vanilla food items
 - Added 7 new advancements
 - Added Traditional Chinese (zh_tw.json) (Thanks to [yichifauzi](https://github.com/yichifauzi))
+- [Developer] Added GameTest for those who interested
 - Simple item tags support for other mods
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
-- Fixed loading entity data from bucket in fish plaque
+- Fixed loading entity data from bucket in fish plaque (1.20.1)
 - Fixed waxing fish plaque will rotate fish by one cycle
 - Fixed waxed fish plaque can take out the fish when using bucket
 - Remove structure validation and update structure data version through datagen
 
 ## Credits
+- [Gucc1Guy](https://www.youtube.com/@realgucc1guy) as a Creative Design
 - [RottenKiwi2004](https://github.com/RottenKiwi2004) for helping me to make custom water dripping particles function.

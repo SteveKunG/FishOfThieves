@@ -39,7 +39,9 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.getOrCreateTagBuilder(ItemTags.CAT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
         this.getOrCreateTagBuilder(ItemTags.CHICKEN_FOOD).forceAddTag(FOTTags.Items.WORMS).add(FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
         this.getOrCreateTagBuilder(ItemTags.OCELOT_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH);
-        this.getOrCreateTagBuilder(ItemTags.PIG_FOOD).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.HALF_PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.BANANA_BLOSSOM);
+        this.getOrCreateTagBuilder(ItemTags.PIG_FOOD).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.HALF_PINEAPPLE,
+                FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.BANANA_BLOSSOM,
+                FOTItems.GUARDIAN_FRUIT);
         this.getOrCreateTagBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
         this.getOrCreateTagBuilder(ItemTags.SIGNS).add(FOTItems.COCONUT_SIGN);
         this.getOrCreateTagBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);

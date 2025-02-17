@@ -90,6 +90,7 @@ public class FOTItems
     public static final Item MANGO_LEAVES = registerBlock(FOTBlocks.MANGO_LEAVES);
     public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, new Item.Properties()));
     public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG);
+    public static final Item BUDDING_GUARDIAN_FRUIT = registerBlock(FOTBlocks.BUDDING_GUARDIAN_FRUIT);
 
     public static final Item PINK_PLUMERIA = registerBlock(FOTBlocks.PINK_PLUMERIA);
     public static final Item LIGHT_BLUE_PLUMERIA = registerBlock(FOTBlocks.LIGHT_BLUE_PLUMERIA);
@@ -177,6 +178,7 @@ public class FOTItems
     public static final Item RAW_MANGO = register("raw_mango", new MangoItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO)));
     public static final Item POMEGRANATE = register("pomegranate", new PomegranateItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE)));
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", new ItemNameBlockItem(FOTBlocks.POMEGRANATE_SAPLING, new Item.Properties()));
+    public static final Item GUARDIAN_FRUIT = register("guardian_fruit", new GuardianFruitItem(new Item.Properties().food(FOTFoodProperties.GUARDIAN_FRUIT)));
 
     public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item(new Item.Properties()));
     public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item(new Item.Properties()));

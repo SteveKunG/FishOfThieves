@@ -115,6 +115,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.STORMFISH_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.KRAKEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MEGALODON_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.GUARDIAN_FRUIT, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
@@ -226,6 +227,116 @@ public class ModelProvider extends FabricModelProvider
         this.createTropicalRedFern(generator);
         this.createTropicalMonstera(generator);
         generator.woodProvider(FOTBlocks.PRISMARIZED_LOG).logWithHorizontal(FOTBlocks.PRISMARIZED_LOG);
+        this.createBuddingPrismarizedLog(generator);
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.GUARDIAN_FRUIT, ModelLocationUtils.getModelLocation(FOTBlocks.GUARDIAN_FRUIT)));
+    }
+
+    private void createBuddingPrismarizedLog(BlockModelGenerators generator)
+    {
+        var block = FOTBlocks.BUDDING_GUARDIAN_FRUIT;
+        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG)).put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top"));
+        var buddingModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_budding"),
+                TextureMapping.defaultTexture(Blocks.BUDDING_AMETHYST), generator.modelOutput);
+        var logModel = FOTModelTemplates.CUBE_NO_BOTTOM.create(ModelLocationUtils.getModelLocation(block),
+                textureMapping, generator.modelOutput);
+        var logHorizontalModel = FOTModelTemplates.CUBE_NO_BOTTOM_HORIZONTAL.create(ModelLocationUtils.getModelLocation(block, "_horizontal"),
+                textureMapping, generator.modelOutput);
+        var logTopModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_top"),
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top")), generator.modelOutput);
+        var logSideModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_side"),
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG)), generator.modelOutput);
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                // Main Model
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logModel)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logHorizontalModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+
+                // Top Texture Axis Y
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BuddingGuardianFruitBlock.BUD, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logTopModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+
+                // Budding Texture Axis Y
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(BuddingGuardianFruitBlock.BUD, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, true)
+                )
+
+                // Top Texture Axis X/Z
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BuddingGuardianFruitBlock.BUD, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logSideModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BuddingGuardianFruitBlock.BUD, false),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, logSideModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+
+                // Budding Texture Axis X/Z
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z)
+                                .term(BuddingGuardianFruitBlock.BUD, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X)
+                                .term(BuddingGuardianFruitBlock.BUD, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, buddingModel)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.UV_LOCK, false)
+                )
+        );
+
+        generator.delegateItemModel(block, ModelTemplates.CUBE_ALL.create(ModelLocationUtils.getModelLocation(block, "_inventory"),
+                TextureMapping.cube(Blocks.BUDDING_AMETHYST), generator.modelOutput));
     }
 
     private void createTropicalMonstera(BlockModelGenerators generator)
