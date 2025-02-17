@@ -1,0 +1,36 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "taste_the_deep": {
+      "conditions": {
+        "item": {
+          "items": [
+            "fishofthieves:guardian_fruit"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.taste_the_deep.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:guardian_fruit"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.taste_the_deep.title"
+    }
+  },
+  "requirements": [
+    [
+      "taste_the_deep"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

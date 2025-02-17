@@ -194,12 +194,13 @@
 ## Structures
 ### Seapost
 - Potted Plumerias are now included
+- Adjust structure spawn rate again
 
 ## Misc
 - Added Stormfish, Kraken, Megalodon Pottery Sherd
     - Can be found in the Ocean Ruins
 - Added new fruits to Seapost Supply Barrel and removed vanilla food items
-- Added 7 new advancements
+- Added 8 new advancements
 - Added Traditional Chinese (zh_tw.json) (Thanks to [yichifauzi](https://github.com/yichifauzi))
 - [Developer] Added GameTest for those who interested
 - Simple item tags support for other mods

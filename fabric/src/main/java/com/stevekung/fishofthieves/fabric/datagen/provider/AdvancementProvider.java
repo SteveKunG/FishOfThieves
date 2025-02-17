@@ -256,6 +256,14 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fot.crush_pomegranate.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("crush_pomegranate"));
+
+        Advancement.Builder.advancement().parent(advancement)
+                .addCriterion("taste_the_deep", ConsumeItemTrigger.TriggerInstance.usedItem(FOTItems.GUARDIAN_FRUIT))
+                .display(FOTItems.GUARDIAN_FRUIT,
+                        Component.translatable("advancements.fot.taste_the_deep.title"),
+                        Component.translatable("advancements.fot.taste_the_deep.description"),
+                        null, FrameType.TASK, true, true, false)
+                .save(consumer, this.mod("taste_the_deep"));
     }
     //@formatter:on
 
