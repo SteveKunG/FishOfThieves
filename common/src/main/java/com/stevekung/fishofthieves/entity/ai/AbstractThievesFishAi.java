@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTMobEffects;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -173,7 +174,7 @@ public class AbstractThievesFishAi
         if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER))
         {
             var player = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).get();
-            return !player.isCrouching() && fish.closerThan(player, 6.0);
+            return !player.isCrouching() && !player.hasEffect(FOTMobEffects.GUARDIAN_STIFLE) && fish.closerThan(player, 6.0);
         }
         else
         {

@@ -107,6 +107,7 @@ public class FOTDisplayItems
         output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);
         output.accept(FOTItems.POMEGRANATE_SEEDS);
         output.accept(FOTItems.PRISMARIZED_LOG);
+        output.accept(FOTItems.BUDDING_GUARDIAN_FRUIT);
 
         output.accept(FOTBlocks.PINK_PLUMERIA);
         output.accept(FOTBlocks.LIGHT_BLUE_PLUMERIA);
@@ -176,6 +177,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.MANGO);
         output.accept(FOTItems.RAW_MANGO);
         output.accept(FOTItems.POMEGRANATE);
+        output.accept(FOTItems.GUARDIAN_FRUIT);
 
         output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
         output.accept(FOTItems.KRAKEN_POTTERY_SHERD);

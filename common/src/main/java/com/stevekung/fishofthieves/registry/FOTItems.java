@@ -97,6 +97,7 @@ public class FOTItems
     public static final Item MANGO_LEAVES = registerBlock(FOTBlocks.MANGO_LEAVES);
     public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", properties -> new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, properties.useBlockDescriptionPrefix()));
     public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG);
+    public static final Item BUDDING_GUARDIAN_FRUIT = registerBlock(FOTBlocks.BUDDING_GUARDIAN_FRUIT);
 
     public static final Item PINK_PLUMERIA = registerBlock(FOTBlocks.PINK_PLUMERIA);
     public static final Item LIGHT_BLUE_PLUMERIA = registerBlock(FOTBlocks.LIGHT_BLUE_PLUMERIA);
@@ -184,6 +185,7 @@ public class FOTItems
     public static final Item RAW_MANGO = register("raw_mango", properties -> new MangoItem(properties.food(FOTFoodProperties.RAW_MANGO, FOTConsumables.RAW_MANGO_CONSUMABLE)));
     public static final Item POMEGRANATE = register("pomegranate", properties -> new PomegranateItem(properties.food(FOTFoodProperties.POMEGRANATE)));
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", properties -> new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, properties.useItemDescriptionPrefix()));
+    public static final Item GUARDIAN_FRUIT = register("guardian_fruit", properties -> new GuardianFruitItem(properties.food(FOTFoodProperties.GUARDIAN_FRUIT, FOTConsumables.GUARDIAN_FRUIT)));
 
     public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));

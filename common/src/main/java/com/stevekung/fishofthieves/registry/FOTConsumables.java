@@ -18,4 +18,5 @@ public class FOTConsumables
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HASTE, 200, 0), 0.15f))
             .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.JUMP_BOOST, 200, 0), 0.1f))
             .build();
+    public static final Consumable GUARDIAN_FRUIT = Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(FOTMobEffects.GUARDIAN_STIFLE, 3600), 1.0F)).build();
 }

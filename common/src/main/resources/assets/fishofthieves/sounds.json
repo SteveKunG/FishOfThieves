@@ -725,6 +725,15 @@
     ],
     "subtitle": "subtitles.block.pomegranate_plant.pick_pomegranates"
   },
+  "block.guardian_fruit.grow": {
+    "sounds": [
+      "block/chorus_flower/grow1",
+      "block/chorus_flower/grow2",
+      "block/chorus_flower/grow3",
+      "block/chorus_flower/grow4"
+    ],
+    "subtitle": "subtitles.block.guardian_fruit.grow"
+  },
   "item.pomegranate.crush": {
     "sounds": [
       {

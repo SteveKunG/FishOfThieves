@@ -80,7 +80,10 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     {
         if (name.equals("guardian_fruit_block"))
         {
-            level.setBlock(pos, FOTBlocks.RIPE_PINEAPPLE_BLOCK.defaultBlockState(), Block.UPDATE_CLIENTS);
+            if (random.nextInt(20) == 0)
+            {
+                level.setBlock(pos, FOTBlocks.GUARDIAN_FRUIT.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
         }
     }
 
