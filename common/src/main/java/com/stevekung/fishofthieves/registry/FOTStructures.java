@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -10,19 +11,18 @@ import com.stevekung.fishofthieves.structure.SeapostPieces;
 import com.stevekung.fishofthieves.structure.SeapostStructure;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Structures;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructureSet;
-import net.minecraft.world.level.levelgen.structure.StructureType;
-import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.*;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
+import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 
 public class FOTStructures
 {
@@ -30,7 +30,7 @@ public class FOTStructures
     {
         var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(Structures.structure(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST), TerrainAdjustment.BEARD_THIN)));
-        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(Structures.structure(holderGetter.getOrThrow(BiomeTags.IS_OCEAN), TerrainAdjustment.BEARD_THIN)));
+        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(0.85f, Structures.structure(holderGetter.getOrThrow(BiomeTags.IS_OCEAN), TerrainAdjustment.BEARD_THIN)));
     }
 
     public static void init()
@@ -41,11 +41,13 @@ public class FOTStructures
 
     public interface Sets
     {
+        @SuppressWarnings("deprecation")
         static void bootstrap(BootstapContext<StructureSet> context)
         {
             var holderGetter = context.lookup(Registries.STRUCTURE);
-            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(512, 64, RandomSpreadType.LINEAR, 26384127)));
-            context.register(Key.GUARDIAN_FRUIT_TREES, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.GUARDIAN_FRUIT_TREE))), new RandomSpreadStructurePlacement(32, 24, RandomSpreadType.LINEAR, 91579157)));
+            var structureSetLookup = context.lookup(Registries.STRUCTURE_SET);
+            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_3, 0.75f, 26384127, Optional.of(new StructurePlacement.ExclusionZone(structureSetLookup.getOrThrow(BuiltinStructureSets.OCEAN_MONUMENTS), 8)), 32, 8, RandomSpreadType.LINEAR)));
+            context.register(Key.GUARDIAN_FRUIT_TREES, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.GUARDIAN_FRUIT_TREE))), new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_3, 0.8f, 91579157, Optional.empty(), 64, 16, RandomSpreadType.LINEAR)));
         }
     }
 

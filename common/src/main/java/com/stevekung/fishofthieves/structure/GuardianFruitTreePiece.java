@@ -22,9 +22,12 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 public class GuardianFruitTreePiece extends TemplateStructurePiece
 {
-    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, BlockPos templatePosition, ResourceLocation location, Rotation rotation, Mirror mirror, BlockPos pivotPos)
+    private float fruitChance;
+
+    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, BlockPos templatePosition, ResourceLocation location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
     {
         super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, 0, structureTemplateManager, location, location.toString(), makeSettings(mirror, rotation, pivotPos), templatePosition);
+        this.fruitChance = fruitChance;
     }
 
     public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, CompoundTag tag)
@@ -80,7 +83,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     {
         if (name.equals("guardian_fruit_block"))
         {
-            if (random.nextInt(20) == 0)
+            if (random.nextFloat() <= this.fruitChance)
             {
                 level.setBlock(pos, FOTBlocks.GUARDIAN_FRUIT.defaultBlockState(), Block.UPDATE_CLIENTS);
             }
