@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
+import java.util.function.Predicate;
+
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -7,11 +9,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.stevekung.fishofthieves.entity.PartyFish;
+import com.stevekung.fishofthieves.registry.FOTMobEffects;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -38,6 +45,13 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
             this.dancing = false;
             this.jukeboxPos = null;
         }
+    }
+
+    @WrapOperation(method = "registerGoals", at = @At(value = "FIELD", target = "net/minecraft/world/entity/EntitySelector.NO_SPECTATORS:Ljava/util/function/Predicate;"))
+    private Predicate<Entity> fishofthieves$preventFishAvoidPlayerWithGuardianStifle(Operation<Predicate<Entity>> operation)
+    {
+        Predicate<Entity> playerGuardianStifle = entity -> entity instanceof Player player && !player.hasEffect(FOTMobEffects.GUARDIAN_STIFLE);
+        return operation.call().and(playerGuardianStifle);
     }
 
     @Override

@@ -106,6 +106,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemConditions.init();
         FOTCriteriaTriggers.init();
         FOTEntitySubPredicate.init();
+        FOTMobEffects.init();
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();

@@ -34,4 +34,7 @@ public class FOTFoodProperties
     public static final FoodProperties MANGO = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
     public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationModifier(0.5f).build();
     public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
+    public static final FoodProperties GUARDIAN_FRUIT = new FoodProperties.Builder().nutrition(8).saturationModifier(1.0f)
+            .alwaysEdible()
+            .build();
 }

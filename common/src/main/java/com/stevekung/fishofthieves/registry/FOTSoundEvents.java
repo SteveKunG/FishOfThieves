@@ -43,6 +43,7 @@ public class FOTSoundEvents
     public static final SoundEvent FISH_PLAQUE_WAX_OFF = register("block.fish_plaque.wax_off");
     public static final SoundEvent PINEAPPLE_SHEAR = register("block.pineapple.shear");
     public static final SoundEvent POMEGRANATE_PLANT_PICK = register("block.pomegranate_plant.pick_pomegranates");
+    public static final SoundEvent GUARDIAN_FRUIT_GROW = register("block.guardian_fruit.grow");
 
     public static final SoundEvent CRUSH_POMEGRANATE = register("item.pomegranate.crush");
 

@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric.gametest;
 import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.fabric.gametest.core.FOTGameTest;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -435,5 +436,17 @@ public class BlockTestSuite implements FOTGameTest
             helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, () -> "Expected full growth tall pomegranate plant!");
             helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, () -> "Expected full growth tall pomegranate plant!");
         });
+    }
+
+    @GameTest(template = EMPTY_3X3)
+    public void crushPomegranateByAnvilTest(GameTestHelper helper)
+    {
+        var blockPos = new BlockPos(1, 3, 1);
+        var targetPos = blockPos.below(2);
+        helper.setBlock(blockPos, Blocks.ANVIL);
+
+        helper.spawnItem(FOTItems.POMEGRANATE, targetPos.getX() + 0.5f, targetPos.getY(), targetPos.getZ() + 0.5f);
+
+        helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
 }
