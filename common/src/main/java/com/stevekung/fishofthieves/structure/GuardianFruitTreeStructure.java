@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.structure;
 import java.util.Optional;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -23,11 +24,17 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 public class GuardianFruitTreeStructure extends Structure
 {
     private static final String[] GUARDIAN_FRUIT_TREES = new String[] { "guardian_fruit_tree_1", "guardian_fruit_tree_2", "guardian_fruit_tree_3" };
-    public static final MapCodec<GuardianFruitTreeStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(settingsCodec(instance)).apply(instance, GuardianFruitTreeStructure::new));
+    public static final MapCodec<GuardianFruitTreeStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
+            .group(
+                    Codec.floatRange(0.0f, 1.0f).fieldOf("fruit_chance").forGetter(structure -> structure.fruitChance),
+                    settingsCodec(instance)
+            ).apply(instance, GuardianFruitTreeStructure::new));
+    private final float fruitChance;
 
-    public GuardianFruitTreeStructure(Structure.StructureSettings settings)
+    public GuardianFruitTreeStructure(float fruitChance, Structure.StructureSettings settings)
     {
         super(settings);
+        this.fruitChance = fruitChance;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class GuardianFruitTreeStructure extends Structure
         var height = chunkGenerator.getBaseHeight(blockPos3.getX(), blockPos3.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, levelHeightAccessor, randomState) - 1;
         var y = findSuitableY(chunkGenerator, height, boundingBox, levelHeightAccessor, randomState);
         var blockPos4 = new BlockPos(blockPos2.getX(), y, blockPos2.getZ());
-        return Optional.of(new Structure.GenerationStub(blockPos4, structurePiecesBuilder -> structurePiecesBuilder.addPiece(new GuardianFruitTreePiece(context.structureTemplateManager(), blockPos4, resourceLocation, rotation, mirror, blockPos))));
+        return Optional.of(new Structure.GenerationStub(blockPos4, structurePiecesBuilder -> structurePiecesBuilder.addPiece(new GuardianFruitTreePiece(context.structureTemplateManager(), blockPos4, resourceLocation, rotation, mirror, blockPos, this.fruitChance))));
     }
 
     private static int findSuitableY(ChunkGenerator chunkGenerator, int height, BoundingBox box, LevelHeightAccessor level, RandomState randomState)

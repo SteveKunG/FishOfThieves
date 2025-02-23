@@ -89,6 +89,7 @@ public class FishOfThieves
         FOTPlatform.addComposting(FOTBlocks.TALL_POMEGRANATE_PLANT, 0.4F);
         FOTPlatform.addComposting(FOTBlocks.TROPICAL_RED_FERN, 0.4F);
         FOTPlatform.addComposting(FOTBlocks.TROPICAL_MONSTERA, 0.3F);
+        FOTPlatform.addComposting(FOTItems.GUARDIAN_FRUIT, 0.3F);
 
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);

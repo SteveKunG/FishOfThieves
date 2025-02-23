@@ -92,16 +92,16 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
                 .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.WORMS)
                 .add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.HALF_PINEAPPLE, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO,
-                        FOTItems.POMEGRANATE);
+                        FOTItems.POMEGRANATE, FOTItems.GUARDIAN_FRUIT);
         this.getOrCreateTagBuilder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTTags.FISH_BUCKETS);
 
         // Croptopia compatibility
         this.getOrCreateTagBuilder(CROPTOPIA_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
 
         // NeoForge
-        this.getOrCreateTagBuilder(ConventionalItemTags.CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(ConventionalItemTags.CROPS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.GUARDIAN_FRUIT);
         this.getOrCreateTagBuilder(C_SEEDS).add(FOTItems.MANGO_PIT, FOTItems.PINEAPPLE_SEEDS, FOTItems.POMEGRANATE_SEEDS);
-        this.getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE);
-        this.getOrCreateTagBuilder(C_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE);
+        this.getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.GUARDIAN_FRUIT);
+        this.getOrCreateTagBuilder(C_FRUITS_SWEET).add(FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.MANGO, FOTItems.POMEGRANATE, FOTItems.GUARDIAN_FRUIT);
     }
 }
