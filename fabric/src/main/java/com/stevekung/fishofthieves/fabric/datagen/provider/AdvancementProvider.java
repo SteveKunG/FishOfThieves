@@ -250,7 +250,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .display(FOTItems.GUARDIAN_FRUIT,
                         Component.translatable("advancements.fot.taste_the_deep.title"),
                         Component.translatable("advancements.fot.taste_the_deep.description"),
-                        null, FrameType.TASK, true, true, false)
+                        null, AdvancementType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
     }
     //@formatter:on
