@@ -13,7 +13,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
@@ -61,11 +60,11 @@ public class FOTMobBucketItem extends MobBucketItem
             {
                 var compoundTag = customData.copyTag();
 
-                if (compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
+                if (compoundTag.contains(ThievesFish.VARIANT_TAG))
                 {
-                    var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG));
+                    var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG).orElseThrow());
 
-                    if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                    if (compoundTag.getBooleanOr(ThievesFish.TROPHY_TAG, false))
                     {
                         type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
                     }

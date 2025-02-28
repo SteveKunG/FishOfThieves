@@ -40,11 +40,12 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
         tag.putString("Mirror", this.placeSettings.getMirror().name());
     }
 
+    @SuppressWarnings("deprecation")
     private static StructurePlaceSettings makeSettings(StructureTemplateManager structureTemplateManager, CompoundTag tag, ResourceLocation location)
     {
         var structureTemplate = structureTemplateManager.getOrCreate(location);
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
-        return makeSettings(Mirror.valueOf(tag.getString("Mirror")), Rotation.valueOf(tag.getString("Rotation")), blockPos);
+        return makeSettings(tag.read("Mirror", Mirror.LEGACY_CODEC).orElseThrow(), tag.read("Rotation", Rotation.LEGACY_CODEC).orElseThrow(), blockPos);
     }
 
     private static StructurePlaceSettings makeSettings(Mirror mirror, Rotation rotation, BlockPos pos)

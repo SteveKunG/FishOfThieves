@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.Optional;
-
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.ImmutableList;
@@ -19,7 +17,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,6 +31,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -118,7 +116,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     public void addAdditionalSaveData(CompoundTag compound)
     {
         super.addAdditionalSaveData(compound);
-        compound.putString(VARIANT_TAG, this.getVariant().unwrapKey().orElse(this.getDefaultKey()).location().toString());
+        VariantUtils.writeVariant(compound, this.getVariant());
         compound.putBoolean(TROPHY_TAG, this.isTrophy());
         compound.putBoolean(HAS_FED_TAG, this.hasFed());
         compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
@@ -129,10 +127,10 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     {
         super.readAdditionalSaveData(compound);
 
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().lookupOrThrow(this.getRegistryKey()).get(resourceKey)).ifPresent(this::setVariant);
-        this.setTrophy(compound.getBoolean(TROPHY_TAG));
-        this.setHasFed(compound.getBoolean(HAS_FED_TAG));
-        this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
+        VariantUtils.readVariant(compound, this.registryAccess(), this.getRegistryKey()).ifPresent(this::setVariant);
+        this.setTrophy(compound.getBooleanOr(TROPHY_TAG, false));
+        this.setHasFed(compound.getBooleanOr(HAS_FED_TAG, false));
+        this.setNoFlip(compound.getBooleanOr(NO_FLIP_TAG, false));
     }
 
     @Override

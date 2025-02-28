@@ -53,8 +53,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").equals(entityTypeRegistry.getKey(FOTEntities.SPLASHTAIL).toString());
-            var matchVariant = plaqueData.getString(ThievesFish.VARIANT_TAG).equals(ruby);
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(FOTEntities.SPLASHTAIL).toString());
+            var matchVariant = plaqueData.getString(ThievesFish.VARIANT_TAG).orElseThrow().equals(ruby);
 
             if (matchId && matchVariant)
             {
@@ -110,8 +110,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").equals(entityTypeRegistry.getKey(EntityType.SALMON).toString());
-            var matchVariant = plaqueData.getString("type").equals(Salmon.Variant.LARGE.getSerializedName());
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.SALMON).toString());
+            var matchVariant = plaqueData.getString("type").orElseThrow().equals(Salmon.Variant.LARGE.getSerializedName());
 
             if (matchId && matchVariant)
             {
@@ -163,8 +163,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").equals(entityTypeRegistry.getKey(EntityType.TROPICAL_FISH).toString());
-            var matchVariant = plaqueData.getInt("Variant") == 65536;
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.TROPICAL_FISH).toString());
+            var matchVariant = plaqueData.getIntOr("Variant", 0) == 65536;
 
             if (matchId && matchVariant)
             {
@@ -225,8 +225,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").equals(entityTypeRegistry.getKey(EntityType.AXOLOTL).toString());
-            var matchVariant = plaqueData.getInt("Variant") == Axolotl.Variant.CYAN.getId();
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.AXOLOTL).toString());
+            var matchVariant = plaqueData.getIntOr("Variant", 0) == Axolotl.Variant.CYAN.getId();
 
             if (matchId && matchVariant)
             {
@@ -291,7 +291,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
             var bucketEntityData = mainHandItem.get(DataComponents.BUCKET_ENTITY_DATA);
 
-            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketEntityData.copyTag().getString(ThievesFish.VARIANT_TAG).equals(ruby))
+            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketEntityData.copyTag().getString(ThievesFish.VARIANT_TAG).orElseThrow().equals(ruby))
             {
                 helper.succeed();
             }

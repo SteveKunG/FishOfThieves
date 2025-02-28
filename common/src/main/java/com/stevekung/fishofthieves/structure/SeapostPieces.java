@@ -61,9 +61,10 @@ public class SeapostPieces
             super(FOTStructures.PieceType.SEAPOST_PIECE, 0, structureTemplateManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation, resourceLocation), makePosition(resourceLocation, blockPos, offset));
         }
 
+        @SuppressWarnings("deprecation")
         public SeapostPiece(StructureTemplateManager structureTemplateManager, CompoundTag compoundTag)
         {
-            super(FOTStructures.PieceType.SEAPOST_PIECE, compoundTag, structureTemplateManager, resourceLocation -> makeSettings(Rotation.valueOf(compoundTag.getString("Rot")), resourceLocation));
+            super(FOTStructures.PieceType.SEAPOST_PIECE, compoundTag, structureTemplateManager, resourceLocation -> makeSettings(compoundTag.read("Rot", Rotation.LEGACY_CODEC).orElseThrow(), resourceLocation));
         }
 
         @Override

@@ -33,7 +33,7 @@ public class FOTSpawnEggItem extends SpawnEggItem
 
             if (!customData.isEmpty())
             {
-                if (customData.copyTag().getBoolean(ThievesFish.TROPHY_TAG))
+                if (customData.copyTag().getBooleanOr(ThievesFish.TROPHY_TAG, false))
                 {
                     return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
                 }

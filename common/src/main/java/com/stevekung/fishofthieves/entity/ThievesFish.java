@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -15,11 +14,11 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -70,7 +69,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
-            compoundTag.putString("variant", this.getVariant().unwrapKey().orElse(this.getDefaultKey()).location().toString());
+            VariantUtils.writeVariant(compoundTag, this.getVariant());
 
             if (this.isTrophy())
             {
@@ -86,20 +85,10 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
 
     default void loadFromBucket(CompoundTag compound, RegistryAccess registryAccess)
     {
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> registryAccess.lookupOrThrow(this.getRegistryKey()).get(resourceKey)).ifPresent(this::setVariant);
-
-        if (compound.contains(TROPHY_TAG))
-        {
-            this.setTrophy(compound.getBoolean(TROPHY_TAG));
-        }
-        if (compound.contains(HAS_FED_TAG))
-        {
-            this.setHasFed(compound.getBoolean(HAS_FED_TAG));
-        }
-        if (compound.contains(NO_FLIP_TAG))
-        {
-            this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
-        }
+        VariantUtils.readVariant(compound, registryAccess, this.getRegistryKey()).ifPresent(this::setVariant);
+        this.setTrophy(compound.getBooleanOr(TROPHY_TAG, false));
+        this.setHasFed(compound.getBooleanOr(HAS_FED_TAG, false));
+        this.setNoFlip(compound.getBooleanOr(NO_FLIP_TAG, false));
     }
 
     default SpawnGroupData defaultFinalizeSpawn(ServerLevelAccessor accessor, LivingEntity livingEntity, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnData)

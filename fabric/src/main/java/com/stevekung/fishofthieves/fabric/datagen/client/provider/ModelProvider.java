@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.fabric.datagen.client.provider;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.condition;
-import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -20,12 +18,14 @@ import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
+import static net.minecraft.client.data.models.BlockModelGenerators.condition;
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.MultiVariant;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.core.Direction;
@@ -35,6 +35,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.Weighted;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
@@ -1281,19 +1283,19 @@ public class ModelProvider extends FabricModelProvider
 
     private MultiVariant createRotatedVariants(ResourceLocation modelLocation)
     {
-        return new MultiVariant(List.of(
-                BlockModelGenerators.plainModel(modelLocation),
-                BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_90),
-                BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_180),
-                BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_270)
+        return new MultiVariant(WeightedList.of(
+                new Weighted<>(BlockModelGenerators.plainModel(modelLocation), 1),
+                new Weighted<>(BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_90), 1),
+                new Weighted<>(BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_180), 1),
+                new Weighted<>(BlockModelGenerators.plainModel(modelLocation).with(BlockModelGenerators.Y_ROT_270), 1)
         ));
     }
 
     private MultiVariant createMirroredVariants(ResourceLocation modelLocation, ResourceLocation mirroredModelLocation)
     {
-        return new MultiVariant(List.of(
-                BlockModelGenerators.plainModel(modelLocation),
-                BlockModelGenerators.plainModel(mirroredModelLocation)
+        return new MultiVariant(WeightedList.of(
+                new Weighted<>(BlockModelGenerators.plainModel(modelLocation), 1),
+                new Weighted<>(BlockModelGenerators.plainModel(mirroredModelLocation), 1)
         ));
     }
 }

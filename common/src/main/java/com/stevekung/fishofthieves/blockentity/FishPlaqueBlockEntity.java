@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -42,11 +41,8 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider)
     {
-        if (tag.contains(PLAQUE_DATA_TAG, Tag.TAG_COMPOUND))
-        {
-            this.setPlaqueData(tag.getCompound(PLAQUE_DATA_TAG));
-        }
-        this.waxed = tag.getBoolean(WAXED_TAG);
+        this.setPlaqueData(tag.getCompoundOrEmpty(PLAQUE_DATA_TAG));
+        this.waxed = tag.getBooleanOr(WAXED_TAG, false);
         this.displayEntity = null;
     }
 
@@ -86,7 +82,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
     public boolean hasPlaqueData()
     {
-        return this.plaqueData != null && this.plaqueData.contains("id", Tag.TAG_STRING);
+        return this.plaqueData != null && this.plaqueData.contains("id");
     }
 
     public void setWaxed(boolean waxed)
@@ -101,7 +97,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
     public String getEntityKeyFromPlaqueData()
     {
-        return this.plaqueData.getString("id");
+        return this.plaqueData.getString("id").orElseThrow();
     }
 
     public void clearDisplayEntity()
