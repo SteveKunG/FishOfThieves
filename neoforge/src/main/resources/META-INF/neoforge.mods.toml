@@ -12,7 +12,7 @@ displayURL = "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves"
 updateJSONURL = "https://raw.githubusercontent.com/SteveKunG/VersionCheckLibrary/master/fish_of_thieves.json"
 logoFile = "logo.png"
 authors = "SteveKunG, PloyiinGz, Gucc1Guy"
-enumExtensions="META-INF/enumextensions.json"
+enumExtensions = "META-INF/enumextensions.json"
 
 [[mixins]]
 config = "mixins.fish_of_thieves.json"
@@ -26,13 +26,6 @@ file = "META-INF/accesstransformer.cfg"
 modId = "neoforge"
 type = "required"
 versionRange = "[21.0.109-beta,)"
-ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.fishofthieves]]
-modId = "fabric_loot_api_v3"
-type = "required"
-versionRange = "[0.100.6,)"
 ordering = "NONE"
 side = "BOTH"
 

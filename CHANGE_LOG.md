@@ -168,7 +168,7 @@
 - Has all fruits and flowers generated
 - Chicken, Pig, and Parrot can be found
 - Features are almost same as the Sparse Jungle biome
-    - Without Jungle Bush, Fewer melons, and no Big Oak trees
+    - Without Jungle Bush, Big Oak trees, and fewer melons 
     - Has sand trail randomly generated around the biome
 
 ## Entities
@@ -194,13 +194,16 @@
 ## Structures
 ### Seapost
 - Potted Plumerias are now included
+- Adjust structure spawn rate again
 
 ## Misc
 - Added Stormfish, Kraken, Megalodon Pottery Sherd
     - Can be found in the Ocean Ruins
 - Added new fruits to Seapost Supply Barrel and removed vanilla food items
-- Added 7 new advancements
-- Added Traditional Chinese (zh_tw.json) (Thanks to [yichifauzi](https://github.com/yichifauzi))
+- Added 8 new advancements
+- Added Traditional Chinese translations (Thanks to [yichifauzi](https://github.com/yichifauzi))
+- Added Mexican Spanish translations (Thanks to [TheLegendofSaram](https://github.com/TheLegendofSaram))
+- Added Korean (South Korea) translations (Thanks to [GamerK-2](https://github.com/GamerK-2))
 - [Developer] Added GameTest for those who interested
 - Simple item tags support for other mods
 - Minor performance improvement to Stormfish position ticking
