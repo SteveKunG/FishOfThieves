@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.registry.*;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.minecraft.advancements.critereon.DataComponentMatchers;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -105,7 +106,11 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(this.provider.lookupOrThrow(Registries.ENTITY_TYPE), entityType)
-                            .components(DataComponentExactPredicate.expect(dataComponentType, holderGetter.getOrThrow(holder.key())))))
+                            .components(
+                                    DataComponentMatchers.Builder.components()
+                                            .exact(DataComponentExactPredicate.expect(dataComponentType, holderGetter.getOrThrow(holder.key())))
+                                            .build()
+                            )))
                     .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
             //@formatter:on
         });

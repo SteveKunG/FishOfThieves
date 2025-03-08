@@ -118,9 +118,15 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
-                                ItemPredicate.Builder.item().of(itemLookup, FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentExactPredicate.builder()
-                                        .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
-                                ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
+                                ItemPredicate.Builder.item().of(itemLookup, FOTItems.DEVILFISH_BUCKET)
+                                        .withComponents(
+                                                DataComponentMatchers.Builder.components()
+                                                        .exact(DataComponentExactPredicate.builder()
+                                                                .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(
+                                                                        new CompoundTag(), compoundTag -> compoundTag
+                                                                                .putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build())
+                                                        .build()
+                                        ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
                 .display(FOTItems.DEVILFISH,
                         Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
@@ -161,20 +167,41 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location()
                                 .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.JUKEBOX)),
-                        ItemPredicate.Builder.item().withSubPredicate(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any()),
+                        ItemPredicate.Builder.item().withComponents(
+                                DataComponentMatchers.Builder.components()
+                                        .partial(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any())
+                                        .build()
+                        ),
                         EntityPredicate.Builder.entity().of(entityLookup, FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE)))
                 .addCriterion("play_jukebox_near_fish", ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location()
                                 .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.JUKEBOX)),
-                        ItemPredicate.Builder.item().withSubPredicate(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any()),
+                        ItemPredicate.Builder.item().withComponents(
+                                DataComponentMatchers.Builder.components()
+                                        .partial(DataComponentPredicates.JUKEBOX_PLAYABLE, JukeboxPlayablePredicate.any())
+                                        .build()
+                        ),
                         EntityPredicate.Builder.entity().of(entityLookup, EntityTypeTags.AXOLOTL_HUNT_TARGETS)))
                 .save(consumer, this.mod("play_jukebox_near_fish"));
 
         Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion(BuiltInRegistries.ITEM.getKey(Items.NAME_TAG).getPath(), PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
-                        ItemPredicate.Builder.item().of(itemLookup, Items.NAME_TAG).hasComponents(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build()),
+                        ItemPredicate.Builder.item().of(itemLookup, Items.NAME_TAG).withComponents(
+                                DataComponentMatchers.Builder.components()
+                                        .exact(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName)
+                                                .build())
+                                        .build()
+                        ),
                         Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.SALMON)))))
-                .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.WATER)), ItemPredicate.Builder.item().of(itemLookup, Items.SALMON_BUCKET).hasComponents(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName).build())))
+                .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location()
+                                .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.WATER)),
+                        ItemPredicate.Builder.item().of(itemLookup, Items.SALMON_BUCKET)
+                                .withComponents(
+                                        DataComponentMatchers.Builder.components()
+                                                .exact(DataComponentExactPredicate.builder().expect(DataComponents.CUSTOM_NAME, sallyName)
+                                                        .build())
+                                                .build()
+                                )))
                 .display(Items.SALMON,
                         Component.translatable("advancements.fot.lost_sally.title"),
                         Component.translatable("advancements.fot.lost_sally.description"),
@@ -291,7 +318,13 @@ public class AdvancementProvider extends FabricAdvancementProvider
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                     compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 }
-                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(itemLookup, bucket).withSubPredicate(FOTDataComponentPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
+                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item()
+                        .of(itemLookup, bucket)
+                        .withComponents(
+                                DataComponentMatchers.Builder.components()
+                                        .partial(FOTDataComponentPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))
+                                        .build()
+                        )));
             }
         }
         return builder;

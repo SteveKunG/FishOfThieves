@@ -257,9 +257,10 @@ public class FOTLootManager
                         .flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))),
                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.entity()
                         .equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item()
-                                .withSubPredicate(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(
-                                        new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY)
-                                )))))));
+                                .withComponents(DataComponentMatchers.Builder.components()
+                                        .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
+                                                List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))))
+                                        .build())))));
         //@formatter:on
     }
 }

@@ -85,6 +85,9 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
     private LootItemCondition.Builder hasSilkTouch()
     {
         var registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return MatchTool.toolMatches(ItemPredicate.Builder.item().withSubPredicate(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(registryLookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))));
+        return MatchTool.toolMatches(ItemPredicate.Builder.item().withComponents(DataComponentMatchers.Builder.components()
+                .partial(DataComponentPredicates.ENCHANTMENTS,
+                        EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(
+                                registryLookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))).build()));
     }
 }
