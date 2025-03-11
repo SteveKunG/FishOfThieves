@@ -33,7 +33,7 @@ public class BananaShootsDecorator extends TreeDecorator
     public void place(Context context)
     {
         var randomSource = context.random();
-        var blockPos = context.logs().get(0);
+        var blockPos = context.logs().getFirst();
 
         for (var direction : Direction.Plane.HORIZONTAL)
         {

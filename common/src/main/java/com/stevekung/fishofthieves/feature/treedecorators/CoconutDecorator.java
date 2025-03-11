@@ -45,7 +45,7 @@ public class CoconutDecorator extends TreeDecorator
         if (!(randomSource.nextFloat() >= this.probability))
         {
             var list = context.logs();
-            var yAtStart = list.get(0).getY();
+            var yAtStart = list.getFirst().getY();
             var maxY = Collections.max(list.stream().map(blockPos -> blockPos.getY() - yAtStart).toList());
             var yToGrowCoconutAt = maxY - this.yToGrowCoconutAt;
 
