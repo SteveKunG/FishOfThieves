@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.neoforge.internal.lootapi.FabricLootTableBuilder;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -54,20 +53,20 @@ public class CommonProxyNeoForge
         // Gameplay
         if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
         {
-            ((FabricLootTableBuilder)builder).modifyPools(FOTLootManager::getFishermanGiftLoot);
+            builder.modifyPools(FOTLootManager::getFishermanGiftLoot);
         }
         else if (id.equals(BuiltInLootTables.FISHING_FISH))
         {
-            ((FabricLootTableBuilder)builder).modifyPools(builderx -> FOTLootManager.getFishingLoot(builderx, provider));
+            builder.modifyPools(builderx -> FOTLootManager.getFishingLoot(builderx, provider));
         }
         // Entity Loot
         else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
         {
-            ((FabricLootTableBuilder)builder).modifyPools(builderx -> FOTLootManager.getPolarBearLoot(builderx, provider));
+            builder.modifyPools(builderx -> FOTLootManager.getPolarBearLoot(builderx, provider));
         }
         else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
         {
-            ((FabricLootTableBuilder)builder).modifyPools(builderx -> FOTLootManager.getDolphinLoot(builderx, provider));
+            builder.modifyPools(builderx -> FOTLootManager.getDolphinLoot(builderx, provider));
         }
         else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
         {
@@ -97,7 +96,7 @@ public class CommonProxyNeoForge
         // Archaeology
         else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
         {
-            ((FabricLootTableBuilder)builder).modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
+            builder.modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
         }
     }
 
