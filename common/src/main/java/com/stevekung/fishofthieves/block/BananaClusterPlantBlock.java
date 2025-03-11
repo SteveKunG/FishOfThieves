@@ -135,7 +135,6 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
         return this.type;
     }
 
-    @SuppressWarnings("deprecation")
     public enum HangingType implements StringRepresentable
     {
         NONE,

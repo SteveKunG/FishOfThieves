@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import net.minecraft.util.StringRepresentable;
 
-@SuppressWarnings("deprecation")
 public enum BananaHangingType implements StringRepresentable
 {
     SMALL_CLUSTER,

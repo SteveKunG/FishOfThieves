@@ -126,7 +126,6 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock
         builder.add(WATERLOGGED);
     }
 
-    @SuppressWarnings("deprecation")
     public enum Type implements StringRepresentable
     {
         UNDERRIPE,
