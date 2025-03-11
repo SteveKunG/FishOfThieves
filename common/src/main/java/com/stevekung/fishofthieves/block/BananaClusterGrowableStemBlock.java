@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.block;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
+
+import org.apache.logging.log4j.util.TriConsumer;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
@@ -12,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,18 +74,21 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
 
     private void growRandomBananaCluster(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> this.canGrowBananaBunch(level, pos, direction)).findFirst().ifPresent(direction -> this.growBananaBlossomOrCluster(direction, level, random, pos.below().relative(direction)));
+        Direction.Plane.HORIZONTAL.shuffledCopy(random)
+                .stream()
+                .filter(direction -> this.canGrowBananaBunch(level, pos, direction))
+                .findFirst()
+                .ifPresent(direction -> growBananaBlossomOrCluster(direction, level, level::setBlock, blockPos -> level.getFluidState(blockPos).getType() == Fluids.WATER, random, pos.below().relative(direction)));
     }
 
-    private void growBananaBlossomOrCluster(Direction direction, ServerLevel level, RandomSource random, BlockPos pos)
+    public static void growBananaBlossomOrCluster(Direction direction, LevelSimulatedReader level, TriConsumer<BlockPos, BlockState, Integer> setBlock, Function<BlockPos, Boolean> isWater, RandomSource random, BlockPos pos)
     {
-        Function<BlockPos, Boolean> isWater = blockPos -> level.getFluidState(blockPos).getType() == Fluids.WATER;
-        var maxY = this.findMaxYBelow(level, pos);
+        var maxY = findMaxYBelow(level, pos);
         var isSmallCluster = false;
 
         if (maxY == 1)
         {
-            level.setBlock(pos, FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite()).setValue(BananaBlossomPlantBlock.HANGING, BananaHangingType.STEM).setValue(BananaBlossomPlantBlock.WATERLOGGED, isWater.apply(pos)), Block.UPDATE_CLIENTS);
+            setBlock.accept(pos, createBlossomState(direction, isWater.apply(pos), BananaHangingType.STEM), Block.UPDATE_ALL);
         }
         else
         {
@@ -91,42 +98,64 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
             for (var i = 0; i < randHeight; i++)
             {
                 var blockPos = pos.below(i);
-                var stateAbove = level.getBlockState(blockPos.above());
-                var banana = random.nextFloat() < 0.2f ? FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : random.nextFloat() < 0.4f ? FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState() : FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState();
+                Predicate<BlockState> stateAbove = state -> level.isStateAtPosition(blockPos.above(), blockState -> blockState.is(state.getBlock()));
+                var banana = selectBananaState(random);
 
-                if (banana.hasProperty(BananaClusterPlantBlock.HANGING))
-                {
-                    banana = banana.setValue(BananaClusterPlantBlock.HANGING, i == 0 ? BananaClusterPlantBlock.HangingType.STEM : BananaClusterPlantBlock.HangingType.NONE);
+                banana = updateBananaHangingState(banana, stateAbove, i);
+                isSmallCluster |= banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING);
 
-                    if (stateAbove.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT))
-                    {
-                        banana = banana.setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER);
-                    }
-                }
-                else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
-                {
-                    var isLargeCluster = stateAbove.is(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT) || stateAbove.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT);
-                    banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : isLargeCluster ? BananaHangingType.CLUSTER : BananaHangingType.SMALL_CLUSTER);
-                    isSmallCluster = true;
-                }
+                setBlock.accept(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(blockPos)), Block.UPDATE_ALL);
 
-                level.setBlock(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(blockPos)), Block.UPDATE_CLIENTS);
-
-                if (yBottom < i)
-                {
-                    yBottom = i;
-                }
+                yBottom = Math.max(yBottom, i);
             }
-            level.setBlock(pos.below(yBottom), FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite()).setValue(BananaBlossomPlantBlock.HANGING, yBottom == 0 ? BananaHangingType.STEM : isSmallCluster ? BananaHangingType.SMALL_CLUSTER : BananaHangingType.CLUSTER).setValue(BananaBlossomPlantBlock.WATERLOGGED, isWater.apply(pos.below(yBottom))), Block.UPDATE_CLIENTS);
+            setBlock.accept(pos.below(yBottom), createBlossomState(direction, isWater.apply(pos.below(yBottom)), determineHangingType(yBottom, isSmallCluster)), Block.UPDATE_ALL);
         }
     }
 
-    private int findMaxYBelow(ServerLevel level, BlockPos pos)
+    private static BlockState createBlossomState(Direction direction, boolean isWaterlogged, BananaHangingType hangingType)
     {
-        var maxBananaCluster = 6;
+        return FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState()
+                .setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite())
+                .setValue(BananaBlossomPlantBlock.HANGING, hangingType)
+                .setValue(BananaBlossomPlantBlock.WATERLOGGED, isWaterlogged);
+    }
+
+    private static BlockState selectBananaState(RandomSource random)
+    {
+        return random.nextFloat() < 0.2f ? FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState()
+                : random.nextFloat() < 0.4f ? FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState()
+                : FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState();
+    }
+
+    private static BlockState updateBananaHangingState(BlockState banana, Predicate<BlockState> stateAbove, int i)
+    {
+        if (banana.hasProperty(BananaClusterPlantBlock.HANGING))
+        {
+            banana = banana.setValue(BananaClusterPlantBlock.HANGING, i == 0 ? BananaClusterPlantBlock.HangingType.STEM : BananaClusterPlantBlock.HangingType.NONE);
+
+            if (stateAbove.test(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState()))
+            {
+                banana = banana.setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.SMALL_CLUSTER);
+            }
+        }
+        else if (banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING))
+        {
+            var isLargeCluster = stateAbove.test(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState()) || stateAbove.test(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState());
+            banana = banana.setValue(UnderripeBananaClusterPlantBlock.HANGING, i == 0 ? BananaHangingType.STEM : isLargeCluster ? BananaHangingType.CLUSTER : BananaHangingType.SMALL_CLUSTER);
+        }
+        return banana;
+    }
+
+    private static BananaHangingType determineHangingType(int yBottom, boolean isSmallCluster)
+    {
+        return yBottom == 0 ? BananaHangingType.STEM : isSmallCluster ? BananaHangingType.SMALL_CLUSTER : BananaHangingType.CLUSTER;
+    }
+
+    private static int findMaxYBelow(LevelSimulatedReader level, BlockPos pos)
+    {
         var maxY = 0;
 
-        while (level.getBlockState(pos.below(maxY)).canBeReplaced() && maxY < maxBananaCluster)
+        while (level.isStateAtPosition(pos.below(maxY), BlockState::canBeReplaced) && maxY < 6)
         {
             ++maxY;
         }
