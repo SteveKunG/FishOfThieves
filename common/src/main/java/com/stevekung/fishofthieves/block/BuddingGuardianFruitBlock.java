@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-@SuppressWarnings("deprecation")
 public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock
 {
     public static final BooleanProperty BUD = BooleanProperty.create("bud");
