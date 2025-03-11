@@ -52,7 +52,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         renderState.isTrophy = entity.isTrophy();
         renderState.isNoFlip = entity.isNoFlip();
         renderState.fullTexture = variant.fullTexture();
-        renderState.fullGlowTexture = variant.fullGlowTexture();
+        renderState.fullGlowTexture = variant.fullGlowTexture().orElse(null);
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);
     }
 

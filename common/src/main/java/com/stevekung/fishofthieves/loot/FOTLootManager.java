@@ -1,25 +1,29 @@
 package com.stevekung.fishofthieves.loot;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 
+import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.*;
 
+import net.minecraft.Util;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
@@ -47,6 +51,40 @@ public class FOTLootManager
         {
             droppedList.addAll(holder.getLootTable(FOTLootTables.Blocks.LEECHES_DROPS).getRandomItems(lootParams));
         }
+    }
+
+    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootTableMap()
+    {
+        return Util.make(Maps.newHashMap(), map ->
+        {
+            // Gameplay
+            map.put(BuiltInLootTables.FISHERMAN_GIFT, (builder, provider) -> FOTLootManager.getFishermanGiftLoot(builder));
+            map.put(BuiltInLootTables.FISHING_FISH, FOTLootManager::getFishingLoot);
+
+            // Entity Loot
+            EntityType.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getPolarBearLoot));
+            EntityType.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getDolphinLoot));
+
+            // Archaeology
+            map.put(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
+            map.put(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
+        });
+    }
+
+    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootPoolMap()
+    {
+        return Util.make(Maps.newHashMap(), map ->
+        {
+            // Entity Loot
+            EntityType.GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, false)));
+            EntityType.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, true)));
+
+            // Chests
+            map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder));
+            map.put(BuiltInLootTables.BURIED_TREASURE, (builder, provider) -> FOTLootManager.getBuriedTreasureLoot(builder));
+            map.put(BuiltInLootTables.SHIPWRECK_SUPPLY, (builder, provider) -> FOTLootManager.getShipwreckSupplyLoot(builder));
+            map.put(BuiltInLootTables.JUNGLE_TEMPLE, FOTLootManager::getJungleTempleLoot);
+        });
     }
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)

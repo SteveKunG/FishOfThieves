@@ -59,7 +59,7 @@ public class MixinGuardian extends Monster
     public static class MixinGuardian_GuardianAttackSelector
     {
         @Inject(method = "test", cancellable = true, at = @At("HEAD"))
-        private void fishofthieves$preventGuardianAttackPlayer(@Nullable LivingEntity entity, CallbackInfoReturnable<Boolean> info)
+        private void fishofthieves$preventGuardianAttackPlayer(@Nullable LivingEntity entity, ServerLevel serverLevel, CallbackInfoReturnable<Boolean> info)
         {
             if (entity instanceof Player player && player.hasEffect(FOTMobEffects.GUARDIAN_STIFLE))
             {

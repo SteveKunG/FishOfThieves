@@ -38,10 +38,10 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
 
             if (blockState.getValue(FishPlaqueBlock.POWERED) && entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED))
             {
-                entity.wasTouchingWater = true;
+                entity.fishofthieves$setIsInFishPlaque(true);
             }
 
-            var isHorizontal = entity.wasTouchingWater || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
+            var isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
             var scale = 0.53125F;
             var stepMultiplier = isHorizontal ? 0.3f : 0.4f;
             var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
@@ -77,7 +77,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
             this.entityRenderer.render(entity, 0.0, 0.0, 0.0, animationTick, poseStack, bufferSource, packedLight);
-            entity.wasTouchingWater = false;
+            entity.fishofthieves$setIsInFishPlaque(false);
         }
         poseStack.popPose();
     }

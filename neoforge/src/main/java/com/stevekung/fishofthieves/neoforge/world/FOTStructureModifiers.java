@@ -62,9 +62,9 @@ public class FOTStructureModifiers
     }
 
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event)
+    public static void onGatherData(GatherDataEvent.Server event)
     {
-        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<StructureModifiers>) output -> new StructureModifiers(output, event.getLookupProvider()));
+        event.getGenerator().addProvider(true, (DataProvider.Factory<StructureModifiers>) output -> new StructureModifiers(output, event.getLookupProvider()));
     }
 
     private static class StructureModifiers extends DatapackBuiltinEntriesProvider

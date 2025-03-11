@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
-import com.stevekung.fishofthieves.FOTPlatform;
+import java.util.Set;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.blockentity.FOTHangingSignBlockEntity;
 import com.stevekung.fishofthieves.blockentity.FOTSignBlockEntity;
@@ -8,13 +9,14 @@ import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTBlockEntityTypes
 {
     //@formatter:off
-    public static final BlockEntityType<FishPlaqueBlockEntity> FISH_PLAQUE = register("fish_plaque", FOTPlatform.createBlockEntityType(FishPlaqueBlockEntity::new,
+    public static final BlockEntityType<FishPlaqueBlockEntity> FISH_PLAQUE = register("fish_plaque", FishPlaqueBlockEntity::new,
             // Wooden
             FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE,
             FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE,
@@ -34,11 +36,11 @@ public class FOTBlockEntityTypes
             FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.GILDED_BIRCH_FISH_PLAQUE,
             FOTBlocks.GILDED_JUNGLE_FISH_PLAQUE, FOTBlocks.GILDED_ACACIA_FISH_PLAQUE, FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE,
             FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.GILDED_CHERRY_FISH_PLAQUE, FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE,
-            FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.GILDED_COCONUT_FISH_PLAQUE));
-    public static final BlockEntityType<FOTSignBlockEntity> SIGN = register("sign", FOTPlatform.createBlockEntityType(FOTSignBlockEntity::new,
-            FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN));
-    public static final BlockEntityType<FOTHangingSignBlockEntity> HANGING_SIGN = register("hanging_sign", FOTPlatform.createBlockEntityType(FOTHangingSignBlockEntity::new,
-            FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN));
+            FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+    public static final BlockEntityType<FOTSignBlockEntity> SIGN = register("sign", FOTSignBlockEntity::new,
+            FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
+    public static final BlockEntityType<FOTHangingSignBlockEntity> HANGING_SIGN = register("hanging_sign", FOTHangingSignBlockEntity::new,
+            FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
     //@formatter:on
 
     public static void init()
@@ -46,8 +48,8 @@ public class FOTBlockEntityTypes
         FishOfThieves.LOGGER.info("Registering Block Entity");
     }
 
-    private static <T extends BlockEntity> BlockEntityType<T> register(String key, BlockEntityType<T> type)
+    private static <T extends BlockEntity> BlockEntityType<T> register(String key, BlockEntityType.BlockEntitySupplier<? extends T> factory, Block... validBlocks)
     {
-        return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.id(key), type);
+        return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.id(key), new BlockEntityType<>(factory, Set.of(validBlocks)));
     }
 }

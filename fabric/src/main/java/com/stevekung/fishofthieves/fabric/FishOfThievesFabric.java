@@ -29,7 +29,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -38,7 +37,6 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
@@ -126,54 +124,20 @@ public class FishOfThievesFabric implements ModInitializer
 
         LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {
-            // Gameplay
-            if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
+            FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(FOTLootManager::getFishermanGiftLoot);
-            }
-            else if (id.equals(BuiltInLootTables.FISHING_FISH))
+                if (id.equals(resourceKey))
+                {
+                    tableBuilder.withPool(function.apply(LootPool.lootPool(), provider));
+                }
+            });
+            tableBuilder.modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getFishingLoot(builder, provider));
-            }
-            // Entity Loot
-            else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable().orElseThrow()))
-            {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getPolarBearLoot(builder, provider));
-            }
-            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable().orElseThrow()))
-            {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getDolphinLoot(builder, provider));
-            }
-            else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable().orElseThrow()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false));
-            }
-            else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable().orElseThrow()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true));
-            }
-            // Chests
-            else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-            {
-                tableBuilder.withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-            {
-                tableBuilder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
-            {
-                tableBuilder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
-            {
-                tableBuilder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool(), provider));
-            }
-            // Archaeology
-            else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-            {
-                tableBuilder.modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
-            }
+                if (id.equals(resourceKey))
+                {
+                    function.apply(builder, provider);
+                }
+            }));
         });
 
         FabricDefaultAttributeRegistry.register(FOTEntities.SPLASHTAIL, AbstractSchoolingThievesFish.createAttributes());

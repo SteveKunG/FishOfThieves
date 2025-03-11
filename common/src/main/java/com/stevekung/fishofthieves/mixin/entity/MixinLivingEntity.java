@@ -24,12 +24,12 @@ public abstract class MixinLivingEntity extends Entity
         super(null, null);
     }
 
-    @Inject(method = "dropFromLootTable", at = @At("TAIL"))
+    @Inject(method = "dropFromLootTable", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;JLjava/util/function/Consumer;)V"))
     private void fishofthieves$dropFishBone(ServerLevel serverLevel, DamageSource damageSource, boolean hitByPlayer, CallbackInfo info, @Local LootParams.Builder builder)
     {
         if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {
-            var fishBoneDropLootTable = this.level().getServer().reloadableRegistries().getLootTable(FOTLootTables.Entities.FISH_BONE_DROP);
+            var fishBoneDropLootTable = serverLevel.getServer().reloadableRegistries().getLootTable(FOTLootTables.Entities.FISH_BONE_DROP);
             fishBoneDropLootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), itemStack -> this.spawnAtLocation(serverLevel, itemStack));
         }
     }
