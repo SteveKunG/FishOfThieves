@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
+import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -18,7 +19,6 @@ import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.ComposterBlock;
@@ -157,16 +157,16 @@ public class CommonProxyNeoForge
 
     private void registerAttributes(EntityAttributeCreationEvent event)
     {
-        event.put(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes().build());
-        event.put(FOTEntities.PONDIE, AbstractFish.createAttributes().build());
-        event.put(FOTEntities.ISLEHOPPER, AbstractFish.createAttributes().build());
-        event.put(FOTEntities.ANCIENTSCALE, AbstractFish.createAttributes().build());
-        event.put(FOTEntities.PLENTIFIN, AbstractFish.createAttributes().build());
-        event.put(FOTEntities.WILDSPLASH, AbstractFish.createAttributes().build());
+        event.put(FOTEntities.SPLASHTAIL, AbstractSchoolingThievesFish.createAttributes().build());
+        event.put(FOTEntities.PONDIE, AbstractSchoolingThievesFish.createAttributes().build());
+        event.put(FOTEntities.ISLEHOPPER, AbstractSchoolingThievesFish.createAttributes().build());
+        event.put(FOTEntities.ANCIENTSCALE, AbstractSchoolingThievesFish.createAttributes().build());
+        event.put(FOTEntities.PLENTIFIN, AbstractSchoolingThievesFish.createAttributes().build());
+        event.put(FOTEntities.WILDSPLASH, AbstractSchoolingThievesFish.createAttributes().build());
         event.put(FOTEntities.DEVILFISH, Devilfish.createAttributes().build());
         event.put(FOTEntities.BATTLEGILL, Battlegill.createAttributes().build());
         event.put(FOTEntities.WRECKER, Wrecker.createAttributes().build());
-        event.put(FOTEntities.STORMFISH, AbstractFish.createAttributes().build());
+        event.put(FOTEntities.STORMFISH, AbstractSchoolingThievesFish.createAttributes().build());
     }
 
     private void onAddPackFinders(AddPackFindersEvent event)

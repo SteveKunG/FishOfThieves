@@ -15,7 +15,6 @@
     "block.MixinSmallRotatedPillarBlock"
   ],
   "client": [
-    "client.MixinMangoFruitBlock"
   ],
   "injectors": {
     "defaultRequire": 1

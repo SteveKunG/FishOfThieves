@@ -64,9 +64,9 @@ public class FOTBiomeModifiers
     //@formatter:on
 
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event)
+    public static void onGatherData(GatherDataEvent.Server event)
     {
-        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<ModBiomeModifiers>) output -> new ModBiomeModifiers(output, event.getLookupProvider()));
+        event.getGenerator().addProvider(true, (DataProvider.Factory<ModBiomeModifiers>) output -> new ModBiomeModifiers(output, event.getLookupProvider()));
     }
 
     private static BiomeModifiers.AddFeaturesBiomeModifier addBiomeFeature(BootstrapContext<BiomeModifier> context, TagKey<Biome> biomeTagKey, ResourceKey<PlacedFeature> placedFeatureKey, GenerationStep.Decoration decoration)
