@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -11,26 +12,24 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -46,58 +45,6 @@ public class CommonProxyNeoForge
         eventBus.addListener(this::registerAttributes);
         eventBus.addListener(this::registerSpawnPlacement);
         eventBus.addListener(this::onAddPackFinders);
-    }
-
-    public static void modifyLoots(ResourceKey<LootTable> id, LootTable.Builder builder, HolderLookup.Provider provider)
-    {
-        // Gameplay
-        if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
-        {
-            builder.modifyPools(FOTLootManager::getFishermanGiftLoot);
-        }
-        else if (id.equals(BuiltInLootTables.FISHING_FISH))
-        {
-            builder.modifyPools(builderx -> FOTLootManager.getFishingLoot(builderx, provider));
-        }
-        // Entity Loot
-        else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
-        {
-            builder.modifyPools(builderx -> FOTLootManager.getPolarBearLoot(builderx, provider));
-        }
-        else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
-        {
-            builder.modifyPools(builderx -> FOTLootManager.getDolphinLoot(builderx, provider));
-        }
-        else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
-        {
-            builder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false));
-        }
-        else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
-        {
-            builder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true));
-        }
-        // Chests
-        else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-        {
-            builder.withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool()));
-        }
-        else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-        {
-            builder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
-        }
-        else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
-        {
-            builder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
-        }
-        else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
-        {
-            builder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool(), provider));
-        }
-        // Archaeology
-        else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-        {
-            builder.modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
-        }
     }
 
     @SuppressWarnings("deprecation")
@@ -141,6 +88,29 @@ public class CommonProxyNeoForge
         }
     }
 
+    @SubscribeEvent
+    public void onLootTableLoad(LootTableLoadEvent event)
+    {
+        var provider = event.getRegistries();
+        var table = event.getTable();
+        var id = event.getKey();
+
+        FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
+        {
+            if (id.equals(resourceKey))
+            {
+                injectLoot(table, function.apply(LootPool.lootPool(), provider).entries);
+            }
+        });
+        FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
+        {
+            if (id.equals(resourceKey))
+            {
+                table.addPool(function.apply(LootPool.lootPool(), provider).build());
+            }
+        });
+    }
+
     private void registerSpawnPlacement(RegisterSpawnPlacementsEvent event)
     {
         event.register(FOTEntities.SPLASHTAIL, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
@@ -172,5 +142,12 @@ public class CommonProxyNeoForge
     private void onAddPackFinders(AddPackFindersEvent event)
     {
         event.addPackFinders(FishOfThieves.id("simple_spawning_condition_pack"), PackType.SERVER_DATA, Component.translatable("dataPack.simple_spawning_condition_pack.name"), PackSource.FEATURE, false, Pack.Position.TOP);
+    }
+
+    private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> builder)
+    {
+        var pool = table.getPool("main");
+        pool.entries = Lists.newArrayList(pool.entries);
+        pool.entries.addAll(builder.build());
     }
 }
