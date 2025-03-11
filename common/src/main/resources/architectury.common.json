@@ -8,6 +8,9 @@
     ],
     "net/minecraft/class_10042": [
       "com/stevekung/fishofthieves/client/renderer/entity/state/LivingEntityRenderStateExtender"
+    ],
+    "net/minecraft/class_1297": [
+      "com/stevekung/fishofthieves/client/entity/FishPlaqueDisplay"
     ]
   }
 }

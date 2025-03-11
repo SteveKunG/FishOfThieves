@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.mixin.client;
+package com.stevekung.fishofthieves.mixin.client.entity;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
