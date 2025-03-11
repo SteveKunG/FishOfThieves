@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 
 public class SeeSkyPredicate implements BlockPredicate
 {
-    public static SeeSkyPredicate INSTANCE = new SeeSkyPredicate();
+    public static final SeeSkyPredicate INSTANCE = new SeeSkyPredicate();
     public static final MapCodec<SeeSkyPredicate> CODEC = MapCodec.unit(() -> INSTANCE);
 
     @Override
