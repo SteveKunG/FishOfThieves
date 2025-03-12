@@ -4,9 +4,9 @@ import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.entity.PartyFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -20,8 +20,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
-import me.shedaniel.autoconfig.AutoConfig;
 
 public class ClientProxyForge
 {
@@ -55,11 +53,7 @@ public class ClientProxyForge
 
     private void registerLayers(EntityRenderersEvent.AddLayers event)
     {
-        addHeadphoneLayer(event, EntityType.COD, HeadphoneModel.Scaleable.COD);
-        addHeadphoneLayer(event, EntityType.SALMON, HeadphoneModel.Scaleable.SALMON);
-        addHeadphoneLayer(event, EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH);
-        addHeadphoneLayer(event, EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH);
-        addHeadphoneLayer(event, EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE);
+        FishOfThievesClient.getHeadphone().forEach(entry -> addHeadphoneLayer(event, entry.entityType(), entry.scaleable()));
     }
 
     private void registerBlockColors(RegisterColorHandlersEvent.Block event)
@@ -73,9 +67,9 @@ public class ClientProxyForge
         event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
     }
 
-    private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)
+    private static <M extends EntityModel<LivingEntity>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<? extends LivingEntity> entityType, HeadphoneModel.Scaleable<LivingEntity> scaleable)
     {
-        LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
+        LivingEntityRenderer<LivingEntity, M> renderer = event.getRenderer(entityType);
 
         if (renderer != null)
         {

@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
-import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -15,7 +14,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.FoliageColor;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
@@ -48,29 +46,13 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRendererRegistry.register(entry.entityType(), entry.factory()));
 
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) ->
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> FishOfThievesClient.getHeadphone().forEach(entry ->
         {
-            if (entityType == EntityType.COD)
+            if (entityType == entry.entityType())
             {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.COD));
+                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), entry.scaleable()));
             }
-            else if (entityType == EntityType.SALMON)
-            {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.SALMON));
-            }
-            else if (entityType == EntityType.PUFFERFISH)
-            {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.PUFFERFISH));
-            }
-            else if (entityType == EntityType.TROPICAL_FISH)
-            {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TROPICAL_FISH));
-            }
-            else if (entityType == EntityType.TADPOLE)
-            {
-                registrationHelper.register(new HeadphoneLayer<>(entityRenderer, context.getModelSet(), HeadphoneModel.Scaleable.TADPOLE));
-            }
-        });
+        }));
 
         FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
     }

@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -25,9 +26,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
-
-import me.shedaniel.autoconfig.AutoConfig;
 
 public class FishOfThievesClient
 {
@@ -82,6 +82,19 @@ public class FishOfThievesClient
         BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
+    @SuppressWarnings("unchecked")
+    public static List<HeadphoneEntry<LivingEntity>> getHeadphone()
+    {
+        return Util.make(Lists.<HeadphoneEntry<?>>newArrayList(), list ->
+        {
+            list.add(new HeadphoneEntry<>(EntityType.COD, HeadphoneModel.Scaleable.COD));
+            list.add(new HeadphoneEntry<>(EntityType.SALMON, HeadphoneModel.Scaleable.SALMON));
+            list.add(new HeadphoneEntry<>(EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH));
+            list.add(new HeadphoneEntry<>(EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH));
+            list.add(new HeadphoneEntry<>(EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE));
+        }).stream().map(entry -> (HeadphoneEntry<LivingEntity>) entry).toList();
+    }
+
     private static void onConfigLoad()
     {
         PREVIOUS_CONFIG_VALUES.put("displayAllFishVariantInCreativeTab", FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab);
@@ -126,4 +139,5 @@ public class FishOfThievesClient
 
     public record ModelLayerEntry(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {}
     public record EntityRendererEntry<E extends Entity>(EntityType<? extends E> entityType, EntityRendererProvider<E> factory) {}
+    public record HeadphoneEntry<E extends LivingEntity>(EntityType<? extends E> entityType, HeadphoneModel.Scaleable<E> scaleable) {}
 }
