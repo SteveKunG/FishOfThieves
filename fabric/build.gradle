@@ -22,7 +22,9 @@ loom {
         }
         clientTerrablender {
             client()
-            programArgs project.usernameAndUUID
+            if (project.hasProperty("usernameAndUUID")) {
+                programArgs project.usernameAndUUID
+            }
             programArgs "--quickPlaySingleplayer", "TerraBlender"
         }
         gametest {
