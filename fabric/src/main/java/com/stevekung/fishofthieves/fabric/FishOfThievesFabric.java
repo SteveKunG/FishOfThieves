@@ -18,7 +18,6 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -26,7 +25,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
@@ -82,54 +80,20 @@ public class FishOfThievesFabric implements ModInitializer
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) ->
         {
-            // Gameplay
-            if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
+            FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(FOTLootManager::getFishermanGiftLoot);
-            }
-            else if (id.equals(BuiltInLootTables.FISHING_FISH))
+                if (id.equals(resourceKey))
+                {
+                    tableBuilder.withPool(function.apply(LootPool.lootPool()));
+                }
+            });
+            tableBuilder.modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(FOTLootManager::getFishingLoot);
-            }
-            // Entity Loot
-            else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
-            {
-                tableBuilder.modifyPools(FOTLootManager::getPolarBearLoot);
-            }
-            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
-            {
-                tableBuilder.modifyPools(FOTLootManager::getDolphinLoot);
-            }
-            else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), false));
-            }
-            else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), true));
-            }
-            // Chests
-            else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-            {
-                tableBuilder.withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-            {
-                tableBuilder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
-            {
-                tableBuilder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
-            {
-                tableBuilder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool()));
-            }
-            // Archaeology
-            else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-            {
-                tableBuilder.modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
-            }
+                if (id.equals(resourceKey))
+                {
+                    function.apply(builder);
+                }
+            }));
         });
 
         FabricDefaultAttributeRegistry.register(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes());
