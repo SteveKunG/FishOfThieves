@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 
@@ -9,8 +10,11 @@ import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.*;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+
+import net.minecraft.Util;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -181,7 +185,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 30, 20);
     }
 
-    public static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
+    private static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
     {
         switch (level)
         {
@@ -250,5 +254,17 @@ public class FishOfThieves
     public static CreativeModeTab.Builder getMainCreativeTabBuilder(CreativeModeTab.Builder builder)
     {
         return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTBlocks.COCONUT_LOG)).displayItems(FOTDisplayItems::displayMainItems);
+    }
+
+    public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
+    {
+        return Util.make(new Int2ObjectOpenHashMap<>(), map ->
+        {
+            for (var level = 1; level <= 5; level++)
+            {
+                var finalLevel = level;
+                map.put(level, list -> getFishermanTradesByLevel(finalLevel, list));
+            }
+        });
     }
 }
