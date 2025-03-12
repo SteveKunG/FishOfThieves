@@ -1,13 +1,9 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
-import com.stevekung.fishofthieves.client.model.*;
-import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
-import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
-import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -19,9 +15,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.FoliageColor;
 
@@ -51,20 +44,9 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         ColorProviderRegistry.ITEM.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
         ParticleRenderEvents.ALLOW_BLOCK_DUST_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
-        BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        FishOfThievesClient.registerBlockEntityRenderers();
 
-        EntityRendererRegistry.register(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.PONDIE, PondieRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.ISLEHOPPER, IslehopperRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.ANCIENTSCALE, AncientscaleRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.PLENTIFIN, PlentifinRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.WILDSPLASH, WildsplashRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.DEVILFISH, DevilfishRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.BATTLEGILL, BattlegillRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.WRECKER, WreckerRenderer::new);
-        EntityRendererRegistry.register(FOTEntities.STORMFISH, StormfishRenderer::new);
+        FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRendererRegistry.register(entry.entityType(), entry.factory()));
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) ->
         {
@@ -90,17 +72,6 @@ public class FishOfThievesFabricClient implements ClientModInitializer
             }
         });
 
-        EntityModelLayerRegistry.registerModelLayer(SplashtailModel.LAYER, SplashtailModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(PondieModel.LAYER, PondieModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(IslehopperModel.LAYER, IslehopperModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(AncientscaleModel.LAYER, AncientscaleModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(PlentifinModel.LAYER, PlentifinModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(WildsplashModel.LAYER, WildsplashModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(DevilfishModel.LAYER, DevilfishModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(BattlegillModel.LAYER, BattlegillModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(WreckerModel.LAYER, WreckerModel::createBodyLayer);
-        EntityModelLayerRegistry.registerModelLayer(StormfishModel.LAYER, StormfishModel::createBodyLayer);
-
-        EntityModelLayerRegistry.registerModelLayer(HeadphoneModel.LAYER, HeadphoneModel::createBodyLayer);
+        FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
     }
 }
