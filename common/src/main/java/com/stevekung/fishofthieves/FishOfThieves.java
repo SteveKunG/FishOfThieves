@@ -1,18 +1,18 @@
 package com.stevekung.fishofthieves;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import org.slf4j.Logger;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.registry.*;
-
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 import net.minecraft.Util;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
@@ -21,6 +21,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -28,6 +35,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.DispenserBlock;
+
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 public class FishOfThieves
 {
@@ -267,4 +278,42 @@ public class FishOfThieves
             }
         });
     }
+
+    public static Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> getEntityAttributes()
+    {
+        return Util.make(Maps.newHashMap(), map ->
+        {
+            map.put(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes());
+            map.put(FOTEntities.PONDIE, AbstractFish.createAttributes());
+            map.put(FOTEntities.ISLEHOPPER, AbstractFish.createAttributes());
+            map.put(FOTEntities.ANCIENTSCALE, AbstractFish.createAttributes());
+            map.put(FOTEntities.PLENTIFIN, AbstractFish.createAttributes());
+            map.put(FOTEntities.WILDSPLASH, AbstractFish.createAttributes());
+            map.put(FOTEntities.DEVILFISH, Devilfish.createAttributes());
+            map.put(FOTEntities.BATTLEGILL, Battlegill.createAttributes());
+            map.put(FOTEntities.WRECKER, Wrecker.createAttributes());
+            map.put(FOTEntities.STORMFISH, AbstractFish.createAttributes());
+        });
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<SpawnPlacementEntry<Mob>> getSpawnPlacements()
+    {
+        return Util.make(Lists.<SpawnPlacementEntry<?>>newArrayList(), list ->
+        {
+            list.add(new SpawnPlacementEntry<>(FOTEntities.SPLASHTAIL, WaterAnimal::checkSurfaceWaterAnimalSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.PONDIE, WaterAnimal::checkSurfaceWaterAnimalSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.ISLEHOPPER, Islehopper::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.ANCIENTSCALE, Ancientscale::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.PLENTIFIN, Plentifin::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.WILDSPLASH, Wildsplash::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.DEVILFISH, Devilfish::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.BATTLEGILL, Battlegill::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.WRECKER, Wrecker::checkSpawnRules));
+            list.add(new SpawnPlacementEntry<>(FOTEntities.STORMFISH, Stormfish::checkSpawnRules));
+        }).stream().map(entry -> (FishOfThieves.SpawnPlacementEntry<Mob>) entry).toList();
+    }
+
+    public record SpawnPlacementEntry<T extends Mob>(EntityType<T> type, SpawnPlacements.SpawnPredicate<T> spawnPredicate)
+    {}
 }
