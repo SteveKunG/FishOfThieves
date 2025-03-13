@@ -26,7 +26,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public T spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType)
+    public T fishofthieves$spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType)
     {
         Consumer<T> consumer;
 
@@ -40,14 +40,14 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
             {
             };
         }
-        return this.spawnByBucket(serverLevel, consumer, spawnType);
+        return this.fishofthieves$spawnByBucket(serverLevel, consumer, spawnType);
     }
 
     @Override
     @Nullable
-    public T spawnByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
+    public T fishofthieves$spawnByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
     {
-        var entity = this.createByBucket(level, consumer, spawnType);
+        var entity = this.fishofthieves$createByBucket(level, consumer, spawnType);
 
         if (entity != null)
         {
@@ -58,7 +58,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public T createByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
+    public T fishofthieves$createByBucket(ServerLevel level, @Nullable Consumer<T> consumer, MobSpawnType spawnType)
     {
         var entity = this.create(level);
 

@@ -97,7 +97,7 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     @Override
     public DamageSource getFallDamageSource(Entity entity)
     {
-        return entity.damageSources().fallingCoconut(entity);
+        return entity.damageSources().fishofthieves$fallingCoconut(entity);
     }
 
     @Override
