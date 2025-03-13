@@ -24,7 +24,7 @@ public abstract class MixinTadpoleRenderer extends MobRenderer<Tadpole, TadpoleM
     {
         super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
 
-        if (entity.isDancing())
+        if (entity.fishofthieves$isDancing())
         {
             var degree = -20.0f * Mth.sin(2.0f * ageInTicks);
             poseStack.mulPose(Axis.YP.rotationDegrees(degree));

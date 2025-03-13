@@ -34,7 +34,7 @@ public class HeadphoneLayer<T extends LivingEntity, M extends EntityModel<T>> ex
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        if (!livingEntity.isInvisible() && (livingEntity.getType() == EntityType.SALMON && livingEntity.hasCustomName() && ChatFormatting.stripFormatting(livingEntity.getName().getString()).equals("Sally") || livingEntity.isDancing()))
+        if (!livingEntity.isInvisible() && (livingEntity.getType() == EntityType.SALMON && livingEntity.hasCustomName() && ChatFormatting.stripFormatting(livingEntity.getName().getString()).equals("Sally") || livingEntity.fishofthieves$isDancing()))
         {
             poseStack.pushPose();
             this.scaleable.scale(livingEntity, poseStack);

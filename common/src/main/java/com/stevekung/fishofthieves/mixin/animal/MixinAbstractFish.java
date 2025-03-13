@@ -62,7 +62,7 @@ public abstract class MixinAbstractFish extends WaterAnimal implements PartyFish
     }
 
     @Override
-    public boolean isDancing()
+    public boolean fishofthieves$isDancing()
     {
         return this.dancing;
     }

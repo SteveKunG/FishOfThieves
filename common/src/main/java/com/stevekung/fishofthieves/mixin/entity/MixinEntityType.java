@@ -23,16 +23,16 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public Entity spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType)
+    public Entity fishofthieves$spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, MobSpawnType spawnType)
     {
-        return this.spawnByBucket(serverLevel, stack == null ? null : stack.getTag(), stack != null && stack.hasCustomHoverName() ? stack.getHoverName() : null, player, spawnType);
+        return this.fishofthieves$spawnByBucket(serverLevel, stack == null ? null : stack.getTag(), stack != null && stack.hasCustomHoverName() ? stack.getHoverName() : null, player, spawnType);
     }
 
     @Override
     @Nullable
-    public T spawnByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType)
+    public T fishofthieves$spawnByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType)
     {
-        var entity = this.createByBucket(level, compound, customName, player, spawnType);
+        var entity = this.fishofthieves$createByBucket(level, compound, customName, player, spawnType);
 
         if (entity != null)
         {
@@ -43,7 +43,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public T createByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType)
+    public T fishofthieves$createByBucket(ServerLevel level, @Nullable CompoundTag compound, @Nullable Component customName, @Nullable Player player, MobSpawnType spawnType)
     {
         var entity = this.create(level);
 

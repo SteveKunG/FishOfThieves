@@ -5,12 +5,12 @@ import net.minecraft.world.entity.Entity;
 
 public interface FOTDamageSources
 {
-    default DamageSource fallingMango(Entity entity)
+    default DamageSource fishofthieves$fallingMango(Entity entity)
     {
         throw new AssertionError("Implemented via mixin");
     }
 
-    default DamageSource fallingCoconut(Entity entity)
+    default DamageSource fishofthieves$fallingCoconut(Entity entity)
     {
         throw new AssertionError("Implemented via mixin");
     }

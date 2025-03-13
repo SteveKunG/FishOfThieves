@@ -20,8 +20,8 @@ public class WreckerRenderer extends ThievesFishRenderer<WreckerVariant, Wrecker
     public RotationRenderData setupRotations(Wrecker entity, boolean inWater)
     {
         var bodyRotBase = inWater ? 1.0f : 1.7f;
-        var bodyRotSpeed = entity.isDancing() ? inWater ? 2.0f : 1.0f : 0.6f;
-        var baseDegree = entity.isDancing() ? -20.0f : 4.0f;
+        var bodyRotSpeed = entity.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.6f;
+        var baseDegree = entity.fishofthieves$isDancing() ? -20.0f : 4.0f;
         return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(entity.isTrophy() ? 0.275f : 0.15f, 0.1f, 0.0f));
     }
 }
