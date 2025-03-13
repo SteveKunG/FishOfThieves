@@ -1,21 +1,14 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
-import com.stevekung.fishofthieves.client.model.*;
-import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
-import com.stevekung.fishofthieves.client.renderer.entity.*;
+import com.stevekung.fishofthieves.FishOfThievesClient;
+import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.entity.PartyFish;
-import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,48 +35,22 @@ public class ClientProxyNeoForge
 
     public void clientSetup(FMLClientSetupEvent event)
     {
-        BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        FishOfThievesClient.registerBlockEntityRenderers();
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)
     {
-        event.registerEntityRenderer(FOTEntities.SPLASHTAIL, SplashtailRenderer::new);
-        event.registerEntityRenderer(FOTEntities.PONDIE, PondieRenderer::new);
-        event.registerEntityRenderer(FOTEntities.ISLEHOPPER, IslehopperRenderer::new);
-        event.registerEntityRenderer(FOTEntities.ANCIENTSCALE, AncientscaleRenderer::new);
-        event.registerEntityRenderer(FOTEntities.PLENTIFIN, PlentifinRenderer::new);
-        event.registerEntityRenderer(FOTEntities.WILDSPLASH, WildsplashRenderer::new);
-        event.registerEntityRenderer(FOTEntities.DEVILFISH, DevilfishRenderer::new);
-        event.registerEntityRenderer(FOTEntities.BATTLEGILL, BattlegillRenderer::new);
-        event.registerEntityRenderer(FOTEntities.WRECKER, WreckerRenderer::new);
-        event.registerEntityRenderer(FOTEntities.STORMFISH, StormfishRenderer::new);
+        FishOfThievesClient.getEntityRenderers().forEach(entry -> event.registerEntityRenderer(entry.entityType(), entry.factory()));
     }
 
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
-        event.registerLayerDefinition(SplashtailModel.LAYER, SplashtailModel::createBodyLayer);
-        event.registerLayerDefinition(PondieModel.LAYER, PondieModel::createBodyLayer);
-        event.registerLayerDefinition(IslehopperModel.LAYER, IslehopperModel::createBodyLayer);
-        event.registerLayerDefinition(AncientscaleModel.LAYER, AncientscaleModel::createBodyLayer);
-        event.registerLayerDefinition(PlentifinModel.LAYER, PlentifinModel::createBodyLayer);
-        event.registerLayerDefinition(WildsplashModel.LAYER, WildsplashModel::createBodyLayer);
-        event.registerLayerDefinition(DevilfishModel.LAYER, DevilfishModel::createBodyLayer);
-        event.registerLayerDefinition(BattlegillModel.LAYER, BattlegillModel::createBodyLayer);
-        event.registerLayerDefinition(WreckerModel.LAYER, WreckerModel::createBodyLayer);
-        event.registerLayerDefinition(StormfishModel.LAYER, StormfishModel::createBodyLayer);
-
-        event.registerLayerDefinition(HeadphoneModel.LAYER, HeadphoneModel::createBodyLayer);
+        FishOfThievesClient.getModelLayers().forEach(entry -> event.registerLayerDefinition(entry.layerLocation(), entry.supplier()));
     }
 
     private void registerLayers(EntityRenderersEvent.AddLayers event)
     {
-        addHeadphoneLayer(event, EntityType.COD, HeadphoneModel.Scaleable.COD);
-        addHeadphoneLayer(event, EntityType.SALMON, HeadphoneModel.Scaleable.SALMON);
-        addHeadphoneLayer(event, EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH);
-        addHeadphoneLayer(event, EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH);
-        addHeadphoneLayer(event, EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE);
+        FishOfThievesClient.getHeadphone().forEach(entry -> addHeadphoneLayer(event, entry.entityType(), entry.scaleable()));
     }
 
     private void registerBlockColors(RegisterColorHandlersEvent.Block event)
@@ -97,9 +64,9 @@ public class ClientProxyNeoForge
         event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
     }
 
-    private static <E extends LivingEntity & PartyFish, M extends EntityModel<E>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<E> scaleable)
+    private static <M extends EntityModel<LivingEntity>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<? extends LivingEntity> entityType, HeadphoneModel.Scaleable<LivingEntity> scaleable)
     {
-        LivingEntityRenderer<E, M> renderer = event.getRenderer(entityType);
+        LivingEntityRenderer<LivingEntity, M> renderer = event.getRenderer(entityType);
 
         if (renderer != null)
         {

@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.fabric;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
-import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
@@ -28,17 +27,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
@@ -121,85 +116,29 @@ public class FishOfThievesFabric implements ModInitializer
 
         FuelRegistry.INSTANCE.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300);
 
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 1, list -> FishOfThieves.getFishermanTradesByLevel(1, list));
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 2, list -> FishOfThieves.getFishermanTradesByLevel(2, list));
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 3, list -> FishOfThieves.getFishermanTradesByLevel(3, list));
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 4, list -> FishOfThieves.getFishermanTradesByLevel(4, list));
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, 5, list -> FishOfThieves.getFishermanTradesByLevel(5, list));
+        FishOfThieves.getFishermanTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, level, factories::apply));
 
         LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {
-            // Gameplay
-            if (id.equals(BuiltInLootTables.FISHERMAN_GIFT))
+            FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(FOTLootManager::getFishermanGiftLoot);
-            }
-            else if (id.equals(BuiltInLootTables.FISHING_FISH))
+                if (id.equals(resourceKey))
+                {
+                    tableBuilder.withPool(function.apply(LootPool.lootPool(), provider));
+                }
+            });
+            tableBuilder.modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
             {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getFishingLoot(builder, provider));
-            }
-            // Entity Loot
-            else if (id.equals(EntityType.POLAR_BEAR.getDefaultLootTable()))
-            {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getPolarBearLoot(builder, provider));
-            }
-            else if (id.equals(EntityType.DOLPHIN.getDefaultLootTable()))
-            {
-                tableBuilder.modifyPools(builder -> FOTLootManager.getDolphinLoot(builder, provider));
-            }
-            else if (id.equals(EntityType.GUARDIAN.getDefaultLootTable()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, false));
-            }
-            else if (id.equals(EntityType.ELDER_GUARDIAN.getDefaultLootTable()))
-            {
-                tableBuilder.withPool(FOTLootManager.getGuardianLoot(LootPool.lootPool(), provider, true));
-            }
-            // Chests
-            else if (id.equals(BuiltInLootTables.VILLAGE_FISHER))
-            {
-                tableBuilder.withPool(FOTLootManager.getVillageFisherLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.BURIED_TREASURE))
-            {
-                tableBuilder.withPool(FOTLootManager.getBuriedTreasureLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.SHIPWRECK_SUPPLY))
-            {
-                tableBuilder.withPool(FOTLootManager.getShipwreckSupplyLoot(LootPool.lootPool()));
-            }
-            else if (id.equals(BuiltInLootTables.JUNGLE_TEMPLE))
-            {
-                tableBuilder.withPool(FOTLootManager.getJungleTempleLoot(LootPool.lootPool(), provider));
-            }
-            // Archaeology
-            else if (id.equals(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY) || id.equals(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY))
-            {
-                tableBuilder.modifyPools(FOTLootManager::getOceanRuinsArchaeologyLoot);
-            }
+                if (id.equals(resourceKey))
+                {
+                    function.apply(builder, provider);
+                }
+            }));
         });
 
-        FabricDefaultAttributeRegistry.register(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.PONDIE, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.ISLEHOPPER, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.ANCIENTSCALE, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.PLENTIFIN, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.WILDSPLASH, AbstractFish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.DEVILFISH, Devilfish.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.BATTLEGILL, Battlegill.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.WRECKER, Wrecker.createAttributes());
-        FabricDefaultAttributeRegistry.register(FOTEntities.STORMFISH, AbstractFish.createAttributes());
+        FishOfThieves.getEntityAttributes().forEach(FabricDefaultAttributeRegistry::register);
 
-        SpawnPlacements.register(FOTEntities.SPLASHTAIL, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(FOTEntities.PONDIE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(FOTEntities.ISLEHOPPER, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Islehopper::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.ANCIENTSCALE, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ancientscale::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.PLENTIFIN, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Plentifin::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.WILDSPLASH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wildsplash::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.DEVILFISH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Devilfish::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.BATTLEGILL, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Battlegill::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.WRECKER, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wrecker::checkSpawnRules);
-        SpawnPlacements.register(FOTEntities.STORMFISH, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Stormfish::checkSpawnRules);
+        FishOfThieves.getSpawnPlacements().forEach(entry -> SpawnPlacements.register(entry.type(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, entry.spawnPredicate()));
 
         BiomeModifications.addFeature(BiomeSelectors.tag(FOTTags.Biomes.HAS_FISH_BONE), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.FISH_BONE);
         BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_BEACH), GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_COCONUT);

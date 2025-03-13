@@ -13,12 +13,12 @@ public class MixinTadpoleModel
     @ModifyConstant(method = "setupAnim", constant = @Constant(floatValue = 0.25F))
     private float fishofthieves$modifyBaseDegree(float defaultValue, Tadpole tadpole)
     {
-        return tadpole.isDancing() ? 0.35f : defaultValue;
+        return tadpole.fishofthieves$isDancing() ? 0.35f : defaultValue;
     }
 
     @ModifyConstant(method = "setupAnim", constant = @Constant(floatValue = 0.3f))
     private float fishofthieves$modifyBodyRotSpeed(float defaultValue, Tadpole tadpole)
     {
-        return tadpole.isDancing() ? 3.0f : defaultValue;
+        return tadpole.fishofthieves$isDancing() ? 3.0f : defaultValue;
     }
 }
