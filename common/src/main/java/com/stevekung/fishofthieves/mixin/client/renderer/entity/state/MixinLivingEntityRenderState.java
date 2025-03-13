@@ -17,25 +17,25 @@ public class MixinLivingEntityRenderState implements LivingEntityRenderStateExte
     private boolean dancing;
 
     @Override
-    public boolean isSalmon()
+    public boolean fishofthieves$isSalmon()
     {
         return this.salmon;
     }
 
     @Override
-    public void setSalmon(boolean isSalmon)
+    public void fishofthieves$setSalmon(boolean isSalmon)
     {
         this.salmon = isSalmon;
     }
 
     @Override
-    public boolean isDancing()
+    public boolean fishofthieves$isDancing()
     {
         return this.dancing;
     }
 
     @Override
-    public void setDancing(boolean dancing)
+    public void fishofthieves$setDancing(boolean dancing)
     {
         this.dancing = dancing;
     }

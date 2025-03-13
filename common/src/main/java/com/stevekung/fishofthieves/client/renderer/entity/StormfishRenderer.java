@@ -19,8 +19,8 @@ public class StormfishRenderer<S extends ThievesFishRenderState> extends Thieves
     public RotationRenderData setupRotations(S entity, boolean inWater)
     {
         var bodyRotBase = inWater ? 1.0f : 1.7f;
-        var bodyRotSpeed = entity.isDancing() ? inWater ? 2.0f : 1.0f : 0.65f;
-        var baseDegree = entity.isDancing() ? -20.0f : 5.0f;
+        var bodyRotSpeed = entity.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.65f;
+        var baseDegree = entity.fishofthieves$isDancing() ? -20.0f : 5.0f;
         return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(entity.isTrophy ? 0.35f : 0.2f, 0.1f, 0.0f));
     }
 }

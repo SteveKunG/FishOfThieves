@@ -211,7 +211,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 
                     if (level instanceof ServerLevel serverLevel)
                     {
-                        var entityToSave = ((BucketableEntityType<?>) entityType).spawnByBucket(serverLevel, itemStack, null, EntitySpawnReason.BUCKET);
+                        var entityToSave = ((BucketableEntityType<?>) entityType).fishofthieves$spawnByBucket(serverLevel, itemStack, null, EntitySpawnReason.BUCKET);
 
                         // Load entity data from bucket then merge into the main tag
                         if (entityToSave instanceof Bucketable bucketable)

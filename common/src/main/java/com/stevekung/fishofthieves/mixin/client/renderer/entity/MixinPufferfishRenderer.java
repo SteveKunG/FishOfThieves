@@ -18,7 +18,7 @@ public class MixinPufferfishRenderer
     @Inject(method = "setupRotations", at = @At("HEAD"))
     private void fishofthieves$setupRotations(PufferfishRenderState renderState, PoseStack poseStack, float bodyRot, float scale, CallbackInfo info)
     {
-        if (renderState.isDancing())
+        if (renderState.fishofthieves$isDancing())
         {
             var degree = -20.0f * Mth.sin(2.0f * renderState.ageInTicks);
             poseStack.mulPose(Axis.YP.rotationDegrees(degree));
