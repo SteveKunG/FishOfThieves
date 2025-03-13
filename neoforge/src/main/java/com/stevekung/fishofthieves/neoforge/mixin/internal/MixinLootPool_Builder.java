@@ -57,42 +57,42 @@ public class MixinLootPool_Builder implements FabricLootPoolBuilder
     }
 
     @Override
-    public LootPool.Builder with(LootPoolEntryContainer entry)
+    public LootPool.Builder fishofthieves$with(LootPoolEntryContainer entry)
     {
         this.entries.add(entry);
         return this.self();
     }
 
     @Override
-    public LootPool.Builder with(Collection<? extends LootPoolEntryContainer> entries)
+    public LootPool.Builder fishofthieves$with(Collection<? extends LootPoolEntryContainer> entries)
     {
         this.entries.addAll(entries);
         return this.self();
     }
 
     @Override
-    public LootPool.Builder conditionally(LootItemCondition condition)
+    public LootPool.Builder fishofthieves$conditionally(LootItemCondition condition)
     {
         this.conditions.add(condition);
         return this.self();
     }
 
     @Override
-    public LootPool.Builder conditionally(Collection<? extends LootItemCondition> conditions)
+    public LootPool.Builder fishofthieves$conditionally(Collection<? extends LootItemCondition> conditions)
     {
         this.conditions.addAll(conditions);
         return this.self();
     }
 
     @Override
-    public LootPool.Builder apply(LootItemFunction function)
+    public LootPool.Builder fishofthieves$apply(LootItemFunction function)
     {
         this.functions.add(function);
         return this.self();
     }
 
     @Override
-    public LootPool.Builder apply(Collection<? extends LootItemFunction> functions)
+    public LootPool.Builder fishofthieves$apply(Collection<? extends LootItemFunction> functions)
     {
         this.functions.addAll(functions);
         return this.self();

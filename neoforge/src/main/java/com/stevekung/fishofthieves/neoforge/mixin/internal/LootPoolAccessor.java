@@ -30,7 +30,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 /**
- * Accesses loot pool fields for {@link FabricLootPoolBuilder#copyOf(LootPool)}.
+ * Accesses loot pool fields for {@link FabricLootPoolBuilder#fishofthieves$copyOf(LootPool)}.
  * These are normally available in the transitive access widener module.
  */
 @Mixin(LootPool.class)

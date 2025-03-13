@@ -43,7 +43,7 @@ public interface FabricLootPoolBuilder
 	 * @param entry the added loot entry
 	 * @return this builder
 	 */
-	default LootPool.Builder with(LootPoolEntryContainer entry)
+	default LootPool.Builder fishofthieves$with(LootPoolEntryContainer entry)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -54,7 +54,7 @@ public interface FabricLootPoolBuilder
 	 * @param entries the added loot entries
 	 * @return this builder
 	 */
-	default LootPool.Builder with(Collection<? extends LootPoolEntryContainer> entries)
+	default LootPool.Builder fishofthieves$with(Collection<? extends LootPoolEntryContainer> entries)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -65,7 +65,7 @@ public interface FabricLootPoolBuilder
 	 * @param condition the added condition
 	 * @return this builder
 	 */
-	default LootPool.Builder conditionally(LootItemCondition condition)
+	default LootPool.Builder fishofthieves$conditionally(LootItemCondition condition)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -76,7 +76,7 @@ public interface FabricLootPoolBuilder
 	 * @param conditions the added conditions
 	 * @return this builder
 	 */
-	default LootPool.Builder conditionally(Collection<? extends LootItemCondition> conditions)
+	default LootPool.Builder fishofthieves$conditionally(Collection<? extends LootItemCondition> conditions)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -87,7 +87,7 @@ public interface FabricLootPoolBuilder
 	 * @param function the applied loot function
 	 * @return this builder
 	 */
-	default LootPool.Builder apply(LootItemFunction function)
+	default LootPool.Builder fishofthieves$apply(LootItemFunction function)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -98,7 +98,7 @@ public interface FabricLootPoolBuilder
 	 * @param functions the applied loot functions
 	 * @return this builder
 	 */
-	default LootPool.Builder apply(Collection<? extends LootItemFunction> functions)
+	default LootPool.Builder fishofthieves$apply(Collection<? extends LootItemFunction> functions)
 	{
 		throw new UnsupportedOperationException("Implemented via mixin");
 	}
@@ -109,9 +109,9 @@ public interface FabricLootPoolBuilder
 	 * @param pool the loot pool
 	 * @return the copied builder
 	 */
-	static LootPool.Builder copyOf(LootPool pool)
+	static LootPool.Builder fishofthieves$copyOf(LootPool pool)
 	{
         var accessor = (LootPoolAccessor) pool;
-		return LootPool.lootPool().setRolls(accessor.fabric_getRolls()).setBonusRolls(accessor.fabric_getBonusRolls()).with(accessor.fabric_getEntries()).conditionally(accessor.fabric_getConditions()).apply(accessor.fabric_getFunctions());
+		return LootPool.lootPool().setRolls(accessor.fabric_getRolls()).setBonusRolls(accessor.fabric_getBonusRolls()).fishofthieves$with(accessor.fabric_getEntries()).fishofthieves$conditionally(accessor.fabric_getConditions()).fishofthieves$apply(accessor.fabric_getFunctions());
 	}
 }

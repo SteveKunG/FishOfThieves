@@ -86,7 +86,7 @@ public class MixinLootTable_Builder implements FabricLootTableBuilder
 
         while (iterator.hasNext())
         {
-            var poolBuilder = FabricLootPoolBuilder.copyOf(iterator.next());
+            var poolBuilder = FabricLootPoolBuilder.fishofthieves$copyOf(iterator.next());
             modifier.accept(poolBuilder);
             iterator.set(poolBuilder.build());
         }
