@@ -29,7 +29,7 @@ public class MixinDataFixers
     @Shadow
     static UnaryOperator<String> createRenamer(Map<String, String> renameMap)
     {
-        throw new AssertionError();
+        throw new AssertionError("Implemented via mixin");
     }
 
     @Unique

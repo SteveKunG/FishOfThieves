@@ -20,8 +20,8 @@ public class MixinLivingEntityRenderer
     {
         if (livingEntity instanceof PartyFish partyFish)
         {
-            renderState.setDancing(partyFish.isDancing());
+            renderState.fishofthieves$setDancing(partyFish.fishofthieves$isDancing());
         }
-        renderState.setSalmon(livingEntity.getType() == EntityType.SALMON);
+        renderState.fishofthieves$setSalmon(livingEntity.getType() == EntityType.SALMON);
     }
 }

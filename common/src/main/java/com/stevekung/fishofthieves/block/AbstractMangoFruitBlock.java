@@ -68,7 +68,7 @@ public class AbstractMangoFruitBlock extends Block implements BonemealableBlock,
     @Override
     public DamageSource getFallDamageSource(Entity entity)
     {
-        return entity.damageSources().fallingMango(entity);
+        return entity.damageSources().fishofthieves$fallingMango(entity);
     }
 
     @Override

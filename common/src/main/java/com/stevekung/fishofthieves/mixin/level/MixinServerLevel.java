@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.mixin.level;
 import java.util.Optional;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -46,6 +47,7 @@ public abstract class MixinServerLevel extends Level
         }
     }
 
+    @Unique
     private boolean isRainingAtFromBelowWater(BlockPos blockPos)
     {
         if (!this.isRaining() || !this.canSeeSkyFromBelowWater(blockPos) || this.getBrightness(LightLayer.SKY, blockPos) < 12)
@@ -56,6 +58,7 @@ public abstract class MixinServerLevel extends Level
         return biome.getPrecipitationAt(blockPos, this.getSeaLevel()) == Biome.Precipitation.RAIN;
     }
 
+    @Unique
     private Optional<BlockPos> findNearestStormfish(BlockPos blockPos)
     {
         var blockPos2 = this.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockPos);
