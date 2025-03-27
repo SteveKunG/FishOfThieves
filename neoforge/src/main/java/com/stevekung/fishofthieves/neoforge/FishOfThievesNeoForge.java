@@ -27,11 +27,6 @@ public class FishOfThievesNeoForge
 {
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
 
-    static
-    {
-        FOTBuiltInRegistries.SPAWN_CONDITION_TYPE = new RegistryBuilder<>(FOTRegistries.SPAWN_CONDITION_TYPE).sync(true).maxId(64).create();
-    }
-
     public FishOfThievesNeoForge()
     {
         var modEventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
@@ -56,12 +51,6 @@ public class FishOfThievesNeoForge
         {
             Aquaculture2.init();
         }
-    }
-
-    @SubscribeEvent
-    public void registerRegistries(NewRegistryEvent event)
-    {
-        event.register(FOTBuiltInRegistries.SPAWN_CONDITION_TYPE);
     }
 
     @SubscribeEvent
@@ -101,7 +90,7 @@ public class FishOfThievesNeoForge
         });
         event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
         event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, helper -> FOTEntitySubPredicate.init());
-        event.register(Registries.ITEM_SUB_PREDICATE_TYPE, helper -> FOTItemSubPredicates.init());
+        event.register(Registries.DATA_COMPONENT_PREDICATE_TYPE, helper -> FOTDataComponentPredicates.init());
         event.register(Registries.BLOCK_PREDICATE_TYPE, helper -> FOTBlockPredicateTypes.init());
         event.register(Registries.TREE_DECORATOR_TYPE, helper -> FOTTreeDecoratorTypes.init());
         event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> FOTFoliagePlacerTypes.init());

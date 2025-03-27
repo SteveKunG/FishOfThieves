@@ -19,6 +19,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -41,16 +42,16 @@ public class FOTBiomeModifiers
             .add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context ->
             {
-                context.register(key("add_splashtails"), spawn(context, FOTTags.Biomes.SPAWNS_SPLASHTAILS, new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, FishOfThieves.CONFIG.spawnRate.fishWeight.splashtail, 4, 8)));
-                context.register(key("add_pondies"), spawn(context, FOTTags.Biomes.SPAWNS_PONDIES, new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, FishOfThieves.CONFIG.spawnRate.fishWeight.pondie, 2, 4)));
-                context.register(key("add_islehoppers"), spawn(context, FOTTags.Biomes.SPAWNS_ISLEHOPPERS, new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, FishOfThieves.CONFIG.spawnRate.fishWeight.islehopper, 2, 4)));
-                context.register(key("add_ancientscales"), spawn(context, FOTTags.Biomes.SPAWNS_ANCIENTSCALES, new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, FishOfThieves.CONFIG.spawnRate.fishWeight.ancientscale, 4, 8)));
-                context.register(key("add_plentifins"), spawn(context, FOTTags.Biomes.SPAWNS_PLENTIFINS, new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, FishOfThieves.CONFIG.spawnRate.fishWeight.plentifin, 4, 8)));
-                context.register(key("add_wildsplash"), spawn(context, FOTTags.Biomes.SPAWNS_WILDSPLASH, new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, FishOfThieves.CONFIG.spawnRate.fishWeight.wildsplash, 2, 4)));
-                context.register(key("add_devilfish"), spawn(context, FOTTags.Biomes.SPAWNS_DEVILFISH, new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.devilfish, 1, 2)));
-                context.register(key("add_battlegills"), spawn(context, FOTTags.Biomes.SPAWNS_BATTLEGILLS, new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, FishOfThieves.CONFIG.spawnRate.fishWeight.battlegill, 2, 4)));
-                context.register(key("add_wreckers"), spawn(context, FOTTags.Biomes.SPAWNS_WRECKERS, new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8)));
-                context.register(key("add_stormfish"), spawn(context, FOTTags.Biomes.SPAWNS_STORMFISH, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8)));
+                context.register(key("add_splashtails"), spawn(context, FOTTags.Biomes.SPAWNS_SPLASHTAILS, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.SPLASHTAIL, 4, 8), FishOfThieves.CONFIG.spawnRate.fishWeight.splashtail)));
+                context.register(key("add_pondies"), spawn(context, FOTTags.Biomes.SPAWNS_PONDIES, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.PONDIE, 2, 4), FishOfThieves.CONFIG.spawnRate.fishWeight.pondie)));
+                context.register(key("add_islehoppers"), spawn(context, FOTTags.Biomes.SPAWNS_ISLEHOPPERS, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.ISLEHOPPER, 2, 4), FishOfThieves.CONFIG.spawnRate.fishWeight.islehopper)));
+                context.register(key("add_ancientscales"), spawn(context, FOTTags.Biomes.SPAWNS_ANCIENTSCALES, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 4, 8), FishOfThieves.CONFIG.spawnRate.fishWeight.ancientscale)));
+                context.register(key("add_plentifins"), spawn(context, FOTTags.Biomes.SPAWNS_PLENTIFINS, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 4, 8), FishOfThieves.CONFIG.spawnRate.fishWeight.plentifin)));
+                context.register(key("add_wildsplash"), spawn(context, FOTTags.Biomes.SPAWNS_WILDSPLASH, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.WILDSPLASH, 2, 4), FishOfThieves.CONFIG.spawnRate.fishWeight.wildsplash)));
+                context.register(key("add_devilfish"), spawn(context, FOTTags.Biomes.SPAWNS_DEVILFISH, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.DEVILFISH, 1, 2), FishOfThieves.CONFIG.spawnRate.fishWeight.devilfish)));
+                context.register(key("add_battlegills"), spawn(context, FOTTags.Biomes.SPAWNS_BATTLEGILLS, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 2, 4), FishOfThieves.CONFIG.spawnRate.fishWeight.battlegill)));
+                context.register(key("add_wreckers"), spawn(context, FOTTags.Biomes.SPAWNS_WRECKERS, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 4, 8), FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker)));
+                context.register(key("add_stormfish"), spawn(context, FOTTags.Biomes.SPAWNS_STORMFISH, new Weighted<>(new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, 4, 8), FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish)));
 
                 context.register(key("add_fish_bone"), addBiomeFeature(context, FOTTags.Biomes.HAS_FISH_BONE, FOTPlacements.FISH_BONE, GenerationStep.Decoration.VEGETAL_DECORATION));
                 context.register(key("add_coconut_tree"), addBiomeFeature(context, BiomeTags.IS_BEACH, FOTPlacements.TREES_COCONUT, GenerationStep.Decoration.VEGETAL_DECORATION));
@@ -98,7 +99,7 @@ public class FOTBiomeModifiers
         return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, FishOfThieves.id(key));
     }
 
-    private static BiomeModifier spawn(BootstrapContext<BiomeModifier> context, TagKey<Biome> tagKey, MobSpawnSettings.SpawnerData spawnerData)
+    private static BiomeModifier spawn(BootstrapContext<BiomeModifier> context, TagKey<Biome> tagKey, Weighted<MobSpawnSettings.SpawnerData> spawnerData)
     {
         var tag = context.lookup(Registries.BIOME).getOrThrow(tagKey);
         return BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(tag, spawnerData);

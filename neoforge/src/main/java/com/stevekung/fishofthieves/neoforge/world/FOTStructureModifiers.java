@@ -19,6 +19,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -81,7 +82,7 @@ public class FOTStructureModifiers
         }
     }
 
-    private static StructureModifier addStructureSpawns(MobSpawnSettings.SpawnerData spawnerData, TagKey<Structure> structureTagKey)
+    private static StructureModifier addStructureSpawns(Weighted<MobSpawnSettings.SpawnerData> spawnerData, TagKey<Structure> structureTagKey)
     {
         return new Modifier(structureTagKey, spawnerData);
     }
@@ -91,7 +92,7 @@ public class FOTStructureModifiers
         return ResourceKey.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIERS, FishOfThieves.id(key));
     }
 
-    public record Modifier(TagKey<Structure> structureTagKey, MobSpawnSettings.SpawnerData spawnerData) implements StructureModifier
+    public record Modifier(TagKey<Structure> structureTagKey, Weighted<MobSpawnSettings.SpawnerData> spawnerData) implements StructureModifier
     {
         private static final DeferredHolder<MapCodec<? extends StructureModifier>, MapCodec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
 
@@ -100,7 +101,7 @@ public class FOTStructureModifiers
         {
             if (phase == Phase.ADD && structure.is(this.structureTagKey))
             {
-                builder.getStructureSettings().getOrAddSpawnOverrides(this.spawnerData.type.getCategory()).addSpawn(this.spawnerData);
+                builder.getStructureSettings().getOrAddSpawnOverrides(this.spawnerData.value().type().getCategory()).addSpawn(this.spawnerData);
             }
         }
 
@@ -115,7 +116,7 @@ public class FOTStructureModifiers
             //@formatter:off
             return RecordCodecBuilder.mapCodec(builder -> builder.group(
                             STRUCTURE_LIST_CODEC.fieldOf("structure").forGetter(Modifier::structureTagKey),
-                            MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawnerData").forGetter(Modifier::spawnerData))
+                            Weighted.codec(MobSpawnSettings.SpawnerData.CODEC).fieldOf("spawnerData").forGetter(Modifier::spawnerData))
                     .apply(builder, Modifier::new));
             //@formatter:on
         }
