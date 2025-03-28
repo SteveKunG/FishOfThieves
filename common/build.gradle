@@ -12,6 +12,12 @@ dependencies {
 
 processResources {
     doFirst {
+        processCutoutModels()
+    }
+}
+
+void processCutoutModels() {
+    if (findProject(":forge") != null) {
         // Define source and destination directories
         File jsonDir = file("src/generated/resources/assets/fishofthieves/models/block")
         File modifiedModelDir = project(":forge").file("build/resources/main/assets/fishofthieves/models/block")

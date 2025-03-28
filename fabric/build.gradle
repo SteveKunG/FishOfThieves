@@ -1,6 +1,10 @@
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/fabric.gradle"
 
 sourceSets {
+    // Include resources from the common project
+    main.resources {
+        srcDir "../common/src/main/resources"
+    }
     gametest {
         runtimeClasspath += main.runtimeClasspath + main.output
         compileClasspath += main.compileClasspath + main.output
@@ -65,9 +69,6 @@ dependencies {
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
-
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.18.2"
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
@@ -85,6 +86,7 @@ sourcesJar {
     Jar commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     excludes = devExcludes
 }
 
