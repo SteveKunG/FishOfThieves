@@ -1,4 +1,8 @@
 {
+  "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
+  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+
   "text.autoconfig.fishofthieves.title": "Configuración de Fish of Thieves",
   "text.autoconfig.fishofthieves.category.general": "General",
   "text.autoconfig.fishofthieves.category.biome": "Bioma",
@@ -68,8 +72,10 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.wrecker.@Tooltip": "Peso de aparición de Destructores.",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "Pez Tormenta",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "Peso de aparición de Peces Tormenta.",
+
   "itemGroup.fishofthieves.main": "Fish of Thieves",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: Peces",
+
   "block.fishofthieves.fish_bone": "Hueso de Pez",
   "block.fishofthieves.oak_fish_plaque": "Placa de Pez de Roble",
   "block.fishofthieves.spruce_fish_plaque": "Placa de Pez de Abeto",
@@ -164,6 +170,7 @@
   "block.fishofthieves.tropical_monstera": "Monstera Tropical",
   "block.fishofthieves.prismarized_log": "Tronco Prismarizado",
   "block.fishofthieves.budding_guardian_fruit": "Fruta de Guardián en Flor",
+
   "item.fishofthieves.earthworms": "Lombrices",
   "item.fishofthieves.grubs": "Larvas",
   "item.fishofthieves.leeches": "Sanguijuelas",
@@ -225,6 +232,7 @@
   "item.fishofthieves.kraken_pottery_sherd": "Fragmento de Cerámica de Kraken",
   "item.fishofthieves.megalodon_pottery_sherd": "Fragmento de Cerámica de Megalodón",
   "item.fishofthieves.guardian_fruit": "Fruta de Guardián",
+
   "entity.fishofthieves.trophy": "Trofeo",
   "entity.fishofthieves.splashtail": "Cola de Salpicadura",
   "entity.fishofthieves.splashtail.ruby": "Rubí",
@@ -286,8 +294,11 @@
   "entity.fishofthieves.stormfish.wild": "Salvaje",
   "entity.fishofthieves.stormfish.shadow": "Sombra",
   "entity.fishofthieves.stormfish.twilight": "Crepúsculo",
+
   "biome.fishofthieves.tropical_island": "Isla Tropical",
+
   "effect.fishofthieves.guardian_stifle": "Asfixia de Guardián",
+
   "subtitles.entity.splashtail.death": "Cola de Salpicadura muere",
   "subtitles.entity.splashtail.flop": "Cola de Salpicadura chapotea",
   "subtitles.entity.splashtail.hurt": "Cola de Salpicadura se lastima",
@@ -322,8 +333,10 @@
   "subtitles.block.pomegranate_plant.pick_pomegranates": "Granadas se recogen",
   "subtitles.block.guardian_fruit.grow": "Fruta de Guardián crece",
   "subtitles.item.pomegranate.crush": "Granadas se aplastan",
+
   "death.attack.falling_mango": "%1$s estaba sentado debajo de un arbol, debajo de un arbol de mango.",
   "death.attack.falling_coconut": "%1$s hizo una competencia de dureza entre un coco y su cabeza.",
+
   "advancements.fot.root.title": "Fish of Thieves",
   "advancements.fot.root.description": "Pesca y Caza",
   "advancements.fot.fish_collectors.title": "Coleccionistas de Peces",
