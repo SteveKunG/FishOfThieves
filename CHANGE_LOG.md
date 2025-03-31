@@ -1,4 +1,4 @@
-_# Fish of Thieves: Fruits of Thieves
+# Fish of Thieves: Fruits of Thieves
 ## Overview
 - Added Fruits
 - Added New Blocks and Items
@@ -219,5 +219,5 @@ _# Fish of Thieves: Fruits of Thieves
 - Remove structure validation and update structure data version through datagen
 
 ## Credits
-- [Gucc1Guy](https://www.youtube.com/@realgucc1guy) as a Creative Design
-- [RottenKiwi2004](https://github.com/RottenKiwi2004) for helping me to make custom water dripping particles function._
+- [Gucc1Guy](https://www.youtube.com/@realgucc1guy) as a Creative Design.
+- [RottenKiwi2004](https://github.com/RottenKiwi2004) for helping me to make custom water dripping particles function.
