@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#minecraft:is_beach",
+  "biomes": "minecraft:beach",
   "features": "fishofthieves:trees_coconut",
   "step": "vegetal_decoration"
 }
