@@ -71,10 +71,10 @@ repositories {
 dependencies {
     //modRuntimeOnly "maven.modrinth:continuity:${continuity_version}" TODO
     //modRuntimeOnly "maven.modrinth:cyanide:${cyanide_fabric_version}" TODO
-    /*modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") { TODO
+    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
-    }*/
+    }
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
