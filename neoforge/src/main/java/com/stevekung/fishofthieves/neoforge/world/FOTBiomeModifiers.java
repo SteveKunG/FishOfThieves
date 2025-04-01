@@ -17,7 +17,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -53,7 +52,7 @@ public class FOTBiomeModifiers
                 context.register(key("add_stormfish"), spawn(context, FOTTags.Biomes.SPAWNS_STORMFISH, new MobSpawnSettings.SpawnerData(FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8)));
 
                 context.register(key("add_fish_bone"), addBiomeFeature(context, FOTTags.Biomes.HAS_FISH_BONE, FOTPlacements.FISH_BONE, GenerationStep.Decoration.VEGETAL_DECORATION));
-                context.register(key("add_coconut_tree"), addBiomeFeature(context, BiomeTags.IS_BEACH, FOTPlacements.TREES_COCONUT, GenerationStep.Decoration.VEGETAL_DECORATION));
+                context.register(key("add_coconut_tree"), addBiomeFeature(context, Biomes.BEACH, FOTPlacements.TREES_COCONUT, GenerationStep.Decoration.VEGETAL_DECORATION));
 
                 context.register(key("add_sparse_jungle_tropical_flower"), addBiomeFeature(context, Biomes.SPARSE_JUNGLE, FOTPlacements.SPARSE_JUNGLE_TROPICAL_FLOWER, GenerationStep.Decoration.VEGETAL_DECORATION));
                 context.register(key("add_sparse_jungle_fruit_trees"), addBiomeFeature(context, Biomes.SPARSE_JUNGLE, FOTPlacements.SPARSE_JUNGLE_FRUIT_TREES, GenerationStep.Decoration.VEGETAL_DECORATION));

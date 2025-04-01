@@ -11,7 +11,7 @@
 ## Fruits
 ### Coconut
 - Added Coconut Tree
-    - Generated in the Beach biome
+    - Generated in the warm Beach biome
 - Added Coconut Fruit
     - It can be falling from the tree if it has no support block or hit by projectiles
 - Added Coconut Fronds
