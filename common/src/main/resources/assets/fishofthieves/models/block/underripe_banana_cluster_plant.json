@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"textures": {
 		"top": "fishofthieves:block/underripe_banana_cluster_top",
 		"particle": "fishofthieves:block/underripe_banana_cluster_side",
