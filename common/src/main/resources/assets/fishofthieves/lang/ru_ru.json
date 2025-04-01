@@ -1,4 +1,8 @@
 {
+  "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
+  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+
   "text.autoconfig.fishofthieves.title": "Настройки Fish of Thieves",
   "text.autoconfig.fishofthieves.category.general": "Общее",
   "text.autoconfig.fishofthieves.category.biome": "Biome",
@@ -42,8 +46,10 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.wrecker.@Tooltip": "Вероятность появления кораблекрушил",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "Буревик",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "Вероятность появления буревиков",
+
   "itemGroup.fishofthieves.main": "Fish of Thieves",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: Fish",
+
   "block.fishofthieves.fish_bone": "Рыбий скелет",
   "block.fishofthieves.oak_fish_plaque": "Дубовая вывеска для рыбы",
   "block.fishofthieves.spruce_fish_plaque": "Еловая вывеска для рыбы",
@@ -138,6 +144,7 @@
   "block.fishofthieves.tropical_monstera": "Tropical Monstera",
   "block.fishofthieves.prismarized_log": "Prismarized Log",
   "block.fishofthieves.budding_guardian_fruit": "Budding Guardian Fruit",
+
   "item.fishofthieves.earthworms": "Земляные черви",
   "item.fishofthieves.grubs": "Личинки",
   "item.fishofthieves.leeches": "Пиявки",
@@ -199,6 +206,7 @@
   "item.fishofthieves.kraken_pottery_sherd": "Kraken Pottery Sherd",
   "item.fishofthieves.megalodon_pottery_sherd": "Megalodon Pottery Sherd",
   "item.fishofthieves.guardian_fruit": "Guardian Fruit",
+
   "entity.fishofthieves.trophy": "Рыба-трофей",
   "entity.fishofthieves.splashtail": "Брызгохвост",
   "entity.fishofthieves.splashtail.ruby": "Рубиновый",
@@ -260,8 +268,11 @@
   "entity.fishofthieves.stormfish.wild": "Дикий",
   "entity.fishofthieves.stormfish.shadow": "Призрачный",
   "entity.fishofthieves.stormfish.twilight": "Сумеречный",
+
   "biome.fishofthieves.tropical_island": "Tropical Island",
+
   "effect.fishofthieves.guardian_stifle": "Guardian Stifle",
+
   "subtitles.entity.splashtail.death": "Брызгохвост умирает",
   "subtitles.entity.splashtail.flop": "Брызгохвост плещется",
   "subtitles.entity.splashtail.hurt": "Брызгохвост ранен",
@@ -294,10 +305,12 @@
   "subtitles.entity.stormfish.hurt": "Буревик ранен",
   "subtitles.block.fish_plaque.rotate": "Щелчок вывески для рыбы",
   "subtitles.block.pomegranate_plant.pick_pomegranates": "Pomegranates pop",
-  "subtitles.item.pomegranate.crush": "Pomegranates crushes",
   "subtitles.block.guardian_fruit.grow": "Guardian Fruit grows",
+  "subtitles.item.pomegranate.crush": "Pomegranates crushes",
+
   "death.attack.falling_mango": "%1$s has discovered gravity under the mango tree.",
   "death.attack.falling_coconut": "%1$s crushed by nature's hardest nut.",
+
   "advancements.fot.root.title": "Рыба моря воров",
   "advancements.fot.root.description": "Рыболовство и охота",
   "advancements.fot.fish_collectors.title": "Профессиональный рыболов",
@@ -334,6 +347,7 @@
   "advancements.fot.crush_pomegranate.description": "Obtain Red Dyes using falling anvil to crush at least 8 Pomegranates",
   "advancements.fot.taste_the_deep.title": "Taste the Deep",
   "advancements.fot.taste_the_deep.description": "Eat a Guardian Fruit. Did I become a Guardian?",
+
   "tag.item.fishofthieves.thieves_fish": "Fish of Thieves's Fish",
   "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves's Bucket",
   "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves's Cooked Fish",
@@ -348,6 +362,7 @@
   "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "Fish Plaque Blacklist Bucket",
   "tag.item.fishofthieves.banana_clusters": "Banana Clusters",
   "tag.item.fishofthieves.coconut_logs": "Coconut Logs",
+
   "dataPack.simple_spawning_condition_pack.name": "Simple Spawning Condition",
   "dataPack.simple_spawning_condition_pack.description": "Enables Simple Spawning Condition for fish"
 }

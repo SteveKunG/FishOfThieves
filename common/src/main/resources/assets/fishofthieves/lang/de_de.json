@@ -1,4 +1,8 @@
 {
+  "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
+  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+
   "text.autoconfig.fishofthieves.title": "Fish of Thieves Config",
   "text.autoconfig.fishofthieves.category.general": "Allgemein",
   "text.autoconfig.fishofthieves.category.biome": "Biome",
@@ -42,8 +46,10 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.wrecker.@Tooltip": "Wrackschnapper-Spawngewicht",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "Sturmfisch",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "Sturmfisch-Spawngewicht",
+
   "itemGroup.fishofthieves.main": "Fish of Thieves",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: Fische",
+
   "block.fishofthieves.fish_bone": "Fischknochen",
   "block.fishofthieves.oak_fish_plaque": "Eichenholzfischtafel",
   "block.fishofthieves.spruce_fish_plaque": "Fichtenholzfischtafel",
@@ -138,6 +144,7 @@
   "block.fishofthieves.tropical_monstera": "Tropische Monstera",
   "block.fishofthieves.prismarized_log": "Prismatisierter Stamm",
   "block.fishofthieves.budding_guardian_fruit": "Wächterfruchtknospenblock",
+
   "item.fishofthieves.earthworms": "Regenwürmer",
   "item.fishofthieves.grubs": "Maden",
   "item.fishofthieves.leeches": "Egel",
@@ -199,6 +206,7 @@
   "item.fishofthieves.kraken_pottery_sherd": "Krakentöpferscherbe",
   "item.fishofthieves.megalodon_pottery_sherd": "Megalodontöpferscherbe",
   "item.fishofthieves.guardian_fruit": "Wächterfrucht",
+
   "entity.fishofthieves.trophy": "Trophähe",
   "entity.fishofthieves.splashtail": "Panschstieber",
   "entity.fishofthieves.splashtail.ruby": "Rubinroter Panschstieber",
@@ -260,8 +268,11 @@
   "entity.fishofthieves.stormfish.wild": "Wilder Sturmfisch",
   "entity.fishofthieves.stormfish.shadow": "Schattensturmfisch",
   "entity.fishofthieves.stormfish.twilight": "Dämmersturmfisch",
+
   "biome.fishofthieves.tropical_island": "Tropische Insel",
+
   "effect.fishofthieves.guardian_stifle": "Unterdrückung der Wächter",
+
   "subtitles.entity.splashtail.death": "Panschstieber stirbt",
   "subtitles.entity.splashtail.flop": "Panschstieber platscht",
   "subtitles.entity.splashtail.hurt": "Panschstieber nimmt Schaden",
@@ -296,8 +307,10 @@
   "subtitles.block.pomegranate_plant.pick_pomegranates": "Granatäpfel platzt",
   "subtitles.block.guardian_fruit.grow": "Wächterfrucht wächst",
   "subtitles.item.pomegranate.crush": "Granatäpfel wird zerquetscht",
+
   "death.attack.falling_mango": "%1$s hat unter einem Mangobaum die Schwerkraft entdeckt.",
   "death.attack.falling_coconut": "%1$s wurde von der härtesten Nuss zerquetscht.",
+
   "advancements.fot.root.title": "Fish of Thieves",
   "advancements.fot.root.description": "Angeln und Jagen",
   "advancements.fot.fish_collectors.title": "Fischsammler",
@@ -334,6 +347,7 @@
   "advancements.fot.crush_pomegranate.description": "Bekomme roten Farbstoff indem du mit einem Amboss mindestens 8 Granatäpfel zerquetscht",
   "advancements.fot.taste_the_deep.title": "Probiere die Tiefe",
   "advancements.fot.taste_the_deep.description": "Esse eine Wächterfrucht. Wurde ich ein Wächter?",
+
   "tag.item.fishofthieves.thieves_fish": "Fish of Thieves's Fish",
   "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves's Bucket",
   "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves's Cooked Fish",
@@ -348,6 +362,7 @@
   "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "Fish Plaque Blacklist Bucket",
   "tag.item.fishofthieves.banana_clusters": "Banana Clusters",
   "tag.item.fishofthieves.coconut_logs": "Coconut Logs",
+
   "dataPack.simple_spawning_condition_pack.name": "Simple Spawning Condition",
   "dataPack.simple_spawning_condition_pack.description": "Enables Simple Spawning Condition for fish"
 }

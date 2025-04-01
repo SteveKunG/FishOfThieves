@@ -1,4 +1,8 @@
 {
+  "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
+  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+
   "text.autoconfig.fishofthieves.title": "Fish of Thieves 설정",
   "text.autoconfig.fishofthieves.category.general": "일반",
   "text.autoconfig.fishofthieves.category.biome": "바이옴",
@@ -42,8 +46,10 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.wrecker.@Tooltip": "난파선어 생성 비중",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "폭풍어",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "폭풍어 생성 비중",
+
   "itemGroup.fishofthieves.main": "Fish of Thieves",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: 물고기",
+
   "block.fishofthieves.fish_bone": "물고기 뼈",
   "block.fishofthieves.oak_fish_plaque": "참나무 물고기 박제 액자",
   "block.fishofthieves.spruce_fish_plaque": "가문비나무 물고기 박제 액자",
@@ -138,6 +144,7 @@
   "block.fishofthieves.tropical_monstera": "열대 봉래초",
   "block.fishofthieves.prismarized_log": "프리즈마린화된 원목",
   "block.fishofthieves.budding_guardian_fruit": "싹 틔우는 가디언 열매",
+
   "item.fishofthieves.earthworms": "지렁이",
   "item.fishofthieves.grubs": "유충",
   "item.fishofthieves.leeches": "거머리",
@@ -199,6 +206,7 @@
   "item.fishofthieves.kraken_pottery_sherd": "크라켄 도자기 조각",
   "item.fishofthieves.megalodon_pottery_sherd": "메갈로돈 도자기 조각",
   "item.fishofthieves.guardian_fruit": "가디언 열매",
+
   "entity.fishofthieves.trophy": "트로피",
   "entity.fishofthieves.splashtail": "스플래시테일",
   "entity.fishofthieves.splashtail.ruby": "루비",
@@ -260,8 +268,11 @@
   "entity.fishofthieves.stormfish.wild": "야생",
   "entity.fishofthieves.stormfish.shadow": "그림자",
   "entity.fishofthieves.stormfish.twilight": "황혼",
+
   "biome.fishofthieves.tropical_island": "열대 섬",
+
   "effect.fishofthieves.guardian_stifle": "가디언의 억압",
+
   "subtitles.entity.splashtail.death": "스플래시테일 죽음",
   "subtitles.entity.splashtail.flop": "스플래시테일이 퍼덕거림",
   "subtitles.entity.splashtail.hurt": "스플래시테일 상처를 입음",
@@ -296,8 +307,10 @@
   "subtitles.block.pomegranate_plant.pick_pomegranates": "석류가 수확됨",
   "subtitles.block.guardian_fruit.grow": "가디언 열매가 자람",
   "subtitles.item.pomegranate.crush": "석류가 뭉개짐",
+
   "death.attack.falling_mango": "%1$s가 망고나무 아래에서 중력을 발견했습니다.",
   "death.attack.falling_coconut": "%1$s가 자연에서 가장 단단한 견과류에 눌렸습니다.",
+
   "advancements.fot.root.title": "Fish of Thieves",
   "advancements.fot.root.description": "낚시와 사냥",
   "advancements.fot.fish_collectors.title": "물고기 수집가",
@@ -334,6 +347,7 @@
   "advancements.fot.crush_pomegranate.description": "최소 8개의 석류에 떨어지는 모루를 사용해서 빨간색 염료를 얻으세요",
   "advancements.fot.taste_the_deep.title": "Taste the Deep",
   "advancements.fot.taste_the_deep.description": "Eat a Guardian Fruit. Did I become a Guardian?",
+
   "tag.item.fishofthieves.thieves_fish": "Fish of Thieves의 물고기",
   "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves의 양동이",
   "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves의 익힌 물고기",
@@ -348,6 +362,7 @@
   "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "물고기 박제 액자 및 양동이 블랙리스트",
   "tag.item.fishofthieves.banana_clusters": "바나나 군집",
   "tag.item.fishofthieves.coconut_logs": "야자나무 원목",
+
   "dataPack.simple_spawning_condition_pack.name": "Simple Spawning Condition",
   "dataPack.simple_spawning_condition_pack.description": "Enables Simple Spawning Condition for fish"
 }
