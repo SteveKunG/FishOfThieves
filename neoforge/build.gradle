@@ -14,12 +14,16 @@ loom {
             }
         }
         data {
-            forgeTemplate("data")
-            environment "data"
+            data()
             programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
             name "NeoForge Data Generation"
         }
     }
+}
+
+// Include resources from the common project
+sourceSets.main.resources {
+    srcDir "../common/src/main/resources"
 }
 
 repositories {
