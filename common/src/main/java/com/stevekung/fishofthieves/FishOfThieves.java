@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 
@@ -231,14 +232,9 @@ public class FishOfThieves
 
     public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
     {
-        return Util.make(new Int2ObjectOpenHashMap<>(), map ->
-        {
-            for (var level = 1; level <= 5; level++)
-            {
-                var finalLevel = level;
-                map.put(level, list -> getFishermanTradesByLevel(finalLevel, list));
-            }
-        });
+        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.range(1, 6)
+                .boxed()
+                .forEach(level -> map.put((int)level, list -> getFishermanTradesByLevel(level, list))));
     }
 
     public static Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> getEntityAttributes()

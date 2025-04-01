@@ -1,4 +1,8 @@
 {
+  "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
+  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+
   "text.autoconfig.fishofthieves.title": "盜賊之魚設定",
   "text.autoconfig.fishofthieves.category.general": "一般",
   "text.autoconfig.fishofthieves.category.biome": "Biome",
@@ -42,8 +46,10 @@
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.wrecker.@Tooltip": "破壞魚生成的權重。",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish": "暴風魚",
   "text.autoconfig.fishofthieves.option.spawnRate.fishWeight.stormfish.@Tooltip": "暴風魚生成的權重。",
+
   "itemGroup.fishofthieves.main": "盜賊之魚",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: Fish",
+
   "block.fishofthieves.fish_bone": "魚骨",
   "block.fishofthieves.oak_fish_plaque": "橡木魚牌匾",
   "block.fishofthieves.spruce_fish_plaque": "杉木魚牌匾",
@@ -138,6 +144,7 @@
   "block.fishofthieves.tropical_monstera": "Tropical Monstera",
   "block.fishofthieves.prismarized_log": "Prismarized Log",
   "block.fishofthieves.budding_guardian_fruit": "Budding Guardian Fruit",
+
   "item.fishofthieves.earthworms": "蚯蚓",
   "item.fishofthieves.grubs": "幼蟲",
   "item.fishofthieves.leeches": "水蛭",
@@ -199,6 +206,7 @@
   "item.fishofthieves.kraken_pottery_sherd": "Kraken Pottery Sherd",
   "item.fishofthieves.megalodon_pottery_sherd": "Megalodon Pottery Sherd",
   "item.fishofthieves.guardian_fruit": "Guardian Fruit",
+
   "entity.fishofthieves.trophy": "獎盃",
   "entity.fishofthieves.splashtail": "飛濺魚",
   "entity.fishofthieves.splashtail.ruby": "紅寶石",
@@ -260,8 +268,11 @@
   "entity.fishofthieves.stormfish.wild": "野生",
   "entity.fishofthieves.stormfish.shadow": "陰影",
   "entity.fishofthieves.stormfish.twilight": "暮光",
+
   "biome.fishofthieves.tropical_island": "Tropical Island",
+
   "effect.fishofthieves.guardian_stifle": "Guardian Stifle",
+
   "subtitles.entity.splashtail.death": "飛濺魚死亡",
   "subtitles.entity.splashtail.flop": "飛濺魚拍打",
   "subtitles.entity.splashtail.hurt": "飛濺魚受傷",
@@ -296,8 +307,10 @@
   "subtitles.block.pomegranate_plant.pick_pomegranates": "Pomegranates pop",
   "subtitles.block.guardian_fruit.grow": "Guardian Fruit grows",
   "subtitles.item.pomegranate.crush": "Pomegranates crushes",
+
   "death.attack.falling_mango": "%1$s has discovered gravity under the mango tree.",
   "death.attack.falling_coconut": "%1$s crushed by nature's hardest nut.",
+
   "advancements.fot.root.title": "盜賊之魚",
   "advancements.fot.root.description": "釣魚和狩獵",
   "advancements.fot.fish_collectors.title": "魚類收藏家",
@@ -334,6 +347,7 @@
   "advancements.fot.crush_pomegranate.description": "Obtain Red Dyes using falling anvil to crush at least 8 Pomegranates",
   "advancements.fot.taste_the_deep.title": "Taste the Deep",
   "advancements.fot.taste_the_deep.description": "Eat a Guardian Fruit. Did I become a Guardian?",
+
   "tag.item.fishofthieves.thieves_fish": "Fish of Thieves's Fish",
   "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves's Bucket",
   "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves's Cooked Fish",
@@ -348,6 +362,7 @@
   "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "Fish Plaque Blacklist Bucket",
   "tag.item.fishofthieves.banana_clusters": "Banana Clusters",
   "tag.item.fishofthieves.coconut_logs": "Coconut Logs",
+
   "dataPack.simple_spawning_condition_pack.name": "Simple Spawning Condition",
   "dataPack.simple_spawning_condition_pack.description": "Enables Simple Spawning Condition for fish"
 }

@@ -12,6 +12,12 @@ dependencies {
 
 processResources {
     doFirst {
+        processCutoutModels()
+    }
+}
+
+void processCutoutModels() {
+    if (findProject(":neoforge") != null) {
         // Define source and destination directories
         File jsonDir = file("src/generated/resources/assets/fishofthieves/models/block")
         File modifiedModelDir = project(":neoforge").file("build/resources/main/assets/fishofthieves/models/block")

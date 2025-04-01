@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 
@@ -28,66 +27,103 @@ public class LanguageSyncProvider implements DataProvider
         return this.provider.thenCompose(provider -> CompletableFuture.runAsync(() ->
         {
             var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
-            var mainTranslationJson = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/en_us.json"); // en_us.json file
-            var otherTranslations = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/"); // Scan for other translations
-            var mapper = new ObjectMapper();
+            var mainTranslationJson = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/en_us.json");
+            var otherTranslations = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/");
 
             try
             {
-                // Load the en_us.json while preserving key order
-                var mainJson = mapper.readTree(mainTranslationJson.toFile());
+                var mainJson = Files.readString(mainTranslationJson);
+                var lines = mainJson.split("\\R");
                 var orderedMainJson = Maps.<String, String>newLinkedHashMap();
-                mainJson.fields().forEachRemaining(entry -> orderedMainJson.put(entry.getKey(), entry.getValue().asText()));
+                var lineBreaks = Maps.<String, Boolean>newLinkedHashMap();
 
-                // Iterate through all JSON files in the directory
+                for (var i = 0; i < lines.length; i++)
+                {
+                    var line = lines[i].trim();
+
+                    if (line.isEmpty())
+                    {
+                        continue;
+                    }
+                    if (line.endsWith(",") && i < lines.length - 1)
+                    {
+                        line = line.substring(0, line.length() - 1);
+                    }
+                    if (line.contains(":"))
+                    {
+                        var parts = line.split(":", 2);
+                        orderedMainJson.put(parts[0].trim().replace("\"", ""), parts[1].trim().replace("\"", ""));
+                        lineBreaks.put(parts[0].trim().replace("\"", ""), i > 0 && lines[i - 1].trim().isEmpty());
+                    }
+                }
+
                 Files.list(otherTranslations).filter(path -> path.toString().endsWith(".json") && !path.toString().equals("en_us.json")).forEach(path ->
                 {
-                    if (!path.equals(mainTranslationJson))
+                    try
                     {
-                        try
+                        var translationJson = Files.readString(path);
+                        var translationLines = translationJson.split("\\R");
+                        var orderedTranslationJson = Maps.<String, String>newLinkedHashMap();
+
+                        for (var line : translationLines)
                         {
-                            // Load the current translation file while preserving key order
-                            var translationJson = mapper.readTree(path.toFile());
-                            var orderedTranslationJson = Maps.<String, String>newLinkedHashMap();
-                            translationJson.fields().forEachRemaining(entry -> orderedTranslationJson.put(entry.getKey(), entry.getValue().asText()));
-
-                            // Sync keys with main JSON file
-                            var modified = false;
-                            var updatedJson = new StringBuilder();
-                            updatedJson.append("{");
-
-                            for (var entry : orderedMainJson.entrySet())
+                            if (line.trim().isEmpty() || !line.contains(":"))
                             {
-                                var key = entry.getKey();
-
-                                if (orderedTranslationJson.containsKey(key))
-                                {
-                                    updatedJson.append(String.format("\n  \"%s\": \"%s\",", key, orderedTranslationJson.get(key)));
-                                }
-                                else
-                                {
-                                    updatedJson.append(String.format("\n  \"%s\": \"%s\",", key, entry.getValue()));
-                                    modified = true;
-                                }
+                                continue;
                             }
 
-                            if (updatedJson.charAt(updatedJson.length() - 1) == ',')
-                            {
-                                updatedJson.setCharAt(updatedJson.length() - 1, '\n');
-                            }
-                            updatedJson.append("}");
+                            var parts = line.trim().split(":", 2);
 
-                            // Save changes if any modifications were made
-                            if (modified)
+                            if (parts[1].trim().endsWith(","))
                             {
-                                Files.writeString(path, updatedJson.toString());
-                                FishOfThieves.LOGGER.info("Updated: {}", path.getFileName());
+                                parts[1] = parts[1].trim().substring(0, parts[1].trim().length() - 1);
+                            }
+                            orderedTranslationJson.put(parts[0].trim().replace("\"", ""), parts[1].trim().replace("\"", ""));
+                        }
+
+                        var modified = false;
+                        var updatedJson = new StringBuilder();
+                        updatedJson.append("{");
+
+                        var entrySet = orderedMainJson.entrySet();
+                        var iterator = entrySet.iterator();
+
+                        while (iterator.hasNext())
+                        {
+                            var entry = iterator.next();
+
+                            if (lineBreaks.get(entry.getKey()))
+                            {
+                                updatedJson.append("\n");
+                            }
+
+                            if (orderedTranslationJson.containsKey(entry.getKey()))
+                            {
+                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", entry.getKey(), orderedTranslationJson.get(entry.getKey())));
+                            }
+                            else
+                            {
+                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", entry.getKey(), entry.getValue()));
+                                modified = true;
+                            }
+
+                            if (iterator.hasNext())
+                            {
+                                updatedJson.append(",");
                             }
                         }
-                        catch (IOException e)
+
+                        updatedJson.append("\n}");
+
+                        if (modified)
                         {
-                            FishOfThieves.LOGGER.error("Failed to process: {}", path.getFileName());
+                            Files.writeString(path, updatedJson.toString());
+                            FishOfThieves.LOGGER.info("Updated: {}", path.getFileName());
                         }
+                    }
+                    catch (IOException e)
+                    {
+                        FishOfThieves.LOGGER.error("Failed to process: {}", path.getFileName());
                     }
                 });
             }
