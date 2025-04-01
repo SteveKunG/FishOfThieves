@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
+import com.stevekung.fishofthieves.neoforge.internal.lootapi.FabricLootTableBuilder;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.HolderLookup;
@@ -49,7 +50,7 @@ public class CommonProxyNeoForge
                 tableBuilder.withPool(function.apply(LootPool.lootPool(), provider));
             }
         });
-        tableBuilder.modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
+        ((FabricLootTableBuilder)tableBuilder).modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
         {
             if (id.equals(resourceKey))
             {

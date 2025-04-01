@@ -112,6 +112,11 @@ public interface FabricLootPoolBuilder
 	static LootPool.Builder fishofthieves$copyOf(LootPool pool)
 	{
         var accessor = (LootPoolAccessor) pool;
-		return LootPool.lootPool().setRolls(accessor.fabric_getRolls()).setBonusRolls(accessor.fabric_getBonusRolls()).fishofthieves$with(accessor.fabric_getEntries()).fishofthieves$conditionally(accessor.fabric_getConditions()).fishofthieves$apply(accessor.fabric_getFunctions());
+		return ((FabricLootPoolBuilder)((FabricLootPoolBuilder)((FabricLootPoolBuilder)LootPool.lootPool()
+				.setRolls(accessor.fabric_getRolls())
+				.setBonusRolls(accessor.fabric_getBonusRolls()))
+				.fishofthieves$with(accessor.fabric_getEntries()))
+				.fishofthieves$conditionally(accessor.fabric_getConditions()))
+				.fishofthieves$apply(accessor.fabric_getFunctions());
 	}
 }

@@ -14,8 +14,7 @@ loom {
             }
         }
         data {
-            forgeTemplate("data")
-            environment "data"
+            data()
             programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
             name "NeoForge Data Generation"
         }

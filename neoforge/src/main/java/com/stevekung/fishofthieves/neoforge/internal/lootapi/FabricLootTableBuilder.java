@@ -108,8 +108,8 @@ public interface FabricLootTableBuilder
         var accessor = (LootTableAccessor) table;
 
         builder.setParamSet(table.getParamSet());
-        builder.pools(accessor.fabric_getPools());
-        builder.apply(accessor.fabric_getFunctions());
+        ((FabricLootTableBuilder)builder).pools(accessor.fabric_getPools());
+        ((FabricLootTableBuilder)builder).apply(accessor.fabric_getFunctions());
         accessor.fabric_getRandomSequenceId().ifPresent(builder::setRandomSequence);
 
         return builder;
