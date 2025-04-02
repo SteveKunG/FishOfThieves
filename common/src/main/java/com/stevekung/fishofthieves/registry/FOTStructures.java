@@ -30,7 +30,7 @@ public class FOTStructures
     {
         var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(Structures.structure(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST), TerrainAdjustment.BEARD_THIN)));
-        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(0.85f, Structures.structure(holderGetter.getOrThrow(BiomeTags.IS_OCEAN), TerrainAdjustment.BEARD_THIN)));
+        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(0.85f, Structures.structure(holderGetter.getOrThrow(BiomeTags.IS_DEEP_OCEAN), TerrainAdjustment.BEARD_THIN)));
     }
 
     public static void init()
