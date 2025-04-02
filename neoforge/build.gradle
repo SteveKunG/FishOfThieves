@@ -41,6 +41,7 @@ dependencies {
 
     modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
     modRuntimeOnly "maven.modrinth:cyanide:${cyanide_neoforge_version}"
+    modRuntimeOnly "curse.maven:structure-void-toggle-357304:6047081"
 }
 
 processResources {

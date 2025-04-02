@@ -72,7 +72,7 @@ public class GuardianFruitBlock extends Block implements LiquidBlockContainer
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
         var blockState = level.getBlockState(pos.above());
-        return blockState.is(FOTBlocks.BUDDING_GUARDIAN_FRUIT);
+        return blockState.is(FOTBlocks.BUDDING_PRISMARIZED_LOG);
     }
 
     @Override
