@@ -119,7 +119,7 @@
 - Added Prismarized Log
     - Can be placed horizontal
     - It can be used as fuel
-- Added Budding Guardian Fruit
+- Added Budding Prismarized Log
     - 1/80 chance to grow a Guardian Fruit under the block
     - Must be in the water and cannot obtain via Silk Touch
     - Drop a Prismarized Log regardless of using Silk Touch

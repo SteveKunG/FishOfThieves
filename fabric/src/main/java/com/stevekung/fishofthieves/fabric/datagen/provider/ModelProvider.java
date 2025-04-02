@@ -223,7 +223,7 @@ public class ModelProvider extends FabricModelProvider
 
     private void createBuddingPrismarizedLog(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.BUDDING_GUARDIAN_FRUIT;
+        var block = FOTBlocks.BUDDING_PRISMARIZED_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG)).put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top"));
         var buddingModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_budding"),
                 TextureMapping.defaultTexture(Blocks.BUDDING_AMETHYST), generator.modelOutput);
@@ -264,7 +264,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Y)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, logTopModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
@@ -275,7 +275,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Y)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, buddingModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
@@ -286,7 +286,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Z)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, logSideModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
@@ -295,7 +295,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.X)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, logSideModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
@@ -307,7 +307,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Z)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, buddingModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
@@ -316,7 +316,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         Condition.condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.X)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         Variant.variant()
                                 .with(VariantProperties.MODEL, buddingModel)
                                 .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)

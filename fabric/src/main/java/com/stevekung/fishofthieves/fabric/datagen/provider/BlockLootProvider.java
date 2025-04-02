@@ -185,7 +185,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.TROPICAL_MONSTERA);
         this.dropPottedContents(FOTBlocks.POTTED_TROPICAL_MONSTERA);
         this.dropSelf(FOTBlocks.PRISMARIZED_LOG);
-        this.dropOther(FOTBlocks.BUDDING_GUARDIAN_FRUIT, FOTBlocks.PRISMARIZED_LOG);
+        this.dropOther(FOTBlocks.BUDDING_PRISMARIZED_LOG, FOTBlocks.PRISMARIZED_LOG);
         this.dropOther(FOTBlocks.GUARDIAN_FRUIT, FOTItems.GUARDIAN_FRUIT);
     }
 

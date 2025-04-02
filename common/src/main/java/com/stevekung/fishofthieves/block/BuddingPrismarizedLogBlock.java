@@ -20,11 +20,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 @SuppressWarnings("deprecation")
-public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock implements BonemealableBlock
+public class BuddingPrismarizedLogBlock extends FOTRotatedPillarBlock implements BonemealableBlock
 {
     public static final BooleanProperty BUD = BooleanProperty.create("bud");
 
-    public BuddingGuardianFruitBlock(BlockBehaviour.Properties properties)
+    public BuddingPrismarizedLogBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(BUD, false));

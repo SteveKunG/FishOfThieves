@@ -172,7 +172,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_STEM, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.PRISMARIZED_LOG, 5, 5);
-        FOTPlatform.addFlammableBlock(FOTBlocks.BUDDING_GUARDIAN_FRUIT, 5, 5);
+        FOTPlatform.addFlammableBlock(FOTBlocks.BUDDING_PRISMARIZED_LOG, 5, 5);
         FOTPlatform.addFlammableBlock(FOTBlocks.MANGO_LEAVES, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS_PLANT, 60, 100);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_SHOOTS, 60, 100);
