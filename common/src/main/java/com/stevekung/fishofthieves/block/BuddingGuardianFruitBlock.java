@@ -8,15 +8,19 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 @SuppressWarnings("deprecation")
-public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock
+public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock implements BonemealableBlock
 {
     public static final BooleanProperty BUD = BooleanProperty.create("bud");
 
@@ -35,9 +39,7 @@ public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock
 
             if (canFruitGrowAtState(blockState))
             {
-                var blockState2 = FOTBlocks.GUARDIAN_FRUIT.defaultBlockState();
-                level.setBlockAndUpdate(pos.below(), blockState2);
-                level.playSound(null, pos, FOTSoundEvents.GUARDIAN_FRUIT_GROW, SoundSource.BLOCKS, 1.0F, 1.0F);
+                this.growGuardianFruit(level, pos);
             }
         }
     }
@@ -51,5 +53,30 @@ public class BuddingGuardianFruitBlock extends FOTRotatedPillarBlock
     public static boolean canFruitGrowAtState(BlockState state)
     {
         return state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8;
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
+    {
+        return canFruitGrowAtState(level.getBlockState(pos.below()));
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        return random.nextInt(10) == 0;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        this.growGuardianFruit(level, pos);
+    }
+
+    private void growGuardianFruit(Level level, BlockPos pos)
+    {
+        level.setBlockAndUpdate(pos.below(), FOTBlocks.GUARDIAN_FRUIT.defaultBlockState());
+        level.playSound(null, pos, FOTSoundEvents.GUARDIAN_FRUIT_GROW, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.gameEvent(null, GameEvent.BLOCK_CHANGE, pos);
     }
 }
