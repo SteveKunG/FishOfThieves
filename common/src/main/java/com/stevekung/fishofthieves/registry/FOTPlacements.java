@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.feature.placement.ContinentsFilter;
+import com.stevekung.fishofthieves.feature.placement.VegetationFilter;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -8,6 +11,7 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -27,6 +31,7 @@ public class FOTPlacements
     public static final ResourceKey<PlacedFeature> PATCH_WILD_PINEAPPLE = createKey("patch_wild_pineapple");
     public static final ResourceKey<PlacedFeature> PATCH_MELON_TROPICAL = createKey("patch_melon_tropical");
     public static final ResourceKey<PlacedFeature> TREES_COCONUT = createKey("trees_coconut");
+    public static final ResourceKey<PlacedFeature> TREES_COCONUT_TROPICAL_ISLAND = createKey("trees_coconut_tropical_island");
     public static final ResourceKey<PlacedFeature> WILD_POMEGRANATE = createKey("wild_pomegranate");
     public static final ResourceKey<PlacedFeature> TALL_WILD_POMEGRANATE = createKey("tall_wild_pomegranate");
     public static final ResourceKey<PlacedFeature> PATCH_WILD_POMEGRANATE = createKey("patch_wild_pomegranate");
@@ -55,6 +60,11 @@ public class FOTPlacements
         PlacementUtils.register(context, TALL_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, PATCH_MELON_TROPICAL, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_MELON), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, TREES_COCONUT, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1F, 1)));
+        PlacementUtils.register(context, TREES_COCONUT_TROPICAL_ISLAND, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), ImmutableList.<PlacementModifier>builder()
+                .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(4, 0.1F, 1)))
+                .add(VegetationFilter.vegetation(UniformFloat.of(-0.2f, 0.0f)))
+                .add(ContinentsFilter.continents(UniformFloat.of(-1.09f, -1.0f)))
+                .build());
         PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), PlacementUtils.countExtra(8, 0.1F, 1), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
