@@ -4,13 +4,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTPlacementModifiers;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
-import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.NoiseRouter;
-import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
 public class VegetationFilter extends AbstractNoiseRouterFilter
