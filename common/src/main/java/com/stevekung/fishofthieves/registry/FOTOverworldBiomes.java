@@ -40,6 +40,7 @@ public class FOTOverworldBiomes extends OverworldBiomes
 
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_MELON_TROPICAL);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_TROPICAL_ISLAND);
+        biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TREES_COCONUT_TROPICAL_ISLAND);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.TROPICAL_FLOWER);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_TROPICAL_BUSH);
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FOTPlacements.PATCH_WILD_PINEAPPLE);
@@ -68,10 +69,10 @@ public class FOTOverworldBiomes extends OverworldBiomes
 
     public static void islandSpawns(MobSpawnSettings.Builder builder)
     {
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 8, 4, 4));
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 8, 4, 4));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PIG, 40, 4, 4));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 40, 4, 4));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 20, 1, 2));
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 2, 1, 3));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 4, 1, 3));
         BiomeDefaultFeatures.commonSpawns(builder);
     }
 }

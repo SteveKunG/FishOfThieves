@@ -94,6 +94,7 @@
       "minecraft:kelp_warm",
       "fishofthieves:patch_melon_tropical",
       "fishofthieves:trees_tropical_island",
+      "fishofthieves:trees_coconut_tropical_island",
       "fishofthieves:tropical_flower",
       "fishofthieves:patch_tropical_bush",
       "fishofthieves:patch_wild_pineapple",
@@ -120,13 +121,13 @@
         "type": "minecraft:pig",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 8
+        "weight": 40
       },
       {
         "type": "minecraft:chicken",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 8
+        "weight": 40
       },
       {
         "type": "minecraft:parrot",
@@ -138,7 +139,7 @@
         "type": "minecraft:ocelot",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 2
+        "weight": 4
       }
     ],
     "misc": [],

@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit"
+        "model": "fishofthieves:block/budding_prismarized_log"
       },
       "when": {
         "axis": "y"
@@ -10,7 +10,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "model": "fishofthieves:block/budding_prismarized_log_horizontal",
         "x": 90
       },
       "when": {
@@ -19,7 +19,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_horizontal",
+        "model": "fishofthieves:block/budding_prismarized_log_horizontal",
         "x": 90,
         "y": 90
       },
@@ -29,7 +29,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_top",
+        "model": "fishofthieves:block/budding_prismarized_log_top",
         "uvlock": true,
         "x": 90
       },
@@ -40,7 +40,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "model": "fishofthieves:block/budding_prismarized_log_budding",
         "uvlock": true,
         "x": 90
       },
@@ -51,7 +51,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_side",
+        "model": "fishofthieves:block/budding_prismarized_log_side",
         "uvlock": false,
         "x": 90
       },
@@ -62,7 +62,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_side",
+        "model": "fishofthieves:block/budding_prismarized_log_side",
         "uvlock": false,
         "x": 90,
         "y": 90
@@ -74,7 +74,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "model": "fishofthieves:block/budding_prismarized_log_budding",
         "uvlock": false,
         "x": 90
       },
@@ -85,7 +85,7 @@
     },
     {
       "apply": {
-        "model": "fishofthieves:block/budding_guardian_fruit_budding",
+        "model": "fishofthieves:block/budding_prismarized_log_budding",
         "uvlock": false,
         "x": 90,
         "y": 90

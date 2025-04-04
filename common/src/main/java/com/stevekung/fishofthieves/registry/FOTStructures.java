@@ -29,7 +29,7 @@ public class FOTStructures
     {
         var holderGetter = context.lookup(Registries.BIOME);
         context.register(Key.SEAPOST, new SeapostStructure(new Structure.StructureSettings.Builder(holderGetter.getOrThrow(FOTTags.Biomes.HAS_SEAPOST)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
-        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(0.85f, new Structure.StructureSettings.Builder(holderGetter.getOrThrow(BiomeTags.IS_OCEAN)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
+        context.register(Key.GUARDIAN_FRUIT_TREE, new GuardianFruitTreeStructure(0.85f, new Structure.StructureSettings.Builder(holderGetter.getOrThrow(BiomeTags.IS_DEEP_OCEAN)).terrainAdapation(TerrainAdjustment.BEARD_THIN).build()));
     }
 
     public static void init()
@@ -45,7 +45,7 @@ public class FOTStructures
         {
             var holderGetter = context.lookup(Registries.STRUCTURE);
             var structureSetLookup = context.lookup(Registries.STRUCTURE_SET);
-            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_3, 0.75f, 26384127, Optional.of(new StructurePlacement.ExclusionZone(structureSetLookup.getOrThrow(BuiltinStructureSets.OCEAN_MONUMENTS), 8)), 32, 8, RandomSpreadType.LINEAR)));
+            context.register(Key.SEAPOSTS, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.SEAPOST))), new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_3, 0.6f, 26384127, Optional.of(new StructurePlacement.ExclusionZone(structureSetLookup.getOrThrow(BuiltinStructureSets.OCEAN_MONUMENTS), 8)), 64, 32, RandomSpreadType.LINEAR)));
             context.register(Key.GUARDIAN_FRUIT_TREES, new StructureSet(List.of(StructureSet.entry(holderGetter.getOrThrow(Key.GUARDIAN_FRUIT_TREE))), new RandomSpreadStructurePlacement(Vec3i.ZERO, StructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_3, 0.8f, 91579157, Optional.empty(), 64, 16, RandomSpreadType.LINEAR)));
         }
     }
