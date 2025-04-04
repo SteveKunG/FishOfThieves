@@ -16,25 +16,23 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 public class VegetationFilter extends AbstractNoiseRouterFilter
 {
     public static final Codec<VegetationFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            FloatProvider.codec(-1.0f, 1.0f).fieldOf("vegetation").forGetter(filter -> filter.vegetation)
+            FloatProvider.codec(-1.0f, 1.0f).fieldOf("noise").forGetter(filter -> filter.floatProvider)
     ).apply(instance, VegetationFilter::new));
-    private final FloatProvider vegetation;
 
-    private VegetationFilter(FloatProvider vegetation)
+    private VegetationFilter(FloatProvider floatProvider)
     {
-        this.vegetation = vegetation;
+        super(floatProvider);
     }
 
-    public static VegetationFilter vegetation(UniformFloat uniformFloat)
+    public static VegetationFilter vegetation(FloatProvider floatProvider)
     {
-        return new VegetationFilter(uniformFloat);
+        return new VegetationFilter(floatProvider);
     }
 
     @Override
-    protected boolean shouldFilterWith(PlacementContext context, RandomSource random, BlockPos pos, NoiseRouter noiseRouter, DensityFunction.SinglePointContext singlePointContext)
+    protected DensityFunction getDensityFunction(NoiseRouter noiseRouter)
     {
-        var vegetation = noiseRouter.vegetation().compute(singlePointContext);
-        return vegetation >= this.vegetation.getMinValue() && vegetation <= this.vegetation.getMaxValue();
+        return noiseRouter.vegetation();
     }
 
     @Override

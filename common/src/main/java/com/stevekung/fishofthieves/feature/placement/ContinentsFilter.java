@@ -16,25 +16,23 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 public class ContinentsFilter extends AbstractNoiseRouterFilter
 {
     public static final Codec<ContinentsFilter> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            FloatProvider.codec(-2.0f, 1.0f).fieldOf("continents").forGetter(filter -> filter.continents)
+            FloatProvider.codec(-2.0f, 1.0f).fieldOf("noise").forGetter(filter -> filter.floatProvider)
     ).apply(instance, ContinentsFilter::new));
-    private final FloatProvider continents;
 
-    private ContinentsFilter(FloatProvider continents)
+    private ContinentsFilter(FloatProvider floatProvider)
     {
-        this.continents = continents;
+        super(floatProvider);
     }
 
-    public static ContinentsFilter continents(UniformFloat uniformFloat)
+    public static ContinentsFilter continents(FloatProvider floatProvider)
     {
-        return new ContinentsFilter(uniformFloat);
+        return new ContinentsFilter(floatProvider);
     }
 
     @Override
-    protected boolean shouldFilterWith(PlacementContext context, RandomSource random, BlockPos pos, NoiseRouter noiseRouter, DensityFunction.SinglePointContext singlePointContext)
+    protected DensityFunction getDensityFunction(NoiseRouter noiseRouter)
     {
-        var continents = noiseRouter.continents().compute(singlePointContext);
-        return continents >= this.continents.getMinValue() && continents <= this.continents.getMaxValue();
+        return noiseRouter.continents();
     }
 
     @Override

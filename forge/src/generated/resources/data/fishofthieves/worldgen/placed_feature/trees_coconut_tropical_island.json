@@ -33,7 +33,7 @@
     },
     {
       "type": "fishofthieves:vegetation_filter",
-      "vegetation": {
+      "noise": {
         "type": "minecraft:uniform",
         "value": {
           "max_exclusive": 0.0,
@@ -43,7 +43,7 @@
     },
     {
       "type": "fishofthieves:continents_filter",
-      "continents": {
+      "noise": {
         "type": "minecraft:uniform",
         "value": {
           "max_exclusive": -1.0,
