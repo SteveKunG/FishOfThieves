@@ -245,7 +245,7 @@ public class ModelProvider extends FabricModelProvider
 
     private void createBuddingPrismarizedLog(BlockModelGenerators generator)
     {
-        var block = FOTBlocks.BUDDING_GUARDIAN_FRUIT;
+        var block = FOTBlocks.BUDDING_PRISMARIZED_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG)).put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top"));
         var buddingModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_budding"),
                 TextureMapping.defaultTexture(Blocks.BUDDING_AMETHYST), generator.modelOutput);
@@ -282,7 +282,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Y)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         plainVariant(logTopModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.UV_LOCK)
@@ -292,7 +292,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Y)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         plainVariant(buddingModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.UV_LOCK)
@@ -302,7 +302,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Z)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         plainVariant(logSideModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.UV_LOCK)
@@ -310,7 +310,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.X)
-                                .term(BuddingGuardianFruitBlock.BUD, false),
+                                .term(BuddingPrismarizedLogBlock.BUD, false),
                         plainVariant(logSideModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.Y_ROT_90)
@@ -321,7 +321,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.Z)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         plainVariant(buddingModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.UV_LOCK)
@@ -329,7 +329,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(BlockStateProperties.AXIS, Direction.Axis.X)
-                                .term(BuddingGuardianFruitBlock.BUD, true),
+                                .term(BuddingPrismarizedLogBlock.BUD, true),
                         plainVariant(buddingModel)
                                 .with(BlockModelGenerators.X_ROT_90)
                                 .with(BlockModelGenerators.Y_ROT_90)

@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.structure;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 
 public class GuardianFruitTreeStructure extends Structure
 {
-    private static final String[] GUARDIAN_FRUIT_TREES = new String[] { "guardian_fruit_tree_1", "guardian_fruit_tree_2", "guardian_fruit_tree_3" };
+    private static final String[] GUARDIAN_FRUIT_TREES = IntStream.range(1, 6).mapToObj(value -> "guardian_fruit_tree_" + value).toArray(String[]::new);
     public static final MapCodec<GuardianFruitTreeStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     Codec.floatRange(0.0f, 1.0f).fieldOf("fruit_chance").forGetter(structure -> structure.fruitChance),

@@ -1,6 +1,6 @@
 {
   "type": "fishofthieves:guardian_fruit_tree",
-  "biomes": "#minecraft:is_ocean",
+  "biomes": "#minecraft:is_deep_ocean",
   "fruit_chance": 0.85,
   "spawn_overrides": {},
   "step": "surface_structures",
