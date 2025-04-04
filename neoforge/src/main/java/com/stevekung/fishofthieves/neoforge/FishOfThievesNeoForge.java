@@ -113,6 +113,7 @@ public class FishOfThievesNeoForge
             FOTDecoratedPotPatterns.putItemsToPotTexture();
         });
         event.register(Registries.MOB_EFFECT, helper -> FOTMobEffects.init());
+        event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
     }
 
