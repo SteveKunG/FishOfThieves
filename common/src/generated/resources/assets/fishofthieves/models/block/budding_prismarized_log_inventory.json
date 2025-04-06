@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "minecraft:block/budding_amethyst"
+    "all": "fishofthieves:block/budding_prismarized_log"
   }
 }
