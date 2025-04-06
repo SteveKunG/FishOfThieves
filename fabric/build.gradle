@@ -1,10 +1,6 @@
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/fabric.gradle"
 
 sourceSets {
-    // Include resources from the common project
-    main.resources {
-        srcDir "../common/src/main/resources"
-    }
     gametest {
         runtimeClasspath += main.runtimeClasspath + main.output
         compileClasspath += main.compileClasspath + main.output
