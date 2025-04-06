@@ -21,7 +21,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "minecraft:textures/block/tube_coral_block.png",
+    "background": "fishofthieves:gui/advancements/backgrounds/fot",
     "description": {
       "translate": "advancements.fot.root.description"
     },

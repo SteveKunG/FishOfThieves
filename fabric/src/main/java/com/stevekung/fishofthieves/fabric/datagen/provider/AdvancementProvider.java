@@ -84,7 +84,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .display(FOTItems.SPLASHTAIL,
                         Component.translatable("advancements.fot.root.title"),
                         Component.translatable("advancements.fot.root.description"),
-                        ResourceLocation.withDefaultNamespace("textures/block/tube_coral_block.png"),
+                        FishOfThieves.id("gui/advancements/backgrounds/fot"),
                         AdvancementType.TASK, false, false, false)
                 .addCriterion("in_water", PlayerTrigger.TriggerInstance.located(
                         LocationPredicate.Builder.location()
