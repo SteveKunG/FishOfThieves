@@ -40,7 +40,8 @@
     "item.MixinPotionBrewing",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
-    "level.block.state.MixinBlockBehaviour"
+    "level.block.state.MixinBlockBehaviour",
+    "level.block.state.MixinWoodType"
   ],
   "injectors": {
     "defaultRequire": 1
