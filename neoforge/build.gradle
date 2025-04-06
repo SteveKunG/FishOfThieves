@@ -21,11 +21,6 @@ loom {
     }
 }
 
-// Include resources from the common project
-sourceSets.main.resources {
-    srcDir "../common/src/main/resources"
-}
-
 repositories {
     maven {
         name = "Aquaculture 2"

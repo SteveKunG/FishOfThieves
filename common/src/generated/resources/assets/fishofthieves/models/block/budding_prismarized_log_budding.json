@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_single_face",
   "textures": {
-    "texture": "minecraft:block/budding_amethyst"
+    "texture": "fishofthieves:block/budding_prismarized_log"
   }
 }
