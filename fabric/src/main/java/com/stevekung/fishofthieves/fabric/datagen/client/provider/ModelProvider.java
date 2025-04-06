@@ -248,7 +248,7 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.BUDDING_PRISMARIZED_LOG;
         var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG)).put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.PRISMARIZED_LOG, "_top"));
         var buddingModel = ModelTemplates.SINGLE_FACE.create(ModelLocationUtils.getModelLocation(block, "_budding"),
-                TextureMapping.defaultTexture(Blocks.BUDDING_AMETHYST), generator.modelOutput);
+                TextureMapping.defaultTexture(FOTBlocks.BUDDING_PRISMARIZED_LOG), generator.modelOutput);
         var logModel = FOTModelTemplates.CUBE_NO_BOTTOM.create(ModelLocationUtils.getModelLocation(block),
                 textureMapping, generator.modelOutput);
         var logHorizontalModel = FOTModelTemplates.CUBE_NO_BOTTOM_HORIZONTAL.create(ModelLocationUtils.getModelLocation(block, "_horizontal"),
@@ -338,7 +338,7 @@ public class ModelProvider extends FabricModelProvider
         );
 
         generator.registerSimpleItemModel(block, ModelTemplates.CUBE_ALL.create(ModelLocationUtils.getModelLocation(block, "_inventory"),
-                TextureMapping.cube(Blocks.BUDDING_AMETHYST), generator.modelOutput));
+                TextureMapping.cube(FOTBlocks.BUDDING_PRISMARIZED_LOG), generator.modelOutput));
     }
 
     private void createTropicalMonstera(BlockModelGenerators generator)
