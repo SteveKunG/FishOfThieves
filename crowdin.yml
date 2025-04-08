@@ -1,3 +1,0 @@
-files:
-  - source: '**/assets/fishofthieves/lang/en_us.json'
-    translation: '**/assets/fishofthieves/lang/%locale_with_underscore%'

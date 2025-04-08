@@ -15,10 +15,9 @@
 ### Coconut
 
 - Added Coconut Tree
-  - Generated in the warm Beach biome
-  - Generated in the Tropical Island biome on the shoreline
+  - Generated in the warm Beach biome and Tropical Island biome at the shoreline
 - Added Coconut Fruit
-  - It can be falling from the tree if it has no support block or hit by projectiles
+  - It can be fallen from the tree if it has no support block or hit by projectiles
 - Added Coconut Fronds
   - It can be used to collect rainwater faster by placing Cauldron under the tail fronds
   - It can be placed vertical
@@ -35,7 +34,7 @@
   - Bees can be pollinating to make it grow faster
   - Can be harvested using Silk Touch
   - Using Bone Meal to make it grow faster, except for Underripe Banana Cluster
-  - It requires Banana Leaves on top of the tree to make it grow and while raining
+  - It requires Banana Leaves on top of the tree and rains to make it grow
   - It requires Sunlight to grow for Barely Ripe Banana Cluster
   - Can be destroyed when hit by projectiles
 - Added Banana Blossom
@@ -47,14 +46,13 @@
   - When using Bone Meal
     - On top of the tree will grow Banana Clusters, when raining it grows easier
     - At the bottom of the tree will grow Banana Shoots
-  - It can be found in the Tropical Island biome
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
 - Added Banana Shoots
   - Can grow into a Banana Tree
   - It can be placed in the Flower Pot
 - Added Banana Leaves
   - It can increase leaves by using Bone Meal
-  - It can be used to collect rainwater faster by placing Cauldron under the tail  leaves
+  - It can be used to collect rainwater faster by placing Cauldron under the tail leaves
   - Can be placed vertical
   - It can be occupied either the top half or the bottom half of a block
 - Added Banana (Item)
@@ -65,11 +63,10 @@
 ### Pineapple
 
 - Added Pineapple Crop
-  - It can be found in the Tropical Island biome
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
   - When destroyed for each state
     - Crop State: Drop a Pineapple Seeds
-    - Crown, Flowering: Drop a Pineapple Crown
+    - Crown and Flowering: Drop a Pineapple Crown
     - Underripe: Drop a Pineapple Crown, with Silk Touch drop an Underripe Pineapple Block
     - Ripe: Drop a Pineapple (Item), with Silk Touch drop a Pineapple Block
 - Added Pineapple Block
@@ -86,9 +83,8 @@
 ### Mango
 
 - Added Mango Tree
-  - Randomly generated Mango Fruit hanging around the leaves
-  - It can be found in the Tropical Island biome
-  - It can be found occasionally in the Sparse Jungle biome
+  - Generated Mango Fruit hanging around the leaves during world generation
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
 - Added Mango Fruit
   - It can be falling from the tree if it has no support block, reached Raw or Mature state, hit by projectiles
   - It can be obtained by using Bone Meal on the side of the Mango Leaves block in all directions except on top of the block
@@ -107,10 +103,10 @@
 - Added Pomegranate Plant
   - It can be placed in the Flower Pot
   - Using Shears to make it prevents further grow
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
 - Added Tall Pomegranate Plant
   - Using Shears to make it prevents further grow
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
 - Added Pomegranate (Item)
   - When crushed by a falling anvil, it transforms into Red Dye
   - It can be used to breed Pig
@@ -123,16 +119,21 @@
 ### Guardian Fruit
 
 - Added Guardian Fruit Tree
-  - Generate under the ocean floor
+  - Generated under the ocean floor
   - Has random chances to generate magma block and prismarized log on the floor
   - 85% chance to generate Guardian Fruit during world generation
 - Added Prismarized Log
-  - Can be placed horizontal
-  - It can be used as fuel
+  - Can be placed like log block
+  - Cannot strip or use it as fuel
+  - Has emissive rendering
 - Added Budding Prismarized Log
-  - 1/80 chance to grow a Guardian Fruit under the block
-  - Must be in the water and cannot obtain via Silk Touch
+  - 1/80 chance to grow a Guardian Fruit under the block and must be in the water
+  - Using Bone Meal under the block will grow a Guardian Fruit with 1/10 chance
   - Drop a Prismarized Log regardless of using Silk Touch
+  - Has emissive rendering
+- Added Guardian Fruit (Block)
+  - Drop a Guardian Fruit (item) regardless of using Silk Touch
+  - Has emissive rendering
 - Added Guardian Fruit (Item)
   - It can be used to breed Pig
   - When eating, it applies Guardian Stifle effect for 3 minutes to the player
@@ -147,28 +148,21 @@
 - Added Coconut Wood Sets
   - Planks, Slab, Stairs, Fence, Fence Gate, Pressure Plate, Button, Door, Trapdoor, Sign, Hanging Sign, Boat
   - New Coconut Fish Plaque
-  - New Small/Medium sized wood blocks
+  - New Small and Medium sized log blocks
 
 ### Decoration Blocks
 
 - Added Plumeria flowers
   - It has three colors, Pink, Light Blue and White
-  - It can be found occasionally in the Sparse Jungle biome
-  - It can be found in the Tropical Island biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
   - It can be used to craft dyes
 - Added Tropical Red Fern
   - Can be placed vertical
-  - It can be found in the Tropical Island biome
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
   - It can be placed in the Flower Pot
 - Added Tropical Monstera
-  - It can be found in the Tropical Island biome
-  - It can be found occasionally in the Sparse Jungle biome
+  - It can be found in the Tropical Island biome and occasionally in the Sparse Jungle biome
   - It can be placed in the Flower Pot
-- Added Prismarized Log
-  - Can be placed like log block
-  - Cannot strip or use it as fuel
-  - Has emissive rendering
 
 ### Fish Plaque
 
@@ -181,12 +175,12 @@
 
 ### Tropical Island
 
-- Generate near the Mushroom Island biome (Requires TerraBlender mod)
+- Generated near the Mushroom Island biome (Requires TerraBlender mod)
 - Has all fruits and flowers generated
 - Chicken, Pig, and Parrot can be found
 - Features are almost the same as the Sparse Jungle biome
-  - Without Jungle Bush, Big Oak trees, and fewer melons
   - Has sand trail randomly generated around the biome
+  - Without Jungle Bush, Big Oak trees, and fewer melons
 
 ## Entities
 
@@ -196,13 +190,13 @@
 
 - When the player has Guardian Stifle effect active
   - Randomly avoid the player
-  - Not targeted to attack the player
+  - Does not attack the player
 
 ### Elder Guardian
 
 - When the player has Guardian Stifle effect active
   - Randomly avoid the player
-  - Not targeted to attack the player
+  - Does not attack the player
 
 ### Islehopper
 
@@ -226,7 +220,7 @@
 ## Misc
 
 - Added Stormfish, Kraken, Megalodon Pottery Sherd
-  - Can be found in the Ocean Ruins
+  - Can be found in the Ocean Ruins suspicious sand or gravel
 - Added new fruits to Seapost Supply Barrel and removed vanilla food items
 - Added eight new advancements
 - Added Traditional Chinese translations (Thanks to [yichifauzi](https://github.com/yichifauzi))
@@ -235,6 +229,7 @@
 - Update German translations (Thanks to [Mari023](https://github.com/Mari023))
 - [Developer] Added GameTest for those who are interested
 - Simple item tags support for other mods
+- Reduce textures size using oxipng
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
 - Fixed loading entity data from bucket in fish plaque (1.20.1)
