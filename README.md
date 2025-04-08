@@ -16,7 +16,7 @@
 
 Ahoy pirates! Have you ever imagined what it would be like if the fish from the Sea of Thieves were brought into Minecraft? Here we are!
 
-This mod adds fish from Sea of Thieves with Minecrafty feels. Who doesn't want those fish in Minecraft?
+This mod adds fish from Sea of Thieves with Minecrafty style, Fruit trees and new plant life. A lot more to come!
 
 If you are a Sea of Thieves player and know a lot about fish lore, Feedbacks are welcome!
 
