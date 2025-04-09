@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.fabric.datagen.client.provider;
 
+import static net.minecraft.client.data.models.BlockModelGenerators.condition;
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -18,8 +20,6 @@ import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
-import static net.minecraft.client.data.models.BlockModelGenerators.condition;
-import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
@@ -126,7 +126,7 @@ public class ModelProvider extends FabricModelProvider
     @Deprecated //TODO Remove later
     private void generateSpawnEgg(ItemModelGenerators generator, Item spawnEggItem, int primaryColor, int secondaryColor)
     {
-        var resourceLocation = ModelLocationUtils.decorateItemModelLocation("template_spawn_egg");
+        var resourceLocation = FishOfThieves.id("item/template_spawn_egg");
         generator.itemModelOutput.accept(spawnEggItem, ItemModelUtils.tintedModel(resourceLocation, ItemModelUtils.constantTint(primaryColor), ItemModelUtils.constantTint(secondaryColor)));
     }
 
