@@ -168,8 +168,8 @@
   "block.fishofthieves.tall_pomegranate_plant": "ต้นทับทิมสูง",
   "block.fishofthieves.tropical_red_fern": "เฟิร์นแดงเขตร้อน",
   "block.fishofthieves.tropical_monstera": "มอนสเตอร่าเขตร้อน",
-  "block.fishofthieves.prismarized_log": "Prismarized Log",
-  "block.fishofthieves.budding_prismarized_log": "Budding Prismarized Log",
+  "block.fishofthieves.prismarized_log": "ท่อนไม้กลายเป็นพริสมารีน",
+  "block.fishofthieves.budding_prismarized_log": "ต้นหน่อท่อนไม้กลายเป็นพริสมารีน",
 
   "item.fishofthieves.earthworms": "ไส้เดือน",
   "item.fishofthieves.grubs": "ด้วง",
@@ -231,7 +231,7 @@
   "item.fishofthieves.stormfish_pottery_sherd": "เศษเครื่องปั้นดินเผาลายปลากระโทงวายุ",
   "item.fishofthieves.kraken_pottery_sherd": "เศษเครื่องปั้นดินเผาลายคราเคน",
   "item.fishofthieves.megalodon_pottery_sherd": "เศษเครื่องปั้นดินเผาลายเมกาโลดอน",
-  "item.fishofthieves.guardian_fruit": "Guardian Fruit",
+  "item.fishofthieves.guardian_fruit": "ผลไม้การ์เดี้ยน",
 
   "entity.fishofthieves.trophy": "ใหญ่ยักษ์",
   "entity.fishofthieves.splashtail": "ปลาสแปลชเทล",
@@ -297,7 +297,7 @@
 
   "biome.fishofthieves.tropical_island": "เกาะเขตร้อน",
 
-  "effect.fishofthieves.guardian_stifle": "Guardian Stifle",
+  "effect.fishofthieves.guardian_stifle": "ยับยั้งการ์เดี้ยน",
 
   "subtitles.entity.splashtail.death": "ปลาสแปลชเทลตาย",
   "subtitles.entity.splashtail.flop": "ปลาสแปลชเทลสะบัดหาง",
@@ -331,7 +331,7 @@
   "subtitles.entity.stormfish.hurt": "ปลากระโทงวายุเจ็บ",
   "subtitles.block.fish_plaque.rotate": "แผ่นปลาคลิก",
   "subtitles.block.pomegranate_plant.pick_pomegranates": "ทับทิมเด้ง",
-  "subtitles.block.guardian_fruit.grow": "Guardian Fruit grows",
+  "subtitles.block.guardian_fruit.grow": "ผลไม้การ์เดี้ยนโต",
   "subtitles.item.pomegranate.crush": "ทับทิมบด",
 
   "death.attack.falling_mango": "%1$s ได้ค้นพบแรงโน้มถ่วงใต้ต้นมะม่วง",
@@ -371,6 +371,6 @@
   "advancements.fot.ancient_myth.description": "ค้นพบเศษเครื่องปั้น ดินเผาลายคราเคน หรือเศษเครื่องปั้นดิน เผาลายเมกาโลดอน",
   "advancements.fot.crush_pomegranate.title": "สีแดงสด",
   "advancements.fot.crush_pomegranate.description": "ใช้ทั่งบดทับทิมอย่างน้อย 8 ลูกเพื่อรับสีย้อมสีแดง",
-  "advancements.fot.taste_the_deep.title": "Taste the Deep",
-  "advancements.fot.taste_the_deep.description": "Eat a Guardian Fruit. Did I become a Guardian?"
+  "advancements.fot.taste_the_deep.title": "ลิ้มรสความลึก",
+  "advancements.fot.taste_the_deep.description": "กินผลไม้การ์เดี้ยน ฉันกลายเป็นการ์เดี้ยนแล้วหรือ?"
 }
