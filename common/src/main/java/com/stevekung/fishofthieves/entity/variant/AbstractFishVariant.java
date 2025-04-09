@@ -166,6 +166,11 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
             this.register(context, key, name, customModelData, false, PriorityProvider.alwaysTrue(0), Optional.empty());
         }
 
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow)
+        {
+            this.register(context, key, name, customModelData, glow, PriorityProvider.alwaysTrue(0), Optional.empty());
+        }
+
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition condition)
         {
             this.register(context, key, name, customModelData, false, List.of(this.select(condition, 0)), Optional.empty());
@@ -175,6 +180,12 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, PriorityProvider.Selector<SpawnContext, SpawnCondition>... conditions)
         {
             this.register(context, key, name, customModelData, false, List.of(conditions), Optional.empty());
+        }
+
+        @SafeVarargs
+        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition>... conditions)
+        {
+            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)

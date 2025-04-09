@@ -26,8 +26,8 @@ import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.item.SelectItemModel;
-import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
+import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CustomModelDataProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -1264,19 +1264,19 @@ public class ModelProvider extends FabricModelProvider
     private <T extends AbstractFishVariant> void generateFlatItemWithFishVariant(Item item, ResourceKey<Registry<T>> registryKey, ItemModelGenerators generator)
     {
         var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(ModelLocationUtils.getModelLocation(item)), generator.modelOutput));
-        generator.itemModelOutput.accept(item, ItemModelUtils.select(new CustomModelDataProperty(0), unbaked, this.createFishVariantModel(item, registryKey, generator)));
+        generator.itemModelOutput.accept(item, ItemModelUtils.rangeSelect(new CustomModelDataProperty(0), unbaked, this.createFishVariantModel(item, registryKey, generator)));
     }
 
-    private <T extends AbstractFishVariant> List<SelectItemModel.SwitchCase<String>> createFishVariantModel(Item item, ResourceKey<Registry<T>> registryKey, ItemModelGenerators generator)
+    private <T extends AbstractFishVariant> List<RangeSelectItemModel.Entry> createFishVariantModel(Item item, ResourceKey<Registry<T>> registryKey, ItemModelGenerators generator)
     {
         var variants = this.provider.lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).sorted(Comparator.comparing(AbstractFishVariant::customModelData)).skip(1).toList();
         var suffixes = "_" + BuiltInRegistries.ITEM.getKey(item).getPath();
-        var list = Lists.<SelectItemModel.SwitchCase<String>>newArrayList();
+        var list = Lists.<RangeSelectItemModel.Entry>newArrayList();
 
         for (var variant : variants)
         {
             var fishModel = FishOfThieves.id(variant.name()).withPath(modelName -> "item/" + modelName + suffixes);
-            list.add(ItemModelUtils.when(String.valueOf(variant.customModelData()), ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(fishModel), generator.modelOutput))));
+            list.add(ItemModelUtils.override(ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(fishModel), generator.modelOutput)), (float) variant.customModelData()));
         }
         return list;
     }
