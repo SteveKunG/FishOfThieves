@@ -1,34 +1,34 @@
 {
   "model": {
-    "type": "minecraft:select",
-    "cases": [
+    "type": "minecraft:range_dispatch",
+    "entries": [
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sky_battlegill_bucket"
         },
-        "when": "1"
+        "threshold": 1.0
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/rum_battlegill_bucket"
         },
-        "when": "2"
+        "threshold": 2.0
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sand_battlegill_bucket"
         },
-        "when": "3"
+        "threshold": 3.0
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bittersweet_battlegill_bucket"
         },
-        "when": "4"
+        "threshold": 4.0
       }
     ],
     "fallback": {
