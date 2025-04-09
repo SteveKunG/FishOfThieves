@@ -142,8 +142,8 @@
   "block.fishofthieves.tall_pomegranate_plant": "ต้นทับทิมสูง",
   "block.fishofthieves.tropical_red_fern": "เฟิร์นแดงเขตร้อน",
   "block.fishofthieves.tropical_monstera": "มอนสเตอร่าเขตร้อน",
-  "block.fishofthieves.prismarized_log": "Prismarized Log",
-  "block.fishofthieves.budding_prismarized_log": "Budding Prismarized Log",
+  "block.fishofthieves.prismarized_log": "ท่อนไม้กลายเป็นพริสมารีน",
+  "block.fishofthieves.budding_prismarized_log": "ต้นหน่อท่อนไม้กลายเป็นพริสมารีน",
 
   "item.fishofthieves.earthworms": "ไส้เดือน",
   "item.fishofthieves.grubs": "ด้วง",
@@ -205,7 +205,7 @@
   "item.fishofthieves.stormfish_pottery_sherd": "เศษเครื่องปั้นดินเผาลายปลากระโทงวายุ",
   "item.fishofthieves.kraken_pottery_sherd": "เศษเครื่องปั้นดินเผาลายคราเคน",
   "item.fishofthieves.megalodon_pottery_sherd": "เศษเครื่องปั้นดินเผาลายเมกาโลดอน",
-  "item.fishofthieves.guardian_fruit": "Guardian Fruit",
+  "item.fishofthieves.guardian_fruit": "ผลไม้การ์เดี้ยน",
 
   "entity.fishofthieves.trophy": "ใหญ่ยักษ์",
   "entity.fishofthieves.splashtail": "ปลาสแปลชเทล",
@@ -271,7 +271,7 @@
 
   "biome.fishofthieves.tropical_island": "เกาะเขตร้อน",
 
-  "effect.fishofthieves.guardian_stifle": "Guardian Stifle",
+  "effect.fishofthieves.guardian_stifle": "ยับยั้งการ์เดี้ยน",
 
   "subtitles.entity.splashtail.death": "ปลาสแปลชเทลตาย",
   "subtitles.entity.splashtail.flop": "ปลาสแปลชเทลสะบัดหาง",
@@ -305,7 +305,7 @@
   "subtitles.entity.stormfish.hurt": "ปลากระโทงวายุเจ็บ",
   "subtitles.block.fish_plaque.rotate": "แผ่นปลาคลิก",
   "subtitles.block.pomegranate_plant.pick_pomegranates": "ทับทิมเด้ง",
-  "subtitles.block.guardian_fruit.grow": "Guardian Fruit grows",
+  "subtitles.block.guardian_fruit.grow": "ผลไม้การ์เดี้ยนโต",
   "subtitles.item.pomegranate.crush": "ทับทิมบด",
 
   "death.attack.falling_mango": "%1$s ได้ค้นพบแรงโน้มถ่วงใต้ต้นมะม่วง",
@@ -345,24 +345,24 @@
   "advancements.fot.ancient_myth.description": "ค้นพบเศษเครื่องปั้น ดินเผาลายคราเคน หรือเศษเครื่องปั้นดิน เผาลายเมกาโลดอน",
   "advancements.fot.crush_pomegranate.title": "สีแดงสด",
   "advancements.fot.crush_pomegranate.description": "ใช้ทั่งบดทับทิมอย่างน้อย 8 ลูกเพื่อรับสีย้อมสีแดง",
-  "advancements.fot.taste_the_deep.title": "Taste the Deep",
-  "advancements.fot.taste_the_deep.description": "Eat a Guardian Fruit. Did I become a Guardian?",
+  "advancements.fot.taste_the_deep.title": "ลิ้มรสความลึก",
+  "advancements.fot.taste_the_deep.description": "กินผลไม้การ์เดี้ยน ฉันกลายเป็นการ์เดี้ยนแล้วหรือ?",
 
-  "tag.item.fishofthieves.thieves_fish": "Fish of Thieves's Fish",
-  "tag.item.fishofthieves.thieves_fish_bucket": "Fish of Thieves's Bucket",
-  "tag.item.fishofthieves.cooked_thieves_fish": "Fish of Thieves's Cooked Fish",
-  "tag.item.fishofthieves.worms": "Worms",
-  "tag.item.fishofthieves.earthworms_food": "Earthworms",
-  "tag.item.fishofthieves.grubs_food": "Grubs",
-  "tag.item.fishofthieves.leeches_food": "Leeches",
-  "tag.item.fishofthieves.wooden_fish_plaque": "Wooden Fish Plaque",
-  "tag.item.fishofthieves.iron_frame_fish_plaque": "Iron Frame Fish Plaque",
-  "tag.item.fishofthieves.golden_frame_fish_plaque": "Golden Frame Fish Plaque",
-  "tag.item.fishofthieves.gilded_frame_fish_plaque": "Gilded Frame Fish Plaque",
-  "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "Fish Plaque Blacklist Bucket",
-  "tag.item.fishofthieves.banana_clusters": "Banana Clusters",
-  "tag.item.fishofthieves.coconut_logs": "Coconut Logs",
+  "tag.item.fishofthieves.thieves_fish": "ปลาฟิชออฟธีฟส์",
+  "tag.item.fishofthieves.thieves_fish_bucket": "ถังปลาฟิชออฟธีฟส์",
+  "tag.item.fishofthieves.cooked_thieves_fish": "ปลาปรุงสุกฟิชออฟธีฟส์",
+  "tag.item.fishofthieves.worms": "หนอน",
+  "tag.item.fishofthieves.earthworms_food": "ไส้เดือน",
+  "tag.item.fishofthieves.grubs_food": "ด้วง",
+  "tag.item.fishofthieves.leeches_food": "ปลิง",
+  "tag.item.fishofthieves.wooden_fish_plaque": "แผ่นปลาไม้",
+  "tag.item.fishofthieves.iron_frame_fish_plaque": "แผ่นปลากรอบเหล็ก",
+  "tag.item.fishofthieves.golden_frame_fish_plaque": "แผ่นปลากรอบทอง",
+  "tag.item.fishofthieves.gilded_frame_fish_plaque": "แผ่นปลาฉาบทอง",
+  "tag.item.fishofthieves.fish_plaque_bucket_blacklist": "ถังแบล็คลิสต์แผ่นปลา",
+  "tag.item.fishofthieves.banana_clusters": "หวีกล้วย",
+  "tag.item.fishofthieves.coconut_logs": "ท่อนไม้มะพร้าว",
 
-  "dataPack.simple_spawning_condition_pack.name": "Simple Spawning Condition",
-  "dataPack.simple_spawning_condition_pack.description": "Enables Simple Spawning Condition for fish"
+  "dataPack.simple_spawning_condition_pack.name": "เงื่อนไขการสปอนแบบง่าย",
+  "dataPack.simple_spawning_condition_pack.description": "เปิดใช้งานเงื่อนไขการสปอนแบบง่ายสำหรับปลา"
 }
