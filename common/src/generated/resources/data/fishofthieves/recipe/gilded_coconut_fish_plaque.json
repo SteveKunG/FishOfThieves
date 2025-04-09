@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "gilded_fish_plaque",
+  "key": {
+    "E": "minecraft:emerald",
+    "F": "fishofthieves:coconut_fish_plaque",
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "GEG",
+    "RFR",
+    "GEG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "fishofthieves:gilded_coconut_fish_plaque"
+  }
+}

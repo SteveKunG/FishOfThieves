@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_fish_plaque",
+  "key": {
+    "F": "minecraft:item_frame",
+    "P": "fishofthieves:coconut_planks"
+  },
+  "pattern": [
+    "PPP",
+    "PFP",
+    "PPP"
+  ],
+  "result": {
+    "count": 6,
+    "id": "fishofthieves:coconut_fish_plaque"
+  }
+}
