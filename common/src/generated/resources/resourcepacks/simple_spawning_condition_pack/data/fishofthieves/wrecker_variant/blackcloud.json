@@ -1,5 +1,6 @@
 {
   "custom_model_data": 2,
+  "glow_texture": "fishofthieves:entity/wrecker/blackcloud_glow",
   "name": "blackcloud",
   "texture": "fishofthieves:entity/wrecker/blackcloud"
 }

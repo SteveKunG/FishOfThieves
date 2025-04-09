@@ -26,9 +26,9 @@ public class WreckerVariants
         var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, ROSE, "rose", 0);
-        registerContext.register(context, SUN, "sun", 1, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build());
-        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build());
-        registerContext.register(context, SNOW, "snow", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
+        registerContext.register(context, SUN, "sun", 1, true, AllOfCondition.allOf(DayCondition.day(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, true, AllOfCondition.allOf(RainingCondition.raining().thundering(true), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, SNOW, "snow", 3, true, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))).and(RandomChanceCondition.chance(10))).build());
         registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(1.0d))).build());
     }
 
@@ -36,9 +36,9 @@ public class WreckerVariants
     {
         var registerContext = AbstractFishVariant.RegisterContext.create("wrecker", WreckerVariant::new);
         registerContext.register(context, ROSE, "rose", 0);
-        registerContext.register(context, SUN, "sun", 1);
-        registerContext.register(context, BLACKCLOUD, "blackcloud", 2);
-        registerContext.register(context, SNOW, "snow", 3, ProbabilityCondition.defaultRareProbablity().build());
+        registerContext.register(context, SUN, "sun", 1, true);
+        registerContext.register(context, BLACKCLOUD, "blackcloud", 2, true);
+        registerContext.register(context, SNOW, "snow", 3, true, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, MOON, "moon", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
     }
 
