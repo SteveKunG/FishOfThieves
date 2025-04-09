@@ -1,5 +1,6 @@
 {
   "custom_model_data": 3,
+  "glow_texture": "fishofthieves:entity/wrecker/snow_glow",
   "name": "snow",
   "spawn_settings": {
     "entity": [
