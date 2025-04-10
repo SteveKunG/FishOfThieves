@@ -62,7 +62,7 @@ public class FOTItem extends Item
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(0)), List.of()));
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, FOTItem.createCustomModelData(0));
         }
     }
 
@@ -101,16 +101,25 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess().lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(variant.customModelData())), List.of())));
+                Util.getRandomSafe(level.registryAccess()
+                                .lookupOrThrow(registryKey).listElements()
+                                .map(Holder.Reference::value)
+                                .filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource)
+                        .ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, createCustomModelData(variant.customModelData())));
             }
         }
         return itemStack;
     }
 
+    public static CustomModelData createCustomModelData(int index)
+    {
+        return new CustomModelData(List.of((float) index), List.of(), List.of(), List.of());
+    }
+
     private static ItemStack create(Item item, int index)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(index)), List.of()));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, createCustomModelData(index));
         return itemStack;
     }
 }

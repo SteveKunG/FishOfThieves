@@ -1,12 +1,12 @@
 package com.stevekung.fishofthieves.entity;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.Holder;
@@ -24,7 +24,6 @@ import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, VariantHolder<Holder<T>>
@@ -66,7 +65,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     {
         if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
         {
-            bucket.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(this.getVariant().value().customModelData())), List.of()));
+            bucket.set(DataComponents.CUSTOM_MODEL_DATA, FOTItem.createCustomModelData(this.getVariant().value().customModelData()));
         }
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->

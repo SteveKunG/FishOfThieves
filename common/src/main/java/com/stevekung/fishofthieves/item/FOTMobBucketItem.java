@@ -22,7 +22,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.level.material.Fluid;
 
 public class FOTMobBucketItem extends MobBucketItem
@@ -43,7 +42,7 @@ public class FOTMobBucketItem extends MobBucketItem
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(0)), List.of()));
+            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, FOTItem.createCustomModelData(0));
         }
     }
 
@@ -102,7 +101,7 @@ public class FOTMobBucketItem extends MobBucketItem
     private static ItemStack create(Item item, AbstractFishVariant variant)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(String.valueOf(variant.customModelData())), List.of()));
+        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, FOTItem.createCustomModelData(variant.customModelData()));
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(variant.name()).toString()));
         return itemStack;
     }
