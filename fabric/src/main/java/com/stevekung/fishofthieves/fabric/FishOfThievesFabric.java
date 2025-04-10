@@ -100,7 +100,6 @@ public class FishOfThievesFabric implements ModInitializer
         FOTMobEffects.init();
         FOTPlacementModifiers.init();
 
-        FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
 
         FOTGrassColorModifier.TROPICAL_ISLAND = ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FISHOFTHIEVES_TROPICAL_ISLAND");

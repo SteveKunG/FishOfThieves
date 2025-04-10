@@ -16,6 +16,6 @@ public class MixinWoodType
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void fishofthieves$initWoodTypeEarly(CallbackInfo info)
     {
-        FOTWoodTypes.COCONUT = WoodType.register(new WoodType("fot_coconut", FOTBlockSetTypes.COCONUT));
+        FOTWoodTypes.COCONUT = WoodType.register(new WoodType("fishofthieves_coconut", FOTBlockSetTypes.COCONUT));
     }
 }

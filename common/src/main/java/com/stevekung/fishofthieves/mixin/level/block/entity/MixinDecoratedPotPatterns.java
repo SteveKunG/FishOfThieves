@@ -9,11 +9,15 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.google.common.collect.Maps;
+import com.stevekung.fishofthieves.registry.FOTDecoratedPotPatterns;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.DecoratedPotPattern;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 
 @Mixin(DecoratedPotPatterns.class)
@@ -28,5 +32,11 @@ public class MixinDecoratedPotPatterns
     private static void fishofthieves$reinitNewSherds(CallbackInfo info)
     {
         ITEM_TO_POT_TEXTURE = Maps.newHashMap(ITEM_TO_POT_TEXTURE);
+    }
+
+    @Inject(method = "bootstrap", at = @At("TAIL"))
+    private static void fishofthieves$bootstrapEarly(Registry<DecoratedPotPattern> registry, CallbackInfoReturnable<DecoratedPotPattern> info)
+    {
+        FOTDecoratedPotPatterns.init();
     }
 }
