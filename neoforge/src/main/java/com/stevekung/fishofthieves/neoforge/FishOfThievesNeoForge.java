@@ -107,11 +107,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> FOTFoliagePlacerTypes.init());
         event.register(Registries.BLOCK_STATE_PROVIDER_TYPE, helper -> FOTBlockStateProviderTypes.init());
         event.register(Registries.TRUNK_PLACER_TYPE, helper -> FOTTrunkPlacerTypes.init());
-        event.register(Registries.DECORATED_POT_PATTERN, helper ->
-        {
-            FOTDecoratedPotPatterns.init();
-            FOTDecoratedPotPatterns.putItemsToPotTexture();
-        });
+        event.register(Registries.DECORATED_POT_PATTERN, helper -> FOTDecoratedPotPatterns.putItemsToPotTexture());
         event.register(Registries.MOB_EFFECT, helper -> FOTMobEffects.init());
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
