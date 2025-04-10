@@ -1,8 +1,7 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -26,25 +25,31 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
+@Mixin(Bee.class)
 public class MixinBee
 {
     @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
     public static abstract class MixinBeeGrowCropGoal extends Goal
     {
-        @Shadow(aliases = { "this$0", "f_28021_", "field_20373" }, remap = false)
-        @Final
-        Bee $outer;
+        @Unique
+        private Bee bee;
+
+        @Inject(method = "<init>", at = @At("TAIL"))
+        private void fishofthieves$init(Bee bee, CallbackInfo info)
+        {
+            this.bee = bee;
+        }
 
         @Inject(method = "tick", at = @At(value = "JUMP", ordinal = 1))
         private void fishofthieves$addGrowableBlocksInCube(CallbackInfo info)
         {
-            for (var blockPos : BlockPos.randomInCube(this.$outer.getRandom(), 3, this.$outer.blockPosition(), 2))
+            for (var blockPos : BlockPos.randomInCube(this.bee.getRandom(), 3, this.bee.blockPosition(), 2))
             {
-                var blockState = this.$outer.level().getBlockState(blockPos);
+                var blockState = this.bee.level().getBlockState(blockPos);
 
                 if (blockState.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT) || blockState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT))
                 {
-                    ((BonemealableBlock) blockState.getBlock()).performBonemeal((ServerLevel) this.$outer.level(), this.$outer.getRandom(), blockPos, blockState);
+                    ((BonemealableBlock) blockState.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, blockState);
                 }
                 else if (blockState.is(FOTBlocks.MANGO_FRUIT) || blockState.is(FOTBlocks.HANGING_MANGO_FRUIT))
                 {
@@ -52,7 +57,7 @@ public class MixinBee
 
                     if (age < 2)
                     {
-                        this.$outer.level().setBlock(blockPos, blockState.getBlock().withPropertiesOf(blockState).setValue(MangoFruitBlock.AGE, age + 1), Block.UPDATE_ALL);
+                        this.bee.level().setBlock(blockPos, blockState.getBlock().withPropertiesOf(blockState).setValue(MangoFruitBlock.AGE, age + 1), Block.UPDATE_ALL);
                     }
                 }
             }
@@ -74,7 +79,7 @@ public class MixinBee
                     stateToCheck.is(FOTBlocks.TALL_POMEGRANATE_PLANT) ||
                     stateToCheck.is(FOTBlocks.POMEGRANATE_SAPLING))
             {
-                ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.$outer.level(), this.$outer.getRandom(), blockPos, stateToCheck);
+                ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, stateToCheck);
             }
         }
     }
