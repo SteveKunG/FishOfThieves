@@ -1,8 +1,7 @@
 package com.stevekung.fishofthieves.mixin.entity;
 
-import java.util.function.IntFunction;
-
 import org.apache.commons.lang3.ArrayUtils;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -18,8 +17,6 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTBoatTypes;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
-import net.minecraft.util.ByIdMap;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -36,7 +33,6 @@ public class MixinBoat
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Mixin(Boat.Type.class)
     public static class BoatType
     {
@@ -45,32 +41,23 @@ public class MixinBoat
         @Final
         static Boat.Type[] $VALUES;
 
-        @Shadow
-        @Mutable
-        @Final
-        static StringRepresentable.EnumCodec<Boat.Type> CODEC;
-
-        @Shadow
-        @Mutable
-        @Final
-        static IntFunction<Boat.Type> BY_ID;
-
         @SuppressWarnings({ "unused", "SameParameterValue" })
         @Invoker(value = "<init>")
-        private static Boat.Type create(String name, int ordinal, Block planks, String boatName)
+        private static Boat.Type fishofthieves$create(String name, int ordinal, Block planks, String boatName)
         {
             throw new IllegalStateException("Unreachable");
         }
 
-        @Inject(method = "<clinit>", at = @At("TAIL"))
+        @Inject(method = "<clinit>", at = @At(
+                value = "FIELD",
+                target = "net/minecraft/world/entity/vehicle/Boat$Type.$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
+                shift = At.Shift.AFTER,
+                opcode = Opcodes.PUTSTATIC
+        ))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
-            var entry = create("FOT_COCONUT", $VALUES.length, FOTBlocks.COCONUT_PLANKS, "coconut");
+            var entry = fishofthieves$create("FOT_COCONUT", $VALUES.length, FOTBlocks.COCONUT_PLANKS, "fishofthieves_coconut");
             $VALUES = ArrayUtils.add($VALUES, entry);
-
-            // Re-initialize
-            CODEC = StringRepresentable.fromEnum(() -> $VALUES);
-            BY_ID = ByIdMap.continuous(Enum::ordinal, $VALUES, ByIdMap.OutOfBoundsStrategy.ZERO);
 
             FishOfThieves.LOGGER.info("Added new enum to {}: {}|{}", Boat.Type.class, FOTBoatTypes.COCONUT.name(), FOTBoatTypes.COCONUT);
         }
