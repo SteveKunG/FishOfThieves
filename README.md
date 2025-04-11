@@ -40,6 +40,18 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ![Wrecker around the shipwreck](https://i.imgur.com/VwyAl67.png)
 
+![Coconut Tree at beaches](https://i.imgur.com/Ly2BYkX.png)
+
+![Banana Trees](https://i.imgur.com/nYAxlpI.png)
+
+![Mango Tree](https://i.imgur.com/0eSSWlB.png)
+
+![New Plantlife](https://i.imgur.com/r86P4tC.png)
+
+![Pineapples](https://i.imgur.com/R4x88um.png)
+
+![Guardian Fruit Tree](https://i.imgur.com/cktvxr3.png)
+
 ---
 
 ## **Installation**
