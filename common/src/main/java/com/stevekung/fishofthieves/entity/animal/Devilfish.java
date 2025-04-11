@@ -93,7 +93,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN);
+        super(entityType, level, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, FOTDataComponentTypes.DEVILFISH_VARIANT);
     }
 
     @Override

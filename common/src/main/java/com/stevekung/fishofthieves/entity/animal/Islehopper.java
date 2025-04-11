@@ -53,7 +53,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE);
+        super(entityType, level, FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants.STONE, FOTDataComponentTypes.ISLEHOPPER_VARIANT);
     }
 
     @Override

@@ -95,7 +95,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE);
+        super(entityType, level, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE, FOTDataComponentTypes.WRECKER_VARIANT);
     }
 
     @Override

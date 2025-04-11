@@ -49,7 +49,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE);
+        super(entityType, level, FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariants.OLIVE, FOTDataComponentTypes.PLENTIFIN_VARIANT);
     }
 
     @Override

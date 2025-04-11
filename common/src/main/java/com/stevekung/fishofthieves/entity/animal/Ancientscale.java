@@ -49,7 +49,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND);
+        super(entityType, level, FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariants.ALMOND, FOTDataComponentTypes.ANCIENTSCALE_VARIANT);
     }
 
     @Override

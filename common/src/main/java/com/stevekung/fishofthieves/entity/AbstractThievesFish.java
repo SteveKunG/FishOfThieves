@@ -8,9 +8,11 @@ import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -77,13 +79,15 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
 
     private final ResourceKey<? extends Registry<T>> registryKey;
     private final ResourceKey<T> resourceKey;
+    private final DataComponentType<Holder<T>> dataComponentType;
 
-    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
+    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
     {
         super(entityType, level);
         this.refreshDimensions();
         this.registryKey = registryKey;
         this.resourceKey = resourceKey;
+        this.dataComponentType = dataComponentType;
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
@@ -98,6 +102,43 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     public ResourceKey<T> getDefaultKey()
     {
         return this.resourceKey;
+    }
+
+    @Override
+    @Nullable
+    public <T2> T2 get(DataComponentType<? extends T2> dataComponentType)
+    {
+        return dataComponentType == this.dataComponentType ? castComponentValue(dataComponentType, this.getVariant()) : super.get(dataComponentType);
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter dataComponentGetter)
+    {
+        var object = dataComponentGetter.get(this.dataComponentType);
+
+        if (object == null)
+        {
+            this.setRandomVariant(this.registryAccess(), this.getRandom());
+        }
+        else
+        {
+            this.applyImplicitComponentIfPresent(dataComponentGetter, this.dataComponentType);
+        }
+        super.applyImplicitComponents(dataComponentGetter);
+    }
+
+    @Override
+    protected <T2> boolean applyImplicitComponent(DataComponentType<T2> dataComponentType, T2 object)
+    {
+        if (dataComponentType == this.dataComponentType)
+        {
+            this.setVariant(castComponentValue(this.dataComponentType, object));
+            return true;
+        }
+        else
+        {
+            return super.applyImplicitComponent(dataComponentType, object);
+        }
     }
 
     @Override
@@ -126,17 +167,17 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     public void readAdditionalSaveData(CompoundTag compound)
     {
         super.readAdditionalSaveData(compound);
-
         VariantUtils.readVariant(compound, this.registryAccess(), this.getRegistryKey()).ifPresent(this::setVariant);
-        this.setTrophy(compound.getBooleanOr(TROPHY_TAG, false));
-        this.setHasFed(compound.getBooleanOr(HAS_FED_TAG, false));
-        this.setNoFlip(compound.getBooleanOr(NO_FLIP_TAG, false));
+        compound.getBoolean(TROPHY_TAG).ifPresent(this::setTrophy);
+        compound.getBoolean(HAS_FED_TAG).ifPresent(this::setHasFed);
+        compound.getBoolean(NO_FLIP_TAG).ifPresent(this::setNoFlip);
     }
 
     @Override
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
+        itemStack.copyFrom(this.dataComponentType, this);
         this.saveToBucket(itemStack);
     }
 
@@ -144,15 +185,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     public void loadFromBucketTag(CompoundTag compound)
     {
         super.loadFromBucketTag(compound);
-        this.loadFromBucket(compound, this.registryAccess());
-
-        if (!compound.contains(VARIANT_TAG))
-        {
-            var registry = this.registryAccess().lookupOrThrow(this.registryKey);
-            var muha = Util.getRandomSafe(registry.listElements().toList(), this.getRandom());
-            this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.resourceKey)));
-            this.setTrophy(this.random.nextBoolean());
-        }
+        this.loadFromBucket(compound);
     }
 
     @Override

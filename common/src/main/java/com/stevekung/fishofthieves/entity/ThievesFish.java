@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -14,10 +15,10 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -67,8 +68,6 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
-            VariantUtils.writeVariant(compoundTag, this.getVariant());
-
             if (this.isTrophy())
             {
                 compoundTag.putBoolean(HAS_FED_TAG, this.hasFed());
@@ -81,12 +80,11 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
         });
     }
 
-    default void loadFromBucket(CompoundTag compound, RegistryAccess registryAccess)
+    default void loadFromBucket(CompoundTag compound)
     {
-        VariantUtils.readVariant(compound, registryAccess, this.getRegistryKey()).ifPresent(this::setVariant);
-        this.setTrophy(compound.getBooleanOr(TROPHY_TAG, false));
-        this.setHasFed(compound.getBooleanOr(HAS_FED_TAG, false));
-        this.setNoFlip(compound.getBooleanOr(NO_FLIP_TAG, false));
+        compound.getBoolean(TROPHY_TAG).ifPresent(this::setTrophy);
+        compound.getBoolean(HAS_FED_TAG).ifPresent(this::setHasFed);
+        compound.getBoolean(NO_FLIP_TAG).ifPresent(this::setNoFlip);
     }
 
     default SpawnGroupData defaultFinalizeSpawn(ServerLevelAccessor accessor, LivingEntity livingEntity, EntitySpawnReason entitySpawnReason, @Nullable SpawnGroupData spawnData)
@@ -100,5 +98,14 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
         return spawnData;
+    }
+
+    default void setRandomVariant(RegistryAccess registryAccess, RandomSource randomSource)
+    {
+        // Set random variant for bucket that has no data component
+        var registry = registryAccess.lookupOrThrow(this.getRegistryKey());
+        var muha = Util.getRandomSafe(registry.listElements().toList(), randomSource);
+        this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.getDefaultKey())));
+        this.setTrophy(randomSource.nextBoolean());
     }
 }

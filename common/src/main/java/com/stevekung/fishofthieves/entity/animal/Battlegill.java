@@ -94,7 +94,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE);
+        super(entityType, level, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE, FOTDataComponentTypes.BATTLEGILL_VARIANT);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET);
+        super(entityType, level, FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariants.RUSSET, FOTDataComponentTypes.WILDSPLASH_VARIANT);
     }
 
     @Override

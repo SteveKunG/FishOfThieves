@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -142,7 +141,16 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     protected void applyImplicitComponents(DataComponentGetter dataComponentGetter)
     {
-        this.applyImplicitComponentIfPresent(dataComponentGetter, this.dataComponentType);
+        var object = dataComponentGetter.get(this.dataComponentType);
+
+        if (object == null)
+        {
+            this.setRandomVariant(this.registryAccess(), this.getRandom());
+        }
+        else
+        {
+            this.applyImplicitComponentIfPresent(dataComponentGetter, this.dataComponentType);
+        }
         super.applyImplicitComponents(dataComponentGetter);
     }
 
@@ -332,9 +340,9 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         super.readAdditionalSaveData(compound);
 
         VariantUtils.readVariant(compound, this.registryAccess(), this.getRegistryKey()).ifPresent(this::setVariant);
-        this.setTrophy(compound.getBooleanOr(TROPHY_TAG, false));
-        this.setHasFed(compound.getBooleanOr(HAS_FED_TAG, false));
-        this.setNoFlip(compound.getBooleanOr(NO_FLIP_TAG, false));
+        compound.getBoolean(TROPHY_TAG).ifPresent(this::setTrophy);
+        compound.getBoolean(HAS_FED_TAG).ifPresent(this::setHasFed);
+        compound.getBoolean(NO_FLIP_TAG).ifPresent(this::setNoFlip);
 
         AbstractSchoolingThievesFishAi.resetMemories(this);
     }
@@ -351,15 +359,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     public void loadFromBucketTag(CompoundTag compound)
     {
         super.loadFromBucketTag(compound);
-        this.loadFromBucket(compound, this.registryAccess());
-
-        if (!compound.contains(VARIANT_TAG))
-        {
-            var registry = this.registryAccess().lookupOrThrow(this.registryKey);
-            var muha = Util.getRandomSafe(registry.listElements().toList(), this.getRandom());
-            this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.resourceKey)));
-            this.setTrophy(this.random.nextBoolean());
-        }
+        this.loadFromBucket(compound);
     }
 
     @Override

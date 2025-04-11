@@ -46,7 +46,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT);
+        super(entityType, level, FOTRegistries.STORMFISH_VARIANT, StormfishVariants.ANCIENT, FOTDataComponentTypes.STORMFISH_VARIANT);
     }
 
     @Override

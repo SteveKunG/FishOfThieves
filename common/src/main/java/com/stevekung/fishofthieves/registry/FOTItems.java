@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
@@ -152,16 +153,16 @@ public class FOTItems
     public static final Item COOKED_WRECKER = register("cooked_wrecker", new Item.Properties().food(FOTFoodProperties.COOKED_WRECKER));
     public static final Item COOKED_STORMFISH = register("cooked_stormfish", new Item.Properties().food(FOTFoodProperties.COOKED_STORMFISH));
 
-    public static final Item SPLASHTAIL_BUCKET = register("splashtail_bucket", properties -> new FOTMobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.SPLASHTAIL_VARIANT, properties.stacksTo(1)));
-    public static final Item PONDIE_BUCKET = register("pondie_bucket", properties -> new FOTMobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PONDIE_VARIANT, properties.stacksTo(1)));
-    public static final Item ISLEHOPPER_BUCKET = register("islehopper_bucket", properties -> new FOTMobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ISLEHOPPER_VARIANT, properties.stacksTo(1)));
-    public static final Item ANCIENTSCALE_BUCKET = register("ancientscale_bucket", properties -> new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ANCIENTSCALE_VARIANT, properties.stacksTo(1)));
-    public static final Item PLENTIFIN_BUCKET = register("plentifin_bucket", properties -> new FOTMobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PLENTIFIN_VARIANT, properties.stacksTo(1)));
-    public static final Item WILDSPLASH_BUCKET = register("wildsplash_bucket", properties -> new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WILDSPLASH_VARIANT, properties.stacksTo(1)));
-    public static final Item DEVILFISH_BUCKET = register("devilfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.DEVILFISH_VARIANT, properties.stacksTo(1)));
-    public static final Item BATTLEGILL_BUCKET = register("battlegill_bucket", properties -> new FOTMobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.BATTLEGILL_VARIANT, properties.stacksTo(1)));
-    public static final Item WRECKER_BUCKET = register("wrecker_bucket", properties -> new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, properties.stacksTo(1)));
-    public static final Item STORMFISH_BUCKET = register("stormfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, properties.stacksTo(1)));
+    public static final Item SPLASHTAIL_BUCKET = register("splashtail_bucket", properties -> new FOTMobBucketItem(FOTEntities.SPLASHTAIL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.SPLASHTAIL_VARIANT, FOTDataComponentTypes.SPLASHTAIL_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item PONDIE_BUCKET = register("pondie_bucket", properties -> new FOTMobBucketItem(FOTEntities.PONDIE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PONDIE_VARIANT, FOTDataComponentTypes.PONDIE_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item ISLEHOPPER_BUCKET = register("islehopper_bucket", properties -> new FOTMobBucketItem(FOTEntities.ISLEHOPPER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ISLEHOPPER_VARIANT, FOTDataComponentTypes.ISLEHOPPER_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item ANCIENTSCALE_BUCKET = register("ancientscale_bucket", properties -> new FOTMobBucketItem(FOTEntities.ANCIENTSCALE, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.ANCIENTSCALE_VARIANT, FOTDataComponentTypes.ANCIENTSCALE_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item PLENTIFIN_BUCKET = register("plentifin_bucket", properties -> new FOTMobBucketItem(FOTEntities.PLENTIFIN, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.PLENTIFIN_VARIANT, FOTDataComponentTypes.PLENTIFIN_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item WILDSPLASH_BUCKET = register("wildsplash_bucket", properties -> new FOTMobBucketItem(FOTEntities.WILDSPLASH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WILDSPLASH_VARIANT, FOTDataComponentTypes.WILDSPLASH_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item DEVILFISH_BUCKET = register("devilfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.DEVILFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.DEVILFISH_VARIANT, FOTDataComponentTypes.DEVILFISH_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item BATTLEGILL_BUCKET = register("battlegill_bucket", properties -> new FOTMobBucketItem(FOTEntities.BATTLEGILL, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.BATTLEGILL_VARIANT, FOTDataComponentTypes.BATTLEGILL_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item WRECKER_BUCKET = register("wrecker_bucket", properties -> new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, FOTDataComponentTypes.WRECKER_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final Item STORMFISH_BUCKET = register("stormfish_bucket", properties -> new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, FOTDataComponentTypes.STORMFISH_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
     public static final Item SPLASHTAIL_SPAWN_EGG = register("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, properties));
     public static final Item PONDIE_SPAWN_EGG = register("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, properties));

@@ -41,7 +41,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL);
+        super(entityType, level, FOTRegistries.PONDIE_VARIANT, PondieVariants.CHARCOAL, FOTDataComponentTypes.PONDIE_VARIANT);
     }
 
     @Override

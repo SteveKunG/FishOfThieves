@@ -65,7 +65,7 @@ public class MixinEntitySpawnerItemVariantComponentFix
         else
         {
             return dynamic.update("minecraft:bucket_entity_data", dynamicx -> dynamicx.remove("variant"))
-                    .set(component, dynamic.createString(optional.get()));
+                    .set("fishofthieves:" + component, dynamic.createString(optional.get()));
         }
     }
 }

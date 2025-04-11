@@ -80,7 +80,7 @@ public class FOTItem extends Item
                 {
                     var customModelData = variant.customModelData();
 
-                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && !itemStack.get(DataComponents.CUSTOM_MODEL_DATA).strings().isEmpty() && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).strings().getFirst().equals(String.valueOf(customModelData)))
+                    if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA) && !itemStack.get(DataComponents.CUSTOM_MODEL_DATA).floats().isEmpty() && itemStack.get(DataComponents.CUSTOM_MODEL_DATA).floats().getFirst().intValue() == customModelData)
                     {
                         consumer.accept(Component.translatable(this.entityType.getDescriptionId() + "." + variant.name()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
                     }

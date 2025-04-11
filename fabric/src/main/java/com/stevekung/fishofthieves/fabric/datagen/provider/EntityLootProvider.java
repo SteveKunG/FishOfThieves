@@ -119,6 +119,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private LootItemConditionalFunction.Builder<?> setCustomModelData(int data)
     {
-        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomModelDataFunction(lootItemConditions, Optional.of(new ListOperation.StandAlone<>(List.of(ConstantValue.exactly(data)), ListOperation.Append.INSTANCE)), Optional.empty(), Optional.empty(), Optional.empty()));
+        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomModelDataFunction(lootItemConditions, Optional.of(new ListOperation.StandAlone<>(List.of(ConstantValue.exactly(data)), ListOperation.ReplaceAll.INSTANCE)), Optional.empty(), Optional.empty(), Optional.empty()));
     }
 }

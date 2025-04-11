@@ -115,7 +115,7 @@
                 }
               ],
               "floats": {
-                "mode": "append",
+                "mode": "replace_all",
                 "values": [
                   0.0
                 ]
@@ -173,7 +173,7 @@
                 }
               ],
               "floats": {
-                "mode": "append",
+                "mode": "replace_all",
                 "values": [
                   1.0
                 ]
@@ -231,7 +231,7 @@
                 }
               ],
               "floats": {
-                "mode": "append",
+                "mode": "replace_all",
                 "values": [
                   2.0
                 ]
@@ -289,7 +289,7 @@
                 }
               ],
               "floats": {
-                "mode": "append",
+                "mode": "replace_all",
                 "values": [
                   3.0
                 ]
@@ -347,7 +347,7 @@
                 }
               ],
               "floats": {
-                "mode": "append",
+                "mode": "replace_all",
                 "values": [
                   4.0
                 ]
