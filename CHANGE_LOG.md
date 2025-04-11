@@ -9,6 +9,7 @@
 - Added New Flowers
 - Added New Advancements
 - Bug fixes and improvements
+- Initial release for 1.21.4 (NeoForge)
 - Initial release for 1.21.5
 
 ## Fruits
