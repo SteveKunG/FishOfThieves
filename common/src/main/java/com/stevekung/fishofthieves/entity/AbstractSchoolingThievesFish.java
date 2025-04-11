@@ -17,7 +17,10 @@ import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,13 +102,15 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
 
     private final ResourceKey<? extends Registry<T>> registryKey;
     private final ResourceKey<T> resourceKey;
+    private final DataComponentType<Holder<T>> dataComponentType;
 
-    public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
+    public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
     {
         super(entityType, level);
         this.refreshDimensions();
         this.registryKey = registryKey;
         this.resourceKey = resourceKey;
+        this.dataComponentType = dataComponentType;
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
@@ -125,6 +130,34 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     public ResourceKey<T> getDefaultKey()
     {
         return this.resourceKey;
+    }
+
+    @Override
+    @Nullable
+    public <T2> T2 get(DataComponentType<? extends T2> dataComponentType)
+    {
+        return dataComponentType == this.dataComponentType ? castComponentValue(dataComponentType, this.getVariant()) : super.get(dataComponentType);
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter dataComponentGetter)
+    {
+        this.applyImplicitComponentIfPresent(dataComponentGetter, this.dataComponentType);
+        super.applyImplicitComponents(dataComponentGetter);
+    }
+
+    @Override
+    protected <T2> boolean applyImplicitComponent(DataComponentType<T2> dataComponentType, T2 object)
+    {
+        if (dataComponentType == this.dataComponentType)
+        {
+            this.setVariant(castComponentValue(this.dataComponentType, object));
+            return true;
+        }
+        else
+        {
+            return super.applyImplicitComponent(dataComponentType, object);
+        }
     }
 
     @Override
@@ -310,6 +343,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     public void saveToBucketTag(ItemStack itemStack)
     {
         super.saveToBucketTag(itemStack);
+        itemStack.copyFrom(this.dataComponentType, this);
         this.saveToBucket(itemStack);
     }
 

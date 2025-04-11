@@ -41,7 +41,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
-        super(entityType, level, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY);
+        super(entityType, level, FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants.RUBY, FOTDataComponentTypes.SPLASHTAIL_VARIANT);
     }
 
     @Override
