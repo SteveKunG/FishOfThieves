@@ -30,6 +30,7 @@
     "damagesource.MixinDamageSources",
     "datafix.MixinBoatSplitFix",
     "datafix.MixinDataFixers",
+    "datafix.MixinEntitySpawnerItemVariantComponentFix",
     "datafix.MixinItemStackComponentizationFix",
     "datafix.MixinV4070",
     "effect.MixinMobEffectUtil",
