@@ -9,6 +9,7 @@
 - Added New Flowers
 - Added New Advancements
 - Bug fixes and improvements
+- Initial release for 1.21.5
 
 ## Fruits
 
@@ -233,7 +234,6 @@
 - Minor performance improvement to Stormfish position ticking
 - Minor update to English translations
 - Fixed loading entity data from bucket in fish plaque (1.20.1)
-- Fixed coconut boat and chest boat lose their variant when upgrading world (1.21.4)
 - Fixed custom model data for fish variant item models (1.21.1)
 - Fixed waxing fish plaque will rotate fish by one cycle
 - Fixed waxed fish plaque can take out the fish when using bucket
