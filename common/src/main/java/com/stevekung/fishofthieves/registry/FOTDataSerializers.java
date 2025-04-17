@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 
 import net.minecraft.core.Holder;
@@ -22,6 +23,7 @@ public class FOTDataSerializers
 
     public static void init()
     {
+        FishOfThieves.LOGGER.info("Registering Entity Data Serializer");
         EntityDataSerializers.registerSerializer(FOTDataSerializers.SPLASHTAIL_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.PONDIE_VARIANT);
         EntityDataSerializers.registerSerializer(FOTDataSerializers.ISLEHOPPER_VARIANT);

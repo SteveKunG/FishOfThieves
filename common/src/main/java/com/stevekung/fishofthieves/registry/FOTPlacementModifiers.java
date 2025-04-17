@@ -11,17 +11,16 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
 
 public class FOTPlacementModifiers
 {
-    public static final PlacementModifierType<VegetationFilter> VEGETATION_FILTER = () -> VegetationFilter.CODEC;
-    public static final PlacementModifierType<ContinentsFilter> CONTINENTS_FILTER = () -> ContinentsFilter.CODEC;
+    public static final PlacementModifierType<VegetationFilter> VEGETATION_FILTER = register("vegetation_filter", () -> VegetationFilter.CODEC);
+    public static final PlacementModifierType<ContinentsFilter> CONTINENTS_FILTER = register("continents_filter", () -> ContinentsFilter.CODEC);
 
     public static void init()
     {
-        register("vegetation_filter", VEGETATION_FILTER);
-        register("continents_filter", CONTINENTS_FILTER);
+        FishOfThieves.LOGGER.info("Registering Placement Modifier");
     }
 
-    private static <P extends PlacementModifier> void register(String key, PlacementModifierType<P> type)
+    private static <P extends PlacementModifier> PlacementModifierType<P> register(String key, PlacementModifierType<P> type)
     {
-        Registry.register(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE, FishOfThieves.id(key), type);
+        return Registry.register(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE, FishOfThieves.id(key), type);
     }
 }
