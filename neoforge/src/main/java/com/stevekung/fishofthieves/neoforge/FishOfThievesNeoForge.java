@@ -101,6 +101,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.SPAWN_CONDITION_TYPE, helper -> FOTSpawnConditions.init());
         event.register(Registries.DATA_COMPONENT_TYPE, helper -> FOTDataComponentTypes.init());
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
+        event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTNeoForgeDataSerializers.init());
     }
 

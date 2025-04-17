@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public class WaterSurroundedConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
 {
-    private static final KeyDispatchDataCodec<WaterSurroundedConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new WaterSurroundedConditionSource()));
+    public static final KeyDispatchDataCodec<WaterSurroundedConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new WaterSurroundedConditionSource()));
 
     @Override
     public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec()
