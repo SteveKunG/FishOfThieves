@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -46,6 +47,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
     {
         throw new AssertionError();
     }

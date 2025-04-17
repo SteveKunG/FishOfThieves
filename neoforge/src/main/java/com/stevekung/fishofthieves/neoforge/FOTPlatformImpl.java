@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.neoforge;
 import com.stevekung.fishofthieves.neoforge.mixin.accessor.CropBlockAccessor;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -50,5 +51,10 @@ public class FOTPlatformImpl
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
     {
         return CropBlockAccessor.callGetGrowthSpeed(state, level, pos);
+    }
+
+    public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
+    {
+        FishOfThievesNeoForge.ENTITY_DATA_SERIALIZERS.register(name, () -> serializer);
     }
 }
