@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public class BlockStateConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
 {
-    private static final KeyDispatchDataCodec<BlockStateConditionSource> CODEC = KeyDispatchDataCodec.of(
+    public static final KeyDispatchDataCodec<BlockStateConditionSource> CODEC = KeyDispatchDataCodec.of(
             RecordCodecBuilder.mapCodec(instance -> instance.group(
                     BlockState.CODEC.fieldOf("block_state").forGetter(BlockStateConditionSource::blockState),
                     Codec.INT.fieldOf("offset").forGetter(BlockStateConditionSource::offset)

@@ -167,5 +167,6 @@ public class FishOfThievesForge
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_FISH, FishOfThieves.getFishCreativeTabBuilder(CreativeModeTab.builder()).build());
         });
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
+        event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
     }
 }
