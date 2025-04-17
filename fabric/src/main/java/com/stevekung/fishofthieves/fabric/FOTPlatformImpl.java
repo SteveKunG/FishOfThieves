@@ -4,6 +4,8 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -30,5 +32,10 @@ public class FOTPlatformImpl
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
     {
         return CropBlock.getGrowthSpeed(state.getBlock(), level, pos);
+    }
+
+    public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
+    {
+        EntityDataSerializers.registerSerializer(serializer);
     }
 }
