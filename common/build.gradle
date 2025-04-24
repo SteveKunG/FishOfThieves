@@ -4,10 +4,10 @@ import groovy.json.JsonSlurper
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/common.gradle"
 
 dependencies {
-    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc", module: "fabric-loader"
-    }
+//    modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
+//        exclude group: "net.fabricmc.fabric-api"
+//        exclude group: "net.fabricmc", module: "fabric-loader"
+//    } TODO
 }
 
 processResources {
