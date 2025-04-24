@@ -87,11 +87,11 @@ public class FOTDisplayItems
         output.accept(FOTItems.COCONUT_HANGING_SIGN);
         output.accept(FOTItems.COCONUT_BOAT);
         output.accept(FOTItems.COCONUT_CHEST_BOAT);
-        output.accept(FOTBlocks.COCONUT_FRONDS);
-        output.accept(FOTBlocks.BANANA_STEM);
-        output.accept(FOTBlocks.BANANA_LEAVES);
-        output.accept(FOTBlocks.BANANA_SHOOTS);
-        output.accept(FOTBlocks.BANANA_BLOSSOM);
+        output.accept(FOTItems.COCONUT_FRONDS);
+        output.accept(FOTItems.BANANA_STEM);
+        output.accept(FOTItems.BANANA_LEAVES);
+        output.accept(FOTItems.BANANA_SHOOTS);
+        output.accept(FOTItems.BANANA_BLOSSOM);
         output.accept(FOTItems.UNDERRIPE_BANANA_CLUSTER);
         output.accept(FOTItems.BARELY_RIPE_BANANA_CLUSTER);
         output.accept(FOTItems.RIPE_BANANA_CLUSTER);
@@ -100,18 +100,18 @@ public class FOTDisplayItems
         output.accept(FOTItems.UNDERRIPE_PINEAPPLE_BLOCK);
         output.accept(FOTItems.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTItems.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
-        output.accept(FOTBlocks.MANGO_LEAVES);
+        output.accept(FOTItems.MANGO_LEAVES);
         output.accept(FOTItems.MANGO_PIT);
-        output.accept(FOTBlocks.MANGO_SAPLING);
-        output.accept(FOTBlocks.POMEGRANATE_PLANT);
-        output.accept(FOTBlocks.TALL_POMEGRANATE_PLANT);
+        output.accept(FOTItems.MANGO_SAPLING);
+        output.accept(FOTItems.POMEGRANATE_PLANT);
+        output.accept(FOTItems.TALL_POMEGRANATE_PLANT);
         output.accept(FOTItems.POMEGRANATE_SEEDS);
         output.accept(FOTItems.PRISMARIZED_LOG);
         output.accept(FOTItems.BUDDING_PRISMARIZED_LOG);
 
-        output.accept(FOTBlocks.PINK_PLUMERIA);
-        output.accept(FOTBlocks.LIGHT_BLUE_PLUMERIA);
-        output.accept(FOTBlocks.WHITE_PLUMERIA);
+        output.accept(FOTItems.PINK_PLUMERIA);
+        output.accept(FOTItems.LIGHT_BLUE_PLUMERIA);
+        output.accept(FOTItems.WHITE_PLUMERIA);
         output.accept(FOTItems.TROPICAL_RED_FERN);
         output.accept(FOTItems.TROPICAL_MONSTERA);
 
