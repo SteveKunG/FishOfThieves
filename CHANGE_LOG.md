@@ -1,1 +1,1 @@
-- Fixed Surface Rule Condition Source registries are not registered
+- Fixed rare crash with creative tabs using the block type to display item, closes #67
