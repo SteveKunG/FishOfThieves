@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
@@ -23,11 +24,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
@@ -58,6 +59,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -203,11 +205,12 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 if (item instanceof MobBucketItem bucket)
                 {
-                    var tag = new CompoundTag();
+                    var scopedCollector = new ProblemReporter.ScopedCollector(fishPlaque.problemPath(), FishOfThieves.LOGGER);
+                    var tagValueOutput = TagValueOutput.createWithContext(scopedCollector, level.registryAccess());
                     var entityType = bucket.type;
                     var entityKey = BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString();
                     var interactionOptional = level.registryAccess().lookupOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION).listElements().map(Holder.Reference::value).filter(interaction -> BuiltInRegistries.ENTITY_TYPE.getKey(entityType).equals(interaction.entityType())).findFirst();
-                    tag.putString("id", entityKey);
+                    tagValueOutput.putString("id", entityKey);
 
                     if (level instanceof ServerLevel serverLevel)
                     {
@@ -219,10 +222,10 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
                             bucketable.loadFromBucketTag(customData.copyTag());
                         }
-                        entityToSave.saveWithoutId(tag);
+                        entityToSave.saveWithoutId(tagValueOutput);
                         entityToSave.snapTo(pos, 0, 0); // Move entity position to this fish plaque pos
                         entityToSave.discard(); // Remove spawned entity from the world
-                        fishPlaque.setPlaqueData(tag); // Must set plaque data on the server side
+                        fishPlaque.setPlaqueData(tagValueOutput.buildResult()); // Must set plaque data on the server side
                     }
 
                     level.playSound(player, pos, bucket.emptySound, SoundSource.BLOCKS, 1.0F, 1.0F);

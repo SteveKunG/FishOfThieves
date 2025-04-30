@@ -47,6 +47,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant> extends AbstractFlockFish implements ThievesFish<T>
 {
@@ -325,24 +327,24 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound)
+    public void addAdditionalSaveData(ValueOutput valueOutput)
     {
-        super.addAdditionalSaveData(compound);
-        VariantUtils.writeVariant(compound, this.getVariant());
-        compound.putBoolean(TROPHY_TAG, this.isTrophy());
-        compound.putBoolean(HAS_FED_TAG, this.hasFed());
-        compound.putBoolean(NO_FLIP_TAG, this.isNoFlip());
+        super.addAdditionalSaveData(valueOutput);
+        VariantUtils.writeVariant(valueOutput, this.getVariant());
+        valueOutput.putBoolean(TROPHY_TAG, this.isTrophy());
+        valueOutput.putBoolean(HAS_FED_TAG, this.hasFed());
+        valueOutput.putBoolean(NO_FLIP_TAG, this.isNoFlip());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound)
+    public void readAdditionalSaveData(ValueInput valueInput)
     {
-        super.readAdditionalSaveData(compound);
+        super.readAdditionalSaveData(valueInput);
 
-        VariantUtils.readVariant(compound, this.registryAccess(), this.getRegistryKey()).ifPresent(this::setVariant);
-        compound.getBoolean(TROPHY_TAG).ifPresent(this::setTrophy);
-        compound.getBoolean(HAS_FED_TAG).ifPresent(this::setHasFed);
-        compound.getBoolean(NO_FLIP_TAG).ifPresent(this::setNoFlip);
+        VariantUtils.readVariant(valueInput, this.getRegistryKey()).ifPresent(this::setVariant);
+        this.setTrophy(valueInput.getBooleanOr(TROPHY_TAG, false));
+        this.setHasFed(valueInput.getBooleanOr(HAS_FED_TAG, false));
+        this.setNoFlip(valueInput.getBooleanOr(NO_FLIP_TAG, false));
 
         AbstractSchoolingThievesFishAi.resetMemories(this);
     }

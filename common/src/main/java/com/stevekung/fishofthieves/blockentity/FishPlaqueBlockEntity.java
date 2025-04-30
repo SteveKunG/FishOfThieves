@@ -4,6 +4,8 @@ import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 
@@ -17,6 +19,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class FishPlaqueBlockEntity extends BlockEntity
 {
@@ -39,21 +43,21 @@ public class FishPlaqueBlockEntity extends BlockEntity
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider)
+    public void loadAdditional(ValueInput valueInput)
     {
-        this.setPlaqueData(tag.getCompoundOrEmpty(PLAQUE_DATA_TAG));
-        this.waxed = tag.getBooleanOr(WAXED_TAG, false);
+        valueInput.read(PLAQUE_DATA_TAG, PlaqueData.CODEC).ifPresent(data -> this.setPlaqueData(data.compoundTag));
+        this.waxed = valueInput.getBooleanOr(WAXED_TAG, false);
         this.displayEntity = null;
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider)
+    protected void saveAdditional(ValueOutput valueOutput)
     {
         if (this.plaqueData != null)
         {
-            tag.put(PLAQUE_DATA_TAG, this.plaqueData);
+            valueOutput.storeNullable(PLAQUE_DATA_TAG, PlaqueData.CODEC, new PlaqueData(this.plaqueData));
         }
-        tag.putBoolean(WAXED_TAG, this.waxed);
+        valueOutput.putBoolean(WAXED_TAG, this.waxed);
     }
 
     @Override
@@ -69,9 +73,9 @@ public class FishPlaqueBlockEntity extends BlockEntity
         return this.saveWithoutMetadata(provider);
     }
 
-    public void setPlaqueData(CompoundTag plaqueData)
+    public void setPlaqueData(CompoundTag compoundTag)
     {
-        this.plaqueData = plaqueData;
+        this.plaqueData = compoundTag;
     }
 
     @Nullable
@@ -142,5 +146,12 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
     {
         return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, Function.identity());
+    }
+
+    public record PlaqueData(CompoundTag compoundTag)
+    {
+        public static final Codec<PlaqueData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                        CompoundTag.CODEC.fieldOf("plaque_data").forGetter(spawnData -> spawnData.compoundTag))
+                .apply(instance, PlaqueData::new));
     }
 }
