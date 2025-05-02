@@ -21,6 +21,6 @@ public class EnchantmentTagsProvider extends FabricTagProvider<Enchantment>
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
-        this.getOrCreateTagBuilder(FOTTags.Enchantments.DROP_PINEAPPLE_BLOCK_WHEN_MINING).add(Enchantments.SILK_TOUCH);
+        this.builder(FOTTags.Enchantments.DROP_PINEAPPLE_BLOCK_WHEN_MINING).add(Enchantments.SILK_TOUCH);
     }
 }

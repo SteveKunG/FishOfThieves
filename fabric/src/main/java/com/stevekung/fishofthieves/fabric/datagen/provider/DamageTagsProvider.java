@@ -21,6 +21,6 @@ public class DamageTagsProvider extends FabricTagProvider<DamageType>
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
-        this.getOrCreateTagBuilder(FOTTags.DamageTypes.IS_MANGO).add(FOTDamageTypes.MANGO);
+        this.builder(FOTTags.DamageTypes.IS_MANGO).add(FOTDamageTypes.MANGO);
     }
 }
