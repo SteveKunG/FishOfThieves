@@ -194,7 +194,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         return this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(AlternativesEntry.alternatives(
-                                AlternativesEntry.alternatives(IntStream.range(0, 4).boxed().toList(), age -> LootItem.lootTableItem(block)
+                                AlternativesEntry.alternatives(IntStream.rangeClosed(0, 3).boxed().toList(), age -> LootItem.lootTableItem(block)
                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                                 .setProperties(StatePropertiesPredicate.Builder.properties()
                                                         .hasProperty(PomegranatePlantBlock.AGE, age))))))
@@ -215,7 +215,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.TALL_POMEGRANATE_PLANT, blockx -> this.applyExplosionDecay(blockx, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(AlternativesEntry.alternatives(
-                                AlternativesEntry.alternatives(IntStream.range(0, 4).boxed().toList(), age -> LootItem.lootTableItem(blockx)
+                                AlternativesEntry.alternatives(IntStream.rangeClosed(0, 3).boxed().toList(), age -> LootItem.lootTableItem(blockx)
                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(blockx)
                                                 .setProperties(StatePropertiesPredicate.Builder.properties()
                                                         .hasProperty(TallPomegranatePlantBlock.AGE, age))))))
