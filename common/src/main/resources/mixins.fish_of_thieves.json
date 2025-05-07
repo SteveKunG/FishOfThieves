@@ -17,8 +17,8 @@
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",
     "client.renderer.entity.MixinTropicalFishRenderer",
-    "client.renderer.MixinFogRenderer",
     "client.renderer.MixinSheets",
+    "client.renderer.MixinWaterFogEnvironment",
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [

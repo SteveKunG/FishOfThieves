@@ -30,9 +30,9 @@ public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTr
 
     public void trigger(ServerPlayer player, BlockPos pos, ItemStack stack, Entity entity)
     {
-        var serverLevel = player.serverLevel();
+        var serverLevel = player.level();
         var blockState = serverLevel.getBlockState(pos);
-        var lootParams = new LootParams.Builder(player.serverLevel()).withParameter(LootContextParams.THIS_ENTITY, entity).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.THIS_ENTITY, player).withParameter(LootContextParams.BLOCK_STATE, blockState).withParameter(LootContextParams.TOOL, stack).create(LootContextParamSets.ADVANCEMENT_LOCATION);
+        var lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.THIS_ENTITY, entity).withParameter(LootContextParams.ORIGIN, pos.getCenter()).withParameter(LootContextParams.THIS_ENTITY, player).withParameter(LootContextParams.BLOCK_STATE, blockState).withParameter(LootContextParams.TOOL, stack).create(LootContextParamSets.ADVANCEMENT_LOCATION);
         var lootContext = new LootContext.Builder(lootParams).create(Optional.empty());
         this.trigger(player, triggerInstance -> triggerInstance.matches(lootContext));
     }

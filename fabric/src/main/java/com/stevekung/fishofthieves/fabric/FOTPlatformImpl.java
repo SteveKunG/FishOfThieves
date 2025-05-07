@@ -1,11 +1,13 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.stevekung.fishofthieves.FishOfThieves;
+
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -36,6 +38,6 @@ public class FOTPlatformImpl
 
     public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
     {
-        EntityDataSerializers.registerSerializer(serializer);
+        FabricTrackedDataRegistry.register(FishOfThieves.id(name), serializer);
     }
 }
