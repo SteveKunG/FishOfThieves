@@ -235,7 +235,7 @@ public class FishOfThieves
 
     public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
     {
-        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.range(1, 6)
+        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.rangeClosed(1, 5)
                 .boxed()
                 .forEach(level -> map.put((int)level, list -> getFishermanTradesByLevel(level, list))));
     }
