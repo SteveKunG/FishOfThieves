@@ -1,1 +1,1 @@
-- Fixed Surface Rule Condition Source registries are not registered
+- [Forge] Fixed IllegalAccessError when tries to render Fish Plaque
