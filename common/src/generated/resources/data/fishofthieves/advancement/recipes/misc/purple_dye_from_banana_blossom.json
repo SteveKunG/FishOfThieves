@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:purple_dye_from_banana_blossom"
+        "recipe": "fishofthieves:purple_dye_from_banana_blossom"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:purple_dye_from_banana_blossom"
+      "fishofthieves:purple_dye_from_banana_blossom"
     ]
   }
 }
