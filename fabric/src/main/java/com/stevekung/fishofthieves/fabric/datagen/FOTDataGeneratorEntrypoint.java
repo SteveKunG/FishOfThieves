@@ -2,8 +2,11 @@ package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import org.apache.commons.io.FilenameUtils;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
@@ -96,7 +99,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         pack.addProvider((dataOutput, provider) -> new NbtToSnbt(dataOutput, List.of(inputPath)));
         pack.addProvider((dataOutput, provider) -> new SnbtToNbt(new PackOutput(inputPath), List.of(snbtInputPath))
-                .addFilter((structureLocationPath, tag) -> structureLocationPath.startsWith("data/" + FishOfThieves.MOD_ID + "/structure/") ? StructureUpdater.update(structureLocationPath, tag) : tag));
+                .addFilter((structureLocationPath, tag) -> Arrays.stream(inputPath.toFile().listFiles()).map(file -> FilenameUtils.getBaseName(file.getName())).anyMatch(name -> name.equals(structureLocationPath)) ? StructureUpdater.update(structureLocationPath, tag) : tag));
     }
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider

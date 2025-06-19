@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -47,7 +46,7 @@ public class CommonProxyNeoForge
         {
             if (FOTPlatform.isModLoaded("terrablender"))
             {
-                FOTTerraBlender.init();
+//                FOTTerraBlender.init();TODO
             }
         });
     }
