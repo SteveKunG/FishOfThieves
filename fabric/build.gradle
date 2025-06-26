@@ -71,7 +71,7 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-//    modRuntimeOnly "curse.maven:structure-void-toggle-357304:6361209"TODO
+    modRuntimeOnly "curse.maven:structure-void-toggle-357304:6664098"
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
