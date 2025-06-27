@@ -31,7 +31,7 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-@EventBusSubscriber(modid = FishOfThieves.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FishOfThieves.MOD_ID)
 public class FOTBiomeModifiers
 {
     //@formatter:off

@@ -1,16 +1,14 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.neoforge.internal.lootapi.FabricLootTableBuilder;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -19,11 +17,13 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
+import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -41,24 +41,6 @@ public class CommonProxyNeoForge
         eventBus.addListener(this::onAddPackFinders);
     }
 
-    public static void modifyLoots(ResourceKey<LootTable> id, LootTable.Builder tableBuilder, HolderLookup.Provider provider)
-    {
-        FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
-        {
-            if (id.equals(resourceKey))
-            {
-                tableBuilder.withPool(function.apply(LootPool.lootPool(), provider));
-            }
-        });
-        ((FabricLootTableBuilder)tableBuilder).modifyPools(builder -> FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
-        {
-            if (id.equals(resourceKey))
-            {
-                function.apply(builder, provider);
-            }
-        }));
-    }
-
     public void commonSetup(FMLCommonSetupEvent event)
     {
         event.enqueueWork(() ->
@@ -66,6 +48,29 @@ public class CommonProxyNeoForge
             if (FOTPlatform.isModLoaded("terrablender"))
             {
                 FOTTerraBlender.init();
+            }
+        });
+    }
+
+    @SubscribeEvent
+    public void onLootTableLoad(LootTableLoadEvent event)
+    {
+        var provider = event.getRegistries();
+        var table = event.getTable();
+        var id = event.getKey();
+
+        FOTLootManager.getInjectedLootTableMap().forEach((resourceKey, function) ->
+        {
+            if (id.equals(resourceKey))
+            {
+                injectLoot(table, function.apply(LootPool.lootPool(), provider).entries);
+            }
+        });
+        FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
+        {
+            if (id.equals(resourceKey))
+            {
+                table.addPool(function.apply(LootPool.lootPool(), provider).build());
             }
         });
     }
@@ -89,6 +94,13 @@ public class CommonProxyNeoForge
             var trades = event.getTrades();
             FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(Lists.newArrayList())));
         }
+    }
+
+    private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> builder)
+    {
+        var pool = table.getPool("main");
+        pool.entries = Lists.newArrayList(pool.entries);
+        pool.entries.addAll(builder.build());
     }
 
     private void registerSpawnPlacement(RegisterSpawnPlacementsEvent event)
