@@ -1,1 +1,1 @@
-- Fixed rare crash with creative tabs using the block type to display item, closes #67
+- [NeoForge] Use registry access for loot table modifications, closed #69. Nice!
