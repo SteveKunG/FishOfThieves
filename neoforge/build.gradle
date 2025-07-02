@@ -32,10 +32,9 @@ repositories {
 }
 
 dependencies {
-    api "com.teammetallurgy.aquaculture:aquaculture2_1.21.5:${aquaculture_version}:api"
+    api "com.teammetallurgy.aquaculture:aquaculture2_${aquaculture_version}:api"
 
-    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
-    //modRuntimeOnly "maven.modrinth:cyanide:${cyanide_neoforge_version}" TODO
+    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
 }
 
 processResources {
