@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 
 public class GuardianFruitTreeStructure extends Structure
 {
-    private static final String[] GUARDIAN_FRUIT_TREES = IntStream.range(1, 6).mapToObj(value -> "guardian_fruit_tree_" + value).toArray(String[]::new);
+    private static final String[] GUARDIAN_FRUIT_TREES = IntStream.rangeClosed(1, 5).mapToObj(value -> "guardian_fruit_tree_" + value).toArray(String[]::new);
     public static final MapCodec<GuardianFruitTreeStructure> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
                     Codec.floatRange(0.0f, 1.0f).fieldOf("fruit_chance").forGetter(structure -> structure.fruitChance),
