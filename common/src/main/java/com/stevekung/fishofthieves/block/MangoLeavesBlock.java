@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import java.util.stream.Stream;
-
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.Util;
@@ -27,7 +25,7 @@ public class MangoLeavesBlock extends LeavesBlock implements BonemealableBlock
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
     {
-        return Stream.of(Direction.values()).filter(direction -> direction != Direction.UP).anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
+        return Direction.stream().filter(direction -> direction != Direction.UP).anyMatch(direction -> level.getBlockState(pos.relative(direction)).isAir());
     }
 
     @Override
