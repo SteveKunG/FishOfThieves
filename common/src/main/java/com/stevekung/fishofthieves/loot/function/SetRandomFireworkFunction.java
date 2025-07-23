@@ -26,6 +26,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class SetRandomFireworkFunction extends LootItemConditionalFunction
 {
+    private static final FireworkRocketItem.Shape[] VALUES = FireworkRocketItem.Shape.values();
     private final List<Integer> fireworkColors;
 
     SetRandomFireworkFunction(LootItemCondition[] lootItemConditions, List<Integer> fireworkColors)
@@ -62,7 +63,7 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
             }
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_COLORS, List.of(Util.getRandom(this.fireworkColors, random)));
             explosionTag.putIntArray(FireworkRocketItem.TAG_EXPLOSION_FADECOLORS, List.of(DyeColor.WHITE.getFireworkColor()));
-            explosionTag.putByte(FireworkRocketItem.TAG_EXPLOSION_TYPE, (byte) Util.getRandom(FireworkRocketItem.Shape.values(), random).getId());
+            explosionTag.putByte(FireworkRocketItem.TAG_EXPLOSION_TYPE, (byte) Util.getRandom(VALUES, random).getId());
             listTag.add(explosionTag);
             compoundTag.putByte(FireworkRocketItem.TAG_FLIGHT, (byte) (1 + random.nextInt(3)));
             compoundTag.put(FireworkRocketItem.TAG_EXPLOSIONS, listTag);
