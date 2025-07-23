@@ -42,7 +42,7 @@ public class MangoLeavesBlock extends LeavesBlock implements BonemealableBlock
 
     private void growMangos(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Util.shuffledCopy(Direction.values(), random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, random, direction));
+        Util.shuffledCopy(Direction.VALUES, random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, random, direction));
     }
 
     private void setMangoBlock(ServerLevel level, BlockPos pos, RandomSource random, Direction direction)
