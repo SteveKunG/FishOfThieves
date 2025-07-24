@@ -21,5 +21,6 @@ accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVarian
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
+extendable class net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
