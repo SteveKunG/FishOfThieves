@@ -4,6 +4,7 @@
   "package": "com.stevekung.fishofthieves.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.renderer.MixinFogRenderer"
   ],
   "mixins": [
     "item.MixinAxeItem",
