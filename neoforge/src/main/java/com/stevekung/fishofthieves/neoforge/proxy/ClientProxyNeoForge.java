@@ -4,11 +4,12 @@ import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
@@ -21,9 +22,13 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientBlockExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.NeoForge;
+
+import me.shedaniel.autoconfig.AutoConfig;
 
 public class ClientProxyNeoForge
 {
@@ -37,6 +42,7 @@ public class ClientProxyNeoForge
         eventBus.addListener(this::registerLayers);
         eventBus.addListener(this::registerBlockColors);
         eventBus.addListener(this::registerClientExtensions);
+        NeoForge.EVENT_BUS.addListener(this::onFogChange);
     }
 
     public void clientSetup(FMLClientSetupEvent event)
@@ -75,6 +81,20 @@ public class ClientProxyNeoForge
                 return false;
             }
         }, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
+    }
+
+    private void onFogChange(ViewportEvent.RenderFog event)
+    {
+        if (event.getCamera().getEntity() instanceof LocalPlayer localPlayer)
+        {
+            var holder = localPlayer.level().getBiome(localPlayer.blockPosition());
+
+            if (holder.is(FOTBiomes.TROPICAL_ISLAND))
+            {
+                event.setFarPlaneDistance(192.0F);
+                event.setCanceled(true);
+            }
+        }
     }
 
     private static <E extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<S>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<E> entityType, HeadphoneModel.Scaleable<S> scaleable)

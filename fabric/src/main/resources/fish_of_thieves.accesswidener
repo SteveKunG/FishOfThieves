@@ -7,39 +7,22 @@ accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context chunk L
 accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING_ALT Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
+accessible field net/minecraft/core/Direction VALUES [Lnet/minecraft/core/Direction;
 
-#accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
 accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
-#accessible method net/minecraft/world/level/storage/loot/functions/SetCustomModelDataFunction <init> (Ljava/util/List;Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;)V
 accessible method net/minecraft/world/level/storage/loot/functions/SetFireworksFunction <init> (Ljava/util/List;Ljava/util/Optional;Ljava/util/Optional;)V
 accessible method net/minecraft/world/level/block/entity/BlockEntityType <init> (Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;Ljava/util/Set;)V
-accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
-accessible method net/minecraft/world/level/levelgen/feature/treedecorators/TreeDecoratorType <init> (Lcom/mojang/serialization/MapCodec;)V
-accessible method net/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacerType <init> (Lcom/mojang/serialization/MapCodec;)V
-accessible method net/minecraft/world/level/block/ButtonBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;ILnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
-accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
-accessible method net/minecraft/world/level/block/TrapDoorBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
-accessible method net/minecraft/world/level/block/DoorBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
-accessible method net/minecraft/world/level/block/StairBlock <init> (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)F
-accessible method net/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProviderType <init> (Lcom/mojang/serialization/MapCodec;)V
 accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
 accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVariant ()I
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
-accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
 
-accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsAndEmeraldsToItems
-accessible class net/minecraft/world/entity/npc/VillagerTrades$EmeraldForItems
-accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
-accessible class net/minecraft/world/item/CreativeModeTab$Output
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 extendable class net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
-accessible class net/minecraft/world/level/levelgen/SurfaceRules$Context
 accessible class net/minecraft/util/datafix/fixes/EntitySpawnerItemVariantComponentFix$Fixer

@@ -8,6 +8,7 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
+    modImplementation(fabricApi.module("fabric-transitive-access-wideners-v1", fabric_api_version))
 }
 
 processResources {
@@ -49,6 +50,7 @@ void processCutoutModels() {
                 modifiedModelDir.mkdirs()
             }
 
+            logger.lifecycle("Injected 'render_type=cutout' into models")
             cutoutModelToProcess.each { jsonFileName ->
                 jsonFileName = jsonFileName + ".json"
                 File sourceFile = new File(jsonDir, jsonFileName)
@@ -56,9 +58,6 @@ void processCutoutModels() {
 
                 try {
                     if (sourceFile.exists()) {
-                        // Log file being processed
-                        logger.lifecycle("Processing file: ${sourceFile.name}")
-
                         // Copy the file to the modifiedModelDir (overwrite if exists)
                         sourceFile.withInputStream { input ->
                             destinationFile.withOutputStream { output ->
@@ -76,7 +75,7 @@ void processCutoutModels() {
                         destinationFile.text = new JsonBuilder(jsonContent).toPrettyString()
 
                         // Log successful update
-                        logger.lifecycle("Injected render_type=cutout into: ${destinationFile.name}")
+                        logger.lifecycle(">> ${destinationFile.name}")
                     } else {
                         logger.warn("File '${jsonFileName}' not found in source directory: ${jsonDir.path}")
                     }

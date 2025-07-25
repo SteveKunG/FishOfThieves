@@ -20,8 +20,9 @@ public enum Continentalness implements StringRepresentable
     FAR_INLAND("Far inland"),
     MUSHROOM_FIELDS("Mushroom fields");
 
-    public static final Codec<Continentalness> CODEC = StringRepresentable.fromEnum(Continentalness::values);
-    private static final Map<String, Continentalness> BY_NAME = Stream.of(values()).collect(Collectors.toMap(Continentalness::getName, Function.identity()));
+    private static final Continentalness[] VALUES = values();
+    public static final Codec<Continentalness> CODEC = StringRepresentable.fromEnum(() -> VALUES);
+    private static final Map<String, Continentalness> BY_NAME = Stream.of(VALUES).collect(Collectors.toMap(Continentalness::getName, Function.identity()));
     private final String name;
 
     Continentalness(String name)
