@@ -18,8 +18,9 @@ public enum PeakTypes implements StringRepresentable
     PEAK("Peak"),
     VALLEY("Valley");
 
-    public static final Codec<PeakTypes> CODEC = StringRepresentable.fromEnum(PeakTypes::values);
-    private static final Map<String, PeakTypes> BY_NAME = Stream.of(values()).collect(Collectors.toMap(PeakTypes::getName, Function.identity()));
+    private static final PeakTypes[] VALUES = values();
+    public static final Codec<PeakTypes> CODEC = StringRepresentable.fromEnum(() -> VALUES);
+    private static final Map<String, PeakTypes> BY_NAME = Stream.of(VALUES).collect(Collectors.toMap(PeakTypes::getName, Function.identity()));
     private final String name;
 
     PeakTypes(String name)

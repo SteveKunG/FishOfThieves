@@ -10,7 +10,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.block.Mirror;
@@ -44,7 +43,7 @@ public class GuardianFruitTreeStructure extends Structure
         var worldgenRandom = context.random();
         var resourceLocation = FishOfThieves.id(GUARDIAN_FRUIT_TREES[worldgenRandom.nextInt(GUARDIAN_FRUIT_TREES.length)]);
         var structureTemplate = context.structureTemplateManager().getOrCreate(resourceLocation);
-        var rotation = Util.getRandom(Rotation.values(), worldgenRandom);
+        var rotation = Rotation.getRandom(worldgenRandom);
         var mirror = worldgenRandom.nextFloat() < 0.5F ? Mirror.NONE : Mirror.FRONT_BACK;
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
         var chunkGenerator = context.chunkGenerator();

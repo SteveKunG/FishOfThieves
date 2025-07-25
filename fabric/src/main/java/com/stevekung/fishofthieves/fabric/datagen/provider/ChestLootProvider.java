@@ -10,7 +10,6 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import it.unimi.dsi.fastutil.ints.IntList;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.Util;
@@ -30,8 +29,11 @@ import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+import it.unimi.dsi.fastutil.ints.IntList;
+
 public class ChestLootProvider extends SimpleFabricLootTableProvider
 {
+    private static final FireworkExplosion.Shape[] VALUES = FireworkExplosion.Shape.values();
     //@formatter:off
     private static final IntList FIREWORK_COLORS = IntList.of(
             DyeColor.RED.getFireworkColor(),
@@ -108,7 +110,7 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
         for (var color : FIREWORK_COLORS)
         {
             builder.add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(1)
-                    .apply(setFirework(new ListOperation.StandAlone<>(List.of(new FireworkExplosion(Util.getRandom(FireworkExplosion.Shape.values(), random), IntList.of(color), IntList.of(), random.nextBoolean(), random.nextBoolean())), ListOperation.Append.INSTANCE), Optional.of(1)))
+                    .apply(setFirework(new ListOperation.StandAlone<>(List.of(new FireworkExplosion(Util.getRandom(VALUES, random), IntList.of(color), IntList.of(), random.nextBoolean(), random.nextBoolean())), ListOperation.Append.INSTANCE), Optional.of(1)))
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))));
         }
         return builder;
