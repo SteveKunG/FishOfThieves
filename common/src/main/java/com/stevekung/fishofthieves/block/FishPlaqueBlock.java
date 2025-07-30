@@ -348,7 +348,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston)
     {
-        if (!level.isClientSide)
+        if (!level.isClientSide())
         {
             var hasSignal = level.hasNeighborSignal(pos);
 

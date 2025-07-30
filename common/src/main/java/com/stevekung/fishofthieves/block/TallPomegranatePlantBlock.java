@@ -174,7 +174,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
             }
 
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
         else
         {

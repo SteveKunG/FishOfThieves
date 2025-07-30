@@ -107,7 +107,7 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
             var blockState = state.setValue(AGE, 0);
             level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
         else
         {
