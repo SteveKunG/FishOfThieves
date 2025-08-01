@@ -3,23 +3,18 @@ package com.stevekung.fishofthieves.item;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.component.CustomData;
 
 public class FOTSpawnEggItem extends SpawnEggItem
 {
-    public FOTSpawnEggItem(EntityType<? extends Mob> defaultType, Item.Properties properties)
+    public FOTSpawnEggItem(Item.Properties properties)
     {
-        super(defaultType, properties);
+        super(properties);
     }
 
     @Override
@@ -29,11 +24,11 @@ public class FOTSpawnEggItem extends SpawnEggItem
 
         if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
         {
-            var customData = itemStack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
+            var entityData = itemStack.get(DataComponents.ENTITY_DATA);
 
-            if (!customData.isEmpty())
+            if (entityData != null)
             {
-                if (customData.copyTag().getBooleanOr(ThievesFish.TROPHY_TAG, false))
+                if (entityData.copyTagWithoutId().getBooleanOr(ThievesFish.TROPHY_TAG, false))
                 {
                     return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
                 }
@@ -42,12 +37,12 @@ public class FOTSpawnEggItem extends SpawnEggItem
         return name;
     }
 
-    public static void addTrophySpawnEgg(HolderLookup.Provider provider, CreativeModeTab.Output output, Item item)
+    public static void addTrophySpawnEgg(CreativeModeTab.Output output, Item item)
     {
         if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
         {
-            output.accept(create(provider, item, false));
-            output.accept(create(provider, item, true));
+            output.accept(create(item, false));
+            output.accept(create(item, true));
         }
         else
         {
@@ -55,14 +50,11 @@ public class FOTSpawnEggItem extends SpawnEggItem
         }
     }
 
-    private static ItemStack create(HolderLookup.Provider provider, Item item, boolean trophy)
+    @SuppressWarnings("deprecation")
+    private static ItemStack create(Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        CustomData.update(DataComponents.ENTITY_DATA, itemStack, compoundTag ->
-        {
-            compoundTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(((SpawnEggItem) item).getType(provider, itemStack)).toString());
-            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy);
-        });
+        itemStack.get(DataComponents.ENTITY_DATA).getUnsafe().putBoolean(ThievesFish.TROPHY_TAG, trophy);
         return itemStack;
     }
 }

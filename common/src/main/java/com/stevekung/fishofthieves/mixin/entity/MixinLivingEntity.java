@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.mixin.entity;
 
+import java.util.function.Consumer;
+
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -13,13 +15,16 @@ import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 @Mixin(LivingEntity.class)
@@ -37,8 +42,8 @@ public abstract class MixinLivingEntity extends Entity implements PartyFish
         super(null, null);
     }
 
-    @Inject(method = "dropFromLootTable", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;JLjava/util/function/Consumer;)V"))
-    private void fishofthieves$dropFishBone(ServerLevel serverLevel, DamageSource damageSource, boolean hitByPlayer, CallbackInfo info, @Local LootParams.Builder builder)
+    @Inject(method = "dropFromLootTable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;ZLnet/minecraft/resources/ResourceKey;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;JLjava/util/function/Consumer;)V"))
+    private void fishofthieves$dropFishBone(ServerLevel serverLevel, DamageSource damageSource, boolean hitByPlayer, ResourceKey<LootTable> resourceKey, Consumer<ItemStack> consumer, CallbackInfo info, @Local LootParams.Builder builder)
     {
         if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {

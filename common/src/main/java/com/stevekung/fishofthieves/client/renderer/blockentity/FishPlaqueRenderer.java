@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -18,7 +19,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
 
     public FishPlaqueRenderer(BlockEntityRendererProvider.Context context)
     {
-        this.entityRenderer = context.getEntityRenderer();
+        this.entityRenderer = context.entityRenderer();
     }
 
     @Override
@@ -76,7 +77,8 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             entity.setYHeadRot(0);
             entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.render(entity, 0.0, 0.0, 0.0, animationTick, poseStack, bufferSource, packedLight);
+            var entityRenderState = this.entityRenderer.extractEntity(entity, animationTick);
+            this.entityRenderer.submit(entityRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.getSubmitNodeStorage());
             entity.fishofthieves$setIsInFishPlaque(false);
         }
         poseStack.popPose();

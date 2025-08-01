@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.client.renderer.entity.state.ThievesFishRenderState;
 
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -19,15 +19,14 @@ public class GlowFishLayer<S extends ThievesFishRenderState, M extends EntityMod
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, S renderState, float yRot, float xRot)
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, S renderState, float yRot, float xRot)
     {
         var glowTexture = renderState.fullGlowTexture;
 
         if (!renderState.isInvisible && glowTexture != null)
         {
-            var vertexConsumer = buffer.getBuffer(RenderType.eyes(glowTexture));
             var color = renderState.glowBrightness;
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color));
+            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderType.eyes(glowTexture), 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color));
         }
     }
 }

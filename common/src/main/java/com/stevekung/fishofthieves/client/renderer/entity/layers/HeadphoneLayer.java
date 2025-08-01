@@ -8,8 +8,8 @@ import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
@@ -33,13 +33,13 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends Living
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, S renderState, float yRot, float xRot)
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, S renderState, float yRot, float xRot)
     {
         if (!renderState.isInvisible && (renderState.fishofthieves$isSalmon() && renderState.customName != null && ChatFormatting.stripFormatting(renderState.customName.getString()).equals("Sally") || renderState.fishofthieves$isDancing()))
         {
             poseStack.pushPose();
             this.scaleable.scale(renderState, poseStack);
-            this.model.renderToBuffer(poseStack, buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), packedLight, OverlayTexture.NO_OVERLAY, ARGB.color(255, 255, 255));
+            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderType.entityCutoutNoCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, ARGB.color(255, 255, 255));
             poseStack.popPose();
         }
     }

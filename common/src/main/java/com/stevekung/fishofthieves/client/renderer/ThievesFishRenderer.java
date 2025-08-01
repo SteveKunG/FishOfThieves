@@ -13,7 +13,7 @@ import com.stevekung.fishofthieves.entity.VariantHolder;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.Holder;
@@ -31,10 +31,10 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     }
 
     @Override
-    public void render(S renderState, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
+    public void submit(S renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector)
     {
         this.shadowRadius = renderState.isTrophy ? 0.25f : 0.15f;
-        super.render(renderState, poseStack, buffer, packedLight);
+        super.submit(renderState, poseStack, submitNodeCollector);
     }
 
     @SuppressWarnings("unchecked")
