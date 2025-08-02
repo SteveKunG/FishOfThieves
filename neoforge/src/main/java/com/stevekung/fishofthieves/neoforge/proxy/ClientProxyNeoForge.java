@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.material.FogType;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -71,7 +72,7 @@ public class ClientProxyNeoForge
 
     private void onFogChange(ViewportEvent.RenderFog event)
     {
-        if (event.getCamera().getEntity() instanceof LocalPlayer localPlayer)
+        if (event.getType() == FogType.WATER && event.getCamera().getEntity() instanceof LocalPlayer localPlayer)
         {
             var holder = localPlayer.level().getBiome(localPlayer.blockPosition());
 
