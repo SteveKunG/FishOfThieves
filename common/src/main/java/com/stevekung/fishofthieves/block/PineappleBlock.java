@@ -16,7 +16,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -92,7 +91,7 @@ public class PineappleBlock extends Block implements SimpleWaterloggedBlock
                 level.playSound(null, pos, FOTSoundEvents.PINEAPPLE_SHEAR, SoundSource.BLOCKS, 1.0F, 1.0F);
                 level.setBlock(pos, FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK.defaultBlockState(), Block.UPDATE_ALL_IMMEDIATE);
                 Block.popResource(level, pos, new ItemStack(FOTItems.PINEAPPLE_CROWN));
-                itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                itemStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
                 level.gameEvent(player, GameEvent.SHEAR, pos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }

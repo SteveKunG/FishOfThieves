@@ -17,7 +17,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -147,7 +146,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
                     level.setBlock(pos.below(), state.setValue(HALF, DoubleBlockHalf.LOWER).setValue(PERSISTENT, true), Block.UPDATE_ALL_IMMEDIATE);
                 }
 
-                itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                itemStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
                 level.gameEvent(player, GameEvent.SHEAR, pos);
                 player.awardStat(Stats.ITEM_USED.get(Items.SHEARS));
             }

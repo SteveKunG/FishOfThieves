@@ -34,7 +34,6 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -169,7 +168,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                             level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.levelEvent(player, 3004, pos, 0);
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-                            itemStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                            itemStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
                             return InteractionResult.SUCCESS;
                         }
                     }
