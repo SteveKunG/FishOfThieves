@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.client.renderer.blockentity;
 
+import org.jetbrains.annotations.Nullable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
@@ -7,10 +8,11 @@ import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.world.phys.Vec3;
 
 public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEntity>
@@ -23,7 +25,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     }
 
     @Override
-    public void render(FishPlaqueBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 vec3)
+    public void submit(FishPlaqueBlockEntity blockEntity, float partialTick, PoseStack poseStack, int packedLight, int packedOverlay, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, SubmitNodeCollector submitNodeCollector)
     {
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);

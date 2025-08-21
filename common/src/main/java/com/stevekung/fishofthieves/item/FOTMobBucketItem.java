@@ -3,6 +3,8 @@ package com.stevekung.fishofthieves.item;
 import java.util.Comparator;
 import java.util.function.Consumer;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -17,8 +19,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
@@ -40,7 +45,7 @@ public class FOTMobBucketItem extends MobBucketItem
     }
 
     @Override
-    public void verifyComponentsAfterLoad(ItemStack itemStack)
+    public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot)
     {
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {

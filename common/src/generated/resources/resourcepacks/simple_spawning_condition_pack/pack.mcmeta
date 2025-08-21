@@ -3,10 +3,7 @@
     "description": {
       "translate": "dataPack.simple_spawning_condition_pack.description"
     },
-    "max_format": 83,
-    "min_format": [
-      83,
-      1
-    ]
+    "max_format": 84,
+    "min_format": 84
   }
 }
