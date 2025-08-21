@@ -8,7 +8,6 @@ accessible field net/minecraft/world/level/block/entity/DecoratedPotPatterns ITE
 accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context chunk Lnet/minecraft/world/level/chunk/ChunkAccess;
 accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
 accessible field net/minecraft/world/entity/Entity wasTouchingWater Z
-accessible field net/minecraft/core/Direction VALUES [Lnet/minecraft/core/Direction;
 
 accessible method net/minecraft/data/models/model/ModelTemplates createItem (Ljava/lang/String;[Lnet/minecraft/data/models/model/TextureSlot;)Lnet/minecraft/data/models/model/ModelTemplate;
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
