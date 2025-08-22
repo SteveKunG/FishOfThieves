@@ -120,9 +120,12 @@ public class FOTFeatures
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F)),
                 placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
         FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 8)
-                .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 6)
-                .add(FOTBlocks.WHITE_PLUMERIA.defaultBlockState(), 3)
+                .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 12)
+                .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 10)
+                .add(FOTBlocks.WHITE_PLUMERIA.defaultBlockState(), 8)
+                .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 3)
+                .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 3)
+                .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 2)
         ), 64));
         FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
