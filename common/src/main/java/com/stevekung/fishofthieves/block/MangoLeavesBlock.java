@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.block;
 
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,7 +41,7 @@ public class MangoLeavesBlock extends TintedParticleLeavesBlock implements Bonem
 
     private void growMangos(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Util.shuffledCopy(Direction.VALUES, random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, random, direction));
+        Direction.allShuffled(random).stream().filter(direction -> direction != Direction.UP && level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> this.setMangoBlock(level, pos, random, direction));
     }
 
     private void setMangoBlock(ServerLevel level, BlockPos pos, RandomSource random, Direction direction)

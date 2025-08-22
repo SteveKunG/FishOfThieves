@@ -1,1 +1,1 @@
-- Fixed rare crash with creative tabs using the block type to display item, closes #67
+* Initial release for Minecraft 1.21.8
