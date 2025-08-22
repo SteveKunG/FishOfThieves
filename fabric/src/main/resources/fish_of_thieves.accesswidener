@@ -6,7 +6,6 @@ accessible field net/minecraft/advancements/critereon/EntitySubPredicates$Entity
 accessible field net/minecraft/world/level/block/entity/DecoratedPotPatterns ITEM_TO_POT_TEXTURE Ljava/util/Map;
 accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context chunk Lnet/minecraft/world/level/chunk/ChunkAccess;
 accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
-accessible field net/minecraft/core/Direction VALUES [Lnet/minecraft/core/Direction;
 
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
