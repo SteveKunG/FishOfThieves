@@ -16,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pineapple_seeds_from_pineapple"
+        "recipe": "fishofthieves:pineapple_seeds_from_pineapple"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -29,7 +29,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pineapple_seeds_from_pineapple"
+      "fishofthieves:pineapple_seeds_from_pineapple"
     ]
   }
 }

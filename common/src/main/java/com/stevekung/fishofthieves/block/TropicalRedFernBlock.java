@@ -4,20 +4,23 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TropicalRedFernBlock extends Block
+public class TropicalRedFernBlock extends Block implements BonemealableBlock
 {
     private static final VoxelShape DOWN_AABB = Block.box(2, 0, 2, 14, 8, 14);
     private static final VoxelShape UP_AABB = Block.box(2, 8, 2, 14, 16, 14);
@@ -79,5 +82,23 @@ public class TropicalRedFernBlock extends Block
             return blockState;
         }
         return null;
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    {
+        return BonemealableBlock.hasSpreadableNeighbourPos(level, pos, state);
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    {
+        BonemealableBlock.findSpreadableNeighbourPos(level, pos, state).ifPresent(blockPos -> level.setBlockAndUpdate(blockPos, this.defaultBlockState().setValue(VerticalLeavesBlock.CEILING, state.getValue(VerticalLeavesBlock.CEILING))));
     }
 }
