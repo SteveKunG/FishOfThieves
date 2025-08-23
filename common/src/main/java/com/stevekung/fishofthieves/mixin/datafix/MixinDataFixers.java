@@ -15,9 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import com.stevekung.fishofthieves.datafixers.V3940;
 
 import net.minecraft.util.datafix.DataFixers;
+import net.minecraft.util.datafix.fixes.AddNewChoices;
 import net.minecraft.util.datafix.fixes.AdvancementsRenameFix;
+import net.minecraft.util.datafix.fixes.References;
 
 @Mixin(DataFixers.class)
 public class MixinDataFixers
@@ -35,12 +38,14 @@ public class MixinDataFixers
     @Unique
     private static final int MC_22W46A = 3210;
 
+    @Unique
+    private static final int MC_24W18A = 3940;
+
     @Inject(method = "addFixers", at = @At("TAIL"))
     private static void fishofthieves$addFixers(DataFixerBuilder builder, CallbackInfo info)
     {
         var schema = builder.addSchema(MC_22W46A, SAME_NAMESPACED);
 
-        //@formatter:off
         builder.addFixer(new AdvancementsRenameFix(schema, false, "Rename FOT recipe advancements", createRenamer(ImmutableMap.<String, String>builder()
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_splashtail", "fishofthieves:recipes/food/cooked_splashtail")
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_pondie", "fishofthieves:recipes/food/cooked_pondie")
@@ -115,6 +120,12 @@ public class MixinDataFixers
                 .put("fishofthieves:recipes/fishofthieves.main/gilded_crimson_fish_plaque", "fishofthieves:recipes/decorations/gilded_crimson_fish_plaque")
                 .put("fishofthieves:recipes/fishofthieves.main/gilded_warped_fish_plaque", "fishofthieves:recipes/decorations/gilded_warped_fish_plaque")
                 .build())));
-        //@formatter:on
+    }
+
+    @Inject(method = "addFixers", at = @At(value = "CONSTANT", args = "intValue=3943"))
+    private static void fishofthieves$registerThievesFish(DataFixerBuilder builder, CallbackInfo info)
+    {
+        var schema = builder.addSchema(MC_24W18A, V3940::new);
+        builder.addFixer(new AddNewChoices(schema, "Added Thieves Fish", References.ENTITY));
     }
 }
