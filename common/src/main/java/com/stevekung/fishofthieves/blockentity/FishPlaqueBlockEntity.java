@@ -4,8 +4,6 @@ import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 
@@ -24,6 +22,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 public class FishPlaqueBlockEntity extends BlockEntity
 {
+    private static final String OLD_PLAQUE_DATA = "plaque_data";
     public static final String PLAQUE_DATA_TAG = "PlaqueData";
     public static final String WAXED_TAG = "Waxed";
 
@@ -45,7 +44,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Override
     public void loadAdditional(ValueInput valueInput)
     {
-        valueInput.read(PLAQUE_DATA_TAG, PlaqueData.CODEC).ifPresent(data -> this.setPlaqueData(data.compoundTag));
+        valueInput.read(PLAQUE_DATA_TAG, CompoundTag.CODEC).ifPresent(data -> this.setPlaqueData(data.getCompound(OLD_PLAQUE_DATA).orElse(data)));
         this.waxed = valueInput.getBooleanOr(WAXED_TAG, false);
         this.displayEntity = null;
     }
@@ -55,7 +54,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
     {
         if (this.plaqueData != null)
         {
-            valueOutput.storeNullable(PLAQUE_DATA_TAG, PlaqueData.CODEC, new PlaqueData(this.plaqueData));
+            valueOutput.storeNullable(PLAQUE_DATA_TAG, CompoundTag.CODEC, this.plaqueData);
         }
         valueOutput.putBoolean(WAXED_TAG, this.waxed);
     }
@@ -146,12 +145,5 @@ public class FishPlaqueBlockEntity extends BlockEntity
     public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
     {
         return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, Function.identity());
-    }
-
-    public record PlaqueData(CompoundTag compoundTag)
-    {
-        public static final Codec<PlaqueData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                        CompoundTag.CODEC.fieldOf("plaque_data").forGetter(spawnData -> spawnData.compoundTag))
-                .apply(instance, PlaqueData::new));
     }
 }
