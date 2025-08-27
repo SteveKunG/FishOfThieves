@@ -3,12 +3,15 @@ package com.stevekung.fishofthieves.item;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
+import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.TypedEntityData;
 
 public class FOTSpawnEggItem extends SpawnEggItem
 {
@@ -50,11 +53,10 @@ public class FOTSpawnEggItem extends SpawnEggItem
         }
     }
 
-    @SuppressWarnings("deprecation")
     private static ItemStack create(Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        itemStack.get(DataComponents.ENTITY_DATA).getUnsafe().putBoolean(ThievesFish.TROPHY_TAG, trophy);
+        itemStack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(itemStack.get(DataComponents.ENTITY_DATA).type(), Util.make(new CompoundTag(), compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy))));
         return itemStack;
     }
 }
