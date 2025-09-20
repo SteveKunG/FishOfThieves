@@ -8,12 +8,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.stevekung.fishofthieves.entity.PartyFish;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.JukeboxSong;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
@@ -21,7 +21,7 @@ import net.minecraft.world.phys.AABB;
 public class MixinLevelEventHandler
 {
     @Shadow
-    Level level;
+    ClientLevel level;
 
     @Inject(method = "playJukeboxSong", at = @At("TAIL"))
     private void fishofthieves$notifyNearbyFish(Holder<JukeboxSong> holder, BlockPos blockPos, CallbackInfo info)

@@ -36,13 +36,13 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     String name();
 
-    ClientAsset texture();
+    ClientAsset.ResourceTexture texture();
 
     ResourceLocation fullTexture();
 
     Optional<ResourceLocation> fullGlowTexture();
 
-    Optional<ClientAsset> glowTexture();
+    Optional<ClientAsset.ResourceTexture> glowTexture();
 
     SpawnSettings spawnSettings();
 
@@ -97,26 +97,26 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         return Util.getRandomSafe(list, randomSource);
     }
 
-    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
-                ClientAsset.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
-                ClientAsset.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ClientAsset.ResourceTexture.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(SpawnPrioritySelectors.fallback(0), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
     }
 
-    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ClientAsset, Optional<ClientAsset>, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Integer, T> factory)
     {
         //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
-                ClientAsset.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
-                ClientAsset.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
+                ClientAsset.ResourceTexture.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
         //@formatter:on
@@ -138,15 +138,15 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
     class RegisterContext<T>
     {
         private final String entityName;
-        private final Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory;
+        private final Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory;
 
-        RegisterContext(String entityName, Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
+        RegisterContext(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
         {
             this.entityName = entityName;
             this.factory = factory;
         }
 
-        public static <T> RegisterContext<T> create(String entityName, Function5<String, ClientAsset, Optional<ClientAsset>, SpawnSettings, Integer, T> factory)
+        public static <T> RegisterContext<T> create(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
@@ -212,7 +212,7 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, new ClientAsset(texture), glow ? Optional.of(new ClientAsset(glowTexture)) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
+            context.register(key, this.factory.apply(name, new ClientAsset.ResourceTexture(texture), glow ? Optional.of(new ClientAsset.ResourceTexture(glowTexture)) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
         }
     }
 

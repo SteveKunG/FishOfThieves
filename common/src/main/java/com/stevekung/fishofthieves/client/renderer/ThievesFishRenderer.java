@@ -16,6 +16,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -31,10 +32,10 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     }
 
     @Override
-    public void submit(S renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector)
+    public void submit(S renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState)
     {
         this.shadowRadius = renderState.isTrophy ? 0.25f : 0.15f;
-        super.submit(renderState, poseStack, submitNodeCollector);
+        super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
     }
 
     @SuppressWarnings("unchecked")

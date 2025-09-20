@@ -13,14 +13,14 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record StormfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record StormfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<StormfishVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(StormfishVariant::new);
     public static final Codec<StormfishVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(StormfishVariant::new);
     public static final Codec<Holder<StormfishVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.STORMFISH_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<StormfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.STORMFISH_VARIANT);
 
-    public StormfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, int customModelData)
+    public StormfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, int customModelData)
     {
         this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
     }
@@ -34,6 +34,6 @@ public record StormfishVariant(String name, ClientAsset texture, Optional<Client
     @Override
     public Optional<ResourceLocation> fullGlowTexture()
     {
-        return this.glowTexture.map(ClientAsset::texturePath);
+        return this.glowTexture.map(ClientAsset.ResourceTexture::texturePath);
     }
 }

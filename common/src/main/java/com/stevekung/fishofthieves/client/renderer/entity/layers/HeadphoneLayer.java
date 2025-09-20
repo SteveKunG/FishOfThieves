@@ -35,7 +35,7 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends Living
     @Override
     public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, S renderState, float yRot, float xRot)
     {
-        if (!renderState.isInvisible && (renderState.fishofthieves$isSalmon() && renderState.customName != null && ChatFormatting.stripFormatting(renderState.customName.getString()).equals("Sally") || renderState.fishofthieves$isDancing()))
+        if (!renderState.isInvisible && (renderState.fishofthieves$isSalmon() && renderState.nameTag != null && ChatFormatting.stripFormatting(renderState.nameTag.getString()).equals("Sally") || renderState.fishofthieves$isDancing()))
         {
             poseStack.pushPose();
             this.scaleable.scale(renderState, poseStack);

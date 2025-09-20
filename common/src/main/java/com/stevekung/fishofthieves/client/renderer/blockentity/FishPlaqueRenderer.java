@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.phys.Vec3;
 
 public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEntity, FishPlaqueBlockEntityRenderState>
@@ -34,7 +35,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     }
 
     @Override
-    public void submit(FishPlaqueBlockEntityRenderState fishPlaqueState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector)
+    public void submit(FishPlaqueBlockEntityRenderState fishPlaqueState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState)
     {
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
@@ -89,7 +90,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
             var entityRenderState = this.entityRenderer.extractEntity(entity, animationTick);
-            this.entityRenderer.submit(entityRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.getSubmitNodeStorage());
+            this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.getSubmitNodeStorage());
             entity.fishofthieves$setIsInFishPlaque(false);
         }
         poseStack.popPose();

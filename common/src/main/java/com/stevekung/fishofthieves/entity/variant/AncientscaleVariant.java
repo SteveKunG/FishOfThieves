@@ -13,14 +13,14 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record AncientscaleVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record AncientscaleVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<AncientscaleVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(AncientscaleVariant::new);
     public static final Codec<AncientscaleVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(AncientscaleVariant::new);
     public static final Codec<Holder<AncientscaleVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ANCIENTSCALE_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<AncientscaleVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.ANCIENTSCALE_VARIANT);
 
-    public AncientscaleVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, int customModelData)
+    public AncientscaleVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, int customModelData)
     {
         this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
     }
@@ -34,6 +34,6 @@ public record AncientscaleVariant(String name, ClientAsset texture, Optional<Cli
     @Override
     public Optional<ResourceLocation> fullGlowTexture()
     {
-        return this.glowTexture.map(ClientAsset::texturePath);
+        return this.glowTexture.map(ClientAsset.ResourceTexture::texturePath);
     }
 }
