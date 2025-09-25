@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.FoliageColor;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
@@ -41,7 +42,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         FishOfThievesClient.registerBlockEntityRenderers();
 
-        FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRendererRegistry.register(entry.entityType(), entry.factory()));
+        FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRenderers.register(entry.entityType(), entry.factory()));
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> FishOfThievesClient.getHeadphone().forEach(entry ->
         {
