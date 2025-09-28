@@ -86,7 +86,11 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -346,7 +350,6 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
         spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-        AbstractSchoolingThievesFishAi.initMemories(this);
         return this.defaultFinalizeSpawn(this, reason, spawnData, dataTag);
     }
 
@@ -358,6 +361,13 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        super.customServerAiStep();
+        this.setNoFlip(!this.hasImpulse && this.isFishBreached(this.getBrain()));
     }
 
     @Override

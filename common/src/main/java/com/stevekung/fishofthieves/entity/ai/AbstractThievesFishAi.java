@@ -7,7 +7,9 @@ import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTMobEffects;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
@@ -29,8 +31,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class AbstractThievesFishAi
 {
-
-    private static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(600, 1200);
+    public static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(1200, 2000);
 
     public static Brain<?> makeBrain(Brain<AbstractThievesFish<?>> brain)
     {
@@ -41,6 +42,11 @@ public class AbstractThievesFishAi
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
         return brain;
+    }
+
+    public static void initMemories(AbstractThievesFish<?> fish)
+    {
+        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
     }
 
     public static void updateActivity(AbstractThievesFish<?> fish)
@@ -87,7 +93,9 @@ public class AbstractThievesFishAi
                 new MoveToTargetSink(),
                 avoidPlayer(),
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
-                new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK)
+        ));
     }
 
     @SuppressWarnings("deprecation")
@@ -96,9 +104,10 @@ public class AbstractThievesFishAi
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(ImmutableList.of(
-                        Pair.of(new FishBreaching(TIME_BETWEEN_BREACH,0.9F),1),
                         Pair.of(avoidRepellent(), 1),
-                        Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1)))),
+                        Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
+                        Pair.of(new FishBreaching<>(TIME_BETWEEN_BREACH, 0.3F, 0.16f), 2)
+                ))),
                 Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(1.0F), 2),
                         Pair.of(SetWalkTargetFromLookTarget.create(0.5F, 3), 3),

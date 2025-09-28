@@ -19,6 +19,7 @@ public class FOTMemoryModuleTypes
     public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<Integer> FOLLOW_FLOCK_COOLDOWN_TICKS = new MemoryModuleType<>(Optional.of(Codec.INT));
     public static final MemoryModuleType<Integer> SCHOOL_SIZE = new MemoryModuleType<>(Optional.of(Codec.INT));
+    public static final MemoryModuleType<Integer> BREACHED_TICK = new MemoryModuleType<>(Optional.of(Codec.INT));
     @SuppressWarnings("rawtypes")
     public static final MemoryModuleType<AbstractSchoolingThievesFish> FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<Boolean> IS_FLOCK_LEADER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
@@ -41,6 +42,7 @@ public class FOTMemoryModuleTypes
         register("is_flock_leader", IS_FLOCK_LEADER);
         register("is_flock_follower", IS_FLOCK_FOLLOWER);
         register("merge_from_other_flock", MERGE_FROM_OTHER_FLOCK);
+        register("breached_tick", BREACHED_TICK);
         register("flock_followers", FLOCK_FOLLOWERS);
         register("nearest_visible_flock_leader", NEAREST_VISIBLE_FLOCK_LEADER);
         register("nearest_low_brightness", NEAREST_LOW_BRIGHTNESS);

@@ -90,7 +90,11 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -140,6 +144,13 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     {
         super.defineSynchedData();
         this.entityData.define(VARIANT, WreckerVariants.ROSE);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound)
+    {
+        super.readAdditionalSaveData(compound);
+        WreckerAi.initMemories(this);
     }
 
     @Override

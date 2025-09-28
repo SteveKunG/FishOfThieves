@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 
 import net.minecraft.core.BlockPos;
@@ -69,8 +70,9 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
             MemoryModuleType.BREED_TARGET,
             MemoryModuleType.IS_PANICKING,
 
-            //Jump
-            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -119,6 +121,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));
+        AbstractThievesFishAi.initMemories(this);
     }
 
     @Override
@@ -181,6 +184,13 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        super.customServerAiStep();
+        this.setNoFlip(!this.hasImpulse && this.isFishBreached(this.getBrain()));
     }
 
     @Override

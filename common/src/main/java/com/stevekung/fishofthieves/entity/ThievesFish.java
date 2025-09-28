@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 
@@ -16,6 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -58,6 +60,11 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     default float getGlowBrightness(float ageInTicks)
     {
         return 1.0F;
+    }
+
+    default boolean isFishBreached(Brain<?> brain)
+    {
+        return brain.hasMemoryValue(FOTMemoryModuleTypes.BREACHED_TICK) && brain.getMemory(FOTMemoryModuleTypes.BREACHED_TICK).get() > 0;
     }
 
     default void saveToBucket(CompoundTag compound)

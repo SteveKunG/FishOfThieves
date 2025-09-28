@@ -89,7 +89,11 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -139,6 +143,13 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     {
         super.defineSynchedData();
         this.entityData.define(VARIANT, BattlegillVariants.JADE);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound)
+    {
+        super.readAdditionalSaveData(compound);
+        BattlegillAi.initMemories(this);
     }
 
     @Override
