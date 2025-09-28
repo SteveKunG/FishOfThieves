@@ -15,6 +15,7 @@ import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -87,7 +88,11 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -132,6 +137,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     {
         super.defineSynchedData(builder);
         builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.DEVILFISH_VARIANT).getOrThrow(DevilfishVariants.ASHEN));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound)
+    {
+        super.readAdditionalSaveData(compound);
+        DevilfishAi.initMemories(this);
     }
 
     @Override
