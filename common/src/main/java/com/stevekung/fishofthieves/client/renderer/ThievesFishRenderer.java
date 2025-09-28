@@ -51,6 +51,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         var variant = entity.getVariant().value();
         renderState.isTrophy = entity.isTrophy();
         renderState.isNoFlip = entity.isNoFlip();
+        renderState.hasImpulse = entity.hasImpulse;
         renderState.fullTexture = variant.fullTexture();
         renderState.fullGlowTexture = variant.fullGlowTexture().orElse(null);
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);

@@ -17,6 +17,10 @@ processResources {
     }
 }
 
+tasks.shadowJar {
+    zip64 = true
+}
+
 void processCutoutModels() {
     if (findProject(":neoforge") != null) {
         // Define source and destination directories

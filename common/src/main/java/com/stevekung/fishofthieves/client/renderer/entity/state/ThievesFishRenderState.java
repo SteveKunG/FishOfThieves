@@ -7,6 +7,7 @@ public class ThievesFishRenderState extends LivingEntityRenderState
 {
     public boolean isTrophy;
     public boolean isNoFlip;
+    public boolean hasImpulse;
     public ResourceLocation fullTexture;
     public ResourceLocation fullGlowTexture;
     public float glowBrightness;

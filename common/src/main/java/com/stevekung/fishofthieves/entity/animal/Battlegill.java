@@ -16,6 +16,7 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -88,7 +89,11 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -133,6 +138,13 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     {
         super.defineSynchedData(builder);
         builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.JADE));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound)
+    {
+        super.readAdditionalSaveData(compound);
+        BattlegillAi.initMemories(this);
     }
 
     @Override

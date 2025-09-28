@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSensorTypes;
 
 import net.minecraft.core.BlockPos;
@@ -19,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -73,7 +75,11 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -171,6 +177,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
         compound.getBoolean(TROPHY_TAG).ifPresent(this::setTrophy);
         compound.getBoolean(HAS_FED_TAG).ifPresent(this::setHasFed);
         compound.getBoolean(NO_FLIP_TAG).ifPresent(this::setNoFlip);
+        AbstractThievesFishAi.initMemories(this);
     }
 
     @Override
@@ -241,6 +248,13 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    protected void customServerAiStep(ServerLevel level)
+    {
+        super.customServerAiStep(level);
+        this.setNoFlip(!this.hasImpulse && this.isFishBreached(this.getBrain()));
     }
 
     @Override
