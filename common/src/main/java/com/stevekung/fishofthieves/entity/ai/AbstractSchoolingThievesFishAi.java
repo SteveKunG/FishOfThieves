@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
+import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.entity.ai.behavior.MergeOtherFlock;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
@@ -24,10 +25,13 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class AbstractSchoolingThievesFishAi
 {
+    private static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(900, 1600);
+
     public static void initMemories(AbstractFlockFish fish)
     {
         fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
         fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom()));
+        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
     }
 
     public static void resetMemories(AbstractFlockFish fish)
@@ -74,7 +78,10 @@ public class AbstractSchoolingThievesFishAi
                 new MoveToTargetSink(),
                 AbstractThievesFishAi.avoidPlayer(),
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
-                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK)
+        ));
     }
 
     @SuppressWarnings("deprecation")
@@ -86,7 +93,9 @@ public class AbstractSchoolingThievesFishAi
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
                         Pair.of(new CreateFishFlock(), 2),
-                        Pair.of(new FollowFlockLeader(1.25f), 3)))),
+                        Pair.of(new FollowFlockLeader(1.25f), 3),
+                        Pair.of(new FishBreaching<>(TIME_BETWEEN_BREACH, 0.3F, 0.16f), 2)
+                ))),
                 Pair.of(2, new MergeOtherFlock()),
                 Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(1.0F), 2),

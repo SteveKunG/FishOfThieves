@@ -7,9 +7,11 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
 import com.stevekung.fishofthieves.entity.ai.behavior.GoToClosestWreckerLocated;
 import com.stevekung.fishofthieves.entity.ai.behavior.GoToLowBrightness;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +49,11 @@ public class WreckerAi
         }
     }
 
+    public static void initMemories(Wrecker fish)
+    {
+        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+    }
+
     //@formatter:off
     private static void initCoreActivity(Brain<Wrecker> brain)
     {
@@ -54,7 +61,10 @@ public class WreckerAi
                 new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
-                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK)
+        ));
     }
 
     @SuppressWarnings("deprecation")
@@ -66,7 +76,9 @@ public class WreckerAi
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.15F), 1),
                         Pair.of(new GoToClosestWreckerLocated(2.0f, 8), 2),
-                        Pair.of(new GoToLowBrightness(2.0f, 4), 3)))),
+                        Pair.of(new GoToLowBrightness(2.0f, 4), 3),
+                        Pair.of(new FishBreaching<>(AbstractThievesFishAi.TIME_BETWEEN_BREACH, 0.2F, 0.12f), 4)
+                ))),
                 Pair.of(2, StartAttacking.create(WreckerAi::findNearestValidAttackTarget)),
                 Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(0.8F), 2),

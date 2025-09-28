@@ -1,22 +1,23 @@
 package com.stevekung.fishofthieves.mixin.entity.monster;
 
-import java.util.function.Predicate;
-
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.registry.FOTMobEffects;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -30,15 +31,6 @@ public class MixinGuardian extends Monster
     MixinGuardian()
     {
         super(null, null);
-    }
-
-    @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void fishofthieves$addBattlegillSelector(CallbackInfo info)
-    {
-        if (FishOfThieves.CONFIG.general.neutralFishBehavior)
-        {
-            this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 200, true, false, new BattlegillAttackSelector(Guardian.class.cast(this))));
-        }
     }
 
     @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/monster/Guardian.hasActiveAttackTarget()Z", ordinal = 1))
@@ -66,21 +58,11 @@ public class MixinGuardian extends Monster
                 info.setReturnValue(false);
             }
         }
-    }
 
-    static class BattlegillAttackSelector implements Predicate<LivingEntity>
-    {
-        private final Guardian guardian;
-
-        public BattlegillAttackSelector(Guardian guardian)
+        @WrapOperation(method = "test", constant = @Constant(classValue = Axolotl.class))
+        private boolean fishofthieves$attackBattlegills(Object entity, Operation<Boolean> original)
         {
-            this.guardian = guardian;
-        }
-
-        @Override
-        public boolean test(@Nullable LivingEntity entity)
-        {
-            return entity instanceof Battlegill && entity.distanceToSqr(this.guardian) > 9.0;
+            return original.call(entity) || FishOfThieves.CONFIG.general.neutralFishBehavior && entity instanceof Battlegill;
         }
     }
 }

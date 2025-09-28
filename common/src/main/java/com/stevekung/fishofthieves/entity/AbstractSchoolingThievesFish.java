@@ -91,7 +91,11 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -381,7 +385,6 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         else
         {
             spawnGroupData = super.finalizeSpawn(accessor, difficulty, spawnType, spawnGroupData);
-            AbstractSchoolingThievesFishAi.initMemories(this);
             return this.defaultFinalizeSpawn(accessor, this, spawnType, spawnGroupData);
         }
     }
@@ -394,6 +397,13 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
             this.refreshDimensions();
         }
         super.onSyncedDataUpdated(key);
+    }
+
+    @Override
+    protected void customServerAiStep()
+    {
+        super.customServerAiStep();
+        this.setNoFlip(!this.hasImpulse && this.isFishBreached(this.getBrain()));
     }
 
     @Override

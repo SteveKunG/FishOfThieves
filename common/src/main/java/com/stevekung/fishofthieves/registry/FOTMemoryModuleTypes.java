@@ -10,16 +10,15 @@ import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public class FOTMemoryModuleTypes
 {
-    public static final MemoryModuleType<LivingEntity> NEAREST_VISIBLE_TROPHY = register("nearest_visible_trophy", new MemoryModuleType<>(Optional.empty()));
     public static final MemoryModuleType<BlockPos> NEAREST_WRECKER_LOCATED = register("nearest_wrecker_located", new MemoryModuleType<>(Optional.empty()));
     public static final MemoryModuleType<List<AbstractFlockFish>> NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH = register("nearest_visible_schooling_thieves_fish", new MemoryModuleType<>(Optional.empty()));
     public static final MemoryModuleType<Integer> FOLLOW_FLOCK_COOLDOWN_TICKS = register("follow_flock_cooldown_ticks", new MemoryModuleType<>(Optional.of(Codec.INT)));
     public static final MemoryModuleType<Integer> SCHOOL_SIZE = register("school_size", new MemoryModuleType<>(Optional.of(Codec.INT)));
+    public static final MemoryModuleType<Integer> BREACHED_TICK = new MemoryModuleType<>(Optional.of(Codec.INT));
     public static final MemoryModuleType<AbstractFlockFish> FLOCK_LEADER = register("flock_leader", new MemoryModuleType<>(Optional.empty()));
     public static final MemoryModuleType<Boolean> IS_FLOCK_LEADER = register("is_flock_leader", new MemoryModuleType<>(Optional.of(Codec.BOOL)));
     public static final MemoryModuleType<Boolean> IS_FLOCK_FOLLOWER = register("is_flock_follower", new MemoryModuleType<>(Optional.of(Codec.BOOL)));
