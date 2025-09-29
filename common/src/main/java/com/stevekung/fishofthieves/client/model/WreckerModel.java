@@ -18,7 +18,6 @@ import net.minecraft.util.Mth;
 public class WreckerModel extends EntityModel<WreckerRenderState> implements HeadphoneModel.Scaleable<WreckerRenderState>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("wrecker"), "main");
-    private final ModelPart main;
     private final ModelPart bulb;
     private final ModelPart mouth;
     private final ModelPart body_back;
@@ -26,11 +25,11 @@ public class WreckerModel extends EntityModel<WreckerRenderState> implements Hea
     public WreckerModel(ModelPart part)
     {
         super(part, RenderType::entityCutout);
-        this.main = part.getChild("main");
-        var head = this.main.getChild("head");
+        var main = part.getChild("main");
+        var head = main.getChild("head");
         this.bulb = head.getChild("bulb");
         this.mouth = head.getChild("mouth");
-        this.body_back = this.main.getChild("body_back");
+        this.body_back = main.getChild("body_back");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -70,11 +69,6 @@ public class WreckerModel extends EntityModel<WreckerRenderState> implements Hea
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
             mouthSpeed = 1.8f;
-        }
-        else if (!renderState.hasImpulse)
-        {
-            this.main.xRot = renderState.xRot * (float) (Math.PI / 180.0);
-            this.main.yRot = renderState.yRot * (float) (Math.PI / 180.0);
         }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
         this.mouth.xRot = 0.1F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.07f;

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 public class MergeOtherFlock extends Behavior<AbstractFlockFish>
 {
     private static final Predicate<AbstractFlockFish> NOT_MERGE_FROM_OTHER_FLOCK = follower -> !follower.getBrain().hasMemoryValue(FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK);
+    private static final Predicate<AbstractFlockFish> IS_FLOCK_LEADER = AbstractFlockFish::isLeader;
 
     public MergeOtherFlock()
     {
@@ -96,8 +97,6 @@ public class MergeOtherFlock extends Behavior<AbstractFlockFish>
     {
         var brain = owner.getBrain();
         var optional = brain.getMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER);
-        Predicate<AbstractFlockFish> isFlockLeader = AbstractFlockFish::isLeader;
-        Predicate<AbstractFlockFish> lineOfSight = owner::hasLineOfSight;
-        return optional.get().stream().filter(fish -> fish != owner).filter(owner::isSameType).filter(isFlockLeader.and(lineOfSight).and(NOT_MERGE_FROM_OTHER_FLOCK)).findAny();
+        return optional.get().stream().filter(fish -> fish != owner).filter(owner::isSameType).filter(IS_FLOCK_LEADER.and(owner::hasLineOfSight).and(NOT_MERGE_FROM_OTHER_FLOCK)).findAny();
     }
 }
