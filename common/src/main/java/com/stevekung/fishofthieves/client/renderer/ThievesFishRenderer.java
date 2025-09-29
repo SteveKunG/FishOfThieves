@@ -67,16 +67,11 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
 
     private void doFishPitchYaw(T entity, float partialTicks)
     {
-        var yBodyRot = Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
-        var yHeadRot = Mth.rotLerp(partialTicks, entity.yHeadRotO, entity.yHeadRot);
-        var netHeadYaw = yHeadRot - yBodyRot;
         var headPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
         if (!entity.hasImpulse)
         {
-            var model = this.getModel().main();
-            model.xRot = headPitch * (float) (Math.PI / 180.0);
-            model.yRot = netHeadYaw * (float) (Math.PI / 180.0);
+            this.getModel().main().xRot = headPitch * (float) (Math.PI / 180.0);
         }
     }
 
