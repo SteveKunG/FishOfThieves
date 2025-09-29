@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class PondieModel<T extends Pondie> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class PondieModel<T extends Pondie> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>, ModelPartGetter
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("pondie"), "main");
     private final ModelPart main;
@@ -59,11 +59,6 @@ public class PondieModel<T extends Pondie> extends EntityModel<T> implements Hea
             backRotSpeed = 1.7f;
             mouthSpeed = 2.1f;
         }
-        else if (!entity.hasImpulse)
-        {
-            this.main.xRot = headPitch * (float) (Math.PI / 180.0);
-            this.main.yRot = netHeadYaw * (float) (Math.PI / 180.0);
-        }
         this.body_back.yRot = -backRotation * 0.15f * Mth.sin(backRotSpeed * 0.65f * ageInTicks);
         this.mouth.xRot = -0.8727F + Mth.cos(mouthSpeed * ageInTicks) * (float) Math.PI * 0.02f;
     }
@@ -80,5 +75,11 @@ public class PondieModel<T extends Pondie> extends EntityModel<T> implements Hea
         var scale = 2.0f;
         poseStack.scale(scale, scale - 0.5f, scale - 0.5f);
         poseStack.translate(0.0f, -0.3f, -0.025f);
+    }
+
+    @Override
+    public ModelPart main()
+    {
+        return this.main;
     }
 }

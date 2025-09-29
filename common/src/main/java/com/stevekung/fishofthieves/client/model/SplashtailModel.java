@@ -16,7 +16,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>, ModelPartGetter
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("splashtail"), "main");
     private final ModelPart main;
@@ -58,11 +58,6 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implem
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
         }
-        else if (!entity.hasImpulse)
-        {
-            this.main.xRot = headPitch * (float) (Math.PI / 180.0);
-            this.main.yRot = netHeadYaw * (float) (Math.PI / 180.0);
-        }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
     }
 
@@ -78,5 +73,11 @@ public class SplashtailModel<T extends Splashtail> extends EntityModel<T> implem
         var scale = 1.5f;
         poseStack.scale(scale, scale, scale);
         poseStack.translate(0.0f, -0.275f, -0.075f);
+    }
+
+    @Override
+    public ModelPart main()
+    {
+        return this.main;
     }
 }

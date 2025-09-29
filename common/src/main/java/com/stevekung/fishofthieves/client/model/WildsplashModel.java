@@ -16,7 +16,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>, ModelPartGetter
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("wildsplash"), "main");
     private final ModelPart main;
@@ -64,11 +64,6 @@ public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implem
             backRotation = 1.6f;
             backRotSpeed = 1.8f;
         }
-        else if (!entity.hasImpulse)
-        {
-            this.main.xRot = headPitch * (float) (Math.PI / 180.0);
-            this.main.yRot = netHeadYaw * (float) (Math.PI / 180.0);
-        }
         this.body_back.yRot = -backRotation * 0.15f * Mth.sin(backRotSpeed * 0.7f * ageInTicks);
         this.body_back_2.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.7f * ageInTicks);
     }
@@ -85,5 +80,11 @@ public class WildsplashModel<T extends Wildsplash> extends EntityModel<T> implem
         var scale = 2.0f;
         poseStack.scale(scale, scale - 0.5f, scale - 0.25f);
         poseStack.translate(0.0f, -0.3f, -0.1f);
+    }
+
+    @Override
+    public ModelPart main()
+    {
+        return this.main;
     }
 }

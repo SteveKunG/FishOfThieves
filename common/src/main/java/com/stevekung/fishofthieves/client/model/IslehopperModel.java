@@ -13,7 +13,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 
-public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>
+public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implements HeadphoneModel.Scaleable<T>, ModelPartGetter
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("islehopper"), "main");
     private final ModelPart main;
@@ -64,11 +64,6 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implem
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
         }
-        else if (!entity.hasImpulse)
-        {
-            this.main.xRot = headPitch * (float) (Math.PI / 180.0);
-            this.main.yRot = netHeadYaw * (float) (Math.PI / 180.0);
-        }
         this.body_back.yRot = -backRotation * 0.05f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
         this.body_back_2.yRot = -backRotation * 0.1f * Mth.sin(backRotSpeed * 0.6f * ageInTicks);
     }
@@ -85,5 +80,11 @@ public class IslehopperModel<T extends Islehopper> extends EntityModel<T> implem
         var scale = 2.0f;
         poseStack.scale(scale, scale - 0.5f, scale - 0.5f);
         poseStack.translate(0.0f, -0.265f, -0.06f);
+    }
+
+    @Override
+    public ModelPart main()
+    {
+        return this.main;
     }
 }
