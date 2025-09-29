@@ -15,6 +15,8 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 @SuppressWarnings("rawtypes")
 public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingThievesFish>
 {
+    private static final Predicate<AbstractSchoolingThievesFish> CAN_BE_FOLLOWED = fish -> (fish.canBeFollowed() || !fish.isFollower()) && fish.isAlive();
+
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
@@ -24,10 +26,7 @@ public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingT
     @Override
     protected void doTick(ServerLevel level, AbstractSchoolingThievesFish entity)
     {
-        var brain = entity.getBrain();
-        Predicate<AbstractSchoolingThievesFish> predicate = fish -> (fish.canBeFollowed() || !fish.isFollower()) && fish.isAlive();
-        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), predicate);
-        list.sort(Comparator.comparingDouble(entity::distanceToSqr));
-        brain.setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, list);
+        var list = level.getEntitiesOfClass(AbstractSchoolingThievesFish.class, entity.getBoundingBox().inflate(16.0), CAN_BE_FOLLOWED).stream().sorted(Comparator.comparingDouble(entity::distanceToSqr)).toList();
+        entity.getBrain().setMemory(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, list);
     }
 }
