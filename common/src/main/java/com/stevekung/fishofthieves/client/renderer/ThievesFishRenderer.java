@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
+import com.stevekung.fishofthieves.client.model.ModelPartGetter;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.GlowFishLayer;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.entity.ThievesFish;
@@ -20,7 +21,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.AbstractFish;
 
-public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T extends AbstractFish & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<T> & HeadphoneModel.Scaleable<T>> extends MobRenderer<T, M>
+public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T extends AbstractFish & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<T> & ModelPartGetter & HeadphoneModel.Scaleable<T>> extends MobRenderer<T, M>
 {
     protected ThievesFishRenderer(EntityRendererProvider.Context context, M entityModel)
     {
@@ -50,6 +51,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T exten
             rotationRenderData.translateConsumer.accept(poseStack);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
+        this.doFishPitchYaw(entity, partialTicks);
     }
 
     @Override
@@ -63,6 +65,16 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T exten
     {
         var scale = livingEntity.isTrophy() ? 1.0F : 0.5F;
         poseStack.scale(scale, scale, scale);
+    }
+
+    private void doFishPitchYaw(T entity, float partialTicks)
+    {
+        var headPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
+
+        if (!entity.hasImpulse)
+        {
+            this.getModel().main().xRot = headPitch * (float) (Math.PI / 180.0);
+        }
     }
 
     public abstract RotationRenderData setupRotations(T entity, boolean inWater);

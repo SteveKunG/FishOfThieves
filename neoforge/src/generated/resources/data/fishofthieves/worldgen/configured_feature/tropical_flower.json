@@ -12,19 +12,44 @@
                 "data": {
                   "Name": "fishofthieves:pink_plumeria"
                 },
-                "weight": 8
+                "weight": 12
               },
               {
                 "data": {
                   "Name": "fishofthieves:light_blue_plumeria"
                 },
-                "weight": 6
+                "weight": 10
               },
               {
                 "data": {
                   "Name": "fishofthieves:white_plumeria"
                 },
+                "weight": 8
+              },
+              {
+                "data": {
+                  "Name": "fishofthieves:tropical_monstera"
+                },
                 "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "fishofthieves:tropical_red_fern",
+                  "Properties": {
+                    "ceiling": "false"
+                  }
+                },
+                "weight": 3
+              },
+              {
+                "data": {
+                  "Name": "fishofthieves:vertical_banana_leaves",
+                  "Properties": {
+                    "ceiling": "false",
+                    "waterlogged": "false"
+                  }
+                },
+                "weight": 2
               }
             ]
           }
