@@ -77,17 +77,8 @@ public interface AbstractFishVariant
         return muha.orElseGet(() -> registry.getHolderOrThrow(defaultKey));
     }
 
-    class RegisterContext<T>
+    record RegisterContext<T>(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
     {
-        private final String entityName;
-        private final Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory;
-
-        RegisterContext(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
-        {
-            this.entityName = entityName;
-            this.factory = factory;
-        }
-
         public static <T> RegisterContext<T> create(String entityName, Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
