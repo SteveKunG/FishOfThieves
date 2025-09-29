@@ -33,7 +33,7 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
         return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), vec3.x() + (double) this.offset.getX(), vec3.y() + (double) this.offset.getY(), vec3.z() + (double) this.offset.getZ()));
     }
 
-    public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
+    public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
     {
         return () -> new FOTLocationCheck(Optional.of(locationPredicateBuilder.build()), BlockPos.ZERO);
     }

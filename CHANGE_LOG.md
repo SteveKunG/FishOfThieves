@@ -5,6 +5,6 @@
 - Tropical Monstera, Tropical Red Fern and Verticle Banana Leaves can be growing on the grass block using bonemeal
 - Tropical Monstera and Tropical Red Fern can be spread to the side using bonemeal
 - Minor tweaked fish animation
-- Minor optimization to Enum.values()
+- Minor internal optimizations
 - Minor fix to advancement recipes namespace
 - Fixed Tropcial island is generated outside tropical climate, closes #71

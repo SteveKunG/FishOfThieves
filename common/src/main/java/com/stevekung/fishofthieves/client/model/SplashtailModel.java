@@ -18,14 +18,12 @@ import net.minecraft.util.Mth;
 public class SplashtailModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("splashtail"), "main");
-    private final ModelPart main;
     private final ModelPart body_back;
 
     public SplashtailModel(ModelPart part)
     {
         super(part, RenderType::entityCutout);
-        this.main = part.getChild("main");
-        this.body_back = this.main.getChild("body_back");
+        this.body_back = part.getChild("main").getChild("body_back");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -56,11 +54,6 @@ public class SplashtailModel<S extends ThievesFishRenderState> extends EntityMod
         {
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
-        }
-        else if (!renderState.hasImpulse)
-        {
-            this.main.xRot = renderState.xRot * (float) (Math.PI / 180.0);
-            this.main.yRot = renderState.yRot * (float) (Math.PI / 180.0);
         }
         this.body_back.yRot = -backRotation * 0.2f * Mth.sin(backRotSpeed * 0.6f * renderState.ageInTicks);
     }

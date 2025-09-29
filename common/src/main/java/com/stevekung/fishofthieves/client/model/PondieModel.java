@@ -18,16 +18,15 @@ import net.minecraft.util.Mth;
 public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("pondie"), "main");
-    private final ModelPart main;
     private final ModelPart mouth;
     private final ModelPart body_back;
 
     public PondieModel(ModelPart part)
     {
         super(part, RenderType::entityCutout);
-        this.main = part.getChild("main");
-        this.mouth = this.main.getChild("head").getChild("mouth_r1");
-        this.body_back = this.main.getChild("body_back");
+        var main = part.getChild("main");
+        this.mouth = main.getChild("head").getChild("mouth_r1");
+        this.body_back = main.getChild("body_back");
     }
 
     public static LayerDefinition createBodyLayer()
@@ -60,11 +59,6 @@ public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S
             backRotation = 1.5f;
             backRotSpeed = 1.7f;
             mouthSpeed = 2.1f;
-        }
-        else if (!renderState.hasImpulse)
-        {
-            this.main.xRot = renderState.xRot * (float) (Math.PI / 180.0);
-            this.main.yRot = renderState.yRot * (float) (Math.PI / 180.0);
         }
         this.body_back.yRot = -backRotation * 0.15f * Mth.sin(backRotSpeed * 0.65f * renderState.ageInTicks);
         this.mouth.xRot = -0.8727F + Mth.cos(mouthSpeed * renderState.ageInTicks) * (float) Math.PI * 0.02f;
