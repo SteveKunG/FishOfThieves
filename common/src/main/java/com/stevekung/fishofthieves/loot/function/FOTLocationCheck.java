@@ -13,17 +13,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-public class FOTLocationCheck implements LootItemCondition
+public record FOTLocationCheck(FOTLocationPredicate predicate, BlockPos offset) implements LootItemCondition
 {
-    protected final FOTLocationPredicate predicate;
-    protected final BlockPos offset;
-
-    protected FOTLocationCheck(FOTLocationPredicate locationPredicate, BlockPos blockPos)
-    {
-        this.predicate = locationPredicate;
-        this.offset = blockPos;
-    }
-
     @Override
     public LootItemConditionType getType()
     {
@@ -37,7 +28,7 @@ public class FOTLocationCheck implements LootItemCondition
         return vec3 != null && this.predicate.matches(lootContext.getLevel(), vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ());
     }
 
-    public static LootItemCondition.Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
+    public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
     {
         return () -> new FOTLocationCheck(locationPredicateBuilder.build(), BlockPos.ZERO);
     }

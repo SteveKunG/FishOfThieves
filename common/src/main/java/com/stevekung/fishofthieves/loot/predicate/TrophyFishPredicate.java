@@ -13,16 +13,10 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-public class TrophyFishPredicate implements EntitySubPredicate
+public record TrophyFishPredicate(boolean trophy) implements EntitySubPredicate
 {
     public static final TrophyFishPredicate ANY = new TrophyFishPredicate(false);
     private static final String TROPHY_KEY = "trophy";
-    private final boolean trophy;
-
-    private TrophyFishPredicate(boolean trophy)
-    {
-        this.trophy = trophy;
-    }
 
     public static TrophyFishPredicate trophy(boolean trophy)
     {
@@ -51,7 +45,7 @@ public class TrophyFishPredicate implements EntitySubPredicate
     }
 
     @Override
-    public EntitySubPredicate.Type type()
+    public Type type()
     {
         return FOTEntitySubPredicate.TROPHY;
     }

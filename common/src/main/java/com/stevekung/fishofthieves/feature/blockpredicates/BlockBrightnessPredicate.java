@@ -9,18 +9,11 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 
-public class BlockBrightnessPredicate implements BlockPredicate
+public record BlockBrightnessPredicate(int rawBrightness) implements BlockPredicate
 {
     public static final Codec<BlockBrightnessPredicate> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     Codec.intRange(0, 15).fieldOf("raw_brightness").forGetter(predicate -> predicate.rawBrightness))
             .apply(instance, BlockBrightnessPredicate::new));
-
-    private final int rawBrightness;
-
-    private BlockBrightnessPredicate(int rawBrightness)
-    {
-        this.rawBrightness = rawBrightness;
-    }
 
     public static BlockBrightnessPredicate value(int rawBrightness)
     {
