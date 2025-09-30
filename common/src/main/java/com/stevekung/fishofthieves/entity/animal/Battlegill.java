@@ -37,6 +37,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.ValueInput;
 
 public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 {
@@ -88,7 +89,11 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -133,6 +138,13 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
     {
         super.defineSynchedData(builder);
         builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.JADE));
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput valueInput)
+    {
+        super.readAdditionalSaveData(valueInput);
+        BattlegillAi.initMemories(this);
     }
 
     @Override

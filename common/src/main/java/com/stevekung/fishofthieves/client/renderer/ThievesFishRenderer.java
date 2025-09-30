@@ -51,6 +51,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         var variant = entity.getVariant().value();
         renderState.isTrophy = entity.isTrophy();
         renderState.isNoFlip = entity.isNoFlip();
+        renderState.hasImpulse = entity.hasImpulse;
         renderState.fullTexture = variant.fullTexture();
         renderState.fullGlowTexture = variant.fullGlowTexture().orElse(null);
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);
@@ -70,6 +71,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
             rotationRenderData.translateConsumer.accept(poseStack);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
+        this.doFishPitchYaw(renderState);
     }
 
     @Override
@@ -83,6 +85,14 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     {
         var scale = livingEntity.isTrophy ? 1.0F : 0.5F;
         poseStack.scale(scale, scale, scale);
+    }
+
+    private void doFishPitchYaw(S renderState)
+    {
+        if (!renderState.hasImpulse)
+        {
+            this.getModel().root().getChild("main").xRot = renderState.xRot * ((float) Math.PI / 180F);
+        }
     }
 
     public abstract RotationRenderData setupRotations(S renderState, boolean inWater);

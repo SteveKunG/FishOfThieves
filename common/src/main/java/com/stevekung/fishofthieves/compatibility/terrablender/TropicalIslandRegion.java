@@ -25,7 +25,10 @@ public class TropicalIslandRegion extends Region
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
     {
-        var temperature = Climate.Parameter.span(-1.0F, 1.0F);
+        var temperature = Climate.Parameter.span(0.2F, 1.0F); // Tropical temperature
+
+        // Parameters are almost the same as mushroom islands because we can't generate islands manually
+        // So replacing the mushroom island biome at the tropical temperature is the best choice
         var humidity = Climate.Parameter.span(-1.0F, 1.0F);
         var continentalness = Climate.Parameter.span(-1.5F, -0.9F);
         var erosion = Climate.Parameter.span(-1.0F, 1.0F);

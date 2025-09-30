@@ -23,6 +23,8 @@ import net.minecraft.world.phys.AABB;
 
 public class CauldronUtils
 {
+    private static final Predicate<BlockState> IS_CAULDRON = blockState -> blockState.getBlock() instanceof AbstractCauldronBlock;
+
     public static void fillCauldronFromLeavesTail(BlockState state, ServerLevel level, BlockPos pos)
     {
         var optional = CauldronUtils.findFillableCauldronBelowLeavesTail(level, pos);
@@ -62,8 +64,7 @@ public class CauldronUtils
 
     public static Optional<BlockPos> findFillableCauldronBelowLeavesTail(Level level, BlockPos pos)
     {
-        Predicate<BlockState> predicate = blockState -> blockState.getBlock() instanceof AbstractCauldronBlock;
         BiPredicate<BlockPos, BlockState> biPredicate = (blockPos, blockState) -> PointedDripstoneBlockAccessor.invokeCanDripThrough(level, blockPos, blockState);
-        return PointedDripstoneBlockAccessor.invokeFindBlockVertical(level, pos, Direction.DOWN.getAxisDirection(), biPredicate, predicate, 11);
+        return PointedDripstoneBlockAccessor.invokeFindBlockVertical(level, pos, Direction.DOWN.getAxisDirection(), biPredicate, IS_CAULDRON, 11);
     }
 }

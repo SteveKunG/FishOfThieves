@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.item.FOTItem;
+import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.Util;
@@ -19,6 +20,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -57,6 +59,11 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     default float getGlowBrightness(float ageInTicks)
     {
         return 1.0F;
+    }
+
+    default boolean isFishBreached(Brain<?> brain)
+    {
+        return brain.hasMemoryValue(FOTMemoryModuleTypes.BREACHED_TICK) && brain.getMemory(FOTMemoryModuleTypes.BREACHED_TICK).get() > 0;
     }
 
     default void saveToBucket(ItemStack bucket)

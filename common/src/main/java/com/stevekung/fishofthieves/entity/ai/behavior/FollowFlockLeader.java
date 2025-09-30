@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
-import net.minecraft.Util;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
@@ -18,15 +17,7 @@ public class FollowFlockLeader extends Behavior<AbstractFlockFish>
 
     public FollowFlockLeader(float speedModifier)
     {
-        super(Util.make(() ->
-        {
-            var builder = ImmutableMap.<MemoryModuleType<?>, MemoryStatus>builder();
-            builder.put(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED);
-            builder.put(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED);
-            builder.put(FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.VALUE_PRESENT);
-            builder.put(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT);
-            return builder.build();
-        }));
+        super(ImmutableMap.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED, MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT));
         this.speedModifier = speedModifier;
     }
 

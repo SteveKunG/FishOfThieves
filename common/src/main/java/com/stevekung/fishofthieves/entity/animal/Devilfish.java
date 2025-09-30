@@ -36,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.ValueInput;
 
 public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
@@ -87,7 +88,11 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
-            MemoryModuleType.IS_PANICKING
+            MemoryModuleType.IS_PANICKING,
+
+            // Jump AI
+            MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.BREACHED_TICK
     );
     //@formatter:on
 
@@ -132,6 +137,13 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     {
         super.defineSynchedData(builder);
         builder.define(VARIANT, this.registryAccess().lookupOrThrow(FOTRegistries.DEVILFISH_VARIANT).getOrThrow(DevilfishVariants.ASHEN));
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput valueInput)
+    {
+        super.readAdditionalSaveData(valueInput);
+        DevilfishAi.initMemories(this);
     }
 
     @Override

@@ -669,6 +669,23 @@
     ],
     "subtitle": "subtitles.entity.stormfish.hurt"
   },
+  "entity.fish.jump": {
+    "sounds": [
+      {
+        "name": "mob/dolphin/jump1",
+        "volume": 0.75
+      },
+      {
+        "name": "mob/dolphin/jump2",
+        "volume": 0.75
+      },
+      {
+        "name": "mob/dolphin/jump3",
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitles.entity.fish.jump"
+  },
   "block.fish_plaque.rotate": {
     "sounds": [
       "entity/itemframe/rotate_item1",
