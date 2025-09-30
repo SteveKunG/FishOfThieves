@@ -30,8 +30,25 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     @Override
     public void extractRenderState(FishPlaqueBlockEntity blockEntity, FishPlaqueBlockEntityRenderState fishPlaqueState, float partialTicks, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
         BlockEntityRenderer.super.extractRenderState(blockEntity, fishPlaqueState, partialTicks, vec3, crumblingOverlay);
-        fishPlaqueState.displayEntity = blockEntity.getOrCreateDisplayEntity(blockEntity.getLevel());
-        fishPlaqueState.animationTicks = blockEntity.getAnimation(partialTicks);
+        var entity = blockEntity.getOrCreateDisplayEntity(blockEntity.getLevel());
+
+        if (entity != null)
+        {
+            var entityType = entity.getType();
+            var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
+
+            fishPlaqueState.scale = 0.53125F;
+
+            if (maxScale > 1.0F)
+            {
+                fishPlaqueState.scale /= maxScale;
+            }
+
+            var powered = blockEntity.getBlockState().getValue(FishPlaqueBlock.POWERED) && entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED);
+            entity.fishofthieves$setIsInFishPlaque(powered);
+            fishPlaqueState.isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
+            fishPlaqueState.displayEntity = this.entityRenderer.extractEntity(entity, blockEntity.getAnimation(partialTicks));
+        }
     }
 
     @Override
@@ -39,32 +56,19 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     {
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
-        var entity = fishPlaqueState.displayEntity;
+        var entityRenderState = fishPlaqueState.displayEntity;
 
-        if (entity != null)
+        if (entityRenderState != null)
         {
-            var animationTick = fishPlaqueState.animationTicks;
             var blockState = fishPlaqueState.blockState;
             var facing = blockState.getValue(FishPlaqueBlock.FACING);
             var rotation = blockState.getValue(FishPlaqueBlock.ROTATION) - 1;
-            var entityType = entity.getType();
+            var scale = fishPlaqueState.scale;
 
-            if (blockState.getValue(FishPlaqueBlock.POWERED) && entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED))
-            {
-                entity.fishofthieves$setIsInFishPlaque(true);
-            }
-
-            var isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
-            var scale = 0.53125F;
+            var isHorizontal = fishPlaqueState.isHorizontal;
             var stepMultiplier = isHorizontal ? 0.3f : 0.4f;
-            var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
             var yDegree = -facing.toYRot() + 90f;
             var vec3Translate = new Vec3(facing.getStepX() * stepMultiplier, -scale, facing.getStepZ() * stepMultiplier);
-
-            if (maxScale > 1.0f)
-            {
-                scale /= maxScale;
-            }
 
             // Rotate by facing state
             poseStack.translate(-vec3Translate.x(), -vec3Translate.y(), -vec3Translate.z());
@@ -86,12 +90,8 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
                 poseStack.mulPose(Axis.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
             }
 
-            entity.setYHeadRot(0);
-            entity.setYBodyRot(0);
             poseStack.scale(scale, scale, scale);
-            var entityRenderState = this.entityRenderer.extractEntity(entity, animationTick);
             this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.getSubmitNodeStorage());
-            entity.fishofthieves$setIsInFishPlaque(false);
         }
         poseStack.popPose();
     }
