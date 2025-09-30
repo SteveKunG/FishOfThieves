@@ -135,30 +135,16 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         return PriorityProvider.pick(registryAccess.lookupOrThrow(registryKey).listElements(), Holder::value, livingEntity.getRandom(), context).orElseGet(() -> registry.getOrThrow(defaultKey));
     }
 
-    class RegisterContext<T>
+    record RegisterContext<T>(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
     {
-        private final String entityName;
-        private final Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory;
-
-        RegisterContext(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
-        {
-            this.entityName = entityName;
-            this.factory = factory;
-        }
-
         public static <T> RegisterContext<T> create(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
 
-        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Optional<Condition> condition, int priority)
+        public <Context, Condition extends SelectorCondition<Context>> Selector<Context, Condition> select(Condition condition, int priority)
         {
-            return new PriorityProvider.Selector<>(condition, priority);
-        }
-
-        public <Context, Condition extends PriorityProvider.SelectorCondition<Context>> PriorityProvider.Selector<Context, Condition> select(Condition condition, int priority)
-        {
-            return new PriorityProvider.Selector<>(condition, priority);
+            return new Selector<>(condition, priority);
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData)
@@ -177,23 +163,23 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         }
 
         @SafeVarargs
-        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, PriorityProvider.Selector<SpawnContext, SpawnCondition>... conditions)
+        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, Selector<SpawnContext, SpawnCondition>... conditions)
         {
             this.register(context, key, name, customModelData, false, List.of(conditions), Optional.empty());
         }
 
         @SafeVarargs
-        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition>... conditions)
+        public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition>... conditions)
         {
             this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<Selector<SpawnContext, SpawnCondition>> conditions, List<Selector<SpawnContext, SpawnCondition>> fishingOverride)
         {
             this.register(context, key, name, customModelData, false, conditions, Optional.of(fishingOverride));
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition> conditions)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition> conditions)
         {
             this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
         }
@@ -203,12 +189,12 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
             this.register(context, key, name, customModelData, glow, List.of(this.select(condition, 0)), Optional.empty());
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, PriorityProvider.Selector<SpawnContext, SpawnCondition> conditions, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition> conditions, List<Selector<SpawnContext, SpawnCondition>> fishingOverride)
         {
             this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.of(fishingOverride));
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> conditions, Optional<List<PriorityProvider.Selector<SpawnContext, SpawnCondition>>> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<Selector<SpawnContext, SpawnCondition>> conditions, Optional<List<Selector<SpawnContext, SpawnCondition>>> fishingOverride)
         {
             var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
             var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");

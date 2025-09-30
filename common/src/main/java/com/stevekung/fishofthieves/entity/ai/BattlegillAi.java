@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
+import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
 import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
 import com.stevekung.fishofthieves.entity.ai.behavior.StartAttackingIgnoreFlockLeader;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
@@ -49,6 +50,11 @@ public class BattlegillAi
         }
     }
 
+    public static void initMemories(Battlegill fish)
+    {
+        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+    }
+
     //@formatter:off
     private static void initCoreActivity(Brain<Battlegill> brain)
     {
@@ -57,7 +63,10 @@ public class BattlegillAi
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
-                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS)));
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK)
+        ));
     }
 
     @SuppressWarnings("deprecation")
@@ -69,7 +78,9 @@ public class BattlegillAi
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
                         Pair.of(new CreateFishFlock(), 2),
-                        Pair.of(new FollowFlockLeader(1.25f), 3)))),
+                        Pair.of(new FollowFlockLeader(1.25f), 3),
+                        Pair.of(new FishBreaching<>(AbstractThievesFishAi.TIME_BETWEEN_BREACH, 0.2F, 0.12f), 4)
+                ))),
                 Pair.of(2, new StartAttackingIgnoreFlockLeader<>(BattlegillAi::findNearestValidAttackTarget)),
                 Pair.of(3, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
                         Pair.of(RandomStroll.swim(1.0F), 2),
