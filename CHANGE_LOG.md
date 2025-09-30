@@ -8,3 +8,4 @@
 - Minor internal optimizations
 - Minor fix to advancement recipes namespace
 - Fixed Tropcial island is generated outside tropical climate, closes #71
+- Fixed converting Fish Plaque data from older version
