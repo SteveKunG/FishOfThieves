@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.world.phys.Vec3;
@@ -28,26 +29,38 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     }
 
     @Override
-    public void extractRenderState(FishPlaqueBlockEntity blockEntity, FishPlaqueBlockEntityRenderState fishPlaqueState, float partialTicks, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay) {
+    public void extractRenderState(FishPlaqueBlockEntity blockEntity, FishPlaqueBlockEntityRenderState fishPlaqueState, float partialTicks, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
+    {
         BlockEntityRenderer.super.extractRenderState(blockEntity, fishPlaqueState, partialTicks, vec3, crumblingOverlay);
-        var entity = blockEntity.getOrCreateDisplayEntity(blockEntity.getLevel());
 
-        if (entity != null)
+        if (blockEntity.getLevel() != null)
         {
-            var entityType = entity.getType();
-            var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
+            var entity = blockEntity.getOrCreateDisplayEntity(blockEntity.getLevel());
 
-            fishPlaqueState.scale = 0.53125F;
-
-            if (maxScale > 1.0F)
+            if (entity != null)
             {
-                fishPlaqueState.scale /= maxScale;
-            }
+                var entityType = entity.getType();
+                var maxScale = Math.max(entity.getBbWidth(), entity.getBbHeight());
 
-            var powered = blockEntity.getBlockState().getValue(FishPlaqueBlock.POWERED) && entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED);
-            entity.fishofthieves$setIsInFishPlaque(powered);
-            fishPlaqueState.isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
-            fishPlaqueState.displayEntity = this.entityRenderer.extractEntity(entity, blockEntity.getAnimation(partialTicks));
+                fishPlaqueState.scale = 0.53125F;
+
+                if (maxScale > 1.0F)
+                {
+                    fishPlaqueState.scale /= maxScale;
+                }
+
+                var powered = blockEntity.getBlockState().getValue(FishPlaqueBlock.POWERED) && entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED);
+                entity.fishofthieves$setIsInFishPlaque(powered);
+                fishPlaqueState.isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
+                fishPlaqueState.displayEntity = this.entityRenderer.extractEntity(entity, blockEntity.getAnimation(partialTicks));
+                fishPlaqueState.displayEntity.lightCoords = fishPlaqueState.lightCoords;
+                fishPlaqueState.displayEntity.hitboxesRenderState = null; // No need to render entity hitbox, or you will see the fish radar
+
+                if (fishPlaqueState.displayEntity instanceof LivingEntityRenderState livingEntityRenderState)
+                {
+                    livingEntityRenderState.bodyRot = 0f;
+                }
+            }
         }
     }
 
