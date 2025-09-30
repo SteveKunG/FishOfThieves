@@ -21,7 +21,6 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         super(dataOutput, provider);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
