@@ -26,7 +26,6 @@ public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
         super(dataOutput, provider);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
