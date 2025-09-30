@@ -71,7 +71,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
             rotationRenderData.translateConsumer.accept(poseStack);
             poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
         }
-        this.doFishPitchYaw(renderState);
+        this.doFishPitchYaw(renderState, poseStack);
     }
 
     @Override
@@ -87,11 +87,11 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         poseStack.scale(scale, scale, scale);
     }
 
-    private void doFishPitchYaw(S renderState)
+    private void doFishPitchYaw(S renderState, PoseStack poseStack)
     {
         if (!renderState.hasImpulse)
         {
-            this.getModel().root().getChild("main").xRot = renderState.xRot * ((float) Math.PI / 180F);
+            poseStack.mulPose(Axis.XP.rotation(renderState.xRot * ((float) Math.PI / -180F)));
         }
     }
 
