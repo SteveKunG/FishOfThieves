@@ -36,7 +36,7 @@ public class FishOfThievesNeoForge
 
         FOTGrassColorModifier.TROPICAL_ISLAND = Enum.valueOf(BiomeSpecialEffects.GrassColorModifier.class, "FISHOFTHIEVES_TROPICAL_ISLAND");
 
-        if (FMLEnvironment.dist.isClient())
+        if (FMLEnvironment.getDist().isClient())
         {
             new ClientProxyNeoForge().init();
         }
