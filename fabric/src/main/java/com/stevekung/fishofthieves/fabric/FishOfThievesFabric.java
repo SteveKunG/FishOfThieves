@@ -107,6 +107,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
 
+        FishOfThieves.initCompostables();
+
         FOTGrassColorModifier.TROPICAL_ISLAND = ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FISHOFTHIEVES_TROPICAL_ISLAND");
 
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FishOfThieves.FOT_MAIN, FishOfThieves.getMainCreativeTabBuilder(FabricItemGroup.builder()).build());

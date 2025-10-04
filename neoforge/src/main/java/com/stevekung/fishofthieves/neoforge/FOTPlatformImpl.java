@@ -12,7 +12,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,10 +25,9 @@ public class FOTPlatformImpl
         return ModList.get().isLoaded(modId);
     }
 
-    @SuppressWarnings("deprecation")
     public static void addComposting(ItemLike item, float value)
     {
-        ComposterBlock.COMPOSTABLES.put(item, value);
+        CompostableList.COMPOSTABLES.put(item, value);
     }
 
     public static void addFlammableBlock(Block block, int encouragement, int flammability)

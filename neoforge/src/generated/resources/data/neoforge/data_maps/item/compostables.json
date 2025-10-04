@@ -1,0 +1,112 @@
+{
+  "values": {
+    "fishofthieves:banana": {
+      "chance": 0.3
+    },
+    "fishofthieves:banana_blossom": {
+      "chance": 0.3
+    },
+    "fishofthieves:banana_leaves": {
+      "chance": 0.8
+    },
+    "fishofthieves:banana_shoots": {
+      "chance": 0.25
+    },
+    "fishofthieves:banana_stem": {
+      "chance": 0.8
+    },
+    "fishofthieves:barely_ripe_banana_cluster": {
+      "chance": 0.85
+    },
+    "fishofthieves:coconut": {
+      "chance": 0.5
+    },
+    "fishofthieves:coconut_fronds": {
+      "chance": 0.8
+    },
+    "fishofthieves:crownless_pineapple": {
+      "chance": 0.65
+    },
+    "fishofthieves:crownless_ripe_pineapple_block": {
+      "chance": 0.7
+    },
+    "fishofthieves:earthworms": {
+      "chance": 0.4
+    },
+    "fishofthieves:grubs": {
+      "chance": 0.4
+    },
+    "fishofthieves:guardian_fruit": {
+      "chance": 0.3
+    },
+    "fishofthieves:half_pineapple": {
+      "chance": 0.35
+    },
+    "fishofthieves:leeches": {
+      "chance": 0.4
+    },
+    "fishofthieves:light_blue_plumeria": {
+      "chance": 0.6
+    },
+    "fishofthieves:mango": {
+      "chance": 0.3
+    },
+    "fishofthieves:mango_leaves": {
+      "chance": 0.3
+    },
+    "fishofthieves:mango_pit": {
+      "chance": 0.2
+    },
+    "fishofthieves:mango_sapling": {
+      "chance": 0.25
+    },
+    "fishofthieves:pineapple": {
+      "chance": 0.7
+    },
+    "fishofthieves:pineapple_crown": {
+      "chance": 0.15
+    },
+    "fishofthieves:pineapple_seeds": {
+      "chance": 0.1
+    },
+    "fishofthieves:pink_plumeria": {
+      "chance": 0.6
+    },
+    "fishofthieves:pomegranate": {
+      "chance": 0.2
+    },
+    "fishofthieves:pomegranate_plant": {
+      "chance": 0.25
+    },
+    "fishofthieves:pomegranate_seeds": {
+      "chance": 0.1
+    },
+    "fishofthieves:raw_mango": {
+      "chance": 0.3
+    },
+    "fishofthieves:ripe_banana_cluster": {
+      "chance": 0.85
+    },
+    "fishofthieves:ripe_pineapple_block": {
+      "chance": 0.75
+    },
+    "fishofthieves:tall_pomegranate_plant": {
+      "chance": 0.4
+    },
+    "fishofthieves:tropical_monstera": {
+      "chance": 0.3
+    },
+    "fishofthieves:tropical_red_fern": {
+      "chance": 0.4
+    },
+    "fishofthieves:underripe_banana_cluster": {
+      "chance": 0.5
+    },
+    "fishofthieves:underripe_pineapple_block": {
+      "chance": 0.6
+    },
+    "fishofthieves:white_plumeria": {
+      "chance": 0.6
+    }
+  }
+}
