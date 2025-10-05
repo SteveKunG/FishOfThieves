@@ -1,1 +1,1 @@
-- Fixed incompatibility with Epic Hunt mod
+- [Forge] Intialize config save listener on forge
