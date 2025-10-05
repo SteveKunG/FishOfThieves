@@ -18,9 +18,6 @@ import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.Util;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +35,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
+
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 public class FishOfThieves
 {
@@ -68,43 +69,6 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
         DispenserBlock.registerBehavior(FOTItems.COCONUT_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_BOAT));
         DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_CHEST_BOAT));
-
-        FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
-        FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);
-        FOTPlatform.addComposting(FOTItems.LEECHES, 0.4F);
-        FOTPlatform.addComposting(FOTItems.COCONUT, 0.5F);
-        FOTPlatform.addComposting(FOTItems.BANANA, 0.3F);
-        FOTPlatform.addComposting(FOTItems.PINEAPPLE, 0.7F);
-        FOTPlatform.addComposting(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
-        FOTPlatform.addComposting(FOTItems.HALF_PINEAPPLE, 0.35F);
-        FOTPlatform.addComposting(FOTItems.PINEAPPLE_SEEDS, 0.1F);
-        FOTPlatform.addComposting(FOTItems.PINEAPPLE_CROWN, 0.15F);
-        FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
-        FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
-        FOTPlatform.addComposting(FOTItems.MANGO_PIT, 0.2F);
-        FOTPlatform.addComposting(FOTItems.POMEGRANATE, 0.2F);
-        FOTPlatform.addComposting(FOTItems.POMEGRANATE_SEEDS, 0.1F);
-        FOTPlatform.addComposting(FOTBlocks.PINK_PLUMERIA, 0.6F);
-        FOTPlatform.addComposting(FOTBlocks.LIGHT_BLUE_PLUMERIA, 0.6F);
-        FOTPlatform.addComposting(FOTBlocks.WHITE_PLUMERIA, 0.6F);
-        FOTPlatform.addComposting(FOTBlocks.COCONUT_FRONDS, 0.8F);
-        FOTPlatform.addComposting(FOTBlocks.BANANA_LEAVES, 0.8F);
-        FOTPlatform.addComposting(FOTBlocks.BANANA_BLOSSOM, 0.3F);
-        FOTPlatform.addComposting(FOTBlocks.BANANA_SHOOTS, 0.25F);
-        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 0.5F);
-        FOTPlatform.addComposting(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
-        FOTPlatform.addComposting(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
-        FOTPlatform.addComposting(FOTBlocks.BANANA_STEM, 0.8F);
-        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
-        FOTPlatform.addComposting(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
-        FOTPlatform.addComposting(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
-        FOTPlatform.addComposting(FOTBlocks.MANGO_LEAVES, 0.3F);
-        FOTPlatform.addComposting(FOTBlocks.MANGO_SAPLING, 0.25F);
-        FOTPlatform.addComposting(FOTBlocks.POMEGRANATE_PLANT, 0.25F);
-        FOTPlatform.addComposting(FOTBlocks.TALL_POMEGRANATE_PLANT, 0.4F);
-        FOTPlatform.addComposting(FOTBlocks.TROPICAL_RED_FERN, 0.4F);
-        FOTPlatform.addComposting(FOTBlocks.TROPICAL_MONSTERA, 0.3F);
-        FOTPlatform.addComposting(FOTItems.GUARDIAN_FRUIT, 0.3F);
 
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);
@@ -160,6 +124,46 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 30, 20);
+    }
+
+    public static void initCompostables()
+    {
+        FOTPlatform.addComposting(FOTItems.EARTHWORMS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.GRUBS, 0.4F);
+        FOTPlatform.addComposting(FOTItems.LEECHES, 0.4F);
+        FOTPlatform.addComposting(FOTItems.COCONUT, 0.5F);
+        FOTPlatform.addComposting(FOTItems.BANANA, 0.3F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE, 0.7F);
+        FOTPlatform.addComposting(FOTItems.CROWNLESS_PINEAPPLE, 0.65F);
+        FOTPlatform.addComposting(FOTItems.HALF_PINEAPPLE, 0.35F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_SEEDS, 0.1F);
+        FOTPlatform.addComposting(FOTItems.PINEAPPLE_CROWN, 0.15F);
+        FOTPlatform.addComposting(FOTItems.MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.RAW_MANGO, 0.3F);
+        FOTPlatform.addComposting(FOTItems.MANGO_PIT, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE, 0.2F);
+        FOTPlatform.addComposting(FOTItems.POMEGRANATE_SEEDS, 0.1F);
+        FOTPlatform.addComposting(FOTBlocks.PINK_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.LIGHT_BLUE_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.WHITE_PLUMERIA, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.COCONUT_FRONDS, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_LEAVES, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_BLOSSOM, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_SHOOTS, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, 0.5F);
+        FOTPlatform.addComposting(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_BANANA_CLUSTER, 0.85F);
+        FOTPlatform.addComposting(FOTBlocks.BANANA_STEM, 0.8F);
+        FOTPlatform.addComposting(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 0.6F);
+        FOTPlatform.addComposting(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 0.75F);
+        FOTPlatform.addComposting(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 0.7F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_LEAVES, 0.3F);
+        FOTPlatform.addComposting(FOTBlocks.MANGO_SAPLING, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.POMEGRANATE_PLANT, 0.25F);
+        FOTPlatform.addComposting(FOTBlocks.TALL_POMEGRANATE_PLANT, 0.4F);
+        FOTPlatform.addComposting(FOTBlocks.TROPICAL_RED_FERN, 0.4F);
+        FOTPlatform.addComposting(FOTBlocks.TROPICAL_MONSTERA, 0.3F);
+        FOTPlatform.addComposting(FOTItems.GUARDIAN_FRUIT, 0.3F);
     }
 
     private static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
