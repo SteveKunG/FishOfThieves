@@ -1,1 +1,1 @@
-- [NeoForge] Fixed compostable items not working correctly
+- [NeoForge] Intialize config save listener on neoforge
