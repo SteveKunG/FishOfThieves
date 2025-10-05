@@ -19,10 +19,10 @@ import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 public class FOTDataMapGenerator
 {
     @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event)
+    public static void onGatherData(GatherDataEvent.Server event)
     {
         FishOfThieves.initCompostables();
-        event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<FOTDataMapProvider>) output -> new FOTDataMapProvider(output, event.getLookupProvider()));
+        event.getGenerator().addProvider(true, (DataProvider.Factory<FOTDataMapProvider>) output -> new FOTDataMapProvider(output, event.getLookupProvider()));
     }
 
     private static class FOTDataMapProvider extends DataMapProvider
