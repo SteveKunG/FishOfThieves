@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.forge;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.forge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.forge.level.FOTBiomeModifiers;
 import com.stevekung.fishofthieves.forge.level.FOTStructureModifiers;
@@ -89,6 +90,7 @@ public class FishOfThievesForge
         if (FMLEnvironment.dist.isClient())
         {
             new ClientProxyForge().init();
+            FishOfThievesClient.init();
         }
         new CommonProxyForge().init();
     }
