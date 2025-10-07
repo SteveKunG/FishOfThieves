@@ -43,9 +43,9 @@
   ],
   "depends": {
     "fabricloader": ">=0.17.2",
-    "fabric": ">=0.133",
-    "cloth-config": ">=19.0",
-    "minecraft": "~1.21.9"
+    "fabric": ">=0.134",
+    "cloth-config": ">=20.0",
+    "minecraft": "~1.21.10"
   },
   "custom": {
     "modmenu": {

@@ -28,13 +28,13 @@ public class CoconutSaplingBlock extends SaplingBlock
     }
 
     @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier)
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean intersectInsideBlock)
     {
         if (level instanceof ServerLevel serverLevel && entity instanceof Ravager && serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING))
         {
             serverLevel.destroyBlock(pos, true, entity);
         }
-        super.entityInside(state, level, pos, entity, insideBlockEffectApplier);
+        super.entityInside(state, level, pos, entity, insideBlockEffectApplier, intersectInsideBlock);
     }
 
     @Override
