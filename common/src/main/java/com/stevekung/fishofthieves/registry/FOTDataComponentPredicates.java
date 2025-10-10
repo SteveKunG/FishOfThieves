@@ -9,7 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 public class FOTDataComponentPredicates
 {
-    public static final DataComponentPredicate.Type<ItemBucketEntityDataPredicate> BUCKET_ENTITY_DATA = register("bucket_entity_data", new DataComponentPredicate.Type<>(ItemBucketEntityDataPredicate.CODEC));
+    public static final DataComponentPredicate.Type<ItemBucketEntityDataPredicate> BUCKET_ENTITY_DATA = register("bucket_entity_data", new DataComponentPredicate.ConcreteType<>(ItemBucketEntityDataPredicate.CODEC));
 
     public static void init()
     {

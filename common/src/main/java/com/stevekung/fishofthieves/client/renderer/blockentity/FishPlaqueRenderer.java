@@ -54,7 +54,6 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
                 fishPlaqueState.isHorizontal = entity.isInWater() || entityType.is(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER);
                 fishPlaqueState.displayEntity = this.entityRenderer.extractEntity(entity, blockEntity.getAnimation(partialTicks));
                 fishPlaqueState.displayEntity.lightCoords = fishPlaqueState.lightCoords;
-                fishPlaqueState.displayEntity.hitboxesRenderState = null; // No need to render entity hitbox, or you will see the fish radar
 
                 if (fishPlaqueState.displayEntity instanceof LivingEntityRenderState livingEntityRenderState)
                 {
