@@ -125,7 +125,7 @@ public class FOTLootManager
                         .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
-                        .when(FOTLootItemConditions.IN_SHIPWRECKS.or(FOTLootItemConditions.IN_RUINED_PORTAL_OCEAN)))
+                        .when(FOTLootItemConditions.IN_SHIPWRECKS_OR_RUINED_PORTAL_OCEAN))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
                         .when(FOTLootItemConditions.THUNDERING));

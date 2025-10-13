@@ -25,7 +25,8 @@ public record FOTLocationCheck(FOTLocationPredicate predicate, BlockPos offset) 
     public boolean test(LootContext lootContext)
     {
         var vec3 = lootContext.getParamOrNull(LootContextParams.ORIGIN);
-        return vec3 != null && this.predicate.matches(lootContext.getLevel(), vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ());
+        var entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
+        return vec3 != null && this.predicate.matches(lootContext.getLevel(), entity, vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ());
     }
 
     public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)

@@ -9,33 +9,53 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.phys.AABB;
 
-public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> structure, Continentalness continentalness, Boolean hasRaids)
+public record FOTLocationPredicate(TagKey<Biome> biome, StructureRangeCondition structureRangeCondition, Continentalness continentalness, Boolean hasRaids)
 {
     public static final FOTLocationPredicate ANY = new FOTLocationPredicate(null, null, null, null);
 
-    public boolean matches(ServerLevel level, double x, double y, double z)
+    public boolean matches(ServerLevel level, @Nullable Entity entity, double x, double y, double z)
     {
         var blockPos = BlockPos.containing(x, y, z);
         var loaded = level.isLoaded(blockPos);
         var isRaided = level.isRaided(blockPos);
-        var structureFeatureHolderSet = level.registryAccess().registryOrThrow(Registries.STRUCTURE).getTag(this.structure);
-        return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.structure == null || structureFeatureHolderSet.isEmpty() || structureFeatureHolderSet.isPresent() && loaded && this.structureMatched(level, blockPos, structureFeatureHolderSet.get())) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.hasRaids == null || loaded && this.hasRaids == isRaided);
+        return (this.biome == null || loaded && level.getBiome(blockPos).is(this.biome)) && (this.structureRangeCondition == null || loaded && this.structureMatched(level, blockPos, entity, this.structureRangeCondition, level.registryAccess().registryOrThrow(Registries.STRUCTURE))) && (this.continentalness == null || loaded && this.continentalness == TerrainUtils.getContinentalness(level, blockPos)) && (this.hasRaids == null || loaded && this.hasRaids == isRaided);
     }
 
-    private boolean structureMatched(ServerLevel level, BlockPos blockPos, HolderSet.Named<Structure> holders)
+    private boolean structureMatched(ServerLevel level, BlockPos blockPos, @Nullable Entity entity, StructureRangeCondition structureRangeCondition, Registry<Structure> structureRegistry)
     {
-        for (var holder : holders)
+        var structureHolderSet = structureRegistry.getTag(structureRangeCondition.structure());
+
+        if (structureHolderSet.isPresent())
         {
-            return level.structureManager().getStructureWithPieceAt(blockPos, holder.value()).isValid();
+            for (var structureHolder : structureHolderSet.get())
+            {
+                var structure = structureHolder.value();
+
+                if (entity == null)
+                {
+                    return level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
+                }
+                else
+                {
+                    for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                    {
+                        return entity.getBoundingBox().inflate(structureRangeCondition.range().getValue()).intersects(AABB.of(structureStart.getBoundingBox()));
+                    }
+                }
+            }
         }
         return false;
     }
@@ -53,9 +73,12 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         {
             jsonObject.addProperty("biome", this.biome.location().toString());
         }
-        if (this.structure != null)
+        if (this.structureRangeCondition != null)
         {
-            jsonObject.addProperty("structure", this.structure.location().toString());
+            var jsonStructureObject = new JsonObject();
+            jsonStructureObject.addProperty("structure", this.structureRangeCondition.structure().location().toString());
+            jsonStructureObject.addProperty("range", this.structureRangeCondition.range().getValue());
+            jsonObject.add("structure", jsonStructureObject);
         }
         if (this.continentalness != null)
         {
@@ -77,7 +100,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
 
         var jsonObject = GsonHelper.convertToJsonObject(json, "location");
         TagKey<Biome> biome = null;
-        TagKey<Structure> structure = null;
+        StructureRangeCondition structureRangeCondition = null;
         Continentalness continentalness = null;
         Boolean hasRaids = null;
 
@@ -88,8 +111,10 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         }
         if (jsonObject.has("structure"))
         {
-            var string = GsonHelper.getAsString(jsonObject, "structure");
-            structure = TagKey.create(Registries.STRUCTURE, new ResourceLocation(string));
+            var jsonStructureObject = GsonHelper.getAsJsonObject(jsonObject, "structure", new JsonObject());
+            var structure = GsonHelper.getAsString(jsonStructureObject, "structure");
+            var range = ConstantInt.of(GsonHelper.getAsInt(jsonStructureObject, "range"));
+            structureRangeCondition = new StructureRangeCondition(TagKey.create(Registries.STRUCTURE, new ResourceLocation(structure)), range);
         }
         if (jsonObject.has("continentalness"))
         {
@@ -99,7 +124,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         {
             hasRaids = GsonHelper.getAsBoolean(jsonObject, "hasRaids");
         }
-        return new FOTLocationPredicate(biome, structure, continentalness, hasRaids);
+        return new FOTLocationPredicate(biome, structureRangeCondition, continentalness, hasRaids);
     }
 
     public static class Builder
@@ -107,7 +132,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
         @Nullable
         private TagKey<Biome> biome;
         @Nullable
-        private TagKey<Structure> structure;
+        private StructureRangeCondition structureRangeCondition;
         @Nullable
         private Continentalness continentalness;
         @Nullable
@@ -124,9 +149,9 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
             return this;
         }
 
-        public Builder setStructure(@Nullable TagKey<Structure> structure)
+        public Builder setStructureInRange(TagKey<Structure> structure, int range)
         {
-            this.structure = structure;
+            this.structureRangeCondition = new StructureRangeCondition(structure, ConstantInt.of(range));
             return this;
         }
 
@@ -144,7 +169,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, TagKey<Structure> struct
 
         public FOTLocationPredicate build()
         {
-            return new FOTLocationPredicate(this.biome, this.structure, this.continentalness, this.hasRaids);
+            return new FOTLocationPredicate(this.biome, this.structureRangeCondition, this.continentalness, this.hasRaids);
         }
     }
 }
