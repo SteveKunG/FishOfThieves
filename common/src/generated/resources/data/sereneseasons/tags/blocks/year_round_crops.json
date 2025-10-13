@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:banana_shoots",
+    "fishofthieves:banana_shoots_plant",
+    "fishofthieves:guardian_fruit",
+    "#fishofthieves:banana_clusters",
+    "#fishofthieves:banana_cluster_plants"
+  ]
+}

@@ -4,6 +4,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.*;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
@@ -32,6 +33,11 @@ public interface FOTTags
         TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("gilded_frame_fish_plaque"));
         TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
         TagKey<Item> BANANA_CLUSTERS = TagKey.create(Registries.ITEM, FishOfThieves.id("banana_clusters"));
+
+        TagKey<Item> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("sereneseasons:spring_crops"));
+        TagKey<Item> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("sereneseasons:summer_crops"));
+        TagKey<Item> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("sereneseasons:autumn_crops"));
+        TagKey<Item> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.ITEM, new ResourceLocation("sereneseasons:year_round_crops"));
     }
 
     interface Blocks
@@ -57,6 +63,13 @@ public interface FOTTags
         TagKey<Block> BANANA_CLUSTERS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_clusters"));
         TagKey<Block> BANANA_SHOOTS_PLACEABLE_ON = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_shoots_placeable_on"));
         TagKey<Block> MANGO_FRUITS = TagKey.create(Registries.BLOCK, FishOfThieves.id("mango_fruits"));
+
+        TagKey<Block> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons:spring_crops"));
+        TagKey<Block> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons:summer_crops"));
+        TagKey<Block> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons:autumn_crops"));
+        TagKey<Block> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons:year_round_crops"));
+        TagKey<Block> SERENE_SEASONS_UNBREAKABLE_INFERTILE_CROPS = TagKey.create(Registries.BLOCK, new ResourceLocation("sereneseasons:unbreakable_infertile_crops"));
+
     }
 
     interface EntityTypes
@@ -105,6 +118,9 @@ public interface FOTTags
         TagKey<Biome> ALWAYS_DROP_LEECHES = TagKey.create(Registries.BIOME, FishOfThieves.id("always_drop_leeches"));
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.id("has_seapost"));
         TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.id("has_fish_bone"));
+
+        TagKey<Biome> SERENE_SEASONS_TROPICAL_BIOMES = TagKey.create(Registries.BIOME, new ResourceLocation("sereneseasons:tropical_biomes"));
+        TagKey<Biome> SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES = TagKey.create(Registries.BIOME, new ResourceLocation("sereneseasons:lesser_color_change_biomes"));
     }
 
     interface FishVariant

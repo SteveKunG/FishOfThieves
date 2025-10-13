@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:pineapple_crop",
+    "fishofthieves:mango_sapling",
+    "fishofthieves:mango_pit",
+    "fishofthieves:pomegranate_sapling",
+    "fishofthieves:pomegranate_plant",
+    "fishofthieves:tall_pomegranate_plant",
+    "#fishofthieves:mango_fruits"
+  ]
+}

@@ -65,6 +65,9 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
 
         this.getOrCreateTagBuilder(FORGE_IS_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.getOrCreateTagBuilder(FORGE_IS_LUSH).add(FOTBiomes.TROPICAL_ISLAND);
+
+        this.getOrCreateTagBuilder(FOTTags.Biomes.SERENE_SEASONS_TROPICAL_BIOMES).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(FOTTags.Biomes.SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES).add(FOTBiomes.TROPICAL_ISLAND);
     }
 
     private static TagKey<Biome> forgeTag(String name)
