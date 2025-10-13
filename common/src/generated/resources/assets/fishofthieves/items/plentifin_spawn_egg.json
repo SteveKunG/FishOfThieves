@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -3875257
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -13478637
-      }
-    ]
+    "model": "fishofthieves:item/plentifin_spawn_egg"
   }
 }

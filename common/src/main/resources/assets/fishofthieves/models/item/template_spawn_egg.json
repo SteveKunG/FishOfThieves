@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "fishofthieves:item/spawn_egg",
-        "layer1": "fishofthieves:item/spawn_egg_overlay"
-    }
-}
