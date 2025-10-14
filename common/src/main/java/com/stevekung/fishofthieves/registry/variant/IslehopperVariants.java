@@ -33,8 +33,7 @@ public class IslehopperVariants
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, STONE, "stone", 0);
         registerContext.register(context, MOSS, "moss", 1, AnyConditionCheck.anyOf(new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.IS_JUNGLE)),
-                new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)),
-                new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES), biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build()
+                new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.SWAMP), biomeLookup.getOrThrow(Biomes.MANGROVE_SWAMP), biomeLookup.getOrThrow(Biomes.LUSH_CAVES), biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build()
         );
         registerContext.register(context, HONEY, "honey", 2, HasBeehiveCheck.beehive(5, 9));
         registerContext.register(context, RAVEN, "raven", 3, AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(),

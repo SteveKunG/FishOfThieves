@@ -3,8 +3,9 @@
     "#minecraft:is_ocean",
     "#minecraft:is_beach",
     "#minecraft:is_jungle",
-    "#minecraft:has_closer_water_fog",
     "minecraft:lush_caves",
-    "minecraft:warm_ocean"
+    "minecraft:warm_ocean",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp"
   ]
 }

@@ -7,12 +7,17 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import net.minecraft.sounds.Music;
-import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.attribute.AmbientSounds;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.attribute.modifier.FloatModifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -48,12 +53,12 @@ public class FOTOverworldBiomes extends OverworldBiomes
 
         biomeSettingsBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, FOTPlacements.TROPICAL_ISLAND_ROCK);
 
-        return biome(true, 0.9F, 1.0F, 54489, 38295, null, 1495563, mobSpawnBuilder, biomeSettingsBuilder, Musics.createGameMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE));
+        return biome(true, 0.9F, 1.0F, 54489, 38295, null, 1495563, mobSpawnBuilder, biomeSettingsBuilder);
     }
 
-    private static Biome biome(boolean hasPrecipitation, float temperature, float downfall, int waterColor, int waterFogColor, @Nullable Integer grassColorOverride, @Nullable Integer foliageColorOverride, MobSpawnSettings.Builder mobSpawnSettings, BiomeGenerationSettings.Builder generationSettings, @Nullable Music backgroundMusic)
+    private static Biome biome(boolean hasPrecipitation, float temperature, float downfall, int waterColor, int waterFogColor, @Nullable Integer grassColorOverride, @Nullable Integer foliageColorOverride, MobSpawnSettings.Builder mobSpawnSettings, BiomeGenerationSettings.Builder generationSettings)
     {
-        var builder = new BiomeSpecialEffects.Builder().grassColorModifier(FOTGrassColorModifier.TROPICAL_ISLAND).waterColor(waterColor).waterFogColor(waterFogColor).fogColor(10409707).skyColor(4568554).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(backgroundMusic);
+        var builder = new BiomeSpecialEffects.Builder().grassColorModifier(FOTGrassColorModifier.TROPICAL_ISLAND).waterColor(waterColor);
 
         if (grassColorOverride != null)
         {
@@ -64,7 +69,7 @@ public class FOTOverworldBiomes extends OverworldBiomes
             builder.foliageColorOverride(foliageColorOverride);
         }
 
-        return new Biome.BiomeBuilder().hasPrecipitation(hasPrecipitation).temperature(temperature).downfall(downfall).specialEffects(builder.build()).mobSpawnSettings(mobSpawnSettings.build()).generationSettings(generationSettings.build()).build();
+        return new Biome.BiomeBuilder().setAttribute(EnvironmentAttributes.FOG_COLOR, 10409707).setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, waterFogColor).setAttribute(EnvironmentAttributes.SKY_COLOR, 4568554).setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS).setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE)).setAttribute(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true).modifyAttribute(EnvironmentAttributes.WATER_FOG_RADIUS, FloatModifier.MULTIPLY, 2.5F).hasPrecipitation(hasPrecipitation).temperature(temperature).downfall(downfall).specialEffects(builder.build()).mobSpawnSettings(mobSpawnSettings.build()).generationSettings(generationSettings.build()).build();
     }
 
     public static void islandSpawns(MobSpawnSettings.Builder builder)

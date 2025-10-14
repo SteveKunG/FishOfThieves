@@ -34,7 +34,7 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.builder(FOTTags.Biomes.SPAWNS_ISLEHOPPERS).forceAddTag(BiomeTags.IS_OVERWORLD);
         this.builder(FOTTags.Biomes.SPAWNS_ANCIENTSCALES).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
         this.builder(FOTTags.Biomes.SPAWNS_PLENTIFINS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.LUSH_CAVES, Biomes.DRIPSTONE_CAVES);
-        this.builder(FOTTags.Biomes.SPAWNS_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).forceAddTag(BiomeTags.HAS_CLOSER_WATER_FOG).add(Biomes.LUSH_CAVES, Biomes.WARM_OCEAN);
+        this.builder(FOTTags.Biomes.SPAWNS_WILDSPLASH).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_BEACH).forceAddTag(BiomeTags.IS_JUNGLE).add(Biomes.LUSH_CAVES, Biomes.WARM_OCEAN, Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
         this.builder(FOTTags.Biomes.SPAWNS_DEVILFISH).forceAddTag(BiomeTags.IS_OVERWORLD);
         this.builder(FOTTags.Biomes.SPAWNS_BATTLEGILLS).forceAddTag(BiomeTags.IS_OVERWORLD);
         this.builder(FOTTags.Biomes.SPAWNS_WRECKERS).forceAddTag(BiomeTags.IS_OCEAN);
@@ -48,7 +48,6 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.builder(BiomeTags.IS_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.builder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);
         this.builder(BiomeTags.HAS_JUNGLE_TEMPLE).add(FOTBiomes.TROPICAL_ISLAND);
-        this.builder(BiomeTags.INCREASED_FIRE_BURNOUT).add(FOTBiomes.TROPICAL_ISLAND);
 
         this.builder(ConventionalBiomeTags.IS_TEMPERATE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.builder(ConventionalBiomeTags.IS_VEGETATION_SPARSE_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);

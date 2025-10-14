@@ -13,11 +13,9 @@
             },
             {
               "type": "minecraft:biome",
-              "biomes": "#minecraft:has_closer_water_fog"
-            },
-            {
-              "type": "minecraft:biome",
               "biomes": [
+                "minecraft:swamp",
+                "minecraft:mangrove_swamp",
                 "minecraft:lush_caves",
                 "fishofthieves:tropical_island"
               ]

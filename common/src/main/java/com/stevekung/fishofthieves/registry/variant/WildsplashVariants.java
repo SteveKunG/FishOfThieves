@@ -37,7 +37,7 @@ public class WildsplashVariants
                 registerContext.select(AllConditionCheck.allOf(new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.IS_BEACH)), ContinentalnessCheck.continentalness(Continentalness.COAST)), 0)
         );
         registerContext.register(context, OCEAN, "ocean", 2, new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)));
-        registerContext.register(context, MUDDY, "muddy", 3, AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))));
+        registerContext.register(context, MUDDY, "muddy", 3, AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.SWAMP), biomeLookup.getOrThrow(Biomes.MANGROVE_SWAMP)))));
         registerContext.register(context, CORAL, "coral", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(),
                 new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))),
                 MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)));

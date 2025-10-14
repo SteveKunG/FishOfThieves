@@ -13,7 +13,10 @@
             },
             {
               "type": "minecraft:biome",
-              "biomes": "#minecraft:has_closer_water_fog"
+              "biomes": [
+                "minecraft:swamp",
+                "minecraft:mangrove_swamp"
+              ]
             }
           ]
         },
