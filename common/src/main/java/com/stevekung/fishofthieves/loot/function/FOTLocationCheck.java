@@ -30,7 +30,8 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
     public boolean test(LootContext context)
     {
         var vec3 = context.getParamOrNull(LootContextParams.ORIGIN);
-        return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), vec3.x() + (double) this.offset.getX(), vec3.y() + (double) this.offset.getY(), vec3.z() + (double) this.offset.getZ()));
+        var entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+        return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), entity, vec3.x() + (double) this.offset.getX(), vec3.y() + (double) this.offset.getY(), vec3.z() + (double) this.offset.getZ()));
     }
 
     public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)

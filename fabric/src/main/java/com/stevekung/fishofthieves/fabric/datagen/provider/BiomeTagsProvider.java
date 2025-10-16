@@ -54,6 +54,9 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.getOrCreateTagBuilder(ConventionalBiomeTags.IS_JUNGLE_TREE).add(FOTBiomes.TROPICAL_ISLAND);
 
         this.getOrCreateTagBuilder(C_IS_LUSH).add(FOTBiomes.TROPICAL_ISLAND);
+
+        this.getOrCreateTagBuilder(FOTTags.Biomes.SERENE_SEASONS_TROPICAL_BIOMES).add(FOTBiomes.TROPICAL_ISLAND);
+        this.getOrCreateTagBuilder(FOTTags.Biomes.SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES).add(FOTBiomes.TROPICAL_ISLAND);
     }
 
     private static TagKey<Biome> cTag(String name)
