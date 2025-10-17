@@ -6,8 +6,10 @@ import java.util.function.BiFunction;
 
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
+import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.Util;
@@ -143,7 +145,7 @@ public class FOTLootManager
 
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
-                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(structureLookup.getOrThrow(FOTTags.Structures.WRECKERS_SPAWN_IN))).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WRECKERS))))))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructureInRange(structureLookup.getOrThrow(FOTTags.Structures.WRECKERS_SPAWN_IN), 12)).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WRECKERS))))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)

@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -4754228
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -12179857
-      }
-    ]
+    "model": "fishofthieves:item/wrecker_spawn_egg"
   }
 }

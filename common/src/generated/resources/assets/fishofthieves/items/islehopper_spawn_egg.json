@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -10922903
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -8177088
-      }
-    ]
+    "model": "fishofthieves:item/islehopper_spawn_egg"
   }
 }

@@ -33,8 +33,9 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_${aquaculture_version}:api"
-
-    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
+    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+    modImplementation "com.github.glitchfiend:SereneSeasons-neoforge:${serene_seasons_version}"
+    modImplementation "com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}"
 }
 
 processResources {

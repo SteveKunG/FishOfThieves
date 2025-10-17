@@ -83,25 +83,25 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.SPLASHTAIL_SPAWN_EGG, 10368309, 3949737);
+        generator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.PONDIE_SPAWN_EGG, 8553918, 6255174);
+        generator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.ISLEHOPPER_SPAWN_EGG, 5854313, 8600128);
+        generator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.ANCIENTSCALE_SPAWN_EGG, 16224860, 7878952);
+        generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.PLENTIFIN_SPAWN_EGG, 12901959, 3298579);
+        generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.WILDSPLASH_SPAWN_EGG, 6453062, 7556888);
+        generator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_DEVILFISH, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.DEVILFISH_SPAWN_EGG, 8618392, 13068147);
+        generator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_BATTLEGILL, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.BATTLEGILL_SPAWN_EGG, 2311985, 11047794);
+        generator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_WRECKER, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.WRECKER_SPAWN_EGG, 12022988, 4597359);
+        generator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(generator, FOTItems.STORMFISH_SPAWN_EGG, 9541044, 8608620);
+        generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);
@@ -121,13 +121,6 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.KRAKEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MEGALODON_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.GUARDIAN_FRUIT, ModelTemplates.FLAT_ITEM);
-    }
-
-    @Deprecated //TODO Remove later
-    private void generateSpawnEgg(ItemModelGenerators generator, Item spawnEggItem, int primaryColor, int secondaryColor)
-    {
-        var resourceLocation = FishOfThieves.id("item/template_spawn_egg");
-        generator.itemModelOutput.accept(spawnEggItem, ItemModelUtils.tintedModel(resourceLocation, ItemModelUtils.constantTint(primaryColor), ItemModelUtils.constantTint(secondaryColor)));
     }
 
     @Override
