@@ -66,11 +66,12 @@ repositories {
 
 dependencies {
     //modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"TODO
-    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}") {
+    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-    //modRuntimeOnly "curse.maven:structure-void-toggle-357304:6664098"TODO
+    modImplementation("com.github.glitchfiend:SereneSeasons-fabric:${serene_seasons_version}")
+    modRuntimeOnly "curse.maven:structure-void-toggle-357304:7101156"
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 

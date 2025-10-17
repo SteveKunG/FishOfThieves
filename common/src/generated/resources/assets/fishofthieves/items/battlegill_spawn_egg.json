@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -14465231
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -5729422
-      }
-    ]
+    "model": "fishofthieves:item/battlegill_spawn_egg"
   }
 }

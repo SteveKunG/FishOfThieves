@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -8223298
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -10522042
-      }
-    ]
+    "model": "fishofthieves:item/pondie_spawn_egg"
   }
 }
