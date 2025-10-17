@@ -121,5 +121,26 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.getOrCreateTagBuilder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT);
         this.getOrCreateTagBuilder(FOTTags.Blocks.MANGO_FRUITS).add(FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
+
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SERENE_SEASONS_YEAR_ROUND_CROPS)
+                .add(FOTBlocks.BANANA_SHOOTS, FOTBlocks.BANANA_SHOOTS_PLANT,
+                        FOTBlocks.GUARDIAN_FRUIT)
+                .forceAddTag(FOTTags.Blocks.BANANA_CLUSTERS)
+                .forceAddTag(FOTTags.Blocks.BANANA_CLUSTER_PLANTS);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SERENE_SEASONS_SPRING_CROPS)
+                .add(FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_SAPLING, FOTBlocks.MANGO_PIT, FOTBlocks.POMEGRANATE_SAPLING,
+                        FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT)
+                .forceAddTag(FOTTags.Blocks.MANGO_FRUITS);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SERENE_SEASONS_SUMMER_CROPS)
+                .add(FOTBlocks.COCONUT_SAPLING, FOTBlocks.COCONUT_FRUIT,
+                        FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_SAPLING, FOTBlocks.MANGO_PIT, FOTBlocks.POMEGRANATE_SAPLING,
+                        FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT)
+                .forceAddTag(FOTTags.Blocks.MANGO_FRUITS);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SERENE_SEASONS_AUTUMN_CROPS)
+                .add(FOTBlocks.POMEGRANATE_SAPLING, FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
+        this.getOrCreateTagBuilder(FOTTags.Blocks.SERENE_SEASONS_UNBREAKABLE_INFERTILE_CROPS)
+                .add(FOTBlocks.BANANA_SHOOTS, FOTBlocks.BANANA_SHOOTS_PLANT, FOTBlocks.POMEGRANATE_SAPLING,
+                        FOTBlocks.COCONUT_SAPLING, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_SAPLING, FOTBlocks.MANGO_PIT,
+                        FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
     }
 }
