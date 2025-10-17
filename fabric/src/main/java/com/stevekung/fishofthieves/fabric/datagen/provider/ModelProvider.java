@@ -570,7 +570,61 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.SMALL_COCONUT_LOG;
         var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
-        this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
+        var trunkModelLocation = ModelLocationUtils.getModelLocation(block, "_trunk");
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y),
+                        Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                )
+
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Z),
+                        Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                )
+
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.X),
+                        Variant.variant().with(VariantProperties.MODEL, modelLocation)
+                                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(SmallCoconutWoodBlock.NORTH, true),
+                        Variant.variant().with(VariantProperties.MODEL, trunkModelLocation)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(SmallCoconutWoodBlock.SOUTH, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, trunkModelLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(SmallCoconutWoodBlock.EAST, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, trunkModelLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                )
+                .with(
+                        Condition.condition()
+                                .term(BlockStateProperties.AXIS, Direction.Axis.Y)
+                                .term(SmallCoconutWoodBlock.WEST, true),
+                        Variant.variant()
+                                .with(VariantProperties.MODEL, trunkModelLocation)
+                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
     }
 
     private void createSmallTopCoconutLog(BlockModelGenerators generator)

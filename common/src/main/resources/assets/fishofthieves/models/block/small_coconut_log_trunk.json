@@ -1,0 +1,19 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"side": "fishofthieves:block/coconut_log"
+	},
+	"elements": [
+		{
+			"from": [4, 2, -2],
+			"to": [12, 14, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 2, 0]},
+			"faces": {
+				"east": {"uv": [2, 12, 14, 16], "rotation": 90, "texture": "#side"},
+				"west": {"uv": [14, 16, 2, 12], "rotation": 90, "texture": "#side"},
+				"up": {"uv": [4, 12, 12, 16], "texture": "#side"},
+				"down": {"uv": [12, 16, 4, 12], "texture": "#side"}
+			}
+		}
+	]
+}

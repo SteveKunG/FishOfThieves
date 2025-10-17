@@ -1,16 +1,70 @@
 {
-  "variants": {
-    "axis=x": {
-      "model": "fishofthieves:block/small_coconut_log",
-      "x": 90,
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log"
+      },
+      "when": {
+        "axis": "y"
+      }
     },
-    "axis=y": {
-      "model": "fishofthieves:block/small_coconut_log"
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log",
+        "x": 90
+      },
+      "when": {
+        "axis": "z"
+      }
     },
-    "axis=z": {
-      "model": "fishofthieves:block/small_coconut_log",
-      "x": 90
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "axis": "x"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log_trunk"
+      },
+      "when": {
+        "axis": "y",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log_trunk",
+        "y": 180
+      },
+      "when": {
+        "axis": "y",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log_trunk",
+        "y": 90
+      },
+      "when": {
+        "axis": "y",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "fishofthieves:block/small_coconut_log_trunk",
+        "y": 270
+      },
+      "when": {
+        "axis": "y",
+        "west": "true"
+      }
     }
-  }
+  ]
 }

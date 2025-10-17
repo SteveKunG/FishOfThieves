@@ -68,7 +68,11 @@
           "Name": "fishofthieves:small_coconut_log",
           "Properties": {
             "axis": "y",
-            "waterlogged": "false"
+            "east": "false",
+            "north": "false",
+            "south": "false",
+            "waterlogged": "false",
+            "west": "false"
           }
         }
       },
