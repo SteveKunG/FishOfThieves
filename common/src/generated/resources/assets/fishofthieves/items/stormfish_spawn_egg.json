@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "fishofthieves:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -7236172
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -8168596
-      }
-    ]
+    "model": "fishofthieves:item/stormfish_spawn_egg"
   }
 }
