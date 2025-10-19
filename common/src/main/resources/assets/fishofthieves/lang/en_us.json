@@ -464,7 +464,7 @@
   "patchouli.fishofthieves.entry.basics.lore": "Lore",
 
   "patchouli.fishofthieves.entry.blocks.fish_bone": "Fish Bone",
-  "patchouli.fishofthieves.entry.blocks.fish_bone.page0": "$(item)Fish Bone$() is a decoration block which can be found randomly on the ocean floor or the $(item)Seaposts$(), or dropped by killing any fish with 2.5% chance.$(p)Can be used to craft $(item)4 bonemeals.$()",
+  "patchouli.fishofthieves.entry.blocks.fish_bone.page0": "$(item)Fish Bone$() is a decoration block which can be found randomly on the ocean floor or the $(item)Seaposts$(), or dropped by killing any fish with 2.5 percent chance.$(p)Can be used to craft $(item)4 bonemeals.$()",
   "patchouli.fishofthieves.entry.blocks.fish_bone.crafting.title0": "Fish Bone",
   "patchouli.fishofthieves.entry.blocks.fish_bone.crafting.text0": "Do not feed to the cat!",
   "patchouli.fishofthieves.entry.blocks.fish_bone.image.text0": "Fish Bone located in the various locations.",
