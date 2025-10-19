@@ -9,7 +9,7 @@
           "functions": [
             {
               "function": "minecraft:set_nbt",
-              "tag": "{\"patchouli:book\":\"fot_book\"}"
+              "tag": "{\"patchouli:book\":\"fishofthieves:guide_book\"}"
             }
           ],
           "name": "patchouli:guide_book"

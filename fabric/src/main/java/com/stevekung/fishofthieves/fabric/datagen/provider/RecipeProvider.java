@@ -124,12 +124,12 @@ public class RecipeProvider extends FabricRecipeProvider
         chestBoat(consumer, FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
         hangingSign(consumer, FOTItems.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
 
-        BookShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FishOfThieves.MOD_RESOURCES + "fot_book")
+        BookShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FishOfThieves.MOD_RESOURCES + "guide_book")
                 .requires(Items.BOOK)
                 .requires(Ingredient.of(FOTTags.Items.THIEVES_FISH))
                 .unlockedBy(getHasName(Items.BOOK), inventoryTrigger(ItemPredicate.Builder.item().of(Items.BOOK)
                         .build()))
-                .save(consumer, FishOfThieves.MOD_RESOURCES + "fot_book");
+                .save(consumer, FishOfThieves.MOD_RESOURCES + "guide_book");
     }
 
     private static void generateForFOTBlockFamilies(Consumer<FinishedRecipe> consumer)

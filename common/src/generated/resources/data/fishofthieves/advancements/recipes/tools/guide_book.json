@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:fot_book"
+        "recipe": "fishofthieves:guide_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "fishofthieves:fot_book"
+      "fishofthieves:guide_book"
     ]
   },
   "sends_telemetry_event": false

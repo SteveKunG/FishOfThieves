@@ -1,6 +1,6 @@
 {
   "type": "patchouli:shapeless_book_recipe",
-  "book": "fishofthieves:fot_book",
+  "book": "fishofthieves:guide_book",
   "category": "equipment",
   "ingredients": [
     {

@@ -80,7 +80,7 @@ dependencies {
 }
 
 processResources {
-    filesMatching("data/fishofthieves/patchouli_books/fot_book/book.json") {
+    filesMatching("data/fishofthieves/patchouli_books/guide_book/book.json") {
         filter { line ->
             line.replaceAll("patchouli_book_version", patchouli_book_version)
         }

@@ -58,7 +58,7 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(BuiltInRegistries.ITEM.get(PatchouliItems.BOOK_ID))
                                 .apply(SetNbtFunction.setTag(Util.make(
-                                        new CompoundTag(), compoundTag -> compoundTag.putString("patchouli:book", "fot_book")))))
+                                        new CompoundTag(), compoundTag -> compoundTag.putString("patchouli:book", "fishofthieves:guide_book")))))
                 ));
     }
 }
