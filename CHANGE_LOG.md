@@ -1,1 +1,9 @@
-- [NeoForge] Intialize config save listener on neoforge
+- Use new versioning system to match with vanilla game drops
+  - Starting with 21.1.0.0 following by this pattern
+    - 21 = Minecraft major version
+    - 1 = Minecraft minor version
+    - 0 = Content update version
+    - 0 = Patch, bug fixes version
+- Added compatibility with Serene Seasons
+- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 12 blocks
+- Fixed possible adding duplicate boat type to the game, closes #73
