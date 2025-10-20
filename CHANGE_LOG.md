@@ -1,1 +1,3 @@
-- Fix possible adding duplicate boat type to the game, closes #73
+- Added compatibility with Serene Seasons
+- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 12 blocks
+- Fixed possible adding duplicate boat type to the game, closes #73
