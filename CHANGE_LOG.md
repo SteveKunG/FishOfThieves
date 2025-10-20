@@ -1,1 +1,1 @@
-- [Forge] Intialize config save listener on forge
+- Fix possible adding duplicate boat type to the game, closes #73
