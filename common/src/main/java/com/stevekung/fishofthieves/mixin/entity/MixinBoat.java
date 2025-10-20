@@ -65,7 +65,8 @@ public class MixinBoat
                 value = "FIELD",
                 target = "net/minecraft/world/entity/vehicle/Boat$Type.$VALUES:[Lnet/minecraft/world/entity/vehicle/Boat$Type;",
                 shift = At.Shift.AFTER,
-                opcode = Opcodes.PUTSTATIC
+                opcode = Opcodes.PUTSTATIC,
+                ordinal = 0
         ))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
