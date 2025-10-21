@@ -20,7 +20,6 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.phys.AABB;
 
 public record FOTLocationPredicate(TagKey<Biome> biome, StructureRangeCondition structureRangeCondition, Continentalness continentalness, Boolean hasRaids)
 {
@@ -52,7 +51,11 @@ public record FOTLocationPredicate(TagKey<Biome> biome, StructureRangeCondition 
                 {
                     for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
                     {
-                        return entity.getBoundingBox().inflate(structureRangeCondition.range().getValue()).intersects(AABB.of(structureStart.getBoundingBox()));
+                        var entityDist = structureStart.getPieces().stream()
+                                .map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entity.blockPosition()))
+                                .findAny()
+                                .orElse(Integer.MAX_VALUE);
+                        return entityDist < structureRangeCondition.range().getValue();
                     }
                 }
             }
