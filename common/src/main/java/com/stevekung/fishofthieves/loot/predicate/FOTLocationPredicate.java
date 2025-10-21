@@ -42,20 +42,28 @@ public record FOTLocationPredicate(TagKey<Biome> biome, StructureRangeCondition 
             for (var structureHolder : structureHolderSet.get())
             {
                 var structure = structureHolder.value();
+                var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
 
                 if (entity == null)
                 {
-                    return level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
+                    return isInsideStructure;
                 }
                 else
                 {
-                    for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                    if (isInsideStructure)
                     {
-                        var entityDist = structureStart.getPieces().stream()
-                                .map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entity.blockPosition()))
-                                .findAny()
-                                .orElse(Integer.MAX_VALUE);
-                        return entityDist < structureRangeCondition.range().getValue();
+                        return true;
+                    }
+                    else
+                    {
+                        for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                        {
+                            var entityDist = structureStart.getPieces().stream()
+                                    .map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entity.blockPosition()))
+                                    .findAny()
+                                    .orElse(Integer.MAX_VALUE);
+                            return entityDist < structureRangeCondition.range().getValue();
+                        }
                     }
                 }
             }
