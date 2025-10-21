@@ -1,3 +1,4 @@
-- Added compatibility with Serene Seasons
-- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 12 blocks
-- Fixed possible adding duplicate boat type to the game, closes #73
+- [Forge] Update 'JSON Update Checker' URL
+- Added Xaeros Minimap entity icon support
+- Expand Wrecker catching range around Ocean Shipwrecks and Ocean Ruined Portals to 32 blocks
+- Fixed structure calculation by using manhattan formula to check range
