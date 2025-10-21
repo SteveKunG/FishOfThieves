@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "${display_name}"
 description = "${mod_description}"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves"
-updateJSONURL = "https://raw.githubusercontent.com/SteveKunG/VersionCheckLibrary/master/fish_of_thieves.json"
+updateJSONURL = "https://api.modrinth.com/updates/fish-of-thieves/forge_updates.json"
 logoFile = "logo.png"
 authors = "SteveKunG, PloyiinGz, Gucc1Guy"
 
