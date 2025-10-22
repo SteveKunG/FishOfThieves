@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 
 public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
@@ -23,7 +23,7 @@ public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S
 
     public PondieModel(ModelPart part)
     {
-        super(part, RenderType::entityCutout);
+        super(part, RenderTypes::entityCutout);
         var main = part.getChild("main");
         this.mouth = main.getChild("head").getChild("mouth_r1");
         this.body_back = main.getChild("body_back");

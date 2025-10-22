@@ -8,11 +8,11 @@ import com.stevekung.fishofthieves.entity.PartyFish;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
@@ -39,7 +39,7 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends Living
         {
             poseStack.pushPose();
             this.scaleable.scale(renderState, poseStack);
-            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderType.entityCutoutNoCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, ARGB.color(255, 255, 255), null);
+            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderTypes.entityCutoutNoCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, ARGB.color(255, 255, 255), null);
             poseStack.popPose();
         }
     }

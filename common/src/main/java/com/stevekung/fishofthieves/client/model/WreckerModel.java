@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 
 public class WreckerModel extends EntityModel<WreckerRenderState> implements HeadphoneModel.Scaleable<WreckerRenderState>
@@ -24,7 +24,7 @@ public class WreckerModel extends EntityModel<WreckerRenderState> implements Hea
 
     public WreckerModel(ModelPart part)
     {
-        super(part, RenderType::entityCutout);
+        super(part, RenderTypes::entityCutout);
         var main = part.getChild("main");
         var head = main.getChild("head");
         this.bulb = head.getChild("bulb");

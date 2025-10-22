@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 
 public class StormfishModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
@@ -23,7 +23,7 @@ public class StormfishModel<S extends ThievesFishRenderState> extends EntityMode
 
     public StormfishModel(ModelPart part)
     {
-        super(part, RenderType::entityCutout);
+        super(part, RenderTypes::entityCutout);
         this.body_back = part.getChild("main").getChild("body_back");
         this.body_back_2 = this.body_back.getChild("body_back_2");
     }

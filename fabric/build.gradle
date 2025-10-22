@@ -71,7 +71,7 @@ dependencies {
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
     //modImplementation("com.github.glitchfiend:SereneSeasons-fabric:${serene_seasons_version}")TODO
-    modRuntimeOnly "curse.maven:structure-void-toggle-357304:7101156"
+    //modRuntimeOnly "curse.maven:structure-void-toggle-357304:7101156"TODO
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 

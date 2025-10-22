@@ -4,10 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.client.model.WreckerModel;
 import com.stevekung.fishofthieves.client.renderer.entity.state.WreckerRenderState;
 
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
@@ -25,7 +25,7 @@ public class WreckerBulbLayer extends RenderLayer<WreckerRenderState, WreckerMod
         if (!renderState.isInvisible)
         {
             var color = Mth.clamp(1.0F + Mth.cos(renderState.ageInTicks * 0.05f), 0.25F, 1.0F);
-            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderType.eyes(renderState.bulbTexture), 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color), null);
+            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderTypes.eyes(renderState.bulbTexture), 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color), null);
         }
     }
 }
