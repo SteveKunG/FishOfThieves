@@ -17,7 +17,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.phys.AABB;
 
 public record FOTLocationPredicate(Optional<Continentalness> continentalness, Optional<PeakTypes> peakType, Optional<Boolean> hasRaids, Optional<StructureRangeCondition> structureRangeCondition)
 {
@@ -42,16 +41,28 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
         for (var structureHolder : structureRangeCondition.structures().stream().toList())
         {
             var structure = structureHolder.value();
+            var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
 
             if (entity == null)
             {
-                return level.structureManager().getStructureWithPieceAt(blockPos, structureRangeCondition.structures()).isValid();
+                return isInsideStructure;
             }
             else
             {
-                for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                if (isInsideStructure)
                 {
-                    return entity.getBoundingBox().inflate(structureRangeCondition.range().getValue()).intersects(AABB.of(structureStart.getBoundingBox()));
+                    return true;
+                }
+                else
+                {
+                    for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                    {
+                        var entityDist = structureStart.getPieces().stream()
+                                .map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entity.blockPosition()))
+                                .findAny()
+                                .orElse(Integer.MAX_VALUE);
+                        return entityDist < structureRangeCondition.range().getValue();
+                    }
                 }
             }
         }

@@ -18,15 +18,17 @@ import net.minecraft.util.Mth;
 public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S> implements HeadphoneModel.Scaleable<S>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("pondie"), "main");
+    @SuppressWarnings("FieldCanBeLocal")
+    private final ModelPart main;
     private final ModelPart mouth;
     private final ModelPart body_back;
 
     public PondieModel(ModelPart part)
     {
         super(part, RenderType::entityCutout);
-        var main = part.getChild("main");
-        this.mouth = main.getChild("head").getChild("mouth_r1");
-        this.body_back = main.getChild("body_back");
+        this.main = part.getChild("main");
+        this.mouth = this.main.getChild("head").getChild("mouth_r1");
+        this.body_back = this.main.getChild("body_back");
     }
 
     public static LayerDefinition createBodyLayer()
