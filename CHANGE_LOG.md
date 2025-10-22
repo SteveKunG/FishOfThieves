@@ -4,6 +4,8 @@
     - 1 = Minecraft minor version
     - 0 = Content update version
     - 0 = Patch, bug fixes version
+- [NeoForge] Update 'JSON Update Checker' URL
 - Added compatibility with Serene Seasons
-- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 12 blocks
 - Fixed possible adding duplicate boat type to the game, closes #73
+- Added Xaeros Minimap entity icon support
+- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 32 blocks
