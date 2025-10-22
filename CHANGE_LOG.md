@@ -1,1 +1,11 @@
-- [NeoForge] Intialize config save listener on neoforge
+- Use new versioning system to match with vanilla game drops
+  - Starting with 21.10.0.0 following by this pattern
+    - 21 = Minecraft major version
+    - 10 = Minecraft minor version
+    - 0 = Content update version
+    - 0 = Patch, bug fixes version
+- [NeoForge] Update 'JSON Update Checker' URL
+- Added compatibility with Serene Seasons
+- Added new creative spawn egg textures
+- Added Xaeros Minimap entity icon support
+- Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 32 blocks

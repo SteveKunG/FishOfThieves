@@ -18,6 +18,8 @@ import net.minecraft.util.Mth;
 public class WreckerModel extends EntityModel<WreckerRenderState> implements HeadphoneModel.Scaleable<WreckerRenderState>
 {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(FishOfThieves.id("wrecker"), "main");
+    @SuppressWarnings("FieldCanBeLocal")
+    private final ModelPart main;
     private final ModelPart bulb;
     private final ModelPart mouth;
     private final ModelPart body_back;
@@ -25,11 +27,11 @@ public class WreckerModel extends EntityModel<WreckerRenderState> implements Hea
     public WreckerModel(ModelPart part)
     {
         super(part, RenderTypes::entityCutout);
-        var main = part.getChild("main");
-        var head = main.getChild("head");
+        this.main = part.getChild("main");
+        var head = this.main.getChild("head");
         this.bulb = head.getChild("bulb");
         this.mouth = head.getChild("mouth");
-        this.body_back = main.getChild("body_back");
+        this.body_back = this.main.getChild("body_back");
     }
 
     public static LayerDefinition createBodyLayer()

@@ -66,6 +66,7 @@ repositories {
 
 dependencies {
     //modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"TODO
+    //modRuntimeOnly "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"TODO
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
