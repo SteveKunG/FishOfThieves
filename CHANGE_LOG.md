@@ -1,7 +1,7 @@
 - Use new versioning system to match with vanilla game drops
-  - Starting with 21.5.0.0 following by this pattern
+  - Starting with 21.8.0.0 following by this pattern
     - 21 = Minecraft major version
-    - 5 = Minecraft minor version
+    - 8 = Minecraft minor version
     - 0 = Content update version
     - 0 = Patch, bug fixes version
 - [NeoForge] Update 'JSON Update Checker' URL
