@@ -6,5 +6,6 @@
     - 0 = Patch, bug fixes version
 - [NeoForge] Update 'JSON Update Checker' URL
 - Added compatibility with Serene Seasons
+- Added new creative spawn egg textures
 - Added Xaeros Minimap entity icon support
 - Wreckers can now catch around Ocean Shipwrecks and Ocean Ruined Portals within 32 blocks
