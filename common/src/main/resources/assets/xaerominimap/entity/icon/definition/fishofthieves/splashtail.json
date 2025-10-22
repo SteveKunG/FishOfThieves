@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "default": "model:0"
+  },
+  "modelConfigs": [
+    {
+      "baseScale": 0.35,
+      "rotationY": 90,
+      "modelMainPartFieldAliases": [
+        "com.stevekung.fishofthieves.client.model.SplashtailModel;main"
+      ]
+    }
+  ]
+}
