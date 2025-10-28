@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.mixin.animal;
 
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,7 +41,12 @@ public class MixinBee
             this.bee = bee;
         }
 
-        @Inject(method = "tick", at = @At(value = "JUMP", ordinal = 1))
+        @Inject(method = "tick", at = @At(
+                value = "JUMP",
+                opcode = Opcodes.IF_ICMPGT, // for loop
+                ordinal = 0,
+                shift = At.Shift.AFTER
+        ))
         private void fishofthieves$addGrowableBlocksInCube(CallbackInfo info)
         {
             for (var blockPos : BlockPos.randomInCube(this.bee.getRandom(), 3, this.bee.blockPosition(), 2))
@@ -63,12 +69,18 @@ public class MixinBee
             }
         }
 
-        @Inject(method = "tick", at = @At(value = "JUMP", ordinal = 2),
+        @Inject(method = "tick", at = @At(
+                value = "JUMP",
+                opcode = Opcodes.IFNULL // if (blockState != null)
+        ),
                 slice = @Slice(
                         from = @At(
                                 value = "FIELD",
                                 target = "net/minecraft/world/level/block/Blocks.CAVE_VINES:Lnet/minecraft/world/level/block/Block;",
-                                shift = At.Shift.AFTER)
+                                shift = At.Shift.AFTER),
+                        to = @At(
+                                value = "INVOKE",
+                                target = "net/minecraft/world/level/Level.levelEvent(ILnet/minecraft/core/BlockPos;I)V")
                 )
         )
         private void fishofthieves$addGrowableBlocksWithBonemeal(CallbackInfo info, @Local BlockPos blockPos, @Local(ordinal = 0) BlockState stateToCheck)
