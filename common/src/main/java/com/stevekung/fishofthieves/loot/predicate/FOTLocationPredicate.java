@@ -16,6 +16,8 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public record FOTLocationPredicate(Optional<Continentalness> continentalness, Optional<PeakTypes> peakType, Optional<Boolean> hasRaids, Optional<StructureRangeCondition> structureRangeCondition)
@@ -38,30 +40,71 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
 
     private boolean isInRangeOfStructures(ServerLevel level, BlockPos blockPos, @Nullable Entity entity, StructureRangeCondition structureRangeCondition)
     {
+        var structureRange = structureRangeCondition.range().getValue();
+
         for (var structureHolder : structureRangeCondition.structures().stream().toList())
         {
             var structure = structureHolder.value();
             var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
 
+            // If it has no source entity, just check if position is inside the structure
             if (entity == null)
             {
-                return isInsideStructure;
+                return true;
             }
             else
             {
+                // If we are inside the structure, just return true
                 if (isInsideStructure)
                 {
                     return true;
                 }
+                // Otherwise find nearest structure within radius in nearby chunks
                 else
                 {
-                    for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(blockPos), structure))
+                    var distFromStructure = Integer.MAX_VALUE;
+                    var entityPos = entity.blockPosition();
+                    var entityChunkPos = level.getChunk(entityPos).getPos();
+                    Structure structure1 = null;
+                    ChunkPos chunkPos1 = null;
+
+                    for (var chunkPos : ChunkPos.rangeClosed(entityChunkPos, structureRangeCondition.chunkRadius().getValue()).toList())
                     {
-                        var entityDist = structureStart.getPieces().stream()
-                                .map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entity.blockPosition()))
-                                .findAny()
-                                .orElse(Integer.MAX_VALUE);
-                        return entityDist < structureRangeCondition.range().getValue();
+                        var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+                        // Filtering structure within chunks from tag
+                        var optional = structureRefMap.keySet().stream().filter(structurex -> structurex.equals(structure)).findAny();
+
+                        if (optional.isPresent())
+                        {
+                            structure1 = optional.get();
+                            chunkPos1 = chunkPos;
+                        }
+                    }
+
+                    if (structure1 != null)
+                    {
+                        for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos1, 0), structure1))
+                        {
+                            var structureDist = structureStart.getPieces().stream().map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entityPos)).findAny().orElse(Integer.MAX_VALUE);
+
+                            // Get nearest structure range
+                            if (structureDist < distFromStructure)
+                            {
+                                distFromStructure = structureDist;
+                            }
+
+                            // If structure is exceed the range, skipped
+                            if (distFromStructure > structureRange)
+                            {
+                                break;
+                            }
+                        }
+
+                        // Found structure within radius
+                        if (distFromStructure < structureRange)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -99,9 +142,9 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
             return this;
         }
 
-        public Builder setStructureInRange(HolderSet<Structure> structure, int range)
+        public Builder setStructureInRange(HolderSet<Structure> structure, int range, int chunkRadius)
         {
-            this.structureRangeCondition = Optional.of(new StructureRangeCondition(structure, ConstantInt.of(range)));
+            this.structureRangeCondition = Optional.of(new StructureRangeCondition(structure, ConstantInt.of(range), ConstantInt.of(chunkRadius)));
             return this;
         }
 

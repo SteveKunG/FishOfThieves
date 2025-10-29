@@ -143,7 +143,7 @@ public class FOTLootManager
 
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .setWeight(20)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructureInRange(structureLookup.getOrThrow(FOTTags.Structures.WRECKERS_SPAWN_IN), 32)).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WRECKERS))))))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setStructureInRange(structureLookup.getOrThrow(FOTTags.Structures.WRECKERS_SPAWN_IN), 32, 1)).and(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WRECKERS))))))
 
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .setWeight(20)
