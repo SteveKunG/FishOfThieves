@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.blockentity;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;

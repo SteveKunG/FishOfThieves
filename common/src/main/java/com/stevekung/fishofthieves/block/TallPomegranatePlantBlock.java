@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.block;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
@@ -208,8 +208,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
         return state.getValue(AGE) <= 2 && sufficientLight(reader, pos);
     }
 
-    @Nullable
-    private TallPomegranatePlantBlock.PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
+    private TallPomegranatePlantBlock.@Nullable PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
     {
         if (isLower(state))
         {

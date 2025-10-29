@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.client.renderer.blockentity;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -29,7 +29,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
     }
 
     @Override
-    public void extractRenderState(FishPlaqueBlockEntity blockEntity, FishPlaqueBlockEntityRenderState fishPlaqueState, float partialTicks, Vec3 vec3, @Nullable ModelFeatureRenderer.CrumblingOverlay crumblingOverlay)
+    public void extractRenderState(FishPlaqueBlockEntity blockEntity, FishPlaqueBlockEntityRenderState fishPlaqueState, float partialTicks, Vec3 vec3, ModelFeatureRenderer.@Nullable CrumblingOverlay crumblingOverlay)
     {
         BlockEntityRenderer.super.extractRenderState(blockEntity, fishPlaqueState, partialTicks, vec3, crumblingOverlay);
 

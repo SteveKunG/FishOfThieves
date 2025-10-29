@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.item;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.blockentity.FOTSignBlockEntity;
 

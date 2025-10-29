@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.entity;
 
 import java.util.function.Consumer;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

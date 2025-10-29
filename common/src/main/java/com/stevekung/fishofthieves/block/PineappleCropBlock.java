@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
@@ -249,8 +249,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         return this.isLowerAge(state) && sufficientLight(reader, pos) && (age < 4 || canGrowInto(reader, pos.above()));
     }
 
-    @Nullable
-    private PineappleCropBlock.PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
+    private PineappleCropBlock.@Nullable PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
     {
         if (isLower(state))
         {

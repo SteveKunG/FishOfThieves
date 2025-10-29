@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.block;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
 
