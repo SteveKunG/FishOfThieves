@@ -135,6 +135,7 @@ public record FOTLocationPredicate(TagKey<Biome> biome, StructureRangeCondition 
             var jsonStructureObject = new JsonObject();
             jsonStructureObject.addProperty("structure", this.structureRangeCondition.structure().location().toString());
             jsonStructureObject.addProperty("range", this.structureRangeCondition.range().getValue());
+            jsonStructureObject.addProperty("chunk_radius", this.structureRangeCondition.chunkRadius().getValue());
             jsonObject.add("structure", jsonStructureObject);
         }
         if (this.continentalness != null)
