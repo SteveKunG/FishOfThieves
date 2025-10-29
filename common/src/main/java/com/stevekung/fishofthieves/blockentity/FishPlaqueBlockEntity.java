@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.blockentity;
 
-import java.util.function.Function;
-
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
@@ -12,6 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityProcessor;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -144,6 +143,6 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Nullable
     public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
     {
-        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, Function.identity());
+        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, EntityProcessor.NOP);
     }
 }

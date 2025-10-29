@@ -69,7 +69,7 @@ public class FOTOverworldBiomes extends OverworldBiomes
             builder.foliageColorOverride(foliageColorOverride);
         }
 
-        return new Biome.BiomeBuilder().setAttribute(EnvironmentAttributes.FOG_COLOR, 10409707).setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, waterFogColor).setAttribute(EnvironmentAttributes.SKY_COLOR, 4568554).setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS).setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE)).setAttribute(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true).modifyAttribute(EnvironmentAttributes.WATER_FOG_RADIUS, FloatModifier.MULTIPLY, 2.5F).hasPrecipitation(hasPrecipitation).temperature(temperature).downfall(downfall).specialEffects(builder.build()).mobSpawnSettings(mobSpawnSettings.build()).generationSettings(generationSettings.build()).build();
+        return new Biome.BiomeBuilder().setAttribute(EnvironmentAttributes.FOG_COLOR, 10409707).setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, waterFogColor).setAttribute(EnvironmentAttributes.SKY_COLOR, 4568554).setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS).setAttribute(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SPARSE_JUNGLE)).setAttribute(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true).modifyAttribute(EnvironmentAttributes.WATER_FOG_END_DISTANCE, FloatModifier.MULTIPLY, 2.5F).hasPrecipitation(hasPrecipitation).temperature(temperature).downfall(downfall).specialEffects(builder.build()).mobSpawnSettings(mobSpawnSettings.build()).generationSettings(generationSettings.build()).build();
     }
 
     public static void islandSpawns(MobSpawnSettings.Builder builder)

@@ -19,7 +19,7 @@
     "minecraft:visual/fog_color": "#9ed6eb",
     "minecraft:visual/sky_color": "#45b5ea",
     "minecraft:visual/water_fog_color": "#009597",
-    "minecraft:visual/water_fog_radius": {
+    "minecraft:visual/water_fog_end_distance": {
       "argument": 2.5,
       "modifier": "multiply"
     }
@@ -31,9 +31,9 @@
   ],
   "downfall": 1.0,
   "effects": {
-    "foliage_color": 1495563,
+    "foliage_color": "#16d20b",
     "grass_color_modifier": "fishofthieves:tropical_island",
-    "water_color": 54489
+    "water_color": "#00d4d9"
   },
   "features": [
     [],
