@@ -6,7 +6,6 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -20,6 +19,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import me.shedaniel.autoconfig.AutoConfig;
 
 public class ClientProxyForge
 {
