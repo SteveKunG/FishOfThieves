@@ -4,19 +4,19 @@
     "fishofthieves:gameplay/amber_plentifin_spawns": {
       "keyframes": [
         {
-          "ticks": 1000,
+          "ticks": 500,
           "value": true
         },
         {
-          "ticks": 3000,
+          "ticks": 2000,
           "value": false
         },
         {
-          "ticks": 9000,
+          "ticks": 10500,
           "value": true
         },
         {
-          "ticks": 11000,
+          "ticks": 12100,
           "value": false
         }
       ],

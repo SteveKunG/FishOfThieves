@@ -14,14 +14,13 @@ public interface FOTTimelines
 
     static void bootstrap(BootstrapContext<Timeline> context)
     {
-        //TODO Query exact value for amber plentifin
         var builder = Timeline.builder()
                 .setPeriodTicks(24000)
                 .addModifierTrack(FOTEnvironmentAttributes.AMBER_PLENTIFIN_SPAWNS, BooleanModifier.OR, builderx -> builderx
-                        .addKeyframe(1000, true)
-                        .addKeyframe(3000, false)
-                        .addKeyframe(9000, true)
-                        .addKeyframe(11000, false));
+                        .addKeyframe(500, true)
+                        .addKeyframe(2000, false)
+                        .addKeyframe(10500, true)
+                        .addKeyframe(12100, false));
         context.register(DAY, builder.build());
     }
 
