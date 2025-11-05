@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mojang.serialization.MapCodec;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.variant.SpawnCondition;
 
 public class AnyConditionCheck extends CompositeSpawnCondition

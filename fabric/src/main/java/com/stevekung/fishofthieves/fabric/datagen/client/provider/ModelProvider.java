@@ -34,7 +34,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
@@ -594,7 +594,7 @@ public class ModelProvider extends FabricModelProvider
         this.createRotatedPillarWithHorizontalVariant(generator, block, growableModelLocation);
     }
 
-    private void createRotatedPillarWithHorizontalVariant(BlockModelGenerators generator, Block block, ResourceLocation modelLocation)
+    private void createRotatedPillarWithHorizontalVariant(BlockModelGenerators generator, Block block, Identifier modelLocation)
     {
         var multiVariant = plainVariant(modelLocation);
         generator.blockStateOutput.accept(BlockModelGenerators.createRotatedPillarWithHorizontalVariant(block, multiVariant, multiVariant));
@@ -907,14 +907,14 @@ public class ModelProvider extends FabricModelProvider
                         .select(false, plainVariant(ModelLocationUtils.getModelLocation(block)))));
     }
 
-    private void createSmallLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
+    private void createSmallLog(BlockModelGenerators generator, Block block, Identifier endTexture, Identifier sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, sideTexture);
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
-    private void createMediumLog(BlockModelGenerators generator, Block block, ResourceLocation endTexture, ResourceLocation sideTexture)
+    private void createMediumLog(BlockModelGenerators generator, Block block, Identifier endTexture, Identifier sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
         var modelLocation = FOTModelTemplates.MEDIUM_LOG.create(block, textureMapping, generator.modelOutput);
@@ -1274,7 +1274,7 @@ public class ModelProvider extends FabricModelProvider
         return list;
     }
 
-    private MultiVariant createRotatedVariants(ResourceLocation modelLocation)
+    private MultiVariant createRotatedVariants(Identifier modelLocation)
     {
         return new MultiVariant(WeightedList.of(
                 new Weighted<>(BlockModelGenerators.plainModel(modelLocation), 1),
@@ -1284,7 +1284,7 @@ public class ModelProvider extends FabricModelProvider
         ));
     }
 
-    private MultiVariant createMirroredVariants(ResourceLocation modelLocation, ResourceLocation mirroredModelLocation)
+    private MultiVariant createMirroredVariants(Identifier modelLocation, Identifier mirroredModelLocation)
     {
         return new MultiVariant(WeightedList.of(
                 new Weighted<>(BlockModelGenerators.plainModel(modelLocation), 1),

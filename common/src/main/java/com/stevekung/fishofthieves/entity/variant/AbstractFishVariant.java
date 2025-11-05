@@ -13,14 +13,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
@@ -38,9 +38,9 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     ClientAsset.ResourceTexture texture();
 
-    ResourceLocation fullTexture();
+    Identifier fullTexture();
 
-    Optional<ResourceLocation> fullGlowTexture();
+    Optional<Identifier> fullGlowTexture();
 
     Optional<ClientAsset.ResourceTexture> glowTexture();
 
@@ -125,7 +125,7 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
     {
         var registry = registryAccess.lookupOrThrow(registryKey);
-        var context = new SpawnContext(livingEntity.blockPosition(), serverLevel, serverLevel.getBiome(livingEntity.blockPosition()));
+        var context = new SpawnContext(livingEntity.blockPosition(), serverLevel, serverLevel.environmentAttributes(), serverLevel.getBiome(livingEntity.blockPosition()));
 
         if (fromBucket)
         {

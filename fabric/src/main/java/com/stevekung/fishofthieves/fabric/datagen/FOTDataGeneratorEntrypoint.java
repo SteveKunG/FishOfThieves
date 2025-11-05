@@ -41,6 +41,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.DAMAGE_TYPE, FOTDamageTypes::bootstrap);
         builder.add(Registries.BIOME, FOTBiomes::bootstrap);
         builder.add(Registries.NOISE, FOTNoises::bootstrap);
+        builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -90,6 +91,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(ModFishingRealProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider((dataOutput, provider) -> new LanguageSyncProvider(provider));
+        pack.addProvider(TimelineTagsProvider::new);
 
         new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
 
@@ -119,6 +121,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
             entries.addAll(registries.lookupOrThrow(Registries.BIOME));
             entries.addAll(registries.lookupOrThrow(Registries.NOISE));
+            entries.addAll(registries.lookupOrThrow(Registries.TIMELINE));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

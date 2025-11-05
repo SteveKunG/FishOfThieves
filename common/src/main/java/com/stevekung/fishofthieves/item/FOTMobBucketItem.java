@@ -18,7 +18,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -33,14 +33,14 @@ import net.minecraft.world.level.material.Fluid;
 public class FOTMobBucketItem extends MobBucketItem
 {
     private final EntityType<? extends Mob> entityType;
-    private final ResourceLocation registryKey;
+    private final Identifier registryKey;
     private final DataComponentType<?> dataComponentType;
 
     public FOTMobBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<?> registryKey, DataComponentType<?> dataComponentType, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
-        this.registryKey = registryKey.location();
+        this.registryKey = registryKey.identifier();
         this.dataComponentType = dataComponentType;
     }
 
@@ -107,7 +107,7 @@ public class FOTMobBucketItem extends MobBucketItem
         }
     }
 
-    public ResourceLocation getRegistryKey()
+    public Identifier getRegistryKey()
     {
         return this.registryKey;
     }
@@ -119,7 +119,7 @@ public class FOTMobBucketItem extends MobBucketItem
 
     private MutableComponent createTooltip(String location)
     {
-        return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
+        return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), Identifier.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
     private static ItemStack create(Item item, DataComponentType<Holder<? extends AbstractFishVariant>> dataComponentType, Holder<? extends AbstractFishVariant> holder)

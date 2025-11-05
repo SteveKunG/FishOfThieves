@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -20,7 +20,7 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
 {
     private static final TagKey<Biome> C_IS_LUSH = cTag("is_lush");
 
-    public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+        public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, Registries.BIOME, provider);
     }
@@ -61,6 +61,6 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
 
     private static TagKey<Biome> cTag(String name)
     {
-        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("c", name));
+        return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath("c", name));
     }
 }

@@ -7,11 +7,11 @@ import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
 
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class WreckerRenderState extends ThievesFishRenderState
 {
-    public static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
+    public static final Function<Holder<WreckerVariant>, Identifier> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).identifier().getPath()));
 
-    public ResourceLocation bulbTexture;
+    public Identifier bulbTexture;
 }

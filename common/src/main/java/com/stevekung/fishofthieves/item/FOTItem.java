@@ -15,7 +15,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -33,13 +33,13 @@ import net.minecraft.world.phys.Vec3;
 public class FOTItem extends Item
 {
     private final EntityType<?> entityType;
-    private final ResourceLocation registryKey;
+    private final Identifier registryKey;
 
     public FOTItem(Properties properties, EntityType<?> entityType, ResourceKey<?> registryKey)
     {
         super(properties);
         this.entityType = entityType;
-        this.registryKey = registryKey.location();
+        this.registryKey = registryKey.identifier();
     }
 
     public static void addFishVariants(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output, Item item)
@@ -91,7 +91,7 @@ public class FOTItem extends Item
         }
     }
 
-    public ResourceLocation getRegistryKey()
+    public Identifier getRegistryKey()
     {
         return this.registryKey;
     }
@@ -105,7 +105,7 @@ public class FOTItem extends Item
             if (vec3 != null)
             {
                 var blockPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
-                var context = new SpawnContext(blockPos, level, level.getBiome(blockPos));
+                var context = new SpawnContext(blockPos, level, level.environmentAttributes(), level.getBiome(blockPos));
                 AbstractFishVariant.pick(level.registryAccess().lookupOrThrow(registryKey).listElements(), Holder::value, randomSource, context)
                         .map(Holder::value)
                         .ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, createCustomModelData(variant.customModelData())));

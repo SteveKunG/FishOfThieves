@@ -18,12 +18,12 @@ import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -49,9 +49,9 @@ public class FishOfThieves
     public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
-    public static ResourceLocation id(String path)
+    public static Identifier id(String path)
     {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static void initCommon()

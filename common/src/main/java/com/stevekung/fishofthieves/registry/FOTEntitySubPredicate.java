@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 
-import net.minecraft.advancements.critereon.EntitySubPredicate;
+import net.minecraft.advancements.criterion.EntitySubPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 

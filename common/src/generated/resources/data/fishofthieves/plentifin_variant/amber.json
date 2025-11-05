@@ -14,11 +14,8 @@
               }
             },
             {
-              "type": "fishofthieves:time_of_day",
-              "time_of_day": {
-                "max": 0.9,
-                "min": 0.75
-              }
+              "type": "fishofthieves:boolean_environment_attribute",
+              "attribute": "fishofthieves:gameplay/amber_plentifin_spawns"
             },
             {
               "type": "fishofthieves:see_sky"

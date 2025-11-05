@@ -14,13 +14,13 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.LivingEntity;
 
 public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends LivingEntityRenderState, M extends EntityModel<S>> extends RenderLayer<S, M>
 {
-    private static final ResourceLocation TEXTURE = FishOfThieves.id("textures/entity/headphone.png");
+    private static final Identifier TEXTURE = FishOfThieves.id("textures/entity/headphone.png");
     private final HeadphoneModel<S> model;
     private final HeadphoneModel.Scaleable<S> scaleable;
 

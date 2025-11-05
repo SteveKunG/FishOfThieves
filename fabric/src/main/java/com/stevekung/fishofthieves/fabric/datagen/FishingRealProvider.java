@@ -15,13 +15,13 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 
 public abstract class FishingRealProvider implements DataProvider
 {
-    private final Map<ResourceLocation, FishingRealBuilder> builders = Maps.newLinkedHashMap();
+    private final Map<Identifier, FishingRealBuilder> builders = Maps.newLinkedHashMap();
     private final PackOutput output;
     private final CompletableFuture<HolderLookup.Provider> provider;
 
@@ -67,7 +67,7 @@ public abstract class FishingRealProvider implements DataProvider
         return "FishingReal";
     }
 
-    private Path getPath(ResourceLocation id)
+    private Path getPath(Identifier id)
     {
         return this.output.getOutputFolder().resolve("data/fishingreal/fishing/" + id.getPath() + ".json");
     }

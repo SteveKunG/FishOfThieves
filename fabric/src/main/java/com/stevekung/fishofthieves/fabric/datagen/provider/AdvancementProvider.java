@@ -20,9 +20,9 @@ import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentExactPredicate;
@@ -33,7 +33,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.world.entity.EntityType;
@@ -124,7 +124,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                                         .exact(DataComponentExactPredicate.builder()
                                                                 .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(
                                                                         new CompoundTag(), compoundTag -> compoundTag
-                                                                                .putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build())
+                                                                                .putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.identifier().toString())))).build())
                                                         .build()
                                         ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
                 .display(FOTItems.DEVILFISH,
@@ -308,7 +308,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         {
             var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-            for (var variant : variants.keySet().stream().map(ResourceLocation::parse).toList())
+            for (var variant : variants.keySet().stream().map(Identifier::parse).toList())
             {
                 var compoundTag = new CompoundTag();
                 compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());

@@ -14,7 +14,7 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.AncientscaleVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;

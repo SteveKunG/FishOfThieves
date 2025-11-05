@@ -20,7 +20,7 @@ import net.minecraft.world.phys.AABB;
 @Mixin(JukeboxPlayable.class)
 public class MixinJukeboxPlayable
 {
-    @Inject(method = "tryInsertIntoJukebox", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/player/Player.awardStat(Lnet/minecraft/resources/ResourceLocation;)V"))
+    @Inject(method = "tryInsertIntoJukebox", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/player/Player.awardStat(Lnet/minecraft/resources/Identifier;)V"))
     private static void fishofthieves$triggerCustomAdvancement(Level level, BlockPos blockPos, ItemStack itemStack, Player player, CallbackInfoReturnable<InteractionResult> info)
     {
         if (player instanceof ServerPlayer serverPlayer)

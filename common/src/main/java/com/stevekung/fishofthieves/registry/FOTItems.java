@@ -238,7 +238,7 @@ public class FOTItems
 
     private static ResourceKey<Item> blockIdToItemId(ResourceKey<Block> blockId)
     {
-        return ResourceKey.create(Registries.ITEM, blockId.location());
+        return ResourceKey.create(Registries.ITEM, blockId.identifier());
     }
 
     public static Item registerBlock(Block block)

@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.*;
@@ -24,7 +24,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
 {
     private float fruitChance;
 
-    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, BlockPos templatePosition, ResourceLocation location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
+    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, BlockPos templatePosition, Identifier location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
     {
         super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, 0, structureTemplateManager, location, location.toString(), makeSettings(mirror, rotation, pivotPos), templatePosition);
         this.fruitChance = fruitChance;
@@ -44,7 +44,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     }
 
     @SuppressWarnings("deprecation")
-    private static StructurePlaceSettings makeSettings(StructureTemplateManager structureTemplateManager, CompoundTag tag, ResourceLocation location)
+    private static StructurePlaceSettings makeSettings(StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
     {
         var structureTemplate = structureTemplateManager.getOrCreate(location);
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);

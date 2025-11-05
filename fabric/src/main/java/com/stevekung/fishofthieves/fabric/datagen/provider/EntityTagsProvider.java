@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.EntityType;
 public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
 {
     // Immersive Weathering
-    private static final TagKey<EntityType<?>> LIGHT_FREEZE_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("immersive_weathering", "light_freeze_immune"));
+    private static final TagKey<EntityType<?>> LIGHT_FREEZE_IMMUNE = TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("immersive_weathering", "light_freeze_immune"));
 
     public EntityTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {

@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
@@ -34,10 +34,10 @@ public interface FOTTags
         TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
         TagKey<Item> BANANA_CLUSTERS = TagKey.create(Registries.ITEM, FishOfThieves.id("banana_clusters"));
 
-        TagKey<Item> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("sereneseasons:spring_crops"));
-        TagKey<Item> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("sereneseasons:summer_crops"));
-        TagKey<Item> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("sereneseasons:autumn_crops"));
-        TagKey<Item> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.ITEM, ResourceLocation.tryParse("sereneseasons:year_round_crops"));
+        TagKey<Item> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.ITEM, Identifier.tryParse("sereneseasons:spring_crops"));
+        TagKey<Item> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.ITEM, Identifier.tryParse("sereneseasons:summer_crops"));
+        TagKey<Item> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.ITEM, Identifier.tryParse("sereneseasons:autumn_crops"));
+        TagKey<Item> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.ITEM, Identifier.tryParse("sereneseasons:year_round_crops"));
     }
 
     interface Blocks
@@ -64,11 +64,11 @@ public interface FOTTags
         TagKey<Block> BANANA_SHOOTS_PLACEABLE_ON = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_shoots_placeable_on"));
         TagKey<Block> MANGO_FRUITS = TagKey.create(Registries.BLOCK, FishOfThieves.id("mango_fruits"));
 
-        TagKey<Block> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.tryParse("sereneseasons:spring_crops"));
-        TagKey<Block> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.tryParse("sereneseasons:summer_crops"));
-        TagKey<Block> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.tryParse("sereneseasons:autumn_crops"));
-        TagKey<Block> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.tryParse("sereneseasons:year_round_crops"));
-        TagKey<Block> SERENE_SEASONS_UNBREAKABLE_INFERTILE_CROPS = TagKey.create(Registries.BLOCK, ResourceLocation.tryParse("sereneseasons:unbreakable_infertile_crops"));
+        TagKey<Block> SERENE_SEASONS_SPRING_CROPS = TagKey.create(Registries.BLOCK, Identifier.tryParse("sereneseasons:spring_crops"));
+        TagKey<Block> SERENE_SEASONS_SUMMER_CROPS = TagKey.create(Registries.BLOCK, Identifier.tryParse("sereneseasons:summer_crops"));
+        TagKey<Block> SERENE_SEASONS_AUTUMN_CROPS = TagKey.create(Registries.BLOCK, Identifier.tryParse("sereneseasons:autumn_crops"));
+        TagKey<Block> SERENE_SEASONS_YEAR_ROUND_CROPS = TagKey.create(Registries.BLOCK, Identifier.tryParse("sereneseasons:year_round_crops"));
+        TagKey<Block> SERENE_SEASONS_UNBREAKABLE_INFERTILE_CROPS = TagKey.create(Registries.BLOCK, Identifier.tryParse("sereneseasons:unbreakable_infertile_crops"));
 
     }
 
@@ -109,8 +109,8 @@ public interface FOTTags
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.id("has_seapost"));
         TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.id("has_fish_bone"));
 
-        TagKey<Biome> SERENE_SEASONS_TROPICAL_BIOMES = TagKey.create(Registries.BIOME, ResourceLocation.tryParse("sereneseasons:tropical_biomes"));
-        TagKey<Biome> SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES = TagKey.create(Registries.BIOME, ResourceLocation.tryParse("sereneseasons:lesser_color_change_biomes"));
+        TagKey<Biome> SERENE_SEASONS_TROPICAL_BIOMES = TagKey.create(Registries.BIOME, Identifier.tryParse("sereneseasons:tropical_biomes"));
+        TagKey<Biome> SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES = TagKey.create(Registries.BIOME, Identifier.tryParse("sereneseasons:lesser_color_change_biomes"));
     }
 
     interface DamageTypes

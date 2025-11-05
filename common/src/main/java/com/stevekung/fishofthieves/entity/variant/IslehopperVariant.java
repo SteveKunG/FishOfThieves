@@ -11,7 +11,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record IslehopperVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
@@ -26,13 +26,13 @@ public record IslehopperVariant(String name, ClientAsset.ResourceTexture texture
     }
 
     @Override
-    public ResourceLocation fullTexture()
+    public Identifier fullTexture()
     {
         return this.texture.texturePath();
     }
 
     @Override
-    public Optional<ResourceLocation> fullGlowTexture()
+    public Optional<Identifier> fullGlowTexture()
     {
         return this.glowTexture.map(ClientAsset.ResourceTexture::texturePath);
     }

@@ -37,7 +37,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
         var entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
-        var ruby = SplashtailVariants.RUBY.location().toString();
+        var ruby = SplashtailVariants.RUBY.identifier().toString();
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {
@@ -74,7 +74,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
-        var ruby = SplashtailVariants.RUBY.location().toString();
+        var ruby = SplashtailVariants.RUBY.identifier().toString();
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {
@@ -272,7 +272,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
-        var ruby = SplashtailVariants.RUBY.location().toString();
+        var ruby = SplashtailVariants.RUBY.identifier().toString();
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {

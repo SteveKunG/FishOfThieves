@@ -256,7 +256,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     protected void customServerAiStep(ServerLevel level)
     {
         super.customServerAiStep(level);
-        this.setNoFlip(!this.hasImpulse && this.isFishBreached(this.getBrain()));
+        this.setNoFlip(!this.needsSync && this.isFishBreached(this.getBrain()));
     }
 
     @Override

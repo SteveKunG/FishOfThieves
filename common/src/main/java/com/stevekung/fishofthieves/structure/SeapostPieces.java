@@ -9,13 +9,13 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -41,10 +41,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 
 public class SeapostPieces
 {
-    private static final ResourceLocation SEAPOST = FishOfThieves.id("seapost");
-    private static final ResourceLocation SEAPOST_BASE = FishOfThieves.id("seapost_base");
-    private static final Map<ResourceLocation, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-5, 0, 11));
-    private static final Map<ResourceLocation, BlockPos> OFFSETS = ImmutableMap.of(SEAPOST, new BlockPos(0, 8, 0), SEAPOST_BASE, BlockPos.ZERO);
+    private static final Identifier SEAPOST = FishOfThieves.id("seapost");
+    private static final Identifier SEAPOST_BASE = FishOfThieves.id("seapost_base");
+    private static final Map<Identifier, BlockPos> PIVOTS = ImmutableMap.of(SEAPOST, new BlockPos(-5, 0, 10), SEAPOST_BASE, new BlockPos(-5, 0, 11));
+    private static final Map<Identifier, BlockPos> OFFSETS = ImmutableMap.of(SEAPOST, new BlockPos(0, 8, 0), SEAPOST_BASE, BlockPos.ZERO);
     private static final List<Block> POTTED_BLOCKS = List.of(Blocks.POTTED_POPPY, Blocks.POTTED_DANDELION, Blocks.POTTED_AZURE_BLUET, Blocks.POTTED_DEAD_BUSH,
             Blocks.POTTED_MANGROVE_PROPAGULE, Blocks.POTTED_AZALEA, Blocks.POTTED_FLOWERING_AZALEA, FOTBlocks.POTTED_PINK_PLUMERIA, FOTBlocks.POTTED_WHITE_PLUMERIA, FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA);
 
@@ -56,7 +56,7 @@ public class SeapostPieces
 
     public static class SeapostPiece extends TemplateStructurePiece
     {
-        public SeapostPiece(StructureTemplateManager structureTemplateManager, ResourceLocation resourceLocation, BlockPos blockPos, Rotation rotation, int offset)
+        public SeapostPiece(StructureTemplateManager structureTemplateManager, Identifier resourceLocation, BlockPos blockPos, Rotation rotation, int offset)
         {
             super(FOTStructures.PieceType.SEAPOST_PIECE, 0, structureTemplateManager, resourceLocation, resourceLocation.toString(), makeSettings(rotation, resourceLocation), makePosition(resourceLocation, blockPos, offset));
         }
@@ -74,12 +74,12 @@ public class SeapostPieces
             tag.putString("Rot", this.placeSettings.getRotation().name());
         }
 
-        private static StructurePlaceSettings makeSettings(Rotation rotation, ResourceLocation location)
+        private static StructurePlaceSettings makeSettings(Rotation rotation, Identifier location)
         {
             return new StructurePlaceSettings().setRotation(rotation).setMirror(Mirror.NONE).setRotationPivot(PIVOTS.get(location)).addProcessor(BlockIgnoreProcessor.STRUCTURE_BLOCK);
         }
 
-        private static BlockPos makePosition(ResourceLocation location, BlockPos pos, int down)
+        private static BlockPos makePosition(Identifier location, BlockPos pos, int down)
         {
             return pos.offset(OFFSETS.get(location)).below(down);
         }
@@ -153,7 +153,7 @@ public class SeapostPieces
         @Override
         public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random, BoundingBox box, ChunkPos chunkPos, BlockPos pos)
         {
-            var resourceLocation = ResourceLocation.parse(this.templateName);
+            var resourceLocation = Identifier.parse(this.templateName);
             this.templatePosition = new BlockPos(this.templatePosition.getX(), generator.getSeaLevel() - OFFSETS.get(resourceLocation).getY(), this.templatePosition.getZ());
             super.postProcess(level, structureManager, generator, random, box, chunkPos, pos);
         }

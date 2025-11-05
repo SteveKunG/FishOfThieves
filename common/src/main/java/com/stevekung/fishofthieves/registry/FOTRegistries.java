@@ -5,7 +5,7 @@ import com.stevekung.fishofthieves.entity.variant.*;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class FOTRegistries
 {
@@ -24,6 +24,6 @@ public class FOTRegistries
 
     private static <T> ResourceKey<Registry<T>> create(String key)
     {
-        return ResourceKey.createRegistryKey(ResourceLocation.withDefaultNamespace(key));
+        return ResourceKey.createRegistryKey(Identifier.withDefaultNamespace(key));
     }
 }

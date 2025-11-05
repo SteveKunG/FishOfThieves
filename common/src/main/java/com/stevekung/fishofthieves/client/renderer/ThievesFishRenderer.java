@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.AbstractFish;
 
@@ -52,7 +52,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         var variant = entity.getVariant().value();
         renderState.isTrophy = entity.isTrophy();
         renderState.isNoFlip = entity.isNoFlip();
-        renderState.hasImpulse = entity.hasImpulse;
+        renderState.hasImpulse = entity.needsSync;
         renderState.fullTexture = variant.fullTexture();
         renderState.fullGlowTexture = variant.fullGlowTexture().orElse(null);
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);
@@ -76,7 +76,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     }
 
     @Override
-    public ResourceLocation getTextureLocation(S renderState)
+    public Identifier getTextureLocation(S renderState)
     {
         return renderState.fullTexture;
     }

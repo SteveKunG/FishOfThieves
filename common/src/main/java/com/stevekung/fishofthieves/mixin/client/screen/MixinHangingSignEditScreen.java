@@ -13,7 +13,7 @@ import com.stevekung.fishofthieves.registry.FOTWoodTypes;
 
 import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
 import net.minecraft.client.gui.screens.inventory.HangingSignEditScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @Mixin(HangingSignEditScreen.class)
 public abstract class MixinHangingSignEditScreen extends AbstractSignEditScreen
@@ -21,7 +21,7 @@ public abstract class MixinHangingSignEditScreen extends AbstractSignEditScreen
     @Shadow
     @Final
     @Mutable
-    ResourceLocation texture;
+    Identifier texture;
 
     MixinHangingSignEditScreen()
     {

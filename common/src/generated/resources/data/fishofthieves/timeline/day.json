@@ -1,0 +1,26 @@
+{
+  "period_ticks": 24000,
+  "tracks": {
+    "fishofthieves:gameplay/amber_plentifin_spawns": {
+      "keyframes": [
+        {
+          "ticks": 1000,
+          "value": true
+        },
+        {
+          "ticks": 3000,
+          "value": false
+        },
+        {
+          "ticks": 9000,
+          "value": true
+        },
+        {
+          "ticks": 11000,
+          "value": false
+        }
+      ],
+      "modifier": "or"
+    }
+  }
+}

@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTBiomes;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import terrablender.api.ParameterUtils;
@@ -17,7 +17,7 @@ import terrablender.api.VanillaParameterOverlayBuilder;
 
 public class TropicalIslandRegion extends Region
 {
-    public TropicalIslandRegion(ResourceLocation name, int weight)
+    public TropicalIslandRegion(Identifier name, int weight)
     {
         super(name, RegionType.OVERWORLD, weight);
     }

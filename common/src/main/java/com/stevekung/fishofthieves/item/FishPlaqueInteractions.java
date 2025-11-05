@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTRegistries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -20,18 +20,18 @@ public class FishPlaqueInteractions
 
     public static void bootstrap(BootstrapContext<FishPlaqueInteraction> context)
     {
-        register(context, SNAIL, ResourceLocation.fromNamespaceAndPath("naturalist", "snail"), Items.BUCKET);
-        register(context, COSMIC_COD, ResourceLocation.fromNamespaceAndPath("alexsmobs", "cosmic_cod"), Items.BUCKET);
-        register(context, STRADPOLE, ResourceLocation.fromNamespaceAndPath("alexsmobs", "stradpole"), Items.LAVA_BUCKET);
-        register(context, RADGILL, ResourceLocation.fromNamespaceAndPath("alexscaves", "radgill"), ResourceLocation.fromNamespaceAndPath("alexscaves", "acid_bucket"));
+        register(context, SNAIL, Identifier.fromNamespaceAndPath("naturalist", "snail"), Items.BUCKET);
+        register(context, COSMIC_COD, Identifier.fromNamespaceAndPath("alexsmobs", "cosmic_cod"), Items.BUCKET);
+        register(context, STRADPOLE, Identifier.fromNamespaceAndPath("alexsmobs", "stradpole"), Items.LAVA_BUCKET);
+        register(context, RADGILL, Identifier.fromNamespaceAndPath("alexscaves", "radgill"), Identifier.fromNamespaceAndPath("alexscaves", "acid_bucket"));
     }
 
-    static void register(BootstrapContext<FishPlaqueInteraction> context, ResourceKey<FishPlaqueInteraction> key, ResourceLocation entityType, ResourceLocation item)
+    static void register(BootstrapContext<FishPlaqueInteraction> context, ResourceKey<FishPlaqueInteraction> key, Identifier entityType, Identifier item)
     {
         context.register(key, new FishPlaqueInteraction(entityType, item));
     }
 
-    static void register(BootstrapContext<FishPlaqueInteraction> context, ResourceKey<FishPlaqueInteraction> key, ResourceLocation entityType, Item item)
+    static void register(BootstrapContext<FishPlaqueInteraction> context, ResourceKey<FishPlaqueInteraction> key, Identifier entityType, Item item)
     {
         context.register(key, new FishPlaqueInteraction(entityType, BuiltInRegistries.ITEM.getKey(item)));
     }

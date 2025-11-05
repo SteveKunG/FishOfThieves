@@ -26,7 +26,7 @@ public interface FOTSpawnConditions
     MapCodec<? extends SpawnCondition> HAS_BEEHIVE = register("has_beehive", HasBeehiveCheck.CODEC);
     MapCodec<? extends SpawnCondition> HEIGHT = register("height", HeightCheck.CODEC);
     MapCodec<? extends SpawnCondition> RANDOM_CHANCE = register("random_chance", RandomChanceCheck.CODEC);
-    MapCodec<? extends SpawnCondition> TIME_OF_DAY = register("time_of_day", TimeOfDayCheck.CODEC);
+    MapCodec<? extends SpawnCondition> BOOLEAN_ENVIRONMENT_ATTRIBUTE = register("boolean_environment_attribute", BooleanEnvironmentAttributeCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_BRIGHTNESS = register("sky_brightness", SkyBrightnessCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_DARKEN = register("sky_darken", SkyDarkenCheck.CODEC);
 

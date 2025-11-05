@@ -4,9 +4,9 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
+import com.stevekung.fishofthieves.registry.FOTEnvironmentAttributes;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 
-import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -30,7 +30,7 @@ public class PlentifinVariants
 
         registerContext.register(context, OLIVE, "olive", 0);
         registerContext.register(context, AMBER, "amber", 1, AllConditionCheck.allOf(InvertedCondition.invert(RainingCheck.raining().build()),
-                TimeOfDayCheck.timeOfDay(MinMaxBounds.Doubles.between(0.75d, 0.9d)),
+                BooleanEnvironmentAttributeCheck.attribute(FOTEnvironmentAttributes.AMBER_PLENTIFIN_SPAWNS),
                 SeeSkyCheck.seeSky()));
         registerContext.register(context, CLOUDY, "cloudy", 2, AllConditionCheck.allOf(RainingCheck.raining().build(), SeeSkyCheck.seeSky()));
         registerContext.register(context, BONEDUST, "bonedust", 3,

@@ -10,7 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -18,11 +18,11 @@ import net.minecraft.world.item.Item;
 public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
 {
     // Croptopia
-    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("croptopia", "fishes"));
+    private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("croptopia", "fishes"));
 
     // Common
-    private static final TagKey<Item> C_SEEDS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "seeds"));
-    private static final TagKey<Item> C_FRUITS_SWEET = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "fruits/sweet"));
+    private static final TagKey<Item> C_SEEDS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "seeds"));
+    private static final TagKey<Item> C_FRUITS_SWEET = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "fruits/sweet"));
 
     public ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider)
     {
