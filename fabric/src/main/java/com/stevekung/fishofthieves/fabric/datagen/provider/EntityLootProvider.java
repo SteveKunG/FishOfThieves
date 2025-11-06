@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.function.BiConsumer;
 import java.util.function.IntFunction;
 
-import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 

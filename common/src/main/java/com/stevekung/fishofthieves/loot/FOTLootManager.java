@@ -4,13 +4,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.loot.condition.BaitAttachedCondition;
 import com.stevekung.fishofthieves.loot.function.FOTLootItem;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.Util;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.EntityTypePredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -98,38 +104,57 @@ public class FOTLootManager
 
     public static LootPool.Builder getFishingLoot(LootPool.Builder builder)
     {
-        //@formatter:off
-        return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                        .setWeight(50)
-                        .when(FOTLootItemConditions.IN_OCEAN))
-                .add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
-                        .setWeight(50)
-                        .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)))
-                .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
-                        .setWeight(40)
-                        .when(FOTLootItemConditions.COAST))
-                .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                        .setWeight(40)
-                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)))
-                .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
-                        .setWeight(45)
-                        .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)))
-                .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
-                        .setWeight(45)
-                        .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)))
-                .add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
-                        .setWeight(35)
-                        .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES))
-                .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
-                        .setWeight(35)
-                        .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)))
-                .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
-                        .setWeight(20)
-                        .when(FOTLootItemConditions.IN_SHIPWRECKS_OR_RUINED_PORTAL_OCEAN))
-                .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
-                        .setWeight(20)
-                        .when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
+        for (var count = 0; count < 2; count++)
+        {
+            var fishLoot = Lists.<LootPoolSingletonContainer.Builder<?>>newArrayList();
+
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
+                    .setWeight(50)
+                    .when(FOTLootItemConditions.IN_OCEAN));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.PONDIE)
+                    .setWeight(50)
+                    .when(FOTLootItemConditions.IN_RIVER.or(FOTLootItemConditions.IN_FOREST)));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER)
+                    .setWeight(40)
+                    .when(FOTLootItemConditions.COAST));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
+                    .setWeight(40)
+                    .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN)));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
+                    .setWeight(45)
+                    .when(FOTLootItemConditions.IN_LUKEWARM_OCEAN.or(FOTLootItemConditions.IN_DEEP_LUKEWARM_OCEAN).or(FOTLootItemConditions.IN_WARM_OCEAN)));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
+                    .setWeight(45)
+                    .when(FOTLootItemConditions.IN_LUSH_CAVES.or(FOTLootItemConditions.IN_JUNGLE)));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.DEVILFISH)
+                    .setWeight(35)
+                    .when(FOTLootItemConditions.IN_DRIPSTONE_CAVES));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
+                    .setWeight(35)
+                    .when(FOTLootItemConditions.IN_OCEAN_MONUMENTS.or(FOTLootItemConditions.IN_PILLAGER_OUTPOSTS).or(FOTLootItemConditions.HAS_RAIDS)));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
+                    .setWeight(20)
+                    .when(FOTLootItemConditions.IN_SHIPWRECKS_OR_RUINED_PORTAL_OCEAN));
+            fishLoot.add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
+                    .setWeight(20)
+                    .when(FOTLootItemConditions.THUNDERING));
+
+            if (count == 1)
+            {
+                // With baits section
+                fishLoot.forEach(builderx ->
+                {
+                    builderx.fishofthieves$addWeight(100);
+                    builderx.when(BaitAttachedCondition.baitMatches(ItemPredicate.Builder.item(), EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.FISHING_BOBBER))));
+                    builder.add(builderx);
+                });
+            }
+            else
+            {
+                fishLoot.forEach(builder::add);
+            }
+        }
+        return builder;
     }
 
     public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, boolean elder)

@@ -37,13 +37,16 @@
     "entity.MixinChestBoat",
     "entity.MixinEntityType",
     "entity.MixinFallingBlockEntity",
+    "entity.MixinFishingHook",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
+    "item.MixinFishingRodItem",
     "item.MixinRecordItem",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
-    "level.block.state.MixinBlockBehaviour"
+    "level.block.state.MixinBlockBehaviour",
+    "loot.MixinLootPoolSingletonContainer_Builder"
   ],
   "injectors": {
     "defaultRequire": 1

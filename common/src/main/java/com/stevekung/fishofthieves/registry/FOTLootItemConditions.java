@@ -1,8 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
-import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.condition.BaitAttachedCondition;
+import com.stevekung.fishofthieves.loot.condition.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
 
@@ -21,6 +22,7 @@ public class FOTLootItemConditions
 {
     public static final LootItemConditionType FOT_LOCATION_CHECK = new LootItemConditionType(new FOTLocationCheck.Serializer());
     public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = new LootItemConditionType(new FishVariantLootConfigCondition.Serializer());
+    public static final LootItemConditionType BAIT_ATTACHED_HOOK = new LootItemConditionType(new BaitAttachedCondition.Serializer());
 
     public static final LootItemCondition.Builder IN_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.LUKEWARM_OCEAN));
     public static final LootItemCondition.Builder IN_DEEP_LUKEWARM_OCEAN = LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(Biomes.DEEP_LUKEWARM_OCEAN));
@@ -47,6 +49,7 @@ public class FOTLootItemConditions
     {
         register("fot_location_check", FOT_LOCATION_CHECK);
         register("fish_variant_loot_config", FISH_VARIANT_LOOT_CONFIG);
+        register("bait_attached_hook", BAIT_ATTACHED_HOOK);
     }
 
     private static void register(String key, LootItemConditionType type)
