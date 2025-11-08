@@ -8,7 +8,7 @@ import java.util.function.BiConsumer;
 
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 

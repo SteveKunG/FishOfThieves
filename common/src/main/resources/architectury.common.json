@@ -11,6 +11,18 @@
     ],
     "net/minecraft/class_1297": [
       "com/stevekung/fishofthieves/client/entity/FishPlaqueDisplay"
+    ],
+    "net/minecraft/class_85\u0024class_86": [
+      "com/stevekung/fishofthieves/loot/function/LootPoolSingletonContainerWeightAdder"
+    ],
+    "net/minecraft/class_1536": [
+      "com/stevekung/fishofthieves/entity/FishingHookBait"
+    ],
+    "net/minecraft/class_3218": [
+      "com/stevekung/fishofthieves/storage/BaitStorageAccessor"
+    ],
+    "net/minecraft/class_10026": [
+      "com/stevekung/fishofthieves/client/renderer/entity/state/FishingHookRenderStateExtender"
     ]
   }
 }

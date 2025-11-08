@@ -1,8 +1,9 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
-import com.stevekung.fishofthieves.loot.function.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.condition.BaitAttachedCondition;
+import com.stevekung.fishofthieves.loot.condition.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
@@ -17,6 +18,7 @@ public class FOTLootItemConditions
 {
     public static final LootItemConditionType FOT_LOCATION_CHECK = register("fot_location_check", new LootItemConditionType(FOTLocationCheck.CODEC));
     public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = register("fish_variant_loot_config", new LootItemConditionType(FishVariantLootConfigCondition.CODEC));
+    public static final LootItemConditionType BAIT_ATTACHED_HOOK = register("bait_attached_hook", new LootItemConditionType(BaitAttachedCondition.CODEC));
 
     public static final LootItemCondition.Builder THUNDERING = WeatherCheck.weather().setThundering(true);
     public static final LootItemCondition.Builder COAST_CONTINENTALNESS = FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST));

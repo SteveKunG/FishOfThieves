@@ -48,6 +48,7 @@ public class FishOfThieves
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
     public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
+    public static final Identifier RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
 
     public static Identifier id(String path)
     {

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import com.stevekung.fishofthieves.loot.function.FOTLocationCheck;
+import com.stevekung.fishofthieves.loot.condition.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
