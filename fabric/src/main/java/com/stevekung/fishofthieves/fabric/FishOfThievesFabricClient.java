@@ -3,12 +3,16 @@ package com.stevekung.fishofthieves.fabric;
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.FOTDecoratedPotPatternsClient;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.network.FOTClientPackets;
+import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -53,5 +57,14 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         }));
 
         FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
+
+        ClientPlayNetworking.registerGlobalReceiver(ReceiveFishingHookBaitPacket.TYPE, FishOfThievesFabricClient::setFishingHookBait);
+    }
+
+    public static void setFishingHookBait(ReceiveFishingHookBaitPacket packet, ClientPlayNetworking.Context context)
+    {
+        var minecraft = Minecraft.getInstance();
+        var level = minecraft.level;
+        FOTClientPackets.setFishingHookBait(minecraft, level, packet.entityId(), packet.itemStack());
     }
 }
