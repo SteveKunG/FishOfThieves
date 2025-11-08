@@ -12,6 +12,18 @@
 
 ---
 
+| Minecraft Version | Status         |
+|-------------------|----------------|
+| 1.18.x            | ❌ EOL          |
+| 1.19.x            | ❌ EOL          |
+| 1.20.1            | ✅ Active       |
+| 1.20.2–1.20.6     | ❌ EOL          |
+| 1.21.1            | ✅ Active       |
+| 1.21.4            | ❌ EOL          |
+| 1.21.5            | ⚠️ EOL in 2026 |
+| 1.21.8            | ⚠️ EOL in 2026 |
+| 1.21.10           | ✅ Active       |
+
 ## **About**
 
 Ahoy pirates! Have you ever imagined what it would be like if the fish from the Sea of Thieves were brought into Minecraft? Here we are!
