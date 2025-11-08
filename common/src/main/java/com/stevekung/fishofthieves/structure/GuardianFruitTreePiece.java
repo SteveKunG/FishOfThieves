@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.structure;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTStructures;
 
@@ -53,7 +54,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     private static StructurePlaceSettings makeSettings(Mirror mirror, Rotation rotation, BlockPos pos)
     {
         var blockIgnoreProcessor = BlockIgnoreProcessor.STRUCTURE_BLOCK;
-        var list = Lists.<ProcessorRule>newArrayList();
+        var list = new ArrayList<ProcessorRule>();
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.1F, FOTBlocks.PRISMARIZED_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z)));
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.1F, FOTBlocks.PRISMARIZED_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X)));
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.03F, Blocks.MAGMA_BLOCK));

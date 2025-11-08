@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
@@ -30,7 +30,7 @@ public class FOTEntitySubPredicate
 
     public static void init()
     {
-        var newSubPredicates = Maps.<String, EntitySubPredicate.Type>newLinkedHashMap();
+        var newSubPredicates = new LinkedHashMap<String, EntitySubPredicate.Type>();
         newSubPredicates.put("splashtail", SPLASHTAIL.type());
         newSubPredicates.put("pondie", PONDIE.type());
         newSubPredicates.put("islehopper", ISLEHOPPER.type());
@@ -43,7 +43,7 @@ public class FOTEntitySubPredicate
         newSubPredicates.put("stormfish", STORMFISH.type());
         newSubPredicates.put("trophy", TROPHY);
 
-        var modifyMap = Maps.newLinkedHashMap(EntitySubPredicate.Types.TYPES);
+        var modifyMap = new LinkedHashMap<>(EntitySubPredicate.Types.TYPES);
         modifyMap.putAll(newSubPredicates.entrySet().stream().collect(Collectors.toMap(e -> FishOfThieves.MOD_RESOURCES + e.getKey(), Map.Entry::getValue)));
         EntitySubPredicate.Types.TYPES = ImmutableBiMap.copyOf(modifyMap);
     }

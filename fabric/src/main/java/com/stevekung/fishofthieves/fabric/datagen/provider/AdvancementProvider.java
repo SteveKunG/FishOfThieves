@@ -1,10 +1,9 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.*;
@@ -38,19 +37,17 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class AdvancementProvider extends FabricAdvancementProvider
 {
-    private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(FOTItems.SPLASHTAIL_BUCKET, FOTRegistry.SPLASHTAIL_VARIANT);
-        map.put(FOTItems.PONDIE_BUCKET, FOTRegistry.PONDIE_VARIANT);
-        map.put(FOTItems.ISLEHOPPER_BUCKET, FOTRegistry.ISLEHOPPER_VARIANT);
-        map.put(FOTItems.ANCIENTSCALE_BUCKET, FOTRegistry.ANCIENTSCALE_VARIANT);
-        map.put(FOTItems.PLENTIFIN_BUCKET, FOTRegistry.PLENTIFIN_VARIANT);
-        map.put(FOTItems.WILDSPLASH_BUCKET, FOTRegistry.WILDSPLASH_VARIANT);
-        map.put(FOTItems.DEVILFISH_BUCKET, FOTRegistry.DEVILFISH_VARIANT);
-        map.put(FOTItems.BATTLEGILL_BUCKET, FOTRegistry.BATTLEGILL_VARIANT);
-        map.put(FOTItems.WRECKER_BUCKET, FOTRegistry.WRECKER_VARIANT);
-        map.put(FOTItems.STORMFISH_BUCKET, FOTRegistry.STORMFISH_VARIANT);
-    });
+    private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Map.of(
+            FOTItems.SPLASHTAIL_BUCKET, FOTRegistry.SPLASHTAIL_VARIANT,
+            FOTItems.PONDIE_BUCKET, FOTRegistry.PONDIE_VARIANT,
+            FOTItems.ISLEHOPPER_BUCKET, FOTRegistry.ISLEHOPPER_VARIANT,
+            FOTItems.ANCIENTSCALE_BUCKET, FOTRegistry.ANCIENTSCALE_VARIANT,
+            FOTItems.PLENTIFIN_BUCKET, FOTRegistry.PLENTIFIN_VARIANT,
+            FOTItems.WILDSPLASH_BUCKET, FOTRegistry.WILDSPLASH_VARIANT,
+            FOTItems.DEVILFISH_BUCKET, FOTRegistry.DEVILFISH_VARIANT,
+            FOTItems.BATTLEGILL_BUCKET, FOTRegistry.BATTLEGILL_VARIANT,
+            FOTItems.WRECKER_BUCKET, FOTRegistry.WRECKER_VARIANT,
+            FOTItems.STORMFISH_BUCKET, FOTRegistry.STORMFISH_VARIANT);
 
     private static final Item[] FRUITS = new Item[] {
             FOTItems.BANANA,
@@ -285,7 +282,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
     {
         for (var item : FOTTags.FISH_BUCKETS)
         {
-            for (var variant : Sets.newTreeSet(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
+            for (var variant : new TreeSet<>(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
             {
                 builder.addCriterion(variant.getPath() + "_" + this.getItemName(item), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                 {

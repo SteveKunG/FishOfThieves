@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity.ai.sensing;
 
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -21,7 +20,7 @@ public class NearestWreckerLocatedSensor extends Sensor<LivingEntity>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED);
+        return Set.of(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.loot.function;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -78,7 +78,7 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
 
     public static class Builder extends LootItemConditionalFunction.Builder<Builder>
     {
-        private final List<Integer> fireworkColors = Lists.newArrayList();
+        private final List<Integer> fireworkColors = new ArrayList<>();
 
         @Override
         protected Builder getThis()
@@ -127,7 +127,7 @@ public class SetRandomFireworkFunction extends LootItemConditionalFunction
         @Override
         public SetRandomFireworkFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions)
         {
-            var fireworkColors = Lists.<Integer>newArrayList();
+            var fireworkColors = new ArrayList<Integer>();
 
             if (object.has("colors"))
             {

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.loot.condition;
 
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -29,7 +28,7 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
     @Override
     public Set<LootContextParam<?>> getReferencedContextParams()
     {
-        return ImmutableSet.of(LootContextParams.THIS_ENTITY);
+        return Set.of(LootContextParams.THIS_ENTITY);
     }
 
     @Override

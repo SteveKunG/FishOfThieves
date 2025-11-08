@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves.loot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.condition.BaitAttachedCondition;
@@ -57,7 +57,7 @@ public class FOTLootManager
 
     public static Map<ResourceLocation, Function<LootPool.Builder, LootPool.Builder>> getInjectedLootTableMap()
     {
-        return Util.make(Maps.newHashMap(), map ->
+        return Util.make(new HashMap<>(), map ->
         {
             // Gameplay
             map.put(BuiltInLootTables.FISHERMAN_GIFT, FOTLootManager::getFishermanGiftLoot);
@@ -76,7 +76,7 @@ public class FOTLootManager
 
     public static Map<ResourceLocation, Function<LootPool.Builder, LootPool.Builder>> getInjectedLootPoolMap()
     {
-        return Util.make(Maps.newHashMap(), map ->
+        return Util.make(new HashMap<>(), map ->
         {
             // Entity Loot
             map.put(EntityType.GUARDIAN.getDefaultLootTable(), builder -> FOTLootManager.getGuardianLoot(builder, false));
@@ -108,7 +108,7 @@ public class FOTLootManager
 
     public static LootPool.Builder getFishingLoot(LootPool.Builder builder, boolean useBaits)
     {
-        var fishLoot = Lists.<Pair<TagKey<Item>, LootPoolSingletonContainer.Builder<?>>>newArrayList();
+        var fishLoot = new ArrayList<Pair<TagKey<Item>, LootPoolSingletonContainer.Builder<?>>>();
 
         fishLoot.add(Pair.of(null, FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                 .setWeight(50)

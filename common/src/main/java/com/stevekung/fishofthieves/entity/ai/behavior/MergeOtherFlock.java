@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -19,7 +19,7 @@ public class MergeOtherFlock extends Behavior<AbstractSchoolingThievesFish>
 
     public MergeOtherFlock()
     {
-        super(ImmutableMap.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.SCHOOL_SIZE, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, MemoryStatus.VALUE_ABSENT));
+        super(Map.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.SCHOOL_SIZE, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.MERGE_FROM_OTHER_FLOCK, MemoryStatus.VALUE_ABSENT));
     }
 
     @Override

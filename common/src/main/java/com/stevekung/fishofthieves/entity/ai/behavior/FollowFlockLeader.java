@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -18,7 +19,7 @@ public class FollowFlockLeader extends Behavior<AbstractSchoolingThievesFish>
 
     public FollowFlockLeader(float speedModifier)
     {
-        super(ImmutableMap.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED, MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT));
+        super(Map.of(MemoryModuleType.LOOK_TARGET, MemoryStatus.REGISTERED, MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.VALUE_PRESENT, MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT));
         this.speedModifier = speedModifier;
     }
 

@@ -1,8 +1,7 @@
 package com.stevekung.fishofthieves.storage;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,12 +25,12 @@ public class BaitPreserveSavedData extends SavedData
 
     public BaitPreserveSavedData()
     {
-        this(Maps.newHashMap());
+        this(new HashMap<>());
     }
 
     public static BaitPreserveSavedData load(CompoundTag tag)
     {
-        var baitStorage = Maps.<Vec3, ItemStack>newHashMap();
+        var baitStorage = new HashMap<Vec3, ItemStack>();
         var listTag = tag.getList(TAG_BAIT_PRESERVES, CompoundTag.TAG_COMPOUND);
 
         for (var i = 0; i < listTag.size(); i++)

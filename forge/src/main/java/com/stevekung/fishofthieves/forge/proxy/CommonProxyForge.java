@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.forge.proxy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
@@ -92,7 +92,7 @@ public class CommonProxyForge
         if (event.getType() == VillagerProfession.FISHERMAN)
         {
             var trades = event.getTrades();
-            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(Lists.newArrayList())));
+            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
         }
     }
 

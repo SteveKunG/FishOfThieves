@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
@@ -32,7 +32,7 @@ import me.shedaniel.autoconfig.AutoConfig;
 
 public class FishOfThievesClient
 {
-    private static final Map<String, Object> PREVIOUS_CONFIG_VALUES = Maps.newHashMap();
+    private static final Map<String, Object> PREVIOUS_CONFIG_VALUES = new HashMap<>();
 
     public static void init()
     {
@@ -61,7 +61,7 @@ public class FishOfThievesClient
     @SuppressWarnings("unchecked")
     public static List<EntityRendererEntry<Entity>> getEntityRenderers()
     {
-        return Util.make(Lists.<EntityRendererEntry<?>>newArrayList(), list ->
+        return Util.make(new ArrayList<EntityRendererEntry<?>>(), list ->
         {
             list.add(new EntityRendererEntry<>(FOTEntities.SPLASHTAIL, SplashtailRenderer::new));
             list.add(new EntityRendererEntry<>(FOTEntities.PONDIE, PondieRenderer::new));
@@ -86,7 +86,7 @@ public class FishOfThievesClient
     @SuppressWarnings("unchecked")
     public static List<HeadphoneEntry<LivingEntity>> getHeadphone()
     {
-        return Util.make(Lists.<HeadphoneEntry<?>>newArrayList(), list ->
+        return Util.make(new ArrayList<HeadphoneEntry<?>>(), list ->
         {
             list.add(new HeadphoneEntry<>(EntityType.COD, HeadphoneModel.Scaleable.COD));
             list.add(new HeadphoneEntry<>(EntityType.SALMON, HeadphoneModel.Scaleable.SALMON));

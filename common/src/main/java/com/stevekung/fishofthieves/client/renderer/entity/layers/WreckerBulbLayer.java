@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.client.renderer.entity.layers;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
@@ -23,7 +23,7 @@ import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(Maps.newHashMap(), map -> map.putAll(FOTRegistry.WRECKER_VARIANT.stream().collect(ImmutableMap.toImmutableMap(Function.identity(), variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(FOTRegistry.WRECKER_VARIANT.getKey(variant).getPath()))))));
+    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(new HashMap<>(), map -> map.putAll(FOTRegistry.WRECKER_VARIANT.stream().collect(Collectors.toMap(Function.identity(), variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(FOTRegistry.WRECKER_VARIANT.getKey(variant).getPath()))))));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {

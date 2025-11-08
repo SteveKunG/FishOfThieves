@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -20,7 +19,7 @@ public class NearestSchoolingThievesFishSensor extends Sensor<AbstractSchoolingT
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH);
+        return Set.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH);
     }
 
     @Override
