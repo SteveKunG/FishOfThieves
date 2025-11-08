@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -33,6 +34,18 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     MixinFishingHook()
     {
         super(null, null);
+    }
+
+    @Override
+    public boolean save(CompoundTag compound)
+    {
+        if (this.level() instanceof ServerLevel serverLevel)
+        {
+            var baitPreserveSavedData = serverLevel.getBaitPreserve();
+            baitPreserveSavedData.getBaitStorage().putIfAbsent(this.position(), this.baitStack);
+            baitPreserveSavedData.setDirty();
+        }
+        return super.save(compound);
     }
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/projectile/FishingHook.discard()V"))
@@ -107,12 +120,16 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Unique
     private void dropBait()
     {
-        if (!this.level().isClientSide())
+        if (this.level() instanceof ServerLevel serverLevel)
         {
             var vec3 = Vec3.atLowerCornerWithOffset(this.blockPosition(), 0.5, 0.25, 0.5).offsetRandom(this.random, 0.3F);
             var itemEntity = new ItemEntity(this.level(), vec3.x(), vec3.y(), vec3.z(), this.baitStack);
             itemEntity.setDefaultPickUpDelay();
             this.level().addFreshEntity(itemEntity);
+
+            var baitPreserveSavedData = serverLevel.getBaitPreserve();
+            baitPreserveSavedData.getBaitStorage().remove(this.position());
+            baitPreserveSavedData.setDirty();
         }
     }
 }

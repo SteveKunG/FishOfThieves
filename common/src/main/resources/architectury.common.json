@@ -11,6 +11,9 @@
     ],
     "net/minecraft/class_1536": [
       "com/stevekung/fishofthieves/entity/FishingHookBait"
+    ],
+    "net/minecraft/class_3218": [
+      "com/stevekung/fishofthieves/storage/BaitStorageAccessor"
     ]
   }
 }

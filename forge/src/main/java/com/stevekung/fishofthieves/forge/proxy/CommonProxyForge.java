@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -91,6 +93,15 @@ public class CommonProxyForge
         {
             var trades = event.getTrades();
             FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(Lists.newArrayList())));
+        }
+    }
+
+    @SubscribeEvent
+    public void onChunkLoad(ChunkEvent.Load event)
+    {
+        if (event.getLevel() instanceof ServerLevel serverLevel)
+        {
+            serverLevel.getBaitPreserve().spawnBaitOnLoad(serverLevel);
         }
     }
 
