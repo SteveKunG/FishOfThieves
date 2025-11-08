@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -14,8 +15,10 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
@@ -145,5 +148,19 @@ public class FOTPlatformImpl
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         FishOfThievesForge.MOB_EFFECTS.register(key, () -> mobEffect);
+    }
+
+    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        if (player.level() instanceof ServerLevel serverLevel)
+        {
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 256.0F))
+            {
+                if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
+                {
+                    FishOfThievesForge.sendToClient(new ReceiveFishingHookBaitPacket(entityId, itemStack), serverPlayer);
+                }
+            }
+        }
     }
 }

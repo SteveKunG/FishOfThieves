@@ -43,7 +43,8 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
     {
         if (entity instanceof FishingHook fishingHook)
         {
-            return this.itemPredicate.matches(fishingHook.fishofthieves$getBaitStack());
+            var baitStack = fishingHook.fishofthieves$getBaitStack();
+            return !baitStack.isEmpty() && this.itemPredicate.matches(baitStack);
         }
         return false;
     }

@@ -15,6 +15,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -37,6 +38,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
@@ -60,6 +64,10 @@ public class FishOfThievesForge
 
     private static final String THIEVES_FISH_SPAWNS_IN_STRUCTURE = "thieves_fish_spawns_in_structure";
     public static final ResourceLocation ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL = FishOfThieves.id(THIEVES_FISH_SPAWNS_IN_STRUCTURE);
+
+    private static final String PROTOCOL_VERSION = "1";
+    private static int ID = 0;
+    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(FishOfThieves.id("main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 
     public FishOfThievesForge()
     {
@@ -101,6 +109,7 @@ public class FishOfThievesForge
         {
             Aquaculture2.init();
         }
+        INSTANCE.messageBuilder(ReceiveFishingHookBaitPacket.class, nextID()).encoder(ReceiveFishingHookBaitPacket::toBytes).decoder(ReceiveFishingHookBaitPacket::new).consumerMainThread(ReceiveFishingHookBaitPacket::handle).add();
     }
 
     @SubscribeEvent
@@ -170,5 +179,20 @@ public class FishOfThievesForge
         });
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
+    }
+
+    public static void sendToClient(Object packet, ServerPlayer player)
+    {
+        var connection = player.connection.connection;
+
+        if (INSTANCE.isRemotePresent(connection))
+        {
+            INSTANCE.sendTo(packet, connection, NetworkDirection.PLAY_TO_CLIENT);
+        }
+    }
+
+    private static int nextID()
+    {
+        return ID++;
     }
 }

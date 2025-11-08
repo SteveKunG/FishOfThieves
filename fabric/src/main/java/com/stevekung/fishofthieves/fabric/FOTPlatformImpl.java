@@ -4,6 +4,8 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Lifecycle;
 import com.stevekung.fishofthieves.FishOfThieves;
 
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -15,6 +17,7 @@ import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -24,8 +27,10 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
@@ -150,5 +155,20 @@ public class FOTPlatformImpl
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         ((WritableRegistry<MobEffect>) BuiltInRegistries.MOB_EFFECT).registerMapping(id, ResourceKey.create(Registries.MOB_EFFECT, FishOfThieves.id(key)), mobEffect, Lifecycle.stable());
+    }
+
+    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        var buff = PacketByteBufs.create();
+        buff.writeVarInt(entityId);
+        buff.writeItem(itemStack);
+
+        if (player instanceof ServerPlayer serverPlayer)
+        {
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT))
+            {
+                ServerPlayNetworking.send(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, buff);
+            }
+        }
     }
 }

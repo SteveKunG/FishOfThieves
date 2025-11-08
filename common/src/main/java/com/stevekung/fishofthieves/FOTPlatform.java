@@ -9,7 +9,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
@@ -155,6 +157,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
     {
         throw new AssertionError();
     }

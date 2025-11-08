@@ -50,6 +50,8 @@ public class FishOfThieves
     public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
+    public static final ResourceLocation RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
+
     public static ResourceLocation id(String path)
     {
         return new ResourceLocation(MOD_ID, path);

@@ -8,8 +8,6 @@ import net.minecraft.world.item.ItemStack;
 
 public interface FishingHookBait
 {
-    String FISHING_HOOK_BAIT_TAG = "fishofthieves_bait";
-
     static ItemStack getBait(Player player)
     {
         var itemStack = getHeldBait(player);

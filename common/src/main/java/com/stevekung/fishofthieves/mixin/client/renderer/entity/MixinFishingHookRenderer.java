@@ -35,7 +35,7 @@ public abstract class MixinFishingHookRenderer extends EntityRenderer<FishingHoo
         this.itemRenderer = context.getItemRenderer();
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "com/mojang/blaze3d/vertex/PoseStack.popPose()V", ordinal = 0))
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "com/mojang/blaze3d/vertex/PoseStack.popPose()V", ordinal = 0, shift = At.Shift.AFTER))
     private void fishofthieves$renderAttachedBait(FishingHook entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo info)
     {
         var baitStack = entity.fishofthieves$getBaitStack();
@@ -44,6 +44,7 @@ public abstract class MixinFishingHookRenderer extends EntityRenderer<FishingHoo
         {
             poseStack.pushPose();
             poseStack.scale(1.0F, 1.0F, 1.0F);
+            poseStack.translate(0f, -0.5f, 0f);
             poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
             poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
             this.itemRenderer.renderStatic(entity.fishofthieves$getBaitStack(), ItemDisplayContext.GROUND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), entity.getId());

@@ -1,19 +1,26 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
+import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.FoliageColor;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
@@ -55,5 +62,15 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         }));
 
         FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
+
+        ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, FishOfThievesFabricClient::setFishingHookBait);
+    }
+
+    public static void setFishingHookBait(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
+    {
+        var entityId = buf.readVarInt();
+        var itemStack = buf.readItem();
+        var level = minecraft.level;
+        FOTClientPackets.setFishingHookBait(minecraft, level, entityId, itemStack);
     }
 }
