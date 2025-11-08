@@ -14,10 +14,12 @@ import com.stevekung.fishofthieves.entity.FishingHookBait;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 @Mixin(FishingHook.class)
 public abstract class MixinFishingHook extends Projectile implements FishingHookBait
@@ -31,6 +33,18 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     MixinFishingHook()
     {
         super(null, null);
+    }
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/projectile/FishingHook.discard()V"))
+    private void fishofthieves$dropBaitOnDiscardTick(CallbackInfo info)
+    {
+        this.dropBait();
+    }
+
+    @Inject(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "net/minecraft/world/entity/projectile/FishingHook.discard()V"))
+    private void fishofthieves$dropBaitOnDiscardRemoved(Player player, CallbackInfoReturnable<Boolean> info)
+    {
+        this.dropBait();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
@@ -87,6 +101,18 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
             {
                 FOTPlatform.sendFishingHookBait(player, this.getId(), this.baitStack);
             }
+        }
+    }
+
+    @Unique
+    private void dropBait()
+    {
+        if (!this.level().isClientSide())
+        {
+            var vec3 = Vec3.atLowerCornerWithOffset(this.blockPosition(), 0.5, 0.25, 0.5).offsetRandom(this.random, 0.3F);
+            var itemEntity = new ItemEntity(this.level(), vec3.x(), vec3.y(), vec3.z(), this.baitStack);
+            itemEntity.setDefaultPickUpDelay();
+            this.level().addFreshEntity(itemEntity);
         }
     }
 }
