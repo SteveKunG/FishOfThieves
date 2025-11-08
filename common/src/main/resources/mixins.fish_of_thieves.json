@@ -41,6 +41,7 @@
     "item.MixinFishingRodItem",
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",
+    "level.MixinDataFixTypes",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",

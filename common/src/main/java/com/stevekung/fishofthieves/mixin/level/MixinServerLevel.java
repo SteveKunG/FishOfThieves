@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.storage.BaitPreserveSavedData;
+import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,8 +25,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 @Mixin(ServerLevel.class)
-public abstract class MixinServerLevel extends Level
+public abstract class MixinServerLevel extends Level implements BaitStorageAccessor
 {
+    @Unique
+    private BaitPreserveSavedData bait;
+
     MixinServerLevel()
     {
         super(null, null, null, null, null, false, false, 0, 0);
@@ -44,6 +49,18 @@ public abstract class MixinServerLevel extends Level
                 this.addFreshEntity(lightningBolt);
             }
         }
+    }
+
+    @Inject(method = "<init>*", at = @At("TAIL"))
+    private void fishofthieves$initBaitPreserve(CallbackInfo info)
+    {
+        this.bait = ServerLevel.class.cast(this).getDataStorage().computeIfAbsent(BaitPreserveSavedData.factory(), BaitPreserveSavedData.FILE_ID);
+    }
+
+    @Override
+    public BaitPreserveSavedData getBaitPreserve()
+    {
+        return this.bait;
     }
 
     @Unique

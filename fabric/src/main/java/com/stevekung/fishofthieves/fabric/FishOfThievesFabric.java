@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
@@ -166,6 +167,8 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
 
         PayloadTypeRegistry.playS2C().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
+
+        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> level.getBaitPreserve().spawnBaitOnLoad(level));
     }
 
     private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)

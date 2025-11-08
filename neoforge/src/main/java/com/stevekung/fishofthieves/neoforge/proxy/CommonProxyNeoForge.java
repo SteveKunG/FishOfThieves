@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -27,6 +28,7 @@ import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.neoforged.neoforge.event.level.ChunkEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 public class CommonProxyNeoForge
@@ -93,6 +95,15 @@ public class CommonProxyNeoForge
         {
             var trades = event.getTrades();
             FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(Lists.newArrayList())));
+        }
+    }
+
+    @SubscribeEvent
+    public void onChunkLoad(ChunkEvent.Load event)
+    {
+        if (event.getLevel() instanceof ServerLevel serverLevel)
+        {
+            serverLevel.getBaitPreserve().spawnBaitOnLoad(serverLevel);
         }
     }
 
