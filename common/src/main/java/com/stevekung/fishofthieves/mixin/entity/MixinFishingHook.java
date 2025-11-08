@@ -52,7 +52,10 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
         this.shrinkBait(false);
     }
 
-    @Inject(method = "catchingFish", at = @At(value = "INVOKE", target = "net/minecraft/network/syncher/SynchedEntityData.set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V", ordinal = 0))
+    @Inject(method = "catchingFish", at = @At(
+            value = "INVOKE",
+            target = "net/minecraft/network/syncher/SynchedEntityData.set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V",
+            ordinal = 0))
     private void fishofthieves$shrinkBait(BlockPos pos, CallbackInfo info)
     {
         this.shrinkBait(true);
