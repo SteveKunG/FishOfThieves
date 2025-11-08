@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
+import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.core.Registry;
@@ -21,11 +22,13 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.*;
 
 @Mod(FishOfThieves.MOD_ID)
 public class FishOfThievesNeoForge
 {
+    private static final String PROTOCOL_VERSION = "1";
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
 
     static
@@ -118,6 +121,13 @@ public class FishOfThievesNeoForge
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
+    }
+
+    @SubscribeEvent
+    public void register(RegisterPayloadHandlersEvent event)
+    {
+        var registrar = event.registrar(FishOfThieves.MOD_ID).versioned(PROTOCOL_VERSION).optional();
+        registrar.playToClient(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC, ReceiveFishingHookBaitPacketNeoForge::handle);
     }
 
     @SuppressWarnings("unused")

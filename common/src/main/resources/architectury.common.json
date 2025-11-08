@@ -5,6 +5,12 @@
     ],
     "net/minecraft/class_8109": [
       "com/stevekung/fishofthieves/damagesource/FOTDamageSources"
+    ],
+    "net/minecraft/class_85\u0024class_86": [
+      "com/stevekung/fishofthieves/loot/function/LootPoolSingletonContainerWeightAdder"
+    ],
+    "net/minecraft/class_1536": [
+      "com/stevekung/fishofthieves/entity/FishingHookBait"
     ]
   }
 }

@@ -1,17 +1,20 @@
 package com.stevekung.fishofthieves;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+
+import dev.architectury.injectables.annotations.ExpectPlatform;
 
 public class FOTPlatform
 {
@@ -53,6 +56,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
     {
         throw new AssertionError();
     }

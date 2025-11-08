@@ -10,6 +10,7 @@
     "client.model.MixinTadpoleModel",
     "client.renderer.entity.MixinBoatRenderer",
     "client.renderer.entity.MixinCodRenderer",
+    "client.renderer.entity.MixinFishingHookRenderer",
     "client.renderer.entity.MixinPufferfishRenderer",
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",
@@ -33,14 +34,17 @@
     "entity.MixinChestBoat",
     "entity.MixinEntityType",
     "entity.MixinFallingBlockEntity",
+    "entity.MixinFishingHook",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
+    "item.MixinFishingRodItem",
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
-    "level.block.state.MixinBlockBehaviour"
+    "level.block.state.MixinBlockBehaviour",
+    "loot.MixinLootPoolSingletonContainer_Builder"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,5 +1,9 @@
 package com.stevekung.fishofthieves.fabric;
 
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
@@ -7,10 +11,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -53,5 +60,16 @@ public class FOTPlatformImpl
     public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
     {
         EntityDataSerializers.registerSerializer(serializer);
+    }
+
+    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        if (player instanceof ServerPlayer serverPlayer)
+        {
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT))
+            {
+                ServerPlayNetworking.send(serverPlayer, new ReceiveFishingHookBaitPacket(entityId, itemStack));
+            }
+        }
     }
 }

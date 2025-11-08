@@ -14,7 +14,6 @@ import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -28,6 +27,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
+
+import me.shedaniel.autoconfig.AutoConfig;
 
 public class FishOfThievesClient
 {
@@ -138,6 +139,8 @@ public class FishOfThievesClient
     }
 
     public record ModelLayerEntry(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {}
+
     public record EntityRendererEntry<E extends Entity>(EntityType<? extends E> entityType, EntityRendererProvider<E> factory) {}
+
     public record HeadphoneEntry<E extends LivingEntity>(EntityType<? extends E> entityType, HeadphoneModel.Scaleable<E> scaleable) {}
 }
