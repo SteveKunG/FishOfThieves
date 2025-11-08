@@ -78,7 +78,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
 
     @Inject(method = "retrieve", at = @At(
             value = "INVOKE",
-            target = "net/minecraft/advancements/critereon/FishingRodHookedTrigger.trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/FishingHook;Ljava/util/Collection;)V",
+            target = "net/minecraft/advancements/criterion/FishingRodHookedTrigger.trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/FishingHook;Ljava/util/Collection;)V",
             shift = At.Shift.AFTER,
             ordinal = 1))
     private void fishofthieves$onRetrieve(ItemStack stack, CallbackInfoReturnable<Integer> info)

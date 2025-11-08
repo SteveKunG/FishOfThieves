@@ -28,7 +28,7 @@ public class BaitPreserveSavedData extends SavedData
                     .apply(instance, BaitPreserveSavedData::new));
 
     public static final SavedDataType<BaitPreserveSavedData> TYPE = new SavedDataType<>(FILE_ID,
-            context -> new BaitPreserveSavedData(), context -> CODEC, FOTDataFixTypes.SAVED_BAIT_PRESERVE);
+            BaitPreserveSavedData::new, CODEC, FOTDataFixTypes.SAVED_BAIT_PRESERVE);
 
     private final Map<Vec3, ItemStack> baitStorage = Maps.newHashMap();
 
