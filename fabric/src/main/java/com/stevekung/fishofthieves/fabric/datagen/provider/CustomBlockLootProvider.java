@@ -33,7 +33,6 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
         super(dataOutput, LootContextParamSets.BLOCK);
     }
 
-    //@formatter:off
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
     {
@@ -71,5 +70,4 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
                         .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
                         .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(FOTTags.Biomes.ALWAYS_DROP_LEECHES)))));
     }
-    //@formatter:on
 }

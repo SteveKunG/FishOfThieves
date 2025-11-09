@@ -62,7 +62,6 @@ public class AdvancementProvider extends FabricAdvancementProvider
         super(dataOutput);
     }
 
-    //@formatter:off
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer)
     {
@@ -262,7 +261,6 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
     }
-    //@formatter:on
 
     private String mod(String name)
     {

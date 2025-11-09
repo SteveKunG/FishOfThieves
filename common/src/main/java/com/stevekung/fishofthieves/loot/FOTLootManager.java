@@ -92,7 +92,6 @@ public class FOTLootManager
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL))
                 .add(FOTLootItem.lootTableItem(FOTItems.PONDIE))
                 .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER))
@@ -103,7 +102,6 @@ public class FOTLootManager
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH).when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getFishingLoot(LootPool.Builder builder, boolean useBaits)
@@ -162,7 +160,6 @@ public class FOTLootManager
 
     public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, boolean elder)
     {
-        //@formatter:off
         var weight = elder ? 3 : 2;
         return builder.setRolls(ConstantValue.exactly(1.0F))
                 .add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
@@ -173,12 +170,10 @@ public class FOTLootManager
                         .setWeight(weight)
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE))));
-        //@formatter:on
     }
 
     public static LootPool.Builder getDolphinLoot(LootPool.Builder builder)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
@@ -200,12 +195,10 @@ public class FOTLootManager
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                         .when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
@@ -243,7 +236,6 @@ public class FOTLootManager
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0f, 1.0f)))
                         .when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getOceanRuinsArchaeologyLoot(LootPool.Builder builder)

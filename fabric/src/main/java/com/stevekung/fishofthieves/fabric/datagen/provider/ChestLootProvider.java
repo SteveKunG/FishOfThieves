@@ -31,7 +31,6 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
         super(dataOutput, LootContextParamSets.CHEST);
     }
 
-    //@formatter:off
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
     {
@@ -92,5 +91,4 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
                                 )
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))));
     }
-    //@formatter:on
 }

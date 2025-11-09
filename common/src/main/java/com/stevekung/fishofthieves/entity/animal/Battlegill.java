@@ -52,7 +52,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         map.put("fishofthieves:bittersweet", 4);
     });
 
-    //@formatter:off
     private static final List<SensorType<? extends Sensor<? super Battlegill>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
@@ -96,7 +95,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {

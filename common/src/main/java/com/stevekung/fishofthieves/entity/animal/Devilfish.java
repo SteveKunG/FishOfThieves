@@ -51,7 +51,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         map.put("fishofthieves:firelight", 4);
     });
 
-    //@formatter:off
     private static final List<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
@@ -95,7 +94,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {

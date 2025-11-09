@@ -86,7 +86,6 @@ public class AbstractThievesFishAi
         fish.level().getProfiler().pop();
     }
 
-    //@formatter:off
     private static void initCoreActivity(Brain<AbstractThievesFish<?>> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
@@ -139,7 +138,6 @@ public class AbstractThievesFishAi
                 Pair.of(RandomStroll.swim(1.0F), 2),
                 Pair.of(new DoNothing(30, 60), 1)));
     }
-    //@formatter:on
 
     public static BehaviorControl<PathfinderMob> avoidRepellent()
     {

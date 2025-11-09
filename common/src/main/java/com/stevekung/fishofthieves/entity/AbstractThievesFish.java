@@ -41,7 +41,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractThievesFish.class, EntityDataSerializers.BOOLEAN);
 
-    //@formatter:off
     protected static final List<SensorType<? extends Sensor<? super AbstractThievesFish<?>>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
@@ -75,7 +74,6 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {

@@ -31,7 +31,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class FOTBiomeModifiers
 {
-    //@formatter:off
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap)
@@ -57,7 +56,6 @@ public class FOTBiomeModifiers
                 context.register(key("add_sparse_jungle_patch_wild_pomegranate"), addBiomeFeature(context, Biomes.SPARSE_JUNGLE, FOTPlacements.SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, GenerationStep.Decoration.VEGETAL_DECORATION));
                 context.register(key("add_sparse_jungle_patch_tropical_bush"), addBiomeFeature(context, Biomes.SPARSE_JUNGLE, FOTPlacements.SPARSE_JUNGLE_PATCH_TROPICAL_BUSH, GenerationStep.Decoration.VEGETAL_DECORATION));
             });
-    //@formatter:on
 
     public static void generateBiomeModifiers(GatherDataEvent event)
     {

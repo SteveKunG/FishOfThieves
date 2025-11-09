@@ -4,7 +4,6 @@ import net.minecraft.world.item.ItemStack;
 
 public interface FOTEarlyItems
 {
-    //@formatter:off
     interface Cat
     {
         ItemStack[] CAT_FOODS = {
@@ -44,5 +43,4 @@ public interface FOTEarlyItems
                 new ItemStack(FOTItems.POMEGRANATE_SEEDS)
         };
     }
-    //@formatter:on
 }

@@ -88,12 +88,10 @@ public class FOTStructureModifiers
 
         public static Codec<Modifier> makeCodec()
         {
-            //@formatter:off
             return RecordCodecBuilder.create(builder -> builder.group(
                             STRUCTURE_LIST_CODEC.fieldOf("structure").forGetter(Modifier::structureTagKey),
                             MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawnerData").forGetter(Modifier::spawnerData))
                     .apply(builder, Modifier::new));
-            //@formatter:on
         }
     }
 }

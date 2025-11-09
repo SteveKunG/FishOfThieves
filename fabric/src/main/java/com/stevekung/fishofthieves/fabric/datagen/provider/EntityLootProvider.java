@@ -43,13 +43,11 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
     {
-        //@formatter:off
         consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-        //@formatter:on
 
         this.simpleFishLoot(consumer, FOTEntities.SPLASHTAIL, FOTItems.SPLASHTAIL, i -> FOTEntitySubPredicate.variant(FOTRegistry.SPLASHTAIL_VARIANT.holders().toList().get(i).value()));
         this.simpleFishLoot(consumer, FOTEntities.PONDIE, FOTItems.PONDIE, i -> FOTEntitySubPredicate.variant(FOTRegistry.PONDIE_VARIANT.holders().toList().get(i).value()));
@@ -65,7 +63,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private void simpleFishLoot(BiConsumer<ResourceLocation, LootTable.Builder> consumer, EntityType<?> entityType, Item item, IntFunction<EntitySubPredicate> function)
     {
-        //@formatter:off
         consumer.accept(entityType.getDefaultLootTable(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
@@ -82,7 +79,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))));
-        //@formatter:on
     }
 
     @SuppressWarnings("deprecation")
@@ -93,12 +89,10 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
             var compound = new CompoundTag();
             compound.putInt("CustomModelData", i);
 
-            //@formatter:off
             builder.apply(SetNbtFunction.setTag(compound)
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(i))))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE).invert()));
-            //@formatter:on
         }
         return builder;
     }

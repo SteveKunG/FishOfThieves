@@ -57,7 +57,6 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         map.put("fishofthieves:moon", 4);
     });
 
-    //@formatter:off
     private static final List<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
@@ -102,7 +101,6 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {

@@ -55,7 +55,6 @@ public class WreckerAi
         fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
     }
 
-    //@formatter:off
     private static void initCoreActivity(Brain<Wrecker> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
@@ -94,7 +93,6 @@ public class WreckerAi
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.25f),
                 MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
     }
-    //@formatter:on
 
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Wrecker fish)
     {

@@ -56,7 +56,6 @@ public class BattlegillAi
         fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
     }
 
-    //@formatter:off
     private static void initCoreActivity(Brain<Battlegill> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
@@ -96,7 +95,6 @@ public class BattlegillAi
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.25f),
                 MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
     }
-    //@formatter:on
 
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Battlegill fish)
     {

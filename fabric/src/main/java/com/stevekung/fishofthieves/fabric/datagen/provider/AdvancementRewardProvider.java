@@ -21,7 +21,6 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
         super(dataOutput, LootContextParamSets.ADVANCEMENT_REWARD);
     }
 
-    //@formatter:off
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
     {
@@ -43,5 +42,4 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
                         .setRolls(UniformGenerator.between(4.0F, 8.0F))
                         .add(TagEntry.expandTag(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE))));
     }
-    //@formatter:on
 }

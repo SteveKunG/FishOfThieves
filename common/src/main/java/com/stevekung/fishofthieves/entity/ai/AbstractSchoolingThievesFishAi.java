@@ -71,7 +71,6 @@ public class AbstractSchoolingThievesFishAi
         fish.level().getProfiler().pop();
     }
 
-    //@formatter:off
     private static void initCoreActivity(Brain<AbstractSchoolingThievesFish<?>> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
@@ -128,7 +127,6 @@ public class AbstractSchoolingThievesFishAi
                 Pair.of(RandomStroll.swim(1.0F), 2),
                 Pair.of(new DoNothing(30, 60), 1)));
     }
-    //@formatter:on
 
     public static void wasHurtBy(AbstractSchoolingThievesFish<?> fish)
     {
