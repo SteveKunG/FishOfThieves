@@ -18,6 +18,8 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,9 +38,12 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ChunkStatus;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
@@ -262,8 +267,58 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Nullable
-    public static BlockPos getNearestShipwreckOrRuinedPortalPos(ServerLevel level, BlockPos pos)
+    public static BlockPos getNearestShipwreckOrRuinedPortalPos(ServerLevel level, BlockPos pos, ChunkPos chunkPos)
     {
-        return level.findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, pos, 32, false);
+        var structureRegistry = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
+        var structureHolderSet = structureRegistry.getTag(FOTTags.Structures.WRECKERS_LOCATED);
+        var structureRange = 32;
+        var distFromStructure = Integer.MAX_VALUE;
+
+        if (structureHolderSet.isPresent())
+        {
+            Structure structure1 = null;
+            ChunkPos chunkPos1 = null;
+
+            for (var structureHolder : structureHolderSet.get())
+            {
+                var structure = structureHolder.value();
+                var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+                var optional = structureRefMap.keySet().stream().filter(structurex -> structurex.equals(structure)).findAny();
+
+                if (optional.isPresent())
+                {
+                    structure1 = optional.get();
+                    chunkPos1 = chunkPos;
+                }
+            }
+
+            if (structure1 != null)
+            {
+                for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos1, 0), structure1))
+                {
+                    var structureCenter = structureStart.getPieces()
+                            .stream()
+                            .map(structurePiece -> structurePiece.getBoundingBox().getCenter())
+                            .findAny();
+
+                    if (structureCenter.isPresent())
+                    {
+                        var range = structureCenter.get().distManhattan(pos);
+
+                        // Get nearest structure range
+                        if (range < distFromStructure)
+                        {
+                            distFromStructure = range;
+                        }
+                        // Found structure within radius
+                        if (distFromStructure < structureRange)
+                        {
+                            return structureCenter.get();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

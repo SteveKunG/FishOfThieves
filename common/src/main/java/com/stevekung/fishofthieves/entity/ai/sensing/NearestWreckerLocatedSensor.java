@@ -26,7 +26,7 @@ public class NearestWreckerLocatedSensor extends Sensor<LivingEntity>
     @Override
     protected void doTick(ServerLevel level, LivingEntity entity)
     {
-        var wreckagePos = Wrecker.getNearestShipwreckOrRuinedPortalPos(level, entity.blockPosition());
+        var wreckagePos = Wrecker.getNearestShipwreckOrRuinedPortalPos(level, entity.blockPosition(), entity.chunkPosition());
 
         if (wreckagePos != null)
         {
