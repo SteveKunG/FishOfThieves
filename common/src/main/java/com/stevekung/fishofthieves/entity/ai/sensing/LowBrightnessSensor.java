@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.ai.sensing;
 import java.util.Optional;
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
 import net.minecraft.core.BlockPos;
@@ -18,7 +17,7 @@ public class LowBrightnessSensor extends Sensor<LivingEntity>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_LOW_BRIGHTNESS);
+        return Set.of(FOTMemoryModuleTypes.NEAREST_LOW_BRIGHTNESS);
     }
 
     @Override

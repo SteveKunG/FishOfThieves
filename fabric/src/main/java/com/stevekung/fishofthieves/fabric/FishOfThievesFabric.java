@@ -1,11 +1,15 @@
 package com.stevekung.fishofthieves.fabric;
 
+import java.util.ArrayList;
+
 import com.chocohead.mm.api.ClassTinkerers;
+import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.StructureCenterPosDebugPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.fabricmc.api.ModInitializer;
@@ -18,6 +22,8 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
@@ -25,15 +31,22 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -70,12 +83,10 @@ public class FishOfThievesFabric implements ModInitializer
             addListenerForDynamic(registryView, FOTRegistries.FISH_PLAQUE_INTERACTION);
         });
 
-        //@formatter:off
         FabricLoader.getInstance().getModContainer(FishOfThieves.MOD_ID)
                 .map(container -> ResourceManagerHelper.registerBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"),
                         container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), ResourcePackActivationType.NORMAL))
                 .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
-        //@formatter:on
 
         FOTBlocks.init();
         FOTItems.init();
@@ -163,8 +174,43 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
 
         PayloadTypeRegistry.playS2C().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(StructureCenterPosDebugPacket.TYPE, StructureCenterPosDebugPacket.CODEC);
 
-        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> level.getBaitPreserve().spawnBaitOnLoad(level));
+        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) ->
+        {
+            level.getBaitPreserve().spawnBaitOnLoad(level);
+
+            if (FabricLoader.getInstance().isDevelopmentEnvironment())
+            {
+                sendStructurePosDebugPacket(level, chunk.getPos());
+            }
+        });
+    }
+
+    private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)
+    {
+        for (var serverPlayer : PlayerLookup.world(level))
+        {
+            var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+            var structurePosList = new ArrayList<Pair<BlockPos, ResourceLocation>>();
+
+            structureRefMap.keySet().stream().findAny().ifPresent(structure ->
+            {
+                for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos, 0), structure))
+                {
+                    var optional = structureStart.getPieces().stream().map(structurePiece -> structurePiece.getBoundingBox().getCenter()).findAny();
+                    optional.ifPresent(blockPos -> structurePosList.add(Pair.of(blockPos, level.registryAccess().lookupOrThrow(Registries.STRUCTURE).getKey(structureStart.getStructure()))));
+                }
+            });
+
+            if (!structurePosList.isEmpty())
+            {
+                if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.STRUCTURE_CENTER_POS_DEBUG))
+                {
+                    ServerPlayNetworking.send(serverPlayer, new StructureCenterPosDebugPacket(structurePosList));
+                }
+            }
+        }
     }
 
     private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)

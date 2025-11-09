@@ -1,12 +1,12 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.HolderLookup;
@@ -21,7 +21,7 @@ import net.minecraft.world.item.Item;
 
 public abstract class FishingRealProvider implements DataProvider
 {
-    private final Map<ResourceLocation, FishingRealBuilder> builders = Maps.newLinkedHashMap();
+    private final Map<ResourceLocation, FishingRealBuilder> builders = new LinkedHashMap<>();
     private final PackOutput output;
     private final CompletableFuture<HolderLookup.Provider> provider;
 

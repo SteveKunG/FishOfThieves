@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.ai.sensing;
 import java.util.Optional;
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,7 @@ public class MagmaBlockSensor extends Sensor<LivingEntity>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(MemoryModuleType.NEAREST_REPELLENT);
+        return Set.of(MemoryModuleType.NEAREST_REPELLENT);
     }
 
     @Override

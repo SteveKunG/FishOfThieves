@@ -42,7 +42,6 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
         this.registries = provider.join();
     }
 
-    //@formatter:off
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
@@ -80,7 +79,6 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
                         .when(this.hasSilkTouch().invert())
                         .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(FOTTags.Biomes.ALWAYS_DROP_LEECHES))))));
     }
-    //@formatter:on
 
     private LootItemCondition.Builder hasSilkTouch()
     {

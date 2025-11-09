@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.feature.treedecorators;
 
+import java.util.HashSet;
 import java.util.List;
 
-import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -49,7 +49,7 @@ public class DirectionalAttachedToLeavesDecorator extends TreeDecorator
     @Override
     public void place(TreeDecorator.Context context)
     {
-        var set = Sets.<BlockPos>newHashSet();
+        var set = new HashSet<BlockPos>();
         var randomSource = context.random();
 
         for (var blockPos : Util.shuffledCopy(context.leaves(), randomSource))

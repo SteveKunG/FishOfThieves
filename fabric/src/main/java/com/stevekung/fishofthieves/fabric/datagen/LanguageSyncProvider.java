@@ -3,9 +3,9 @@ package com.stevekung.fishofthieves.fabric.datagen;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 import java.util.concurrent.CompletableFuture;
 
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.core.HolderLookup;
@@ -34,8 +34,8 @@ public class LanguageSyncProvider implements DataProvider
             {
                 var mainJson = Files.readString(mainTranslationJson);
                 var lines = mainJson.split("\\R");
-                var orderedMainJson = Maps.<String, String>newLinkedHashMap();
-                var lineBreaks = Maps.<String, Boolean>newLinkedHashMap();
+                var orderedMainJson = new LinkedHashMap<String, String>();
+                var lineBreaks = new LinkedHashMap<String, Boolean>();
 
                 for (var i = 0; i < lines.length; i++)
                 {
@@ -63,7 +63,7 @@ public class LanguageSyncProvider implements DataProvider
                     {
                         var translationJson = Files.readString(path);
                         var translationLines = translationJson.split("\\R");
-                        var orderedTranslationJson = Maps.<String, String>newLinkedHashMap();
+                        var orderedTranslationJson = new LinkedHashMap<String, String>();
 
                         for (var line : translationLines)
                         {

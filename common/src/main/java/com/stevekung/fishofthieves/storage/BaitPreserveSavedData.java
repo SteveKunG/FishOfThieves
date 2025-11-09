@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.storage;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTDataFixTypes;
@@ -30,7 +30,7 @@ public class BaitPreserveSavedData extends SavedData
     public static final SavedDataType<BaitPreserveSavedData> TYPE = new SavedDataType<>(FILE_ID,
             context -> new BaitPreserveSavedData(), context -> CODEC, FOTDataFixTypes.SAVED_BAIT_PRESERVE);
 
-    private final Map<Vec3, ItemStack> baitStorage = Maps.newHashMap();
+    private final Map<Vec3, ItemStack> baitStorage = new HashMap<>();
 
     public BaitPreserveSavedData(List<BaitPreserve> list)
     {
