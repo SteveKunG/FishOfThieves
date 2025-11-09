@@ -2,12 +2,12 @@ package com.stevekung.fishofthieves.fabric.datagen.client.provider;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.condition;
 import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
-import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
@@ -1264,7 +1264,7 @@ public class ModelProvider extends FabricModelProvider
     {
         var variants = this.provider.lookupOrThrow(registryKey).listElements().map(Holder.Reference::value).sorted(Comparator.comparing(AbstractFishVariant::customModelData)).skip(1).toList();
         var suffixes = "_" + BuiltInRegistries.ITEM.getKey(item).getPath();
-        var list = Lists.<RangeSelectItemModel.Entry>newArrayList();
+        var list = new ArrayList<RangeSelectItemModel.Entry>();
 
         for (var variant : variants)
         {

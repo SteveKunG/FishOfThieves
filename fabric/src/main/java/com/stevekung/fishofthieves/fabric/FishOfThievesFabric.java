@@ -70,12 +70,10 @@ public class FishOfThievesFabric implements ModInitializer
             addListenerForDynamic(registryView, FOTRegistries.FISH_PLAQUE_INTERACTION);
         });
 
-        //@formatter:off
         FabricLoader.getInstance().getModContainer(FishOfThieves.MOD_ID)
                 .map(container -> ResourceManagerHelper.registerBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"),
                         container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), ResourcePackActivationType.NORMAL))
                 .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
-        //@formatter:on
 
         FOTBlocks.init();
         FOTItems.init();
@@ -104,6 +102,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
         FOTEnvironmentAttributes.init();
+        FOTDebugScreenEntries.init();
+        FOTDebugSubscriptions.init();
 
         FOTDecoratedPotPatterns.putItemsToPotTexture();
 

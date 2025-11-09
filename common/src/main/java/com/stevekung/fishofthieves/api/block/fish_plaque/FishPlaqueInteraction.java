@@ -10,11 +10,9 @@ import net.minecraft.resources.Identifier;
 
 public record FishPlaqueInteraction(Identifier entityType, Identifier item)
 {
-    //@formatter:off
     public static final Codec<FishPlaqueInteraction> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Identifier.CODEC.fieldOf("entity_type").forGetter(FishPlaqueInteraction::entityType),
             Identifier.CODEC.fieldOf("item").forGetter(FishPlaqueInteraction::item)
     ).apply(instance, FishPlaqueInteraction::new));
-    //@formatter:on
     public static final Codec<Holder<FishPlaqueInteraction>> CODEC = RegistryFileCodec.create(FOTRegistries.FISH_PLAQUE_INTERACTION, DIRECT_CODEC);
 }

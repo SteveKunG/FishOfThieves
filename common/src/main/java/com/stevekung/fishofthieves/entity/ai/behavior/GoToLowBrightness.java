@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +19,7 @@ public class GoToLowBrightness extends Behavior<LivingEntity>
 
     public GoToLowBrightness(float speedModifier, int closeEnoughDistance)
     {
-        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_LOW_BRIGHTNESS, MemoryStatus.VALUE_PRESENT));
+        super(Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.NEAREST_LOW_BRIGHTNESS, MemoryStatus.VALUE_PRESENT));
         this.speedModifier = speedModifier;
         this.closeEnoughDistance = closeEnoughDistance;
     }

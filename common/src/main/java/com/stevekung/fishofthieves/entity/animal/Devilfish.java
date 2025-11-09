@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
+
 import org.jspecify.annotations.Nullable;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
@@ -12,7 +13,6 @@ import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 
-import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,6 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -50,8 +51,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         map.put("fishofthieves:firelight", 4);
     });
 
-    //@formatter:off
-    private static final ImmutableList<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = ImmutableList.of(
+    private static final List<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY,
@@ -60,7 +60,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.DEVILFISH_ATTACKABLES
     );
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    private static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             // Common AI
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
@@ -94,7 +94,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {

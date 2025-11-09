@@ -113,12 +113,10 @@ public class FOTStructureModifiers
 
         public static MapCodec<Modifier> makeCodec()
         {
-            //@formatter:off
             return RecordCodecBuilder.mapCodec(builder -> builder.group(
                             STRUCTURE_LIST_CODEC.fieldOf("structure").forGetter(Modifier::structureTagKey),
                             Weighted.codec(MobSpawnSettings.SpawnerData.CODEC).fieldOf("spawnerData").forGetter(Modifier::spawnerData))
                     .apply(builder, Modifier::new));
-            //@formatter:on
         }
     }
 }

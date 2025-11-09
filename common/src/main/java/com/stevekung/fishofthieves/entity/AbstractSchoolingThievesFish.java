@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 
-import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
@@ -56,8 +55,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     private static final EntityDataAccessor<Boolean> HAS_FED = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> NO_FLIP = SynchedEntityData.defineId(AbstractSchoolingThievesFish.class, EntityDataSerializers.BOOLEAN);
 
-    //@formatter:off
-    protected static final ImmutableList<SensorType<? extends Sensor<? super AbstractFlockFish>>> SENSOR_TYPES = ImmutableList.of(
+    protected static final List<SensorType<? extends Sensor<? super AbstractFlockFish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             FOTSensorTypes.NEAREST_SCHOOLING_THIEVES_FISH,
@@ -65,7 +63,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
             FOTSensorTypes.NEAREST_FLOCK_LEADER,
             SensorType.HURT_BY
     );
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             // Common AI
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
@@ -103,7 +101,6 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     private final ResourceKey<? extends Registry<T>> registryKey;
     private final ResourceKey<T> resourceKey;

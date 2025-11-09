@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves.entity.variant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import com.google.common.collect.Lists;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
@@ -54,7 +54,7 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     static <T> Stream<T> select(Stream<T> stream, Function<T, AbstractFishVariant> function, SpawnContext object)
     {
-        var list = Lists.<PriorityProvider.UnpackedEntry<SpawnContext, T>>newArrayList();
+        var list = new ArrayList<PriorityProvider.UnpackedEntry<SpawnContext, T>>();
 
         stream.forEach(objectx ->
         {
@@ -99,7 +99,6 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
     {
-        //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
@@ -107,19 +106,16 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(SpawnPrioritySelectors.fallback(0), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
-        //@formatter:on
     }
 
     static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Integer, T> factory)
     {
-        //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ClientAsset.ResourceTexture.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
-        //@formatter:on
     }
 
     static <T extends AbstractFishVariant> Holder<T> getSpawnVariant(ServerLevel serverLevel, RegistryAccess registryAccess, ResourceKey<? extends Registry<? extends T>> registryKey, ResourceKey<T> defaultKey, LivingEntity livingEntity, boolean fromBucket)
@@ -204,12 +200,10 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     record SpawnSettings(SpawnPrioritySelectors entity, Optional<SpawnPrioritySelectors> fishing)
     {
-        //@formatter:off
         public static final Codec<SpawnSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                         SpawnPrioritySelectors.CODEC.optionalFieldOf("entity", SpawnPrioritySelectors.fallback(0)).forGetter(SpawnSettings::entity),
                         SpawnPrioritySelectors.CODEC.optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
                 .apply(instance, SpawnSettings::new));
-        //@formatter:on
 
         public static final SpawnSettings EMPTY = new SpawnSettings(SpawnPrioritySelectors.EMPTY, Optional.empty());
     }

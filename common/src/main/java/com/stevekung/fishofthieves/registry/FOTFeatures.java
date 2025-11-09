@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.registry;
 import java.util.List;
 import java.util.OptionalInt;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.HangingMangoFruitBlock;
@@ -100,12 +99,12 @@ public class FOTFeatures
 
         FeatureUtils.register(context, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
         FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree()
-                .decorators(ImmutableList.of(new CoconutDecorator(0.6F, 0.45F, 2)))
+                .decorators(List.of(new CoconutDecorator(0.6F, 0.45F, 2)))
                 .dirt(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
         FeatureUtils.register(context, BANANA_TREE, Feature.TREE, createBananaTree()
-                .decorators(ImmutableList.of(
+                .decorators(List.of(
                         new BananaDecorator(0.4f, 0.2f, 0.4f, 6),
                         new BananaShootsDecorator(0.3f)))
                 .dirt(BlockStateProvider.simple(Blocks.DIRT))

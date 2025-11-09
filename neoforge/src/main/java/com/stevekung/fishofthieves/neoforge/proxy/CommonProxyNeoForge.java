@@ -1,7 +1,8 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
+import java.util.ArrayList;
+
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
@@ -71,7 +72,7 @@ public class CommonProxyNeoForge
         if (event.getType() == VillagerProfession.FISHERMAN)
         {
             var trades = event.getTrades();
-            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(Lists.newArrayList())));
+            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
         }
     }
 
@@ -125,7 +126,7 @@ public class CommonProxyNeoForge
     private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> builder)
     {
         var pool = table.getPool("main");
-        pool.entries = Lists.newArrayList(pool.entries);
+        pool.entries = new ArrayList<>(pool.entries);
         pool.entries.addAll(builder.build());
     }
 }
