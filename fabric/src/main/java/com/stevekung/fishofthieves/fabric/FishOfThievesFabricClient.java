@@ -1,5 +1,8 @@
 package com.stevekung.fishofthieves.fabric;
 
+import java.util.ArrayList;
+
+import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
@@ -64,13 +67,19 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
 
         ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, FishOfThievesFabricClient::setFishingHookBait);
+        ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.STRUCTURE_CENTER_POS_DEBUG, FishOfThievesFabricClient::addDebugStructureCenterPos);
     }
 
     public static void setFishingHookBait(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
     {
         var entityId = buf.readVarInt();
         var itemStack = buf.readItem();
-        var level = minecraft.level;
-        FOTClientPackets.setFishingHookBait(minecraft, level, entityId, itemStack);
+        FOTClientPackets.setFishingHookBait(minecraft, entityId, itemStack);
+    }
+
+    public static void addDebugStructureCenterPos(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
+    {
+        var structurePosList = buf.readCollection(ArrayList::new, buf1 -> Pair.of(buf1.readBlockPos(), buf1.readResourceLocation()));
+        FOTClientPackets.addDebugStructureCenterPos(minecraft, structurePosList);
     }
 }

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.MixinCreativeModeTabs",
+    "client.MixinDebugRenderer",
     "client.MixinLevelRenderer",
     "client.MixinLocalPlayer",
     "client.model.MixinTadpoleModel",

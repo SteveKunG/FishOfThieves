@@ -22,11 +22,16 @@ public final class FishOfThievesConfig implements ConfigData
     @ConfigEntry.Gui.TransitiveObject
     public SpawnRate spawnRate;
 
+    @ConfigEntry.Category("debug")
+    @ConfigEntry.Gui.TransitiveObject
+    public Debug debug;
+
     public FishOfThievesConfig()
     {
         this.general = new General();
         this.biome = new Biome();
         this.spawnRate = new SpawnRate();
+        this.debug = new Debug();
     }
 
     public static class General
@@ -150,5 +155,12 @@ public final class FishOfThievesConfig implements ConfigData
             @ConfigEntry.Gui.RequiresRestart
             public int stormfish = 12;
         }
+    }
+
+    public static class Debug
+    {
+        public boolean enableStructureCenterPosRender = true;
+        public boolean displayInfo = true;
+        public int structureRangeLimit = 64;
     }
 }

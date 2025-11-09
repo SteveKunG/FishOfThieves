@@ -1,5 +1,8 @@
 package com.stevekung.fishofthieves.fabric;
 
+import java.util.ArrayList;
+
+import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
@@ -11,15 +14,26 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -115,6 +129,47 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_WRECKERS), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8);
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
 
-        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> level.getBaitPreserve().spawnBaitOnLoad(level));
+        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) ->
+        {
+            level.getBaitPreserve().spawnBaitOnLoad(level);
+
+            if (FabricLoader.getInstance().isDevelopmentEnvironment())
+            {
+                sendStructurePosDebugPacket(level, chunk.getPos());
+            }
+        });
+    }
+
+    private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)
+    {
+        for (var serverPlayer : PlayerLookup.world(level))
+        {
+            var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+            var structurePosList = new ArrayList<Pair<BlockPos, ResourceLocation>>();
+
+            structureRefMap.keySet().stream().findAny().ifPresent(structure ->
+            {
+                for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos, 0), structure))
+                {
+                    var optional = structureStart.getPieces().stream().map(structurePiece -> structurePiece.getBoundingBox().getCenter()).findAny();
+                    optional.ifPresent(blockPos -> structurePosList.add(Pair.of(blockPos, level.registryAccess().registryOrThrow(Registries.STRUCTURE).getKey(structureStart.getStructure()))));
+                }
+            });
+
+            if (!structurePosList.isEmpty())
+            {
+                var buff = PacketByteBufs.create();
+                buff.writeCollection(structurePosList, (buf, pair) ->
+                {
+                    buf.writeBlockPos(pair.getFirst());
+                    buf.writeResourceLocation(pair.getSecond());
+                });
+
+                if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.STRUCTURE_CENTER_POS_DEBUG))
+                {
+                    ServerPlayNetworking.send(serverPlayer, FishOfThieves.STRUCTURE_CENTER_POS_DEBUG, buff);
+                }
+            }
+        }
     }
 }

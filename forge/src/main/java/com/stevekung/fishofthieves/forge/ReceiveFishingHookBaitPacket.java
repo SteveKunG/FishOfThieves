@@ -35,7 +35,6 @@ public class ReceiveFishingHookBaitPacket
     public void handle(Supplier<NetworkEvent.Context> ctx)
     {
         var minecraft = Minecraft.getInstance();
-        var level = minecraft.level;
-        ctx.get().enqueueWork(() -> FOTClientPackets.setFishingHookBait(minecraft, level, this.entityId, this.itemStack));
+        ctx.get().enqueueWork(() -> FOTClientPackets.setFishingHookBait(minecraft, this.entityId, this.itemStack));
     }
 }

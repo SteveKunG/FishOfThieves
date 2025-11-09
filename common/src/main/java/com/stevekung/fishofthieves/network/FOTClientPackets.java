@@ -1,19 +1,25 @@
 package com.stevekung.fishofthieves.network;
 
+import java.util.List;
+
+import com.mojang.datafixers.util.Pair;
+import com.stevekung.fishofthieves.client.renderer.debug.DebugRendererAccessor;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class FOTClientPackets
 {
-    public static void setFishingHookBait(Minecraft minecraft, Level level, int entityId, ItemStack itemStack)
+    public static void setFishingHookBait(Minecraft minecraft, int entityId, ItemStack itemStack)
     {
         minecraft.execute(() ->
         {
-            if (level != null)
+            if (minecraft.level != null)
             {
-                var fishingHook = (FishingHook) level.getEntity(entityId);
+                var fishingHook = (FishingHook) minecraft.level.getEntity(entityId);
 
                 if (fishingHook == null)
                 {
@@ -21,6 +27,17 @@ public class FOTClientPackets
                 }
 
                 fishingHook.fishofthieves$setBaitStack(itemStack);
+            }
+        });
+    }
+
+    public static void addDebugStructureCenterPos(Minecraft minecraft, List<Pair<BlockPos, ResourceLocation>> structurePosList)
+    {
+        minecraft.execute(() ->
+        {
+            if (minecraft.level != null)
+            {
+                ((DebugRendererAccessor) minecraft.debugRenderer).fishofthieves$getStructureCenterPosDebugRenderer().addStructure(structurePosList);
             }
         });
     }
