@@ -46,9 +46,13 @@ public class StructureCenterPosDebugRenderer implements DebugRenderer.SimpleDebu
 
         if (FishOfThieves.CONFIG.debug.displayInfo)
         {
-            for (var pair : posList.stream().sorted(Comparator.comparing(pair -> pair.getFirst().distManhattan(entityPos))).toList())
+            var optional = posList.stream()
+                    .filter(pair -> pair.getFirst().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureRangeLimit)
+                    .min(Comparator.comparing(pair -> pair.getFirst().distManhattan(entityPos)));
+
+            if (optional.isPresent())
             {
-                var blockPos = pair.getFirst();
+                var blockPos = optional.get().getFirst();
                 var structureDist = blockPos.distManhattan(entityPos);
 
                 // Get nearest structure range
@@ -57,12 +61,7 @@ public class StructureCenterPosDebugRenderer implements DebugRenderer.SimpleDebu
                     distFromStructure = structureDist;
                 }
 
-                // If structure is within the range
-                if (distFromStructure < FishOfThieves.CONFIG.debug.structureRangeLimit)
-                {
-                    this.minecraft.gui.setOverlayMessage(Component.literal(pair.getSecond() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
-                    break;
-                }
+                this.minecraft.gui.setOverlayMessage(Component.literal(optional.get().getSecond() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
             }
         }
     }
