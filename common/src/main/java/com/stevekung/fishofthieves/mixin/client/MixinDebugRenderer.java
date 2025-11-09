@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.client.renderer.debug.StructureCenterPosDebug
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 
 @Mixin(DebugRenderer.class)
@@ -34,7 +35,7 @@ public class MixinDebugRenderer implements DebugRendererAccessor
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void fishofthieves$render(PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, double camX, double camY, double camZ, CallbackInfo info)
+    private void fishofthieves$render(PoseStack poseStack, Frustum frustum, MultiBufferSource.BufferSource bufferSource, double camX, double camY, double camZ, CallbackInfo info)
     {
         if (FishOfThieves.CONFIG.debug.enableStructureCenterPosRender)
         {
