@@ -21,14 +21,14 @@ public class MixinDebugRenderer
 {
     @Shadow
     @Final
-    List<DebugRenderer.SimpleDebugRenderer> opaqueRenderers;
+    List<DebugRenderer.SimpleDebugRenderer> renderers;
 
     @Inject(method = "refreshRendererList", at = @At("TAIL"))
     private void fishofthieves$refreshRendererList(CallbackInfo info, @Local Minecraft minecraft)
     {
         if (minecraft.debugEntries.isCurrentlyEnabled(FOTDebugScreenEntries.STRUCTURE_CENTER_POS))
         {
-            this.opaqueRenderers.add(new StructureCenterPosDebugRenderer(minecraft));
+            this.renderers.add(new StructureCenterPosDebugRenderer(minecraft));
         }
     }
 }
