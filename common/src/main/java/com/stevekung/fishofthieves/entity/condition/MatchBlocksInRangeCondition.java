@@ -16,13 +16,11 @@ import net.minecraft.world.level.material.Fluid;
 
 public record MatchBlocksInRangeCondition(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range) implements SpawnCondition
 {
-    //@formatter:off
     public static final MapCodec<MatchBlocksInRangeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MatchBlocksInRangeCondition::blocks),
             RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MatchBlocksInRangeCondition::fluids),
             Codec.intRange(1, 32).fieldOf("range").forGetter(MatchBlocksInRangeCondition::range)
     ).apply(instance, MatchBlocksInRangeCondition::new));
-    //@formatter:on
 
     @Override
     public SpawnConditionType getType()

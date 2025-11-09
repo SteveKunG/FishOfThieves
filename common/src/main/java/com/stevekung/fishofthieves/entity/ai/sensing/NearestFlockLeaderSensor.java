@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -19,7 +18,7 @@ public class NearestFlockLeaderSensor extends Sensor<AbstractFlockFish>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER);
+        return Set.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_FLOCK_LEADER);
     }
 
     @Override

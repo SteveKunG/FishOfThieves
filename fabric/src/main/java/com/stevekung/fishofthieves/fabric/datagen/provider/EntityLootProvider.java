@@ -52,13 +52,11 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
-        //@formatter:off
         consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
-        //@formatter:on
 
         this.simpleFishLoot(consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, FOTEntitySubPredicate::splashtail);
         this.simpleFishLoot(consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, FOTEntitySubPredicate::pondie);
@@ -74,7 +72,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private <T extends AbstractFishVariant> void simpleFishLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
-        //@formatter:off
         consumer.accept(entityType.getDefaultLootTable(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
@@ -91,19 +88,16 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
-        //@formatter:on
     }
 
     private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
         this.provider.lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing(holder -> holder.value().customModelData())).forEach(holder ->
         {
-            //@formatter:off
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(HolderSet.direct(this.provider.lookupOrThrow(registryKey).getOrThrow(holder.key()))))))
                     .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
-            //@formatter:on
         });
         return builder;
     }

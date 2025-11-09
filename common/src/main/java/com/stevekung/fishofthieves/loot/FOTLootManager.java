@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves.loot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.condition.BaitAttachedCondition;
@@ -61,7 +61,7 @@ public class FOTLootManager
 
     public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootTableMap()
     {
-        return Util.make(Maps.newHashMap(), map ->
+        return Util.make(new HashMap<>(), map ->
         {
             // Gameplay
             map.put(BuiltInLootTables.FISHERMAN_GIFT, (builder, provider) -> FOTLootManager.getFishermanGiftLoot(builder));
@@ -80,7 +80,7 @@ public class FOTLootManager
 
     public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootPoolMap()
     {
-        return Util.make(Maps.newHashMap(), map ->
+        return Util.make(new HashMap<>(), map ->
         {
             // Entity Loot
             map.put(EntityType.GUARDIAN.getDefaultLootTable(), (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, false));
@@ -96,7 +96,6 @@ public class FOTLootManager
 
     public static LootPool.Builder getFishermanGiftLoot(LootPool.Builder builder)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL))
                 .add(FOTLootItem.lootTableItem(FOTItems.PONDIE))
                 .add(FOTLootItem.lootTableItem(FOTItems.ISLEHOPPER))
@@ -107,14 +106,13 @@ public class FOTLootManager
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH).when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getFishingLoot(LootPool.Builder builder, HolderLookup.Provider provider, boolean useBaits)
     {
         var structureLookup = provider.lookupOrThrow(Registries.STRUCTURE);
         var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
-        var fishLoot = Lists.<Pair<TagKey<Item>, LootPoolSingletonContainer.Builder<?>>>newArrayList();
+        var fishLoot = new ArrayList<Pair<TagKey<Item>, LootPoolSingletonContainer.Builder<?>>>();
 
         fishLoot.add(Pair.of(null, FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                 .setWeight(50)
@@ -182,7 +180,6 @@ public class FOTLootManager
 
     public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, HolderLookup.Provider provider, boolean elder)
     {
-        //@formatter:off
         var weight = elder ? 3 : 2;
         return builder.setRolls(ConstantValue.exactly(1.0F))
                 .add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
@@ -193,12 +190,10 @@ public class FOTLootManager
                         .setWeight(weight)
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))));
-        //@formatter:on
     }
 
     public static LootPool.Builder getDolphinLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
@@ -220,12 +215,10 @@ public class FOTLootManager
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
                         .when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
-        //@formatter:off
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
                         .setWeight(10)
@@ -257,7 +250,6 @@ public class FOTLootManager
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
                         .when(FOTLootItemConditions.THUNDERING));
-        //@formatter:on
     }
 
     public static LootPool.Builder getOceanRuinsArchaeologyLoot(LootPool.Builder builder)
@@ -318,7 +310,6 @@ public class FOTLootManager
 
     public static AnyOfCondition.Builder shouldSmeltLoot(HolderLookup.Provider provider)
     {
-        //@formatter:off
         var registryLookup = provider.lookupOrThrow(Registries.ENCHANTMENT);
         return AnyOfCondition.anyOf(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity()
                         .flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))),
@@ -327,6 +318,5 @@ public class FOTLootManager
                                 .withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(
                                         new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY)
                                 )))))));
-        //@formatter:on
     }
 }

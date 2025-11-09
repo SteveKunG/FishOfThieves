@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
@@ -49,8 +50,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         map.put("fishofthieves:firelight", 4);
     });
 
-    //@formatter:off
-    private static final ImmutableList<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = ImmutableList.of(
+    private static final List<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY,
@@ -59,7 +59,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             FOTSensorTypes.NEAREST_MAGMA_BLOCK,
             FOTSensorTypes.DEVILFISH_ATTACKABLES
     );
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    private static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             // Common AI
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
@@ -93,7 +93,6 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {

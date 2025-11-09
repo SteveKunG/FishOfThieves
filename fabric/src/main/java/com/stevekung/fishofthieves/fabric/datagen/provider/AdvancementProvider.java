@@ -6,7 +6,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import com.google.common.collect.BiMap;
-import com.google.common.collect.Maps;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
@@ -42,19 +41,18 @@ import net.minecraft.world.level.material.Fluids;
 
 public class AdvancementProvider extends FabricAdvancementProvider
 {
-    private static final Map<Item, BiMap<String, Integer>> BUCKET_TO_VARIANTS_MAP = Util.make(Maps.newHashMap(), map ->
-    {
-        map.put(FOTItems.SPLASHTAIL_BUCKET, Splashtail.VARIANT_TO_INT);
-        map.put(FOTItems.PONDIE_BUCKET, Pondie.VARIANT_TO_INT);
-        map.put(FOTItems.ISLEHOPPER_BUCKET, Islehopper.VARIANT_TO_INT);
-        map.put(FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.VARIANT_TO_INT);
-        map.put(FOTItems.PLENTIFIN_BUCKET, Plentifin.VARIANT_TO_INT);
-        map.put(FOTItems.WILDSPLASH_BUCKET, Wildsplash.VARIANT_TO_INT);
-        map.put(FOTItems.DEVILFISH_BUCKET, Devilfish.VARIANT_TO_INT);
-        map.put(FOTItems.BATTLEGILL_BUCKET, Battlegill.VARIANT_TO_INT);
-        map.put(FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT);
-        map.put(FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT);
-    });
+    private static final Map<Item, BiMap<String, Integer>> BUCKET_TO_VARIANTS_MAP = Map.of(
+            FOTItems.SPLASHTAIL_BUCKET, Splashtail.VARIANT_TO_INT,
+            FOTItems.PONDIE_BUCKET, Pondie.VARIANT_TO_INT,
+            FOTItems.ISLEHOPPER_BUCKET, Islehopper.VARIANT_TO_INT,
+            FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.VARIANT_TO_INT,
+            FOTItems.PLENTIFIN_BUCKET, Plentifin.VARIANT_TO_INT,
+            FOTItems.WILDSPLASH_BUCKET, Wildsplash.VARIANT_TO_INT,
+            FOTItems.DEVILFISH_BUCKET, Devilfish.VARIANT_TO_INT,
+            FOTItems.BATTLEGILL_BUCKET, Battlegill.VARIANT_TO_INT,
+            FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT,
+            FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT
+    );
     private static final Item[] FRUITS = new Item[] {
             FOTItems.BANANA,
             FOTItems.COCONUT,
@@ -68,7 +66,6 @@ public class AdvancementProvider extends FabricAdvancementProvider
         super(dataOutput, provider);
     }
 
-    //@formatter:off
     @Override
     public void generateAdvancement(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer)
     {
@@ -253,7 +250,6 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         null, AdvancementType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
     }
-    //@formatter:on
 
     private String mod(String name)
     {

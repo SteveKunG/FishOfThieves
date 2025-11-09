@@ -41,7 +41,6 @@ public interface AbstractFishVariant
 
     static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ResourceLocation, Optional<ResourceLocation>, SpawnSettings, Integer, T> factory)
     {
-        //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
@@ -49,19 +48,16 @@ public interface AbstractFishVariant
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(List.of(), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
-        //@formatter:on
     }
 
     static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ResourceLocation, Optional<ResourceLocation>, Integer, T> factory)
     {
-        //@formatter:off
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ResourceLocation.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ResourceLocation.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
-        //@formatter:on
     }
 
     static ResourceLocation fullTextureId(ResourceLocation texture)
@@ -109,12 +105,10 @@ public interface AbstractFishVariant
 
     record SpawnSettings(List<SpawnCondition> entity, Optional<List<SpawnCondition>> fishing)
     {
-        //@formatter:off
         public static final Codec<SpawnSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                         FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("entity", List.of()).forGetter(SpawnSettings::entity),
                         FOTSpawnConditions.DIRECT_CODEC.listOf().optionalFieldOf("fishing").forGetter(SpawnSettings::fishing))
                 .apply(instance, SpawnSettings::new));
-        //@formatter:on
 
         public static final SpawnSettings EMPTY = new SpawnSettings(List.of(), Optional.empty());
     }

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.loot.condition;
 
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
@@ -34,7 +33,7 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
     @Override
     public Set<LootContextParam<?>> getReferencedContextParams()
     {
-        return ImmutableSet.of(LootContextParams.THIS_ENTITY);
+        return Set.of(LootContextParams.THIS_ENTITY);
     }
 
     @Override

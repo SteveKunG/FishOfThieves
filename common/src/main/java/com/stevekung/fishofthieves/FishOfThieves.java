@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -7,8 +9,6 @@ import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
@@ -47,6 +47,7 @@ public class FishOfThieves
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
 
     public static final ResourceLocation RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
+    public static final ResourceLocation STRUCTURE_CENTER_POS_DEBUG = FishOfThieves.id("structure_center_pos_debug");
 
     public static ResourceLocation id(String path)
     {
@@ -245,7 +246,7 @@ public class FishOfThieves
 
     public static Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> getEntityAttributes()
     {
-        return Util.make(Maps.newHashMap(), map ->
+        return Util.make(new HashMap<>(), map ->
         {
             map.put(FOTEntities.SPLASHTAIL, AbstractFish.createAttributes());
             map.put(FOTEntities.PONDIE, AbstractFish.createAttributes());
@@ -263,7 +264,7 @@ public class FishOfThieves
     @SuppressWarnings("unchecked")
     public static List<SpawnPlacementEntry<Mob>> getSpawnPlacements()
     {
-        return Util.make(Lists.<SpawnPlacementEntry<?>>newArrayList(), list ->
+        return Util.make(new ArrayList<SpawnPlacementEntry<?>>(), list ->
         {
             list.add(new SpawnPlacementEntry<>(FOTEntities.SPLASHTAIL, WaterAnimal::checkSurfaceWaterAnimalSpawnRules));
             list.add(new SpawnPlacementEntry<>(FOTEntities.PONDIE, WaterAnimal::checkSurfaceWaterAnimalSpawnRules));

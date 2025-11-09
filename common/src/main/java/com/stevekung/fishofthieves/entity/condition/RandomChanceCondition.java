@@ -8,11 +8,9 @@ import net.minecraft.util.ExtraCodecs;
 
 public record RandomChanceCondition(int chance) implements SpawnCondition
 {
-    //@formatter:off
     public static final MapCodec<RandomChanceCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ExtraCodecs.POSITIVE_INT.fieldOf("chance").forGetter(RandomChanceCondition::chance)
     ).apply(instance, RandomChanceCondition::new));
-    //@formatter:on
 
     @Override
     public SpawnConditionType getType()

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity.ai.sensing;
 
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
 import com.stevekung.fishofthieves.entity.animal.Wrecker;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -21,13 +20,13 @@ public class NearestWreckerLocatedSensor extends Sensor<LivingEntity>
     @Override
     public Set<MemoryModuleType<?>> requires()
     {
-        return ImmutableSet.of(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED);
+        return Set.of(FOTMemoryModuleTypes.NEAREST_WRECKER_LOCATED);
     }
 
     @Override
     protected void doTick(ServerLevel level, LivingEntity entity)
     {
-        var wreckagePos = Wrecker.getNearestShipwreckOrRuinedPortalPos(level, entity.blockPosition());
+        var wreckagePos = Wrecker.getNearestShipwreckOrRuinedPortalPos(level, entity.blockPosition(), entity.chunkPosition());
 
         if (wreckagePos != null)
         {

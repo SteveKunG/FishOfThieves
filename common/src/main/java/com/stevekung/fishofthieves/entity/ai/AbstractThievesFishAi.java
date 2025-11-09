@@ -1,8 +1,10 @@
 package com.stevekung.fishofthieves.entity.ai;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ThievesFish;
@@ -38,7 +40,7 @@ public class AbstractThievesFishAi
         initCoreActivity(brain);
         initIdleActivity(brain);
         initRetreatActivity(brain);
-        brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+        brain.setCoreActivities(Set.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
         return brain;
@@ -51,7 +53,7 @@ public class AbstractThievesFishAi
 
     public static void updateActivity(AbstractThievesFish<?> fish)
     {
-        fish.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.AVOID, Activity.IDLE));
+        fish.getBrain().setActiveActivityToFirstValid(List.of(Activity.AVOID, Activity.IDLE));
     }
 
     public static Ingredient getCommonTemptations()
@@ -84,7 +86,6 @@ public class AbstractThievesFishAi
         fish.level().getProfiler().pop();
     }
 
-    //@formatter:off
     private static void initCoreActivity(Brain<AbstractThievesFish<?>> brain)
     {
         brain.addActivity(Activity.CORE, 0, ImmutableList.of(
@@ -103,12 +104,12 @@ public class AbstractThievesFishAi
     {
         brain.addActivity(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-                Pair.of(1, new RunOne<>(ImmutableList.of(
+                Pair.of(1, new RunOne<>(List.of(
                         Pair.of(avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
                         Pair.of(new FishBreaching<>(TIME_BETWEEN_BREACH, 0.3F, 0.16f), 2)
                 ))),
-                Pair.of(2, new GateBehavior<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), ImmutableSet.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, ImmutableList.of(
+                Pair.of(2, new GateBehavior<>(Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), Set.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, List.of(
                         Pair.of(RandomStroll.swim(1.0F), 2),
                         Pair.of(SetWalkTargetFromLookTarget.create(0.5F, 3), 3),
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWaterOrBubble), 5))))));
@@ -125,7 +126,7 @@ public class AbstractThievesFishAi
 
     private static RunOne<AbstractThievesFish<?>> createIdleLookBehaviors()
     {
-        return new RunOne<>(ImmutableList.of(
+        return new RunOne<>(List.of(
                 Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 6.0F), 1),
                 Pair.of(SetEntityLookTarget.create(8.0F), 1),
                 Pair.of(new DoNothing(30, 60), 1)));
@@ -133,11 +134,10 @@ public class AbstractThievesFishAi
 
     private static RunOne<AbstractThievesFish<?>> createIdleMovementBehaviors()
     {
-        return new RunOne<>(ImmutableList.of(
+        return new RunOne<>(List.of(
                 Pair.of(RandomStroll.swim(1.0F), 2),
                 Pair.of(new DoNothing(30, 60), 1)));
     }
-    //@formatter:on
 
     public static BehaviorControl<PathfinderMob> avoidRepellent()
     {

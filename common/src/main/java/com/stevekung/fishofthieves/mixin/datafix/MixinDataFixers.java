@@ -40,7 +40,6 @@ public class MixinDataFixers
     {
         var schema = builder.addSchema(MC_22W46A, SAME_NAMESPACED);
 
-        //@formatter:off
         builder.addFixer(new AdvancementsRenameFix(schema, false, "Rename FOT recipe advancements", createRenamer(ImmutableMap.<String, String>builder()
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_splashtail", "fishofthieves:recipes/food/cooked_splashtail")
                 .put("fishofthieves:recipes/fishofthieves.main/cooked_pondie", "fishofthieves:recipes/food/cooked_pondie")
@@ -115,6 +114,5 @@ public class MixinDataFixers
                 .put("fishofthieves:recipes/fishofthieves.main/gilded_crimson_fish_plaque", "fishofthieves:recipes/decorations/gilded_crimson_fish_plaque")
                 .put("fishofthieves:recipes/fishofthieves.main/gilded_warped_fish_plaque", "fishofthieves:recipes/decorations/gilded_warped_fish_plaque")
                 .build())));
-        //@formatter:on
     }
 }
