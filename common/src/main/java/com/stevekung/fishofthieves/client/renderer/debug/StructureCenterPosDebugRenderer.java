@@ -1,80 +1,62 @@
 package com.stevekung.fishofthieves.client.renderer.debug;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTDebugSubscriptions;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.debug.DebugRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.debug.DebugValueAccess;
 import net.minecraft.world.phys.AABB;
 
-public class StructureCenterPosDebugRenderer implements DebugRenderer.SimpleDebugRenderer
+public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements DebugRenderer.SimpleDebugRenderer
 {
-    private final Minecraft minecraft;
-    private final List<Pair<BlockPos, ResourceLocation>> structurePosList = new ArrayList<>();
-
-    public StructureCenterPosDebugRenderer(Minecraft minecraft)
-    {
-        this.minecraft = minecraft;
-    }
-
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource buffer, double camX, double camY, double camZ)
+    public void render(PoseStack poseStack, MultiBufferSource buffer, double camX, double camY, double camZ, DebugValueAccess debugValueAccess, Frustum frustum)
     {
-        var distFromStructure = Integer.MAX_VALUE;
         var entityPos = this.minecraft.player.blockPosition();
-        var posList = this.structurePosList.stream().distinct().toList();
 
-        posList.forEach(pair ->
+        debugValueAccess.forEachChunk(FOTDebugSubscriptions.STRUCTURE_CENTER_POS, (chunkPos, list) -> list.forEach(info ->
         {
-            var blockPos = pair.getFirst();
-
-            if (blockPos.distManhattan(entityPos) < 512)
+            info.structurePosList().forEach(structurePos ->
             {
-                var aabb = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + 1F, blockPos.getY() + 1F, blockPos.getZ() + 1F);
-                DebugRenderer.renderFilledBox(poseStack, buffer, aabb.move(-camX, -camY, -camZ), 0.0F, 1.0F, 0.0F, 0.5F);
-            }
-        });
+                var blockPos = structurePos.blockPos();
 
-        if (FishOfThieves.CONFIG.debug.displayInfo)
-        {
-            for (var pair : posList.stream().sorted(Comparator.comparing(pair -> pair.getFirst().distManhattan(entityPos))).toList())
+                if (blockPos.distManhattan(entityPos) < 512)
+                {
+                    var aabb = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + 1F, blockPos.getY() + 1F, blockPos.getZ() + 1F);
+                    DebugRenderer.renderFilledBox(poseStack, buffer, aabb.move(-camX, -camY, -camZ), 0.0F, 1.0F, 0.0F, 0.5F);
+                }
+            });
+
+            if (FishOfThieves.CONFIG.debug.displayInfo)
             {
-                var blockPos = pair.getFirst();
-                var structureDist = blockPos.distManhattan(entityPos);
+                var distFromStructure = Integer.MAX_VALUE;
 
-                // Get nearest structure range
-                if (structureDist < distFromStructure)
+                for (var structurePos1 : info.structurePosList().stream().sorted(Comparator.comparing(structurePos -> structurePos.blockPos().distManhattan(entityPos))).toList())
                 {
-                    distFromStructure = structureDist;
-                }
+                    var blockPos = structurePos1.blockPos();
+                    var structureDist = blockPos.distManhattan(entityPos);
 
-                // If structure is within the range
-                if (distFromStructure < FishOfThieves.CONFIG.debug.structureRangeLimit)
-                {
-                    this.minecraft.gui.setOverlayMessage(Component.literal(pair.getSecond() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
-                    break;
+                    // Get nearest structure range
+                    if (structureDist < distFromStructure)
+                    {
+                        distFromStructure = structureDist;
+                    }
+
+                    // If structure is within the range
+                    if (distFromStructure < FishOfThieves.CONFIG.debug.structureRangeLimit)
+                    {
+                        this.minecraft.gui.setOverlayMessage(Component.literal(structurePos1.resourceLocation() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
+                        break;
+                    }
                 }
             }
-        }
-    }
-
-    @Override
-    public void clear()
-    {
-        this.structurePosList.clear();
-    }
-
-    public void addStructure(List<Pair<BlockPos, ResourceLocation>> structurePosList)
-    {
-        this.structurePosList.addAll(structurePosList);
+        }));
     }
 }

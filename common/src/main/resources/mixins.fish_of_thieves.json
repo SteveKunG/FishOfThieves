@@ -5,8 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "client.accessor.ModelLayersAccessor",
+    "client.debug.MixinClientDebugSubscriber",
+    "client.debug.MixinDebugRenderer",
     "client.MixinCreativeModeTabs",
-    "client.MixinDebugRenderer",
     "client.MixinLevelEventHandler",
     "client.entity.MixinEntity",
     "client.entity.MixinLocalPlayer",
@@ -48,6 +49,7 @@
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",
     "level.MixinDataFixTypes",
+    "level.MixinLevelChunk",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",

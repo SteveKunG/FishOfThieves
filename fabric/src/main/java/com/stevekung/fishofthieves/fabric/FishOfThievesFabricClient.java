@@ -5,14 +5,16 @@ import com.stevekung.fishofthieves.client.FOTDecoratedPotPatternsClient;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
-import com.stevekung.fishofthieves.network.StructureCenterPosDebugPacket;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleRenderEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
@@ -58,18 +60,11 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         FishOfThievesClient.getModelLayers().forEach(entry -> EntityModelLayerRegistry.registerModelLayer(entry.layerLocation(), () -> entry.supplier().get()));
 
         ClientPlayNetworking.registerGlobalReceiver(ReceiveFishingHookBaitPacket.TYPE, FishOfThievesFabricClient::setFishingHookBait);
-        ClientPlayNetworking.registerGlobalReceiver(StructureCenterPosDebugPacket.TYPE, FishOfThievesFabricClient::addDebugStructureCenterPos);
     }
 
     public static void setFishingHookBait(ReceiveFishingHookBaitPacket packet, ClientPlayNetworking.Context context)
     {
         var minecraft = Minecraft.getInstance();
         FOTClientPackets.setFishingHookBait(minecraft, packet.entityId(), packet.itemStack());
-    }
-
-    public static void addDebugStructureCenterPos(StructureCenterPosDebugPacket packet, ClientPlayNetworking.Context context)
-    {
-        var minecraft = Minecraft.getInstance();
-        FOTClientPackets.addDebugStructureCenterPos(minecraft, packet.structurePosList());
     }
 }
