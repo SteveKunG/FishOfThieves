@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.mixin.datafix;
 
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 
 import net.minecraft.util.datafix.fixes.ItemStackComponentizationFix;
@@ -33,7 +33,7 @@ public class MixinItemStackComponentizationFix
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void fishofthieves$addBucketFixers(CallbackInfo info)
     {
-        BUCKETED_MOB_IDS = Sets.newLinkedHashSet(BUCKETED_MOB_IDS);
+        BUCKETED_MOB_IDS = new LinkedHashSet<>(BUCKETED_MOB_IDS);
         BUCKETED_MOB_IDS.add("fishofthieves:splashtail_bucket");
         BUCKETED_MOB_IDS.add("fishofthieves:pondie_bucket");
         BUCKETED_MOB_IDS.add("fishofthieves:islehopper_bucket");
@@ -45,7 +45,7 @@ public class MixinItemStackComponentizationFix
         BUCKETED_MOB_IDS.add("fishofthieves:wrecker_bucket");
         BUCKETED_MOB_IDS.add("fishofthieves:stormfish_bucket");
 
-        BUCKETED_MOB_TAGS = Lists.newLinkedList(BUCKETED_MOB_TAGS);
+        BUCKETED_MOB_TAGS = new LinkedList<>(BUCKETED_MOB_TAGS);
         BUCKETED_MOB_TAGS.add(ThievesFish.VARIANT_TAG);
         BUCKETED_MOB_TAGS.add(ThievesFish.TROPHY_TAG);
         BUCKETED_MOB_TAGS.add(ThievesFish.HAS_FED_TAG);

@@ -54,13 +54,11 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
-        //@formatter:off
         consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
-        //@formatter:on
 
         this.simpleFishLoot(consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, FOTDataComponentTypes.SPLASHTAIL_VARIANT);
         this.simpleFishLoot(consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, FOTDataComponentTypes.PONDIE_VARIANT);
@@ -76,7 +74,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private <T extends AbstractFishVariant> void simpleFishLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType)
     {
-        //@formatter:off
         consumer.accept(entityType.getDefaultLootTable().orElseThrow(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
@@ -93,7 +90,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
-        //@formatter:on
     }
 
     private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType)
@@ -102,7 +98,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
         this.provider.lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing(holder -> holder.value().customModelData())).forEach(holder ->
         {
-            //@formatter:off
             builder.apply(this.setCustomModelData(holder.value().customModelData())
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(this.provider.lookupOrThrow(Registries.ENTITY_TYPE), entityType)
@@ -112,7 +107,6 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                                             .build()
                             )))
                     .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
-            //@formatter:on
         });
         return builder;
     }

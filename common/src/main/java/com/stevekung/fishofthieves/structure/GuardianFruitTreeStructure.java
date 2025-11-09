@@ -1,9 +1,9 @@
 package com.stevekung.fishofthieves.structure;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -61,7 +61,7 @@ public class GuardianFruitTreeStructure extends Structure
     private static int findSuitableY(ChunkGenerator chunkGenerator, int height, BoundingBox box, LevelHeightAccessor level, RandomState randomState)
     {
         var i = level.getMinY() + 15;
-        var list = ImmutableList.of(new BlockPos(box.minX(), 0, box.minZ()), new BlockPos(box.maxX(), 0, box.minZ()), new BlockPos(box.minX(), 0, box.maxZ()), new BlockPos(box.maxX(), 0, box.maxZ()));
+        var list = List.of(new BlockPos(box.minX(), 0, box.minZ()), new BlockPos(box.maxX(), 0, box.minZ()), new BlockPos(box.minX(), 0, box.maxZ()), new BlockPos(box.maxX(), 0, box.maxZ()));
         var list2 = list.stream().map(blockPos -> chunkGenerator.getBaseColumn(blockPos.getX(), blockPos.getZ(), level, randomState)).toList();
         int l;
 

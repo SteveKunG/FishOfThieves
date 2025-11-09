@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
-import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
@@ -23,7 +24,7 @@ public class FishBreaching<E extends LivingEntity> extends Behavior<E>
 
     public FishBreaching(UniformInt chance, float jumpVelocity, float horizontalVelocity)
     {
-        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED, MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.BREACHED_TICK, MemoryStatus.REGISTERED));
+        super(Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED, MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT, FOTMemoryModuleTypes.BREACHED_TICK, MemoryStatus.REGISTERED));
         this.jumpVelocity = jumpVelocity;
         this.horizontalVelocity = horizontalVelocity;
         this.chance = chance;

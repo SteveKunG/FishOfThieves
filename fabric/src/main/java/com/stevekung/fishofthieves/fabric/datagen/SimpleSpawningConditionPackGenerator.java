@@ -22,7 +22,6 @@ public class SimpleSpawningConditionPackGenerator implements DataGeneratorEntryp
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
         var pack = dataGenerator.createBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"));
-        //@formatter:off
         var extraProvider = RegistryPatchGenerator.createLookup(dataGenerator.getRegistries(), new RegistrySetBuilder()
                 .add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrapSimple)
                 .add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrapSimple)
@@ -35,7 +34,6 @@ public class SimpleSpawningConditionPackGenerator implements DataGeneratorEntryp
                 .add(FOTRegistries.WRECKER_VARIANT, WreckerVariants::bootstrapSimple)
                 .add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrapSimple)
         ).thenApply(RegistrySetBuilder.PatchedRegistries::full);
-        //@formatter:on
 
         pack.addProvider((output, provider) -> new DynamicRegistryProvider(output, extraProvider));
         pack.addProvider((output, provider) -> PackMetadataGenerator.forFeaturePack(output, Component.translatable("dataPack.simple_spawning_condition_pack.description")));

@@ -17,14 +17,12 @@ import net.minecraft.world.level.material.Fluid;
 
 public record MinimumBlockRangeCheck(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range, int size) implements SpawnCondition
 {
-    //@formatter:off
     public static final MapCodec<MinimumBlockRangeCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(MinimumBlockRangeCheck::blocks),
             RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(MinimumBlockRangeCheck::fluids),
             Codec.intRange(1, 32).fieldOf("range").forGetter(MinimumBlockRangeCheck::range),
             Codec.intRange(1, 64).fieldOf("size").forGetter(MinimumBlockRangeCheck::size)
     ).apply(instance, MinimumBlockRangeCheck::new));
-    //@formatter:on
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()

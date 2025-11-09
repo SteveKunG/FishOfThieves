@@ -34,7 +34,6 @@ import it.unimi.dsi.fastutil.ints.IntList;
 public class ChestLootProvider extends SimpleFabricLootTableProvider
 {
     private static final FireworkExplosion.Shape[] VALUES = FireworkExplosion.Shape.values();
-    //@formatter:off
     private static final IntList FIREWORK_COLORS = IntList.of(
             DyeColor.RED.getFireworkColor(),
             DyeColor.ORANGE.getFireworkColor(),
@@ -48,14 +47,12 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
             DyeColor.WHITE.getFireworkColor(),
             6942120 // athena
     );
-    //@formatter:on
 
     public ChestLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider, LootContextParamSets.CHEST);
     }
 
-    //@formatter:off
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
@@ -100,9 +97,7 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
                 .withPool(buildFirework(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 4.0F)))));
     }
-    //@formatter:on
 
-    //@formatter:off
     private static LootPool.Builder buildFirework(LootPool.Builder builder)
     {
         var random = RandomSource.create(69420);
@@ -115,7 +110,6 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
         }
         return builder;
     }
-    //@formatter:on
 
     private static LootItemConditionalFunction.Builder<?> setFirework(ListOperation.StandAlone<FireworkExplosion> explosions, Optional<Integer> flightDuration)
     {

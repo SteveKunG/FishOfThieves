@@ -11,7 +11,6 @@ public class ReceiveFishingHookBaitPacketNeoForge
     public static void handle(ReceiveFishingHookBaitPacket packet, IPayloadContext context)
     {
         var minecraft = Minecraft.getInstance();
-        var level = minecraft.level;
-        context.enqueueWork(() -> FOTClientPackets.setFishingHookBait(minecraft, level, packet.entityId(), packet.itemStack()));
+        context.enqueueWork(() -> FOTClientPackets.setFishingHookBait(minecraft, packet.entityId(), packet.itemStack()));
     }
 }
