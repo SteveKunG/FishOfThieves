@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.google.common.collect.ImmutableMap;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
@@ -27,7 +27,7 @@ public class StartAttackingIgnoreFlockLeader<E extends Mob> extends Behavior<E>
 
     public StartAttackingIgnoreFlockLeader(Predicate<E> canAttackPredicate, Function<E, Optional<? extends LivingEntity>> targetFinderFunction, int i)
     {
-        super(ImmutableMap.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.REGISTERED), i);
+        super(Map.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_ABSENT, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryStatus.REGISTERED, FOTMemoryModuleTypes.FLOCK_LEADER, MemoryStatus.REGISTERED), i);
         this.canAttackPredicate = canAttackPredicate;
         this.targetFinderFunction = targetFinderFunction;
     }

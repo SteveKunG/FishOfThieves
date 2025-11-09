@@ -1,10 +1,11 @@
 package com.stevekung.fishofthieves.entity.animal;
 
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.WreckerAi;
@@ -16,6 +17,8 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -34,9 +37,12 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.ValueInput;
 
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
@@ -51,8 +57,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         map.put("fishofthieves:moon", 4);
     });
 
-    //@formatter:off
-    private static final ImmutableList<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = ImmutableList.of(
+    private static final List<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             FOTSensorTypes.NON_CREATIVE_NEAREST_PLAYERS,
             SensorType.HURT_BY,
@@ -62,7 +67,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             FOTSensorTypes.WRECKER_ATTACKABLES,
             FOTSensorTypes.LOW_BRIGHTNESS
     );
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+    private static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
             // Common AI
             MemoryModuleType.LOOK_TARGET,
             MemoryModuleType.WALK_TARGET,
@@ -96,7 +101,6 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
             FOTMemoryModuleTypes.BREACHED_TICK
     );
-    //@formatter:on
 
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
@@ -230,8 +234,54 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     }
 
     @Nullable
-    public static BlockPos getNearestShipwreckOrRuinedPortalPos(ServerLevel level, BlockPos pos)
+    public static BlockPos getNearestShipwreckOrRuinedPortalPos(ServerLevel level, BlockPos pos, ChunkPos chunkPos)
     {
-        return level.findNearestMapStructure(FOTTags.Structures.WRECKERS_LOCATED, pos, 32, false);
+        var structureRegistry = level.registryAccess().lookupOrThrow(Registries.STRUCTURE);
+        var structureHolderSet = structureRegistry.getTagOrEmpty(FOTTags.Structures.WRECKERS_LOCATED);
+        var structureRange = 32;
+        var distFromStructure = Integer.MAX_VALUE;
+        Structure structure1 = null;
+        ChunkPos chunkPos1 = null;
+
+        for (var structureHolder : structureHolderSet)
+        {
+            var structure = structureHolder.value();
+            var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+            var optional = structureRefMap.keySet().stream().filter(structurex -> structurex.equals(structure)).findAny();
+
+            if (optional.isPresent())
+            {
+                structure1 = optional.get();
+                chunkPos1 = chunkPos;
+            }
+        }
+
+        if (structure1 != null)
+        {
+            for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos1, 0), structure1))
+            {
+                var structureCenter = structureStart.getPieces()
+                        .stream()
+                        .map(structurePiece -> structurePiece.getBoundingBox().getCenter())
+                        .findAny();
+
+                if (structureCenter.isPresent())
+                {
+                    var range = structureCenter.get().distManhattan(pos);
+
+                    // Get nearest structure range
+                    if (range < distFromStructure)
+                    {
+                        distFromStructure = range;
+                    }
+                    // Found structure within radius
+                    if (distFromStructure < structureRange)
+                    {
+                        return structureCenter.get();
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FOTBlockEntityTypes
 {
-    //@formatter:off
     public static final BlockEntityType<FishPlaqueBlockEntity> FISH_PLAQUE = register("fish_plaque", FishPlaqueBlockEntity::new,
             // Wooden
             FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE,
@@ -41,7 +40,6 @@ public class FOTBlockEntityTypes
             FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
     public static final BlockEntityType<FOTHangingSignBlockEntity> HANGING_SIGN = register("hanging_sign", FOTHangingSignBlockEntity::new,
             FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
-    //@formatter:on
 
     public static void init()
     {

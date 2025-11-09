@@ -1,9 +1,8 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import com.google.common.collect.Maps;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
@@ -11,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 
 public class FOTBlockFamilies
 {
-    private static final Map<Block, BlockFamily> MAP = Maps.newHashMap();
+    private static final Map<Block, BlockFamily> MAP = new HashMap<>();
 
     public static final BlockFamily COCONUT_PLANKS = familyBuilder(FOTBlocks.COCONUT_PLANKS)
             .button(FOTBlocks.COCONUT_BUTTON)

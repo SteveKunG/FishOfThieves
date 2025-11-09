@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.entity.ai.behavior;
 
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.DataFixUtils;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
@@ -25,7 +25,7 @@ public class CreateFishFlock extends Behavior<AbstractFlockFish>
 
     public CreateFishFlock()
     {
-        super(ImmutableMap.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.SCHOOL_SIZE, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT));
+        super(Map.of(FOTMemoryModuleTypes.NEAREST_VISIBLE_SCHOOLING_THIEVES_FISH, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.SCHOOL_SIZE, MemoryStatus.VALUE_PRESENT, FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, MemoryStatus.VALUE_ABSENT));
     }
 
     @Override

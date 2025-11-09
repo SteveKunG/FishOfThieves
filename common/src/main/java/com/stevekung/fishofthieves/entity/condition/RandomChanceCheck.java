@@ -9,11 +9,9 @@ import net.minecraft.world.entity.variant.SpawnContext;
 
 public record RandomChanceCheck(int chance) implements SpawnCondition
 {
-    //@formatter:off
     public static final MapCodec<RandomChanceCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ExtraCodecs.POSITIVE_INT.fieldOf("chance").forGetter(RandomChanceCheck::chance)
     ).apply(instance, RandomChanceCheck::new));
-    //@formatter:on
 
     @Override
     public MapCodec<? extends SpawnCondition> codec()
