@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.registry;
+package com.stevekung.fishofthieves.client;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 
