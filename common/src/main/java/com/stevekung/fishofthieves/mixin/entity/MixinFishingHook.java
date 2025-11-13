@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -19,12 +21,19 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 @Mixin(FishingHook.class)
 public abstract class MixinFishingHook extends Projectile implements FishingHookBait
@@ -119,6 +128,27 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
             // Increase lure speed by 10%
             this.timeUntilLured = Mth.floor(this.timeUntilLured * 0.9);
         }
+    }
+
+    @WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
+    private ObjectArrayList<ItemStack> test(LootTable lootTable, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> operation)
+    {
+        var lsit = this.level().getEntities(EntityTypeTest.forClass(Interaction.class), this.getBoundingBox().inflate(0.5d), interaction -> true);
+
+        if (!lsit.isEmpty())
+        {
+            var inter = lsit.get(0);
+            var test = inter.getBoundingBox().intersects(this.getBoundingBox().inflate(1d));
+            System.out.println(inter);
+            System.out.println(test);
+
+            if (test)
+            {
+                var lootTable2 = this.level().getServer().getLootData().getLootTable(BuiltInLootTables.END_CITY_TREASURE);
+                return lootTable2.getRandomItems(lootParams);
+            }
+        }
+        return operation.call(lootTable, lootParams);
     }
 
     @Override

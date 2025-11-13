@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.stevekung.fishofthieves.FlockSpawnTest;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.storage.BaitPreserveSavedData;
 import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
@@ -49,6 +50,7 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
                 this.addFreshEntity(lightningBolt);
             }
         }
+        FlockSpawnTest.INSTANCE.test(ServerLevel.class.cast(this), x, z);
     }
 
     @Inject(method = "<init>*", at = @At("TAIL"))

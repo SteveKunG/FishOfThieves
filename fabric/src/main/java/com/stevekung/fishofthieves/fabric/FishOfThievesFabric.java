@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.FlockSpawnTest;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
@@ -12,6 +13,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -62,6 +64,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTMobEffects.init();
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
+        FOTPoiTypes.init();
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
@@ -137,6 +140,10 @@ public class FishOfThievesFabric implements ModInitializer
             {
                 sendStructurePosDebugPacket(level, chunk.getPos());
             }
+        });
+
+        ServerTickEvents.START_WORLD_TICK.register(world -> {
+            FlockSpawnTest.INSTANCE.testplayer(world);
         });
     }
 

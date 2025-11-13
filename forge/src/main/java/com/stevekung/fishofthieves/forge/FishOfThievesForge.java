@@ -179,6 +179,7 @@ public class FishOfThievesForge
         });
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
+        event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> FOTPoiTypes.init());
     }
 
     public static void sendToClient(Object packet, ServerPlayer player)
