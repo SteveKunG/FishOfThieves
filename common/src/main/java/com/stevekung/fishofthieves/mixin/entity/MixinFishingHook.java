@@ -10,8 +10,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -21,19 +20,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.entity.EntityTypeTest;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
-
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 @Mixin(FishingHook.class)
 public abstract class MixinFishingHook extends Projectile implements FishingHookBait
@@ -130,25 +126,37 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
         }
     }
 
-    @WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
-    private ObjectArrayList<ItemStack> test(LootTable lootTable, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> operation)
+    @Inject(method = "retrieve", cancellable = true, at = @At(
+            value = "INVOKE",
+            target = "net/minecraft/advancements/critereon/FishingRodHookedTrigger.trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/projectile/FishingHook;Ljava/util/Collection;)V",
+            shift = At.Shift.AFTER,
+            ordinal = 1))
+    private void fishofthieves$fishUpShoal(ItemStack itemStack, CallbackInfoReturnable<Integer> info, @Local Player player)
     {
-        var lsit = this.level().getEntities(EntityTypeTest.forClass(Interaction.class), this.getBoundingBox().inflate(0.5d), interaction -> true);
+        var shoals = this.level().getEntitiesOfClass(Interaction.class, this.getBoundingBox().inflate(5), Entity::isAlive);
 
-        if (!lsit.isEmpty())
+        if (!shoals.isEmpty())
         {
-            var inter = lsit.get(0);
-            var test = inter.getBoundingBox().intersects(this.getBoundingBox().inflate(1d));
-            System.out.println(inter);
-            System.out.println(test);
+            var shoal = shoals.get(0);
+            var intersects = shoal.getBoundingBox().intersects(this.getBoundingBox().inflate(5d));
 
-            if (test)
+            if (intersects)
             {
-                var lootTable2 = this.level().getServer().getLootData().getLootTable(BuiltInLootTables.END_CITY_TREASURE);
-                return lootTable2.getRandomItems(lootParams);
+                var salmon = EntityType.SALMON.create(this.level());
+                var dx = player.getX() - this.getX();
+                var dy = player.getY() - this.getY();
+                var dz = player.getZ() - this.getZ();
+                var power = 0.2;
+                var gravity = 0.12;
+                salmon.moveTo(this.blockPosition(), 0, 0);
+                salmon.setDeltaMovement(dx * power, dy * power + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * gravity, dz * power);
+                this.level().addFreshEntity(salmon);
+
+                player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, this.random.nextInt(8) + 2));
+                this.discard();
+                info.setReturnValue(4);
             }
         }
-        return operation.call(lootTable, lootParams);
     }
 
     @Override
