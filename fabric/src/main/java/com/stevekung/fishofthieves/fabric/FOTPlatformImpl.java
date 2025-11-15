@@ -91,6 +91,11 @@ public class FOTPlatformImpl
         return FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, entityFactory).dimensions(dimensions).trackRangeBlocks(4).build();
     }
 
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return FabricEntityTypeBuilder.create(mobCategory, entityFactory).dimensions(dimensions).trackRangeBlocks(clientTrackingRange).build();
+    }
+
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
         Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, FishOfThieves.id(key), type);

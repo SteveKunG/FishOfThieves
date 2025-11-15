@@ -84,6 +84,11 @@ public class FOTPlatformImpl
         return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width, dimensions.height).clientTrackingRange(4).build("");
     }
 
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return EntityType.Builder.of(entityFactory, mobCategory).sized(dimensions.width, dimensions.height).clientTrackingRange(clientTrackingRange).build("");
+    }
+
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
     {
         FishOfThievesForge.BLOCK_ENTITY_TYPE.register(key, () -> type);

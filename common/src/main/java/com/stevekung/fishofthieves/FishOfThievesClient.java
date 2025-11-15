@@ -80,6 +80,7 @@ public class FishOfThievesClient
             list.add(new EntityRendererEntry<>(FOTEntities.BATTLEGILL, BattlegillRenderer::new));
             list.add(new EntityRendererEntry<>(FOTEntities.WRECKER, WreckerRenderer::new));
             list.add(new EntityRendererEntry<>(FOTEntities.STORMFISH, StormfishRenderer::new));
+            list.add(new EntityRendererEntry<>(FOTEntities.SHOAL, ShoalRenderer::new));
         }).stream().map(entry -> (EntityRendererEntry<Entity>) entry).toList();
     }
 
