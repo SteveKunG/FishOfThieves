@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.utils.Continentalness;
@@ -47,6 +48,10 @@ public final class ShoalSpawner
         if (biome.is(FOTTags.Biomes.SPAWNS_SHOAL) && isOpenWater(level, blockPos) && ShoalChance.canSpawnAt(level, blockPos))
         {
             level.setBlock(blockPos.below(), FOTBlocks.SHOAL_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+
+            var shoal = FOTEntities.SHOAL.create(level);
+            shoal.moveTo(blockPos.below(), 0, 0);
+            level.addFreshEntity(shoal);
 
             //TODO DEBUG
             System.out.println(blockPos.toShortString());

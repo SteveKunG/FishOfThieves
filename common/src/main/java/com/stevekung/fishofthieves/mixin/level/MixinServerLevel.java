@@ -9,8 +9,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.stevekung.fishofthieves.shoal.ShoalSpawner;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 import com.stevekung.fishofthieves.storage.BaitPreserveSavedData;
 import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
@@ -56,9 +57,12 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
     @Inject(method = "tickChunk", at = @At(value = "CONSTANT", args = "stringValue=thunder"))
     private void fishofthieves$shoalTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z, @Local ProfilerFiller profilerFiller)
     {
-        profilerFiller.push("fishofthieves_shoal");
-        ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
-        profilerFiller.pop();
+        if (FishOfThieves.CONFIG.general.enableShoalSpawning)
+        {
+            profilerFiller.push("fishofthieves_shoal");
+            ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            profilerFiller.pop();
+        }
     }
 
     @Inject(method = "<init>*", at = @At("TAIL"))
