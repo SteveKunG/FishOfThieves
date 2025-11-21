@@ -52,4 +52,9 @@ public interface FishingHookBait
     {
         throw new AssertionError("Implemented via mixin");
     }
+
+    default void fishofthieves$setIsCreative()
+    {
+        throw new AssertionError("Implemented via mixin");
+    }
 }

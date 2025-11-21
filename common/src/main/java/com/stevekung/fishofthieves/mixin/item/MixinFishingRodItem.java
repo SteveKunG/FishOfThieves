@@ -58,6 +58,10 @@ public class MixinFishingRodItem
                     player.getInventory().removeItem(baitStack);
                 }
             }
+            else
+            {
+                fishingHook.fishofthieves$setIsCreative();
+            }
         }
         return operation.call(level, entity);
     }
