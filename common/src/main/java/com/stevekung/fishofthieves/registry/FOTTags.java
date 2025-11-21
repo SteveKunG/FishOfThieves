@@ -85,11 +85,8 @@ public interface FOTTags
 
     interface Structures
     {
-        TagKey<Structure> BONE_ANCIENTSCALES_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("bone_ancientscales_spawn_in"));
-        TagKey<Structure> BONEDUST_PLENTIFINS_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("bonedust_plentifins_spawn_in"));
         TagKey<Structure> BATTLEGILLS_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("battlegills_spawn_in"));
         TagKey<Structure> ANCIENTSCALES_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("ancientscales_spawn_in"));
-        TagKey<Structure> PLENTIFINS_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("plentifins_spawn_in"));
         TagKey<Structure> WRECKERS_SPAWN_IN = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("wreckers_spawn_in"));
         TagKey<Structure> WRECKERS_LOCATED = TagKey.create(Registries.STRUCTURE, FishOfThieves.id("wreckers_located"));
     }
