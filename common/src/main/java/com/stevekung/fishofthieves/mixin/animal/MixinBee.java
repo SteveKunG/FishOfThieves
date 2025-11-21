@@ -46,7 +46,7 @@ public class MixinBee
         }
     }
 
-    @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
+    @Mixin(targets = "net.minecraft.world.entity.animal.bee.Bee$BeeGrowCropGoal")
     public static abstract class MixinBeeGrowCropGoal extends Goal
     {
         @Unique
