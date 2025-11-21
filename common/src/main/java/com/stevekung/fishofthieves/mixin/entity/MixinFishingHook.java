@@ -35,6 +35,9 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Unique
     private ItemStack baitStack = ItemStack.EMPTY;
 
+    @Unique
+    private boolean isCreative;
+
     @Shadow
     abstract Player getPlayerOwner();
 
@@ -46,7 +49,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Override
     public boolean save(CompoundTag compound)
     {
-        if (this.level() instanceof ServerLevel serverLevel)
+        if (!this.isCreative && this.level() instanceof ServerLevel serverLevel)
         {
             var baitPreserveSavedData = serverLevel.getBaitPreserve();
             baitPreserveSavedData.getBaitStorage().putIfAbsent(this.position(), this.baitStack);
@@ -130,6 +133,12 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
         return this.baitStack;
     }
 
+    @Override
+    public void fishofthieves$setIsCreative()
+    {
+        this.isCreative = true;
+    }
+
     @Unique
     private void shrinkBait(boolean sendPacket)
     {
@@ -150,7 +159,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Unique
     private void dropBait()
     {
-        if (this.level() instanceof ServerLevel serverLevel)
+        if (!this.isCreative && this.level() instanceof ServerLevel serverLevel)
         {
             var vec3 = Vec3.atLowerCornerWithOffset(this.blockPosition(), 0.5, 0.25, 0.5).offsetRandom(this.random, 0.3F);
             var itemEntity = new ItemEntity(this.level(), vec3.x(), vec3.y(), vec3.z(), this.baitStack);

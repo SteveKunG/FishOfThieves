@@ -77,6 +77,9 @@
       ],
       "net/minecraft/class_10026": [
         "com/stevekung/fishofthieves/client/renderer/entity/state/FishingHookRenderStateExtender"
+      ],
+      "net/minecraft/class_10701": [
+        "com/stevekung/fishofthieves/entity/condition/SpawnContextExtender"
       ]
     }
   }

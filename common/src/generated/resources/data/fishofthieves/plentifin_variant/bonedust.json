@@ -5,31 +5,6 @@
     "entity": [
       {
         "condition": {
-          "type": "fishofthieves:all_of",
-          "terms": [
-            {
-              "type": "fishofthieves:any_of",
-              "terms": [
-                {
-                  "type": "minecraft:structure",
-                  "structures": "minecraft:stronghold"
-                },
-                {
-                  "type": "minecraft:structure",
-                  "structures": "#minecraft:mineshaft"
-                }
-              ]
-            },
-            {
-              "type": "fishofthieves:random_chance",
-              "chance": 10
-            }
-          ]
-        },
-        "priority": 1
-      },
-      {
-        "condition": {
           "type": "fishofthieves:probability",
           "chance": 0.05
         },

@@ -1,5 +1,17 @@
 {
   "custom_model_data": 2,
   "name": "rum",
+  "spawn_settings": {
+    "entity": [],
+    "fishing": [
+      {
+        "condition": {
+          "type": "fishofthieves:living_entity_has_effect",
+          "mob_effect": "minecraft:nausea"
+        },
+        "priority": 0
+      }
+    ]
+  },
   "texture": "fishofthieves:entity/battlegill/rum"
 }

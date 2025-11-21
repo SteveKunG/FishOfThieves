@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -137,6 +136,6 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, entitySpawnReason, blockPos, random);
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
-        return isSurfaceWater || isWater && TerrainUtils.isInFeature(level.getLevel(), blockPos, FOTTags.Structures.PLENTIFINS_SPAWN_IN);
+        return isSurfaceWater || isWater;
     }
 }

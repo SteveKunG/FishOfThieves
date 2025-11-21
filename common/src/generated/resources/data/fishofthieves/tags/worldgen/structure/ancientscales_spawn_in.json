@@ -1,7 +1,5 @@
 {
   "values": [
-    "#minecraft:ocean_ruin",
-    "minecraft:stronghold",
-    "#minecraft:mineshaft"
+    "#minecraft:ocean_ruin"
   ]
 }
