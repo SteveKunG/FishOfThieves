@@ -19,7 +19,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -92,15 +94,15 @@ public class FOTItem extends Item
         return this.registryKey;
     }
 
-    public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
+    public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, @Nullable Entity entity, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
     {
         if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant && itemStack.getItem() instanceof FOTItem fotItem)
         {
             var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
 
-            if (vec3 != null)
+            if (vec3 != null && entity instanceof LivingEntity livingEntity)
             {
-                var context = new SpawnConditionContext(level, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
+                var context = new SpawnConditionContext(level, livingEntity, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
                 Util.getRandomSafe(level.registryAccess().registryOrThrow(registryKey).holders().map(Holder.Reference::value).filter(variant -> variant.spawnSettings().fishing().isPresent() ? Util.allOf(variant.spawnSettings().fishing().get()).test(context) : Util.allOf(variant.spawnSettings().entity()).test(context)).toList(), randomSource).ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData())));
             }
         }

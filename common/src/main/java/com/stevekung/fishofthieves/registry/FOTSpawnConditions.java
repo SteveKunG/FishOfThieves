@@ -36,6 +36,7 @@ public class FOTSpawnConditions
     public static final SpawnConditionType TIME_OF_DAY = register("time_of_day", TimeOfDayCondition.CODEC);
     public static final SpawnConditionType SKY_BRIGHTNESS = register("sky_brightness", SkyBrightnessCondition.CODEC);
     public static final SpawnConditionType SKY_DARKEN = register("sky_darken", SkyDarkenCondition.CODEC);
+    public static final SpawnConditionType LIVING_ENTITY_HAS_EFFECT = register("living_entity_has_effect", LivingEntityHasEffectCondition.CODEC);
 
     private static SpawnConditionType register(String name, MapCodec<? extends SpawnCondition> codec)
     {
