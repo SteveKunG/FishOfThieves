@@ -18,13 +18,13 @@ public interface FishingHookBait
         }
         else
         {
-            for (var i = 0; i < player.getInventory().getContainerSize(); i++)
+            for (var index = 0; index < player.getInventory().getContainerSize(); index++)
             {
-                var itemStack2 = player.getInventory().getItem(i);
+                var invStack = player.getInventory().getItem(index);
 
-                if (itemStack2.is(FOTTags.Items.WORMS))
+                if (invStack.is(FOTTags.Items.WORMS))
                 {
-                    return itemStack2;
+                    return invStack;
                 }
             }
             return ItemStack.EMPTY;
@@ -49,6 +49,11 @@ public interface FishingHookBait
     }
 
     default ItemStack fishofthieves$getBaitStack()
+    {
+        throw new AssertionError("Implemented via mixin");
+    }
+
+    default void fishofthieves$setIsCreative()
     {
         throw new AssertionError("Implemented via mixin");
     }
