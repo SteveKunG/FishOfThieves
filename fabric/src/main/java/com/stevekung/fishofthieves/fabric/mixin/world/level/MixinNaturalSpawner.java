@@ -28,9 +28,9 @@ public class MixinNaturalSpawner
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
-            if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN).isValid() || structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.PLENTIFINS_SPAWN_IN).isValid())
+            if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN).isValid())
             {
-                info.setReturnValue(FOTEntities.SpawnData.ANCIENTSCALE_AND_PLENTIFIN);
+                info.setReturnValue(FOTEntities.SpawnData.ANCIENTSCALE);
             }
             else if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN).isValid())
             {

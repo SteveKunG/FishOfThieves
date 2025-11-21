@@ -5,7 +5,7 @@
     "entity": [
       {
         "condition": "fishofthieves:has_beehive",
-        "distance": 9
+        "distance": 12
       }
     ]
   },

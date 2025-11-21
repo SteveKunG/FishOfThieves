@@ -7,12 +7,8 @@ import com.stevekung.fishofthieves.entity.variant.AncientscaleVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.StructureTags;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class AncientscaleVariants
 {
@@ -24,12 +20,11 @@ public class AncientscaleVariants
 
     public static void bootstrap(BootstrapContext<AncientscaleVariant> context)
     {
-        var structureLookup = context.lookup(Registries.STRUCTURE);
         var registerContext = AbstractFishVariant.RegisterContext.create("ancientscale", AncientscaleVariant::new);
         registerContext.register(context, ALMOND, "almond", 0);
         registerContext.register(context, SAPPHIRE, "sapphire", 1);
         registerContext.register(context, SMOKE, "smoke", 2);
-        registerContext.register(context, BONE, "bone", 3, AnyOfCondition.anyOf(ProbabilityCondition.defaultRareProbablity(), RandomChanceCondition.chance(10).and(MatchStructureCondition.structures(HolderSet.direct(structureLookup.getOrThrow(BuiltinStructures.STRONGHOLD))).or(MatchStructureCondition.structures(structureLookup.getOrThrow(StructureTags.MINESHAFT))))).build());
+        registerContext.register(context, BONE, "bone", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, STARSHINE, "starshine", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MoonBrightnessCondition.moonBrightness(MinMaxBounds.Doubles.atMost(0.25d))).build());
     }
 

@@ -134,9 +134,7 @@ public class FOTLootManager
                                 .setStructures(structureLookup.getOrThrow(FOTTags.Structures.ANCIENTSCALES_SPAWN_IN)))))));
         fishLoot.add(Pair.of(FOTTags.Items.EARTHWORMS_FOOD, FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                 .setWeight(45)
-                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_PLENTIFINS)))
-                        .or(LocationCheck.checkLocation(LocationPredicate.Builder.location()
-                                .setStructures(structureLookup.getOrThrow(FOTTags.Structures.PLENTIFINS_SPAWN_IN)))))));
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_PLENTIFINS))))));
         fishLoot.add(Pair.of(FOTTags.Items.EARTHWORMS_FOOD, FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                 .setWeight(45)
                 .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(biomeLookup.getOrThrow(FOTTags.Biomes.SPAWNS_WILDSPLASH))))));

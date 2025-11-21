@@ -35,7 +35,7 @@ public class WildsplashVariants
                 MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build());
         registerContext.register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)).build());
         registerContext.register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))).build());
-        registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)).build());
+        registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 16)).build());
     }
 
     public static void bootstrapSimple(BootstrapContext<WildsplashVariant> context)

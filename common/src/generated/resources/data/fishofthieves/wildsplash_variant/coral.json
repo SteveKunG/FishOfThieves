@@ -11,9 +11,6 @@
             "condition": "fishofthieves:is_night"
           },
           {
-            "condition": "fishofthieves:see_sky"
-          },
-          {
             "biomes": "minecraft:warm_ocean",
             "condition": "fishofthieves:match_biome"
           },
@@ -21,7 +18,7 @@
             "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
             "condition": "fishofthieves:match_minimum_blocks_in_range",
             "range": 4,
-            "size": 24
+            "size": 16
           }
         ]
       }
