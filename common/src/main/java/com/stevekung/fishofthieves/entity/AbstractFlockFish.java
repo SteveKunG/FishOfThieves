@@ -3,7 +3,7 @@ package com.stevekung.fishofthieves.entity;
 import java.util.stream.Stream;
 
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
 import net.minecraft.world.level.Level;
 
 public abstract class AbstractFlockFish extends AbstractSchoolingFish

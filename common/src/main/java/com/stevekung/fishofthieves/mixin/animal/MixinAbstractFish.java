@@ -11,8 +11,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.stevekung.fishofthieves.registry.FOTMobEffects;
 
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 
 @Mixin(AbstractFish.class)

@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import net.minecraft.client.model.TadpoleModel;
+import net.minecraft.client.model.animal.frog.TadpoleModel;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 
 @Mixin(TadpoleModel.class)

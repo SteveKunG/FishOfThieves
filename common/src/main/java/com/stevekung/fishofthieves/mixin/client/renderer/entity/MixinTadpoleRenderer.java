@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
-import net.minecraft.client.model.TadpoleModel;
+import net.minecraft.client.model.animal.frog.TadpoleModel;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.TadpoleRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;

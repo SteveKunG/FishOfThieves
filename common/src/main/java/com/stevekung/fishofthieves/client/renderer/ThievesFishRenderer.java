@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.fish.AbstractFish;
 
 public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S extends ThievesFishRenderState, T extends AbstractFish & ThievesFish<V> & VariantHolder<Holder<V>>, M extends EntityModel<S> & HeadphoneModel.Scaleable<S>> extends MobRenderer<T, S, M>
 {

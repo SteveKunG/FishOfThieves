@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.entity.state.PufferfishRenderState;
 import net.minecraft.client.renderer.entity.state.TropicalFishRenderState;
-import net.minecraft.world.entity.animal.TropicalFish;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
 
 public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
 {
