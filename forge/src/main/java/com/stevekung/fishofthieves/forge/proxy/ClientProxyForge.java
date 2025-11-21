@@ -4,14 +4,11 @@ import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.FoliageColor;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -59,13 +56,12 @@ public class ClientProxyForge
 
     private void registerBlockColors(RegisterColorHandlersEvent.Block event)
     {
-        event.register((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
-        event.register((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
+        FishOfThievesClient.getBlockColors().forEach(entry -> event.register(entry.blockColor(), entry.blocks()));
     }
 
     private void registerItemColors(RegisterColorHandlersEvent.Item event)
     {
-        event.register((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES);
+        FishOfThievesClient.getItemColors().forEach(entry -> event.register(entry.itemColor(), entry.items()));
     }
 
     private static <M extends EntityModel<LivingEntity>> void addHeadphoneLayer(EntityRenderersEvent.AddLayers event, EntityType<? extends LivingEntity> entityType, HeadphoneModel.Scaleable<LivingEntity> scaleable)
