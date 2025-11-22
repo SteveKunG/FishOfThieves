@@ -59,6 +59,7 @@
   "block.fishofthieves.dark_oak_fish_plaque": "짙은 참나무 물고기 박제 액자",
   "block.fishofthieves.mangrove_fish_plaque": "맹그로브나무 물고기 박제 액자",
   "block.fishofthieves.cherry_fish_plaque": "벚나무 물고기 박제 액자",
+  "block.fishofthieves.pale_oak_fish_plaque": "Pale Oak Fish Plaque",
   "block.fishofthieves.bamboo_fish_plaque": "대나무 물고기 박제 액자",
   "block.fishofthieves.crimson_fish_plaque": "진홍빛 물고기 박제 액자",
   "block.fishofthieves.warped_fish_plaque": "뒤틀린 물고기 박제 액자",
@@ -71,6 +72,7 @@
   "block.fishofthieves.iron_frame_dark_oak_fish_plaque": "철 프레임 짙은 참나무 물고기 박제 액자",
   "block.fishofthieves.iron_frame_mangrove_fish_plaque": "철 프레임 맹그로브나무 물고기 박제 액자",
   "block.fishofthieves.iron_frame_cherry_fish_plaque": "철 프레임 벚나무 물고기 박제 액자",
+  "block.fishofthieves.iron_frame_pale_oak_fish_plaque": "Iron Frame Pale Oak Fish Plaque",
   "block.fishofthieves.iron_frame_bamboo_fish_plaque": "철 프레임 대나무 물고기 박제 액자",
   "block.fishofthieves.iron_frame_crimson_fish_plaque": "철 프레임 진홍빛 물고기 박제 액자",
   "block.fishofthieves.iron_frame_warped_fish_plaque": "철 프레임 뒤틀린 물고기 박제 액자",
@@ -83,6 +85,7 @@
   "block.fishofthieves.golden_frame_dark_oak_fish_plaque": "금 프레임 짙은 참나무 물고기 박제 액자",
   "block.fishofthieves.golden_frame_mangrove_fish_plaque": "금 프레임 맹그로브나무 물고기 박제 액자",
   "block.fishofthieves.golden_frame_cherry_fish_plaque": "금 프레임 벚나무 물고기 박제 액자",
+  "block.fishofthieves.golden_frame_pale_oak_fish_plaque": "Golden Frame Pale Oak Fish Plaque",
   "block.fishofthieves.golden_frame_bamboo_fish_plaque": "금 프레임 대나무 물고기 박제 액자",
   "block.fishofthieves.golden_frame_crimson_fish_plaque": "금 프레임 진홍빛 물고기 박제 액자",
   "block.fishofthieves.golden_frame_warped_fish_plaque": "금 프레임 뒤틀린 물고기 박제 액자",
@@ -95,6 +98,7 @@
   "block.fishofthieves.gilded_dark_oak_fish_plaque": "금 도금한 짙은 참나무 물고기 박제 액자",
   "block.fishofthieves.gilded_mangrove_fish_plaque": "금 도금한 맹그로브나무 물고기 박제 액자",
   "block.fishofthieves.gilded_cherry_fish_plaque": "금 도금한 벚나무 물고기 박제 액자",
+  "block.fishofthieves.gilded_pale_oak_fish_plaque": "Gilded Pale Oak Fish Plaque",
   "block.fishofthieves.gilded_bamboo_fish_plaque": "금 도금한 대나무 물고기 박제 액자",
   "block.fishofthieves.gilded_crimson_fish_plaque": "금 도금한 진홍빛 물고기 박제 액자",
   "block.fishofthieves.gilded_warped_fish_plaque": "금 도금한 뒤틀린 물고기 박제 액자",
@@ -268,6 +272,8 @@
   "entity.fishofthieves.stormfish.wild": "야생",
   "entity.fishofthieves.stormfish.shadow": "그림자",
   "entity.fishofthieves.stormfish.twilight": "황혼",
+
+  "entity.fishofthieves.coconut_chest_boat": "Coconut Boat with Chest",
 
   "biome.fishofthieves.tropical_island": "열대 섬",
 

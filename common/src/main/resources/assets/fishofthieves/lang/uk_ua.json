@@ -59,6 +59,7 @@
   "block.fishofthieves.dark_oak_fish_plaque": "Темно-дубова рибна табличка",
   "block.fishofthieves.mangrove_fish_plaque": "Мангрова рибна табличка",
   "block.fishofthieves.cherry_fish_plaque": "Вишнева рибна табличка",
+  "block.fishofthieves.pale_oak_fish_plaque": "Pale Oak Fish Plaque",
   "block.fishofthieves.bamboo_fish_plaque": "Бамбукова рибна табличка",
   "block.fishofthieves.crimson_fish_plaque": "Багряна рибна табличка",
   "block.fishofthieves.warped_fish_plaque": "Химерна рибна табличка",
@@ -71,6 +72,7 @@
   "block.fishofthieves.iron_frame_dark_oak_fish_plaque": "Залізна обрамлена темно-дубова рибна табличка",
   "block.fishofthieves.iron_frame_mangrove_fish_plaque": "Залізна обрамлена мангрова рибна табличка",
   "block.fishofthieves.iron_frame_cherry_fish_plaque": "Залізна обрамлена вишнева рибна табличка",
+  "block.fishofthieves.iron_frame_pale_oak_fish_plaque": "Iron Frame Pale Oak Fish Plaque",
   "block.fishofthieves.iron_frame_bamboo_fish_plaque": "Залізна обрамлена бамбукова рибна табличка",
   "block.fishofthieves.iron_frame_crimson_fish_plaque": "Залізна обрамлена багряна рибна табличка",
   "block.fishofthieves.iron_frame_warped_fish_plaque": "Залізна обрамлена химерна рибна табличка",
@@ -83,6 +85,7 @@
   "block.fishofthieves.golden_frame_dark_oak_fish_plaque": "Золота обрамлена темно-дубова рибна табличка",
   "block.fishofthieves.golden_frame_mangrove_fish_plaque": "Золота обрамлена мангрова рибна табличка",
   "block.fishofthieves.golden_frame_cherry_fish_plaque": "Золота обрамлена вишнева рибна табличка",
+  "block.fishofthieves.golden_frame_pale_oak_fish_plaque": "Golden Frame Pale Oak Fish Plaque",
   "block.fishofthieves.golden_frame_bamboo_fish_plaque": "Золота обрамлена бамбукова рибна табличка",
   "block.fishofthieves.golden_frame_crimson_fish_plaque": "Золота обрамлена багряна рибна табличка",
   "block.fishofthieves.golden_frame_warped_fish_plaque": "Золота обрамлена химерна рибна табличка",
@@ -95,6 +98,7 @@
   "block.fishofthieves.gilded_dark_oak_fish_plaque": "Позолочена темно-дубова рибна табличка",
   "block.fishofthieves.gilded_mangrove_fish_plaque": "Позолочена мангрова рибна табличка",
   "block.fishofthieves.gilded_cherry_fish_plaque": "Позолочена вишнева рибна табличка",
+  "block.fishofthieves.gilded_pale_oak_fish_plaque": "Gilded Pale Oak Fish Plaque",
   "block.fishofthieves.gilded_bamboo_fish_plaque": "Позолочена бамбукова рибна табличка",
   "block.fishofthieves.gilded_crimson_fish_plaque": "Позолочена багряна рибна табличка",
   "block.fishofthieves.gilded_warped_fish_plaque": "Позолочена химерна рибна табличка",
@@ -268,6 +272,8 @@
   "entity.fishofthieves.stormfish.wild": "Дика",
   "entity.fishofthieves.stormfish.shadow": "Тіньова",
   "entity.fishofthieves.stormfish.twilight": "Сутінкова",
+
+  "entity.fishofthieves.coconut_chest_boat": "Coconut Boat with Chest",
 
   "biome.fishofthieves.tropical_island": "Tropical Island",
 

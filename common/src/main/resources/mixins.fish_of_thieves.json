@@ -42,6 +42,7 @@
     "entity.MixinFallingBlockEntity",
     "entity.MixinFishingHook",
     "entity.MixinLivingEntity",
+    "entity.MixinSpawnContext",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
     "item.MixinFishingRodItem",

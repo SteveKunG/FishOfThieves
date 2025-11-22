@@ -1,10 +1,9 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
+
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.condition.AllConditionCheck;
-import com.stevekung.fishofthieves.entity.condition.NightCheck;
-import com.stevekung.fishofthieves.entity.condition.ProbabilityCheck;
-import com.stevekung.fishofthieves.entity.condition.SeeSkyCheck;
+import com.stevekung.fishofthieves.entity.condition.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
@@ -13,6 +12,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.level.biome.Biomes;
 
@@ -30,7 +30,7 @@ public class BattlegillVariants
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1, SeeSkyCheck.seeSky());
-        registerContext.register(context, RUM, "rum", 2);
+        registerContext.register(context, RUM, "rum", 2, List.of(), List.of(registerContext.select(LivingEntityHasEffectCondition.effect(MobEffects.NAUSEA), 0)));
         registerContext.register(context, SAND, "sand", 3, AllConditionCheck.allOf(
                 ProbabilityCheck.defaultRareProbablity(),
                 new BiomeCheck(HolderSet.direct(

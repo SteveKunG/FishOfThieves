@@ -21,6 +21,42 @@
         },
         "priority": 0
       }
+    ],
+    "fishing": [
+      {
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:probability",
+              "chance": 0.05
+            },
+            {
+              "type": "fishofthieves:height",
+              "height": {
+                "max": 0
+              }
+            }
+          ]
+        },
+        "priority": 1
+      },
+      {
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:random_chance",
+              "chance": 3
+            },
+            {
+              "type": "fishofthieves:living_entity_has_effect",
+              "mob_effect": "minecraft:blindness"
+            }
+          ]
+        },
+        "priority": 0
+      }
     ]
   },
   "texture": "fishofthieves:entity/islehopper/raven"

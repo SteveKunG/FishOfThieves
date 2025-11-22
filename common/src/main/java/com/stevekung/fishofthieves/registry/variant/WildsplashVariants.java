@@ -40,7 +40,7 @@ public class WildsplashVariants
         registerContext.register(context, MUDDY, "muddy", 3, AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))));
         registerContext.register(context, CORAL, "coral", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(),
                 new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))),
-                MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 24)));
+                MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 16)));
     }
 
     public static void bootstrapSimple(BootstrapContext<WildsplashVariant> context)

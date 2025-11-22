@@ -52,6 +52,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.DARK_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.CHERRY_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.PALE_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.WARPED_FISH_PLAQUE);
@@ -64,6 +65,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.IRON_FRAME_PALE_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
@@ -76,6 +78,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
@@ -88,6 +91,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.GILDED_PALE_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
