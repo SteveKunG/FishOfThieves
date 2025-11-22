@@ -14,6 +14,10 @@ loom {
         vmArgs project.hotswapVmArgs
     }
 
+    mixin {
+        useLegacyMixinAp = true
+    }
+
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
@@ -99,9 +103,7 @@ tasks.register("apiJar", Jar) {
     archiveClassifier = "api"
 }
 
-artifacts {
-    archives apiJar
-}
+assemble.dependsOn(apiJar)
 
 remapSourcesJar {
     archiveVersion = "v${mod_version}"
