@@ -9,13 +9,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.stevekung.fishofthieves.FlockSpawnTest;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.storage.BaitPreserveSavedData;
 import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -36,7 +37,7 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
         super(null, null, null, null, null, false, false, 0, 0);
     }
 
-    @Inject(method = "tickChunk", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))
+    @Inject(method = "tickChunk", at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))
     private void fishofthieves$specialThunderTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z)
     {
         if (this.isThundering() && this.random.nextInt(5000) == 0)
@@ -50,7 +51,14 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
                 this.addFreshEntity(lightningBolt);
             }
         }
-        FlockSpawnTest.INSTANCE.test(ServerLevel.class.cast(this), x, z);
+    }
+
+    @Inject(method = "tickChunk", at = @At(value = "CONSTANT", args = "stringValue=thunder"))
+    private void fishofthieves$shoalTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z, @Local ProfilerFiller profilerFiller)
+    {
+        profilerFiller.push("fishofthieves_shoal");
+        ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+        profilerFiller.pop();
     }
 
     @Inject(method = "<init>*", at = @At("TAIL"))

@@ -2,10 +2,12 @@ package com.stevekung.fishofthieves.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -20,9 +22,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @SuppressWarnings("deprecation")
-public class FishPoolBlock extends Block
+public class ShoalBlock extends Block
 {
-    public FishPoolBlock(BlockBehaviour.Properties properties)
+    public ShoalBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
     }
@@ -30,10 +32,32 @@ public class FishPoolBlock extends Block
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
+        this.destroyShoal(state, level, pos);
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
+    {
+        this.destroyShoal(state, level, pos);
+    }
+
+    private void destroyShoal(BlockState state, ServerLevel level, BlockPos pos)
+    {
         if (!state.canSurvive(level, pos))
         {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
         }
+    }
+
+    //TODO
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
+    {
+        double d = pos.getX();
+        double e = pos.getY();
+        double f = pos.getZ();
+        level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + 0.5, e, f + 0.5, 0.0, 0.04, 0.0);
+        level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE_COLUMN_UP, d + random.nextFloat(), e + random.nextFloat(), f + random.nextFloat(), 0.0, 0.04, 0.0);
     }
 
     @Override
@@ -57,7 +81,7 @@ public class FishPoolBlock extends Block
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        return BlockPos.betweenClosedStream(pos.offset(-1, -1, -1), pos.offset(1, -2, 1)).allMatch(blockPos ->
+        return BlockPos.betweenClosedStream(pos.offset(-1, 0, -1), pos.offset(1, -2, 1)).allMatch(blockPos ->
         {
             var blockState = level.getBlockState(blockPos);
             var fluidState = blockState.getFluidState();

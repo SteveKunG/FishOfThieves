@@ -14,11 +14,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class FOTPoiTypes
 {
-    public static final ResourceKey<PoiType> FISH_FLOCK = createKey("fish_flock");
+    public static final ResourceKey<PoiType> SHOAL = createKey("shoal");
 
     public static void init()
     {
-        register(FISH_FLOCK, PoiTypes.getBlockStates(FOTBlocks.FISH_POOL), 0, 1);
+        register(SHOAL, PoiTypes.getBlockStates(FOTBlocks.SHOAL_BLOCK), 0, 1);
     }
 
     private static void register(ResourceKey<PoiType> value, Set<BlockState> matchingStates, int maxTickets, int validRange)
