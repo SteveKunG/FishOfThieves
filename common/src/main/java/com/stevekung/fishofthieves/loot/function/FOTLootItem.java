@@ -42,7 +42,8 @@ public class FOTLootItem extends LootPoolSingletonContainer
     {
         var itemStack = new ItemStack(this.item);
         var vec3 = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
-        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, lootContext.getLevel(), vec3, lootContext.getRandom()));
+        var entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, entity, lootContext.getLevel(), vec3, lootContext.getRandom()));
     }
 
     @SuppressWarnings("deprecation")

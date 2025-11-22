@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.registry.variant;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -16,6 +17,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.level.biome.Biomes;
 
@@ -36,10 +38,15 @@ public class IslehopperVariants
                 new BiomeCheck(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG)),
                 new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.LUSH_CAVES), biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))).build()
         );
-        registerContext.register(context, HONEY, "honey", 2, HasBeehiveCheck.beehive(5, 9));
-        registerContext.register(context, RAVEN, "raven", 3, AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(),
-                HeightCheck.height(MinMaxBounds.Ints.atMost(0))));
-        registerContext.register(context, AMETHYST, "amethyst", 4, true, MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 16));
+        registerContext.register(context, HONEY, "honey", 2, HasBeehiveCheck.beehive(5, 12));
+        registerContext.register(context, RAVEN, "raven", 3,
+                List.of(
+                        registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), HeightCheck.height(MinMaxBounds.Ints.atMost(0))), 0)),
+                List.of(
+                        registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), HeightCheck.height(MinMaxBounds.Ints.atMost(0))), 1),
+                        registerContext.select(AllConditionCheck.allOf(RandomChanceCheck.chance(3), LivingEntityHasEffectCondition.effect(MobEffects.BLINDNESS)), 0)
+                ));
+        registerContext.register(context, AMETHYST, "amethyst", 4, true, MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 12));
     }
 
     public static void bootstrapSimple(BootstrapContext<IslehopperVariant> context)

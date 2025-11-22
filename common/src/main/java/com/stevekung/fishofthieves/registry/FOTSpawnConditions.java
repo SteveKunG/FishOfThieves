@@ -29,6 +29,7 @@ public interface FOTSpawnConditions
     MapCodec<? extends SpawnCondition> TIME_OF_DAY = register("time_of_day", TimeOfDayCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_BRIGHTNESS = register("sky_brightness", SkyBrightnessCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_DARKEN = register("sky_darken", SkyDarkenCheck.CODEC);
+    MapCodec<? extends SpawnCondition> LIVING_ENTITY_HAS_EFFECT = register("living_entity_has_effect", LivingEntityHasEffectCondition.CODEC);
 
     static void init()
     {

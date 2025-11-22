@@ -9,7 +9,7 @@
           "type": "fishofthieves:minimum_block_range",
           "blocks": "#fishofthieves:amethyst_islehopper_spawnable_on",
           "range": 4,
-          "size": 16
+          "size": 12
         },
         "priority": 0
       }

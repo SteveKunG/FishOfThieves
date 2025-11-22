@@ -6,7 +6,7 @@
       {
         "condition": {
           "type": "fishofthieves:has_beehive",
-          "distance": 9
+          "distance": 12
         },
         "priority": 0
       }

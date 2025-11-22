@@ -59,6 +59,7 @@
   "block.fishofthieves.dark_oak_fish_plaque": "黑橡木魚牌匾",
   "block.fishofthieves.mangrove_fish_plaque": "紅樹林木魚牌匾",
   "block.fishofthieves.cherry_fish_plaque": "櫻花木魚牌匾",
+  "block.fishofthieves.pale_oak_fish_plaque": "Pale Oak Fish Plaque",
   "block.fishofthieves.bamboo_fish_plaque": "竹子魚牌匾",
   "block.fishofthieves.crimson_fish_plaque": "緋紅蕈木魚牌匾",
   "block.fishofthieves.warped_fish_plaque": "扭曲蕈木魚牌匾",
@@ -71,6 +72,7 @@
   "block.fishofthieves.iron_frame_dark_oak_fish_plaque": "鐵框黑橡木魚牌匾",
   "block.fishofthieves.iron_frame_mangrove_fish_plaque": "鐵框紅樹林木魚牌匾",
   "block.fishofthieves.iron_frame_cherry_fish_plaque": "鐵框櫻花木魚牌匾",
+  "block.fishofthieves.iron_frame_pale_oak_fish_plaque": "Iron Frame Pale Oak Fish Plaque",
   "block.fishofthieves.iron_frame_bamboo_fish_plaque": "鐵框竹子魚牌匾",
   "block.fishofthieves.iron_frame_crimson_fish_plaque": "鐵框緋紅蕈木魚牌匾",
   "block.fishofthieves.iron_frame_warped_fish_plaque": "鐵框扭曲蕈木魚牌匾",
@@ -83,6 +85,7 @@
   "block.fishofthieves.golden_frame_dark_oak_fish_plaque": "金框黑橡木魚牌匾",
   "block.fishofthieves.golden_frame_mangrove_fish_plaque": "金框紅樹林木魚牌匾",
   "block.fishofthieves.golden_frame_cherry_fish_plaque": "金框櫻花木魚牌匾",
+  "block.fishofthieves.golden_frame_pale_oak_fish_plaque": "Golden Frame Pale Oak Fish Plaque",
   "block.fishofthieves.golden_frame_bamboo_fish_plaque": "金框竹子魚牌匾",
   "block.fishofthieves.golden_frame_crimson_fish_plaque": "金框緋紅蕈木魚牌匾",
   "block.fishofthieves.golden_frame_warped_fish_plaque": "金框扭曲蕈木魚牌匾",
@@ -95,6 +98,7 @@
   "block.fishofthieves.gilded_dark_oak_fish_plaque": "鍍金黑橡木魚牌匾",
   "block.fishofthieves.gilded_mangrove_fish_plaque": "鍍金紅樹林木魚牌匾",
   "block.fishofthieves.gilded_cherry_fish_plaque": "鍍金櫻花木魚牌匾",
+  "block.fishofthieves.gilded_pale_oak_fish_plaque": "Gilded Pale Oak Fish Plaque",
   "block.fishofthieves.gilded_bamboo_fish_plaque": "鍍金竹子魚牌匾",
   "block.fishofthieves.gilded_crimson_fish_plaque": "鍍金緋紅蕈木魚牌匾",
   "block.fishofthieves.gilded_warped_fish_plaque": "鍍金扭曲蕈木魚牌匾",
@@ -268,6 +272,8 @@
   "entity.fishofthieves.stormfish.wild": "野生",
   "entity.fishofthieves.stormfish.shadow": "陰影",
   "entity.fishofthieves.stormfish.twilight": "暮光",
+
+  "entity.fishofthieves.coconut_chest_boat": "Coconut Boat with Chest",
 
   "biome.fishofthieves.tropical_island": "Tropical Island",
 

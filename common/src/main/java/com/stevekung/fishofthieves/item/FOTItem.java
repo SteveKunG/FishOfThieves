@@ -21,6 +21,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -96,16 +97,17 @@ public class FOTItem extends Item
         return this.registryKey;
     }
 
-    public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
+    public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, @Nullable Entity entity, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
     {
         if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant && itemStack.getItem() instanceof FOTItem fotItem)
         {
             var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
 
-            if (vec3 != null)
+            if (vec3 != null && entity instanceof LivingEntity livingEntity)
             {
                 var blockPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
                 var context = new SpawnContext(blockPos, level, level.getBiome(blockPos));
+                context.fishofthieves$setLivingEntity(livingEntity);
                 AbstractFishVariant.pick(level.registryAccess().lookupOrThrow(registryKey).listElements(), Holder::value, randomSource, context)
                         .map(Holder::value)
                         .ifPresent(variant -> itemStack.set(DataComponents.CUSTOM_MODEL_DATA, createCustomModelData(variant.customModelData())));
