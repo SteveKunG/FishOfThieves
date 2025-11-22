@@ -180,5 +180,6 @@ public class FOTDisplayItems
         output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
         output.accept(FOTItems.KRAKEN_POTTERY_SHERD);
         output.accept(FOTItems.MEGALODON_POTTERY_SHERD);
+        output.accept(FOTItems.GREAT_MOUTH_POTTERY_SHERD);
     }
 }

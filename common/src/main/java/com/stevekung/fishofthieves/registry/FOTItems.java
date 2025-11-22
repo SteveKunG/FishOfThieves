@@ -74,6 +74,7 @@ public class FOTItems
     public static final Item STORMFISH_POTTERY_SHERD = new Item(new Item.Properties());
     public static final Item KRAKEN_POTTERY_SHERD = new Item(new Item.Properties());
     public static final Item MEGALODON_POTTERY_SHERD = new Item(new Item.Properties());
+    public static final Item GREAT_MOUTH_POTTERY_SHERD = new Item(new Item.Properties());
 
     public static final Item COCONUT_SIGN = new FOTSignItem(new Item.Properties().stacksTo(16), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN);
     public static final Item COCONUT_HANGING_SIGN = new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, new Item.Properties().stacksTo(16));
@@ -170,6 +171,7 @@ public class FOTItems
         register("stormfish_pottery_sherd", STORMFISH_POTTERY_SHERD);
         register("kraken_pottery_sherd", KRAKEN_POTTERY_SHERD);
         register("megalodon_pottery_sherd", MEGALODON_POTTERY_SHERD);
+        register("great_mouth_pottery_sherd", GREAT_MOUTH_POTTERY_SHERD);
 
         register("coconut_sign", COCONUT_SIGN);
         register("coconut_hanging_sign", COCONUT_HANGING_SIGN);
