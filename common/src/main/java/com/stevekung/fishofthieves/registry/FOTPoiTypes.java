@@ -10,7 +10,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class FOTPoiTypes
@@ -19,7 +18,7 @@ public class FOTPoiTypes
 
     public static void init()
     {
-        register(FISH_FLOCK, PoiTypes.getBlockStates(Blocks.LIGHT_BLUE_WOOL), 0, 1);
+        register(FISH_FLOCK, PoiTypes.getBlockStates(FOTBlocks.FISH_POOL), 0, 1);
     }
 
     private static void register(ResourceKey<PoiType> value, Set<BlockState> matchingStates, int maxTickets, int validRange)

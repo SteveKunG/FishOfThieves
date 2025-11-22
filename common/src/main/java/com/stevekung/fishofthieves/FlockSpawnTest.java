@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
@@ -50,7 +51,7 @@ public class FlockSpawnTest
 
             if (blockPos != null)
             {
-                var bl2 = !level.getBlockState(blockPos.below()).is(Blocks.LIGHT_BLUE_WOOL);
+                var bl2 = !level.getBlockState(blockPos.below()).is(FOTBlocks.FISH_POOL);
 
                 if (bl2)
                 {
@@ -116,7 +117,7 @@ public class FlockSpawnTest
                     {
                         System.out.println(blockPos);
                         System.out.println(biome);
-                        level.setBlock(blockPos.below(), Blocks.LIGHT_BLUE_WOOL.defaultBlockState(), Block.UPDATE_ALL);
+                        level.setBlock(blockPos.below(), FOTBlocks.FISH_POOL.defaultBlockState(), Block.UPDATE_ALL);
                     }
                 }
             }
