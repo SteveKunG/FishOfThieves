@@ -33,6 +33,7 @@ public class FOTItems
     public static final Item DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.DARK_OAK_FISH_PLAQUE);
     public static final Item MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.MANGROVE_FISH_PLAQUE);
     public static final Item CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.CHERRY_FISH_PLAQUE);
+    public static final Item PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.PALE_OAK_FISH_PLAQUE);
     public static final Item BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.BAMBOO_FISH_PLAQUE);
     public static final Item CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.CRIMSON_FISH_PLAQUE);
     public static final Item WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.WARPED_FISH_PLAQUE);
@@ -45,6 +46,7 @@ public class FOTItems
     public static final Item IRON_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_DARK_OAK_FISH_PLAQUE);
     public static final Item IRON_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE);
     public static final Item IRON_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item IRON_FRAME_PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_PALE_OAK_FISH_PLAQUE);
     public static final Item IRON_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE);
     public static final Item IRON_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
     public static final Item IRON_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
@@ -57,6 +59,7 @@ public class FOTItems
     public static final Item GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE);
@@ -69,6 +72,7 @@ public class FOTItems
     public static final Item GILDED_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_DARK_OAK_FISH_PLAQUE);
     public static final Item GILDED_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE);
     public static final Item GILDED_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE);
+    public static final Item GILDED_PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_PALE_OAK_FISH_PLAQUE);
     public static final Item GILDED_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE);
     public static final Item GILDED_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
     public static final Item GILDED_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
