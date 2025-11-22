@@ -38,10 +38,14 @@ public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements De
             if (FishOfThieves.CONFIG.debug.displayInfo)
             {
                 var distFromStructure = Integer.MAX_VALUE;
+                var optional = info.structurePosList()
+                        .stream()
+                        .filter(structurePos -> structurePos.blockPos().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureRangeLimit)
+                        .min(Comparator.comparing(structurePos -> structurePos.blockPos().distManhattan(entityPos)));
 
-                for (var structurePos1 : info.structurePosList().stream().sorted(Comparator.comparing(structurePos -> structurePos.blockPos().distManhattan(entityPos))).toList())
+                if (optional.isPresent())
                 {
-                    var blockPos = structurePos1.blockPos();
+                    var blockPos = optional.get().blockPos();
                     var structureDist = blockPos.distManhattan(entityPos);
 
                     // Get nearest structure range
@@ -50,12 +54,7 @@ public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements De
                         distFromStructure = structureDist;
                     }
 
-                    // If structure is within the range
-                    if (distFromStructure < FishOfThieves.CONFIG.debug.structureRangeLimit)
-                    {
-                        this.minecraft.gui.setOverlayMessage(Component.literal(structurePos1.identifier() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
-                        break;
-                    }
+                    this.minecraft.gui.setOverlayMessage(Component.literal(optional.get().identifier() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
                 }
             }
         }));

@@ -13,12 +13,15 @@ import com.stevekung.fishofthieves.client.renderer.entity.*;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.object.boat.BoatModel;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -31,6 +34,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.Block;
 
 import me.shedaniel.autoconfig.AutoConfig;
 
@@ -106,6 +111,15 @@ public class FishOfThievesClient
         }).stream().map(entry -> (HeadphoneEntry<LivingEntity, LivingEntityRenderState>) entry).toList();
     }
 
+    public static List<BlockColorEntry> getBlockColors()
+    {
+        return Util.make(new ArrayList<>(), list ->
+        {
+            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_LEAVES));
+            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
+        });
+    }
+
     private static void onConfigLoad()
     {
         PREVIOUS_CONFIG_VALUES.put("displayAllFishVariantInCreativeTab", FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab);
@@ -153,4 +167,6 @@ public class FishOfThievesClient
     public record EntityRendererEntry<E extends Entity>(EntityType<? extends E> entityType, EntityRendererProvider<E> factory) {}
 
     public record HeadphoneEntry<E extends LivingEntity, S extends LivingEntityRenderState>(EntityType<? extends E> entityType, HeadphoneModel.Scaleable<S> scaleable) {}
+
+    public record BlockColorEntry(BlockColor blockColor, Block... blocks) {}
 }

@@ -59,6 +59,7 @@
   "block.fishofthieves.dark_oak_fish_plaque": "ダークオークの魚の飾り板",
   "block.fishofthieves.mangrove_fish_plaque": "マングローブの魚の飾り板",
   "block.fishofthieves.cherry_fish_plaque": "サクラの魚の飾り板",
+  "block.fishofthieves.pale_oak_fish_plaque": "Pale Oak Fish Plaque",
   "block.fishofthieves.bamboo_fish_plaque": "竹の魚の飾り板",
   "block.fishofthieves.crimson_fish_plaque": "真紅の魚の飾り板",
   "block.fishofthieves.warped_fish_plaque": "歪んだ木の魚の飾り板",
@@ -71,6 +72,7 @@
   "block.fishofthieves.iron_frame_dark_oak_fish_plaque": "鉄枠付きダークオークの魚の飾り板",
   "block.fishofthieves.iron_frame_mangrove_fish_plaque": "鉄枠付きマングローブの魚の飾り板",
   "block.fishofthieves.iron_frame_cherry_fish_plaque": "鉄枠付きサクラの魚の飾り板",
+  "block.fishofthieves.iron_frame_pale_oak_fish_plaque": "Iron Frame Pale Oak Fish Plaque",
   "block.fishofthieves.iron_frame_bamboo_fish_plaque": "鉄枠付き竹の魚の飾り板",
   "block.fishofthieves.iron_frame_crimson_fish_plaque": "鉄枠付き真紅の魚の飾り板",
   "block.fishofthieves.iron_frame_warped_fish_plaque": "鉄枠付き歪んだ木の魚の飾り板",
@@ -83,6 +85,7 @@
   "block.fishofthieves.golden_frame_dark_oak_fish_plaque": "金枠付きダークオークの魚の飾り板",
   "block.fishofthieves.golden_frame_mangrove_fish_plaque": "金枠付きマングローブの魚の飾り板",
   "block.fishofthieves.golden_frame_cherry_fish_plaque": "金枠付きサクラの魚の飾り板",
+  "block.fishofthieves.golden_frame_pale_oak_fish_plaque": "Golden Frame Pale Oak Fish Plaque",
   "block.fishofthieves.golden_frame_bamboo_fish_plaque": "金枠付き竹の魚の飾り板",
   "block.fishofthieves.golden_frame_crimson_fish_plaque": "金枠付き真紅の魚の飾り板",
   "block.fishofthieves.golden_frame_warped_fish_plaque": "金枠付き歪んだ木の魚の飾り板",
@@ -95,6 +98,7 @@
   "block.fishofthieves.gilded_dark_oak_fish_plaque": "金メッキされたダークオークの魚の飾り板",
   "block.fishofthieves.gilded_mangrove_fish_plaque": "金メッキされたマングローブの魚の飾り板",
   "block.fishofthieves.gilded_cherry_fish_plaque": "金メッキされたサクラの魚の飾り板",
+  "block.fishofthieves.gilded_pale_oak_fish_plaque": "Gilded Pale Oak Fish Plaque",
   "block.fishofthieves.gilded_bamboo_fish_plaque": "金メッキされた竹の魚の飾り板",
   "block.fishofthieves.gilded_crimson_fish_plaque": "金メッキされた真紅の魚の飾り板",
   "block.fishofthieves.gilded_warped_fish_plaque": "金メッキされた歪んだ木の魚の飾り板",
@@ -268,6 +272,8 @@
   "entity.fishofthieves.stormfish.wild": "ワイルド",
   "entity.fishofthieves.stormfish.shadow": "シャドウ",
   "entity.fishofthieves.stormfish.twilight": "トワイライト",
+
+  "entity.fishofthieves.coconut_chest_boat": "Coconut Boat with Chest",
 
   "biome.fishofthieves.tropical_island": "熱帯の島",
 

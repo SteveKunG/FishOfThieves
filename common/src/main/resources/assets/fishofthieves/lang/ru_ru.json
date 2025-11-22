@@ -59,6 +59,7 @@
   "block.fishofthieves.dark_oak_fish_plaque": "Вывеска для рыбы из тёмного дуба",
   "block.fishofthieves.mangrove_fish_plaque": "Мангровая вывеска для рыбы",
   "block.fishofthieves.cherry_fish_plaque": "Cherry Fish Plaque",
+  "block.fishofthieves.pale_oak_fish_plaque": "Pale Oak Fish Plaque",
   "block.fishofthieves.bamboo_fish_plaque": "Bamboo Fish Plaque",
   "block.fishofthieves.crimson_fish_plaque": "Багровая вывеска для рыбы",
   "block.fishofthieves.warped_fish_plaque": "Искажённая вывеска для рыбы",
@@ -71,6 +72,7 @@
   "block.fishofthieves.iron_frame_dark_oak_fish_plaque": "Окованная вывеска для рыбы из тёмного дуба",
   "block.fishofthieves.iron_frame_mangrove_fish_plaque": "Окованная мангровая вывеска для рыбы",
   "block.fishofthieves.iron_frame_cherry_fish_plaque": "Iron Frame Cherry Fish Plaque",
+  "block.fishofthieves.iron_frame_pale_oak_fish_plaque": "Iron Frame Pale Oak Fish Plaque",
   "block.fishofthieves.iron_frame_bamboo_fish_plaque": "Iron Frame Bamboo Fish Plaque",
   "block.fishofthieves.iron_frame_crimson_fish_plaque": "Окованная багровая вывеска для рыбы",
   "block.fishofthieves.iron_frame_warped_fish_plaque": "Окованная искажённая вывеска для рыбы",
@@ -83,6 +85,7 @@
   "block.fishofthieves.golden_frame_dark_oak_fish_plaque": "Золочёная вывеска для рыбы из тёмного дуба",
   "block.fishofthieves.golden_frame_mangrove_fish_plaque": "Золочёная мангровая вывеска для рыбы",
   "block.fishofthieves.golden_frame_cherry_fish_plaque": "Golden Frame Cherry Fish Plaque",
+  "block.fishofthieves.golden_frame_pale_oak_fish_plaque": "Golden Frame Pale Oak Fish Plaque",
   "block.fishofthieves.golden_frame_bamboo_fish_plaque": "Golden Frame Bamboo Fish Plaque",
   "block.fishofthieves.golden_frame_crimson_fish_plaque": "Золочёная багровая вывеска для рыбы",
   "block.fishofthieves.golden_frame_warped_fish_plaque": "Золочёная искажённая вывеска для рыбы",
@@ -95,6 +98,7 @@
   "block.fishofthieves.gilded_dark_oak_fish_plaque": "Драгоценная вывеска для рыбы из тёмного дуба",
   "block.fishofthieves.gilded_mangrove_fish_plaque": "Драгоценная мангровая вывеска для рыбы",
   "block.fishofthieves.gilded_cherry_fish_plaque": "Gilded Cherry Fish Plaque",
+  "block.fishofthieves.gilded_pale_oak_fish_plaque": "Gilded Pale Oak Fish Plaque",
   "block.fishofthieves.gilded_bamboo_fish_plaque": "Gilded Bamboo Fish Plaque",
   "block.fishofthieves.gilded_crimson_fish_plaque": "Драгоценная багровая вывеска для рыбы",
   "block.fishofthieves.gilded_warped_fish_plaque": "Драгоценная искажённая вывеска для рыбы",
@@ -268,6 +272,8 @@
   "entity.fishofthieves.stormfish.wild": "Дикий",
   "entity.fishofthieves.stormfish.shadow": "Призрачный",
   "entity.fishofthieves.stormfish.twilight": "Сумеречный",
+
+  "entity.fishofthieves.coconut_chest_boat": "Coconut Boat with Chest",
 
   "biome.fishofthieves.tropical_island": "Tropical Island",
 

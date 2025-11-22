@@ -29,6 +29,7 @@ public interface FOTSpawnConditions
     MapCodec<? extends SpawnCondition> BOOLEAN_ENVIRONMENT_ATTRIBUTE = register("boolean_environment_attribute", BooleanEnvironmentAttributeCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_BRIGHTNESS = register("sky_brightness", SkyBrightnessCheck.CODEC);
     MapCodec<? extends SpawnCondition> SKY_DARKEN = register("sky_darken", SkyDarkenCheck.CODEC);
+    MapCodec<? extends SpawnCondition> LIVING_ENTITY_HAS_EFFECT = register("living_entity_has_effect", LivingEntityHasEffectCondition.CODEC);
 
     static void init()
     {

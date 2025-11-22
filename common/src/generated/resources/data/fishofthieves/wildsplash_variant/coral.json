@@ -22,7 +22,7 @@
               "type": "fishofthieves:minimum_block_range",
               "blocks": "#fishofthieves:coral_wildsplash_spawnable_on",
               "range": 4,
-              "size": 24
+              "size": 16
             }
           ]
         },
