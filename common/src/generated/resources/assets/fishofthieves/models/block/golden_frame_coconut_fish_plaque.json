@@ -1,6 +1,7 @@
 {
   "parent": "fishofthieves:block/template_golden_frame_fish_plaque",
   "textures": {
+    "fish_plaque": "fishofthieves:block/golden_frame_fish_plaque",
     "planks": "fishofthieves:block/coconut_planks"
   }
 }

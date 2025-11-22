@@ -83,6 +83,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
                 FOTBlocks.DARK_OAK_FISH_PLAQUE.asItem(), FOTBlocks.MANGROVE_FISH_PLAQUE.asItem(), FOTBlocks.CHERRY_FISH_PLAQUE.asItem(),
                 FOTBlocks.BAMBOO_FISH_PLAQUE.asItem(), FOTBlocks.COCONUT_FISH_PLAQUE.asItem());
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
+        this.copy(FOTTags.Blocks.COPPER_FRAME_FISH_PLAQUE, FOTTags.Items.COPPER_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);

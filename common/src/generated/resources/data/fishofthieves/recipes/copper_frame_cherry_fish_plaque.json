@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "copper_frame_fish_plaque",
+  "key": {
+    "F": {
+      "item": "fishofthieves:cherry_fish_plaque"
+    },
+    "N": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NFN",
+    " N "
+  ],
+  "result": {
+    "item": "fishofthieves:copper_frame_cherry_fish_plaque"
+  },
+  "show_notification": true
+}

@@ -48,6 +48,18 @@ public class FOTBlocks
     public static final Block IRON_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
     public static final Block IRON_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
 
+    public static final Block COPPER_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_JUNGLE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(JUNGLE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_ACACIA_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(ACACIA_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_DARK_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(DARK_OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_MANGROVE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(MANGROVE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_CHERRY_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CHERRY_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_BAMBOO_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BAMBOO_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_CRIMSON_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(CRIMSON_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+    public static final Block COPPER_FRAME_WARPED_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(WARPED_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
+
     public static final Block GOLDEN_FRAME_OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(OAK_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
     public static final Block GOLDEN_FRAME_SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(SPRUCE_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
     public static final Block GOLDEN_FRAME_BIRCH_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(BIRCH_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
@@ -152,6 +164,7 @@ public class FOTBlocks
     public static final Block COCONUT_WALL_HANGING_SIGN = new FOTWallHangingSignBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_LOG.defaultMapColor()).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava(), FOTWoodTypes.COCONUT);
     public static final Block COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(COCONUT_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
     public static final Block IRON_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
+    public static final Block COPPER_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.IRON);
     public static final Block GOLDEN_FRAME_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GOLDEN);
     public static final Block GILDED_COCONUT_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.copy(COCONUT_FISH_PLAQUE), FishPlaqueBlock.Type.GILDED);
 
@@ -182,6 +195,18 @@ public class FOTBlocks
         register("iron_frame_bamboo_fish_plaque", IRON_FRAME_BAMBOO_FISH_PLAQUE);
         register("iron_frame_crimson_fish_plaque", IRON_FRAME_CRIMSON_FISH_PLAQUE);
         register("iron_frame_warped_fish_plaque", IRON_FRAME_WARPED_FISH_PLAQUE);
+
+        register("copper_frame_oak_fish_plaque", COPPER_FRAME_OAK_FISH_PLAQUE);
+        register("copper_frame_spruce_fish_plaque", COPPER_FRAME_SPRUCE_FISH_PLAQUE);
+        register("copper_frame_birch_fish_plaque", COPPER_FRAME_BIRCH_FISH_PLAQUE);
+        register("copper_frame_jungle_fish_plaque", COPPER_FRAME_JUNGLE_FISH_PLAQUE);
+        register("copper_frame_acacia_fish_plaque", COPPER_FRAME_ACACIA_FISH_PLAQUE);
+        register("copper_frame_dark_oak_fish_plaque", COPPER_FRAME_DARK_OAK_FISH_PLAQUE);
+        register("copper_frame_mangrove_fish_plaque", COPPER_FRAME_MANGROVE_FISH_PLAQUE);
+        register("copper_frame_cherry_fish_plaque", COPPER_FRAME_CHERRY_FISH_PLAQUE);
+        register("copper_frame_bamboo_fish_plaque", COPPER_FRAME_BAMBOO_FISH_PLAQUE);
+        register("copper_frame_crimson_fish_plaque", COPPER_FRAME_CRIMSON_FISH_PLAQUE);
+        register("copper_frame_warped_fish_plaque", COPPER_FRAME_WARPED_FISH_PLAQUE);
 
         register("golden_frame_oak_fish_plaque", GOLDEN_FRAME_OAK_FISH_PLAQUE);
         register("golden_frame_spruce_fish_plaque", GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
@@ -265,6 +290,7 @@ public class FOTBlocks
         registerNoItem("coconut_wall_hanging_sign", COCONUT_WALL_HANGING_SIGN);
         register("coconut_fish_plaque", COCONUT_FISH_PLAQUE);
         register("iron_frame_coconut_fish_plaque", IRON_FRAME_COCONUT_FISH_PLAQUE);
+        register("copper_frame_coconut_fish_plaque", COPPER_FRAME_COCONUT_FISH_PLAQUE);
         register("golden_frame_coconut_fish_plaque", GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
         register("gilded_coconut_fish_plaque", GILDED_COCONUT_FISH_PLAQUE);
     }

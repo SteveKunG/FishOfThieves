@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "fishofthieves:copper_frame_oak_fish_plaque",
+    "fishofthieves:copper_frame_spruce_fish_plaque",
+    "fishofthieves:copper_frame_birch_fish_plaque",
+    "fishofthieves:copper_frame_jungle_fish_plaque",
+    "fishofthieves:copper_frame_acacia_fish_plaque",
+    "fishofthieves:copper_frame_dark_oak_fish_plaque",
+    "fishofthieves:copper_frame_mangrove_fish_plaque",
+    "fishofthieves:copper_frame_cherry_fish_plaque",
+    "fishofthieves:copper_frame_bamboo_fish_plaque",
+    "fishofthieves:copper_frame_crimson_fish_plaque",
+    "fishofthieves:copper_frame_warped_fish_plaque",
+    "fishofthieves:copper_frame_coconut_fish_plaque"
+  ]
+}

@@ -31,8 +31,11 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
 
         consumer.accept(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(UniformGenerator.between(2.0F, 4.0F))
+                        .setRolls(UniformGenerator.between(1.0F, 2.0F))
                         .add(TagEntry.expandTag(FOTTags.Items.IRON_FRAME_FISH_PLAQUE)))
+                .withPool(LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(1.0F, 2.0F))
+                        .add(TagEntry.expandTag(FOTTags.Items.COPPER_FRAME_FISH_PLAQUE)))
                 .withPool(LootPool.lootPool()
                         .setRolls(UniformGenerator.between(4.0F, 8.0F))
                         .add(TagEntry.expandTag(FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE))));
