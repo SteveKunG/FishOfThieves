@@ -9,11 +9,21 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public abstract class ReturnedOnConsumeItem extends Item
+public class ReturnedOnConsumeItem extends Item
 {
-    public ReturnedOnConsumeItem(Properties properties)
+    private final Item returnedItem;
+    private final float chance;
+
+    public ReturnedOnConsumeItem(Properties properties, Item returnedItem, float chance)
     {
         super(properties);
+        this.returnedItem = returnedItem;
+        this.chance = chance;
+    }
+
+    public ReturnedOnConsumeItem(Properties properties, Item returnedItem)
+    {
+        this(properties, returnedItem, 1.0f);
     }
 
     @Override
@@ -27,24 +37,27 @@ public abstract class ReturnedOnConsumeItem extends Item
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
+        var hasChance = level.getRandom().nextFloat() <= this.chance;
+
         if (itemStack.isEmpty())
         {
-            return new ItemStack(this.getReturnedItem());
+            return hasChance ? new ItemStack(this.returnedItem) : itemStack;
         }
         else
         {
             if (livingEntity instanceof Player player && !player.getAbilities().instabuild)
             {
-                var itemStack1 = new ItemStack(this.getReturnedItem());
-
-                if (!player.getInventory().add(itemStack1))
+                if (hasChance)
                 {
-                    player.drop(itemStack1, false);
+                    var itemStack1 = new ItemStack(this.returnedItem);
+
+                    if (!player.getInventory().add(itemStack1))
+                    {
+                        player.drop(itemStack1, false);
+                    }
                 }
             }
             return itemStack;
         }
     }
-
-    protected abstract Item getReturnedItem();
 }
