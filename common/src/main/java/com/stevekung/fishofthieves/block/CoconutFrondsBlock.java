@@ -52,7 +52,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.7F)
         {
             CauldronUtils.fillCauldronFromLeavesTail(state, level, pos);
         }
@@ -153,42 +153,39 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
     {
-        if (level.isRainingAt(pos.above()))
+        if (level.isRainingAt(pos.above()) && random.nextInt(8) == 0)
         {
-            if (random.nextInt(8) == 0)
+            var direction = state.getValue(FACING);
+
+            switch (state.getValue(PART))
             {
-                var direction = state.getValue(FACING);
-
-                switch (state.getValue(PART))
+                case MIDDLE ->
                 {
-                    case MIDDLE ->
-                    {
-                        var blockPos = pos.below();
-                        var blockState = level.getBlockState(blockPos);
+                    var blockPos = pos.below();
+                    var blockState = level.getBlockState(blockPos);
 
-                        if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
-                        {
-                            var x = pos.getX() + random.nextDouble();
-                            var y = pos.getY() + 0.75d;
-                            var z = pos.getZ() + random.nextDouble();
-                            level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
-                        }
-                    }
-                    case STEM ->
+                    if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
                     {
-                        var component = new AngledLeavesComponent(-22.5d, 1d, 0d);
-                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), 0.3d, 2, true, true, component);
+                        var x = pos.getX() + random.nextDouble();
+                        var y = pos.getY() + 0.75d;
+                        var z = pos.getZ() + random.nextDouble();
+                        level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
                     }
-                    case SINGLE ->
-                    {
-                        var component = new AngledLeavesComponent(-22.5d, 1d, 30d);
-                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), -0.1d, 2, false, true, component);
-                    }
-                    case TAIL ->
-                    {
-                        var component = new AngledLeavesComponent(22.5d, 0.9d, 35d);
-                        ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 8), 0.25d, 4, false, true, component);
-                    }
+                }
+                case STEM ->
+                {
+                    var component = new AngledLeavesComponent(-22.5d, 1d, 0d);
+                    ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), 0.3d, 2, true, true, component);
+                }
+                case SINGLE ->
+                {
+                    var component = new AngledLeavesComponent(-22.5d, 1d, 30d);
+                    ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), -0.1d, 2, false, true, component);
+                }
+                case TAIL ->
+                {
+                    var component = new AngledLeavesComponent(22.5d, 0.9d, 35d);
+                    ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 8), 0.25d, 4, false, true, component);
                 }
             }
         }
