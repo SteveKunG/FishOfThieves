@@ -12,11 +12,15 @@ loom {
             if (project.hasProperty("usernameAndUUID")) {
                 programArgs project.usernameAndUUID
             }
+            name "Minecraft Client " + minecraft_version
+        }
+        server {
+            name "Minecraft Server " + minecraft_version
         }
         data {
             serverData()
             programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
-            name "NeoForge Data Generation"
+            name "NeoForge Data Generation " + minecraft_version
         }
     }
 }
