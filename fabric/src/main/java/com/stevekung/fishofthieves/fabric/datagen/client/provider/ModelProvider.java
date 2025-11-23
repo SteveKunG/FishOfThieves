@@ -165,6 +165,7 @@ public class ModelProvider extends FabricModelProvider
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE, Blocks.DARK_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, Blocks.MANGROVE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, Blocks.CHERRY_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE, Blocks.PALE_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
         this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);

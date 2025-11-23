@@ -59,6 +59,7 @@ public class FOTItems
     public static final Item COPPER_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE);
     public static final Item COPPER_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE);
     public static final Item COPPER_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE);
     public static final Item COPPER_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE);
     public static final Item COPPER_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE);
     public static final Item COPPER_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE);

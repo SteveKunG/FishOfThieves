@@ -79,6 +79,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
