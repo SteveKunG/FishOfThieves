@@ -31,6 +31,9 @@ loom {
             }
             programArgs "--quickPlaySingleplayer", "TerraBlender"
         }
+        server {
+            vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
+        }
         gametest {
             if (project.hasProperty("usernameAndUUID")) {
                 programArgs project.usernameAndUUID
