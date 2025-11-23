@@ -62,13 +62,13 @@ public class FOTItems
     public static final Item COCONUT = new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT));
     public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
     public static final Item HALF_PINEAPPLE = new Item(new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE));
-    public static final Item PINEAPPLE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE), FOTItems.HALF_PINEAPPLE);
-    public static final Item CROWNLESS_PINEAPPLE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE), FOTItems.HALF_PINEAPPLE);
+    public static final Item PINEAPPLE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE), () -> FOTItems.HALF_PINEAPPLE);
+    public static final Item CROWNLESS_PINEAPPLE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.PINEAPPLE), () -> FOTItems.HALF_PINEAPPLE);
     public static final Item PINEAPPLE_SEEDS = new PineappleBlockItem(false, new Item.Properties());
     public static final Item PINEAPPLE_CROWN = new PineappleBlockItem(true, new Item.Properties());
-    public static final Item MANGO = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.MANGO), FOTItems.MANGO_PIT, 0.2f);
-    public static final Item RAW_MANGO = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO), FOTItems.MANGO_PIT, 0.2f);
-    public static final Item POMEGRANATE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE), FOTItems.POMEGRANATE_SEEDS, 0.6f);
+    public static final Item MANGO = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.MANGO), () -> FOTItems.MANGO_PIT, 0.2f);
+    public static final Item RAW_MANGO = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.RAW_MANGO), () -> FOTItems.MANGO_PIT, 0.2f);
+    public static final Item POMEGRANATE = new ReturnedOnConsumeItem(new Item.Properties().food(FOTFoodProperties.POMEGRANATE), () -> FOTItems.POMEGRANATE_SEEDS, 0.6f);
     public static final Item GUARDIAN_FRUIT = new GuardianFruitItem(new Item.Properties().food(FOTFoodProperties.GUARDIAN_FRUIT));
 
     public static final Item STORMFISH_POTTERY_SHERD = new Item(new Item.Properties());
