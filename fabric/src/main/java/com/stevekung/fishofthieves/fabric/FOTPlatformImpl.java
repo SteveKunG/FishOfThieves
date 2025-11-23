@@ -3,8 +3,11 @@ package com.stevekung.fishofthieves.fabric;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Lifecycle;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -174,6 +177,41 @@ public class FOTPlatformImpl
             {
                 ServerPlayNetworking.send(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, buff);
             }
+        }
+    }
+
+    public static void syncShoalFish(Shoal shoal)
+    {
+        if (shoal.getShoalFish().isEmpty())
+        {
+            return;
+        }
+
+        var buff = PacketByteBufs.create();
+        buff.writeVarInt(shoal.getId());
+        buff.writeCollection(shoal.getShoalFish(), (buf, shoalFish) ->
+        {
+            buf.writeUtf(shoalFish.id());
+            buf.writeNbt(shoalFish.data());
+        });
+
+        for (var serverPlayer : PlayerLookup.tracking(shoal))
+        {
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_SHOAL_FISH))
+            {
+                ServerPlayNetworking.send(serverPlayer, FishOfThieves.SYNC_SHOAL_FISH, buff);
+            }
+        }
+    }
+
+    public static void requestShoalFish(Shoal shoal)
+    {
+        var buff = PacketByteBufs.create();
+        buff.writeVarInt(shoal.getId());
+
+        if (ClientPlayNetworking.canSend(FishOfThieves.REQUEST_SHOAL_FISH))
+        {
+            ClientPlayNetworking.send(FishOfThieves.REQUEST_SHOAL_FISH, buff);
         }
     }
 }

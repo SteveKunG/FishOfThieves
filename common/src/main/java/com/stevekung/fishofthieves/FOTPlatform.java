@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -170,6 +172,18 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void syncShoalFish(Shoal shoal)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void requestShoalFish(Shoal shoal)
     {
         throw new AssertionError();
     }

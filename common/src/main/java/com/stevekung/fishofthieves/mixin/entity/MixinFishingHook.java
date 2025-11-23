@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
@@ -23,7 +24,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -133,7 +133,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
             ordinal = 1))
     private void fishofthieves$fishUpShoal(ItemStack itemStack, CallbackInfoReturnable<Integer> info, @Local Player player)
     {
-        var shoals = this.level().getEntitiesOfClass(Interaction.class, this.getBoundingBox().inflate(5), Entity::isAlive);
+        var shoals = this.level().getEntitiesOfClass(Shoal.class, this.getBoundingBox().inflate(5), Entity::isAlive);
 
         if (!shoals.isEmpty())
         {

@@ -3,7 +3,9 @@ package com.stevekung.fishofthieves.fabric;
 import java.util.ArrayList;
 
 import com.mojang.datafixers.util.Pair;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
@@ -15,6 +17,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -27,8 +30,12 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.level.ChunkPos;
@@ -139,6 +146,8 @@ public class FishOfThievesFabric implements ModInitializer
                 sendStructurePosDebugPacket(level, chunk.getPos());
             }
         });
+
+        ServerPlayNetworking.registerGlobalReceiver(FishOfThieves.REQUEST_SHOAL_FISH, FishOfThievesFabric::requestShoalFish);
     }
 
     private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)
@@ -172,5 +181,20 @@ public class FishOfThievesFabric implements ModInitializer
                 }
             }
         }
+    }
+
+    public static void requestShoalFish(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender)
+    {
+        var entityId = buf.readVarInt();
+
+        server.execute(() ->
+        {
+            var shoal = (Shoal) player.level().getEntity(entityId);
+
+            if (shoal != null)
+            {
+                FOTPlatform.syncShoalFish(shoal);
+            }
+        });
     }
 }

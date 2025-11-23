@@ -1,26 +1,36 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
+import com.stevekung.fishofthieves.FOTPlatform;
+import com.stevekung.fishofthieves.registry.FOTEntities;
+
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.AABB;
 
 public class Shoal extends Entity
 {
-    private static final EntityDataAccessor<Float> DATA_WIDTH_ID = SynchedEntityData.defineId(Shoal.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> DATA_HEIGHT_ID = SynchedEntityData.defineId(Shoal.class, EntityDataSerializers.FLOAT);
+    private static final List<EntityType<?>> COMMON_FISH = List.of(FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ANCIENTSCALE, FOTEntities.ISLEHOPPER, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH);
+
+    private static final List<EntityType<?>> TIER_1_FISH_QUEST = List.of(FOTEntities.PONDIE, FOTEntities.ANCIENTSCALE, FOTEntities.WRECKER, FOTEntities.DEVILFISH, FOTEntities.ISLEHOPPER);
+    private static final List<EntityType<?>> TIER_2_FISH_QUEST = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
+
+    private static final Function<Level, List<Entity>> TIER1 = Util.memoize(level -> pickRandom(TIER_1_FISH_QUEST).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
+    private static final Function<Level, List<Entity>> TIER2 = Util.memoize(level -> pickRandom(TIER_2_FISH_QUEST).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
+
+//    private final List<ShoalFish> shoalFish = new ArrayList<>(List.of(new ShoalFish(EntityType.getKey(FOTEntities.SPLASHTAIL).toString(), Util.make(new CompoundTag(), tag -> tag.putString("variant", "fishofthieves:seafoam")))));
+    private final List<ShoalFishData> shoalFishData = new ArrayList<>();
+    private List<LivingEntity> shoalFishClient = new ArrayList<>();
 
     public Shoal(EntityType<?> entityType, Level level)
     {
@@ -31,52 +41,49 @@ public class Shoal extends Entity
     @Override
     protected void defineSynchedData()
     {
-        this.entityData.define(DATA_WIDTH_ID, 2.0F);
-        this.entityData.define(DATA_HEIGHT_ID, 1.0F);
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound)
     {
-        if (compound.contains("width", 99))
+        this.shoalFishData.clear();
+        var listTag = compound.getList("shoal_fish", CompoundTag.TAG_COMPOUND);
+
+        for (var i = 0; i < listTag.size(); i++)
         {
-            this.setWidth(compound.getFloat("width"));
-        }
-        if (compound.contains("height", 99))
-        {
-            this.setHeight(compound.getFloat("height"));
+            var compoundTag = listTag.getCompound(i);
+//            System.out.println(compoundTag);
+            this.shoalFishData.add(new ShoalFishData(compoundTag.getString("id"), compoundTag.getCompound("data")));
         }
 
-        this.setBoundingBox(this.makeBoundingBox());
+        if (!this.level().isClientSide())
+        {
+            FOTPlatform.syncShoalFish(this);
+            System.out.println("send packet on readAdditionalSaveData");
+        }
+        //(LivingEntity) Util.getRandom(COMMON_FISH, this.random).create(this.level())
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound)
     {
-        compound.putFloat("width", this.getWidth());
-        compound.putFloat("height", this.getHeight());
-    }
+        var listTag = new ListTag();
 
-    @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key)
-    {
-        super.onSyncedDataUpdated(key);
-        if (DATA_HEIGHT_ID.equals(key) || DATA_WIDTH_ID.equals(key))
+        for (var fish : this.shoalFishData)
         {
-            this.setBoundingBox(this.makeBoundingBox());
+            var compoundTag = new CompoundTag();
+            compoundTag.putString("id", fish.id());
+            compoundTag.put("data", fish.data());
+
+            listTag.add(compoundTag);
         }
+        compound.put("shoal_fish", listTag);
     }
 
     @Override
     public boolean canBeHitByProjectile()
     {
         return false;
-    }
-
-    @Override
-    public boolean isPickable()
-    {
-        return true;
     }
 
     @Override
@@ -88,66 +95,56 @@ public class Shoal extends Entity
     @Override
     public boolean skipAttackInteraction(Entity entity)
     {
-        if (entity instanceof Player player)
-        {
-            if (player instanceof ServerPlayer serverPlayer)
-            {
-                CriteriaTriggers.PLAYER_HURT_ENTITY.trigger(serverPlayer, this, player.damageSources().generic(), 1.0F, 1.0F, false);
-            }
-
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    @Override
-    public InteractionResult interact(Player player, InteractionHand hand)
-    {
-            return InteractionResult.PASS;
+        return true;
     }
 
     @Override
     public void tick()
     {
-    }
-
-    private void setWidth(float width)
-    {
-        this.entityData.set(DATA_WIDTH_ID, width);
-    }
-
-    private float getWidth()
-    {
-        return this.entityData.get(DATA_WIDTH_ID);
-    }
-
-    private void setHeight(float height)
-    {
-        this.entityData.set(DATA_HEIGHT_ID, height);
-    }
-
-    private float getHeight()
-    {
-        return this.entityData.get(DATA_HEIGHT_ID);
-    }
-
-    private EntityDimensions getDimensions()
-    {
-        return EntityDimensions.scalable(this.getWidth(), this.getHeight());
+        super.tick();
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose)
+    public void recreateFromPacket(ClientboundAddEntityPacket packet)
     {
-        return this.getDimensions();
+        super.recreateFromPacket(packet);
+        System.out.println("recreateFromPacket");
+        FOTPlatform.requestShoalFish(this);
     }
 
-    @Override
-    protected AABB makeBoundingBox()
+    public void syncShoalFish(List<ShoalFishData> shoalFishData)
     {
-        return this.getDimensions().makeBoundingBox(this.position());
+        System.out.println("shoalFish " + shoalFishData);
+        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != this.shoalFishData.size())
+        {
+            this.shoalFishClient = shoalFishData.stream()
+                    .map(shoalFishData1 ->
+                    {
+                        var compoundTag = shoalFishData1.data();
+                        compoundTag.putString("id", shoalFishData1.id());
+//                        System.out.println(compoundTag);
+                        return EntityType.loadEntityRecursive(compoundTag, this.level(), Function.identity());
+                    })
+                    .filter(LivingEntity.class::isInstance)
+                    .map(LivingEntity.class::cast)
+                    .peek(livingEntity -> livingEntity.wasTouchingWater = true)
+                    .toList();
+        }
+        System.out.println("SYNCCCCC");
+    }
+
+    public List<ShoalFishData> getShoalFish()
+    {
+        return this.shoalFishData;
+    }
+
+    public List<LivingEntity> getShoalFishClient()
+    {
+        return this.shoalFishClient;
+    }
+
+    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list)
+    {
+        return new Random().ints(0, list.size()).distinct().limit(3).mapToObj(list::get).toList();
     }
 }

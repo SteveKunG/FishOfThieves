@@ -1,18 +1,12 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.mixin.client.accessor.EntityRenderDispatcherAccessor;
-import com.stevekung.fishofthieves.registry.FOTEntities;
 
-import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -21,18 +15,10 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 
 public class ShoalRenderer extends EntityRenderer<Shoal>
 {
-    private static final List<EntityType<?>> TIER_1_FISH = List.of(FOTEntities.PONDIE, FOTEntities.ANCIENTSCALE, FOTEntities.WRECKER, FOTEntities.DEVILFISH, FOTEntities.ISLEHOPPER);
-    private static final List<EntityType<?>> TIER_2_FISH = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
-
-    private static final Function<Level, List<Entity>> TIER1 = Util.memoize(level -> pickRandom(TIER_1_FISH).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
-    private static final Function<Level, List<Entity>> TIER2 = Util.memoize(level -> pickRandom(TIER_2_FISH).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
-
     private final EntityRenderDispatcher entityRenderDispatcher;
 
     public ShoalRenderer(EntityRendererProvider.Context context)
@@ -48,7 +34,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
     {
         poseStack.pushPose();
         var ageInTicks = shoal.tickCount + partialTicks;
-        var list = (shoal.getId() % 2 == 0 ? TIER1 : TIER2).apply(shoal.level());
+        var list = shoal.getShoalFishClient();
 
         var offsetPerFish = 360F / list.size();
         var modifier = 15F;
@@ -143,10 +129,5 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
     public ResourceLocation getTextureLocation(Shoal entity)
     {
         return null;
-    }
-
-    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list)
-    {
-        return new Random().ints(0, list.size()).distinct().limit(3).mapToObj(list::get).toList();
     }
 }

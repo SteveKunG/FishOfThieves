@@ -52,6 +52,8 @@ public class FishOfThieves
 
     public static final ResourceLocation RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
     public static final ResourceLocation STRUCTURE_CENTER_POS_DEBUG = FishOfThieves.id("structure_center_pos_debug");
+    public static final ResourceLocation SYNC_SHOAL_FISH = FishOfThieves.id("sync_shoal_fish");
+    public static final ResourceLocation REQUEST_SHOAL_FISH = FishOfThieves.id("request_shoal_fish");
 
     public static ResourceLocation id(String path)
     {
