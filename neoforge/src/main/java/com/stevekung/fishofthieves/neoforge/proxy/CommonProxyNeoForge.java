@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 import com.stevekung.fishofthieves.FOTPlatform;
@@ -66,7 +67,7 @@ public class CommonProxyNeoForge
         {
             if (id.equals(resourceKey))
             {
-                injectLoot(table, function.apply(LootPool.lootPool(), provider).entries);
+                injectLoot(table, id.location().toString(), function.apply(LootPool.lootPool(), provider).entries);
             }
         });
         FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
@@ -108,11 +109,20 @@ public class CommonProxyNeoForge
         }
     }
 
-    private static void injectLoot(LootTable table, ImmutableList.Builder<LootPoolEntryContainer> builder)
+    private static void injectLoot(LootTable table, String id, ImmutableList.Builder<LootPoolEntryContainer> builder)
     {
-        var pool = table.getPool("main");
-        pool.entries = new ArrayList<>(pool.entries);
-        pool.entries.addAll(builder.build());
+        var pool = Objects.requireNonNullElse(table.getPool("main"), table.getPool("pool0"));
+
+        //noinspection ConstantValue
+        if (pool != null)
+        {
+            pool.entries = new ArrayList<>(pool.entries);
+            pool.entries.addAll(builder.build());
+        }
+        else
+        {
+            FishOfThieves.LOGGER.error("Couldn't inject loot into {}, please report to developer.", id);
+        }
     }
 
     private void registerSpawnPlacement(RegisterSpawnPlacementsEvent event)
