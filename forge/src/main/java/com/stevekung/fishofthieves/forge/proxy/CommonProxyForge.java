@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.forge.proxy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -74,7 +75,7 @@ public class CommonProxyForge
         {
             if (id.equals(resourceKey))
             {
-                injectLoot(table, function.apply(LootPool.lootPool()).entries);
+                injectLoot(table, id.toString(), function.apply(LootPool.lootPool()).entries);
             }
         });
         FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
@@ -115,9 +116,18 @@ public class CommonProxyForge
         FishOfThieves.getEntityAttributes().forEach((entityType, builder) -> event.put(entityType, builder.build()));
     }
 
-    private static void injectLoot(LootTable table, List<LootPoolEntryContainer> entries)
+    private static void injectLoot(LootTable table, String id, List<LootPoolEntryContainer> entries)
     {
-        var pool = table.getPool("main");
-        pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
+        var pool = Objects.requireNonNullElse(table.getPool("main"), table.getPool("pool0"));
+
+        //noinspection ConstantValue
+        if (pool != null)
+        {
+            pool.entries = ArrayUtils.addAll(pool.entries, entries.toArray(LootPoolEntryContainer[]::new));
+        }
+        else
+        {
+            FishOfThieves.LOGGER.error("Couldn't inject loot into {}, please report to developer.", id);
+        }
     }
 }
