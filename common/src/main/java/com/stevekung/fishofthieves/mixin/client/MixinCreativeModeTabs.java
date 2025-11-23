@@ -13,18 +13,18 @@ public interface MixinCreativeModeTabs
     @Accessor
     static CreativeModeTab.ItemDisplayParameters getCACHED_PARAMETERS()
     {
-        throw new AssertionError("Implemented via mixin");
+        throw new AssertionError();
     }
 
     @Accessor
     static void setCACHED_PARAMETERS(CreativeModeTab.ItemDisplayParameters parameters)
     {
-        throw new AssertionError("Implemented via mixin");
+        throw new AssertionError();
     }
 
     @Invoker
     static void invokeBuildAllTabContents(CreativeModeTab.ItemDisplayParameters parameters)
     {
-        throw new AssertionError("Implemented via mixin");
+        throw new AssertionError();
     }
 }

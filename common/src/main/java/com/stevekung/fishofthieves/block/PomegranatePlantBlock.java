@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -137,5 +138,11 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     {
         var age = Math.min(3, state.getValue(AGE) + 1);
         level.setBlock(pos, state.setValue(AGE, age), Block.UPDATE_CLIENTS);
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState state, PathComputationType type)
+    {
+        return false;
     }
 }

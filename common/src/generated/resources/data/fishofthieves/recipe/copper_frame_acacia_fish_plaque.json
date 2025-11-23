@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "copper_frame_fish_plaque",
+  "key": {
+    "F": "fishofthieves:acacia_fish_plaque",
+    "N": "minecraft:copper_ingot"
+  },
+  "pattern": [
+    " N ",
+    "NFN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "fishofthieves:copper_frame_acacia_fish_plaque"
+  }
+}

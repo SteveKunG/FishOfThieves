@@ -31,7 +31,7 @@ public class TropicalIslandRegion extends Region
         // Parameters are almost the same as mushroom islands because we can't generate islands manually
         // So replacing the mushroom island biome at the tropical temperature is the best choice
         var humidity = Climate.Parameter.span(-1.0F, 1.0F);
-        var continentalness = Climate.Parameter.span(-1.5F, -0.9F);
+        var continentalness = Climate.Parameter.span(-1.2F, -0.9F);
         var erosion = Climate.Parameter.span(-1.0F, 1.0F);
         var weirdness = Climate.Parameter.span(-1.0F, 1.0F);
         var depth = Climate.Parameter.point(0.0F);
@@ -45,6 +45,7 @@ public class TropicalIslandRegion extends Region
                 .weirdness(weirdness)
                 .depth(depth)
                 .build().forEach(point -> builder.add(point, FOTBiomes.TROPICAL_ISLAND));
+
         builder.build().forEach(mapper);
     }
 }

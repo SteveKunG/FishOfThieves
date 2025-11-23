@@ -143,6 +143,20 @@ public class FOTDisplayItems
         output.accept(FOTItems.IRON_FRAME_WARPED_FISH_PLAQUE);
         output.accept(FOTItems.IRON_FRAME_COCONUT_FISH_PLAQUE);
 
+        output.accept(FOTItems.COPPER_FRAME_OAK_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_SPRUCE_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_BIRCH_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_JUNGLE_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_ACACIA_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_DARK_OAK_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_MANGROVE_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_CHERRY_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_PALE_OAK_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_BAMBOO_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_CRIMSON_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_WARPED_FISH_PLAQUE);
+        output.accept(FOTItems.COPPER_FRAME_COCONUT_FISH_PLAQUE);
+
         output.accept(FOTItems.GOLDEN_FRAME_OAK_FISH_PLAQUE);
         output.accept(FOTItems.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
         output.accept(FOTItems.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
@@ -184,5 +198,6 @@ public class FOTDisplayItems
         output.accept(FOTItems.STORMFISH_POTTERY_SHERD);
         output.accept(FOTItems.KRAKEN_POTTERY_SHERD);
         output.accept(FOTItems.MEGALODON_POTTERY_SHERD);
+        output.accept(FOTItems.GREAT_MOUTH_POTTERY_SHERD);
     }
 }
