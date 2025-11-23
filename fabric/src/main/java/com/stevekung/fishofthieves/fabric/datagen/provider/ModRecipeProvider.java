@@ -14,10 +14,8 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -72,6 +70,20 @@ public class ModRecipeProvider extends RecipeProvider
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE);
+
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE);
 
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE);
@@ -142,6 +154,12 @@ public class ModRecipeProvider extends RecipeProvider
     private void addIronFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque)
     {
         this.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.IRON_NUGGET).define('F', fishPlaque).pattern("NNN").pattern("NFN").pattern("NNN").group("iron_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), this.has(fishPlaque)).save(this.output);
+    }
+
+    // TODO Switch to use copper nugget and change recipe in 1.21.10
+    private void addCopperFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque)
+    {
+        this.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.COPPER_INGOT).define('F', fishPlaque).pattern(" N ").pattern("NFN").pattern(" N ").group("copper_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), this.has(fishPlaque)).save(this.output);
     }
 
     private void addGoldenFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque)

@@ -64,7 +64,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
                 FOTItems.MANGO_SAPLING);
         this.valueLookupBuilder(ItemTags.SMALL_FLOWERS).add(FOTItems.BANANA_BLOSSOM, FOTItems.PINK_PLUMERIA, FOTItems.LIGHT_BLUE_PLUMERIA, FOTItems.WHITE_PLUMERIA);
         this.valueLookupBuilder(ItemTags.DECORATED_POT_SHERDS).add(FOTItems.STORMFISH_POTTERY_SHERD,
-                FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD);
+                FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD, FOTItems.GREAT_MOUTH_POTTERY_SHERD);
 
         this.valueLookupBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.valueLookupBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);
@@ -79,6 +79,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
                 FOTItems.DARK_OAK_FISH_PLAQUE, FOTItems.MANGROVE_FISH_PLAQUE, FOTItems.CHERRY_FISH_PLAQUE, FOTItems.PALE_OAK_FISH_PLAQUE,
                 FOTItems.BAMBOO_FISH_PLAQUE, FOTItems.COCONUT_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
+        this.copy(FOTTags.Blocks.COPPER_FRAME_FISH_PLAQUE, FOTTags.Items.COPPER_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GOLDEN_FRAME_FISH_PLAQUE, FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.GILDED_FRAME_FISH_PLAQUE, FOTTags.Items.GILDED_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COCONUT_LOGS, FOTTags.Items.COCONUT_LOGS);
