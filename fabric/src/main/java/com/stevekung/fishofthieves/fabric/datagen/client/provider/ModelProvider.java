@@ -120,6 +120,7 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.STORMFISH_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.KRAKEN_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.MEGALODON_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
+        generator.generateFlatItem(FOTItems.GREAT_MOUTH_POTTERY_SHERD, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.GUARDIAN_FRUIT, ModelTemplates.FLAT_ITEM);
     }
 
@@ -156,19 +157,33 @@ public class ModelProvider extends FabricModelProvider
         this.createFishPlaque(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.IRON_FRAME_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, FOTModelTemplates.IRON_FRAME_FISH_PLAQUE, generator);
 
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, Blocks.OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, Blocks.SPRUCE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE, Blocks.BIRCH_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE, Blocks.JUNGLE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE, Blocks.ACACIA_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE, Blocks.DARK_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, Blocks.MANGROVE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE, Blocks.CHERRY_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE, Blocks.PALE_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
-        this.createFishPlaque(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_OAK_FISH_PLAQUE, Blocks.OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_SPRUCE_FISH_PLAQUE, Blocks.SPRUCE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_BIRCH_FISH_PLAQUE, Blocks.BIRCH_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_JUNGLE_FISH_PLAQUE, Blocks.JUNGLE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_ACACIA_FISH_PLAQUE, Blocks.ACACIA_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE, Blocks.DARK_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, Blocks.MANGROVE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, Blocks.CHERRY_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE, Blocks.PALE_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "copper_frame_fish_plaque", generator);
+
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE, Blocks.OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE, Blocks.SPRUCE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE, Blocks.BIRCH_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_JUNGLE_FISH_PLAQUE, Blocks.JUNGLE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_ACACIA_FISH_PLAQUE, Blocks.ACACIA_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_DARK_OAK_FISH_PLAQUE, Blocks.DARK_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, Blocks.MANGROVE_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE, Blocks.CHERRY_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE, Blocks.PALE_OAK_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE, Blocks.BAMBOO_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, Blocks.CRIMSON_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, Blocks.WARPED_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
+        this.createFramedFishPlaque(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_PLANKS, FOTModelTemplates.GOLDEN_FRAME_FISH_PLAQUE, "golden_frame_fish_plaque", generator);
 
         this.createFishPlaque(FOTBlocks.GILDED_OAK_FISH_PLAQUE, Blocks.OAK_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
         this.createFishPlaque(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, Blocks.SPRUCE_PLANKS, FOTModelTemplates.GILDED_FISH_PLAQUE, generator);
@@ -1248,6 +1263,14 @@ public class ModelProvider extends FabricModelProvider
     private void createFishPlaque(Block block, Block planks, ModelTemplate template, BlockModelGenerators generator)
     {
         var textureMapping = this.planks(planks);
+        var resourceLocation = template.create(block, textureMapping, generator.modelOutput);
+        generator.registerSimpleFlatItemModel(block.asItem());
+        generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, plainVariant(resourceLocation)).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING));
+    }
+
+    private void createFramedFishPlaque(Block block, Block planks, ModelTemplate template, String framedTexture, BlockModelGenerators generator)
+    {
+        var textureMapping = this.planks(planks).put(FOTModelTemplates.FISH_PLAQUE, FishOfThieves.id("block/" + framedTexture));
         var resourceLocation = template.create(block, textureMapping, generator.modelOutput);
         generator.registerSimpleFlatItemModel(block.asItem());
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, plainVariant(resourceLocation)).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING));

@@ -76,6 +76,7 @@ public class FOTOverworldBiomes extends OverworldBiomes
     {
         builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.PIG, 4, 4));
         builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 4, 4));
+        builder.addSpawn(MobCategory.CREATURE, 30, new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 4, 4));
         builder.addSpawn(MobCategory.CREATURE, 20, new MobSpawnSettings.SpawnerData(EntityType.PARROT, 1, 2));
         builder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 3));
         BiomeDefaultFeatures.commonSpawns(builder);

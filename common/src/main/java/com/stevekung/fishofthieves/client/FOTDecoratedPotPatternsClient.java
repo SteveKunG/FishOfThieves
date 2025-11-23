@@ -13,6 +13,7 @@ public class FOTDecoratedPotPatternsClient
         Sheets.DECORATED_POT_MATERIALS.put(FOTDecoratedPotPatterns.STORMFISH, register(FOTDecoratedPotPatterns.STORMFISH_NAME));
         Sheets.DECORATED_POT_MATERIALS.put(FOTDecoratedPotPatterns.KRAKEN, register(FOTDecoratedPotPatterns.KRAKEN_NAME));
         Sheets.DECORATED_POT_MATERIALS.put(FOTDecoratedPotPatterns.MEGALODON, register(FOTDecoratedPotPatterns.MEGALODON_NAME));
+        Sheets.DECORATED_POT_MATERIALS.put(FOTDecoratedPotPatterns.GREAT_MOUTH, register(FOTDecoratedPotPatterns.GREAT_MOUTH_NAME));
     }
 
     private static Material register(String name)

@@ -104,7 +104,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
-        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.2F)
+        if (level.isRainingAt(pos.above()) && state.getValue(PART) == Part.TAIL && random.nextFloat() < 0.5F)
         {
             CauldronUtils.fillCauldronFromLeavesTail(state, level, pos);
         }
@@ -136,31 +136,28 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
     {
-        if (level.isRainingAt(pos.above()))
+        if (level.isRainingAt(pos.above()) && random.nextInt(4) == 0)
         {
-            if (random.nextInt(4) == 0)
+            if (state.getValue(PART) == Part.STEM)
             {
-                if (state.getValue(PART) == Part.STEM)
-                {
-                    var ySpawn = state.getValue(TYPE) == Type.UPPER ? 0.6d : 0.1d;
-                    var blockPos = pos.below();
-                    var blockState = level.getBlockState(blockPos);
+                var ySpawn = state.getValue(TYPE) == Type.UPPER ? 0.6d : 0.1d;
+                var blockPos = pos.below();
+                var blockState = level.getBlockState(blockPos);
 
-                    if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
-                    {
-                        var x = pos.getX() + random.nextDouble();
-                        var y = pos.getY() + ySpawn;
-                        var z = pos.getZ() + random.nextDouble();
-                        level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
-                    }
-                }
-                else
+                if (!blockState.canOcclude() || !blockState.isFaceSturdy(level, blockPos, Direction.UP))
                 {
-                    var direction = state.getValue(FACING);
-                    var yOffset = state.getValue(TYPE) == Type.UPPER ? 0.1d : -0.4d;
-                    var component = new AngledLeavesComponent(22.5d, 0.85d, 60d);
-                    ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), yOffset, 4, false, true, component);
+                    var x = pos.getX() + random.nextDouble();
+                    var y = pos.getY() + ySpawn;
+                    var z = pos.getZ() + random.nextDouble();
+                    level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0.0, 0.0, 0.0);
                 }
+            }
+            else
+            {
+                var direction = state.getValue(FACING);
+                var yOffset = state.getValue(TYPE) == Type.UPPER ? 0.1d : -0.4d;
+                var component = new AngledLeavesComponent(22.5d, 0.85d, 60d);
+                ParticleUtils.spawnDrippingWaterParticlesForLeaves(level, direction, pos, random, UniformInt.of(2, 6), yOffset, 4, false, true, component);
             }
         }
     }

@@ -29,6 +29,7 @@ public interface FOTTags
         TagKey<Item> FISH_PLAQUE_BUCKET_BLACKLIST = TagKey.create(Registries.ITEM, FishOfThieves.id("fish_plaque_bucket_blacklist"));
         TagKey<Item> WOODEN_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("wooden_fish_plaque"));
         TagKey<Item> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("iron_frame_fish_plaque"));
+        TagKey<Item> COPPER_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("copper_frame_fish_plaque"));
         TagKey<Item> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Item> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.ITEM, FishOfThieves.id("gilded_frame_fish_plaque"));
         TagKey<Item> COCONUT_LOGS = TagKey.create(Registries.ITEM, FishOfThieves.id("coconut_logs"));
@@ -53,6 +54,7 @@ public interface FOTTags
         TagKey<Block> FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("fish_plaque"));
         TagKey<Block> WOODEN_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("wooden_fish_plaque"));
         TagKey<Block> IRON_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("iron_frame_fish_plaque"));
+        TagKey<Block> COPPER_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("copper_frame_fish_plaque"));
         TagKey<Block> GOLDEN_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("golden_frame_fish_plaque"));
         TagKey<Block> GILDED_FRAME_FISH_PLAQUE = TagKey.create(Registries.BLOCK, FishOfThieves.id("gilded_frame_fish_plaque"));
         TagKey<Block> NON_FULL_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("non_full_logs"));

@@ -3,6 +3,12 @@ import groovy.json.JsonSlurper
 
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/common.gradle"
 
+loom {
+    mixin {
+        useLegacyMixinAp = true
+    }
+}
+
 dependencies {
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"

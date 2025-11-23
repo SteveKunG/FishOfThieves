@@ -37,6 +37,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -244,6 +245,12 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
         {
             this.grow(level, posAndState.state, posAndState.pos);
         }
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState state, PathComputationType type)
+    {
+        return false;
     }
 
     record PosAndState(BlockPos pos, BlockState state)

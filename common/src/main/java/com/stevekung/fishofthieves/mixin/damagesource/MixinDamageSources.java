@@ -19,7 +19,7 @@ public class MixinDamageSources implements FOTDamageSources
     @Shadow
     DamageSource source(ResourceKey<DamageType> damageTypeKey, @Nullable Entity entity)
     {
-        throw new AssertionError("Implemented via mixin");
+        throw new AssertionError();
     }
 
     @Override

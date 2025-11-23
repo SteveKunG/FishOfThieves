@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.block.BananaLeavesBlock;
+import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.item.predicate.BucketNbtPredicate;
@@ -248,8 +250,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .save(consumer, this.mod("fruit_diet"));
 
         Advancement.Builder.advancement().parent(tropicalIsland).requirements(AdvancementRequirements.Strategy.OR)
-                .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS))
-                .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, isTropicalIsland))
+                .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS, StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL), isTropicalIsland))
+                .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL), isTropicalIsland))
                 .display(FOTBlocks.COCONUT_FRONDS,
                         Component.translatable("advancements.fot.island_rainwater.title"),
                         Component.translatable("advancements.fot.island_rainwater.description"),

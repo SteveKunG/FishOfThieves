@@ -261,6 +261,7 @@ public class FOTLootManager
                 .add(LootItem.lootTableItem(FOTItems.STORMFISH_POTTERY_SHERD))
                 .add(LootItem.lootTableItem(FOTItems.KRAKEN_POTTERY_SHERD))
                 .add(LootItem.lootTableItem(FOTItems.MEGALODON_POTTERY_SHERD))
+                .add(LootItem.lootTableItem(FOTItems.GREAT_MOUTH_POTTERY_SHERD))
                 ;
     }
 

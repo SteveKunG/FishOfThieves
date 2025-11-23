@@ -1,0 +1,7 @@
+{
+  "parent": "fishofthieves:block/template_golden_frame_fish_plaque",
+  "textures": {
+    "fish_plaque": "fishofthieves:block/copper_frame_fish_plaque",
+    "planks": "minecraft:block/mangrove_planks"
+  }
+}
