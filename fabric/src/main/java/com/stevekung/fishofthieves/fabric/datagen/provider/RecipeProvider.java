@@ -75,6 +75,19 @@ public class RecipeProvider extends FabricRecipeProvider
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, output);
         addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE, output);
 
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BIRCH_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_JUNGLE_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_ACACIA_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, output);
+        addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE, output);
+
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_OAK_FISH_PLAQUE, FOTBlocks.OAK_FISH_PLAQUE, output);
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_SPRUCE_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, output);
         addGildedFishPlaqueRecipe(FOTBlocks.GILDED_BIRCH_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, output);
@@ -134,6 +147,12 @@ public class RecipeProvider extends FabricRecipeProvider
     private static void addGoldenFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque, RecipeOutput output)
     {
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block).define('G', Items.GOLD_NUGGET).define('F', fishPlaque).pattern("GGG").pattern("GFG").pattern("GGG").group("golden_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), has(fishPlaque)).save(output);
+    }
+
+    // TODO Switch to use copper nugget and change recipe in 1.21.10
+    private static void addCopperFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque, RecipeOutput output)
+    {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.COPPER_INGOT).define('F', fishPlaque).pattern(" N ").pattern("NFN").pattern(" N ").group("copper_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), has(fishPlaque)).save(output);
     }
 
     private static void addGildedFishPlaqueRecipe(Block block, ItemLike fishPlaque, RecipeOutput output)

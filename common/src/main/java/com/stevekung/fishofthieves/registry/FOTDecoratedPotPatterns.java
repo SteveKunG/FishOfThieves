@@ -14,16 +14,19 @@ public class FOTDecoratedPotPatterns
     private static final String STORMFISH_NAME = "stormfish_pottery_pattern";
     private static final String KRAKEN_NAME = "kraken_pottery_pattern";
     private static final String MEGALODON_NAME = "megalodon_pottery_pattern";
+    private static final String GREAT_MOUTH_NAME = "great_mouth_pottery_pattern";
 
     public static final ResourceKey<DecoratedPotPattern> STORMFISH = create(STORMFISH_NAME);
     public static final ResourceKey<DecoratedPotPattern> KRAKEN = create(KRAKEN_NAME);
     public static final ResourceKey<DecoratedPotPattern> MEGALODON = create(MEGALODON_NAME);
+    public static final ResourceKey<DecoratedPotPattern> GREAT_MOUTH = create(GREAT_MOUTH_NAME);
 
     public static void init()
     {
         register(STORMFISH_NAME);
         register(KRAKEN_NAME);
         register(MEGALODON_NAME);
+        register(GREAT_MOUTH_NAME);
     }
 
     public static void putItemsToPotTexture()
@@ -31,6 +34,7 @@ public class FOTDecoratedPotPatterns
         DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
         DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.KRAKEN_POTTERY_SHERD, FOTDecoratedPotPatterns.KRAKEN);
         DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.MEGALODON_POTTERY_SHERD, FOTDecoratedPotPatterns.MEGALODON);
+        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.GREAT_MOUTH_POTTERY_SHERD, FOTDecoratedPotPatterns.GREAT_MOUTH);
     }
 
     private static void register(String key)

@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.item;
 
+import java.util.function.Supplier;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -9,11 +11,21 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public abstract class ReturnedOnConsumeItem extends Item
+public class ReturnedOnConsumeItem extends Item
 {
-    public ReturnedOnConsumeItem(Properties properties)
+    private final Supplier<Item> returnedItem;
+    private final float chance;
+
+    public ReturnedOnConsumeItem(Properties properties, Supplier<Item> returnedItem, float chance)
     {
         super(properties);
+        this.returnedItem = returnedItem;
+        this.chance = chance;
+    }
+
+    public ReturnedOnConsumeItem(Properties properties, Supplier<Item> returnedItem)
+    {
+        this(properties, returnedItem, 1.0f);
     }
 
     @Override
@@ -27,24 +39,31 @@ public abstract class ReturnedOnConsumeItem extends Item
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        if (itemStack.isEmpty())
+        if (!level.isClientSide())
         {
-            return new ItemStack(this.getReturnedItem());
-        }
-        else
-        {
-            if (livingEntity instanceof Player player && !player.getAbilities().instabuild)
-            {
-                var itemStack1 = new ItemStack(this.getReturnedItem());
+            var hasChance = level.getRandom().nextFloat() <= this.chance;
 
-                if (!player.getInventory().add(itemStack1))
+            if (hasChance)
+            {
+                if (itemStack.isEmpty())
                 {
-                    player.drop(itemStack1, false);
+                    return new ItemStack(this.returnedItem.get());
+                }
+                else
+                {
+                    if (livingEntity instanceof Player player && !player.getAbilities().instabuild)
+                    {
+                        var itemStack1 = new ItemStack(this.returnedItem.get());
+
+                        if (!player.getInventory().add(itemStack1))
+                        {
+                            player.drop(itemStack1, false);
+                        }
+                    }
+                    return itemStack;
                 }
             }
-            return itemStack;
         }
+        return itemStack;
     }
-
-    protected abstract Item getReturnedItem();
 }

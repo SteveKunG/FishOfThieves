@@ -40,7 +40,7 @@ public class FOTFoodProperties
             .effect(new MobEffectInstance(MobEffects.JUMP, 200), 0.1F)
             //TODO New juicy effect
             .build();
-    public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
+    public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(4).saturationModifier(0.8f).build();
     public static final FoodProperties GUARDIAN_FRUIT = new FoodProperties.Builder().nutrition(8).saturationModifier(1.0f)
             .alwaysEdible()
             .effect(new MobEffectInstance(FOTMobEffects.GUARDIAN_STIFLE, 3600), 1.0f)

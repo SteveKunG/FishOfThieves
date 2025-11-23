@@ -68,6 +68,18 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropSelf(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
 
+        this.dropSelf(FOTBlocks.COPPER_FRAME_OAK_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_SPRUCE_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_BIRCH_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_JUNGLE_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_ACACIA_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE);
+
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
@@ -141,6 +153,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.add(FOTBlocks.COCONUT_SLAB, this::createSlabItemTable);
         this.dropSelf(FOTBlocks.COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
+        this.dropSelf(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
         this.dropSelf(FOTBlocks.COCONUT_SIGN);

@@ -61,9 +61,9 @@ public class FOTPlacements
         PlacementUtils.register(context, PATCH_MELON_TROPICAL, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_MELON), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, TREES_COCONUT, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.1F, 1)));
         PlacementUtils.register(context, TREES_COCONUT_TROPICAL_ISLAND, holderGetter.getOrThrow(FOTFeatures.TREES_COCONUT), ImmutableList.<PlacementModifier>builder()
-                .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(4, 0.1F, 1)))
-                .add(VegetationFilter.vegetation(UniformFloat.of(-0.2f, 0.0f)))
-                .add(ContinentsFilter.continents(UniformFloat.of(-1.09f, -1.0f)))
+                .addAll(VegetationPlacements.treePlacement(PlacementUtils.countExtra(8, 0.1F, 1)))
+                .add(VegetationFilter.vegetation(UniformFloat.of(-0.2f, 0.4f)))
+                .add(ContinentsFilter.continents(UniformFloat.of(-1.1f, -0.9f)))
                 .build());
         PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), PlacementUtils.countExtra(8, 0.1F, 1), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
