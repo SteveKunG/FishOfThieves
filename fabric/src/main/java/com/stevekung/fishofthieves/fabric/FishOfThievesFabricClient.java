@@ -6,7 +6,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTDebugScreenEntries;
+import com.stevekung.fishofthieves.client.FOTDebugScreenEntries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;

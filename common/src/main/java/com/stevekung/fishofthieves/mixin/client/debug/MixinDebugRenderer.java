@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.client.renderer.debug.StructureCenterPosDebugRenderer;
-import com.stevekung.fishofthieves.registry.FOTDebugScreenEntries;
+import com.stevekung.fishofthieves.client.FOTDebugScreenEntries;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.debug.DebugRenderer;
