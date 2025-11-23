@@ -5,6 +5,8 @@ import java.util.TreeSet;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.block.BananaLeavesBlock;
+import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
@@ -226,8 +228,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
         var isTropicalIsland = LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND);
 
         Advancement.Builder.advancement().parent(tropicalIsland).requirements(RequirementsStrategy.OR)
-                .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS))
-                .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, isTropicalIsland))
+                .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS, StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL), isTropicalIsland))
+                .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL), isTropicalIsland))
                 .display(FOTBlocks.COCONUT_FRONDS,
                         Component.translatable("advancements.fot.island_rainwater.title"),
                         Component.translatable("advancements.fot.island_rainwater.description"),

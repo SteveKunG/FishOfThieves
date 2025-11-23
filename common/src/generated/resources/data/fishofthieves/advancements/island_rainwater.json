@@ -6,13 +6,22 @@
         "block": "fishofthieves:banana_leaves",
         "location": {
           "biome": "fishofthieves:tropical_island"
+        },
+        "state": {
+          "part": "tail"
         }
       },
       "trigger": "fishofthieves:water_drip_on_block"
     },
     "water_drip_from_coconut_fronds": {
       "conditions": {
-        "block": "fishofthieves:coconut_fronds"
+        "block": "fishofthieves:coconut_fronds",
+        "location": {
+          "biome": "fishofthieves:tropical_island"
+        },
+        "state": {
+          "part": "tail"
+        }
       },
       "trigger": "fishofthieves:water_drip_on_block"
     }

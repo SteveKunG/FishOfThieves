@@ -77,14 +77,14 @@ public class WaterDripOnBlockTrigger extends SimpleCriterionTrigger<WaterDripOnB
             this.location = location;
         }
 
-        public static TriggerInstance waterDrip(Block block)
+        public static TriggerInstance waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate)
         {
-            return new TriggerInstance(ContextAwarePredicate.ANY, block, StatePropertiesPredicate.ANY, LocationPredicate.ANY);
+            return new TriggerInstance(ContextAwarePredicate.ANY, block, statePredicate.build(), LocationPredicate.ANY);
         }
 
-        public static TriggerInstance waterDrip(Block block, LocationPredicate.Builder locationPredicate)
+        public static TriggerInstance waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate, LocationPredicate.Builder locationPredicate)
         {
-            return new TriggerInstance(ContextAwarePredicate.ANY, block, StatePropertiesPredicate.ANY, locationPredicate.build());
+            return new TriggerInstance(ContextAwarePredicate.ANY, block, statePredicate.build(), locationPredicate.build());
         }
 
         @Override
