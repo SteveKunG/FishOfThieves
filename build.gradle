@@ -1,7 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "com.gradleup.shadow" version "9.2.2" apply false
-    id "dev.architectury.loom" version "1.11-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.13-SNAPSHOT" apply false
     id "io.github.CDAGaming.cursegradle" version "1.6.1" apply false
     id "com.modrinth.minotaur" version "2.+" apply false
 }

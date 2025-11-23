@@ -39,19 +39,19 @@ public class WaterDripOnBlockTrigger extends SimpleCriterionTrigger<WaterDripOnB
                 LocationPredicate.CODEC.optionalFieldOf("location").forGetter(TriggerInstance::location)
         ).apply(instance, TriggerInstance::new));
 
-        public static Criterion<TriggerInstance> waterDrip(Block block)
+        public static Criterion<TriggerInstance> waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate)
         {
-            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), Optional.empty(), Optional.empty()));
+            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), statePredicate.build(), Optional.empty()));
         }
 
-        public static Criterion<TriggerInstance> waterDrip(Block block, LocationPredicate.Builder locationPredicate)
+        public static Criterion<TriggerInstance> waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate, LocationPredicate.Builder locationPredicate)
         {
-            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), Optional.empty(), Optional.of(locationPredicate.build())));
+            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), statePredicate.build(), Optional.of(locationPredicate.build())));
         }
 
         public boolean matches(BlockState state, ServerLevel serverLevel, double x, double y, double z)
         {
-            return (this.block.isEmpty() || state.is(this.block.get())) && this.state.get().matches(state) && this.location.get().matches(serverLevel, x, y, z);
+            return (this.block.isEmpty() || state.is(this.block.get())) && (this.state.isEmpty() || this.state.get().matches(state)) && (this.location.isEmpty() || this.location.get().matches(serverLevel, x, y, z));
         }
     }
 }

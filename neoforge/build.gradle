@@ -78,9 +78,7 @@ tasks.register("apiJar", Jar) {
     archiveClassifier = "api"
 }
 
-artifacts {
-    archives apiJar
-}
+assemble.dependsOn(apiJar)
 
 remapSourcesJar {
     archiveVersion = "v${mod_version}"

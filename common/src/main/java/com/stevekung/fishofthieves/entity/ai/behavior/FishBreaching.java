@@ -8,12 +8,12 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.animal.Bucketable;
 
 public class FishBreaching<E extends LivingEntity> extends Behavior<E>
 {
@@ -33,22 +33,24 @@ public class FishBreaching<E extends LivingEntity> extends Behavior<E>
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, E owner)
     {
+        if (owner instanceof Bucketable bucketable && bucketable.fromBucket())
+        {
+            return false;
+        }
+
         var direction = owner.getMotionDirection();
         var stepX = direction.getStepX();
         var stepZ = direction.getStepZ();
         var blockPos = owner.blockPosition();
-        var inWater = owner.isInWater();
 
-        if (!inWater)
-        {
-            owner.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, this.chance.sample(level.random));
-        }
         for (var scale : STEPS_TO_CHECK)
         {
-            var isClear = !this.waterIsClear(owner, blockPos, stepX, stepZ, scale) || !this.surfaceIsClear(owner, blockPos, stepX, stepZ, scale);
-            return inWater && !isClear;
+            if (!this.waterIsClear(owner, blockPos, stepX, stepZ, scale) || !this.surfaceIsClear(owner, blockPos, stepX, stepZ, scale))
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -64,23 +66,7 @@ public class FishBreaching<E extends LivingEntity> extends Behavior<E>
     protected void stop(ServerLevel level, E entity, long gameTime)
     {
         entity.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, this.chance.sample(level.random));
-    }
-
-    @Override
-    protected void tick(ServerLevel level, E owner, long gameTime)
-    {
-        var vec3 = owner.getDeltaMovement();
-
-        if (vec3.y * vec3.y < 0.03F && owner.getXRot() != 0.0F)
-        {
-            owner.setXRot(Mth.rotLerp(0.2F, owner.getXRot(), 0.0F));
-        }
-        else if (vec3.length() > 1.0E-5F)
-        {
-            var d = vec3.horizontalDistance();
-            var e = Math.atan2(-vec3.y, d) * 180.0F / (float) Math.PI;
-            owner.setXRot((float) e);
-        }
+        entity.setXRot(0.0F);
     }
 
     @SuppressWarnings("deprecation")

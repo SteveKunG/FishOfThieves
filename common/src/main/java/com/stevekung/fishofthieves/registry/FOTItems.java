@@ -51,6 +51,18 @@ public class FOTItems
     public static final Item IRON_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE);
     public static final Item IRON_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE);
 
+    public static final Item COPPER_FRAME_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_OAK_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_SPRUCE_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_BIRCH_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_JUNGLE_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_ACACIA_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_DARK_OAK_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE);
+
     public static final Item GOLDEN_FRAME_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_OAK_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_SPRUCE_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_BIRCH_FISH_PLAQUE);
@@ -127,6 +139,7 @@ public class FOTItems
     public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", properties -> new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, properties.stacksTo(16).useBlockDescriptionPrefix()));
     public static final Item COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COCONUT_FISH_PLAQUE);
     public static final Item IRON_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
+    public static final Item COPPER_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GILDED_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
 
@@ -182,19 +195,20 @@ public class FOTItems
     public static final Item COCONUT = register("coconut", properties -> new BlockItem(FOTBlocks.COCONUT_SAPLING, properties.useItemDescriptionPrefix().food(FOTFoodProperties.COCONUT)));
     public static final Item BANANA = register("banana", new Item.Properties().food(FOTFoodProperties.BANANA));
     public static final Item HALF_PINEAPPLE = register("half_pineapple", new Item.Properties().food(FOTFoodProperties.HALF_PINEAPPLE));
-    public static final Item PINEAPPLE = register("pineapple", properties -> new PineappleItem(properties.food(FOTFoodProperties.PINEAPPLE)));
-    public static final Item CROWNLESS_PINEAPPLE = register("crownless_pineapple", properties -> new PineappleItem(properties.food(FOTFoodProperties.PINEAPPLE)));
+    public static final Item PINEAPPLE = register("pineapple", properties -> new ReturnedOnConsumeItem(properties.food(FOTFoodProperties.PINEAPPLE), () -> FOTItems.HALF_PINEAPPLE));
+    public static final Item CROWNLESS_PINEAPPLE = register("crownless_pineapple", properties -> new ReturnedOnConsumeItem(properties.food(FOTFoodProperties.PINEAPPLE), () -> FOTItems.HALF_PINEAPPLE));
     public static final Item PINEAPPLE_SEEDS = register("pineapple_seeds", properties -> new PineappleBlockItem(false, properties.useItemDescriptionPrefix()));
     public static final Item PINEAPPLE_CROWN = register("pineapple_crown", properties -> new PineappleBlockItem(true, properties.useItemDescriptionPrefix()));
-    public static final Item MANGO = register("mango", properties -> new MangoItem(properties.food(FOTFoodProperties.MANGO)));
-    public static final Item RAW_MANGO = register("raw_mango", properties -> new MangoItem(properties.food(FOTFoodProperties.RAW_MANGO, FOTConsumables.RAW_MANGO_CONSUMABLE)));
-    public static final Item POMEGRANATE = register("pomegranate", properties -> new PomegranateItem(properties.food(FOTFoodProperties.POMEGRANATE)));
+    public static final Item MANGO = register("mango", properties -> new ReturnedOnConsumeItem(properties.food(FOTFoodProperties.MANGO), () -> FOTItems.MANGO_PIT, 0.2f));
+    public static final Item RAW_MANGO = register("raw_mango", properties -> new ReturnedOnConsumeItem(properties.food(FOTFoodProperties.RAW_MANGO, FOTConsumables.RAW_MANGO_CONSUMABLE), () -> FOTItems.MANGO_PIT, 0.2f));
+    public static final Item POMEGRANATE = register("pomegranate", properties -> new ReturnedOnConsumeItem(properties.food(FOTFoodProperties.POMEGRANATE), () -> FOTItems.POMEGRANATE_SEEDS, 0.6f));
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", properties -> new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, properties.useItemDescriptionPrefix()));
     public static final Item GUARDIAN_FRUIT = register("guardian_fruit", properties -> new GuardianFruitItem(properties.food(FOTFoodProperties.GUARDIAN_FRUIT, FOTConsumables.GUARDIAN_FRUIT)));
 
     public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
     public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final Item GREAT_MOUTH_POTTERY_SHERD = register("great_mouth_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static final Item COCONUT_BOAT = register("coconut_boat", properties -> new BoatItem(FOTEntities.COCONUT_BOAT, properties.stacksTo(1)));
     public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", properties -> new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, properties.stacksTo(1)));

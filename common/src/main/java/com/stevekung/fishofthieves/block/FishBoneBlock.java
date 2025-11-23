@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -127,5 +128,11 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(FACING, WATERLOGGED);
+    }
+
+    @Override
+    public boolean isPathfindable(BlockState state, PathComputationType type)
+    {
+        return false;
     }
 }
