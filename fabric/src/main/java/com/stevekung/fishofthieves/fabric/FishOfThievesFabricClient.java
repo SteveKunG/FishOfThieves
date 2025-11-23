@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTDebugScreenEntries;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -26,6 +27,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     {
         FishOfThievesClient.init();
         FOTDecoratedPotPatternsClient.init();
+        FOTDebugScreenEntries.init();
 
         BlockRenderLayerMap.putBlocks(ChunkSectionLayer.CUTOUT_MIPPED, FOTBlocks.FISH_BONE, FOTBlocks.MANGO_LEAVES);
         BlockRenderLayerMap.putBlocks(ChunkSectionLayer.CUTOUT, FOTBlocks.OAK_FISH_PLAQUE, FOTBlocks.SPRUCE_FISH_PLAQUE, FOTBlocks.BIRCH_FISH_PLAQUE, FOTBlocks.JUNGLE_FISH_PLAQUE, FOTBlocks.ACACIA_FISH_PLAQUE, FOTBlocks.DARK_OAK_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE, FOTBlocks.COCONUT_FISH_PLAQUE,
