@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -222,11 +223,21 @@ public class Shoal extends Entity
 
     private void destroyShoalBlock()
     {
-        var blockState = this.level().getBlockState(this.blockPosition());
+        var blockPos = this.blockPosition();
+        var blockState = this.level().getBlockState(blockPos);
 
         if (blockState.is(FOTBlocks.SHOAL_BLOCK))
         {
-            this.level().setBlock(this.blockPosition(), Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+            this.level().setBlock(blockPos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+
+        if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal)
+        {
+            for (var blockPos1 : BlockPos.betweenClosed(blockPos.offset(-1, -4, -1), blockPos.offset(1, -4, 1)))
+            {
+                this.level().setBlock(blockPos1, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
+            }
+            this.level().setBlock(blockPos.below(3), Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
         }
     }
 

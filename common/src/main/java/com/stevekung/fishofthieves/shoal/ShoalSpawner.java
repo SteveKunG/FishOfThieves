@@ -54,14 +54,12 @@ public final class ShoalSpawner
             shoal.createNaturalSpawn();
             level.addFreshEntity(shoal);
 
-            //TODO DEBUG
-            System.out.println(blockPos.toShortString());
-            System.out.println(biome.unwrapKey().get().location());
-            for (var blockPos1 : BlockPos.betweenClosed(blockPos.offset(-1, -5, -1), blockPos.offset(1, -5, 1)))
+            FishOfThieves.LOGGER.debug("Spawn shoal at region {}, {}, {}, {}", biome.unwrapKey().get().location(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
+
+            if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal)
             {
-                level.setBlock(blockPos1, Blocks.IRON_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+                spawnBeacon(level, blockPos);
             }
-            level.setBlock(blockPos.below(4), Blocks.BEACON.defaultBlockState(), Block.UPDATE_ALL);
         }
     }
 
@@ -85,5 +83,14 @@ public final class ShoalSpawner
             return level.canSeeSky(blockPos) && blockState.isAir() && !blockState.is(Blocks.LILY_PAD);
         });
         return hasSourceWater && hasOpenAir;
+    }
+
+    private static void spawnBeacon(ServerLevel level, BlockPos blockPos)
+    {
+        for (var blockPos1 : BlockPos.betweenClosed(blockPos.offset(-1, -5, -1), blockPos.offset(1, -5, 1)))
+        {
+            level.setBlock(blockPos1, Blocks.IRON_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        level.setBlock(blockPos.below(4), Blocks.BEACON.defaultBlockState(), Block.UPDATE_ALL);
     }
 }

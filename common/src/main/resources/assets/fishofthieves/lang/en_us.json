@@ -8,6 +8,7 @@
   "text.autoconfig.fishofthieves.category.biome": "Biome",
   "text.autoconfig.fishofthieves.category.spawn_rate": "Spawn Rate",
   "text.autoconfig.fishofthieves.category.shoal": "Shoal",
+  "text.autoconfig.fishofthieves.category.debug": "Debug",
   "text.autoconfig.fishofthieves.option.general.trophyMaxHealth": "Trophy Max Health",
   "text.autoconfig.fishofthieves.option.general.enableEarthwormsDrop": "Enable Earthworms Drop",
   "text.autoconfig.fishofthieves.option.general.enableGrubsDrop": "Enable Grubs Drop",
@@ -91,6 +92,10 @@
   "text.autoconfig.fishofthieves.option.shoal.weight.deepOcean.@Tooltip": "Shoal Weight for deep oceans.",
   "text.autoconfig.fishofthieves.option.shoal.weight.swamp": "Swamp",
   "text.autoconfig.fishofthieves.option.shoal.weight.swamp.@Tooltip": "Shoal Weight for swamps.",
+  "text.autoconfig.fishofthieves.option.debug.enableStructureCenterPosRender": "enableStructureCenterPosRender",
+  "text.autoconfig.fishofthieves.option.debug.displayStructureCenterPosInfo": "displayStructureCenterPosInfo",
+  "text.autoconfig.fishofthieves.option.debug.structureCenterPosRangeLimit": "structureCenterPosRangeLimit",
+  "text.autoconfig.fishofthieves.option.debug.spawnBeaconAtShoal": "spawnBeaconAtShoal",
 
   "itemGroup.fishofthieves.main": "Fish of Thieves",
   "itemGroup.fishofthieves.fish": "Fish of Thieves: Fish",

@@ -209,7 +209,8 @@ public final class FishOfThievesConfig implements ConfigData
     public static class Debug
     {
         public boolean enableStructureCenterPosRender = true;
-        public boolean displayInfo = true;
-        public int structureRangeLimit = 64;
+        public boolean displayStructureCenterPosInfo = true;
+        public int structureCenterPosRangeLimit = 64;
+        public boolean spawnBeaconAtShoal = false;
     }
 }
