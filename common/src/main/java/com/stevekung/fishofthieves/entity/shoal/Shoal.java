@@ -6,15 +6,16 @@ import java.util.Random;
 import java.util.function.Function;
 
 import com.stevekung.fishofthieves.FOTPlatform;
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
-import net.minecraft.Util;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -25,10 +26,9 @@ public class Shoal extends Entity
     private static final List<EntityType<?>> TIER_1_FISH_QUEST = List.of(FOTEntities.PONDIE, FOTEntities.ANCIENTSCALE, FOTEntities.WRECKER, FOTEntities.DEVILFISH, FOTEntities.ISLEHOPPER);
     private static final List<EntityType<?>> TIER_2_FISH_QUEST = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
 
-    private static final Function<Level, List<Entity>> TIER1 = Util.memoize(level -> pickRandom(TIER_1_FISH_QUEST).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
-    private static final Function<Level, List<Entity>> TIER2 = Util.memoize(level -> pickRandom(TIER_2_FISH_QUEST).stream().map(entityType -> (Entity) entityType.create(level)).peek(entity -> entity.wasTouchingWater = true).toList());
+    public static final String SHOAL_FISH_TAG = "shoal_fish";
+    public static final String NATURAL_TAG = "natural";
 
-//    private final List<ShoalFish> shoalFish = new ArrayList<>(List.of(new ShoalFish(EntityType.getKey(FOTEntities.SPLASHTAIL).toString(), Util.make(new CompoundTag(), tag -> tag.putString("variant", "fishofthieves:seafoam")))));
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
     private List<LivingEntity> shoalFishClient = new ArrayList<>();
 
@@ -47,21 +47,22 @@ public class Shoal extends Entity
     protected void readAdditionalSaveData(CompoundTag compound)
     {
         this.shoalFishData.clear();
-        var listTag = compound.getList("shoal_fish", CompoundTag.TAG_COMPOUND);
+        var listTag = compound.getList(SHOAL_FISH_TAG, CompoundTag.TAG_COMPOUND);
 
         for (var i = 0; i < listTag.size(); i++)
         {
             var compoundTag = listTag.getCompound(i);
-//            System.out.println(compoundTag);
-            this.shoalFishData.add(new ShoalFishData(compoundTag.getString("id"), compoundTag.getCompound("data")));
+            this.shoalFishData.add(new ShoalFishData(compoundTag.getString(ShoalFishData.ID_TAG), compoundTag.getCompound(ShoalFishData.DATA_TAG)));
         }
 
         if (!this.level().isClientSide())
         {
+            if (compound.contains(NATURAL_TAG) && compound.getBoolean(NATURAL_TAG))
+            {
+                this.createNaturalSpawn();
+            }
             FOTPlatform.syncShoalFish(this);
-            System.out.println("send packet on readAdditionalSaveData");
         }
-        //(LivingEntity) Util.getRandom(COMMON_FISH, this.random).create(this.level())
     }
 
     @Override
@@ -72,12 +73,12 @@ public class Shoal extends Entity
         for (var fish : this.shoalFishData)
         {
             var compoundTag = new CompoundTag();
-            compoundTag.putString("id", fish.id());
-            compoundTag.put("data", fish.data());
+            compoundTag.putString(ShoalFishData.ID_TAG, fish.id());
+            compoundTag.put(ShoalFishData.DATA_TAG, fish.data());
 
             listTag.add(compoundTag);
         }
-        compound.put("shoal_fish", listTag);
+        compound.put(SHOAL_FISH_TAG, listTag);
     }
 
     @Override
@@ -108,21 +109,18 @@ public class Shoal extends Entity
     public void recreateFromPacket(ClientboundAddEntityPacket packet)
     {
         super.recreateFromPacket(packet);
-        System.out.println("recreateFromPacket");
         FOTPlatform.requestShoalFish(this);
     }
 
     public void syncShoalFish(List<ShoalFishData> shoalFishData)
     {
-        System.out.println("shoalFish " + shoalFishData);
-        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != this.shoalFishData.size())
+        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size())
         {
             this.shoalFishClient = shoalFishData.stream()
                     .map(shoalFishData1 ->
                     {
                         var compoundTag = shoalFishData1.data();
                         compoundTag.putString("id", shoalFishData1.id());
-//                        System.out.println(compoundTag);
                         return EntityType.loadEntityRecursive(compoundTag, this.level(), Function.identity());
                     })
                     .filter(LivingEntity.class::isInstance)
@@ -130,7 +128,6 @@ public class Shoal extends Entity
                     .peek(livingEntity -> livingEntity.wasTouchingWater = true)
                     .toList();
         }
-        System.out.println("SYNCCCCC");
     }
 
     public List<ShoalFishData> getShoalFish()
@@ -141,6 +138,34 @@ public class Shoal extends Entity
     public List<LivingEntity> getShoalFishClient()
     {
         return this.shoalFishClient;
+    }
+
+    public void createNaturalSpawn()
+    {
+        if (!(this.level() instanceof ServerLevel serverLevel))
+        {
+            return;
+        }
+
+        for (var entityType : pickRandom(COMMON_FISH))
+        {
+            var entity = entityType.create(serverLevel);
+
+            if (entity instanceof Mob mob)
+            {
+                var compoundTag = new CompoundTag();
+                mob.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.NATURAL, null, null);
+
+                var tempTag = mob.saveWithoutId(new CompoundTag());
+
+                if (mob instanceof ThievesFish<?>)
+                {
+                    compoundTag.putString(ThievesFish.VARIANT_TAG, tempTag.getString(ThievesFish.VARIANT_TAG));
+                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, this.random.nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability);
+                }
+                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), compoundTag));
+            }
+        }
     }
 
     private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list)
