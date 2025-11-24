@@ -33,7 +33,11 @@ public class AbstractSchoolingThievesFishAi
     {
         fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);
         fish.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(fish.getRandom()));
-        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+
+        if (!fish.fromBucket())
+        {
+            fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+        }
     }
 
     public static void resetMemories(AbstractSchoolingThievesFish<?> fish)
