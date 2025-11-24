@@ -54,9 +54,9 @@ public class DevilfishVariant extends AbstractFishVariant
             return this;
         }
 
-        public Builder treasured(boolean isTreasured)
+        public Builder treasured()
         {
-            this.isTreasured = isTreasured;
+            this.isTreasured = true;
             return this;
         }
 

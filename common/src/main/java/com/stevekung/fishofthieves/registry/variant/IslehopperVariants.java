@@ -31,6 +31,7 @@ public class IslehopperVariants
     })).texture("honey").build();
     public static final IslehopperVariant RAVEN = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.ravenIslehopperProbability).and(context -> context.blockPos().getY() <= 0))).texture("raven").build();
     public static final IslehopperVariant AMETHYST = IslehopperVariant.builder().condition(SpawnSelectors.simpleSpawn(true, context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 2, 12, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)))).texture("amethyst").glowTexture("amethyst_glow").build();
+    public static final IslehopperVariant BRINY = IslehopperVariant.builder().condition(SpawnSelectors.never()).texture("briny").glowTexture("briny_glow").treasured().build();
 
     public static void init()
     {
@@ -39,6 +40,7 @@ public class IslehopperVariants
         register("honey", IslehopperVariants.HONEY);
         register("raven", IslehopperVariants.RAVEN);
         register("amethyst", IslehopperVariants.AMETHYST);
+        register("briny", IslehopperVariants.BRINY);
     }
 
     private static void register(String key, IslehopperVariant variant)

@@ -43,6 +43,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
         map.put("fishofthieves:wild", 2);
         map.put("fishofthieves:shadow", 3);
         map.put("fishofthieves:twilight", 4);
+        map.put("fishofthieves:starshine", 5);
     });
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)

@@ -21,6 +21,11 @@ public final class SpawnSelectors
         return context -> true;
     }
 
+    public static Predicate<SpawnConditionContext> never()
+    {
+        return context -> false;
+    }
+
     public static Predicate<SpawnConditionContext> dayAndSeeSky()
     {
         return context -> context.isDay() && context.seeSkyInWater();
