@@ -12,9 +12,11 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -118,6 +120,13 @@ public class Shoal extends Entity
                 this.discard();
                 this.destroyShoalBlock();
             }
+
+            if (this.random.nextInt(4) == 0)
+            {
+                ((ServerLevel) this.level()).sendParticles(ParticleTypes.SPLASH, this.getX(), this.getY(0.8), this.getZ(), 10, this.getBbWidth() / 3.0F, this.getBbHeight() / 5.0F, this.getBbWidth() / 3.0F, 0);
+            }
+
+            ((ServerLevel) this.level()).sendParticles(ParticleTypes.BUBBLE, this.getX(), this.getY(0.5), this.getZ(), 1, this.getBbWidth() / 2.0F, this.getBbHeight() / 5.0F, this.getBbWidth() / 2.0F, 0);
         }
     }
 
@@ -172,7 +181,6 @@ public class Shoal extends Entity
             this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.id().equals(id));
             FOTPlatform.syncShoalFish(this);
 
-            //TODO Disappear particle
             if (this.shoalFishData.isEmpty())
             {
                 this.discard();
@@ -229,6 +237,12 @@ public class Shoal extends Entity
         if (blockState.is(FOTBlocks.SHOAL_BLOCK))
         {
             this.level().setBlock(blockPos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+
+        if (!this.level().isClientSide())
+        {
+            ((ServerLevel) this.level()).sendParticles(ParticleTypes.CLOUD, this.getX(), this.getY(1), this.getZ(), 10, this.getBbWidth() / 5.0F, this.getBbHeight() / 2.0F, this.getBbWidth() / 5.0F, 0);
+            this.playSound(FOTSoundEvents.SHOAL_DEPLETE, 1.0f, 0.75f);
         }
 
         if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal)
