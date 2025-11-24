@@ -173,6 +173,10 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.Tooltip
         public int shoalSpreadDistance = 64;
 
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+        public int maxLifeTimeDay = 3;
+
         @ConfigEntry.Gui.CollapsibleObject
         @ConfigEntry.Gui.Tooltip
         public Weight weight = new Weight();

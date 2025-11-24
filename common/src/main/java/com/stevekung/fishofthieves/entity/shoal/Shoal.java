@@ -36,9 +36,12 @@ public class Shoal extends Entity
     private static final List<EntityType<?>> TIER_2_FISH_QUEST = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
 
     public static final String SHOAL_FISH_TAG = "shoal_fish";
+    public static final String LIFE_TIME_TAG = "life_time";
     public static final String NATURAL_TAG = "natural";
 
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
+    private long expiredAt = -1;
+
     private List<LivingEntity> shoalFishClient = new ArrayList<>();
 
     public Shoal(EntityType<?> entityType, Level level)
@@ -48,9 +51,7 @@ public class Shoal extends Entity
     }
 
     @Override
-    protected void defineSynchedData()
-    {
-    }
+    protected void defineSynchedData() {}
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound)
@@ -63,6 +64,8 @@ public class Shoal extends Entity
             var compoundTag = listTag.getCompound(i);
             this.shoalFishData.add(new ShoalFishData(compoundTag.getString(ShoalFishData.ID_TAG), compoundTag.getCompound(ShoalFishData.DATA_TAG)));
         }
+
+        this.expiredAt = compound.getLong(LIFE_TIME_TAG);
 
         if (!this.level().isClientSide())
         {
@@ -88,6 +91,7 @@ public class Shoal extends Entity
             listTag.add(compoundTag);
         }
         compound.put(SHOAL_FISH_TAG, listTag);
+        compound.putLong(LIFE_TIME_TAG, this.expiredAt);
     }
 
     @Override
@@ -115,7 +119,7 @@ public class Shoal extends Entity
 
         if (!this.level().isClientSide())
         {
-            if (this.shoalFishData.isEmpty() && !this.isInvulnerable())
+            if ((this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty()) && !this.isInvulnerable())
             {
                 this.discard();
                 this.destroyShoalBlock();
@@ -227,6 +231,7 @@ public class Shoal extends Entity
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), compoundTag));
             }
         }
+        this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifeTimeDay * 24000L;
     }
 
     private void destroyShoalBlock()
@@ -249,9 +254,15 @@ public class Shoal extends Entity
         {
             for (var blockPos1 : BlockPos.betweenClosed(blockPos.offset(-1, -4, -1), blockPos.offset(1, -4, 1)))
             {
-                this.level().setBlock(blockPos1, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
+                if (this.level().getBlockState(blockPos1).is(Blocks.IRON_BLOCK))
+                {
+                    this.level().setBlock(blockPos1, Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
+                }
             }
-            this.level().setBlock(blockPos.below(3), Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
+            if (this.level().getBlockState(blockPos.below(3)).is(Blocks.BEACON))
+            {
+                this.level().setBlock(blockPos.below(3), Blocks.WATER.defaultBlockState(), Block.UPDATE_ALL);
+            }
         }
     }
 
