@@ -50,7 +50,8 @@ public final class ShoalSpawner
             level.setBlock(blockPos.below(), FOTBlocks.SHOAL_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
 
             var shoal = FOTEntities.SHOAL.create(level);
-            shoal.moveTo(blockPos.below(), 0, 0);
+            shoal.moveTo(blockPos.getX() + 0.5d, blockPos.getY() - 0.75d, blockPos.getZ() + 0.5d, 0, 0);
+            shoal.createNaturalSpawn();
             level.addFreshEntity(shoal);
 
             //TODO DEBUG

@@ -57,7 +57,7 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
     @Inject(method = "tickChunk", at = @At(value = "CONSTANT", args = "stringValue=thunder"))
     private void fishofthieves$shoalTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z, @Local ProfilerFiller profilerFiller)
     {
-        if (FishOfThieves.CONFIG.general.enableShoalSpawning)
+        if (this.getGameRules().getBoolean(FishOfThieves.SHOAL_SPAWNING))
         {
             profilerFiller.push("fishofthieves_shoal");
             ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);

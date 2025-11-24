@@ -53,9 +53,6 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.Tooltip(count = 3)
         public boolean simpleSpawningCondition = false;
 
-        @ConfigEntry.Gui.Tooltip
-        public boolean enableShoalSpawning = true;
-
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
 

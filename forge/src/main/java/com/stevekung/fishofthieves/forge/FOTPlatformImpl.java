@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.forge;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 
@@ -20,6 +21,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -153,6 +155,16 @@ public class FOTPlatformImpl
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         FishOfThievesForge.MOB_EFFECTS.register(key, () -> mobEffect);
+    }
+
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        return GameRules.register(FishOfThieves.MOD_RESOURCES + name, category, type);
+    }
+
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        return GameRules.BooleanValue.create(defaultValue);
     }
 
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)

@@ -35,6 +35,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -49,6 +50,8 @@ public class FishOfThieves
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
     public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
+
+    public static final GameRules.Key<GameRules.BooleanValue> SHOAL_SPAWNING = FOTPlatform.registerGameRule("shoal_spawning", GameRules.Category.SPAWNING, FOTPlatform.getGameRuleBoolean(true));
 
     public static final ResourceLocation RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
     public static final ResourceLocation STRUCTURE_CENTER_POS_DEBUG = FishOfThieves.id("structure_center_pos_debug");

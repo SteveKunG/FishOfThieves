@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "允許輕鬆生成所有魚類變種，無論其特殊條件為何。",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "如果啟用，將始終生成，包括稀有和夜間變種。",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "注意：夜間和稀有變種機率設定仍然適用。",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "Enable Shoal Spawning",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "If enabled, shoals will be spawning around the world in specific biomes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "中立魚類行為",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "為魚類啟用中立行為。",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "這包括鬥魚、惡魔魚、跳島魚和破壞魚。",

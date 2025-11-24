@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "Дозволяє легко з'являтися всім різновидам риб, незалежно від їхніх особливих умов.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "Якщо ввімкнено, поява відбуватиметься завжди, включно з рідкісними та нічними варіантами.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "Примітка: налаштування ймовірності нічного часу і рідкісного варіанту все ще застосовуються.",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "Enable Shoal Spawning",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "If enabled, shoals will be spawning around the world in specific biomes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Нейтральна поведінка риби",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "Вмикає нейтральну поведінку для риби.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "Це включає боєжабра, бісорибу, острівного стрибуна та трощителя.",

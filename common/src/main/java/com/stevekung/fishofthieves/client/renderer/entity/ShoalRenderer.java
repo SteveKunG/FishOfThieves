@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.client.renderer.entity;
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.mixin.client.accessor.EntityRenderDispatcherAccessor;
 
@@ -48,12 +47,6 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
         for (var index = 0; index < list.size(); index++)
         {
             var entity = list.get(index);
-
-            if (entity instanceof ThievesFish<?> thievesFish)
-            {
-                thievesFish.setTrophy(true);
-            }
-
             var offset = offsetPerFish * index;
             float deg = (int) (ageInTicks / rotationModifier % 360F + offset);
             var rad = (float) (deg / 180F * Math.PI);

@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "ช่วยให้การเกิดของพันธุ์ปลาต่าง ๆ ทำได้ง่าย โดยไม่คำนึงถึงเงื่อนไขพิเศษของพวกมัน",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "หากเปิดใช้งาน การเกิดของปลาจะเกิดเสมอ รวมถึงพันธุ์หายากและกลางคืน",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "หมายเหตุ: การตั้งค่าความน่าจะเป็นของเวลากลางคืนและตัวแปรหายากยังคงมีผลอยู่",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "เปิดใช้งานการเกิดฝูงปลา",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "หากเปิดใช้งาน ฝูงปลาจะเกิดขึ้นทั่วโลกในไบโอมเฉพาะ",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "พฤติกรรมของปลาที่เป็นกลาง",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "เปิดใช้งานพฤติกรรมที่เป็นกลางสำหรับปลา",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "ซึ่งรวมถึงปลากะรังหัวรบ ปลาปีศาจ ปลาปักเป้าเกาะ และปลาถล่มเบ็ด",

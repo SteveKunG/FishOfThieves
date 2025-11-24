@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "Ermöglicht das einfache Spawnen aller Fischvarianten, unabhängig von ihren speziellen Bedingungen.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "Wenn aktiviert, werden Fische immer spawnen, einschließlich seltener und nächtlicher Varianten.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "Hinweis: Nachtzeit und Wahrscheinlichkeitseinstellungen der seltenen Varianten gelten weiterhin.",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "Enable Shoal Spawning",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "If enabled, shoals will be spawning around the world in specific biomes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Neutrales Fischverhalten",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "Aktiviere neutrales Verhalten für Fische.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "Dies beinhaltet Schlachtkimmen, Teufelsfische, Inselspringer und Wrackschnapper.",

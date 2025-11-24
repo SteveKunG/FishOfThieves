@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.Util;
@@ -20,6 +21,8 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.PushReaction;
 
 public class Shoal extends Entity
@@ -106,6 +109,15 @@ public class Shoal extends Entity
     public void tick()
     {
         super.tick();
+
+        if (!this.level().isClientSide())
+        {
+            if (this.shoalFishData.isEmpty() && !this.isInvulnerable())
+            {
+                this.discard();
+                this.destroyShoalBlock();
+            }
+        }
     }
 
     @Override
@@ -113,6 +125,13 @@ public class Shoal extends Entity
     {
         super.recreateFromPacket(packet);
         FOTPlatform.requestShoalFish(this);
+    }
+
+    @Override
+    public void kill()
+    {
+        super.kill();
+        this.destroyShoalBlock();
     }
 
     public void syncShoalFish(List<ShoalFishData> shoalFishData)
@@ -156,6 +175,7 @@ public class Shoal extends Entity
             if (this.shoalFishData.isEmpty())
             {
                 this.discard();
+                this.destroyShoalBlock();
             }
 
             return livingEntity;
@@ -197,6 +217,16 @@ public class Shoal extends Entity
                 }
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), compoundTag));
             }
+        }
+    }
+
+    private void destroyShoalBlock()
+    {
+        var blockState = this.level().getBlockState(this.blockPosition());
+
+        if (blockState.is(FOTBlocks.SHOAL_BLOCK))
+        {
+            this.level().setBlock(this.blockPosition(), Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
         }
     }
 

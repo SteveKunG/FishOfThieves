@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "Позволяет рыбам появляться вне зависимости от их специальных требований.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "Если включено, позволяет всем рыбам появляться, включая редкие и ночные варианты.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "Внимание: ночное время и настройки вероятности редких вариантов по-прежнему применяются.",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "Enable Shoal Spawning",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "If enabled, shoals will be spawning around the world in specific biomes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Стандартное поведение рыб",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "Включить стандартное поведение рыб.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "Имеются в виду боежабры, рыбы-дьяволы, брегопрыги и кораблекрушилы.",

@@ -16,8 +16,6 @@
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "Allows for easy spawning of all fish variants, regardless of their special conditions.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "If enabled, spawning will always occur, including for rare and night variants.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[2]": "Note: night time and rare variant probability settings still apply.",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning": "Enable Shoal Spawning",
-  "text.autoconfig.fishofthieves.option.general.enableShoalSpawning.@Tooltip": "If enabled, shoals will be spawning around the world in specific biomes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Neutral Fish Behavior",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "Enable neutral behavior for fishes.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "This includes Battlegill, Devilfish, Islehopper and Wrecker.",
