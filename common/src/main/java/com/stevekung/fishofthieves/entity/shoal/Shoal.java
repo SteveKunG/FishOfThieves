@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
+import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -133,6 +136,35 @@ public class Shoal extends Entity
     public List<ShoalFishData> getShoalFish()
     {
         return this.shoalFishData;
+    }
+
+    @Nullable
+    public LivingEntity getRandomFishInShoal()
+    {
+        var shoalFish = Util.getRandom(this.shoalFishData, this.random);
+        var id = shoalFish.id();
+        var compoundTag = shoalFish.data();
+        compoundTag.putString("id", id);
+        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), Function.identity());
+
+        if (entity instanceof LivingEntity livingEntity)
+        {
+            this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.id().equals(id));
+            FOTPlatform.syncShoalFish(this);
+
+            //TODO Disappear particle
+            if (this.shoalFishData.isEmpty())
+            {
+                this.discard();
+            }
+
+            return livingEntity;
+        }
+        else
+        {
+            FishOfThieves.LOGGER.warn("ShoalFishData with entity id {} is not a living entity", id);
+            return null;
+        }
     }
 
     public List<LivingEntity> getShoalFishClient()

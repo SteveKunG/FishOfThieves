@@ -22,8 +22,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -133,24 +133,35 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
             ordinal = 1))
     private void fishofthieves$fishUpShoal(ItemStack itemStack, CallbackInfoReturnable<Integer> info, @Local Player player)
     {
-        var shoals = this.level().getEntitiesOfClass(Shoal.class, this.getBoundingBox().inflate(5), Entity::isAlive);
+        var shoals = this.level().getEntitiesOfClass(Shoal.class, this.getBoundingBox().inflate(1), Entity::isAlive);
 
         if (!shoals.isEmpty())
         {
             var shoal = shoals.get(0);
-            var intersects = shoal.getBoundingBox().intersects(this.getBoundingBox().inflate(5d));
+            var intersects = shoal.getBoundingBox().intersects(this.getBoundingBox().inflate(1d));
 
             if (intersects)
             {
-                var salmon = EntityType.SALMON.create(this.level());
+                var randomFish = shoal.getRandomFishInShoal();
+
+                if (randomFish == null)
+                {
+                    return;
+                }
+
+                if (randomFish instanceof Bucketable bucketable)
+                {
+                    bucketable.setFromBucket(true);
+                }
+
                 var dx = player.getX() - this.getX();
                 var dy = player.getY() - this.getY();
                 var dz = player.getZ() - this.getZ();
                 var power = 0.2;
                 var gravity = 0.12;
-                salmon.moveTo(this.blockPosition(), 0, 0);
-                salmon.setDeltaMovement(dx * power, dy * power + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * gravity, dz * power);
-                this.level().addFreshEntity(salmon);
+                randomFish.moveTo(this.blockPosition(), 0, 0);
+                randomFish.setDeltaMovement(dx * power, dy * power + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * gravity, dz * power);
+                this.level().addFreshEntity(randomFish);
 
                 player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, this.random.nextInt(8) + 2));
                 this.discard();
