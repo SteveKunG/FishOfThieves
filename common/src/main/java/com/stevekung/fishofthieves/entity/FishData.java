@@ -14,4 +14,6 @@ public interface FishData
     ResourceLocation getTexture();
 
     Optional<ResourceLocation> getGlowTexture();
+
+    Optional<Boolean> isTreasured();
 }

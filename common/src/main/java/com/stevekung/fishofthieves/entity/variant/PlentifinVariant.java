@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class PlentifinVariant extends AbstractFishVariant
 {
-    private PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    private PlentifinVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean isTreasured)
     {
-        super(condition, texture, glowTexture);
+        super(condition, texture, glowTexture, isTreasured);
     }
 
     public static Builder builder()
@@ -29,6 +29,8 @@ public class PlentifinVariant extends AbstractFishVariant
         private ResourceLocation texture;
         @Nullable
         private ResourceLocation glowTexture;
+        @Nullable
+        private Boolean isTreasured;
 
         Builder() {}
 
@@ -52,9 +54,15 @@ public class PlentifinVariant extends AbstractFishVariant
             return this;
         }
 
+        public Builder treasured(boolean isTreasured)
+        {
+            this.isTreasured = isTreasured;
+            return this;
+        }
+
         public PlentifinVariant build()
         {
-            return new PlentifinVariant(() -> this.condition, this.texture, this.glowTexture);
+            return new PlentifinVariant(() -> this.condition, this.texture, this.glowTexture, this.isTreasured);
         }
 
         private ResourceLocation createTexture(String name)

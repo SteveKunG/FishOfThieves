@@ -17,12 +17,15 @@ public class AbstractFishVariant implements FishData
     private final ResourceLocation texture;
     @Nullable
     private final ResourceLocation glowTexture;
+    @Nullable
+    private final Boolean treasured;
 
-    protected AbstractFishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    protected AbstractFishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean treasured)
     {
         this.condition = condition;
         this.texture = texture;
         this.glowTexture = glowTexture;
+        this.treasured = treasured;
     }
 
     @Override
@@ -41,5 +44,11 @@ public class AbstractFishVariant implements FishData
     public Optional<ResourceLocation> getGlowTexture()
     {
         return Optional.ofNullable(this.glowTexture);
+    }
+
+    @Override
+    public Optional<Boolean> isTreasured()
+    {
+        return Optional.ofNullable(this.treasured);
     }
 }

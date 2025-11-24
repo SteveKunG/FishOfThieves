@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class PondieVariant extends AbstractFishVariant
 {
-    private PondieVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    private PondieVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean isTreasured)
     {
-        super(condition, texture, glowTexture);
+        super(condition, texture, glowTexture, isTreasured);
     }
 
     public static Builder builder()
@@ -29,6 +29,8 @@ public class PondieVariant extends AbstractFishVariant
         private ResourceLocation texture;
         @Nullable
         private ResourceLocation glowTexture;
+        @Nullable
+        private Boolean isTreasured;
 
         Builder() {}
 
@@ -52,9 +54,15 @@ public class PondieVariant extends AbstractFishVariant
             return this;
         }
 
+        public Builder treasured(boolean isTreasured)
+        {
+            this.isTreasured = isTreasured;
+            return this;
+        }
+
         public PondieVariant build()
         {
-            return new PondieVariant(() -> this.condition, this.texture, this.glowTexture);
+            return new PondieVariant(() -> this.condition, this.texture, this.glowTexture, this.isTreasured);
         }
 
         private ResourceLocation createTexture(String name)
