@@ -14,7 +14,7 @@ public class SplashtailVariants
     public static final SplashtailVariant INDIGO = SplashtailVariant.builder().condition(SpawnSelectors.always()).texture("indigo").build();
     public static final SplashtailVariant UMBER = SplashtailVariant.builder().condition(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.umberSplashtailProbability)).texture("umber").build();
     public static final SplashtailVariant SEAFOAM = SplashtailVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("seafoam").glowTexture("seafoam_glow").build();
-    public static final SplashtailVariant OBSIDIAN = SplashtailVariant.builder().condition(SpawnSelectors.never()).texture("obsidian").glowTexture("obsidian_glow").treasured().build();
+    public static final SplashtailVariant OBSIDIAN = SplashtailVariant.builder().condition(SpawnSelectors.never()).texture("treasured/obsidian").glowTexture("treasured/obsidian_glow").treasured().build();
 
     public static void init()
     {

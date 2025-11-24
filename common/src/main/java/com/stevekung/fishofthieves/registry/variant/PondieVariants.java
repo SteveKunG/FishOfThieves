@@ -14,7 +14,7 @@ public class PondieVariants
     public static final PondieVariant BRONZE = PondieVariant.builder().condition(SpawnSelectors.always()).texture("bronze").build();
     public static final PondieVariant BRIGHT = PondieVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.brightPondieProbability).and(SpawnSelectors.dayAndSeeSky()))).texture("bright").build();
     public static final PondieVariant MOONSKY = PondieVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("moonsky").glowTexture("moonsky_glow").build();
-    public static final PondieVariant DEWDROP = PondieVariant.builder().condition(SpawnSelectors.never()).texture("dewdrop").glowTexture("dewdrop_glow").treasured().build();
+    public static final PondieVariant DEWDROP = PondieVariant.builder().condition(SpawnSelectors.never()).texture("treasured/dewdrop").glowTexture("treasured/dewdrop_glow").treasured().build();
 
     public static void init()
     {

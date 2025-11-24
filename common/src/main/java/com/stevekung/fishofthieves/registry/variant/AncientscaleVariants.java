@@ -14,7 +14,7 @@ public class AncientscaleVariants
     public static final AncientscaleVariant SMOKE = AncientscaleVariant.builder().condition(SpawnSelectors.always()).texture("smoke").build();
     public static final AncientscaleVariant BONE = AncientscaleVariant.builder().condition(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.boneAncientscaleProbability)).texture("bone").build();
     public static final AncientscaleVariant STARSHINE = AncientscaleVariant.builder().condition(SpawnSelectors.simpleSpawn(true, SpawnSelectors.nightAndSeeSky().and(context -> context.level().getMoonBrightness() <= 0.25F))).texture("starshine").glowTexture("starshine_glow").build();
-    public static final AncientscaleVariant BLOSSOM = AncientscaleVariant.builder().condition(SpawnSelectors.never()).texture("blossom").glowTexture("blossom_glow").treasured().build();
+    public static final AncientscaleVariant BLOSSOM = AncientscaleVariant.builder().condition(SpawnSelectors.never()).texture("treasured/blossom").glowTexture("treasured/blossom_glow").treasured().build();
 
     public static void init()
     {

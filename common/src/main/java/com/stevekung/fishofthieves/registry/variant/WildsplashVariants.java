@@ -20,7 +20,7 @@ public class WildsplashVariants
     public static final WildsplashVariant OCEAN = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_OCEAN_WILDSPLASH))).texture("ocean").build();
     public static final WildsplashVariant MUDDY = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.muddyWildsplashProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.muddyWildsplashProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_MUDDY_WILDSPLASH)))).texture("muddy").build();
     public static final WildsplashVariant CORAL = WildsplashVariant.builder().condition(SpawnSelectors.simpleSpawn(true, SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_CORAL_WILDSPLASH).and(SpawnConditionContext::isNight).and(context -> TerrainUtils.lookForBlocksWithSize(context.blockPos(), 3, 16, blockPos -> context.level().getBlockState(blockPos).is(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON))))).texture("coral").glowTexture("coral_glow").build();
-    public static final WildsplashVariant CALICO = WildsplashVariant.builder().condition(SpawnSelectors.never()).texture("calico").glowTexture("calico_glow").treasured().build();
+    public static final WildsplashVariant CALICO = WildsplashVariant.builder().condition(SpawnSelectors.never()).texture("treasured/calico").glowTexture("treasured/calico_glow").treasured().build();
 
     public static void init()
     {

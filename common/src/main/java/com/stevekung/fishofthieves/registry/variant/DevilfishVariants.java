@@ -21,7 +21,7 @@ public class DevilfishVariants
         var optional = TerrainUtils.lookForBlock(context.blockPos(), 4, blockPos2 -> context.level().getBlockState(blockPos2).is(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS) || context.level().getFluidState(blockPos2).is(FluidTags.LAVA) && context.level().getFluidState(blockPos2).isSource());
         return context.isNight() && optional.isPresent();
     })).texture("firelight").glowTexture("firelight_glow").build();
-    public static final DevilfishVariant LEOPARD = DevilfishVariant.builder().condition(SpawnSelectors.never()).texture("leopard").glowTexture("leopard_glow").treasured().build();
+    public static final DevilfishVariant LEOPARD = DevilfishVariant.builder().condition(SpawnSelectors.never()).texture("treasured/leopard").glowTexture("treasured/leopard_glow").treasured().build();
 
     public static void init()
     {
