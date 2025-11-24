@@ -26,7 +26,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
 
 public class Shoal extends Entity
 {
@@ -101,12 +101,6 @@ public class Shoal extends Entity
     }
 
     @Override
-    public PushReaction getPistonPushReaction()
-    {
-        return PushReaction.DESTROY;
-    }
-
-    @Override
     public boolean skipAttackInteraction(Entity entity)
     {
         return true;
@@ -121,8 +115,7 @@ public class Shoal extends Entity
         {
             if ((this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty()) && !this.isInvulnerable())
             {
-                this.discard();
-                this.destroyShoalBlock();
+                this.destroy();
             }
 
             if (this.random.nextInt(4) == 0)
@@ -132,6 +125,16 @@ public class Shoal extends Entity
 
             ((ServerLevel) this.level()).sendParticles(ParticleTypes.BUBBLE, this.getX(), this.getY(0.5), this.getZ(), 1, this.getBbWidth() / 2.0F, this.getBbHeight() / 5.0F, this.getBbWidth() / 2.0F, 0);
         }
+    }
+
+    @Override
+    public void move(MoverType type, Vec3 pos)
+    {
+        if (type == MoverType.PISTON)
+        {
+            this.destroy();
+        }
+        super.move(type, pos);
     }
 
     @Override
@@ -145,6 +148,12 @@ public class Shoal extends Entity
     public void kill()
     {
         super.kill();
+        this.destroyShoalBlock();
+    }
+
+    public void destroy()
+    {
+        this.discard();
         this.destroyShoalBlock();
     }
 
@@ -187,8 +196,7 @@ public class Shoal extends Entity
 
             if (this.shoalFishData.isEmpty())
             {
-                this.discard();
-                this.destroyShoalBlock();
+                this.destroy();
             }
 
             return livingEntity;

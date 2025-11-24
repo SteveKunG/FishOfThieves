@@ -1,11 +1,14 @@
 package com.stevekung.fishofthieves.block;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -39,11 +43,22 @@ public class ShoalBlock extends Block
         this.destroyShoal(state, level, pos);
     }
 
-    private void destroyShoal(BlockState state, ServerLevel level, BlockPos pos)
+    private void destroyShoal(BlockState state, Level level, BlockPos pos)
     {
         if (!state.canSurvive(level, pos))
         {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
+
+        if (!level.isClientSide())
+        {
+            var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(pos).inflate(1));
+
+            if (!shoals.isEmpty())
+            {
+                var shoal = shoals.get(0);
+                shoal.destroy();
+            }
         }
     }
 
@@ -63,6 +78,17 @@ public class ShoalBlock extends Block
             level.scheduleTick(pos, this, 5);
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston)
+    {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+
+        if (!state.canSurvive(level, pos) || movedByPiston)
+        {
+            this.destroyShoal(state, level, pos);
+        }
     }
 
     @Override
