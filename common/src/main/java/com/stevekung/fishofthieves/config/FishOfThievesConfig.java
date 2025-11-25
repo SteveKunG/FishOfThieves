@@ -165,13 +165,13 @@ public final class FishOfThievesConfig implements ConfigData
     public static class Shoal
     {
         @ConfigEntry.Gui.Tooltip
-        public int shoalChance = 2000;
+        public int chance = 2000;
 
         @ConfigEntry.Gui.Tooltip
-        public int shoalChanceRaining = 250;
+        public int chanceRaining = 250;
 
         @ConfigEntry.Gui.Tooltip
-        public int shoalSpreadDistance = 64;
+        public int spreadDistance = 64;
 
         @ConfigEntry.Gui.Tooltip(count = 2)
         @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
