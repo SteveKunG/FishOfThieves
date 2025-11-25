@@ -163,6 +163,13 @@ public class Shoal extends Entity
         this.destroyShoalBlock();
     }
 
+    @Override
+    public boolean shouldRenderAtSqrDistance(double distance)
+    {
+        var d0 = 64.0 * getViewScale();
+        return distance < d0 * d0;
+    }
+
     public void destroy()
     {
         this.discard();
