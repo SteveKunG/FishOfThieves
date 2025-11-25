@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.stevekung.fishofthieves.entity.shoal.Shoal;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -34,32 +31,8 @@ public class ShoalBlock extends Block
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
+        super.tick(state, level, pos, random);
         this.destroyShoal(state, level, pos);
-    }
-
-    @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
-    {
-        this.destroyShoal(state, level, pos);
-    }
-
-    private void destroyShoal(BlockState state, Level level, BlockPos pos)
-    {
-        if (!state.canSurvive(level, pos))
-        {
-            level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
-        }
-
-        if (!level.isClientSide())
-        {
-            var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(pos).inflate(1));
-
-            if (!shoals.isEmpty())
-            {
-                var shoal = shoals.get(0);
-                shoal.destroy();
-            }
-        }
     }
 
     @Override
@@ -112,5 +85,13 @@ public class ShoalBlock extends Block
     public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.INVISIBLE;
+    }
+
+    private void destroyShoal(BlockState state, Level level, BlockPos pos)
+    {
+        if (!state.canSurvive(level, pos))
+        {
+            level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+        }
     }
 }
