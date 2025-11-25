@@ -40,6 +40,8 @@
     "entity.MixinEntityType",
     "entity.MixinFallingBlockEntity",
     "entity.MixinFishingHook",
+    "entity.MixinFox",
+    "entity.MixinFox$MixinFoxEatBerriesGoal",
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
