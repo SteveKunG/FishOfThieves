@@ -205,6 +205,7 @@ public class FOTPlatformImpl
         buff.writeCollection(shoal.getShoalFish(), (buf, shoalFish) ->
         {
             buf.writeUtf(shoalFish.id());
+            buf.writeUUID(shoalFish.uuid());
             buf.writeNbt(shoalFish.data());
         });
 

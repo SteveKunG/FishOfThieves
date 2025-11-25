@@ -1,8 +1,6 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
@@ -62,7 +60,18 @@ public class Shoal extends Entity
         for (var i = 0; i < listTag.size(); i++)
         {
             var compoundTag = listTag.getCompound(i);
-            this.shoalFishData.add(new ShoalFishData(compoundTag.getString(ShoalFishData.ID_TAG), compoundTag.getCompound(ShoalFishData.DATA_TAG)));
+            UUID uuid;
+
+            try
+            {
+                uuid = compoundTag.getUUID(ShoalFishData.UUID_TAG);
+            }
+            catch (Exception e)
+            {
+                uuid = UUID.randomUUID();
+            }
+
+            this.shoalFishData.add(new ShoalFishData(compoundTag.getString(ShoalFishData.ID_TAG), uuid, compoundTag.getCompound(ShoalFishData.DATA_TAG)));
         }
 
         this.expiredAt = compound.getLong(LIFE_TIME_TAG);
@@ -86,6 +95,7 @@ public class Shoal extends Entity
         {
             var compoundTag = new CompoundTag();
             compoundTag.putString(ShoalFishData.ID_TAG, fish.id());
+            compoundTag.putUUID(ShoalFishData.UUID_TAG, fish.uuid());
             compoundTag.put(ShoalFishData.DATA_TAG, fish.data());
 
             listTag.add(compoundTag);
@@ -186,14 +196,14 @@ public class Shoal extends Entity
     public LivingEntity getRandomFishInShoal()
     {
         var shoalFish = Util.getRandom(this.shoalFishData, this.random);
-        var id = shoalFish.id();
+        var uuid = shoalFish.uuid();
         var compoundTag = shoalFish.data();
-        compoundTag.putString("id", id);
+        compoundTag.putString("id", shoalFish.id());
         var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), Function.identity());
 
         if (entity instanceof LivingEntity livingEntity)
         {
-            this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.id().equals(id));
+            this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.uuid().equals(uuid));
             FOTPlatform.syncShoalFish(this);
 
             if (this.shoalFishData.isEmpty())
@@ -205,7 +215,7 @@ public class Shoal extends Entity
         }
         else
         {
-            FishOfThieves.LOGGER.warn("ShoalFishData with entity id {} is not a living entity", id);
+            FishOfThieves.LOGGER.warn("ShoalFishData with entity id {} is not a living entity", shoalFish.id());
             return null;
         }
     }
@@ -238,7 +248,7 @@ public class Shoal extends Entity
                     compoundTag.putString(ThievesFish.VARIANT_TAG, tempTag.getString(ThievesFish.VARIANT_TAG));
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, this.random.nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability);
                 }
-                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), compoundTag));
+                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
         this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifeTimeDay * 24000L;
