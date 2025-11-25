@@ -270,7 +270,8 @@ public class Shoal extends Entity
             this.playSound(FOTSoundEvents.SHOAL_DEPLETE, 1.0f, 0.75f);
         }
 
-        if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal)
+        //noinspection ConstantValue
+        if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal && FOTPlatform.isDevelopment())
         {
             for (var blockPos1 : BlockPos.betweenClosed(blockPos.offset(-1, -4, -1), blockPos.offset(1, -4, 1)))
             {

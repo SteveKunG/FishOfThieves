@@ -37,12 +37,18 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public class FOTPlatformImpl
 {
     public static boolean isModLoaded(String modId)
     {
         return ModList.get().isLoaded(modId);
+    }
+
+    public static boolean isDevelopment()
+    {
+        return !FMLEnvironment.production;
     }
 
     public static void addComposting(Item item, float value)

@@ -40,6 +40,12 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static boolean isDevelopment()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static void addComposting(Item item, float value)
     {
         throw new AssertionError();

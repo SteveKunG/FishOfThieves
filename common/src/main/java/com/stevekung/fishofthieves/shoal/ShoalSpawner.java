@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.shoal;
 
 import java.util.Optional;
 
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -56,7 +57,8 @@ public final class ShoalSpawner
 
             FishOfThieves.LOGGER.debug("Spawn shoal at region {}, {}, {}, {}", biome.unwrapKey().get().location(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-            if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal)
+            //noinspection ConstantValue
+            if (FishOfThieves.CONFIG.debug.spawnBeaconAtShoal && FOTPlatform.isDevelopment())
             {
                 spawnBeacon(level, blockPos);
             }

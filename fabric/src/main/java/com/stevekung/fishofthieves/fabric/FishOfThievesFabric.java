@@ -24,7 +24,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.SectionPos;
@@ -141,7 +140,7 @@ public class FishOfThievesFabric implements ModInitializer
         {
             level.getBaitPreserve().spawnBaitOnLoad(level);
 
-            if (FabricLoader.getInstance().isDevelopmentEnvironment())
+            if (FOTPlatform.isDevelopment())
             {
                 sendStructurePosDebugPacket(level, chunk.getPos());
             }

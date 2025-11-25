@@ -57,6 +57,11 @@ public class FOTPlatformImpl
         return FabricLoader.getInstance().isModLoaded(modId);
     }
 
+    public static boolean isDevelopment()
+    {
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
     public static void addComposting(Item item, float value)
     {
         CompostingChanceRegistry.INSTANCE.add(item, value);
