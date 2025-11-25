@@ -9,6 +9,8 @@
     "client.MixinDebugRenderer",
     "client.MixinLevelRenderer",
     "client.MixinLocalPlayer",
+    "client.map.MixinMapRenderer",
+    "client.map.MixinMapRenderer$MixinMapInstance",
     "client.model.MixinTadpoleModel",
     "client.renderer.entity.MixinBoatRenderer",
     "client.renderer.entity.MixinCodRenderer",
@@ -53,7 +55,8 @@
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
-    "loot.MixinLootPoolSingletonContainer_Builder"
+    "loot.MixinLootPoolSingletonContainer_Builder",
+    "map.MixinMapDecoration_Type"
   ],
   "injectors": {
     "defaultRequire": 1
