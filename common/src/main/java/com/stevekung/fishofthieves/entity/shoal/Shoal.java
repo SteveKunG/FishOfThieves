@@ -108,7 +108,6 @@ public class Shoal extends Entity
             {
                 this.createNaturalSpawn();
             }
-            FOTPlatform.syncClientShoalFish(this);
         }
     }
 
@@ -126,8 +125,14 @@ public class Shoal extends Entity
 
             listTag.add(compoundTag);
         }
+
         compound.put(SHOAL_FISH_TAG, listTag);
-        compound.putLong(LIFETIME_TAG, this.expiredAt);
+
+        if (this.expiredAt > 0)
+        {
+            compound.putLong(LIFETIME_TAG, this.expiredAt);
+        }
+
         compound.putBoolean(TREASURED_TAG, this.isTreasured());
     }
 
@@ -333,6 +338,7 @@ public class Shoal extends Entity
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
+        this.expiredAt = -1;
         FOTPlatform.syncClientShoalFish(this);
     }
 
