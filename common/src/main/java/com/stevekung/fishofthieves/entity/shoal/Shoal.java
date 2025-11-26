@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
@@ -49,7 +46,7 @@ public class Shoal extends Entity
     public static final String NATURAL_TAG = "natural";
     public static final String TREASURED_TAG = "treasured";
 
-    public static final String FILLED_MAP_TREASURED_FISH = "filled_map.treasured_fish";
+    public static final String FILLED_MAP_TREASURED_FISH = "filled_map.fishofthieves_treasured_fish";
 
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
     private long expiredAt = -1;
@@ -308,6 +305,8 @@ public class Shoal extends Entity
             return;
         }
 
+        this.shoalFishData.clear();
+
         for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST))
         {
             var entity = entityType.create(serverLevel);
@@ -315,12 +314,16 @@ public class Shoal extends Entity
             if (entity instanceof Mob mob)
             {
                 var compoundTag = new CompoundTag();
-                var tempTag = mob.saveWithoutId(new CompoundTag());
 
-                //TODO Get treasured variant in compoundTag
-                if (mob instanceof ThievesFish<?>)
+                if (mob instanceof ThievesFish<?> thievesFish)
                 {
-                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, this.random.nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability);
+                    var key = Util.getRandom(thievesFish.getRegistry()
+                            .entrySet()
+                            .stream()
+                            .filter(entry -> entry.getValue().isTreasured().isPresent())
+                            .map(entry -> entry.getKey().location()).toList(), this.random);
+                    compoundTag.putString(ThievesFish.VARIANT_TAG, key.toString());
+                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                 }
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
             }

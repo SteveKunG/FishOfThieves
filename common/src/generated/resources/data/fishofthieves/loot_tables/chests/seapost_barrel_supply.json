@@ -182,7 +182,7 @@
             {
               "function": "minecraft:set_name",
               "name": {
-                "translate": "filled_map.treasured_fish"
+                "translate": "filled_map.fishofthieves_treasured_fish"
               }
             }
           ],
