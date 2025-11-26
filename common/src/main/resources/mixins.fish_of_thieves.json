@@ -4,10 +4,13 @@
   "package": "com.stevekung.fishofthieves.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.accessor.EntityRenderDispatcherAccessor",
     "client.MixinCreativeModeTabs",
     "client.MixinDebugRenderer",
     "client.MixinLevelRenderer",
     "client.MixinLocalPlayer",
+    "client.map.MixinMapRenderer",
+    "client.map.MixinMapRenderer$MixinMapInstance",
     "client.model.MixinTadpoleModel",
     "client.renderer.entity.MixinBoatRenderer",
     "client.renderer.entity.MixinCodRenderer",
@@ -37,6 +40,7 @@
     "entity.MixinBoat",
     "entity.MixinBoat$BoatType",
     "entity.MixinChestBoat",
+    "entity.MixinEntity",
     "entity.MixinEntityType",
     "entity.MixinFallingBlockEntity",
     "entity.MixinFishingHook",
@@ -47,10 +51,13 @@
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
     "item.MixinFishingRodItem",
     "item.MixinRecordItem",
+    "level.MixinFlowingFluid",
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
-    "loot.MixinLootPoolSingletonContainer_Builder"
+    "loot.MixinLootPoolSingletonContainer_Builder",
+    "map.MixinMapDecoration_Type",
+    "map.MixinMapItemSavedData"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class StormfishVariant extends AbstractFishVariant
 {
-    private StormfishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    private StormfishVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean isTreasured)
     {
-        super(condition, texture, glowTexture);
+        super(condition, texture, glowTexture, isTreasured);
     }
 
     public static Builder builder()
@@ -29,6 +29,8 @@ public class StormfishVariant extends AbstractFishVariant
         private ResourceLocation texture;
         @Nullable
         private ResourceLocation glowTexture;
+        @Nullable
+        private Boolean isTreasured;
 
         Builder() {}
 
@@ -52,9 +54,15 @@ public class StormfishVariant extends AbstractFishVariant
             return this;
         }
 
+        public Builder treasured()
+        {
+            this.isTreasured = true;
+            return this;
+        }
+
         public StormfishVariant build()
         {
-            return new StormfishVariant(() -> this.condition, this.texture, this.glowTexture);
+            return new StormfishVariant(() -> this.condition, this.texture, this.glowTexture, this.isTreasured);
         }
 
         private ResourceLocation createTexture(String name)

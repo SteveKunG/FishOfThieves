@@ -2,11 +2,10 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
 import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class FOTEntities
@@ -21,6 +20,8 @@ public class FOTEntities
     public static final EntityType<Battlegill> BATTLEGILL = FOTPlatform.createEntityType(Battlegill::new, EntityDimensions.fixed(0.5F, 0.55F));
     public static final EntityType<Wrecker> WRECKER = FOTPlatform.createEntityType(Wrecker::new, EntityDimensions.fixed(0.5F, 0.5F));
     public static final EntityType<Stormfish> STORMFISH = FOTPlatform.createEntityType(Stormfish::new, EntityDimensions.fixed(0.75F, 0.55F));
+
+    public static final EntityType<Shoal> SHOAL = FOTPlatform.createEntityType(Shoal::new, MobCategory.MISC, EntityDimensions.fixed(2.0F, 1.0F), 10);
 
     public interface SpawnData
     {
@@ -42,6 +43,8 @@ public class FOTEntities
         register("battlegill", BATTLEGILL);
         register("wrecker", WRECKER);
         register("stormfish", STORMFISH);
+
+        register("shoal", SHOAL);
     }
 
     private static <T extends Entity> void register(String key, EntityType<T> type)

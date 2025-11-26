@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class IslehopperVariant extends AbstractFishVariant
 {
-    private IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    private IslehopperVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean isTreasured)
     {
-        super(condition, texture, glowTexture);
+        super(condition, texture, glowTexture, isTreasured);
     }
 
     public static Builder builder()
@@ -29,6 +29,8 @@ public class IslehopperVariant extends AbstractFishVariant
         private ResourceLocation texture;
         @Nullable
         private ResourceLocation glowTexture;
+        @Nullable
+        private Boolean isTreasured;
 
         Builder() {}
 
@@ -52,9 +54,15 @@ public class IslehopperVariant extends AbstractFishVariant
             return this;
         }
 
+        public Builder treasured()
+        {
+            this.isTreasured = true;
+            return this;
+        }
+
         public IslehopperVariant build()
         {
-            return new IslehopperVariant(() -> this.condition, this.texture, this.glowTexture);
+            return new IslehopperVariant(() -> this.condition, this.texture, this.glowTexture, this.isTreasured);
         }
 
         private ResourceLocation createTexture(String name)

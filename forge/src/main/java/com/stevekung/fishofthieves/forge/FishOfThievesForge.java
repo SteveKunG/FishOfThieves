@@ -110,6 +110,8 @@ public class FishOfThievesForge
             Aquaculture2.init();
         }
         INSTANCE.messageBuilder(ReceiveFishingHookBaitPacket.class, nextID()).encoder(ReceiveFishingHookBaitPacket::toBytes).decoder(ReceiveFishingHookBaitPacket::new).consumerMainThread(ReceiveFishingHookBaitPacket::handle).add();
+        INSTANCE.messageBuilder(RequestServerShoalPacket.class, nextID()).encoder(RequestServerShoalPacket::toBytes).decoder(RequestServerShoalPacket::new).consumerMainThread(RequestServerShoalPacket::handle).add();
+        INSTANCE.messageBuilder(SyncClientShoalPacket.class, nextID()).encoder(SyncClientShoalPacket::toBytes).decoder(SyncClientShoalPacket::new).consumerMainThread(SyncClientShoalPacket::handle).add();
     }
 
     @SubscribeEvent
@@ -179,6 +181,7 @@ public class FishOfThievesForge
         });
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
+        event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> FOTPoiTypes.init());
     }
 
     public static void sendToClient(Object packet, ServerPlayer player)
@@ -189,6 +192,11 @@ public class FishOfThievesForge
         {
             INSTANCE.sendTo(packet, connection, NetworkDirection.PLAY_TO_CLIENT);
         }
+    }
+
+    public static void sendToServer(Object packet)
+    {
+        INSTANCE.sendToServer(packet);
     }
 
     private static int nextID()

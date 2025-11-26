@@ -2,14 +2,17 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.function.BiConsumer;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.function.SetRandomFireworkFunction;
+import com.stevekung.fishofthieves.loot.function.TreasuredFishMapFunction;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.world.item.DyeColor;
@@ -21,7 +24,9 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class ChestLootProvider extends SimpleFabricLootTableProvider
@@ -60,7 +65,17 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
                                         .setDestination(StructureTags.ON_TREASURE_MAPS)
                                         .setMapDecoration(MapDecoration.Type.RED_X)
                                         .setZoom((byte)1)
-                                        .setSkipKnownStructures(false)))));
+                                        .setSkipKnownStructures(false))))
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.MAP)
+                                .apply(TreasuredFishMapFunction.makeTreasuredFishMap().setZoom((byte)1))
+                                .apply(SetNameFunction.setName(Component.translatable(Shoal.FILLED_MAP_TREASURED_FISH)))))
+                .withPool(LootPool.lootPool()
+                        .setRolls(UniformGenerator.between(0.0F, 1.0F))
+                        .add(LootItem.lootTableItem(Items.MAP)
+                                .apply(TreasuredFishMapFunction.makeTreasuredFishMap().setTier(2).setZoom((byte)1))
+                                .apply(SetNameFunction.setName(Component.translatable(Shoal.FILLED_MAP_TREASURED_FISH))))));
 
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()

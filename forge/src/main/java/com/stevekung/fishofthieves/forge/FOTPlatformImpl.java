@@ -1,10 +1,13 @@
 package com.stevekung.fishofthieves.forge;
 
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -20,6 +23,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -35,12 +39,18 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public class FOTPlatformImpl
 {
     public static boolean isModLoaded(String modId)
     {
         return ModList.get().isLoaded(modId);
+    }
+
+    public static boolean isDevelopment()
+    {
+        return !FMLEnvironment.production;
     }
 
     public static void addComposting(Item item, float value)
@@ -82,6 +92,11 @@ public class FOTPlatformImpl
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
         return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width, dimensions.height).clientTrackingRange(4).build("");
+    }
+
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return EntityType.Builder.of(entityFactory, mobCategory).sized(dimensions.width, dimensions.height).clientTrackingRange(clientTrackingRange).build("");
     }
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
@@ -150,17 +165,51 @@ public class FOTPlatformImpl
         FishOfThievesForge.MOB_EFFECTS.register(key, () -> mobEffect);
     }
 
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        return GameRules.register(FishOfThieves.MOD_RESOURCES + name, category, type);
+    }
+
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        return GameRules.BooleanValue.create(defaultValue);
+    }
+
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
     {
         if (player.level() instanceof ServerLevel serverLevel)
         {
-            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 256.0F))
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 1024f))
             {
                 if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
                 {
                     FishOfThievesForge.sendToClient(new ReceiveFishingHookBaitPacket(entityId, itemStack), serverPlayer);
                 }
             }
+        }
+    }
+
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        if (shoal.level() instanceof ServerLevel serverLevel)
+        {
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(shoal) < 1024f))
+            {
+                if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
+                {
+                    FishOfThievesForge.sendToClient(new SyncClientShoalPacket(shoal.getId(), shoal.getShoalFish()), serverPlayer);
+                }
+            }
+        }
+    }
+
+    public static void requestServerShoalFish(Shoal shoal)
+    {
+        var connection = Minecraft.getInstance().getConnection();
+
+        if (connection != null && FishOfThievesForge.INSTANCE.isRemotePresent(connection.getConnection()))
+        {
+            FishOfThievesForge.sendToServer(new RequestServerShoalPacket(shoal.getId()));
         }
     }
 }

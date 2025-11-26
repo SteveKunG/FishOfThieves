@@ -3,8 +3,13 @@ package com.stevekung.fishofthieves.fabric;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Lifecycle;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -32,6 +37,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -49,6 +55,11 @@ public class FOTPlatformImpl
     public static boolean isModLoaded(String modId)
     {
         return FabricLoader.getInstance().isModLoaded(modId);
+    }
+
+    public static boolean isDevelopment()
+    {
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     public static void addComposting(Item item, float value)
@@ -89,6 +100,11 @@ public class FOTPlatformImpl
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
     {
         return FabricEntityTypeBuilder.create(MobCategory.WATER_AMBIENT, entityFactory).dimensions(dimensions).trackRangeBlocks(4).build();
+    }
+
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return FabricEntityTypeBuilder.create(mobCategory, entityFactory).dimensions(dimensions).trackRangeBlocks(clientTrackingRange).build();
     }
 
     public static <T extends BlockEntity> void registerBlockEntity(String key, BlockEntityType<T> type)
@@ -152,6 +168,16 @@ public class FOTPlatformImpl
         Registry.register(BuiltInRegistries.BLOCKSTATE_PROVIDER_TYPE, FishOfThieves.id(key), type);
     }
 
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        return GameRuleRegistry.register(FishOfThieves.MOD_RESOURCES + name, category, type);
+    }
+
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        return GameRuleFactory.createBooleanRule(defaultValue);
+    }
+
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         ((WritableRegistry<MobEffect>) BuiltInRegistries.MOB_EFFECT).registerMapping(id, ResourceKey.create(Registries.MOB_EFFECT, FishOfThieves.id(key)), mobEffect, Lifecycle.stable());
@@ -169,6 +195,42 @@ public class FOTPlatformImpl
             {
                 ServerPlayNetworking.send(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, buff);
             }
+        }
+    }
+
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        if (shoal.getShoalFish().isEmpty())
+        {
+            return;
+        }
+
+        var buff = PacketByteBufs.create();
+        buff.writeVarInt(shoal.getId());
+        buff.writeCollection(shoal.getShoalFish(), (buf, shoalFish) ->
+        {
+            buf.writeUtf(shoalFish.id());
+            buf.writeUUID(shoalFish.uuid());
+            buf.writeNbt(shoalFish.data());
+        });
+
+        for (var serverPlayer : PlayerLookup.tracking(shoal))
+        {
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH))
+            {
+                ServerPlayNetworking.send(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH, buff);
+            }
+        }
+    }
+
+    public static void requestServerShoalFish(Shoal shoal)
+    {
+        var buff = PacketByteBufs.create();
+        buff.writeVarInt(shoal.getId());
+
+        if (ClientPlayNetworking.canSend(FishOfThieves.REQUEST_SERVER_SHOAL_FISH))
+        {
+            ClientPlayNetworking.send(FishOfThieves.REQUEST_SERVER_SHOAL_FISH, buff);
         }
     }
 }

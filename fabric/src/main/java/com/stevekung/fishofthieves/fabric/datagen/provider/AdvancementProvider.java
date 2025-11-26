@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
+import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
 public class AdvancementProvider extends FabricAdvancementProvider
 {
-    private static final Map<Item, Registry<?>> BUCKET_TO_VARIANTS_MAP = Map.of(
+    private static final Map<Item, Registry<? extends FishData>> BUCKET_TO_VARIANTS_MAP = Map.of(
             FOTItems.SPLASHTAIL_BUCKET, FOTRegistry.SPLASHTAIL_VARIANT,
             FOTItems.PONDIE_BUCKET, FOTRegistry.PONDIE_VARIANT,
             FOTItems.ISLEHOPPER_BUCKET, FOTRegistry.ISLEHOPPER_VARIANT,
@@ -284,6 +285,11 @@ public class AdvancementProvider extends FabricAdvancementProvider
         {
             for (var variant : new TreeSet<>(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
             {
+                if (BUCKET_TO_VARIANTS_MAP.get(item).getOptional(variant).orElseThrow().isTreasured().isPresent())
+                {
+                    continue;
+                }
+
                 builder.addCriterion(variant.getPath() + "_" + this.getItemName(item), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                 {
                     compound.putString(ThievesFish.VARIANT_TAG, variant.toString());

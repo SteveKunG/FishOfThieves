@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class AncientscaleVariant extends AbstractFishVariant
 {
-    private AncientscaleVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture)
+    private AncientscaleVariant(Supplier<Predicate<SpawnConditionContext>> condition, ResourceLocation texture, ResourceLocation glowTexture, Boolean isTreasured)
     {
-        super(condition, texture, glowTexture);
+        super(condition, texture, glowTexture, isTreasured);
     }
 
     public static Builder builder()
@@ -29,6 +29,8 @@ public class AncientscaleVariant extends AbstractFishVariant
         private ResourceLocation texture;
         @Nullable
         private ResourceLocation glowTexture;
+        @Nullable
+        private Boolean isTreasured;
 
         Builder() {}
 
@@ -52,9 +54,15 @@ public class AncientscaleVariant extends AbstractFishVariant
             return this;
         }
 
+        public Builder treasured()
+        {
+            this.isTreasured = true;
+            return this;
+        }
+
         public AncientscaleVariant build()
         {
-            return new AncientscaleVariant(() -> this.condition, this.texture, this.glowTexture);
+            return new AncientscaleVariant(() -> this.condition, this.texture, this.glowTexture, this.isTreasured);
         }
 
         private ResourceLocation createTexture(String name)

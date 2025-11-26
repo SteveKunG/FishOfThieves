@@ -16,6 +16,7 @@ public class BattlegillVariants
     public static final BattlegillVariant RUM = BattlegillVariant.builder().condition(SpawnSelectors.always()).texture("rum").build();
     public static final BattlegillVariant SAND = BattlegillVariant.builder().condition(SpawnSelectors.simpleSpawn(FishOfThieves.CONFIG.spawnRate.variant.sandBattlegillProbability, SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.sandBattlegillProbability).and(SpawnSelectors.biomeTag(FOTTags.Biomes.SPAWNS_SAND_BATTLEGILLS)))).texture("sand").build();
     public static final BattlegillVariant BITTERSWEET = BattlegillVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("bittersweet").glowTexture("bittersweet_glow").build();
+    public static final BattlegillVariant ZEST = BattlegillVariant.builder().condition(SpawnSelectors.never()).texture("treasured/zest").glowTexture("treasured/zest_glow").treasured().build();
 
     public static void init()
     {
@@ -24,6 +25,7 @@ public class BattlegillVariants
         register("rum", BattlegillVariants.RUM);
         register("sand", BattlegillVariants.SAND);
         register("bittersweet", BattlegillVariants.BITTERSWEET);
+        register("zest", BattlegillVariants.ZEST);
     }
 
     private static void register(String key, BattlegillVariant variant)

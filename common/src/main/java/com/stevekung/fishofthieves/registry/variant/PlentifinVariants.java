@@ -19,6 +19,7 @@ public class PlentifinVariants
     public static final PlentifinVariant CLOUDY = PlentifinVariant.builder().condition(SpawnSelectors.simpleSpawn(SpawnSelectors.rainingAndSeeSky())).texture("cloudy").build();
     public static final PlentifinVariant BONEDUST = PlentifinVariant.builder().condition(SpawnSelectors.probability(FishOfThieves.CONFIG.spawnRate.variant.bonedustPlentifinProbability)).texture("bonedust").build();
     public static final PlentifinVariant WATERY = PlentifinVariant.builder().condition(SpawnSelectors.nightAndSeeSky()).texture("watery").glowTexture("watery_glow").build();
+    public static final PlentifinVariant CRIMSON = PlentifinVariant.builder().condition(SpawnSelectors.never()).texture("treasured/crimson").glowTexture("treasured/crimson_glow").treasured().build();
 
     public static void init()
     {
@@ -27,6 +28,7 @@ public class PlentifinVariants
         register("cloudy", PlentifinVariants.CLOUDY);
         register("bonedust", PlentifinVariants.BONEDUST);
         register("watery", PlentifinVariants.WATERY);
+        register("crimson", PlentifinVariants.CRIMSON);
     }
 
     private static void register(String key, PlentifinVariant variant)

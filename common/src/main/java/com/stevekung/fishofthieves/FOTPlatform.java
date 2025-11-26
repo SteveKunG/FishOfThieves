@@ -1,11 +1,14 @@
 package com.stevekung.fishofthieves;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -13,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,6 +35,12 @@ public class FOTPlatform
 {
     @ExpectPlatform
     public static boolean isModLoaded(String modId)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean isDevelopment()
     {
         throw new AssertionError();
     }
@@ -79,6 +89,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, EntityDimensions dimensions)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
     {
         throw new AssertionError();
     }
@@ -156,6 +172,18 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static void registerMobEffect(int id, String key, MobEffect mobEffect)
     {
         throw new AssertionError();
@@ -163,6 +191,18 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void requestServerShoalFish(Shoal shoal)
     {
         throw new AssertionError();
     }

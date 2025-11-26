@@ -44,10 +44,10 @@ public class StructureCenterPosDebugRenderer implements DebugRenderer.SimpleDebu
             }
         });
 
-        if (FishOfThieves.CONFIG.debug.displayInfo)
+        if (FishOfThieves.CONFIG.debug.displayStructureCenterPosInfo)
         {
             var optional = posList.stream()
-                    .filter(pair -> pair.getFirst().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureRangeLimit)
+                    .filter(pair -> pair.getFirst().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureCenterPosRangeLimit)
                     .min(Comparator.comparing(pair -> pair.getFirst().distManhattan(entityPos)));
 
             if (optional.isPresent())

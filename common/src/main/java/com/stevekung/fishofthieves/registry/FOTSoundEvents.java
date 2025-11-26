@@ -39,6 +39,7 @@ public class FOTSoundEvents
     public static final SoundEvent STORMFISH_HURT = create("entity.stormfish.hurt");
 
     public static final SoundEvent FISH_JUMP = create("entity.fish.jump");
+    public static final SoundEvent SHOAL_DEPLETE = create("entity.shoal.deplete");
 
     public static final SoundEvent FISH_PLAQUE_ROTATE = create("block.fish_plaque.rotate");
     public static final SoundEvent FISH_PLAQUE_WAX_OFF = create("block.fish_plaque.wax_off");
@@ -81,6 +82,7 @@ public class FOTSoundEvents
         register(STORMFISH_FLOP);
         register(STORMFISH_HURT);
         register(FISH_JUMP);
+        register(SHOAL_DEPLETE);
         register(FISH_PLAQUE_ROTATE);
         register(FISH_PLAQUE_WAX_OFF);
         register(PINEAPPLE_SHEAR);

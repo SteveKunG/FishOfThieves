@@ -686,6 +686,14 @@
     ],
     "subtitle": "subtitles.entity.fish.jump"
   },
+  "entity.shoal.deplete": {
+    "sounds": [
+      "mob/dolphin/splash1",
+      "mob/dolphin/splash2",
+      "mob/dolphin/splash3"
+    ],
+    "subtitle": "subtitles.entity.shoal.deplete"
+  },
   "block.fish_plaque.rotate": {
     "sounds": [
       "entity/itemframe/rotate_item1",

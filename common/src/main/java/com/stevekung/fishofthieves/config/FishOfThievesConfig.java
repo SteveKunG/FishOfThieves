@@ -22,6 +22,10 @@ public final class FishOfThievesConfig implements ConfigData
     @ConfigEntry.Gui.TransitiveObject
     public SpawnRate spawnRate;
 
+    @ConfigEntry.Category("shoal")
+    @ConfigEntry.Gui.TransitiveObject
+    public Shoal shoal;
+
     @ConfigEntry.Category("debug")
     @ConfigEntry.Gui.TransitiveObject
     public Debug debug;
@@ -31,6 +35,7 @@ public final class FishOfThievesConfig implements ConfigData
         this.general = new General();
         this.biome = new Biome();
         this.spawnRate = new SpawnRate();
+        this.shoal = new Shoal();
         this.debug = new Debug();
     }
 
@@ -157,10 +162,59 @@ public final class FishOfThievesConfig implements ConfigData
         }
     }
 
+    public static class Shoal
+    {
+        @ConfigEntry.Gui.Tooltip
+        public int chance = 2000;
+
+        @ConfigEntry.Gui.Tooltip
+        public int chanceRaining = 250;
+
+        @ConfigEntry.Gui.Tooltip
+        public int spreadDistance = 64;
+
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+        public int maxLifetimeDay = 3;
+
+        @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.Tooltip
+        public Weight weight = new Weight();
+
+        public static class Weight
+        {
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int riverOrBeach = 4;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int coast = 12;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int ocean = 90;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int deepOcean = 95;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int swamp = 20;
+        }
+    }
+
     public static class Debug
     {
         public boolean enableStructureCenterPosRender = true;
-        public boolean displayInfo = true;
-        public int structureRangeLimit = 64;
+        public boolean displayStructureCenterPosInfo = true;
+        public int structureCenterPosRangeLimit = 64;
+        public boolean spawnBeaconAtShoal = false;
     }
 }

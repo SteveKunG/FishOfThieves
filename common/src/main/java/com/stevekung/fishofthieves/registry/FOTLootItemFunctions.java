@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.loot.function.SetRandomFireworkFunction;
+import com.stevekung.fishofthieves.loot.function.TreasuredFishMapFunction;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,9 +11,11 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 public class FOTLootItemFunctions
 {
     public static final LootItemFunctionType SET_RANDOM_FIREWORK = new LootItemFunctionType(new SetRandomFireworkFunction.Serializer());
+    public static final LootItemFunctionType TREASURED_FISH_MAP = new LootItemFunctionType(new TreasuredFishMapFunction.Serializer());
 
     public static void init()
     {
         Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, FishOfThieves.id("set_random_firework"), SET_RANDOM_FIREWORK);
+        Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, FishOfThieves.id("treasured_fish_map"), TREASURED_FISH_MAP);
     }
 }
