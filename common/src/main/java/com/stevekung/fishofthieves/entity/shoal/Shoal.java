@@ -276,7 +276,14 @@ public class Shoal extends Entity
             return;
         }
 
-        for (var entityType : pickRandom(COMMON_FISH))
+        var commonFish = new ArrayList<>(COMMON_FISH);
+
+        if (this.level().isThundering())
+        {
+            commonFish.add(FOTEntities.STORMFISH);
+        }
+
+        for (var entityType : pickRandom(commonFish))
         {
             var entity = entityType.create(serverLevel);
 
