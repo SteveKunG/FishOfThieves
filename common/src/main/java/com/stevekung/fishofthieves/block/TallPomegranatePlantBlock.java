@@ -215,17 +215,17 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     }
 
     @Nullable
-    private TallPomegranatePlantBlock.PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
+    private PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
     {
         if (isLower(state))
         {
-            return new TallPomegranatePlantBlock.PosAndState(pos, state);
+            return new PosAndState(pos, state);
         }
         else
         {
             var blockPos = pos.below();
             var blockState = level.getBlockState(blockPos);
-            return isLower(blockState) ? new TallPomegranatePlantBlock.PosAndState(blockPos, blockState) : null;
+            return isLower(blockState) ? new PosAndState(blockPos, blockState) : null;
         }
     }
 
@@ -233,7 +233,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient)
     {
         var posAndState = this.getLowerHalf(level, pos, state);
-        return posAndState != null && this.canGrow(level, posAndState.pos, posAndState.state);
+        return posAndState != null && this.canGrow(level, posAndState.pos(), posAndState.state());
     }
 
     @Override
@@ -249,7 +249,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
 
         if (posAndState != null)
         {
-            this.grow(level, posAndState.state, posAndState.pos);
+            this.grow(level, posAndState.state(), posAndState.pos());
         }
     }
 
@@ -258,7 +258,4 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     {
         return false;
     }
-
-    record PosAndState(BlockPos pos, BlockState state)
-    {}
 }
