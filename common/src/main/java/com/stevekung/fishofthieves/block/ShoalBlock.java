@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -23,9 +25,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 @SuppressWarnings("deprecation")
 public class ShoalBlock extends Block
 {
+    public static final BooleanProperty TREASURED = BooleanProperty.create("treasured");
+
     public ShoalBlock(BlockBehaviour.Properties properties)
     {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(TREASURED, false));
     }
 
     @Override
@@ -85,6 +90,12 @@ public class ShoalBlock extends Block
     public RenderShape getRenderShape(BlockState state)
     {
         return RenderShape.INVISIBLE;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
+    {
+        builder.add(TREASURED);
     }
 
     private void destroyShoal(BlockState state, Level level, BlockPos pos)

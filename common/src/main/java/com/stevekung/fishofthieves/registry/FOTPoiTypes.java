@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import java.util.Set;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.block.ShoalBlock;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,11 +15,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class FOTPoiTypes
 {
-    public static final ResourceKey<PoiType> SHOAL = createKey("shoal");
+    public static final ResourceKey<PoiType> NATURAL_SHOAL = createKey("natural_shoal");
+    public static final ResourceKey<PoiType> TREASURED_SHOAL = createKey("treasured_shoal");
 
     public static void init()
     {
-        register(SHOAL, PoiTypes.getBlockStates(FOTBlocks.SHOAL_BLOCK), 0, 1);
+        register(NATURAL_SHOAL, Set.of(FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, false)), 0, 1);
+        register(TREASURED_SHOAL, Set.of(FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, true)), 0, 1);
     }
 
     private static void register(ResourceKey<PoiType> value, Set<BlockState> matchingStates, int maxTickets, int validRange)

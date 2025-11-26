@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.registry.FOTLootItemFunctions;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
@@ -29,12 +30,14 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
 {
     private final byte zoom;
     private final int searchRadius;
+    private final int tier;
 
-    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int searchRadius)
+    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int searchRadius, int tier)
     {
         super(conditions);
         this.zoom = zoom;
         this.searchRadius = searchRadius;
+        this.tier = tier;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             if (vec3 != null)
             {
                 var serverLevel = context.getLevel();
-                var optional = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.SHOAL), BlockPos.containing(vec3), 100, PoiManager.Occupancy.ANY);
+                var optional = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 100, PoiManager.Occupancy.ANY);
 
                 if (optional.isPresent())
                 {
@@ -67,6 +70,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                     var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), this.zoom, true, true);
                     MapItem.renderBiomePreviewMap(serverLevel, itemStack);
                     MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
+                    Shoal.setTreasuredShoal(serverLevel, blockPos, this.tier);
                     return itemStack;
                 }
             }
@@ -83,6 +87,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     {
         private byte zoom = 2;
         private int searchRadius = 50;
+        private int tier = 1;
 
         @Override
         protected TreasuredFishMapFunction.Builder getThis()
@@ -102,10 +107,16 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             return this;
         }
 
+        public TreasuredFishMapFunction.Builder setTier(int tier)
+        {
+            this.tier = tier;
+            return this;
+        }
+
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.searchRadius);
+            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.searchRadius, this.tier);
         }
     }
 
@@ -125,6 +136,11 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             {
                 json.addProperty("search_radius", treasuredFishMapFunction.searchRadius);
             }
+
+            if (treasuredFishMapFunction.tier != 1)
+            {
+                json.addProperty("tier", treasuredFishMapFunction.tier);
+            }
         }
 
         @Override
@@ -132,7 +148,8 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         {
             var zoom = GsonHelper.getAsByte(object, "zoom", (byte) 2);
             var searchRadius = GsonHelper.getAsInt(object, "search_radius", 50);
-            return new TreasuredFishMapFunction(conditions, zoom, searchRadius);
+            var tier = GsonHelper.getAsInt(object, "tier", 1);
+            return new TreasuredFishMapFunction(conditions, zoom, searchRadius, tier);
         }
     }
 }

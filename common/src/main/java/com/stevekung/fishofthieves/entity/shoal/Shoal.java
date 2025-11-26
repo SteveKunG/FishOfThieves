@@ -1,12 +1,16 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.block.ShoalBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -18,12 +22,17 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class Shoal extends Entity
@@ -33,9 +42,12 @@ public class Shoal extends Entity
     private static final List<EntityType<?>> TIER_1_FISH_QUEST = List.of(FOTEntities.PONDIE, FOTEntities.ANCIENTSCALE, FOTEntities.WRECKER, FOTEntities.DEVILFISH, FOTEntities.ISLEHOPPER);
     private static final List<EntityType<?>> TIER_2_FISH_QUEST = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
 
+    private static final EntityDataAccessor<Boolean> TREASURED = SynchedEntityData.defineId(Shoal.class, EntityDataSerializers.BOOLEAN);
+
     public static final String SHOAL_FISH_TAG = "shoal_fish";
-    public static final String LIFE_TIME_TAG = "life_time";
+    public static final String LIFETIME_TAG = "lifetime";
     public static final String NATURAL_TAG = "natural";
+    public static final String TREASURED_TAG = "treasured";
 
     public static final String FILLED_MAP_TREASURED_FISH = "filled_map.treasured_fish";
 
@@ -51,24 +63,32 @@ public class Shoal extends Entity
     }
 
     @Override
-    protected void defineSynchedData() {}
+    protected void defineSynchedData()
+    {
+        this.getEntityData().define(TREASURED, false);
+    }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound)
     {
         this.shoalFishData.clear();
-        var listTag = compound.getList(SHOAL_FISH_TAG, CompoundTag.TAG_COMPOUND);
+        var listTag = compound.getList(SHOAL_FISH_TAG, Tag.TAG_COMPOUND);
 
         for (var i = 0; i < listTag.size(); i++)
         {
             var compoundTag = listTag.getCompound(i);
             UUID uuid;
 
-            try
+            if (!compoundTag.contains(ShoalFishData.ID_TAG, Tag.TAG_STRING) || compoundTag.getString(ShoalFishData.ID_TAG).isEmpty())
+            {
+                return;
+            }
+
+            if (compoundTag.hasUUID(ShoalFishData.UUID_TAG))
             {
                 uuid = compoundTag.getUUID(ShoalFishData.UUID_TAG);
             }
-            catch (Exception e)
+            else
             {
                 uuid = UUID.randomUUID();
             }
@@ -76,7 +96,14 @@ public class Shoal extends Entity
             this.shoalFishData.add(new ShoalFishData(compoundTag.getString(ShoalFishData.ID_TAG), uuid, compoundTag.getCompound(ShoalFishData.DATA_TAG)));
         }
 
-        this.expiredAt = compound.getLong(LIFE_TIME_TAG);
+        if (compound.contains(LIFETIME_TAG, Tag.TAG_LONG))
+        {
+            this.expiredAt = compound.getLong(LIFETIME_TAG);
+        }
+        if (compound.contains(TREASURED_TAG, Tag.TAG_BYTE))
+        {
+            this.setTreasured(compound.getBoolean(TREASURED_TAG));
+        }
 
         if (!this.level().isClientSide())
         {
@@ -103,7 +130,8 @@ public class Shoal extends Entity
             listTag.add(compoundTag);
         }
         compound.put(SHOAL_FISH_TAG, listTag);
-        compound.putLong(LIFE_TIME_TAG, this.expiredAt);
+        compound.putLong(LIFETIME_TAG, this.expiredAt);
+        compound.putBoolean(TREASURED_TAG, this.isTreasured());
     }
 
     @Override
@@ -127,7 +155,7 @@ public class Shoal extends Entity
         {
             var blockState = this.level().getBlockState(this.blockPosition());
 
-            if ((this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL_BLOCK)) && !this.isInvulnerable())
+            if ((this.expiredAt > 0 && this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL_BLOCK)) && !this.isInvulnerable())
             {
                 this.destroy();
             }
@@ -170,6 +198,16 @@ public class Shoal extends Entity
     {
         var d0 = 64.0 * getViewScale();
         return distance < d0 * d0;
+    }
+
+    public void setTreasured(boolean treasured)
+    {
+        this.getEntityData().set(TREASURED, treasured);
+    }
+
+    public boolean isTreasured()
+    {
+        return this.getEntityData().get(TREASURED);
     }
 
     public void destroy()
@@ -261,6 +299,46 @@ public class Shoal extends Entity
             }
         }
         this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifetimeDay * 24000L;
+    }
+
+    public void createTreasuredSpawn(int tier)
+    {
+        if (!(this.level() instanceof ServerLevel serverLevel))
+        {
+            return;
+        }
+
+        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST))
+        {
+            var entity = entityType.create(serverLevel);
+
+            if (entity instanceof Mob mob)
+            {
+                var compoundTag = new CompoundTag();
+                var tempTag = mob.saveWithoutId(new CompoundTag());
+
+                //TODO Get treasured variant in compoundTag
+                if (mob instanceof ThievesFish<?>)
+                {
+                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, this.random.nextFloat() < FishOfThieves.CONFIG.spawnRate.trophyProbability);
+                }
+                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
+            }
+        }
+    }
+
+    public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
+    {
+        level.setBlock(blockPos, FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
+
+        var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(blockPos).inflate(1));
+
+        if (!shoals.isEmpty())
+        {
+            var shoal = shoals.get(0);
+            shoal.createTreasuredSpawn(tier);
+            shoal.setTreasured(true);
+        }
     }
 
     private void destroyShoalBlock()

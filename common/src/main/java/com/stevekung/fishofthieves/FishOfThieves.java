@@ -247,7 +247,7 @@ public class FishOfThieves
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
-                list.add(new TreasuredFishMapForEmeralds(12, Shoal.FILLED_MAP_TREASURED_FISH, 5, 20));
+                list.add(new TreasuredFishMapForEmeralds(12, Shoal.FILLED_MAP_TREASURED_FISH, 5, 20, 1));
             }
             case 4 ->
             {

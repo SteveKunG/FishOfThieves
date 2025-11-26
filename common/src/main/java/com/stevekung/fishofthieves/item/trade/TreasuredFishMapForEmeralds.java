@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.item.trade;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 
@@ -17,7 +18,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
-public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, int maxUses, int villagerXp) implements VillagerTrades.ItemListing
+public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, int maxUses, int villagerXp, int tier) implements VillagerTrades.ItemListing
 {
     @Nullable
     @Override
@@ -29,7 +30,7 @@ public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, i
         }
         else
         {
-            var optional = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.SHOAL), trader.blockPosition(), 100, PoiManager.Occupancy.ANY);
+            var optional = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), trader.blockPosition(), 100, PoiManager.Occupancy.ANY);
 
             if (optional.isPresent())
             {
@@ -38,6 +39,7 @@ public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, i
                 MapItem.renderBiomePreviewMap(serverLevel, itemStack);
                 MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
                 itemStack.setHoverName(Component.translatable(this.displayName));
+                Shoal.setTreasuredShoal(serverLevel, blockPos, this.tier);
                 return new MerchantOffer(new ItemStack(Items.EMERALD, this.emeraldCost), new ItemStack(Items.COMPASS), itemStack, this.maxUses, this.villagerXp, 0.2F);
             }
             else

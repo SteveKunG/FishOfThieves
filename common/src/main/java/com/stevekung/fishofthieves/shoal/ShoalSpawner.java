@@ -67,7 +67,7 @@ public final class ShoalSpawner
 
     private static Optional<BlockPos> findNearestExistingShoal(ServerLevel level, BlockPos pos)
     {
-        var optional = level.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.SHOAL), blockPos -> blockPos.getY() == level.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos.getX(), blockPos.getZ()) - 1, pos, FishOfThieves.CONFIG.shoal.spreadDistance, PoiManager.Occupancy.ANY);
+        var optional = level.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), blockPos -> blockPos.getY() == level.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos.getX(), blockPos.getZ()) - 1, pos, FishOfThieves.CONFIG.shoal.spreadDistance, PoiManager.Occupancy.ANY);
         return optional.map(blockPos -> blockPos.above(1));
     }
 
