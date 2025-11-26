@@ -4,12 +4,12 @@
   "group": "copper_frame_fish_plaque",
   "key": {
     "F": "fishofthieves:bamboo_fish_plaque",
-    "N": "minecraft:copper_ingot"
+    "N": "minecraft:copper_nugget"
   },
   "pattern": [
-    " N ",
+    "NNN",
     "NFN",
-    " N "
+    "NNN"
   ],
   "result": {
     "count": 1,
