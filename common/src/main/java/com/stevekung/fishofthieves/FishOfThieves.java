@@ -13,6 +13,7 @@ import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.api.block.FishPlaqueRegistry;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapForEmeralds;
 import com.stevekung.fishofthieves.registry.*;
 
@@ -246,7 +247,7 @@ public class FishOfThieves
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
-                list.add(new TreasuredFishMapForEmeralds(12, "filled_map.treasured_fish", 5, 20));
+                list.add(new TreasuredFishMapForEmeralds(12, Shoal.FILLED_MAP_TREASURED_FISH, 5, 20));
             }
             case 4 ->
             {

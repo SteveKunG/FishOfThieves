@@ -56,7 +56,8 @@
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
     "loot.MixinLootPoolSingletonContainer_Builder",
-    "map.MixinMapDecoration_Type"
+    "map.MixinMapDecoration_Type",
+    "map.MixinMapItemSavedData"
   ],
   "injectors": {
     "defaultRequire": 1

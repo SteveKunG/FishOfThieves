@@ -30,11 +30,11 @@ public final class ShoalSpawner
 
         if (level.random.nextInt(chance) == 0)
         {
-            findSuitableShoalPosition(level, level.getBlockRandomPos(x, level.getSeaLevel(), z, 0));
+            spawnShoalAtSuitablePos(level, level.getBlockRandomPos(x, level.getSeaLevel(), z, 0));
         }
     }
 
-    private static void findSuitableShoalPosition(ServerLevel level, BlockPos pos)
+    private static void spawnShoalAtSuitablePos(ServerLevel level, BlockPos pos)
     {
         var blockPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos);
         var biome = level.getBiome(blockPos);

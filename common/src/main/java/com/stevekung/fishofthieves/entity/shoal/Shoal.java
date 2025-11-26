@@ -37,6 +37,8 @@ public class Shoal extends Entity
     public static final String LIFE_TIME_TAG = "life_time";
     public static final String NATURAL_TAG = "natural";
 
+    public static final String FILLED_MAP_TREASURED_FISH = "filled_map.treasured_fish";
+
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
     private long expiredAt = -1;
 
