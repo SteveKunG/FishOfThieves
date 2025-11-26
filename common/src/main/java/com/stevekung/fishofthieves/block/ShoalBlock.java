@@ -78,12 +78,7 @@ public class ShoalBlock extends Block implements BucketPickup
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos)
     {
-        return BlockPos.betweenClosedStream(pos.offset(-1, 0, -1), pos.offset(1, -2, 1)).allMatch(blockPos ->
-        {
-            var blockState = level.getBlockState(blockPos);
-            var fluidState = blockState.getFluidState();
-            return fluidState.is(FluidTags.WATER) && fluidState.isSource() && blockState.getCollisionShape(level, blockPos).isEmpty();
-        });
+        return canSurvive(level, pos);
     }
 
     @Override
@@ -115,6 +110,16 @@ public class ShoalBlock extends Block implements BucketPickup
     public Optional<SoundEvent> getPickupSound()
     {
         return Fluids.WATER.getPickupSound();
+    }
+
+    public static boolean canSurvive(LevelReader level, BlockPos pos)
+    {
+        return BlockPos.betweenClosedStream(pos.offset(-1, 0, -1), pos.offset(1, -2, 1)).allMatch(blockPos ->
+        {
+            var blockState = level.getBlockState(blockPos);
+            var fluidState = blockState.getFluidState();
+            return fluidState.is(FluidTags.WATER) && fluidState.isSource() && blockState.getCollisionShape(level, blockPos).isEmpty();
+        });
     }
 
     private void destroyShoal(BlockState state, Level level, BlockPos pos)

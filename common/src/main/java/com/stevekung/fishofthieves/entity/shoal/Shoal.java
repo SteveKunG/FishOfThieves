@@ -151,8 +151,9 @@ public class Shoal extends Entity
         if (!this.level().isClientSide())
         {
             var blockState = this.level().getBlockState(this.blockPosition());
+            var canSurvive = ShoalBlock.canSurvive(this.level(), this.blockPosition());
 
-            if ((this.expiredAt > 0 && this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL_BLOCK)) && !this.isInvulnerable())
+            if ((this.level().getGameTime() % 20L == 0L && !canSurvive || this.expiredAt > 0 && this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL_BLOCK)) && !this.isInvulnerable())
             {
                 this.destroy();
             }
