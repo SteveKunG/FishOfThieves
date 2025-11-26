@@ -258,7 +258,7 @@ public class Shoal extends Entity
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
-        this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifeTimeDay * 24000L;
+        this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifetimeDay * 24000L;
     }
 
     private void destroyShoalBlock()
