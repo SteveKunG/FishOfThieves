@@ -1,11 +1,13 @@
 package com.stevekung.fishofthieves.forge;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.forge.mixin.MobBucketItemAccessor;
 import com.stevekung.fishofthieves.registry.FOTGrassColorModifier;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -177,13 +179,37 @@ public class FOTPlatformImpl
     {
         if (player.level() instanceof ServerLevel serverLevel)
         {
-            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 256.0F))
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 1024f))
             {
                 if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
                 {
                     FishOfThievesForge.sendToClient(new ReceiveFishingHookBaitPacket(entityId, itemStack), serverPlayer);
                 }
             }
+        }
+    }
+
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        if (shoal.level() instanceof ServerLevel serverLevel)
+        {
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(shoal) < 1024f))
+            {
+                if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
+                {
+                    FishOfThievesForge.sendToClient(new SyncClientShoalPacket(shoal.getId(), shoal.getShoalFish()), serverPlayer);
+                }
+            }
+        }
+    }
+
+    public static void requestServerShoalFish(Shoal shoal)
+    {
+        var connection = Minecraft.getInstance().getConnection();
+
+        if (connection != null && FishOfThievesForge.INSTANCE.isRemotePresent(connection.getConnection()))
+        {
+            FishOfThievesForge.sendToServer(new RequestServerShoalPacket(shoal.getId()));
         }
     }
 }

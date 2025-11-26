@@ -110,6 +110,8 @@ public class FishOfThievesForge
             Aquaculture2.init();
         }
         INSTANCE.messageBuilder(ReceiveFishingHookBaitPacket.class, nextID()).encoder(ReceiveFishingHookBaitPacket::toBytes).decoder(ReceiveFishingHookBaitPacket::new).consumerMainThread(ReceiveFishingHookBaitPacket::handle).add();
+        INSTANCE.messageBuilder(RequestServerShoalPacket.class, nextID()).encoder(RequestServerShoalPacket::toBytes).decoder(RequestServerShoalPacket::new).consumerMainThread(RequestServerShoalPacket::handle).add();
+        INSTANCE.messageBuilder(SyncClientShoalPacket.class, nextID()).encoder(SyncClientShoalPacket::toBytes).decoder(SyncClientShoalPacket::new).consumerMainThread(SyncClientShoalPacket::handle).add();
     }
 
     @SubscribeEvent
@@ -190,6 +192,11 @@ public class FishOfThievesForge
         {
             INSTANCE.sendTo(packet, connection, NetworkDirection.PLAY_TO_CLIENT);
         }
+    }
+
+    public static void sendToServer(Object packet)
+    {
+        INSTANCE.sendToServer(packet);
     }
 
     private static int nextID()

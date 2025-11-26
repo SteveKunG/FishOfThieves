@@ -295,6 +295,7 @@ public class Shoal extends Entity
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
+        FOTPlatform.syncClientShoalFish(this);
         this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifetimeDay * 24000L;
     }
 
@@ -311,23 +312,20 @@ public class Shoal extends Entity
         {
             var entity = entityType.create(serverLevel);
 
-            if (entity instanceof Mob mob)
+            if (entity instanceof ThievesFish<?> thievesFish)
             {
                 var compoundTag = new CompoundTag();
-
-                if (mob instanceof ThievesFish<?> thievesFish)
-                {
-                    var key = Util.getRandom(thievesFish.getRegistry()
-                            .entrySet()
-                            .stream()
-                            .filter(entry -> entry.getValue().isTreasured().isPresent())
-                            .map(entry -> entry.getKey().location()).toList(), this.random);
-                    compoundTag.putString(ThievesFish.VARIANT_TAG, key.toString());
-                    compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
-                }
-                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
+                var key = Util.getRandom(thievesFish.getRegistry()
+                        .entrySet()
+                        .stream()
+                        .filter(entry -> entry.getValue().isTreasured().isPresent())
+                        .map(entry -> entry.getKey().location()).toList(), this.random);
+                compoundTag.putString(ThievesFish.VARIANT_TAG, key.toString());
+                compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
+                this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
+        FOTPlatform.syncClientShoalFish(this);
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
