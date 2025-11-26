@@ -146,7 +146,7 @@ public class FishOfThievesFabric implements ModInitializer
             }
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(FishOfThieves.REQUEST_SHOAL_FISH, FishOfThievesFabric::requestShoalFish);
+        ServerPlayNetworking.registerGlobalReceiver(FishOfThieves.REQUEST_SERVER_SHOAL_FISH, FishOfThievesFabric::requestServerShoalFish);
     }
 
     private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)
@@ -182,7 +182,7 @@ public class FishOfThievesFabric implements ModInitializer
         }
     }
 
-    public static void requestShoalFish(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender)
+    public static void requestServerShoalFish(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender)
     {
         var entityId = buf.readVarInt();
 
@@ -192,7 +192,7 @@ public class FishOfThievesFabric implements ModInitializer
 
             if (shoal != null)
             {
-                FOTPlatform.syncShoalFish(shoal);
+                FOTPlatform.syncClientShoalFish(shoal);
             }
         });
     }

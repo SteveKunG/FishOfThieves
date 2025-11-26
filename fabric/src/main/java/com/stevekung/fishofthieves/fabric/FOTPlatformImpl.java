@@ -198,7 +198,7 @@ public class FOTPlatformImpl
         }
     }
 
-    public static void syncShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal)
     {
         if (shoal.getShoalFish().isEmpty())
         {
@@ -216,21 +216,21 @@ public class FOTPlatformImpl
 
         for (var serverPlayer : PlayerLookup.tracking(shoal))
         {
-            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_SHOAL_FISH))
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH))
             {
-                ServerPlayNetworking.send(serverPlayer, FishOfThieves.SYNC_SHOAL_FISH, buff);
+                ServerPlayNetworking.send(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH, buff);
             }
         }
     }
 
-    public static void requestShoalFish(Shoal shoal)
+    public static void requestServerShoalFish(Shoal shoal)
     {
         var buff = PacketByteBufs.create();
         buff.writeVarInt(shoal.getId());
 
-        if (ClientPlayNetworking.canSend(FishOfThieves.REQUEST_SHOAL_FISH))
+        if (ClientPlayNetworking.canSend(FishOfThieves.REQUEST_SERVER_SHOAL_FISH))
         {
-            ClientPlayNetworking.send(FishOfThieves.REQUEST_SHOAL_FISH, buff);
+            ClientPlayNetworking.send(FishOfThieves.REQUEST_SERVER_SHOAL_FISH, buff);
         }
     }
 }

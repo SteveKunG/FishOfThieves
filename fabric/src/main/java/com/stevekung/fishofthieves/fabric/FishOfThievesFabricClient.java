@@ -66,7 +66,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.RECEIVE_FISHING_HOOK_BAIT, FishOfThievesFabricClient::setFishingHookBait);
         ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.STRUCTURE_CENTER_POS_DEBUG, FishOfThievesFabricClient::addDebugStructureCenterPos);
-        ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.SYNC_SHOAL_FISH, FishOfThievesFabricClient::syncShoalFish);
+        ClientPlayNetworking.registerGlobalReceiver(FishOfThieves.SYNC_CLIENT_SHOAL_FISH, FishOfThievesFabricClient::syncClientShoalFish);
     }
 
     public static void setFishingHookBait(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
@@ -82,10 +82,10 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         FOTClientPackets.addDebugStructureCenterPos(minecraft, structurePosList);
     }
 
-    public static void syncShoalFish(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
+    public static void syncClientShoalFish(Minecraft minecraft, ClientPacketListener listener, FriendlyByteBuf buf, PacketSender responseSender)
     {
         var entityId = buf.readVarInt();
         var shoalFish = buf.readCollection(ArrayList::new, buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt()));
-        FOTClientPackets.syncShoalFish(minecraft, entityId, shoalFish);
+        FOTClientPackets.syncClientShoalFish(minecraft, entityId, shoalFish);
     }
 }

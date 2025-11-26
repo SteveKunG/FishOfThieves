@@ -196,13 +196,13 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static void syncShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal)
     {
         throw new AssertionError();
     }
 
     @ExpectPlatform
-    public static void requestShoalFish(Shoal shoal)
+    public static void requestServerShoalFish(Shoal shoal)
     {
         throw new AssertionError();
     }

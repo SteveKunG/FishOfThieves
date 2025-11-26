@@ -108,7 +108,7 @@ public class Shoal extends Entity
             {
                 this.createNaturalSpawn();
             }
-            FOTPlatform.syncShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this);
         }
     }
 
@@ -180,7 +180,7 @@ public class Shoal extends Entity
     public void recreateFromPacket(ClientboundAddEntityPacket packet)
     {
         super.recreateFromPacket(packet);
-        FOTPlatform.requestShoalFish(this);
+        FOTPlatform.requestServerShoalFish(this);
     }
 
     @Override
@@ -213,7 +213,7 @@ public class Shoal extends Entity
         this.destroyShoalBlock();
     }
 
-    public void syncShoalFish(List<ShoalFishData> shoalFishData)
+    public void syncClientShoalFish(List<ShoalFishData> shoalFishData)
     {
         if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size())
         {
@@ -248,7 +248,7 @@ public class Shoal extends Entity
         if (entity instanceof LivingEntity livingEntity)
         {
             this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.uuid().equals(uuid));
-            FOTPlatform.syncShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this);
 
             if (this.shoalFishData.isEmpty())
             {

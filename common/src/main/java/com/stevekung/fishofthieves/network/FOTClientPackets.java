@@ -44,7 +44,7 @@ public class FOTClientPackets
         });
     }
 
-    public static void syncShoalFish(Minecraft minecraft, int entityId, List<ShoalFishData> shoalFishData)
+    public static void syncClientShoalFish(Minecraft minecraft, int entityId, List<ShoalFishData> shoalFishData)
     {
         minecraft.execute(() ->
         {
@@ -57,7 +57,7 @@ public class FOTClientPackets
                     return;
                 }
 
-                shoal.syncShoalFish(shoalFishData);
+                shoal.syncClientShoalFish(shoalFishData);
             }
         });
     }
