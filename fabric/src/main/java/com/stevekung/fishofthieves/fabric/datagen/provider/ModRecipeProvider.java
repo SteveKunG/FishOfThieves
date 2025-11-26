@@ -156,10 +156,9 @@ public class ModRecipeProvider extends RecipeProvider
         this.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.IRON_NUGGET).define('F', fishPlaque).pattern("NNN").pattern("NFN").pattern("NNN").group("iron_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), this.has(fishPlaque)).save(this.output);
     }
 
-    // TODO Switch to use copper nugget and change recipe in 1.21.10
     private void addCopperFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque)
     {
-        this.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.COPPER_INGOT).define('F', fishPlaque).pattern(" N ").pattern("NFN").pattern(" N ").group("copper_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), this.has(fishPlaque)).save(this.output);
+        this.shaped(RecipeCategory.DECORATIONS, block).define('N', Items.COPPER_NUGGET).define('F', fishPlaque).pattern("NNN").pattern("NFN").pattern("NNN").group("copper_frame_fish_plaque").unlockedBy(getHasName(fishPlaque), this.has(fishPlaque)).save(this.output);
     }
 
     private void addGoldenFrameFishPlaqueRecipe(Block block, ItemLike fishPlaque)
