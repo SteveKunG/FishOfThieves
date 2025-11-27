@@ -1,4 +1,56 @@
-- [Forge] Update 'JSON Update Checker' URL
-- Added Xaeros Minimap entity icon support
-- Expand Wrecker catching range around Ocean Shipwrecks and Ocean Ruined Portals to 32 blocks
-- Fixed structure calculation by using manhattan formula to check range
+- Added Great Mouth Pottery Sherd
+- Added Copper Frame Fish Plaques
+- [1.21.5+] Added Pale Oak Fish Plaques
+- Added sheep spawning in tropical island
+- Added Shoal entity and block
+  - Spawn locations are river, beach, ocean, and occasionally in the deep ocean
+  - Include nautural fish including Splashtail, Pondie, Islehopper, Ancientscale, Plentifin, Wildsplash, and Stormfish (Only thundering)
+  - Disappeared after 3 days ingame (Can be configured)
+  - Removing water or filled with solid block around the entity will make it disappear instantly
+- Added Treasured Fish
+  - Tier 1 Fish:
+    - Dewdrop Pondie
+    - Briny Islehopper
+    - Blossom Ancientscale
+    - Leopard Devilfish
+    - Emerald Wrecker
+  - Tier 2 Fish:
+    - Obsidian Splashtail
+    - Crimson Plentifin
+    - Calico Wildsplash
+    - Zest Battlegill
+    - Starshine Stormfish
+- Added Treasured Fish map
+  - Can be found inside the Seapost Barrel Supply
+  - Can be trade with Villager Fisherman Stage 3 and 4
+- Increase rate of filling water in cauldron with Coconut Fronds and Banana Leaves
+- Island Rainwater advancement is now trigger only when in the tropical island biome
+- Increased Coconut Trees generation at tropical island biome
+- Fox now interact with Pomegranate Plant
+- Use new algorithm to find structures within chunk radius while fishing Wrecker
+- Worms can now be using with Fishing Rod
+  - Can be enable/disable via config
+  - Baits will comsumed when held in the offhand or in the inventory
+  - Can be catch specific fish easily
+    - Leeches: Ancientscale and Stormfish
+    - Earthworms: Plentifin, Wildsplash and Wrecker
+    - Grubs: Devilfish and Battlegill
+  - Increase Lure speed by 10%
+- Wreckers are now swimming around their structures accurately
+- Balanced Fish Variant spawning conditions
+  - Ancientscale and Plentifin are no longer spawn inside the Mineshaft or Stronghold
+  - Bone Ancientscale and Plentifin are now spawn with 10% chance in a normal condition
+  - Honey Islehopper is now required Beehive block in range of 12 blocks
+  - Amethyst Islehopper is now required only Amethyst blocks in total of 12 blocks or more
+  - Remove see sky condition from Coral Wildsplash and required 16 blocks in range of any coral blocks
+  - [1.20.1] Sand Battlegill is now spawn in the Desert biome
+- Lower food seed item return chance
+  - Mango Pit now has 20% chance to return seed after consumed
+  - Pomegranate Seed now has 60% chance to return seed after consumed
+- Minor continentalness parameter adjustment for tropical island biome
+- Update Island Rainwater advancement description
+- Decreased Pomegranate food point and saturation
+- Disable fish breaching AI when already captured by bucket
+- Fixed mob pathfinding stuck in certain blocks
+- Fixed cannot join world when using custom datapacks which modified entity loots
+- Remove unnecessary fish breaching AI ticking
