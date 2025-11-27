@@ -109,9 +109,10 @@ public class Shoal extends Entity
         {
             if (compound.contains(NATURAL_TAG) && compound.getBoolean(NATURAL_TAG))
             {
-                this.createNaturalSpawn();
+                this.createNaturalSpawn(false);
             }
         }
+        FOTPlatform.syncClientShoalFish(this);
     }
 
     @Override
@@ -278,7 +279,7 @@ public class Shoal extends Entity
         return this.shoalFishClient;
     }
 
-    public void createNaturalSpawn()
+    public void createNaturalSpawn(boolean clientSync)
     {
         if (!(this.level() instanceof ServerLevel serverLevel))
         {
@@ -311,8 +312,13 @@ public class Shoal extends Entity
                 this.shoalFishData.add(new ShoalFishData(BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString(), UUID.randomUUID(), compoundTag));
             }
         }
-        FOTPlatform.syncClientShoalFish(this);
+
         this.expiredAt = this.level().getGameTime() + FishOfThieves.CONFIG.shoal.maxLifetimeDay * 24000L;
+
+        if (clientSync)
+        {
+            FOTPlatform.syncClientShoalFish(this);
+        }
     }
 
     public void createTreasuredSpawn(int tier)

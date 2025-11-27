@@ -52,7 +52,7 @@ public final class ShoalSpawner
 
             var shoal = FOTEntities.SHOAL.create(level);
             shoal.moveTo(blockPos.getX() + 0.5d, blockPos.getY() - 0.75d, blockPos.getZ() + 0.5d, 0, 0);
-            shoal.createNaturalSpawn();
+            shoal.createNaturalSpawn(true);
             level.addFreshEntity(shoal);
 
             FishOfThieves.LOGGER.debug("Spawn shoal at region {}, {}, {}, {}", biome.unwrapKey().get().location(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
