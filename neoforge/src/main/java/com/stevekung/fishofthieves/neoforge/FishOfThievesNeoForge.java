@@ -8,6 +8,8 @@ import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.core.Registry;
@@ -128,6 +130,8 @@ public class FishOfThievesNeoForge
     {
         var registrar = event.registrar(FishOfThieves.MOD_ID).versioned(PROTOCOL_VERSION).optional();
         registrar.playToClient(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC, ReceiveFishingHookBaitPacketNeoForge::handle);
+        registrar.playToServer(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC, RequestServerShoalFishPacketNeoForge::handle);
+        registrar.playToClient(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC, SyncClientShoalFishPacketNeoForge::handle);
     }
 
     @SuppressWarnings("unused")

@@ -44,6 +44,7 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
         map.put("fishofthieves:smoke", 2);
         map.put("fishofthieves:bone", 3);
         map.put("fishofthieves:starshine", 4);
+        map.put("fishofthieves:blossom", 5);
     });
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)

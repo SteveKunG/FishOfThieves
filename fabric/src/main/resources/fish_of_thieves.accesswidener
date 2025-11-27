@@ -20,6 +20,7 @@ accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet
 accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
 accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVariant ()I
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 extendable class net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier

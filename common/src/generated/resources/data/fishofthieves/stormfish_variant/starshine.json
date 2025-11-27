@@ -1,0 +1,14 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/stormfish/treasured/starshine_glow",
+  "name": "starshine",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:never"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/stormfish/treasured/starshine",
+  "treasured": true
+}

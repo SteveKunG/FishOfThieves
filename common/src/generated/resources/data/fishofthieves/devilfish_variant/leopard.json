@@ -1,0 +1,14 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/devilfish/treasured/leopard_glow",
+  "name": "leopard",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:never"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/devilfish/treasured/leopard",
+  "treasured": true
+}

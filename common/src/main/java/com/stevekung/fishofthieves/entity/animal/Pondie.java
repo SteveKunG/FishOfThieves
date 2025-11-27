@@ -36,6 +36,7 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
         map.put("fishofthieves:bronze", 2);
         map.put("fishofthieves:bright", 3);
         map.put("fishofthieves:moonsky", 4);
+        map.put("fishofthieves:dewdrop", 5);
     });
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)

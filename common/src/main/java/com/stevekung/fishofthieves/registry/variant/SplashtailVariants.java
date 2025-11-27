@@ -16,6 +16,7 @@ public class SplashtailVariants
     public static final ResourceKey<SplashtailVariant> INDIGO = createKey("indigo");
     public static final ResourceKey<SplashtailVariant> UMBER = createKey("umber");
     public static final ResourceKey<SplashtailVariant> SEAFOAM = createKey("seafoam");
+    public static final ResourceKey<SplashtailVariant> OBSIDIAN = createKey("obsidian");
 
     public static void bootstrap(BootstrapContext<SplashtailVariant> context)
     {
@@ -25,6 +26,7 @@ public class SplashtailVariants
         registerContext.register(context, INDIGO, "indigo", 2);
         registerContext.register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, OBSIDIAN, "obsidian", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<SplashtailVariant> context)
@@ -35,6 +37,7 @@ public class SplashtailVariants
         registerContext.register(context, INDIGO, "indigo", 2);
         registerContext.register(context, UMBER, "umber", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, SEAFOAM, "seafoam", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, OBSIDIAN, "obsidian", 5, true, true);
     }
 
     private static ResourceKey<SplashtailVariant> createKey(String name)

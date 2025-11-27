@@ -1,0 +1,14 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/ancientscale/treasured/blossom_glow",
+  "name": "blossom",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:never"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/ancientscale/treasured/blossom",
+  "treasured": true
+}

@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,6 +11,7 @@ import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class FOTEntities
@@ -25,11 +27,12 @@ public class FOTEntities
     public static final EntityType<Wrecker> WRECKER = register("wrecker", FOTPlatform.createEntityType(Wrecker::new, EntityDimensions.fixed(0.5F, 0.5F)));
     public static final EntityType<Stormfish> STORMFISH = register("stormfish", FOTPlatform.createEntityType(Stormfish::new, EntityDimensions.fixed(0.75F, 0.55F)));
 
+    public static final EntityType<Shoal> SHOAL = register("shoal", FOTPlatform.createEntityType(Shoal::new, MobCategory.MISC, EntityDimensions.fixed(2.0F, 1.0F), 10));
+
     public interface SpawnData
     {
         WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 12, 4, 8));
         WeightedRandomList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 12, 4, 8));
-        WeightedRandomList<MobSpawnSettings.SpawnerData> ANCIENTSCALE_AND_PLENTIFIN = WeightedRandomList.create(ANCIENTSCALE.unwrap().getFirst(), PLENTIFIN.unwrap().getFirst());
         WeightedRandomList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 5, 2, 4));
         WeightedRandomList<MobSpawnSettings.SpawnerData> WRECKER = WeightedRandomList.create(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 50, 4, 8));
     }

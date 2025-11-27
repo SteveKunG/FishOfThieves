@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.util.Pair;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
 import com.stevekung.fishofthieves.network.StructureCenterPosDebugPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.fabricmc.api.ModInitializer;
@@ -117,6 +121,9 @@ public class FishOfThievesFabric implements ModInitializer
         FOTMobEffects.init();
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
+        FOTPoiTypes.init();
+        FOTMapDecorationTypes.init();
+        FOTLootItemFunctions.init();
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
@@ -179,16 +186,20 @@ public class FishOfThievesFabric implements ModInitializer
 
         PayloadTypeRegistry.playS2C().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
         PayloadTypeRegistry.playS2C().register(StructureCenterPosDebugPacket.TYPE, StructureCenterPosDebugPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC);
 
         ServerChunkEvents.CHUNK_LOAD.register((level, chunk) ->
         {
             level.getBaitPreserve().spawnBaitOnLoad(level);
 
-            if (FabricLoader.getInstance().isDevelopmentEnvironment())
+            if (FOTPlatform.isDevelopment())
             {
                 sendStructurePosDebugPacket(level, chunk.getPos());
             }
         });
+
+        ServerPlayNetworking.registerGlobalReceiver(RequestServerShoalFishPacket.TYPE, FishOfThievesFabric::requestServerShoalFish);
     }
 
     private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)
@@ -215,6 +226,21 @@ public class FishOfThievesFabric implements ModInitializer
                 }
             }
         }
+    }
+
+    public static void requestServerShoalFish(RequestServerShoalFishPacket packet, ServerPlayNetworking.Context context)
+    {
+        var entityId = packet.entityId();
+
+        context.server().execute(() ->
+        {
+            var shoal = (Shoal) context.player().level().getEntity(entityId);
+
+            if (shoal != null)
+            {
+                FOTPlatform.syncClientShoalFish(shoal);
+            }
+        });
     }
 
     private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)

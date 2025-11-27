@@ -16,6 +16,7 @@ public class PondieVariants
     public static final ResourceKey<PondieVariant> BRONZE = createKey("bronze");
     public static final ResourceKey<PondieVariant> BRIGHT = createKey("bright");
     public static final ResourceKey<PondieVariant> MOONSKY = createKey("moonsky");
+    public static final ResourceKey<PondieVariant> DEWDROP = createKey("dewdrop");
 
     public static void bootstrap(BootstrapContext<PondieVariant> context)
     {
@@ -25,6 +26,7 @@ public class PondieVariants
         registerContext.register(context, BRONZE, "bronze", 2);
         registerContext.register(context, BRIGHT, "bright", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), DayCondition.day(), SeeSkyCondition.seeSky()).build());
         registerContext.register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, DEWDROP, "dewdrop", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<PondieVariant> context)
@@ -35,6 +37,7 @@ public class PondieVariants
         registerContext.register(context, BRONZE, "bronze", 2);
         registerContext.register(context, BRIGHT, "bright", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, MOONSKY, "moonsky", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, DEWDROP, "dewdrop", 5, true, true);
     }
 
     private static ResourceKey<PondieVariant> createKey(String name)

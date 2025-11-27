@@ -48,6 +48,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
         map.put("fishofthieves:lava", 2);
         map.put("fishofthieves:forsaken", 3);
         map.put("fishofthieves:firelight", 4);
+        map.put("fishofthieves:leopard", 5);
     });
 
     private static final List<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = List.of(

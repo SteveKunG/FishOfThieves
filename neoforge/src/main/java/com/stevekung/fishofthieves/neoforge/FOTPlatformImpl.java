@@ -1,10 +1,16 @@
 package com.stevekung.fishofthieves.neoforge;
 
+import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.neoforge.mixin.accessor.CropBlockAccessor;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
+import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +19,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -50,6 +57,11 @@ public class FOTPlatformImpl
         return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build("");
     }
 
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return EntityType.Builder.of(entityFactory, mobCategory).sized(dimensions.width(), dimensions.height()).clientTrackingRange(clientTrackingRange).build("");
+    }
+
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
     {
         return CropBlockAccessor.callGetGrowthSpeed(state, level, pos);
@@ -60,14 +72,45 @@ public class FOTPlatformImpl
         FishOfThievesNeoForge.ENTITY_DATA_SERIALIZERS.register(name, () -> serializer);
     }
 
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        return GameRules.register(FishOfThieves.MOD_RESOURCES + name, category, type);
+    }
+
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        return GameRules.BooleanValue.create(defaultValue);
+    }
+
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
     {
         if (player.level() instanceof ServerLevel serverLevel)
         {
-            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 256.0F))
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 1024f))
             {
                 serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new ReceiveFishingHookBaitPacket(entityId, itemStack)));
             }
+        }
+    }
+
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        if (shoal.level() instanceof ServerLevel serverLevel)
+        {
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(shoal) < 1024f))
+            {
+                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish())));
+            }
+        }
+    }
+
+    public static void requestServerShoalFish(Shoal shoal)
+    {
+        var connection = Minecraft.getInstance().getConnection();
+
+        if (Minecraft.getInstance().getConnection() != null)
+        {
+            Minecraft.getInstance().player.connection.send(new ServerboundCustomPayloadPacket(new RequestServerShoalFishPacket(shoal.getId())));
         }
     }
 }

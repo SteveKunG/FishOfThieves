@@ -43,6 +43,7 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
         map.put("fishofthieves:ocean", 2);
         map.put("fishofthieves:muddy", 3);
         map.put("fishofthieves:coral", 4);
+        map.put("fishofthieves:calico", 5);
     });
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)

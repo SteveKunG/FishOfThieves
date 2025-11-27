@@ -25,6 +25,7 @@ public class WildsplashVariants
     public static final ResourceKey<WildsplashVariant> OCEAN = createKey("ocean");
     public static final ResourceKey<WildsplashVariant> MUDDY = createKey("muddy");
     public static final ResourceKey<WildsplashVariant> CORAL = createKey("coral");
+    public static final ResourceKey<WildsplashVariant> CALICO = createKey("calico");
 
     public static void bootstrap(BootstrapContext<WildsplashVariant> context)
     {
@@ -36,6 +37,7 @@ public class WildsplashVariants
         registerContext.register(context, OCEAN, "ocean", 2, MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.IS_OCEAN)).build());
         registerContext.register(context, MUDDY, "muddy", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(biomeLookup.getOrThrow(BiomeTags.HAS_CLOSER_WATER_FOG))).build());
         registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.WARM_OCEAN))), MatchMinimumBlocksInRangeCondition.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON)), Optional.empty(), 4, 16)).build());
+        registerContext.register(context, CALICO, "calico", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<WildsplashVariant> context)
@@ -46,6 +48,7 @@ public class WildsplashVariants
         registerContext.register(context, OCEAN, "ocean", 2);
         registerContext.register(context, MUDDY, "muddy", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, CORAL, "coral", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, CALICO, "calico", 5, true, true);
     }
 
     private static ResourceKey<WildsplashVariant> createKey(String name)

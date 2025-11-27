@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
 
 import net.minecraft.world.InteractionHand;
@@ -43,24 +44,27 @@ public class MixinFishingRodItem
     @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "net/minecraft/world/level/Level.addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean fishofthieves$setBaitOnCast(Level level, Entity entity, Operation<Boolean> operation, @Local(argsOnly = true) Player player)
     {
-        var baitStack = FishingHookBait.getBait(player);
-
-        if (entity instanceof FishingHook fishingHook && !baitStack.isEmpty())
+        if (FishOfThieves.CONFIG.general.enableWormsAttachedFishingHook)
         {
-            fishingHook.fishofthieves$setBaitStack(baitStack.copyWithCount(1));
+            var baitStack = FishingHookBait.getBait(player);
 
-            if (!player.getAbilities().instabuild)
+            if (entity instanceof FishingHook fishingHook && !baitStack.isEmpty())
             {
-                baitStack.shrink(1);
+                fishingHook.fishofthieves$setBaitStack(baitStack.copyWithCount(1));
 
-                if (baitStack.isEmpty())
+                if (!player.getAbilities().instabuild)
                 {
-                    player.getInventory().removeItem(baitStack);
+                    baitStack.shrink(1);
+
+                    if (baitStack.isEmpty())
+                    {
+                        player.getInventory().removeItem(baitStack);
+                    }
                 }
-            }
-            else
-            {
-                fishingHook.fishofthieves$setIsCreative();
+                else
+                {
+                    fishingHook.fishofthieves$setIsCreative();
+                }
             }
         }
         return operation.call(level, entity);

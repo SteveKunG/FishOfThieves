@@ -129,7 +129,6 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     {
         var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
-        var canHarvest = age == 3;
 
         if (!state.getValue(PERSISTENT) && itemStack.is(Items.SHEARS))
         {
@@ -153,34 +152,39 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
             }
             return ItemInteractionResult.sidedSuccess(level.isClientSide());
         }
-        else if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
+        else if (!PomegranatePlantBlock.canHarvest(age) && player.getItemInHand(hand).is(Items.BONE_MEAL))
         {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        else if (canHarvest)
+        else if (PomegranatePlantBlock.canHarvest(age))
         {
-            var count = 1 + level.random.nextInt(2);
-            popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
-            level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-            var blockState = state.setValue(AGE, 0);
-            level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-
-            if (state.getValue(HALF) == DoubleBlockHalf.LOWER)
-            {
-                level.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_CLIENTS);
-            }
-            else
-            {
-                level.setBlock(pos.below(), blockState.setValue(HALF, DoubleBlockHalf.LOWER), Block.UPDATE_CLIENTS);
-            }
-
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return ItemInteractionResult.sidedSuccess(level.isClientSide());
+            return pick(state, level, pos, player);
         }
         else
         {
             return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
+    }
+
+    public static ItemInteractionResult pick(BlockState state, Level level, BlockPos pos, Entity sourceEntity)
+    {
+        var count = 1 + level.random.nextInt(2);
+        popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
+        level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+        var blockState = state.setValue(AGE, 0);
+        level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER)
+        {
+            level.setBlock(pos.above(), blockState.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_CLIENTS);
+        }
+        else
+        {
+            level.setBlock(pos.below(), blockState.setValue(HALF, DoubleBlockHalf.LOWER), Block.UPDATE_CLIENTS);
+        }
+
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(sourceEntity, blockState));
+        return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
     private void grow(ServerLevel level, BlockState state, BlockPos pos)
@@ -211,17 +215,17 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     }
 
     @Nullable
-    private TallPomegranatePlantBlock.PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
+    private PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
     {
         if (isLower(state))
         {
-            return new TallPomegranatePlantBlock.PosAndState(pos, state);
+            return new PosAndState(pos, state);
         }
         else
         {
             var blockPos = pos.below();
             var blockState = level.getBlockState(blockPos);
-            return isLower(blockState) ? new TallPomegranatePlantBlock.PosAndState(blockPos, blockState) : null;
+            return isLower(blockState) ? new PosAndState(blockPos, blockState) : null;
         }
     }
 
@@ -229,7 +233,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
     {
         var posAndState = this.getLowerHalf(level, pos, state);
-        return posAndState != null && this.canGrow(level, posAndState.pos, posAndState.state);
+        return posAndState != null && this.canGrow(level, posAndState.pos(), posAndState.state());
     }
 
     @Override
@@ -245,7 +249,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
 
         if (posAndState != null)
         {
-            this.grow(level, posAndState.state, posAndState.pos);
+            this.grow(level, posAndState.state(), posAndState.pos());
         }
     }
 
@@ -254,7 +258,4 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
     {
         return false;
     }
-
-    record PosAndState(BlockPos pos, BlockState state)
-    {}
 }

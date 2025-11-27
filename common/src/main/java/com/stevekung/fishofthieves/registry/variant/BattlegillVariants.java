@@ -22,6 +22,7 @@ public class BattlegillVariants
     public static final ResourceKey<BattlegillVariant> RUM = createKey("rum");
     public static final ResourceKey<BattlegillVariant> SAND = createKey("sand");
     public static final ResourceKey<BattlegillVariant> BITTERSWEET = createKey("bittersweet");
+    public static final ResourceKey<BattlegillVariant> ZEST = createKey("zest");
 
     public static void bootstrap(BootstrapContext<BattlegillVariant> context)
     {
@@ -32,6 +33,7 @@ public class BattlegillVariants
         registerContext.register(context, RUM, "rum", 2, List.of(), List.of(LivingEntityHasEffectCondition.effect(MobEffects.CONFUSION).build()));
         registerContext.register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
         registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, ZEST, "zest", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<BattlegillVariant> context)
@@ -42,6 +44,7 @@ public class BattlegillVariants
         registerContext.register(context, RUM, "rum", 2);
         registerContext.register(context, SAND, "sand", 3, ProbabilityCondition.defaultRareProbablity().build());
         registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
+        registerContext.register(context, ZEST, "zest", 5, true, true);
     }
 
     private static ResourceKey<BattlegillVariant> createKey(String name)

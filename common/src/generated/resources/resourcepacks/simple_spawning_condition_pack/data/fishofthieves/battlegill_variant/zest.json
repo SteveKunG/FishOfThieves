@@ -1,0 +1,14 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/battlegill/treasured/zest_glow",
+  "name": "zest",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:never"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/battlegill/treasured/zest",
+  "treasured": true
+}

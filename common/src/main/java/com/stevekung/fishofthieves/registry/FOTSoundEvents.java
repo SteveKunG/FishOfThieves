@@ -39,6 +39,7 @@ public class FOTSoundEvents
     public static final SoundEvent STORMFISH_FLOP = register("entity.stormfish.flop");
     public static final SoundEvent STORMFISH_HURT = register("entity.stormfish.hurt");
     public static final SoundEvent FISH_JUMP = register("entity.fish.jump");
+    public static final SoundEvent SHOAL_DEPLETE = register("entity.shoal.deplete");
 
     public static final SoundEvent FISH_PLAQUE_ROTATE = register("block.fish_plaque.rotate");
     public static final SoundEvent FISH_PLAQUE_WAX_OFF = register("block.fish_plaque.wax_off");

@@ -1,8 +1,15 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -18,6 +25,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -30,6 +38,11 @@ public class FOTPlatformImpl
     public static boolean isModLoaded(String modId)
     {
         return FabricLoader.getInstance().isModLoaded(modId);
+    }
+
+    public static boolean isDevelopment()
+    {
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     public static void addComposting(ItemLike item, float value)
@@ -52,6 +65,11 @@ public class FOTPlatformImpl
         return EntityType.Builder.of(entityFactory, MobCategory.WATER_AMBIENT).sized(dimensions.width(), dimensions.height()).clientTrackingRange(4).build();
     }
 
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        return EntityType.Builder.of(entityFactory, mobCategory).sized(dimensions.width(), dimensions.height()).clientTrackingRange(clientTrackingRange).build();
+    }
+
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
     {
         return CropBlock.getGrowthSpeed(state.getBlock(), level, pos);
@@ -62,6 +80,16 @@ public class FOTPlatformImpl
         EntityDataSerializers.registerSerializer(serializer);
     }
 
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        return GameRuleRegistry.register(FishOfThieves.MOD_RESOURCES + name, category, type);
+    }
+
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        return GameRuleFactory.createBooleanRule(defaultValue);
+    }
+
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
     {
         if (player instanceof ServerPlayer serverPlayer)
@@ -70,6 +98,30 @@ public class FOTPlatformImpl
             {
                 ServerPlayNetworking.send(serverPlayer, new ReceiveFishingHookBaitPacket(entityId, itemStack));
             }
+        }
+    }
+
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        if (shoal.getShoalFish().isEmpty())
+        {
+            return;
+        }
+
+        for (var serverPlayer : PlayerLookup.tracking(shoal))
+        {
+            if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH))
+            {
+                ServerPlayNetworking.send(serverPlayer, new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish()));
+            }
+        }
+    }
+
+    public static void requestServerShoalFish(Shoal shoal)
+    {
+        if (ClientPlayNetworking.canSend(FishOfThieves.REQUEST_SERVER_SHOAL_FISH))
+        {
+            ClientPlayNetworking.send(new RequestServerShoalFishPacket(shoal.getId()));
         }
     }
 }

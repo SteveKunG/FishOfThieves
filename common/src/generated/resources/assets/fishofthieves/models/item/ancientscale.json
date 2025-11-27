@@ -24,6 +24,12 @@
       "predicate": {
         "custom_model_data": 4
       }
+    },
+    {
+      "model": "fishofthieves:item/blossom_ancientscale",
+      "predicate": {
+        "custom_model_data": 5
+      }
     }
   ],
   "textures": {

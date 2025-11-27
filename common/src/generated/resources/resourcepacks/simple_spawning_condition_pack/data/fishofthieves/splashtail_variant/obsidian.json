@@ -1,0 +1,14 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/splashtail/treasured/obsidian_glow",
+  "name": "obsidian",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": "fishofthieves:never"
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/splashtail/treasured/obsidian",
+  "treasured": true
+}

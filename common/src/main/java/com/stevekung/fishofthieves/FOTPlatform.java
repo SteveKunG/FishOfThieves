@@ -1,13 +1,17 @@
 package com.stevekung.fishofthieves;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,6 +24,12 @@ public class FOTPlatform
 {
     @ExpectPlatform
     public static boolean isModLoaded(String modId)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean isDevelopment()
     {
         throw new AssertionError();
     }
@@ -49,6 +59,12 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static <T extends Entity> EntityType<T> createEntityType(EntityType.EntityFactory<T> entityFactory, MobCategory mobCategory, EntityDimensions dimensions, int clientTrackingRange)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
     {
         throw new AssertionError();
@@ -61,7 +77,31 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
+    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void syncClientShoalFish(Shoal shoal)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void requestServerShoalFish(Shoal shoal)
     {
         throw new AssertionError();
     }

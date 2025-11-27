@@ -9,15 +9,15 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record IslehopperVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record IslehopperVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<IslehopperVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(IslehopperVariant::new);
     public static final Codec<IslehopperVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(IslehopperVariant::new);
     public static final Codec<Holder<IslehopperVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ISLEHOPPER_VARIANT, DIRECT_CODEC);
 
-    public IslehopperVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, int customModelData)
+    public IslehopperVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int customModelData)
     {
-        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
     }
 
     @Override
