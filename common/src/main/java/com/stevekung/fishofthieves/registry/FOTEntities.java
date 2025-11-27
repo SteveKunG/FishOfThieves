@@ -5,7 +5,10 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
 import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class FOTEntities

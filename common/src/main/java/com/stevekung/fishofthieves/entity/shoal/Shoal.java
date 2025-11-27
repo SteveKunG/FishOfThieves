@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
