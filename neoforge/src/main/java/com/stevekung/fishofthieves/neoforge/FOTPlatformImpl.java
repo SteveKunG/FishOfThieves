@@ -21,8 +21,7 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -86,13 +85,13 @@ public class FOTPlatformImpl
         return GameRules.BooleanValue.create(defaultValue);
     }
 
-    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    public static void sendFishingHookBait(FishingHook fishingHook)
     {
-        if (player.level() instanceof ServerLevel serverLevel)
+        if (fishingHook.level() instanceof ServerLevel serverLevel)
         {
-            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 1024f))
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(fishingHook) < 1024f))
             {
-                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new ReceiveFishingHookBaitPacket(entityId, itemStack)));
+                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new ReceiveFishingHookBaitPacket(fishingHook.getId(), fishingHook.fishofthieves$getBaitStack())));
             }
         }
     }
