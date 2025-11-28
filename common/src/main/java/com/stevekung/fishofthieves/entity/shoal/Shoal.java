@@ -293,7 +293,7 @@ public class Shoal extends Entity
             commonFish.add(FOTEntities.STORMFISH);
         }
 
-        for (var entityType : pickRandom(commonFish))
+        for (var entityType : pickRandom(commonFish, 3))
         {
             var entity = entityType.create(serverLevel);
 
@@ -328,9 +328,10 @@ public class Shoal extends Entity
             return;
         }
 
+        var prevShoalSize = this.shoalFishData.size();
         this.shoalFishData.clear();
 
-        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST))
+        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST, prevShoalSize))
         {
             var entity = entityType.create(serverLevel);
 
@@ -398,8 +399,8 @@ public class Shoal extends Entity
         }
     }
 
-    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list)
+    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list, int count)
     {
-        return new Random().ints(0, list.size()).distinct().limit(3).mapToObj(list::get).toList();
+        return new Random().ints(0, list.size()).distinct().limit(count).mapToObj(list::get).toList();
     }
 }
