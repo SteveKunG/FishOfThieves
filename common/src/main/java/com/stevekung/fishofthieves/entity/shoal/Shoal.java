@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.function.Function;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;

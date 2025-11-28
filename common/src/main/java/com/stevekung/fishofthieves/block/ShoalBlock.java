@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import java.util.Optional;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
