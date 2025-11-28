@@ -28,6 +28,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -205,6 +207,16 @@ public class Shoal extends Entity
     {
         var d0 = 64.0 * getViewScale();
         return distance < d0 * d0;
+    }
+
+    @Override
+    public boolean hurt(DamageSource damageSource, float amount)
+    {
+        if (damageSource.is(DamageTypeTags.IS_EXPLOSION))
+        {
+            this.destroy();
+        }
+        return super.hurt(damageSource, amount);
     }
 
     public void setTreasured(boolean treasured)
