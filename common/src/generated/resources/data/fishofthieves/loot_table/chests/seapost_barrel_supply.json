@@ -177,6 +177,7 @@
           "functions": [
             {
               "function": "fishofthieves:treasured_fish_map",
+              "high_tier_chance": 0.4,
               "zoom": 1
             },
             {
@@ -191,34 +192,6 @@
         }
       ],
       "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "fishofthieves:treasured_fish_map",
-              "tier": 2,
-              "zoom": 1
-            },
-            {
-              "function": "minecraft:set_name",
-              "name": {
-                "translate": "filled_map.fishofthieves_treasured_fish"
-              },
-              "target": "item_name"
-            }
-          ],
-          "name": "minecraft:map"
-        }
-      ],
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 1.0,
-        "min": 0.0
-      }
     }
   ]
 }

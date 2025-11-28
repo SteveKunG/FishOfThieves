@@ -99,7 +99,7 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static void syncClientShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal, boolean forcedUpdate)
     {
         throw new AssertionError();
     }

@@ -79,6 +79,6 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     public static void syncClientShoalFish(SyncClientShoalFishPacket packet, ClientPlayNetworking.Context context)
     {
         var minecraft = Minecraft.getInstance();
-        FOTClientPackets.syncClientShoalFish(minecraft, packet.entityId(), packet.shoalFishData());
+        FOTClientPackets.syncClientShoalFish(minecraft, packet.entityId(), packet.shoalFishData(), packet.forcedUpdate());
     }
 }
