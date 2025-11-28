@@ -8,3 +8,4 @@ run
 
 # files
 common/src/generated/resources/*.snbt
+**/simple_spawning_condition_pack/
