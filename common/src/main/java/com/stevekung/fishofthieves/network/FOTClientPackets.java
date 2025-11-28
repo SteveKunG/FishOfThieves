@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.client.renderer.debug.DebugRendererAccessor;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+import com.stevekung.fishofthieves.entity.shoal.ShoalFishData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -38,6 +40,24 @@ public class FOTClientPackets
             if (minecraft.level != null)
             {
                 ((DebugRendererAccessor) minecraft.debugRenderer).fishofthieves$getStructureCenterPosDebugRenderer().addStructure(structurePosList);
+            }
+        });
+    }
+
+    public static void syncClientShoalFish(Minecraft minecraft, int entityId, List<ShoalFishData> shoalFishData)
+    {
+        minecraft.execute(() ->
+        {
+            if (minecraft.level != null)
+            {
+                var shoal = (Shoal) minecraft.level.getEntity(entityId);
+
+                if (shoal == null)
+                {
+                    return;
+                }
+
+                shoal.syncClientShoalFish(shoalFishData);
             }
         });
     }

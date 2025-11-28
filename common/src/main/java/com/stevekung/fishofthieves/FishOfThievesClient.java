@@ -88,6 +88,7 @@ public class FishOfThievesClient
 
             list.add(new EntityRendererEntry<>(FOTEntities.COCONUT_BOAT, context -> new BoatRenderer(context, FOTModelLayers.COCONUT_BOAT)));
             list.add(new EntityRendererEntry<>(FOTEntities.COCONUT_CHEST_BOAT, context -> new BoatRenderer(context, FOTModelLayers.COCONUT_CHEST_BOAT)));
+            list.add(new EntityRendererEntry<>(FOTEntities.SHOAL, ShoalRenderer::new));
         }).stream().map(entry -> (EntityRendererEntry<Entity>) entry).toList();
     }
 
@@ -117,6 +118,7 @@ public class FishOfThievesClient
         {
             list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_LEAVES));
             list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
+            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, FOTBlocks.SHOAL));
         });
     }
 

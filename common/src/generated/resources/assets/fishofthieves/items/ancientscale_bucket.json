@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/starshine_ancientscale_bucket"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/blossom_ancientscale_bucket"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

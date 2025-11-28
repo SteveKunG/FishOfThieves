@@ -37,6 +37,7 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
         map.put("fishofthieves:indigo", 2);
         map.put("fishofthieves:umber", 3);
         map.put("fishofthieves:seafoam", 4);
+        map.put("fishofthieves:obsidian", 5);
     });
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)

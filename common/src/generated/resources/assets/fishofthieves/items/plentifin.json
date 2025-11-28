@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/watery_plentifin"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/crimson_plentifin"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

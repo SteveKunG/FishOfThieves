@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.network.StructureCenterPosDebugPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -36,6 +37,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
                 FOTBlocks.POTTED_BANANA_SHOOTS, FOTBlocks.POTTED_MANGO_PIT, FOTBlocks.POTTED_MANGO_SAPLING, FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT, FOTBlocks.POTTED_POMEGRANATE_PLANT, FOTBlocks.POMEGRANATE_SAPLING, FOTBlocks.POTTED_POMEGRANATE_SAPLING,
                 FOTBlocks.TROPICAL_RED_FERN, FOTBlocks.POTTED_TROPICAL_RED_FERN, FOTBlocks.TROPICAL_MONSTERA, FOTBlocks.POTTED_TROPICAL_MONSTERA, FOTBlocks.LIGHT_BLUE_PLUMERIA, FOTBlocks.POTTED_LIGHT_BLUE_PLUMERIA,
                 FOTBlocks.WHITE_PLUMERIA, FOTBlocks.POTTED_WHITE_PLUMERIA, FOTBlocks.GUARDIAN_FRUIT);
+        BlockRenderLayerMap.putBlocks(ChunkSectionLayer.TRANSLUCENT, FOTBlocks.SHOAL);
 
         FishOfThievesClient.getBlockColors().forEach(entry -> ColorProviderRegistry.BLOCK.register(entry.blockColor(), entry.blocks()));
         ParticleRenderEvents.ALLOW_BLOCK_DUST_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
@@ -56,6 +58,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         ClientPlayNetworking.registerGlobalReceiver(ReceiveFishingHookBaitPacket.TYPE, FishOfThievesFabricClient::setFishingHookBait);
         ClientPlayNetworking.registerGlobalReceiver(StructureCenterPosDebugPacket.TYPE, FishOfThievesFabricClient::addDebugStructureCenterPos);
+        ClientPlayNetworking.registerGlobalReceiver(SyncClientShoalFishPacket.TYPE, FishOfThievesFabricClient::syncClientShoalFish);
     }
 
     public static void setFishingHookBait(ReceiveFishingHookBaitPacket packet, ClientPlayNetworking.Context context)
@@ -68,5 +71,11 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     {
         var minecraft = Minecraft.getInstance();
         FOTClientPackets.addDebugStructureCenterPos(minecraft, packet.structurePosList());
+    }
+
+    public static void syncClientShoalFish(SyncClientShoalFishPacket packet, ClientPlayNetworking.Context context)
+    {
+        var minecraft = Minecraft.getInstance();
+        FOTClientPackets.syncClientShoalFish(minecraft, packet.entityId(), packet.shoalFishData());
     }
 }

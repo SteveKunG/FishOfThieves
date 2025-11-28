@@ -8,6 +8,8 @@ import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
 import com.stevekung.fishofthieves.neoforge.proxy.ClientProxyNeoForge;
 import com.stevekung.fishofthieves.neoforge.proxy.CommonProxyNeoForge;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.core.Registry;
@@ -107,6 +109,9 @@ public class FishOfThievesNeoForge
         event.register(Registries.DATA_COMPONENT_TYPE, helper -> FOTDataComponentTypes.init());
         event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
         event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
+        event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> FOTPoiTypes.init());
+        event.register(Registries.MAP_DECORATION_TYPE, helper -> FOTMapDecorationTypes.init());
+        event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
     }
 
@@ -115,6 +120,8 @@ public class FishOfThievesNeoForge
     {
         var registrar = event.registrar(FishOfThieves.MOD_ID).versioned(PROTOCOL_VERSION).optional();
         registrar.playToClient(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC, ReceiveFishingHookBaitPacketNeoForge::handle);
+        registrar.playToServer(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC, RequestServerShoalFishPacketNeoForge::handle);
+        registrar.playToClient(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC, SyncClientShoalFishPacketNeoForge::handle);
     }
 
     @SuppressWarnings("unused")

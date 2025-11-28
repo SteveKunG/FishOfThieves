@@ -1,0 +1,17 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/islehopper/treasured/briny_glow",
+  "name": "briny",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": {
+          "type": "fishofthieves:never"
+        },
+        "priority": 0
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/islehopper/treasured/briny",
+  "treasured": true
+}

@@ -28,6 +28,7 @@ public class IslehopperVariants
     public static final ResourceKey<IslehopperVariant> HONEY = createKey("honey");
     public static final ResourceKey<IslehopperVariant> RAVEN = createKey("raven");
     public static final ResourceKey<IslehopperVariant> AMETHYST = createKey("amethyst");
+    public static final ResourceKey<IslehopperVariant> BRINY = createKey("briny");
 
     public static void bootstrap(BootstrapContext<IslehopperVariant> context)
     {
@@ -47,6 +48,7 @@ public class IslehopperVariants
                         registerContext.select(AllConditionCheck.allOf(RandomChanceCheck.chance(3), LivingEntityHasEffectCondition.effect(MobEffects.BLINDNESS)), 0)
                 ));
         registerContext.register(context, AMETHYST, "amethyst", 4, true, MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 12));
+        registerContext.register(context, BRINY, "briny", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<IslehopperVariant> context)
@@ -57,6 +59,7 @@ public class IslehopperVariants
         registerContext.register(context, HONEY, "honey", 2);
         registerContext.register(context, RAVEN, "raven", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, AMETHYST, "amethyst", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, BRINY, "briny", 5, true, true);
     }
 
     private static ResourceKey<IslehopperVariant> createKey(String name)
