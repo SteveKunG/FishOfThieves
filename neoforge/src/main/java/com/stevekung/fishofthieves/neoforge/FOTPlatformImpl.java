@@ -76,13 +76,13 @@ public class FOTPlatformImpl
         }
     }
 
-    public static void syncClientShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal, boolean forcedUpdate)
     {
         if (shoal.level() instanceof ServerLevel serverLevel)
         {
             for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(shoal) < 1024f))
             {
-                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish())));
+                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish(), forcedUpdate)));
             }
         }
     }
