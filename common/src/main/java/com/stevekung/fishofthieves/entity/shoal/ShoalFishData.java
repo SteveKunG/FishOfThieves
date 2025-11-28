@@ -14,8 +14,8 @@ public record ShoalFishData(String id, UUID uuid, CompoundTag data)
     public static final Codec<List<ShoalFishData>> CODEC = Codec.list(RecordCodecBuilder.create(instance -> instance
             .group(
                     Codec.STRING.fieldOf("id").forGetter(ShoalFishData::id),
-                    UUIDUtil.CODEC.fieldOf("uuid").forGetter(ShoalFishData::uuid),
-                    CompoundTag.CODEC.fieldOf("data").forGetter(ShoalFishData::data)
+                    UUIDUtil.CODEC.optionalFieldOf("uuid", UUID.randomUUID()).forGetter(ShoalFishData::uuid),
+                    CompoundTag.CODEC.optionalFieldOf("data", new CompoundTag()).forGetter(ShoalFishData::data)
             )
             .apply(instance, ShoalFishData::new)));
 }
