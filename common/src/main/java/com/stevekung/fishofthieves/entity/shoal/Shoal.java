@@ -26,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -86,7 +87,7 @@ public class Shoal extends Entity
                 this.createNaturalSpawn(false);
             }
         }
-        FOTPlatform.syncClientShoalFish(this);
+        FOTPlatform.syncClientShoalFish(this, false);
     }
 
     @Override
@@ -149,12 +150,6 @@ public class Shoal extends Entity
     }
 
     @Override
-    public boolean hurtServer(ServerLevel level, DamageSource damageSource, float amount)
-    {
-        return false;
-    }
-
-    @Override
     public void recreateFromPacket(ClientboundAddEntityPacket packet)
     {
         super.recreateFromPacket(packet);
@@ -175,6 +170,17 @@ public class Shoal extends Entity
         return distance < d0 * d0;
     }
 
+    @Override
+    public boolean hurtServer(ServerLevel level, DamageSource damageSource, float amount)
+    {
+        if (damageSource.is(DamageTypeTags.IS_EXPLOSION))
+        {
+            this.destroy();
+            return true;
+        }
+        return false;
+    }
+
     public void setTreasured(boolean treasured)
     {
         this.getEntityData().set(TREASURED, treasured);
@@ -191,9 +197,9 @@ public class Shoal extends Entity
         this.destroyShoalBlock();
     }
 
-    public void syncClientShoalFish(List<ShoalFishData> shoalFishData)
+    public void syncClientShoalFish(List<ShoalFishData> shoalFishData, boolean forcedUpdate)
     {
-        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size())
+        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size() || forcedUpdate)
         {
             this.shoalFishClient = shoalFishData.stream()
                     .map(shoalFishData1 ->
@@ -226,7 +232,7 @@ public class Shoal extends Entity
         if (entity instanceof LivingEntity livingEntity)
         {
             this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.uuid().equals(uuid));
-            FOTPlatform.syncClientShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this, false);
 
             if (this.shoalFishData.isEmpty())
             {
@@ -261,7 +267,7 @@ public class Shoal extends Entity
             commonFish.add(FOTEntities.STORMFISH);
         }
 
-        for (var entityType : pickRandom(commonFish))
+        for (var entityType : pickRandom(commonFish, 3))
         {
             var entity = entityType.create(serverLevel, EntitySpawnReason.LOAD);
 
@@ -290,7 +296,7 @@ public class Shoal extends Entity
 
         if (clientSync)
         {
-            FOTPlatform.syncClientShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this, false);
         }
     }
 
@@ -301,9 +307,10 @@ public class Shoal extends Entity
             return;
         }
 
+        var prevShoalSize = this.shoalFishData.size();
         this.shoalFishData.clear();
 
-        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST))
+        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST, prevShoalSize))
         {
             var entity = entityType.create(serverLevel, EntitySpawnReason.LOAD);
 
@@ -321,7 +328,7 @@ public class Shoal extends Entity
             }
         }
         this.expiredAt = -1;
-        FOTPlatform.syncClientShoalFish(this);
+        FOTPlatform.syncClientShoalFish(this, true);
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
@@ -371,8 +378,8 @@ public class Shoal extends Entity
         }
     }
 
-    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list)
+    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list, int count)
     {
-        return new Random().ints(0, list.size()).distinct().limit(3).mapToObj(list::get).toList();
+        return new Random().ints(0, list.size()).distinct().limit(count).mapToObj(list::get).toList();
     }
 }

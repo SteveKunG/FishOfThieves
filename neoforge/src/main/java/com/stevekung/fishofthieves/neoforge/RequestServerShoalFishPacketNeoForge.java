@@ -20,7 +20,7 @@ public class RequestServerShoalFishPacketNeoForge
 
                 if (shoal != null)
                 {
-                    player.connection.send(new ClientboundCustomPayloadPacket(new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish())));
+                    player.connection.send(new ClientboundCustomPayloadPacket(new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish(), false)));
                 }
             }
         });
