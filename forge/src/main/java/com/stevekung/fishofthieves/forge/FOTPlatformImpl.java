@@ -18,10 +18,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -175,15 +174,15 @@ public class FOTPlatformImpl
         return GameRules.BooleanValue.create(defaultValue);
     }
 
-    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    public static void sendFishingHookBait(FishingHook fishingHook)
     {
-        if (player.level() instanceof ServerLevel serverLevel)
+        if (fishingHook.level() instanceof ServerLevel serverLevel)
         {
-            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(player.fishing) < 1024f))
+            for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(fishingHook) < 1024f))
             {
                 if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
                 {
-                    FishOfThievesForge.sendToClient(new ReceiveFishingHookBaitPacket(entityId, itemStack), serverPlayer);
+                    FishOfThievesForge.sendToClient(new ReceiveFishingHookBaitPacket(fishingHook.getId(), fishingHook.fishofthieves$getBaitStack()), serverPlayer);
                 }
             }
         }

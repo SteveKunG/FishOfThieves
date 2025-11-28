@@ -22,7 +22,6 @@ import net.minecraft.core.WritableRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -32,10 +31,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -183,13 +181,13 @@ public class FOTPlatformImpl
         ((WritableRegistry<MobEffect>) BuiltInRegistries.MOB_EFFECT).registerMapping(id, ResourceKey.create(Registries.MOB_EFFECT, FishOfThieves.id(key)), mobEffect, Lifecycle.stable());
     }
 
-    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    public static void sendFishingHookBait(FishingHook fishingHook)
     {
         var buff = PacketByteBufs.create();
-        buff.writeVarInt(entityId);
-        buff.writeItem(itemStack);
+        buff.writeVarInt(fishingHook.getId());
+        buff.writeItem(fishingHook.fishofthieves$getBaitStack());
 
-        if (player instanceof ServerPlayer serverPlayer)
+        for (var serverPlayer : PlayerLookup.tracking(fishingHook))
         {
             if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT))
             {

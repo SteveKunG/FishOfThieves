@@ -12,9 +12,8 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -190,7 +189,7 @@ public class FOTPlatform
     }
 
     @ExpectPlatform
-    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    public static void sendFishingHookBait(FishingHook fishingHook)
     {
         throw new AssertionError();
     }

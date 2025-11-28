@@ -80,7 +80,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     {
         if (this.level() instanceof ServerLevel && this.tickCount == 1)
         {
-            FOTPlatform.sendFishingHookBait(this.getPlayerOwner(), this.getId(), this.baitStack);
+            FOTPlatform.sendFishingHookBait(FishingHook.class.cast(this));
         }
     }
 
@@ -201,7 +201,7 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
 
             if (sendPacket)
             {
-                FOTPlatform.sendFishingHookBait(player, this.getId(), this.baitStack);
+                FOTPlatform.sendFishingHookBait(FishingHook.class.cast(this));
             }
         }
     }
