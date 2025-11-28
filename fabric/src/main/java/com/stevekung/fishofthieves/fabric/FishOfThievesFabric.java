@@ -234,7 +234,7 @@ public class FishOfThievesFabric implements ModInitializer
 
             if (shoal != null)
             {
-                FOTPlatform.syncClientShoalFish(shoal);
+                FOTPlatform.syncClientShoalFish(shoal, false);
             }
         });
     }

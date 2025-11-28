@@ -10,6 +10,6 @@ public class SyncClientShoalFishPacketNeoForge
 {
     public static void handle(SyncClientShoalFishPacket packet, IPayloadContext context)
     {
-        context.enqueueWork(() -> FOTClientPackets.syncClientShoalFish(Minecraft.getInstance(), packet.entityId(), packet.shoalFishData()));
+        context.enqueueWork(() -> FOTClientPackets.syncClientShoalFish(Minecraft.getInstance(), packet.entityId(), packet.shoalFishData(), packet.forcedUpdate()));
     }
 }
