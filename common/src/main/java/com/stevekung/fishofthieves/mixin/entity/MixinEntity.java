@@ -17,6 +17,6 @@ public class MixinEntity
     @WrapOperation(method = "getBlockSpeedFactor", at = @At(value = "INVOKE", target = "net/minecraft/world/level/block/state/BlockState.is(Lnet/minecraft/world/level/block/Block;)Z", ordinal = 1))
     private boolean fishofthieves$shoalBlockSpeed(BlockState blockState, Block block, Operation<Boolean> operation)
     {
-        return operation.call(blockState, block) && blockState.is(FOTBlocks.SHOAL_BLOCK);
+        return operation.call(blockState, block) && blockState.is(FOTBlocks.SHOAL);
     }
 }

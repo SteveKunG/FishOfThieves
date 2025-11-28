@@ -19,7 +19,7 @@ public class MixinFlowingFluid
     @Inject(method = "canHoldFluid", cancellable = true, at = @At("HEAD"))
     private void fishofthieves$canHoldFluid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid, CallbackInfoReturnable<Boolean> info)
     {
-        if (state.is(FOTBlocks.SHOAL_BLOCK))
+        if (state.is(FOTBlocks.SHOAL))
         {
             info.setReturnValue(false);
         }

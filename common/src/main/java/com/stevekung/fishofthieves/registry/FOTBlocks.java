@@ -23,7 +23,7 @@ import net.minecraft.world.level.material.PushReaction;
 public class FOTBlocks
 {
     public static final Block FISH_BONE = new FishBoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).pushReaction(PushReaction.DESTROY).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XYZ).sound(SoundType.BONE_BLOCK));
-    public static final Block SHOAL_BLOCK = new ShoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).randomTicks().liquid().sound(SoundType.EMPTY));
+    public static final Block SHOAL = new ShoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).randomTicks().liquid().sound(SoundType.EMPTY));
 
     public static final Block OAK_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.OAK_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
     public static final Block SPRUCE_FISH_PLAQUE = new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.SPRUCE_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN);
@@ -172,7 +172,7 @@ public class FOTBlocks
     public static void init()
     {
         register("fish_bone", FISH_BONE);
-        registerNoItem("shoal_block", SHOAL_BLOCK);
+        registerNoItem("shoal", SHOAL);
 
         register("oak_fish_plaque", OAK_FISH_PLAQUE);
         register("spruce_fish_plaque", SPRUCE_FISH_PLAQUE);

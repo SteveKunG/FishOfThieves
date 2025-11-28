@@ -20,8 +20,8 @@ public class FOTPoiTypes
 
     public static void init()
     {
-        register(NATURAL_SHOAL, Set.of(FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, false)), 0, 1);
-        register(TREASURED_SHOAL, Set.of(FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, true)), 0, 1);
+        register(NATURAL_SHOAL, Set.of(FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, false)), 0, 1);
+        register(TREASURED_SHOAL, Set.of(FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true)), 0, 1);
     }
 
     private static void register(ResourceKey<PoiType> value, Set<BlockState> matchingStates, int maxTickets, int validRange)

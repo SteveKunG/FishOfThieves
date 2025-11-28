@@ -110,7 +110,7 @@ public class FishOfThievesClient
         {
             list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES));
             list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
-            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, FOTBlocks.SHOAL_BLOCK));
+            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, FOTBlocks.SHOAL));
         });
     }
 
