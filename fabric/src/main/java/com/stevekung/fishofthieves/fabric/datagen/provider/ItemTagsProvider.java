@@ -65,6 +65,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.valueLookupBuilder(ItemTags.SMALL_FLOWERS).add(FOTItems.BANANA_BLOSSOM, FOTItems.PINK_PLUMERIA, FOTItems.LIGHT_BLUE_PLUMERIA, FOTItems.WHITE_PLUMERIA);
         this.valueLookupBuilder(ItemTags.DECORATED_POT_SHERDS).add(FOTItems.STORMFISH_POTTERY_SHERD,
                 FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD, FOTItems.GREAT_MOUTH_POTTERY_SHERD);
+        this.valueLookupBuilder(ItemTags.NAUTILUS_TAMING_ITEMS).add(FOTItems.ISLEHOPPER, FOTItems.ISLEHOPPER_BUCKET);
+        this.valueLookupBuilder(ItemTags.NAUTILUS_BUCKET_FOOD).forceAddTag(FOTTags.Items.THIEVES_FISH_BUCKET);
 
         this.valueLookupBuilder(FOTTags.Items.THIEVES_FISH_BUCKET).add(FOTTags.FISH_BUCKETS);
         this.valueLookupBuilder(FOTTags.Items.THIEVES_FISH).add(rawFishes);
