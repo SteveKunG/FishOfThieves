@@ -44,6 +44,7 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
         map.put("fishofthieves:cloudy", 2);
         map.put("fishofthieves:bonedust", 3);
         map.put("fishofthieves:watery", 4);
+        map.put("fishofthieves:crimson", 5);
     });
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)

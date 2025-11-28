@@ -55,6 +55,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         map.put("fishofthieves:blackcloud", 2);
         map.put("fishofthieves:snow", 3);
         map.put("fishofthieves:moon", 4);
+        map.put("fishofthieves:emerald", 5);
     });
 
     private static final List<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = List.of(

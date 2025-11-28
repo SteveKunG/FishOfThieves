@@ -11,6 +11,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -82,7 +83,6 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
     {
         var itemStack = player.getItemInHand(hand);
         int age = state.getValue(AGE);
-        var canHarvest = age == 3;
 
         if (!state.getValue(PERSISTENT) && itemStack.is(Items.SHEARS))
         {
@@ -96,24 +96,34 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
             }
             return InteractionResult.SUCCESS;
         }
-        else if (!canHarvest && player.getItemInHand(hand).is(Items.BONE_MEAL))
+        else if (!canHarvest(age) && player.getItemInHand(hand).is(Items.BONE_MEAL))
         {
             return InteractionResult.PASS;
         }
-        else if (canHarvest)
+        else if (canHarvest(age))
         {
-            var count = 1 + level.random.nextInt(2);
-            popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
-            level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
-            var blockState = state.setValue(AGE, 0);
-            level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
-            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, blockState));
-            return InteractionResult.SUCCESS;
+            return pick(state, level, pos, player);
         }
         else
         {
             return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
         }
+    }
+
+    public static boolean canHarvest(int age)
+    {
+        return age == 3;
+    }
+
+    public static InteractionResult pick(BlockState state, Level level, BlockPos pos, Entity sourceEntity)
+    {
+        var count = 1 + level.random.nextInt(2);
+        popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
+        level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+        var blockState = state.setValue(AGE, 0);
+        level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
+        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(sourceEntity, blockState));
+        return InteractionResult.SUCCESS;
     }
 
     @Override

@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/seafoam_splashtail_bucket"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/obsidian_splashtail_bucket"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

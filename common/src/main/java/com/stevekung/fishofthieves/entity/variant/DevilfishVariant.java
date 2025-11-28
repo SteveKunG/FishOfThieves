@@ -13,16 +13,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record DevilfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record DevilfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
 {
     public static final Codec<DevilfishVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(DevilfishVariant::new);
     public static final Codec<DevilfishVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(DevilfishVariant::new);
     public static final Codec<Holder<DevilfishVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.DEVILFISH_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<DevilfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.DEVILFISH_VARIANT);
 
-    public DevilfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, int customModelData)
+    public DevilfishVariant(String name, ClientAsset texture, Optional<ClientAsset> glowTexture, Optional<Boolean> treasured, int customModelData)
     {
-        this(name, texture, glowTexture, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
     }
 
     @Override

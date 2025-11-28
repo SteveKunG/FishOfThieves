@@ -1,0 +1,17 @@
+{
+  "custom_model_data": 5,
+  "glow_texture": "fishofthieves:entity/wildsplash/treasured/calico_glow",
+  "name": "calico",
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": {
+          "type": "fishofthieves:never"
+        },
+        "priority": 0
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/wildsplash/treasured/calico",
+  "treasured": true
+}

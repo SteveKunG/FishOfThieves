@@ -50,6 +50,7 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
         map.put("fishofthieves:rum", 2);
         map.put("fishofthieves:sand", 3);
         map.put("fishofthieves:bittersweet", 4);
+        map.put("fishofthieves:zest", 5);
     });
 
     private static final List<SensorType<? extends Sensor<? super Battlegill>>> SENSOR_TYPES = List.of(

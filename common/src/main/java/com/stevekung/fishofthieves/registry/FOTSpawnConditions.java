@@ -18,6 +18,7 @@ public interface FOTSpawnConditions
     MapCodec<? extends SpawnCondition> IS_DAY = register("is_day", DayCheck.CODEC);
     MapCodec<? extends SpawnCondition> IS_NIGHT = register("is_night", NightCheck.CODEC);
     MapCodec<? extends SpawnCondition> IS_RAINING = register("is_raining", RainingCheck.CODEC);
+    MapCodec<? extends SpawnCondition> NEVER = register("never", NeverCheck.CODEC);
     MapCodec<? extends SpawnCondition> SEE_SKY = register("see_sky", SeeSkyCheck.CODEC);
     MapCodec<? extends SpawnCondition> CONTINENTALNESS = register("continentalness", ContinentalnessCheck.CODEC);
     MapCodec<? extends SpawnCondition> PROBABILITY = register("probability", ProbabilityCheck.CODEC);
