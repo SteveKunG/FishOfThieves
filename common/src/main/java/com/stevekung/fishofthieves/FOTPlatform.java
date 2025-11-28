@@ -1,14 +1,18 @@
 package com.stevekung.fishofthieves;
 
+import java.util.Set;
+
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -102,6 +106,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static void requestServerShoalFish(Shoal shoal)
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void registerPoiBlockStates(Holder<PoiType> poi, Set<BlockState> states)
     {
         throw new AssertionError();
     }

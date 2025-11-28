@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.neoforge;
 
+import java.util.Set;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.neoforge.mixin.accessor.CropBlockAccessor;
@@ -9,6 +11,7 @@ import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -17,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -112,5 +116,10 @@ public class FOTPlatformImpl
         {
             Minecraft.getInstance().player.connection.send(new ServerboundCustomPayloadPacket(new RequestServerShoalFishPacket(shoal.getId())));
         }
+    }
+
+    public static void registerPoiBlockStates(Holder<PoiType> poi, Set<BlockState> states)
+    {
+        // no-op
     }
 }
