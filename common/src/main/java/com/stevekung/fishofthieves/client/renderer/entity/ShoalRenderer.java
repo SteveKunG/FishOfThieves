@@ -36,7 +36,6 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
 
     // For petals rotation equations credit to https://github.com/VazkiiMods/Botania/blob/1.20.x/Xplat/src/main/java/vazkii/botania/client/render/block_entity/PetalApothecaryBlockEntityRenderer.java#L63
     // Under the Botania license.
-    //TODO
     @Override
     public void render(ShoalRenderState renderState, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight)
     {
