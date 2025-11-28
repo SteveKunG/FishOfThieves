@@ -189,7 +189,7 @@ public class FOTPlatformImpl
         }
     }
 
-    public static void syncClientShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal, boolean forcedUpdate)
     {
         if (shoal.level() instanceof ServerLevel serverLevel)
         {
@@ -197,7 +197,7 @@ public class FOTPlatformImpl
             {
                 if (FishOfThievesForge.INSTANCE.isRemotePresent(serverPlayer.connection.connection))
                 {
-                    FishOfThievesForge.sendToClient(new SyncClientShoalPacket(shoal.getId(), shoal.getShoalFish()), serverPlayer);
+                    FishOfThievesForge.sendToClient(new SyncClientShoalPacket(shoal.getId(), shoal.getShoalFish(), forcedUpdate), serverPlayer);
                 }
             }
         }

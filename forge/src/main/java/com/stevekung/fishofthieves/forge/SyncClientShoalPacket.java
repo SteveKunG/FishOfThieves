@@ -15,17 +15,20 @@ public class SyncClientShoalPacket
 {
     private final int entityId;
     private final List<ShoalFishData> shoalFishData;
+    private final boolean forcedUpdate;
 
-    public SyncClientShoalPacket(int entityId, List<ShoalFishData> shoalFishData)
+    public SyncClientShoalPacket(int entityId, List<ShoalFishData> shoalFishData, boolean forcedUpdate)
     {
         this.entityId = entityId;
         this.shoalFishData = shoalFishData;
+        this.forcedUpdate = forcedUpdate;
     }
 
     public SyncClientShoalPacket(FriendlyByteBuf buf)
     {
         this.entityId = buf.readVarInt();
         this.shoalFishData = buf.readCollection(ArrayList::new, buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt()));
+        this.forcedUpdate = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf)
@@ -42,6 +45,6 @@ public class SyncClientShoalPacket
     public void handle(Supplier<NetworkEvent.Context> ctx)
     {
         var minecraft = Minecraft.getInstance();
-        ctx.get().enqueueWork(() -> FOTClientPackets.syncClientShoalFish(minecraft, this.entityId, this.shoalFishData));
+        ctx.get().enqueueWork(() -> FOTClientPackets.syncClientShoalFish(minecraft, this.entityId, this.shoalFishData, this.forcedUpdate));
     }
 }

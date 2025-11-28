@@ -112,7 +112,7 @@ public class Shoal extends Entity
                 this.createNaturalSpawn(false);
             }
         }
-        FOTPlatform.syncClientShoalFish(this);
+        FOTPlatform.syncClientShoalFish(this, false);
     }
 
     @Override
@@ -223,9 +223,9 @@ public class Shoal extends Entity
         this.destroyShoalBlock();
     }
 
-    public void syncClientShoalFish(List<ShoalFishData> shoalFishData)
+    public void syncClientShoalFish(List<ShoalFishData> shoalFishData, boolean forcedUpdate)
     {
-        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size())
+        if (this.shoalFishClient.isEmpty() || this.shoalFishClient.size() != shoalFishData.size() || forcedUpdate)
         {
             this.shoalFishClient = shoalFishData.stream()
                     .map(shoalFishData1 ->
@@ -258,7 +258,7 @@ public class Shoal extends Entity
         if (entity instanceof LivingEntity livingEntity)
         {
             this.shoalFishData.removeIf(shoalFishData1 -> shoalFishData1.uuid().equals(uuid));
-            FOTPlatform.syncClientShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this, false);
 
             if (this.shoalFishData.isEmpty())
             {
@@ -317,7 +317,7 @@ public class Shoal extends Entity
 
         if (clientSync)
         {
-            FOTPlatform.syncClientShoalFish(this);
+            FOTPlatform.syncClientShoalFish(this, false);
         }
     }
 
@@ -348,7 +348,7 @@ public class Shoal extends Entity
             }
         }
         this.expiredAt = -1;
-        FOTPlatform.syncClientShoalFish(this);
+        FOTPlatform.syncClientShoalFish(this, true);
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)

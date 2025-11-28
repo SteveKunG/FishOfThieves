@@ -86,6 +86,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     {
         var entityId = buf.readVarInt();
         var shoalFish = buf.readCollection(ArrayList::new, buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt()));
-        FOTClientPackets.syncClientShoalFish(minecraft, entityId, shoalFish);
+        var forcedUpdate = buf.readBoolean();
+        FOTClientPackets.syncClientShoalFish(minecraft, entityId, shoalFish, forcedUpdate);
     }
 }

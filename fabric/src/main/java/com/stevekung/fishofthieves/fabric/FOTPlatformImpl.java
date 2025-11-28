@@ -198,7 +198,7 @@ public class FOTPlatformImpl
         }
     }
 
-    public static void syncClientShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal, boolean forcedUpdate)
     {
         if (shoal.getShoalFish().isEmpty())
         {
@@ -213,6 +213,7 @@ public class FOTPlatformImpl
             buf.writeUUID(shoalFish.uuid());
             buf.writeNbt(shoalFish.data());
         });
+        buff.writeBoolean(forcedUpdate);
 
         for (var serverPlayer : PlayerLookup.tracking(shoal))
         {

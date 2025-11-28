@@ -36,7 +36,7 @@ public class RequestServerShoalPacket
 
             if (shoal != null)
             {
-                FOTPlatform.syncClientShoalFish(shoal);
+                FOTPlatform.syncClientShoalFish(shoal, false);
             }
         });
     }
