@@ -30,14 +30,14 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
 {
     private final byte zoom;
     private final int searchRadius;
-    private final int tier;
+    private final float highTierChance;
 
-    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int searchRadius, int tier)
+    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int searchRadius, float highTierChance)
     {
         super(conditions);
         this.zoom = zoom;
         this.searchRadius = searchRadius;
-        this.tier = tier;
+        this.highTierChance = highTierChance;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                     var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), this.zoom, true, true);
                     MapItem.renderBiomePreviewMap(serverLevel, itemStack);
                     MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
-                    Shoal.setTreasuredShoal(serverLevel, blockPos, this.tier);
+                    Shoal.setTreasuredShoal(serverLevel, blockPos, context.getRandom().nextFloat() < this.highTierChance ? 1 : 2);
                     return itemStack;
                 }
             }
@@ -87,7 +87,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     {
         private byte zoom = 2;
         private int searchRadius = 50;
-        private int tier = 1;
+        private float highTierChance;
 
         @Override
         protected TreasuredFishMapFunction.Builder getThis()
@@ -107,16 +107,16 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             return this;
         }
 
-        public TreasuredFishMapFunction.Builder setTier(int tier)
+        public TreasuredFishMapFunction.Builder setHighTierChance(float highTierChance)
         {
-            this.tier = tier;
+            this.highTierChance = highTierChance;
             return this;
         }
 
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.searchRadius, this.tier);
+            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.searchRadius, this.highTierChance);
         }
     }
 
@@ -137,10 +137,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                 json.addProperty("search_radius", treasuredFishMapFunction.searchRadius);
             }
 
-            if (treasuredFishMapFunction.tier != 1)
-            {
-                json.addProperty("tier", treasuredFishMapFunction.tier);
-            }
+            json.addProperty("high_tier_chance", treasuredFishMapFunction.highTierChance);
         }
 
         @Override
@@ -148,8 +145,8 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         {
             var zoom = GsonHelper.getAsByte(object, "zoom", (byte) 2);
             var searchRadius = GsonHelper.getAsInt(object, "search_radius", 50);
-            var tier = GsonHelper.getAsInt(object, "tier", 1);
-            return new TreasuredFishMapFunction(conditions, zoom, searchRadius, tier);
+            var highTierChance = GsonHelper.getAsFloat(object, "high_tier_chance");
+            return new TreasuredFishMapFunction(conditions, zoom, searchRadius, highTierChance);
         }
     }
 }
