@@ -19,11 +19,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -61,13 +59,13 @@ public class FOTPlatformImpl
         FabricTrackedDataRegistry.register(FishOfThieves.id(name), serializer);
     }
 
-    public static void sendFishingHookBait(Player player, int entityId, ItemStack itemStack)
+    public static void sendFishingHookBait(FishingHook fishingHook)
     {
-        if (player instanceof ServerPlayer serverPlayer)
+        for (var serverPlayer : PlayerLookup.tracking(fishingHook))
         {
             if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.RECEIVE_FISHING_HOOK_BAIT))
             {
-                ServerPlayNetworking.send(serverPlayer, new ReceiveFishingHookBaitPacket(entityId, itemStack));
+                ServerPlayNetworking.send(serverPlayer, new ReceiveFishingHookBaitPacket(fishingHook.getId(), fishingHook.fishofthieves$getBaitStack()));
             }
         }
     }
