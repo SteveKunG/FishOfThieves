@@ -11,4 +11,5 @@ public class ThievesFishRenderState extends LivingEntityRenderState
     public Identifier fullTexture;
     public Identifier fullGlowTexture;
     public float glowBrightness;
+    public boolean isTreasured;
 }

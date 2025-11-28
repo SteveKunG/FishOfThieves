@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/firelight_devilfish_bucket"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/leopard_devilfish_bucket"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

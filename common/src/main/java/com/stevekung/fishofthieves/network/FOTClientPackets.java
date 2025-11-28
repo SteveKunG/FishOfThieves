@@ -1,5 +1,10 @@
 package com.stevekung.fishofthieves.network;
 
+import java.util.List;
+
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+import com.stevekung.fishofthieves.entity.shoal.ShoalFishData;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +25,24 @@ public class FOTClientPackets
                 }
 
                 fishingHook.fishofthieves$setBaitStack(itemStack);
+            }
+        });
+    }
+
+    public static void syncClientShoalFish(Minecraft minecraft, int entityId, List<ShoalFishData> shoalFishData)
+    {
+        minecraft.execute(() ->
+        {
+            if (minecraft.level != null)
+            {
+                var shoal = (Shoal) minecraft.level.getEntity(entityId);
+
+                if (shoal == null)
+                {
+                    return;
+                }
+
+                shoal.syncClientShoalFish(shoalFishData);
             }
         });
     }

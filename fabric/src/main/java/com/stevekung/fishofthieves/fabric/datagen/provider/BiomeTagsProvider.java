@@ -44,6 +44,7 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
         this.builder(FOTTags.Biomes.ALWAYS_DROP_LEECHES).add(Biomes.MANGROVE_SWAMP);
         this.builder(FOTTags.Biomes.HAS_SEAPOST).add(Biomes.OCEAN, Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.COLD_OCEAN);
         this.builder(FOTTags.Biomes.HAS_FISH_BONE).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+        this.builder(FOTTags.Biomes.SPAWNS_SHOAL).forceAddTag(BiomeTags.IS_OCEAN).forceAddTag(BiomeTags.IS_RIVER).forceAddTag(BiomeTags.IS_BEACH).add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
 
         this.builder(BiomeTags.IS_OVERWORLD).add(FOTBiomes.TROPICAL_ISLAND);
         this.builder(BiomeTags.IS_JUNGLE).add(FOTBiomes.TROPICAL_ISLAND);

@@ -21,6 +21,7 @@ public class DevilfishVariants
     public static final ResourceKey<DevilfishVariant> LAVA = createKey("lava");
     public static final ResourceKey<DevilfishVariant> FORSAKEN = createKey("forsaken");
     public static final ResourceKey<DevilfishVariant> FIRELIGHT = createKey("firelight");
+    public static final ResourceKey<DevilfishVariant> LEOPARD = createKey("leopard");
 
     public static void bootstrap(BootstrapContext<DevilfishVariant> context)
     {
@@ -31,6 +32,7 @@ public class DevilfishVariants
         registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllConditionCheck.allOf(NightCheck.night(),
                 BlockRangeCheck.blocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS)), Optional.of(context.lookup(Registries.FLUID).getOrThrow(FluidTags.LAVA)), 4)));
+        registerContext.register(context, LEOPARD, "leopard", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<DevilfishVariant> context)
@@ -41,6 +43,7 @@ public class DevilfishVariants
         registerContext.register(context, LAVA, "lava", 2);
         registerContext.register(context, FORSAKEN, "forsaken", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, FIRELIGHT, "firelight", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, LEOPARD, "leopard", 5, true, true);
     }
 
     private static ResourceKey<DevilfishVariant> createKey(String name)

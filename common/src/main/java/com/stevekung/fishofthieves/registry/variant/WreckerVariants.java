@@ -22,6 +22,7 @@ public class WreckerVariants
     public static final ResourceKey<WreckerVariant> BLACKCLOUD = createKey("blackcloud");
     public static final ResourceKey<WreckerVariant> SNOW = createKey("snow");
     public static final ResourceKey<WreckerVariant> MOON = createKey("moon");
+    public static final ResourceKey<WreckerVariant> EMERALD = createKey("emerald");
 
     public static void bootstrap(BootstrapContext<WreckerVariant> context)
     {
@@ -34,6 +35,7 @@ public class WreckerVariants
                 registerContext.select(AllConditionCheck.allOf(new BiomeCheck(HolderSet.direct(biomeLookup.getOrThrow(Biomes.FROZEN_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN))), RandomChanceCheck.chance(10)), 1),
                 registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
         registerContext.register(context, MOON, "moon", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(), new MoonBrightnessCheck(MinMaxBounds.Doubles.atMost(1.0d))));
+        registerContext.register(context, EMERALD, "emerald", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<WreckerVariant> context)
@@ -44,6 +46,7 @@ public class WreckerVariants
         registerContext.register(context, BLACKCLOUD, "blackcloud", 2, true);
         registerContext.register(context, SNOW, "snow", 3, true, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, MOON, "moon", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, EMERALD, "emerald", 5, true, true);
     }
 
     private static ResourceKey<WreckerVariant> createKey(String name)

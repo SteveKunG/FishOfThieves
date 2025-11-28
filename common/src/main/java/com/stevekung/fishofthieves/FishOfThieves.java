@@ -13,6 +13,8 @@ import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+import com.stevekung.fishofthieves.item.trade.TreasuredFishMapForEmeralds;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTEntities;
@@ -49,6 +51,8 @@ public class FishOfThieves
     public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
     public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
     public static final Identifier RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
+    public static final Identifier SYNC_CLIENT_SHOAL_FISH = FishOfThieves.id("sync_client_shoal_fish");
+    public static final Identifier REQUEST_SERVER_SHOAL_FISH = FishOfThieves.id("request_server_shoal_fish");
 
     public static Identifier id(String path)
     {
@@ -207,12 +211,14 @@ public class FishOfThieves
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
+                list.add(new TreasuredFishMapForEmeralds(12, Shoal.FILLED_MAP_TREASURED_FISH, 3, 20, 1));
             }
             case 4 ->
             {
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 6, 10, 20));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 5, 12, 25));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 5, 12, 25));
+                list.add(new TreasuredFishMapForEmeralds(16, Shoal.FILLED_MAP_TREASURED_FISH, 3, 24, 2));
             }
             case 5 ->
             {

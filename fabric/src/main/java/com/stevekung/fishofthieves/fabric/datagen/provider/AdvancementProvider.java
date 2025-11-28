@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -11,6 +12,8 @@ import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.item.predicate.BucketNbtPredicate;
 import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
 import com.stevekung.fishofthieves.registry.*;
@@ -21,7 +24,6 @@ import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.util.Util;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderGetter;
@@ -35,8 +37,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -99,7 +103,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
                 .save(consumer, this.mod("fish_collectors"));
 
-        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), itemLookup, false)
+        this.addFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup, false)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
                         Component.translatable("advancements.fot.master_fish_collectors.title"),
                         Component.translatable("advancements.fot.master_fish_collectors.description"),
@@ -107,7 +111,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
                 .save(consumer, this.mod("master_fish_collectors"));
 
-        this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), itemLookup, true)
+        this.addFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup, true)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
                         Component.translatable("advancements.fot.legendary_fish_collectors.title"),
                         Component.translatable("advancements.fot.legendary_fish_collectors.description"),
@@ -300,14 +304,21 @@ public class AdvancementProvider extends FabricAdvancementProvider
         return builder;
     }
 
-    private Advancement.Builder addFishVariantsBuckets(Advancement.Builder builder, HolderGetter<Item> itemLookup, boolean trophy)
+    private Advancement.Builder addFishVariantsBuckets(HolderLookup.Provider provider, Advancement.Builder builder, HolderGetter<Item> itemLookup, boolean trophy)
     {
-        for (var bucket : FOTTags.FISH_BUCKETS)
+        for (var bucket : Arrays.stream(FOTTags.FISH_BUCKETS).map(FOTMobBucketItem.class::cast).toList())
         {
             var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
             for (var variant : variants.keySet().stream().map(Identifier::parse).toList())
             {
+                var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(bucket.getRegistryKey());
+
+                if (provider.lookupOrThrow(registryKey).getOrThrow(ResourceKey.create(registryKey, variant)).value().treasured().isPresent())
+                {
+                    continue;
+                }
+
                 var compoundTag = new CompoundTag();
                 compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
 

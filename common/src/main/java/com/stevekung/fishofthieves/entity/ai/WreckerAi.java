@@ -53,7 +53,10 @@ public class WreckerAi
 
     public static void initMemories(Wrecker fish)
     {
-        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+        if (!fish.fromBucket())
+        {
+            fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, AbstractThievesFishAi.TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+        }
     }
 
     private static void initCoreActivity(Brain<Wrecker> brain)

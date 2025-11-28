@@ -7,11 +7,12 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
+import com.mojang.datafixers.util.Function6;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.entity.condition.NeverCheck;
 
 import net.minecraft.util.Util;
 import net.minecraft.core.ClientAsset;
@@ -43,6 +44,8 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
     Optional<Identifier> fullGlowTexture();
 
     Optional<ClientAsset.ResourceTexture> glowTexture();
+
+    Optional<Boolean> treasured();
 
     SpawnSettings spawnSettings();
 
@@ -97,23 +100,25 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         return Util.getRandomSafe(list, randomSource);
     }
 
-    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> simpleCodec(Function6<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Optional<Boolean>, SpawnSettings, Integer, T> factory)
     {
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ClientAsset.ResourceTexture.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                Codec.BOOL.optionalFieldOf("treasured").forGetter(AbstractFishVariant::treasured),
                 SpawnSettings.CODEC.optionalFieldOf("spawn_settings", new SpawnSettings(SpawnPrioritySelectors.fallback(0), Optional.empty())).forGetter(AbstractFishVariant::spawnSettings),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
     }
 
-    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function4<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Integer, T> factory)
+    static <T extends AbstractFishVariant> Codec<T> networkCodec(Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Optional<Boolean>, Integer, T> factory)
     {
         return RecordCodecBuilder.create(instance -> instance.group(
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("name").forGetter(AbstractFishVariant::name),
                 ClientAsset.ResourceTexture.CODEC.fieldOf("texture").forGetter(AbstractFishVariant::texture),
                 ClientAsset.ResourceTexture.CODEC.optionalFieldOf("glow_texture").forGetter(AbstractFishVariant::glowTexture),
+                Codec.BOOL.optionalFieldOf("treasured").forGetter(AbstractFishVariant::treasured),
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("custom_model_data").forGetter(AbstractFishVariant::customModelData)
         ).apply(instance, factory));
     }
@@ -131,9 +136,9 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
         return PriorityProvider.pick(registryAccess.lookupOrThrow(registryKey).listElements(), Holder::value, livingEntity.getRandom(), context).orElseGet(() -> registry.getOrThrow(defaultKey));
     }
 
-    record RegisterContext<T>(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
+    record RegisterContext<T>(String entityName, Function6<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Optional<Boolean>, SpawnSettings, Integer, T> factory)
     {
-        public static <T> RegisterContext<T> create(String entityName, Function5<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, SpawnSettings, Integer, T> factory)
+        public static <T> RegisterContext<T> create(String entityName, Function6<String, ClientAsset.ResourceTexture, Optional<ClientAsset.ResourceTexture>, Optional<Boolean>, SpawnSettings, Integer, T> factory)
         {
             return new RegisterContext<>(entityName, factory);
         }
@@ -145,56 +150,62 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData)
         {
-            this.register(context, key, name, customModelData, false, PriorityProvider.alwaysTrue(0), Optional.empty());
+            this.register(context, key, name, customModelData, false, Optional.empty(), PriorityProvider.alwaysTrue(0), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow)
         {
-            this.register(context, key, name, customModelData, glow, PriorityProvider.alwaysTrue(0), Optional.empty());
+            this.register(context, key, name, customModelData, glow, Optional.empty(), PriorityProvider.alwaysTrue(0), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, SpawnCondition condition)
         {
-            this.register(context, key, name, customModelData, false, List.of(this.select(condition, 0)), Optional.empty());
+            this.register(context, key, name, customModelData, false, Optional.empty(), List.of(this.select(condition, 0)), Optional.empty());
         }
 
         @SafeVarargs
         public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, Selector<SpawnContext, SpawnCondition>... conditions)
         {
-            this.register(context, key, name, customModelData, false, List.of(conditions), Optional.empty());
+            this.register(context, key, name, customModelData, false, Optional.empty(), List.of(conditions), Optional.empty());
         }
 
         @SafeVarargs
         public final void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition>... conditions)
         {
-            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
+            this.register(context, key, name, customModelData, glow, Optional.empty(), List.of(conditions), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, List<Selector<SpawnContext, SpawnCondition>> conditions, List<Selector<SpawnContext, SpawnCondition>> fishingOverride)
         {
-            this.register(context, key, name, customModelData, false, conditions, Optional.of(fishingOverride));
+            this.register(context, key, name, customModelData, false, Optional.empty(), conditions, Optional.of(fishingOverride));
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition> conditions)
         {
-            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.empty());
+            this.register(context, key, name, customModelData, glow, Optional.empty(), List.of(conditions), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, SpawnCondition condition)
         {
-            this.register(context, key, name, customModelData, glow, List.of(this.select(condition, 0)), Optional.empty());
+            this.register(context, key, name, customModelData, glow, Optional.empty(), List.of(this.select(condition, 0)), Optional.empty());
         }
 
         public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Selector<SpawnContext, SpawnCondition> conditions, List<Selector<SpawnContext, SpawnCondition>> fishingOverride)
         {
-            this.register(context, key, name, customModelData, glow, List.of(conditions), Optional.of(fishingOverride));
+            this.register(context, key, name, customModelData, glow, Optional.empty(), List.of(conditions), Optional.of(fishingOverride));
         }
 
-        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, List<Selector<SpawnContext, SpawnCondition>> conditions, Optional<List<Selector<SpawnContext, SpawnCondition>>> fishingOverride)
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, boolean treasured)
         {
-            var texture = FishOfThieves.id("entity/" + this.entityName + "/" + name);
-            var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + name + "_glow");
-            context.register(key, this.factory.apply(name, new ClientAsset.ResourceTexture(texture), glow ? Optional.of(new ClientAsset.ResourceTexture(glowTexture)) : Optional.empty(), new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
+            this.register(context, key, name, customModelData, glow, Optional.of(treasured), List.of(this.select(NeverCheck.never(), 0)), Optional.empty());
+        }
+
+        public void register(BootstrapContext<T> context, ResourceKey<T> key, String name, int customModelData, boolean glow, Optional<Boolean> treasured, List<Selector<SpawnContext, SpawnCondition>> conditions, Optional<List<Selector<SpawnContext, SpawnCondition>>> fishingOverride)
+        {
+            var treasuredPath = treasured.isPresent() ? "treasured/" : "";
+            var texture = FishOfThieves.id("entity/" + this.entityName + "/" + treasuredPath + name);
+            var glowTexture = FishOfThieves.id("entity/" + this.entityName + "/" + treasuredPath + name + "_glow");
+            context.register(key, this.factory.apply(name, new ClientAsset.ResourceTexture(texture), glow ? Optional.of(new ClientAsset.ResourceTexture(glowTexture)) : Optional.empty(), treasured, new SpawnSettings(new SpawnPrioritySelectors(conditions), fishingOverride.map(SpawnPrioritySelectors::new)), customModelData));
         }
     }
 

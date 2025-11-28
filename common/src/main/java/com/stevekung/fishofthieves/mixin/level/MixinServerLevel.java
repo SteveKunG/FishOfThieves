@@ -10,11 +10,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.registry.FOTEntities;
+import com.stevekung.fishofthieves.registry.FOTGameRules;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 import com.stevekung.fishofthieves.storage.BaitPreserveSavedData;
 import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -49,6 +52,17 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
                 lightningBolt.snapTo(Vec3.atBottomCenterOf(blockPos.get()));
                 this.addFreshEntity(lightningBolt);
             }
+        }
+    }
+
+    @Inject(method = "tickChunk", at = @At(value = "CONSTANT", args = "stringValue=iceandsnow"))
+    private void fishofthieves$shoalTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo info, @Local(index = 5, ordinal = 1) int x, @Local(index = 6, ordinal = 2) int z, @Local ProfilerFiller profilerFiller)
+    {
+        if (ServerLevel.class.cast(this).getGameRules().get(FOTGameRules.SHOAL_SPAWNING))
+        {
+            profilerFiller.push("fishofthieves_shoal");
+            ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            profilerFiller.pop();
         }
     }
 

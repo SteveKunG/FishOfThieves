@@ -50,7 +50,10 @@ public class AbstractThievesFishAi
 
     public static void initMemories(AbstractThievesFish<?> fish)
     {
-        fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+        if (!fish.fromBucket())
+        {
+            fish.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, TIME_BETWEEN_BREACH.sample(fish.getRandom()));
+        }
     }
 
     public static void updateActivity(AbstractThievesFish<?> fish)

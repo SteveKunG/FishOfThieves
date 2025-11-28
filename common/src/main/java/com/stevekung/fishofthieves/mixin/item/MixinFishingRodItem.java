@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.FishingHookBait;
 
 import net.minecraft.server.level.ServerLevel;
@@ -46,7 +47,7 @@ public class MixinFishingRodItem
     {
         var baitStack = FishingHookBait.getBait(player);
 
-        if (projectile instanceof FishingHook fishingHook && !baitStack.isEmpty())
+        if (FishOfThieves.CONFIG.general.enableWormsAttachedFishingHook && projectile instanceof FishingHook fishingHook && !baitStack.isEmpty())
         {
             fishingHook.fishofthieves$setBaitStack(baitStack.copyWithCount(1));
 

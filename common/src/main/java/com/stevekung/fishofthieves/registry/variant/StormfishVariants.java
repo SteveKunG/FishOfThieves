@@ -23,6 +23,7 @@ public class StormfishVariants
     public static final ResourceKey<StormfishVariant> WILD = createKey("wild");
     public static final ResourceKey<StormfishVariant> SHADOW = createKey("shadow");
     public static final ResourceKey<StormfishVariant> TWILIGHT = createKey("twilight");
+    public static final ResourceKey<StormfishVariant> STARSHINE = createKey("starshine");
 
     public static void bootstrap(BootstrapContext<StormfishVariant> context)
     {
@@ -37,6 +38,7 @@ public class StormfishVariants
                 registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), SkyBrightnessCheck.skyBrightness(MinMaxBounds.Ints.atMost(4))), 1),
                 registerContext.select(ProbabilityCheck.defaultRareProbablity(), 0));
         registerContext.register(context, TWILIGHT, "twilight", 4, true, SkyDarkenCheck.skyDarken(MinMaxBounds.Ints.between(9, 16)));
+        registerContext.register(context, STARSHINE, "starshine", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<StormfishVariant> context)
@@ -47,6 +49,7 @@ public class StormfishVariants
         registerContext.register(context, WILD, "wild", 2);
         registerContext.register(context, SHADOW, "shadow", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, TWILIGHT, "twilight", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, STARSHINE, "starshine", 5, true, true);
     }
 
     private static ResourceKey<StormfishVariant> createKey(String name)

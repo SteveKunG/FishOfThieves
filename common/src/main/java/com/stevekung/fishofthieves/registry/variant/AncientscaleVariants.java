@@ -21,6 +21,7 @@ public class AncientscaleVariants
     public static final ResourceKey<AncientscaleVariant> SMOKE = createKey("smoke");
     public static final ResourceKey<AncientscaleVariant> BONE = createKey("bone");
     public static final ResourceKey<AncientscaleVariant> STARSHINE = createKey("starshine");
+    public static final ResourceKey<AncientscaleVariant> BLOSSOM = createKey("blossom");
 
     public static void bootstrap(BootstrapContext<AncientscaleVariant> context)
     {
@@ -32,6 +33,7 @@ public class AncientscaleVariants
         registerContext.register(context, BONE, "bone", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, STARSHINE, "starshine", 4, true,
                 AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky(), new MoonBrightnessCheck(MinMaxBounds.Doubles.atMost(0.25d))));
+        registerContext.register(context, BLOSSOM, "blossom", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<AncientscaleVariant> context)
@@ -42,6 +44,7 @@ public class AncientscaleVariants
         registerContext.register(context, SMOKE, "smoke", 2);
         registerContext.register(context, BONE, "bone", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, STARSHINE, "starshine", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, BLOSSOM, "blossom", 5, true, true);
     }
 
     private static ResourceKey<AncientscaleVariant> createKey(String name)
