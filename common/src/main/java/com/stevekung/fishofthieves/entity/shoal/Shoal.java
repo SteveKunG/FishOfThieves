@@ -162,7 +162,7 @@ public class Shoal extends Entity
             var blockState = this.level().getBlockState(this.blockPosition());
             var canSurvive = ShoalBlock.canSurvive(this.level(), this.blockPosition());
 
-            if ((this.level().getGameTime() % 20L == 0L && !canSurvive || !this.isTreasured() && this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL_BLOCK)) && !this.isInvulnerable())
+            if ((this.level().getGameTime() % 20L == 0L && !canSurvive || !this.isTreasured() && this.level().getGameTime() >= this.expiredAt || this.shoalFishData.isEmpty() || !blockState.is(FOTBlocks.SHOAL)) && !this.isInvulnerable())
             {
                 this.destroy();
             }
@@ -353,7 +353,7 @@ public class Shoal extends Entity
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
     {
-        level.setBlock(blockPos, FOTBlocks.SHOAL_BLOCK.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
+        level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
 
         var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(blockPos).inflate(1));
 
@@ -370,7 +370,7 @@ public class Shoal extends Entity
         var blockPos = this.blockPosition();
         var blockState = this.level().getBlockState(blockPos);
 
-        if (blockState.is(FOTBlocks.SHOAL_BLOCK))
+        if (blockState.is(FOTBlocks.SHOAL))
         {
             this.level().setBlock(blockPos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
         }

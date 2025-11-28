@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.PushReaction;
 public class FOTBlocks
 {
     public static final Block FISH_BONE = register("fish_bone", new FishBoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).pushReaction(PushReaction.DESTROY).strength(0.25f).dynamicShape().offsetType(BlockBehaviour.OffsetType.XYZ).sound(SoundType.BONE_BLOCK)));
-    public static final Block SHOAL_BLOCK = register("shoal_block", new ShoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).randomTicks().liquid().sound(SoundType.EMPTY)));
+    public static final Block SHOAL = register("shoal", new ShoalBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).randomTicks().liquid().sound(SoundType.EMPTY)));
 
     public static final Block OAK_FISH_PLAQUE = register("oak_fish_plaque", new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.OAK_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN));
     public static final Block SPRUCE_FISH_PLAQUE = register("spruce_fish_plaque", new FishPlaqueBlock(BlockBehaviour.Properties.of().mapColor(Blocks.SPRUCE_PLANKS.defaultMapColor()).noCollission().strength(1.0F).sound(SoundType.WOOD), FishPlaqueBlock.Type.WOODEN));

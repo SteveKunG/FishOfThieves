@@ -48,7 +48,7 @@ public final class ShoalSpawner
 
         if (biome.is(FOTTags.Biomes.SPAWNS_SHOAL) && isOpenWater(level, blockPos) && ShoalChance.canSpawnAt(level, blockPos))
         {
-            level.setBlock(blockPos.below(), FOTBlocks.SHOAL_BLOCK.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(blockPos.below(), FOTBlocks.SHOAL.defaultBlockState(), Block.UPDATE_ALL);
 
             var shoal = FOTEntities.SHOAL.create(level);
             shoal.moveTo(blockPos.getX() + 0.5d, blockPos.getY() - 0.75d, blockPos.getZ() + 0.5d, 0, 0);
