@@ -83,6 +83,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(StructureTagsProvider::new);
         pack.addProvider(DamageTagsProvider::new);
         pack.addProvider(EnchantmentTagsProvider::new);
+        pack.addProvider(PoiTypeTagsProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(ModFishingRealProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);

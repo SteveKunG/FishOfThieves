@@ -85,7 +85,7 @@ public class FOTPlatformImpl
         }
     }
 
-    public static void syncClientShoalFish(Shoal shoal)
+    public static void syncClientShoalFish(Shoal shoal, boolean forcedUpdate)
     {
         if (shoal.getShoalFish().isEmpty())
         {
@@ -96,7 +96,7 @@ public class FOTPlatformImpl
         {
             if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.SYNC_CLIENT_SHOAL_FISH))
             {
-                ServerPlayNetworking.send(serverPlayer, new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish()));
+                ServerPlayNetworking.send(serverPlayer, new SyncClientShoalFishPacket(shoal.getId(), shoal.getShoalFish(), forcedUpdate));
             }
         }
     }
