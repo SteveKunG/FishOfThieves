@@ -27,8 +27,8 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -76,8 +76,8 @@ public class FishOfThievesFabric implements ModInitializer
         });
 
         FabricLoader.getInstance().getModContainer(FishOfThieves.MOD_ID)
-                .map(container -> ResourceManagerHelper.registerBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"),
-                        container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), ResourcePackActivationType.NORMAL))
+                .map(container -> ResourceLoader.registerBuiltinPack(FishOfThieves.id("simple_spawning_condition_pack"),
+                        container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), PackActivationType.NORMAL))
                 .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
 
         FOTBlocks.init();
