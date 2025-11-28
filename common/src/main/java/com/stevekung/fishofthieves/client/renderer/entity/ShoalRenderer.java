@@ -1,5 +1,8 @@
 package com.stevekung.fishofthieves.client.renderer.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,7 +14,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -82,27 +84,27 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
         super.render(renderState, poseStack, bufferSource, packedLight);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void extractRenderState(Shoal entity, ShoalRenderState renderState, float partialTicks)
     {
         super.extractRenderState(entity, renderState, partialTicks);
+        List<EntityRenderState> entityRenderStateList = new ArrayList<>();
 
         for (var livingEntity : entity.getShoalFishClient())
         {
-            this.entityRenderDispatcher.getRenderer(livingEntity);
+            var renderer = (EntityRenderer<? super Entity, ? super EntityRenderState>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(livingEntity.getType());
+            var entityRenderState = renderer.createRenderState(livingEntity, partialTicks);
+            entityRenderState.ageInTicks = entity.tickCount + partialTicks;
+            entityRenderStateList.add(entityRenderState);
         }
+        renderState.shoalFishClient = entityRenderStateList;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private void renderEntityInShoal(EntityRenderState livingEntityRenderState, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
+    @SuppressWarnings("unchecked")
+    private void renderEntityInShoal(EntityRenderState entityRenderState, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
     {
-        var renderer = (EntityRenderer<? super Entity, ? super EntityRenderState>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(livingEntityRenderState.entityType);
-        renderer.render(livingEntityRenderState, poseStack, buffer, packedLight);
-
-        if (renderer instanceof LivingEntityRenderer livingEntityRenderer)
-        {
-            var model = livingEntityRenderer.getModel();
-            model.setupAnim(livingEntityRenderState);
-        }
+        var renderer = (EntityRenderer<? super Entity, ? super EntityRenderState>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(entityRenderState.entityType);
+        renderer.render(entityRenderState, poseStack, buffer, packedLight);
     }
 }
