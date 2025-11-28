@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,11 +37,12 @@ public class FOTEntities
     public static final EntityType<Boat> COCONUT_BOAT = register("coconut_boat", key -> createBoatEntityType(key, boatFactory(() -> FOTItems.COCONUT_BOAT)));
     public static final EntityType<ChestBoat> COCONUT_CHEST_BOAT = register("coconut_chest_boat", key -> createBoatEntityType(key, chestBoatFactory(() -> FOTItems.COCONUT_CHEST_BOAT)));
 
+    public static final EntityType<Shoal> SHOAL = register("shoal", key -> EntityType.Builder.of(Shoal::new, MobCategory.MISC).sized(2.0F, 1.0F).clientTrackingRange(10).build(ResourceKey.create(Registries.ENTITY_TYPE, FishOfThieves.id(key))));
+
     public interface SpawnData
     {
         WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 4, 8), 12).build();
         WeightedList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 4, 8), 12).build();
-        WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE_AND_PLENTIFIN = WeightedList.of(ANCIENTSCALE.unwrap().getFirst(), PLENTIFIN.unwrap().getFirst());
         WeightedList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 2, 4), 5).build();
         WeightedList<MobSpawnSettings.SpawnerData> WRECKER = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 4, 8), 50).build();
     }

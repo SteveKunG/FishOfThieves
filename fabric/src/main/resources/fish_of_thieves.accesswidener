@@ -8,6 +8,7 @@ accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context pos Lne
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING_ALT Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
 accessible field net/minecraft/world/entity/projectile/FishingHook nibble I
+accessible field net/minecraft/world/entity/Entity wasTouchingWater Z
 
 accessible method net/minecraft/core/registries/BuiltInRegistries registerSimple (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;)Lnet/minecraft/core/Registry;
 accessible method net/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction simpleBuilder (Ljava/util/function/Function;)Lnet/minecraft/world/level/storage/loot/functions/LootItemConditionalFunction$Builder;
@@ -19,6 +20,7 @@ accessible method net/minecraft/world/level/block/CropBlock getGrowthSpeed (Lnet
 accessible method net/minecraft/data/worldgen/biome/OverworldBiomes globalOverworldGeneration (Lnet/minecraft/world/level/biome/BiomeGenerationSettings$Builder;)V
 accessible method net/minecraft/world/entity/animal/TropicalFish getPackedVariant ()I
 accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier

@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/moonsky_pondie"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/dewdrop_pondie"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

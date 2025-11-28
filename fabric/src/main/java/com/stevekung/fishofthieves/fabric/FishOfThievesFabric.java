@@ -1,11 +1,15 @@
 package com.stevekung.fishofthieves.fabric;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
+import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
+import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 import com.stevekung.fishofthieves.registry.*;
 
 import net.fabricmc.api.ModInitializer;
@@ -18,6 +22,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
@@ -102,6 +107,9 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
         FOTDebugSubscriptions.init();
+        FOTPoiTypes.init();
+        FOTMapDecorationTypes.init();
+        FOTLootItemFunctions.init();
 
         FOTDecoratedPotPatterns.putItemsToPotTexture();
 
@@ -162,8 +170,27 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
 
         PayloadTypeRegistry.playS2C().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC);
 
         ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> level.getBaitPreserve().spawnBaitOnLoad(level));
+
+        ServerPlayNetworking.registerGlobalReceiver(RequestServerShoalFishPacket.TYPE, FishOfThievesFabric::requestServerShoalFish);
+    }
+
+    public static void requestServerShoalFish(RequestServerShoalFishPacket packet, ServerPlayNetworking.Context context)
+    {
+        var entityId = packet.entityId();
+
+        context.server().execute(() ->
+        {
+            var shoal = (Shoal) context.player().level().getEntity(entityId);
+
+            if (shoal != null)
+            {
+                FOTPlatform.syncClientShoalFish(shoal);
+            }
+        });
     }
 
     private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)

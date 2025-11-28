@@ -34,12 +34,12 @@ public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements De
                 }
             });
 
-            if (FishOfThieves.CONFIG.debug.displayInfo)
+            if (FishOfThieves.CONFIG.debug.displayStructureCenterPosInfo)
             {
                 var distFromStructure = Integer.MAX_VALUE;
                 var optional = info.structurePosList()
                         .stream()
-                        .filter(structurePos -> structurePos.blockPos().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureRangeLimit)
+                        .filter(structurePos -> structurePos.blockPos().distManhattan(entityPos) <= FishOfThieves.CONFIG.debug.structureCenterPosRangeLimit)
                         .min(Comparator.comparing(structurePos -> structurePos.blockPos().distManhattan(entityPos)));
 
                 if (optional.isPresent())

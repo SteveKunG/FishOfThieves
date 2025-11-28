@@ -49,6 +49,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         map.put("fishofthieves:honey", 2);
         map.put("fishofthieves:raven", 3);
         map.put("fishofthieves:amethyst", 4);
+        map.put("fishofthieves:briny", 5);
     });
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)

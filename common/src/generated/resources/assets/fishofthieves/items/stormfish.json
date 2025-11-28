@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/twilight_stormfish"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/starshine_stormfish"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

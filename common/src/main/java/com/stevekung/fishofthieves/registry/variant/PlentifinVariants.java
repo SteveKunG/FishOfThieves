@@ -17,6 +17,7 @@ public class PlentifinVariants
     public static final ResourceKey<PlentifinVariant> CLOUDY = createKey("cloudy");
     public static final ResourceKey<PlentifinVariant> BONEDUST = createKey("bonedust");
     public static final ResourceKey<PlentifinVariant> WATERY = createKey("watery");
+    public static final ResourceKey<PlentifinVariant> CRIMSON = createKey("crimson");
 
     public static void bootstrap(BootstrapContext<PlentifinVariant> context)
     {
@@ -29,6 +30,7 @@ public class PlentifinVariants
         registerContext.register(context, CLOUDY, "cloudy", 2, AllConditionCheck.allOf(RainingCheck.raining().build(), SeeSkyCheck.seeSky()));
         registerContext.register(context, BONEDUST, "bonedust", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, WATERY, "watery", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, CRIMSON, "crimson", 5, true, true);
     }
 
     public static void bootstrapSimple(BootstrapContext<PlentifinVariant> context)
@@ -39,6 +41,7 @@ public class PlentifinVariants
         registerContext.register(context, CLOUDY, "cloudy", 2);
         registerContext.register(context, BONEDUST, "bonedust", 3, ProbabilityCheck.defaultRareProbablity());
         registerContext.register(context, WATERY, "watery", 4, true, AllConditionCheck.allOf(NightCheck.night(), SeeSkyCheck.seeSky()));
+        registerContext.register(context, CRIMSON, "crimson", 5, true, true);
     }
 
     private static ResourceKey<PlentifinVariant> createKey(String name)

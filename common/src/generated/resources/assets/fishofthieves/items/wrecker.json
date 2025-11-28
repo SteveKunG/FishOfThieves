@@ -29,6 +29,13 @@
           "model": "fishofthieves:item/moon_wrecker"
         },
         "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/emerald_wrecker"
+        },
+        "threshold": 5.0
       }
     ],
     "fallback": {

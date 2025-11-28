@@ -250,17 +250,17 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Nullable
-    private PineappleCropBlock.PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
+    private PosAndState getLowerHalf(LevelReader level, BlockPos pos, BlockState state)
     {
         if (isLower(state))
         {
-            return new PineappleCropBlock.PosAndState(pos, state);
+            return new PosAndState(pos, state);
         }
         else
         {
             var blockPos = pos.below();
             var blockState = level.getBlockState(blockPos);
-            return isLower(blockState) ? new PineappleCropBlock.PosAndState(blockPos, blockState) : null;
+            return isLower(blockState) ? new PosAndState(blockPos, blockState) : null;
         }
     }
 
@@ -268,7 +268,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
     {
         var posAndState = this.getLowerHalf(level, pos, state);
-        return posAndState != null && this.canGrow(level, posAndState.pos, posAndState.state, posAndState.state.getValue(AGE) + 1);
+        return posAndState != null && this.canGrow(level, posAndState.pos(), posAndState.state(), posAndState.state().getValue(AGE) + 1);
     }
 
     @Override
@@ -284,7 +284,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
         if (posAndState != null)
         {
-            this.grow(level, posAndState.state, posAndState.pos, Mth.nextInt(random, 1, 2));
+            this.grow(level, posAndState.state(), posAndState.pos(), Mth.nextInt(random, 1, 2));
         }
     }
 
@@ -300,7 +300,4 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
             return state.getValue(AGE) == 0 ? new ItemStack(FOTItems.PINEAPPLE_SEEDS) : new ItemStack(FOTItems.PINEAPPLE_CROWN);
         }
     }
-
-    record PosAndState(BlockPos pos, BlockState state)
-    {}
 }

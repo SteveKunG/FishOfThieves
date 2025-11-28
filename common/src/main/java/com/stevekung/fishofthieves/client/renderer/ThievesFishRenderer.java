@@ -56,6 +56,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         renderState.fullTexture = variant.fullTexture();
         renderState.fullGlowTexture = variant.fullGlowTexture().orElse(null);
         renderState.glowBrightness = entity.getGlowBrightness(renderState.ageInTicks);
+        renderState.isTreasured = entity.getVariant().value().treasured().orElse(false);
     }
 
     @Override
@@ -84,7 +85,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     @Override
     protected void scale(S livingEntity, PoseStack poseStack)
     {
-        var scale = livingEntity.isTrophy ? 1.0F : 0.5F;
+        var scale = livingEntity.isTreasured ? 1.25f : livingEntity.isTrophy ? 1.0F : 0.5F;
         poseStack.scale(scale, scale, scale);
     }
 
