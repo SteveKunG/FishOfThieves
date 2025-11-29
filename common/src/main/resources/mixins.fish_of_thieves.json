@@ -9,6 +9,7 @@
     "client.MixinCreativeModeTabs",
     "client.MixinDebugRenderer",
     "client.MixinLevelEventHandler",
+    "client.level.MixinClientLevel",
     "client.entity.MixinEntity",
     "client.entity.MixinLocalPlayer",
     "client.model.MixinTadpoleModel",
