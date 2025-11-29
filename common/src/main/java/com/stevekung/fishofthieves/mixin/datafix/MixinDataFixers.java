@@ -13,14 +13,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.google.common.collect.ImmutableMap;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import com.stevekung.fishofthieves.datafixers.V3940;
 
 import net.minecraft.util.datafix.DataFixers;
-import net.minecraft.util.datafix.fixes.AddNewChoices;
-import net.minecraft.util.datafix.fixes.AdvancementsRenameFix;
-import net.minecraft.util.datafix.fixes.References;
+import net.minecraft.util.datafix.fixes.*;
 
 @Mixin(DataFixers.class)
 public class MixinDataFixers
@@ -127,5 +126,19 @@ public class MixinDataFixers
     {
         var schema = builder.addSchema(MC_24W18A, V3940::new);
         builder.addFixer(new AddNewChoices(schema, "Added Thieves Fish", References.ENTITY));
+    }
+
+    @Inject(method = "addFixers", at = @At(value = "CONSTANT", args = "stringValue=Updated sign text format for Signs"))
+    private static void fishofthieves$registerCoconutSigns(DataFixerBuilder builder, CallbackInfo info, @Local(ordinal = 182, index = 188) Schema schema183)
+    {
+        builder.addFixer(new BlockEntitySignDoubleSidedEditableTextFix(schema183, "Updated sign text format for Signs", "fishofthieves:sign"));
+        builder.addFixer(new BlockEntitySignDoubleSidedEditableTextFix(schema183, "Updated sign text format for Hanging Signs", "fishofthieves:hanging_sign"));
+    }
+
+    @Inject(method = "addFixers", at = @At(value = "NEW", target = "net/minecraft/util/datafix/fixes/DropInvalidSignDataFix", ordinal = 0))
+    private static void fishofthieves$registerDropInvalidSignData(DataFixerBuilder builder, CallbackInfo info, @Local(ordinal = 188, index = 195) Schema schema189)
+    {
+        builder.addFixer(new DropInvalidSignDataFix(schema189, "fishofthieves:sign"));
+        builder.addFixer(new DropInvalidSignDataFix(schema189, "fishofthieves:hanging_sign"));
     }
 }

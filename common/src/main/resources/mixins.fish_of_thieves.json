@@ -37,6 +37,8 @@
     "datafix.MixinDataFixSchemas",
     "datafix.MixinEntitySpawnerItemVariantComponentFix",
     "datafix.MixinItemStackComponentizationFix",
+    "datafix.MixinV3202",
+    "datafix.MixinV3439",
     "datafix.MixinV4070",
     "effect.MixinMobEffectUtil",
     "entity.MixinEntity",
