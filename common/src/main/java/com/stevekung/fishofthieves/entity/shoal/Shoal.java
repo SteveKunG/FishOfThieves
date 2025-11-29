@@ -28,6 +28,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -165,6 +166,16 @@ public class Shoal extends Entity
             }
 
             ((ServerLevel) this.level()).sendParticles(ParticleTypes.BUBBLE, this.getX(), this.getY(0.5), this.getZ(), 1, this.getBbWidth() / 2.0F, this.getBbHeight() / 5.0F, this.getBbWidth() / 2.0F, 0);
+
+            if (!this.shoalFishData.isEmpty())
+            {
+                var soundChance = 40 / this.shoalFishData.size();
+
+                if (this.random.nextInt(Math.max(15, soundChance)) == 0)
+                {
+                    this.playSound(SoundEvents.FISH_SWIM, 0.1F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                }
+            }
         }
     }
 
