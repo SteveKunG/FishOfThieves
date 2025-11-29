@@ -119,6 +119,7 @@ public interface FOTTags
         TagKey<Biome> HAS_SEAPOST = TagKey.create(Registries.BIOME, FishOfThieves.id("has_seapost"));
         TagKey<Biome> HAS_FISH_BONE = TagKey.create(Registries.BIOME, FishOfThieves.id("has_fish_bone"));
         TagKey<Biome> SPAWNS_SHOAL = TagKey.create(Registries.BIOME, FishOfThieves.id("spawns_shoal"));
+        TagKey<Biome> SHOAL_CANNOT_SPAWN = TagKey.create(Registries.BIOME, FishOfThieves.id("shoal_cannot_spawn"));
 
         TagKey<Biome> SERENE_SEASONS_TROPICAL_BIOMES = TagKey.create(Registries.BIOME, new ResourceLocation("sereneseasons:tropical_biomes"));
         TagKey<Biome> SERENE_SEASONS_LESSER_COLOR_CHANGE_BIOMES = TagKey.create(Registries.BIOME, new ResourceLocation("sereneseasons:lesser_color_change_biomes"));

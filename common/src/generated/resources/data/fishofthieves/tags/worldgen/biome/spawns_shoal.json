@@ -5,6 +5,7 @@
     "#minecraft:is_river",
     "#minecraft:is_beach",
     "minecraft:swamp",
-    "minecraft:mangrove_swamp"
+    "minecraft:mangrove_swamp",
+    "fishofthieves:tropical_island"
   ]
 }
