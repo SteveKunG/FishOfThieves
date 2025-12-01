@@ -41,8 +41,11 @@ public enum ShoalChance
 
         if (this.context.test(context))
         {
-            var poolChance = this.poolWeight / 100.0f;
-            return randomSource.nextFloat() <= poolChance;
+            var weight = this.poolWeight / 100.0f;
+            var randomChance = randomSource.nextFloat();
+            var canSpawn = weight <= randomChance;
+            FishOfThieves.LOGGER.debug("Shoal {} at {}, weight/randomChance: {} <= {}, canSpawn: {}", this.name(), blockPos.toShortString(), weight, randomChance, canSpawn);
+            return canSpawn;
         }
         return false;
     }
