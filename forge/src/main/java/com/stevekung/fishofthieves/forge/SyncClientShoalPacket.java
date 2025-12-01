@@ -40,6 +40,7 @@ public class SyncClientShoalPacket
             buff.writeUUID(shoalFish.uuid());
             buff.writeNbt(shoalFish.data());
         });
+        buf.writeBoolean(this.forcedUpdate);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx)
