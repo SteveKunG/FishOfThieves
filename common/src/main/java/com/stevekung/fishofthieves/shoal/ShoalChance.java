@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.shoal;
 import java.util.function.Predicate;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
@@ -16,6 +17,7 @@ import net.minecraft.world.level.biome.Biomes;
 public enum ShoalChance
 {
     RIVER_OR_BEACH(context -> context.biome().is(BiomeTags.IS_RIVER) || context.biome().is(BiomeTags.IS_BEACH), FishOfThieves.CONFIG.shoal.weight.riverOrBeach),
+    TROPICAL_ISLAND(context -> context.biome().is(FOTBiomes.TROPICAL_ISLAND), FishOfThieves.CONFIG.shoal.weight.tropicalIsland),
     COAST(context -> context.continentalness() == Continentalness.COAST, FishOfThieves.CONFIG.shoal.weight.coast),
     OCEAN(context -> context.biome().is(BiomeTags.IS_OCEAN), FishOfThieves.CONFIG.shoal.weight.ocean),
     DEEP_OCEAN(context -> context.biome().is(BiomeTags.IS_DEEP_OCEAN), FishOfThieves.CONFIG.shoal.weight.deepOcean),

@@ -199,6 +199,11 @@ public final class FishOfThievesConfig implements ConfigData
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int tropicalIsland = 8;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int ocean = 90;
 
             @ConfigEntry.Gui.Tooltip
