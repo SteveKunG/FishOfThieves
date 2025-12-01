@@ -42,7 +42,7 @@ public enum ShoalChance
         if (this.context.test(context))
         {
             var poolChance = this.poolWeight / 100.0f;
-            return randomSource.nextFloat() >= poolChance;
+            return randomSource.nextFloat() <= poolChance;
         }
         return false;
     }
