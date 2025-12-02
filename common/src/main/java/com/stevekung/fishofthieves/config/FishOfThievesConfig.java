@@ -148,27 +148,32 @@ public final class FishOfThievesConfig implements ConfigData
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
-            public int riverOrBeach = 4;
+            public int riverOrBeach = 96;
 
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
-            public int coast = 12;
+            public int coast = 88;
 
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
-            public int ocean = 90;
+            public int tropicalIsland = 92;
 
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
-            public int deepOcean = 95;
+            public int ocean = 10;
 
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
-            public int swamp = 20;
+            public int deepOcean = 5;
+
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
+            public int swamp = 80;
         }
     }
 
