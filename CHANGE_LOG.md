@@ -1,10 +1,12 @@
 - Added Great Mouth Pottery Sherd
 - Added Copper Frame Fish Plaques
 - [1.21.5+] Added Pale Oak Fish Plaques
-- Added sheep spawning in tropical island
+- Added sheep spawning in Tropical Island
 - Added Shoal entity and block
-  - Spawn locations are river, beach, ocean, and occasionally in the deep ocean
-  - Include nautural fish including Splashtail, Pondie, Islehopper, Ancientscale, Plentifin, Wildsplash, and Stormfish (Only thundering)
+  - Can be caught by using Fishing Rod
+    - Fish inside shoal will randomly select and spawn an entity after when catch successfully
+  - Spawn locations are River, Beach, Tropical Island, Coastline region and occasionally in the Ocean and Deep Ocean
+  - Include natural fish e.g. Splashtail, Pondie, Islehopper, Ancientscale, Plentifin, Wildsplash, and Stormfish (Appear only when thundering)
   - Disappeared after 3 days ingame (Can be configured)
   - Removing water or filled with solid block around the entity will make it disappear instantly
 - Added Treasured Fish
@@ -23,14 +25,15 @@
 - Added Treasured Fish map
   - Can be found inside the Seapost Barrel Supply
   - Can be trade with Villager Fisherman Stage 3 and 4
+- [1.21.5+] Added Firefly particle and sound to Tropical Island at night
 - Increase rate of filling water in cauldron with Coconut Fronds and Banana Leaves
-- Island Rainwater advancement is now trigger only when in the tropical island biome
-- Increased Coconut Trees generation at tropical island biome
-- Fox now interact with Pomegranate Plant
-- Use new algorithm to find structures within chunk radius while fishing Wrecker
-- Worms can now be using with Fishing Rod
-  - Can be enable/disable via config
+- Island Rainwater advancement is now trigger only when in the Tropical Island biome
+- Increased Coconut Trees generation around the coastline of Tropical Island
+- Fox can now interact with Pomegranate Plant and Tall Pomegranate Plant
+- New algorithm to find structures within chunk radius while fishing Wrecker around the Ocean Shipwreck and Ocean Ruined Portal
+- Worms can now be attached to the Fishing Hook
   - Baits will comsumed when held in the offhand or in the inventory
+  - Can be enable/disable via config
   - Can be catch specific fish easily
     - Leeches: Ancientscale and Stormfish
     - Earthworms: Plentifin, Wildsplash and Wrecker
@@ -40,17 +43,18 @@
 - Balanced Fish Variant spawning conditions
   - Ancientscale and Plentifin are no longer spawn inside the Mineshaft or Stronghold
   - Bone Ancientscale and Plentifin are now spawn with 10% chance in a normal condition
-  - Honey Islehopper is now required Beehive block in range of 12 blocks
-  - Amethyst Islehopper is now required only Amethyst blocks in total of 12 blocks or more
-  - Remove see sky condition from Coral Wildsplash and required 16 blocks in range of any coral blocks
-  - [1.20.1] Sand Battlegill is now spawn in the Desert biome
+  - Honey Islehopper is now required Beehive block in range of 12 blocks to spawn
+  - Amethyst Islehopper is now required only Amethyst blocks in total of 12 blocks or more to spawn
+  - Remove see sky condition from Coral Wildsplash and required 16 blocks in range of any coral blocks to spawn
+  - [1.20.1] Sand Battlegill can be found in the Desert biome
 - Lower food seed item return chance
   - Mango Pit now has 20% chance to return seed after consumed
   - Pomegranate Seed now has 60% chance to return seed after consumed
-- Minor continentalness parameter adjustment for tropical island biome
+- Minor continentalness parameter adjustment for Tropical Island biome
 - Update Island Rainwater advancement description
 - Decreased Pomegranate food point and saturation
 - Disable fish breaching AI when already captured by bucket
+- [1.21.1+] Fixed crash when Island Rainwater is triggered
 - Fixed mob pathfinding stuck in certain blocks
 - Fixed cannot join world when using custom datapacks which modified entity loots
 - Remove unnecessary fish breaching AI ticking
