@@ -66,6 +66,8 @@
   "text.autoconfig.fishofthieves.option.shoal.weight.riverOrBeach.@Tooltip": "น้ำหนักฝูงปลาสำหรับแม่น้ำและชายหาด",
   "text.autoconfig.fishofthieves.option.shoal.weight.coast": "ชายฝั่ง",
   "text.autoconfig.fishofthieves.option.shoal.weight.coast.@Tooltip": "น้ำหนักฝูงปลาสำหรับชายฝั่ง",
+  "text.autoconfig.fishofthieves.option.shoal.weight.tropicalIsland": "เกาะเขตร้อน",
+  "text.autoconfig.fishofthieves.option.shoal.weight.tropicalIsland.@Tooltip": "น้ำหนักฝูงปลาสำหรับเกาะเขตร้อน",
   "text.autoconfig.fishofthieves.option.shoal.weight.ocean": "มหาสมุทร",
   "text.autoconfig.fishofthieves.option.shoal.weight.ocean.@Tooltip": "น้ำหนักฝูงปลาสำหรับมหาสมุทร",
   "text.autoconfig.fishofthieves.option.shoal.weight.deepOcean": "มหาสมุทรลึก",
