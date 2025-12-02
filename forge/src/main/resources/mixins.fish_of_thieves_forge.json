@@ -8,6 +8,7 @@
     "block.MixinFOTRotatedPillarBlock",
     "block.MixinMediumRotatedPillarBlock",
     "block.MixinSmallRotatedPillarBlock",
+    "item.MixinFOTWormItem",
     "MixinBuiltInRegistries",
     "MobBucketItemAccessor"
   ],

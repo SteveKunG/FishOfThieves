@@ -11,9 +11,9 @@ import net.minecraft.world.level.material.Fluids;
 
 public class FOTItems
 {
-    public static final Item EARTHWORMS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
-    public static final Item GRUBS = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
-    public static final Item LEECHES = new Item(new Item.Properties().food(FOTFoodProperties.WORMS));
+    public static final Item EARTHWORMS = new FOTWormItem(new Item.Properties().food(FOTFoodProperties.WORMS));
+    public static final Item GRUBS = new FOTWormItem(new Item.Properties().food(FOTFoodProperties.WORMS));
+    public static final Item LEECHES = new FOTWormItem(new Item.Properties().food(FOTFoodProperties.WORMS));
 
     public static final Item SPLASHTAIL = new FOTItem(new Item.Properties().food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, Splashtail.VARIANT_TO_INT);
     public static final Item PONDIE = new FOTItem(new Item.Properties().food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, Pondie.VARIANT_TO_INT);
