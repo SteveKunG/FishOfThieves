@@ -66,6 +66,8 @@
   "text.autoconfig.fishofthieves.option.shoal.weight.riverOrBeach.@Tooltip": "Shoal Weight for rivers and beaches.",
   "text.autoconfig.fishofthieves.option.shoal.weight.coast": "Coast",
   "text.autoconfig.fishofthieves.option.shoal.weight.coast.@Tooltip": "Shoal Weight for coastline.",
+  "text.autoconfig.fishofthieves.option.shoal.weight.tropicalIsland": "Tropical Island",
+  "text.autoconfig.fishofthieves.option.shoal.weight.tropicalIsland.@Tooltip": "Shoal Weight for tropical island.",
   "text.autoconfig.fishofthieves.option.shoal.weight.ocean": "Ocean",
   "text.autoconfig.fishofthieves.option.shoal.weight.ocean.@Tooltip": "Shoal Weight for oceans.",
   "text.autoconfig.fishofthieves.option.shoal.weight.deepOcean": "Deep Ocean",
