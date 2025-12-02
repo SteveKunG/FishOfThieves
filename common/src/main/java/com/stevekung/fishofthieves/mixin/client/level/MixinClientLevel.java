@@ -32,6 +32,11 @@ public abstract class MixinClientLevel extends Level
     {
         if (this.getBiome(blockPos).is(FOTBiomes.TROPICAL_ISLAND))
         {
+            if (this.isRaining() || !this.canSeeSky(blockPos))
+            {
+                return;
+            }
+
             if (this.random.nextDouble() < 0.0000625d && this.environmentAttributes().getValue(EnvironmentAttributes.FIREFLY_BUSH_SOUNDS, blockPos) && this.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY())
             {
                 this.playLocalSound(blockPos, SoundEvents.FIREFLY_BUSH_IDLE, SoundSource.AMBIENT, 0.2f, 1.0F, false);

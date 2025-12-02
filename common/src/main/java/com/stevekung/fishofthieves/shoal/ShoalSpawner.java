@@ -7,15 +7,12 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
-import com.stevekung.fishofthieves.utils.Continentalness;
-import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -38,15 +35,14 @@ public final class ShoalSpawner
     {
         var blockPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos);
         var biome = level.getBiome(blockPos);
-        var continentalness = TerrainUtils.getContinentalness(level, blockPos);
-        var isException = biome.is(Biomes.MUSHROOM_FIELDS) || continentalness == Continentalness.MUSHROOM_FIELDS;
+        var isException = biome.is(FOTTags.Biomes.SHOAL_CANNOT_SPAWN);
 
-        if (isException || findNearestExistingShoal(level, blockPos).isPresent())
+        if (isException || !biome.is(FOTTags.Biomes.SPAWNS_SHOAL) || findNearestExistingShoal(level, blockPos).isPresent())
         {
             return;
         }
 
-        if (biome.is(FOTTags.Biomes.SPAWNS_SHOAL) && isOpenWater(level, blockPos) && ShoalChance.canSpawnAt(level, blockPos))
+        if (isOpenWater(level, blockPos) && ShoalChance.canSpawnAt(level, blockPos))
         {
             level.setBlock(blockPos.below(), FOTBlocks.SHOAL.defaultBlockState(), Block.UPDATE_ALL);
 
