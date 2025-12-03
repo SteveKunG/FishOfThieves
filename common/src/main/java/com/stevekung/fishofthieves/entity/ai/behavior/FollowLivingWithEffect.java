@@ -93,7 +93,7 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
             {
                 brain.eraseMemory(MemoryModuleType.WALK_TARGET);
 
-                if (player instanceof ServerPlayer serverPlayer)
+                if (gameTime % 80L == 0L && player instanceof ServerPlayer serverPlayer)
                 {
                     FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
                 }
