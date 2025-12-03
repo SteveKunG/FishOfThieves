@@ -20,10 +20,12 @@ public class FOTMemoryModuleTypes
     public static final MemoryModuleType<Integer> FOLLOW_FLOCK_COOLDOWN_TICKS = new MemoryModuleType<>(Optional.of(Codec.INT));
     public static final MemoryModuleType<Integer> SCHOOL_SIZE = new MemoryModuleType<>(Optional.of(Codec.INT));
     public static final MemoryModuleType<Integer> BREACHED_TICK = new MemoryModuleType<>(Optional.of(Codec.INT));
+    public static final MemoryModuleType<Integer> FOLLOW_WITH_EFFECT_COOLDOWN_TICKS = new MemoryModuleType<>(Optional.of(Codec.INT));
     @SuppressWarnings("rawtypes")
     public static final MemoryModuleType<AbstractSchoolingThievesFish> FLOCK_LEADER = new MemoryModuleType<>(Optional.empty());
     public static final MemoryModuleType<Boolean> IS_FLOCK_LEADER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
     public static final MemoryModuleType<Boolean> IS_FLOCK_FOLLOWER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
+    public static final MemoryModuleType<Boolean> IS_EFFECT_FOLLOWER = new MemoryModuleType<>(Optional.of(Codec.BOOL));
     public static final MemoryModuleType<Boolean> MERGE_FROM_OTHER_FLOCK = new MemoryModuleType<>(Optional.of(Codec.BOOL));
     @SuppressWarnings("rawtypes")
     public static final MemoryModuleType<List<AbstractSchoolingThievesFish>> FLOCK_FOLLOWERS = new MemoryModuleType<>(Optional.empty());
@@ -41,8 +43,10 @@ public class FOTMemoryModuleTypes
         register("flock_leader", FLOCK_LEADER);
         register("is_flock_leader", IS_FLOCK_LEADER);
         register("is_flock_follower", IS_FLOCK_FOLLOWER);
+        register("is_effect_follower", IS_EFFECT_FOLLOWER);
         register("merge_from_other_flock", MERGE_FROM_OTHER_FLOCK);
         register("breached_tick", BREACHED_TICK);
+        register("has_effects_cooldown_ticks", FOLLOW_WITH_EFFECT_COOLDOWN_TICKS);
         register("flock_followers", FLOCK_FOLLOWERS);
         register("nearest_visible_flock_leader", NEAREST_VISIBLE_FLOCK_LEADER);
         register("nearest_low_brightness", NEAREST_LOW_BRIGHTNESS);

@@ -8,14 +8,14 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.ai.behavior.CreateFishFlock;
-import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
-import com.stevekung.fishofthieves.entity.ai.behavior.FollowFlockLeader;
-import com.stevekung.fishofthieves.entity.ai.behavior.StartAttackingIgnoreFlockLeader;
+import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.ai.behavior.*;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
+import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -68,7 +68,8 @@ public class BattlegillAi
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
                 new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS),
                 new CountDownCooldownTicks(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS),
-                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK)
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.BREACHED_TICK),
+                new CountDownCooldownTicks(FOTMemoryModuleTypes.FOLLOW_WITH_EFFECT_COOLDOWN_TICKS)
         ));
     }
 
@@ -80,6 +81,14 @@ public class BattlegillAi
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
+                        Pair.of(new FollowLivingWithEffect(livingEntity -> 1.25F, sourceEntity ->
+                        {
+                            if (!(sourceEntity instanceof ThievesFish<?> thievesFish))
+                            {
+                                return livingEntity -> false;
+                            }
+                            return livingEntity -> thievesFish.getVariant() == BattlegillVariants.RUM && livingEntity.hasEffect(MobEffects.CONFUSION);
+                        }), 1),
                         Pair.of(new CreateFishFlock(), 2),
                         Pair.of(new FollowFlockLeader(1.25f), 3),
                         Pair.of(new FishBreaching<>(AbstractThievesFishAi.TIME_BETWEEN_BREACH, 0.2F, 0.12f), 4)
