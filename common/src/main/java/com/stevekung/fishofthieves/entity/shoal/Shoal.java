@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
@@ -13,6 +10,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.ShoalBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
@@ -28,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -51,10 +50,12 @@ public class Shoal extends Entity
     public static final String LIFETIME_TAG = "lifetime";
     public static final String NATURAL_TAG = "natural";
     public static final String TREASURED_TAG = "treasured";
+    public static final String PARTICIPATES_TAG = "participates";
 
     public static final String FILLED_MAP_TREASURED_FISH = "filled_map.fishofthieves_treasured_fish";
 
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
+    private final Set<UUID> participates = new HashSet<>();
     private long expiredAt = -1;
 
     private List<LivingEntity> shoalFishClient = new ArrayList<>();
@@ -75,11 +76,11 @@ public class Shoal extends Entity
     protected void readAdditionalSaveData(CompoundTag compound)
     {
         this.shoalFishData.clear();
-        var listTag = compound.getList(SHOAL_FISH_TAG, Tag.TAG_COMPOUND);
+        var shoalFishListTag = compound.getList(SHOAL_FISH_TAG, Tag.TAG_COMPOUND);
 
-        for (var i = 0; i < listTag.size(); i++)
+        for (var i = 0; i < shoalFishListTag.size(); i++)
         {
-            var compoundTag = listTag.getCompound(i);
+            var compoundTag = shoalFishListTag.getCompound(i);
             UUID uuid;
 
             if (!compoundTag.contains(ShoalFishData.ID_TAG, Tag.TAG_STRING) || compoundTag.getString(ShoalFishData.ID_TAG).isEmpty())
@@ -108,6 +109,18 @@ public class Shoal extends Entity
             this.setTreasured(compound.getBoolean(TREASURED_TAG));
         }
 
+        var participatesListTag = compound.getList(PARTICIPATES_TAG, Tag.TAG_COMPOUND);
+
+        for (var i = 0; i < participatesListTag.size(); i++)
+        {
+            var compoundTag = participatesListTag.getCompound(i);
+
+            if (compoundTag.hasUUID(UUID_TAG))
+            {
+                this.participates.add(compoundTag.getUUID(UUID_TAG));
+            }
+        }
+
         if (!this.level().isClientSide())
         {
             if (compound.contains(NATURAL_TAG) && compound.getBoolean(NATURAL_TAG))
@@ -121,7 +134,7 @@ public class Shoal extends Entity
     @Override
     protected void addAdditionalSaveData(CompoundTag compound)
     {
-        var listTag = new ListTag();
+        var shoalFishListTag = new ListTag();
 
         for (var fish : this.shoalFishData)
         {
@@ -130,10 +143,10 @@ public class Shoal extends Entity
             compoundTag.putUUID(ShoalFishData.UUID_TAG, fish.uuid());
             compoundTag.put(ShoalFishData.DATA_TAG, fish.data());
 
-            listTag.add(compoundTag);
+            shoalFishListTag.add(compoundTag);
         }
 
-        compound.put(SHOAL_FISH_TAG, listTag);
+        compound.put(SHOAL_FISH_TAG, shoalFishListTag);
 
         if (this.expiredAt > 0)
         {
@@ -141,6 +154,17 @@ public class Shoal extends Entity
         }
 
         compound.putBoolean(TREASURED_TAG, this.isTreasured());
+
+        var participatesListTag = new ListTag();
+
+        for (var uuid : this.participates)
+        {
+            var compoundTag = new CompoundTag();
+            compoundTag.putUUID(UUID_TAG, uuid);
+            participatesListTag.add(compoundTag);
+        }
+
+        compound.put(PARTICIPATES_TAG, participatesListTag);
     }
 
     @Override
@@ -285,6 +309,15 @@ public class Shoal extends Entity
 
             if (this.shoalFishData.isEmpty())
             {
+                for (var participate : this.participates)
+                {
+                    var player = this.level().getPlayerByUUID(participate);
+
+                    if (player instanceof ServerPlayer serverPlayer)
+                    {
+                        FOTCriteriaTriggers.PARTICIPATE_SHOAL.trigger(serverPlayer);
+                    }
+                }
                 this.destroy();
             }
 
@@ -373,6 +406,14 @@ public class Shoal extends Entity
         }
         this.expiredAt = -1;
         FOTPlatform.syncClientShoalFish(this, true);
+    }
+
+    public void addParticipatePlayer(UUID uuid)
+    {
+        if (!this.participates.contains(uuid))
+        {
+            this.participates.add(uuid);
+        }
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)

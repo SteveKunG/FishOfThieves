@@ -109,7 +109,7 @@ public class FOTItem extends Item
         return itemStack;
     }
 
-    private static ItemStack create(Item item, int index)
+    public static ItemStack create(Item item, int index)
     {
         var itemStack = new ItemStack(item);
         itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(index));

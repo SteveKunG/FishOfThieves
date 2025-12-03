@@ -42,6 +42,7 @@ dependencies {
     modImplementation "com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}"
     modRuntimeOnly "maven.modrinth:cyanide:${cyanide_neoforge_version}"
     modRuntimeOnly "curse.maven:structure-void-toggle-357304:6047081"
+    implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
 processResources {

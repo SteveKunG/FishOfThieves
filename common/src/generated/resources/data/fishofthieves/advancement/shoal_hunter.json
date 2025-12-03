@@ -1,0 +1,26 @@
+{
+  "parent": "fishofthieves:root",
+  "criteria": {
+    "shoal_hunter": {
+      "trigger": "fishofthieves:participate_shoal"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.shoal_hunter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:fishing_rod"
+    },
+    "title": {
+      "translate": "advancements.fot.shoal_hunter.title"
+    }
+  },
+  "requirements": [
+    [
+      "shoal_hunter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

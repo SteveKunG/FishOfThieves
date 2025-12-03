@@ -1,0 +1,47 @@
+{
+  "parent": "fishofthieves:so_chill",
+  "criteria": {
+    "drunken_sailor": {
+      "conditions": {
+        "effects": {
+          "minecraft:nausea": {}
+        },
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "fishofthieves:battlegill",
+              "type_specific": {
+                "type": "fishofthieves:battlegill",
+                "variant": "fishofthieves:rum"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "fishofthieves:follow_living_with_effect"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fot.drunken_sailor.description"
+    },
+    "icon": {
+      "components": {
+        "minecraft:custom_model_data": 2
+      },
+      "count": 1,
+      "id": "fishofthieves:battlegill"
+    },
+    "title": {
+      "translate": "advancements.fot.drunken_sailor.title"
+    }
+  },
+  "requirements": [
+    [
+      "drunken_sailor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

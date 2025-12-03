@@ -46,6 +46,6 @@ side = "BOTH"
 [[dependencies.fishofthieves]]
 modId = "aquaculture"
 type = "optional"
-versionRange = "[1.19.4-2.4.10,)"
+versionRange = "[1.21.1-2.7.16,)"
 ordering = "NONE"
 side = "BOTH"

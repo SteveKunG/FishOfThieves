@@ -13,14 +13,14 @@ import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.item.predicate.BucketNbtPredicate;
 import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
 import com.stevekung.fishofthieves.registry.*;
+import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
-import com.stevekung.fishofthieves.trigger.FallingAnvilCrushItemTrigger;
-import com.stevekung.fishofthieves.trigger.ItemUsedOnLocationWithNearbyEntityTrigger;
-import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
+import com.stevekung.fishofthieves.trigger.*;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -28,6 +28,7 @@ import net.minecraft.Util;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,6 +39,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -125,7 +127,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
         var battlegill = this.getItemName(FOTItems.BATTLEGILL);
-        Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
+        var battlegillAdvancement = Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion(battlegill + "_village",
                         FishingRodHookedTrigger.TriggerInstance.fishedItem(Optional.empty(), Optional.of(EntityPredicate.Builder.entity().located(LocationPredicate.Builder.location().setStructures(provider.lookupOrThrow(Registries.STRUCTURE).getOrThrow(StructureTags.VILLAGE))).build()), Optional.of(ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build())))
                 .display(FOTItems.BATTLEGILL,
@@ -255,6 +257,22 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fot.taste_the_deep.description"),
                         null, AdvancementType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
+
+        Advancement.Builder.advancement().parent(advancement)
+                .addCriterion("shoal_hunter", ParticipateShoalTrigger.TriggerInstance.participateShoal())
+                .display(Items.FISHING_ROD,
+                        Component.translatable("advancements.fot.shoal_hunter.title"),
+                        Component.translatable("advancements.fot.shoal_hunter.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("shoal_hunter"));
+
+        Advancement.Builder.advancement().parent(battlegillAdvancement)
+                .addCriterion("drunken_sailor", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicate.battlegill(HolderSet.direct(provider.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.RUM)))), MobEffectsPredicate.Builder.effects().and(MobEffects.CONFUSION)))
+                .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
+                        Component.translatable("advancements.fot.drunken_sailor.title"),
+                        Component.translatable("advancements.fot.drunken_sailor.description"),
+                        null, AdvancementType.TASK, true, true, false)
+                .save(consumer, this.mod("drunken_sailor"));
     }
 
     private String mod(String name)

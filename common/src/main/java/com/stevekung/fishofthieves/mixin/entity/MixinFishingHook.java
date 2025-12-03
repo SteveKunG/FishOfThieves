@@ -148,6 +148,10 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
                 {
                     return;
                 }
+                else
+                {
+                    shoal.addParticipatePlayer(player.getUUID());
+                }
 
                 if (randomFish instanceof Bucketable bucketable)
                 {
