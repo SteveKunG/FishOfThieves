@@ -5,9 +5,11 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -86,6 +88,11 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
         if (owner.distanceToSqr(player) < Mth.square(distance))
         {
             brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+
+            if (player instanceof ServerPlayer serverPlayer)
+            {
+                FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
+            }
         }
         else
         {
