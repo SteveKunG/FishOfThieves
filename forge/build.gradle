@@ -50,6 +50,7 @@ dependencies {
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
+    implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"
