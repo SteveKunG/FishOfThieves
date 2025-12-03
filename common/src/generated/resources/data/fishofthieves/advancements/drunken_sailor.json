@@ -1,7 +1,7 @@
 {
   "parent": "fishofthieves:so_chill",
   "criteria": {
-    "stinky_pirate": {
+    "drunken_sailor": {
       "conditions": {
         "effects": {
           "minecraft:nausea": {}
@@ -26,7 +26,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.stinky_pirate.description"
+      "translate": "advancements.fot.drunken_sailor.description"
     },
     "frame": "task",
     "hidden": false,
@@ -36,12 +36,12 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.stinky_pirate.title"
+      "translate": "advancements.fot.drunken_sailor.title"
     }
   },
   "requirements": [
     [
-      "stinky_pirate"
+      "drunken_sailor"
     ]
   ],
   "sends_telemetry_event": true

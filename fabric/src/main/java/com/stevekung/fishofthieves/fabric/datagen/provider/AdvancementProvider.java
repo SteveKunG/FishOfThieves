@@ -275,12 +275,12 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .save(consumer, this.mod("shoal_hunter"));
 
         Advancement.Builder.advancement().parent(battlegillAdvancement)
-                .addCriterion("stinky_pirate", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicate.variant(BattlegillVariants.RUM)).build(), MobEffectsPredicate.effects().and(MobEffects.CONFUSION)))
+                .addCriterion("drunken_sailor", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicate.variant(BattlegillVariants.RUM)).build(), MobEffectsPredicate.effects().and(MobEffects.CONFUSION)))
                 .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
-                        Component.translatable("advancements.fot.stinky_pirate.title"),
-                        Component.translatable("advancements.fot.stinky_pirate.description"),
+                        Component.translatable("advancements.fot.drunken_sailor.title"),
+                        Component.translatable("advancements.fot.drunken_sailor.description"),
                         null, FrameType.TASK, true, true, false)
-                .save(consumer, this.mod("stinky_pirate"));
+                .save(consumer, this.mod("drunken_sailor"));
     }
 
     private String mod(String name)
