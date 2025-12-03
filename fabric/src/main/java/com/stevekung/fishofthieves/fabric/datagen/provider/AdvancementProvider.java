@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import com.stevekung.fishofthieves.trigger.FallingAnvilCrushItemTrigger;
 import com.stevekung.fishofthieves.trigger.ItemUsedOnBlockWithNearbyEntityTrigger;
+import com.stevekung.fishofthieves.trigger.ParticipateShoalTrigger;
 import com.stevekung.fishofthieves.trigger.WaterDripOnBlockTrigger;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -263,6 +264,14 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fot.taste_the_deep.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
+
+        Advancement.Builder.advancement().parent(advancement)
+                .addCriterion("shoal_hunter", ParticipateShoalTrigger.TriggerInstance.participateShoal())
+                .display(FOTItems.ISLEHOPPER,
+                        Component.translatable("advancements.fot.shoal_hunter.title"),
+                        Component.translatable("advancements.fot.shoal_hunter.description"),
+                        null, FrameType.TASK, true, true, false)
+                .save(consumer, this.mod("shoal_hunter"));
     }
 
     private String mod(String name)
