@@ -268,7 +268,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(advancement)
                 .addCriterion("shoal_hunter", ParticipateShoalTrigger.TriggerInstance.participateShoal())
-                .display(FOTItems.ISLEHOPPER,
+                .display(Items.FISHING_ROD,
                         Component.translatable("advancements.fot.shoal_hunter.title"),
                         Component.translatable("advancements.fot.shoal_hunter.description"),
                         null, FrameType.TASK, true, true, false)

@@ -14,7 +14,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "fishofthieves:islehopper"
+      "item": "minecraft:fishing_rod",
+      "nbt": "{Damage:0}"
     },
     "show_toast": true,
     "title": {
