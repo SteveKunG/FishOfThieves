@@ -80,23 +80,28 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
     @Override
     protected void tick(ServerLevel level, PathfinderMob owner, long gameTime)
     {
-        var player = this.getLivingEntitiesHasEffect(owner).get().findClosest(this.hasEffectPredicate.apply(owner)).get();
-        var brain = owner.getBrain();
-        brain.setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(player, true));
-        double distance = this.closeEnoughDistance.apply(owner);
+        var optionalPlayer = this.getLivingEntitiesHasEffect(owner).get().findClosest(this.hasEffectPredicate.apply(owner));
 
-        if (owner.distanceToSqr(player) < Mth.square(distance))
+        if (optionalPlayer.isPresent())
         {
-            brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+            var player = optionalPlayer.get();
+            var brain = owner.getBrain();
+            brain.setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(player, true));
+            var distance = this.closeEnoughDistance.apply(owner);
 
-            if (player instanceof ServerPlayer serverPlayer)
+            if (owner.distanceToSqr(player) < Mth.square(distance))
             {
-                FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
+                brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+
+                if (player instanceof ServerPlayer serverPlayer)
+                {
+                    FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
+                }
             }
-        }
-        else
-        {
-            brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), this.getSpeedModifier(owner), 2));
+            else
+            {
+                brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), this.getSpeedModifier(owner), 2));
+            }
         }
     }
 }

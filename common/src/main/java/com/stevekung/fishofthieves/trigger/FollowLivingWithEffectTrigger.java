@@ -30,7 +30,7 @@ public class FollowLivingWithEffectTrigger extends SimpleCriterionTrigger<Follow
     public void trigger(ServerPlayer player, Entity sourceEntity)
     {
         var lootContext = EntityPredicate.createContext(player, sourceEntity);
-        this.trigger(player, triggerInstance -> triggerInstance.matches(lootContext, sourceEntity));
+        this.trigger(player, triggerInstance -> triggerInstance.matches(lootContext, player));
     }
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance

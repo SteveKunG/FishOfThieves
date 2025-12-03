@@ -65,7 +65,7 @@ public class FOTItem extends Item
         }
     }
 
-    private static ItemStack create(Item item, int index)
+    public static ItemStack create(Item item, int index)
     {
         var itemStack = new ItemStack(item);
         itemStack.getOrCreateTag().putInt("CustomModelData", index);

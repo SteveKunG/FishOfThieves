@@ -1,0 +1,48 @@
+{
+  "parent": "fishofthieves:so_chill",
+  "criteria": {
+    "stinky_pirate": {
+      "conditions": {
+        "effects": {
+          "minecraft:nausea": {}
+        },
+        "source_entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "fishofthieves:battlegill",
+              "type_specific": {
+                "type": "fishofthieves:battlegill",
+                "variant": "fishofthieves:rum"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "fishofthieves:follow_living_with_effect"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.fot.stinky_pirate.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "fishofthieves:battlegill",
+      "nbt": "{CustomModelData:2}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.fot.stinky_pirate.title"
+    }
+  },
+  "requirements": [
+    [
+      "stinky_pirate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
