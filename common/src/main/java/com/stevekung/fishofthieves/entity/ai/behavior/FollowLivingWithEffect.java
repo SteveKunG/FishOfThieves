@@ -92,15 +92,15 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
             if (owner.distanceToSqr(player) < Mth.square(distance))
             {
                 brain.eraseMemory(MemoryModuleType.WALK_TARGET);
-
-                if (gameTime % 80L == 0L && player instanceof ServerPlayer serverPlayer)
-                {
-                    FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
-                }
             }
             else
             {
                 brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityTracker(player, false), this.getSpeedModifier(owner), 2));
+            }
+
+            if (gameTime % 80L == 0L && player instanceof ServerPlayer serverPlayer)
+            {
+                FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.trigger(serverPlayer, owner);
             }
         }
     }
