@@ -6,19 +6,13 @@
         "effects": {
           "minecraft:nausea": {}
         },
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "fishofthieves:battlegill",
-              "type_specific": {
-                "type": "fishofthieves:battlegill",
-                "variant": "fishofthieves:rum"
-              }
-            }
+        "source_entity": {
+          "type": "fishofthieves:battlegill",
+          "type_specific": {
+            "type": "fishofthieves:battlegill",
+            "variant": "fishofthieves:rum"
           }
-        ]
+        }
       },
       "trigger": "fishofthieves:follow_living_with_effect"
     }

@@ -11,9 +11,11 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.*;
 import com.stevekung.fishofthieves.entity.animal.Battlegill;
+import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 
+import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -87,7 +89,7 @@ public class BattlegillAi
                             {
                                 return livingEntity -> false;
                             }
-                            return livingEntity -> thievesFish.getVariant() == BattlegillVariants.RUM && livingEntity.hasEffect(MobEffects.CONFUSION);
+                            return livingEntity -> isRumBattlegill(thievesFish.getVariant()) && livingEntity.hasEffect(MobEffects.CONFUSION);
                         }), 1),
                         Pair.of(new CreateFishFlock(), 2),
                         Pair.of(new FollowFlockLeader(1.25f), 3),
@@ -111,5 +113,11 @@ public class BattlegillAi
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Battlegill fish)
     {
         return fish.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static boolean isRumBattlegill(Object object)
+    {
+        return ((Holder<BattlegillVariant>) object).is(BattlegillVariants.RUM);
     }
 }
