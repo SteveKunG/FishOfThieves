@@ -26,14 +26,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.spyglass_at_plentifins.description"
+      "translate": "advancements.fishofthieves.spyglass_at_plentifins.description"
     },
     "icon": {
       "count": 1,
       "id": "minecraft:spyglass"
     },
     "title": {
-      "translate": "advancements.fot.spyglass_at_plentifins.title"
+      "translate": "advancements.fishofthieves.spyglass_at_plentifins.title"
     }
   },
   "requirements": [
