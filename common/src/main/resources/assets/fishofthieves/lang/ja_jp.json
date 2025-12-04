@@ -30,6 +30,8 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "これは魚入りバケツや戦利品テーブルにも適用されます。",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "クリエイティブタブにトロフィー卵を表示",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "クリエイティブタブにトロフィー魚・通常魚のスポーンエッグを表示します。",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab": "Display Trophy Bucket in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab.@Tooltip": "Display trophy and non-trophy fish bucket in Creative Tab.",
   "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "熱帯島地域の重み (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "トロフィー出現確率",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "トロフィーサイズの魚が出現する確率。",

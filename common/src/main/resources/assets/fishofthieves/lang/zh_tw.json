@@ -30,6 +30,8 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "這也適用於魚桶和戰利品表。",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "在創造模式物品欄顯示獎盃魚 生怪蛋",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "在創造模式物品欄顯示獎盃魚和非獎盃魚生怪蛋。",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab": "Display Trophy Bucket in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab.@Tooltip": "Display trophy and non-trophy fish bucket in Creative Tab.",
   "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "Tropical Island Region Weight (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "獎盃魚機率",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "生成獎盃魚尺寸的機率。",

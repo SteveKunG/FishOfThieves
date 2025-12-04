@@ -30,6 +30,8 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "Esto se aplica a los Cubos de Peces y tablas de botín también.",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Mostrar generador de Trofeo en la Pestaña Creativa",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Mostrar generador de trofeo y no trofeo en la Pestaña Creativa.",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab": "Display Trophy Bucket in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab.@Tooltip": "Display trophy and non-trophy fish bucket in Creative Tab.",
   "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "Peso de la Región de Isla Tropical (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Probabilidad de Trofeo",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "Probabilidad de generar peces de tamaño Trofeo.",

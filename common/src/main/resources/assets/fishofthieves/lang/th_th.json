@@ -30,6 +30,8 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "สิ่งนี้ใช้ได้กับถังปลาและ Loot Table ด้วยเช่นกัน",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "แสดงไข่เกิดปลาใหญ่ยักษ์ในแท็บสร้างสรรค์",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "แสดงไข่เกิดปลาใหญ่ยักษ์และปลาตัวเล็กในแท็บสร้างสรรค์",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab": "แสดงถังปลาใหญ่ยักษ์ในแท็บสร้างสรรค์",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab.@Tooltip": "แสดงถังปลาใหญ่ยักษ์และถังปลาตัวเล็กในแท็บสร้างสรรค์",
   "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "น้ำหนักของภูมิภาคเกาะเขตร้อน (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "ค่าความน่าจะเป็นของปลาใหญ่ยักษ์",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "โอกาสที่จะเกิดขนาดปลาใหญ่ยักษ์",

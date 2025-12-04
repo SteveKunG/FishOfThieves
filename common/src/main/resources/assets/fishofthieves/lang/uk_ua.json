@@ -30,6 +30,8 @@
   "text.autoconfig.fishofthieves.option.general.enableFishItemWithAllVariant.@Tooltip[1]": "Це стосується відер із рибою та таблиць здобичі також.",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab": "Показати яйце виклику трофея в меню творчості",
   "text.autoconfig.fishofthieves.option.general.displayTrophySpawnEggInCreativeTab.@Tooltip": "Показує яйця виклику трофея та не трофея в меню творчості.",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab": "Display Trophy Bucket in Creative Tab",
+  "text.autoconfig.fishofthieves.option.general.displayTrophyBucketInCreativeTab.@Tooltip": "Display trophy and non-trophy fish bucket in Creative Tab.",
   "text.autoconfig.fishofthieves.option.biome.tropicalIslandRegionWeight": "Tropical Island Region Weight (TerraBlender)",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability": "Ймовірність трофея",
   "text.autoconfig.fishofthieves.option.spawnRate.trophyProbability.@Tooltip": "Шанс появи риби трофейного розміру.",
