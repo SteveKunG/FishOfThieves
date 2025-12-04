@@ -9,7 +9,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.shoal_hunter.description"
+      "translate": "advancements.fishofthieves.shoal_hunter.description"
     },
     "frame": "task",
     "hidden": false,
@@ -19,7 +19,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.shoal_hunter.title"
+      "translate": "advancements.fishofthieves.shoal_hunter.title"
     }
   },
   "requirements": [

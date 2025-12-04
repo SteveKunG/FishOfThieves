@@ -51,7 +51,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.lost_sally.description"
+      "translate": "advancements.fishofthieves.lost_sally.description"
     },
     "frame": "task",
     "hidden": true,
@@ -60,7 +60,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.lost_sally.title"
+      "translate": "advancements.fishofthieves.lost_sally.title"
     }
   },
   "requirements": [

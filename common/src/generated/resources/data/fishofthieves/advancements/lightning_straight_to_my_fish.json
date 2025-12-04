@@ -36,7 +36,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.lightning_straight_to_my_fish.description"
+      "translate": "advancements.fishofthieves.lightning_straight_to_my_fish.description"
     },
     "frame": "task",
     "hidden": false,
@@ -45,7 +45,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.lightning_straight_to_my_fish.title"
+      "translate": "advancements.fishofthieves.lightning_straight_to_my_fish.title"
     }
   },
   "requirements": [

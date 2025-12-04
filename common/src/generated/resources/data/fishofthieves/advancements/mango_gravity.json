@@ -23,7 +23,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.mango_gravity.description"
+      "translate": "advancements.fishofthieves.mango_gravity.description"
     },
     "frame": "task",
     "hidden": true,
@@ -32,7 +32,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.mango_gravity.title"
+      "translate": "advancements.fishofthieves.mango_gravity.title"
     }
   },
   "requirements": [

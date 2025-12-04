@@ -29,7 +29,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.island_rainwater.description"
+      "translate": "advancements.fishofthieves.island_rainwater.description"
     },
     "frame": "task",
     "hidden": false,
@@ -38,7 +38,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.island_rainwater.title"
+      "translate": "advancements.fishofthieves.island_rainwater.title"
     }
   },
   "requirements": [

@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.taste_the_deep.description"
+      "translate": "advancements.fishofthieves.taste_the_deep.description"
     },
     "frame": "task",
     "hidden": false,
@@ -24,7 +24,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.taste_the_deep.title"
+      "translate": "advancements.fishofthieves.taste_the_deep.title"
     }
   },
   "requirements": [

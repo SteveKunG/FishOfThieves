@@ -110,7 +110,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.so_chill.description"
+      "translate": "advancements.fishofthieves.so_chill.description"
     },
     "frame": "task",
     "hidden": false,
@@ -119,7 +119,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.so_chill.title"
+      "translate": "advancements.fishofthieves.so_chill.title"
     }
   },
   "requirements": [

@@ -21,7 +21,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.explore_tropical_island.description"
+      "translate": "advancements.fishofthieves.explore_tropical_island.description"
     },
     "frame": "task",
     "hidden": false,
@@ -30,7 +30,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.explore_tropical_island.title"
+      "translate": "advancements.fishofthieves.explore_tropical_island.title"
     }
   },
   "requirements": [

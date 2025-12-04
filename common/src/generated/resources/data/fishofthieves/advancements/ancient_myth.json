@@ -18,7 +18,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.ancient_myth.description"
+      "translate": "advancements.fishofthieves.ancient_myth.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.ancient_myth.title"
+      "translate": "advancements.fishofthieves.ancient_myth.title"
     }
   },
   "requirements": [

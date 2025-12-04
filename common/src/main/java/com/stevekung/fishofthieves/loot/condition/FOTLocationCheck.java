@@ -18,7 +18,7 @@ public record FOTLocationCheck(FOTLocationPredicate predicate, BlockPos offset) 
     @Override
     public LootItemConditionType getType()
     {
-        return FOTLootItemConditions.FOT_LOCATION_CHECK;
+        return FOTLootItemConditions.LOCATION_CHECK;
     }
 
     @Override

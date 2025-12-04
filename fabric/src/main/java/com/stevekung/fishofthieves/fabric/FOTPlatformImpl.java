@@ -8,6 +8,7 @@ import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
@@ -82,7 +84,12 @@ public class FOTPlatformImpl
 
     public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
     {
-        return ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FOT_TROPICAL_ISLAND");
+        return ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FISHOFTHIEVES_TROPICAL_ISLAND");
+    }
+
+    public static CreativeModeTab.Builder getCreativeTabBuilder()
+    {
+        return FabricItemGroup.builder();
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)

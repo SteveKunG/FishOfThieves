@@ -53,7 +53,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.play_jukebox_near_fish.description"
+      "translate": "advancements.fishofthieves.play_jukebox_near_fish.description"
     },
     "frame": "task",
     "hidden": true,
@@ -62,7 +62,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.play_jukebox_near_fish.title"
+      "translate": "advancements.fishofthieves.play_jukebox_near_fish.title"
     }
   },
   "requirements": [

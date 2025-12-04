@@ -10,7 +10,7 @@
   "effects": {
     "fog_color": 10409707,
     "foliage_color": 1495563,
-    "grass_color_modifier": "fot_tropical_island",
+    "grass_color_modifier": "fishofthieves_tropical_island",
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,

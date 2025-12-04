@@ -32,7 +32,7 @@ public class FOTLootItem extends LootPoolSingletonContainer
     @Override
     public LootPoolEntryType getType()
     {
-        return FOTLootPoolEntries.FOT_ITEM;
+        return FOTLootPoolEntries.ITEM;
     }
 
     @Override

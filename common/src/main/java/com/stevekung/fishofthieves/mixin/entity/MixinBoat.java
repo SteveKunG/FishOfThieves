@@ -70,7 +70,7 @@ public class MixinBoat
         ))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
-            var entry = fishofthieves$create("FOT_COCONUT", $VALUES.length, Blocks.OAK_PLANKS, "fishofthieves_coconut"); // Forge is always weird, so using oak planks as temporary instead.
+            var entry = fishofthieves$create("FISHOFTHIEVES_COCONUT", $VALUES.length, Blocks.OAK_PLANKS, "fishofthieves_coconut"); // Forge is always weird, so using oak planks as temporary instead.
             $VALUES = ArrayUtils.add($VALUES, entry);
 
             FishOfThieves.LOGGER.info("Added new enum to {}: {}|{}", Boat.Type.class, FOTBoatTypes.COCONUT.name(), FOTBoatTypes.COCONUT);

@@ -27,7 +27,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.equip_pineapple_block.description"
+      "translate": "advancements.fishofthieves.equip_pineapple_block.description"
     },
     "frame": "task",
     "hidden": false,
@@ -36,7 +36,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.equip_pineapple_block.title"
+      "translate": "advancements.fishofthieves.equip_pineapple_block.title"
     }
   },
   "requirements": [

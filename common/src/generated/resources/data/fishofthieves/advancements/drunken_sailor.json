@@ -26,7 +26,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.drunken_sailor.description"
+      "translate": "advancements.fishofthieves.drunken_sailor.description"
     },
     "frame": "task",
     "hidden": false,
@@ -36,7 +36,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.drunken_sailor.title"
+      "translate": "advancements.fishofthieves.drunken_sailor.title"
     }
   },
   "requirements": [

@@ -79,8 +79,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         var advancement = Advancement.Builder.advancement()
                 .display(FOTItems.SPLASHTAIL,
-                        Component.translatable("advancements.fot.root.title"),
-                        Component.translatable("advancements.fot.root.description"),
+                        Component.translatable("advancements.fishofthieves.root.title"),
+                        Component.translatable("advancements.fishofthieves.root.description"),
                         new ResourceLocation("textures/block/tube_coral_block.png"),
                         FrameType.TASK, false, false, false)
                 .addCriterion("in_water", PlayerTrigger.TriggerInstance.located(
@@ -91,24 +91,24 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         var fishCollectors = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement))
                 .display(FOTItems.SPLASHTAIL_BUCKET,
-                        Component.translatable("advancements.fot.fish_collectors.title"),
-                        Component.translatable("advancements.fot.fish_collectors.description"),
+                        Component.translatable("advancements.fishofthieves.fish_collectors.title"),
+                        Component.translatable("advancements.fishofthieves.fish_collectors.description"),
                         null, FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
                 .save(consumer, this.mod("fish_collectors"));
 
         this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), false)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
-                        Component.translatable("advancements.fot.master_fish_collectors.title"),
-                        Component.translatable("advancements.fot.master_fish_collectors.description"),
+                        Component.translatable("advancements.fishofthieves.master_fish_collectors.title"),
+                        Component.translatable("advancements.fishofthieves.master_fish_collectors.description"),
                         null, FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
                 .save(consumer, this.mod("master_fish_collectors"));
 
         this.addFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors), true)
                 .display(FOTItems.SPLASHTAIL_BUCKET,
-                        Component.translatable("advancements.fot.legendary_fish_collectors.title"),
-                        Component.translatable("advancements.fot.legendary_fish_collectors.description"),
+                        Component.translatable("advancements.fishofthieves.legendary_fish_collectors.title"),
+                        Component.translatable("advancements.fishofthieves.legendary_fish_collectors.description"),
                         null, FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                 .save(consumer, this.mod("legendary_fish_collectors"));
@@ -118,8 +118,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                 ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariants.LAVA).toString()))),
                                 EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
                 .display(FOTItems.DEVILFISH,
-                        Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.title"),
-                        Component.translatable("advancements.fot.feed_axolotl_with_lava_devilfish.description"),
+                        Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
+                        Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("feed_axolotl_with_lava_devilfish"));
 
@@ -136,31 +136,31 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion(battlegill + "_village_taiga",
                         FishingRodHookedTrigger.TriggerInstance.fishedItem(ItemPredicate.ANY, EntityPredicate.Builder.entity().located(LocationPredicate.inStructure(BuiltinStructures.VILLAGE_TAIGA)).build(), ItemPredicate.Builder.item().of(FOTItems.BATTLEGILL).build()))
                 .display(FOTItems.BATTLEGILL,
-                        Component.translatable("advancements.fot.so_chill.title"),
-                        Component.translatable("advancements.fot.so_chill.description"),
+                        Component.translatable("advancements.fishofthieves.so_chill.title"),
+                        Component.translatable("advancements.fishofthieves.so_chill.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("so_chill"));
 
         Advancement.Builder.advancement().parent(advancement)
                 .display(FOTItems.STORMFISH,
-                        Component.translatable("advancements.fot.lightning_straight_to_my_fish.title"),
-                        Component.translatable("advancements.fot.lightning_straight_to_my_fish.description"),
+                        Component.translatable("advancements.fishofthieves.lightning_straight_to_my_fish.title"),
+                        Component.translatable("advancements.fishofthieves.lightning_straight_to_my_fish.description"),
                         null, FrameType.TASK, true, true, false)
                 .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lighthingStrike(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LighthingBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build(), EntityPredicate.Builder.entity().of(FOTEntities.STORMFISH).build()))
                 .save(consumer, this.mod("lightning_straight_to_my_fish"));
 
         Advancement.Builder.advancement().parent(advancement)
                 .display(Items.SPYGLASS,
-                        Component.translatable("advancements.fot.spyglass_at_plentifins.title"),
-                        Component.translatable("advancements.fot.spyglass_at_plentifins.description"),
+                        Component.translatable("advancements.fishofthieves.spyglass_at_plentifins.title"),
+                        Component.translatable("advancements.fishofthieves.spyglass_at_plentifins.description"),
                         null, FrameType.TASK, true, true, false)
                 .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(FOTEntities.PLENTIFIN).build()).build()), ItemPredicate.Builder.item().of(Items.SPYGLASS)))
                 .save(consumer, this.mod("spyglass_at_plentifins"));
 
         Advancement.Builder.advancement().parent(advancement).requirements(RequirementsStrategy.OR)
                 .display(Items.JUKEBOX,
-                        Component.translatable("advancements.fot.play_jukebox_near_fish.title"),
-                        Component.translatable("advancements.fot.play_jukebox_near_fish.description"),
+                        Component.translatable("advancements.fishofthieves.play_jukebox_near_fish.title"),
+                        Component.translatable("advancements.fishofthieves.play_jukebox_near_fish.description"),
                         null, FrameType.TASK, true, true, true)
                 .addCriterion("play_jukebox_near_thieves_fish", ItemUsedOnBlockWithNearbyEntityTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location()
@@ -180,16 +180,16 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.SALMON).build())))
                 .addCriterion(this.getItemName(Items.SALMON_BUCKET), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(Blocks.WATER).build()), ItemPredicate.Builder.item().of(Items.SALMON_BUCKET).hasNbt(sallyName)))
                 .display(Items.SALMON,
-                        Component.translatable("advancements.fot.lost_sally.title"),
-                        Component.translatable("advancements.fot.lost_sally.description"),
+                        Component.translatable("advancements.fishofthieves.lost_sally.title"),
+                        Component.translatable("advancements.fishofthieves.lost_sally.description"),
                         null, FrameType.TASK, true, true, true)
                 .save(consumer, this.mod("lost_sally"));
 
         var tropicalIsland = Advancement.Builder.advancement().parent(advancement)
                 .addCriterion("explore_tropical_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inBiome(FOTBiomes.TROPICAL_ISLAND)))
                 .display(FOTBlocks.TROPICAL_MONSTERA,
-                        Component.translatable("advancements.fot.explore_tropical_island.title"),
-                        Component.translatable("advancements.fot.explore_tropical_island.description"),
+                        Component.translatable("advancements.fishofthieves.explore_tropical_island.title"),
+                        Component.translatable("advancements.fishofthieves.explore_tropical_island.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("explore_tropical_island"));
 
@@ -201,8 +201,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         ))
                 )
                 .display(FOTItems.MANGO,
-                        Component.translatable("advancements.fot.mango_gravity.title"),
-                        Component.translatable("advancements.fot.mango_gravity.description"),
+                        Component.translatable("advancements.fishofthieves.mango_gravity.title"),
+                        Component.translatable("advancements.fishofthieves.mango_gravity.description"),
                         null, FrameType.TASK, true, true, true)
                 .save(consumer, this.mod("mango_gravity"));
 
@@ -215,15 +215,15 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                 .build())
                         .build()))
                 .display(FOTBlocks.RIPE_PINEAPPLE_BLOCK,
-                        Component.translatable("advancements.fot.equip_pineapple_block.title"),
-                        Component.translatable("advancements.fot.equip_pineapple_block.description"),
+                        Component.translatable("advancements.fishofthieves.equip_pineapple_block.title"),
+                        Component.translatable("advancements.fishofthieves.equip_pineapple_block.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("equip_pineapple_block"));
 
         this.addFruits(Advancement.Builder.advancement()).parent(tropicalIsland)
                 .display(FOTItems.BANANA,
-                        Component.translatable("advancements.fot.fruit_diet.title"),
-                        Component.translatable("advancements.fot.fruit_diet.description"),
+                        Component.translatable("advancements.fishofthieves.fruit_diet.title"),
+                        Component.translatable("advancements.fishofthieves.fruit_diet.description"),
                         null, FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .save(consumer, this.mod("fruit_diet"));
@@ -234,8 +234,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("water_drip_from_coconut_fronds", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.COCONUT_FRONDS, StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL), isTropicalIsland))
                 .addCriterion("water_drip_from_banana_leaves", WaterDripOnBlockTrigger.TriggerInstance.waterDrip(FOTBlocks.BANANA_LEAVES, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL), isTropicalIsland))
                 .display(FOTBlocks.COCONUT_FRONDS,
-                        Component.translatable("advancements.fot.island_rainwater.title"),
-                        Component.translatable("advancements.fot.island_rainwater.description"),
+                        Component.translatable("advancements.fishofthieves.island_rainwater.title"),
+                        Component.translatable("advancements.fishofthieves.island_rainwater.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("island_rainwater"));
 
@@ -244,8 +244,8 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         .of(FOTItems.KRAKEN_POTTERY_SHERD, FOTItems.MEGALODON_POTTERY_SHERD)
                         .build()))
                 .display(FOTItems.MEGALODON_POTTERY_SHERD,
-                        Component.translatable("advancements.fot.ancient_myth.title"),
-                        Component.translatable("advancements.fot.ancient_myth.description"),
+                        Component.translatable("advancements.fishofthieves.ancient_myth.title"),
+                        Component.translatable("advancements.fishofthieves.ancient_myth.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("ancient_myth"));
 
@@ -253,32 +253,32 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
                         .of(FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
                 .display(Items.RED_DYE,
-                        Component.translatable("advancements.fot.crush_pomegranate.title"),
-                        Component.translatable("advancements.fot.crush_pomegranate.description"),
+                        Component.translatable("advancements.fishofthieves.crush_pomegranate.title"),
+                        Component.translatable("advancements.fishofthieves.crush_pomegranate.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("crush_pomegranate"));
 
         Advancement.Builder.advancement().parent(advancement)
                 .addCriterion("taste_the_deep", ConsumeItemTrigger.TriggerInstance.usedItem(FOTItems.GUARDIAN_FRUIT))
                 .display(FOTItems.GUARDIAN_FRUIT,
-                        Component.translatable("advancements.fot.taste_the_deep.title"),
-                        Component.translatable("advancements.fot.taste_the_deep.description"),
+                        Component.translatable("advancements.fishofthieves.taste_the_deep.title"),
+                        Component.translatable("advancements.fishofthieves.taste_the_deep.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("taste_the_deep"));
 
         Advancement.Builder.advancement().parent(advancement)
                 .addCriterion("shoal_hunter", ParticipateShoalTrigger.TriggerInstance.participateShoal())
                 .display(Items.FISHING_ROD,
-                        Component.translatable("advancements.fot.shoal_hunter.title"),
-                        Component.translatable("advancements.fot.shoal_hunter.description"),
+                        Component.translatable("advancements.fishofthieves.shoal_hunter.title"),
+                        Component.translatable("advancements.fishofthieves.shoal_hunter.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("shoal_hunter"));
 
         Advancement.Builder.advancement().parent(battlegillAdvancement)
                 .addCriterion("drunken_sailor", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicate.variant(BattlegillVariants.RUM)).build(), MobEffectsPredicate.effects().and(MobEffects.CONFUSION)))
                 .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
-                        Component.translatable("advancements.fot.drunken_sailor.title"),
-                        Component.translatable("advancements.fot.drunken_sailor.description"),
+                        Component.translatable("advancements.fishofthieves.drunken_sailor.title"),
+                        Component.translatable("advancements.fishofthieves.drunken_sailor.description"),
                         null, FrameType.TASK, true, true, false)
                 .save(consumer, this.mod("drunken_sailor"));
     }

@@ -18,7 +18,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.crush_pomegranate.description"
+      "translate": "advancements.fishofthieves.crush_pomegranate.description"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.crush_pomegranate.title"
+      "translate": "advancements.fishofthieves.crush_pomegranate.title"
     }
   },
   "requirements": [

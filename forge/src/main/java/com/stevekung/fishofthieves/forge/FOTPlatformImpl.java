@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
@@ -75,7 +76,12 @@ public class FOTPlatformImpl
 
     public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
     {
-        return BiomeSpecialEffects.GrassColorModifier.create("FOT_TROPICAL_ISLAND", "fot_tropical_island", (x, z, grassColor) -> FOTGrassColorModifier.getGrassColor(x, z));
+        return BiomeSpecialEffects.GrassColorModifier.create("FISHOFTHIEVES_TROPICAL_ISLAND", "fishofthieves_tropical_island", (x, z, grassColor) -> FOTGrassColorModifier.getGrassColor(x, z));
+    }
+
+    public static CreativeModeTab.Builder getCreativeTabBuilder()
+    {
+        return CreativeModeTab.builder();
     }
 
     public static void registerCriteriaTriggers(CriterionTrigger<?> trigger)

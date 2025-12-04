@@ -10,13 +10,13 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 
 public class FOTLootPoolEntries
 {
-    public static final LootPoolEntryType FOT_ITEM = new LootPoolEntryType(new FOTLootItem.Serializer());
-    public static final LootPoolEntryType FOT_TAG = new LootPoolEntryType(new FOTTagEntry.Serializer());
+    public static final LootPoolEntryType ITEM = new LootPoolEntryType(new FOTLootItem.Serializer());
+    public static final LootPoolEntryType TAG = new LootPoolEntryType(new FOTTagEntry.Serializer());
 
     public static void init()
     {
-        register("fot_item", FOT_ITEM);
-        register("fot_tag", FOT_TAG);
+        register("item", ITEM);
+        register("tag", TAG);
     }
 
     private static void register(String key, LootPoolEntryType type)

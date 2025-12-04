@@ -105,7 +105,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.fish_collectors.description"
+      "translate": "advancements.fishofthieves.fish_collectors.description"
     },
     "frame": "challenge",
     "hidden": false,
@@ -114,7 +114,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.fish_collectors.title"
+      "translate": "advancements.fishofthieves.fish_collectors.title"
     }
   },
   "requirements": [

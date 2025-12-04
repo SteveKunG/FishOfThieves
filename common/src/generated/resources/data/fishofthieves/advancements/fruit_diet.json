@@ -55,7 +55,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.fot.fruit_diet.description"
+      "translate": "advancements.fishofthieves.fruit_diet.description"
     },
     "frame": "challenge",
     "hidden": false,
@@ -64,7 +64,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.fot.fruit_diet.title"
+      "translate": "advancements.fishofthieves.fruit_diet.title"
     }
   },
   "requirements": [

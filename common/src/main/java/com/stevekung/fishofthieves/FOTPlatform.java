@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.GameRules;
@@ -70,6 +71,12 @@ public class FOTPlatform
 
     @ExpectPlatform
     public static BiomeSpecialEffects.GrassColorModifier getTropicalIslandGrassColor()
+    {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static CreativeModeTab.Builder getCreativeTabBuilder()
     {
         throw new AssertionError();
     }
