@@ -84,7 +84,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.fish_collectors.description"
+      "translate": "advancements.fishofthieves.fish_collectors.description"
     },
     "frame": "challenge",
     "icon": {
@@ -92,7 +92,7 @@
       "id": "fishofthieves:splashtail_bucket"
     },
     "title": {
-      "translate": "advancements.fot.fish_collectors.title"
+      "translate": "advancements.fishofthieves.fish_collectors.title"
     }
   },
   "requirements": [

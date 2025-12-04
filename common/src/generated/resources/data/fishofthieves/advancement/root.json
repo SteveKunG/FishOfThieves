@@ -23,7 +23,7 @@
     "announce_to_chat": false,
     "background": "minecraft:textures/block/tube_coral_block.png",
     "description": {
-      "translate": "advancements.fot.root.description"
+      "translate": "advancements.fishofthieves.root.description"
     },
     "icon": {
       "count": 1,
@@ -31,7 +31,7 @@
     },
     "show_toast": false,
     "title": {
-      "translate": "advancements.fot.root.title"
+      "translate": "advancements.fishofthieves.root.title"
     }
   },
   "requirements": [

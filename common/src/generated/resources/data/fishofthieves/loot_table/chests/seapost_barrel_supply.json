@@ -134,7 +134,7 @@
           "weight": 2
         },
         {
-          "type": "fishofthieves:fot_tag",
+          "type": "fishofthieves:tag",
           "expand": true,
           "functions": [
             {

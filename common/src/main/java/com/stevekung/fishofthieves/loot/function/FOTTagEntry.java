@@ -39,7 +39,7 @@ public class FOTTagEntry extends LootPoolSingletonContainer
     @Override
     public LootPoolEntryType getType()
     {
-        return FOTLootPoolEntries.FOT_TAG;
+        return FOTLootPoolEntries.TAG;
     }
 
     @Override

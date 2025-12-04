@@ -57,7 +57,7 @@ public class MixinBoat
         ))
         private static void fishofthieves$clinit(CallbackInfo info)
         {
-            var entry = fishofthieves$create("FOT_COCONUT", $VALUES.length, FOTBlocks.COCONUT_PLANKS, "fishofthieves_coconut");
+            var entry = fishofthieves$create("FISHOFTHIEVES_COCONUT", $VALUES.length, FOTBlocks.COCONUT_PLANKS, "fishofthieves_coconut");
             $VALUES = ArrayUtils.add($VALUES, entry);
 
             FishOfThieves.LOGGER.info("Added new enum to {}: {}|{}", Boat.Type.class, FOTBoatTypes.COCONUT.name(), FOTBoatTypes.COCONUT);

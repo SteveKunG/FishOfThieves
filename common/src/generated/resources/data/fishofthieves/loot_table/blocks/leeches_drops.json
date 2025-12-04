@@ -35,7 +35,7 @@
                   }
                 },
                 {
-                  "condition": "fishofthieves:fot_location_check",
+                  "condition": "fishofthieves:location_check",
                   "predicate": {
                     "continentalness": "coast"
                   }
