@@ -40,6 +40,7 @@ dependencies {
     modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
     modCompileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${serene_seasons_version}"
     modImplementation "com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}"
+    implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
 processResources {

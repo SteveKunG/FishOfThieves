@@ -145,9 +145,9 @@ public class FOTItems
     public static final Item GILDED_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
 
     // Item
-    public static final Item EARTHWORMS = register("earthworms", new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
-    public static final Item GRUBS = register("grubs", new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
-    public static final Item LEECHES = register("leeches", new Item.Properties().food(FOTFoodProperties.WORMS, FOTConsumables.WORMS));
+    public static final Item EARTHWORMS = register("earthworms", properties -> new FOTWormItem(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
+    public static final Item GRUBS = register("grubs", properties -> new FOTWormItem(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
+    public static final Item LEECHES = register("leeches", properties -> new FOTWormItem(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));
 
     public static final Item SPLASHTAIL = register("splashtail", properties -> new FOTItem(properties.food(FOTFoodProperties.SPLASHTAIL), FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT));
     public static final Item PONDIE = register("pondie", properties -> new FOTItem(properties.food(FOTFoodProperties.PONDIE), FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT));
