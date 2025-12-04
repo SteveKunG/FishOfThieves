@@ -120,7 +120,7 @@ public class FOTItem extends Item
         return new CustomModelData(List.of((float) index), List.of(), List.of(), List.of());
     }
 
-    private static ItemStack create(Item item, int index)
+    public static ItemStack create(Item item, int index)
     {
         var itemStack = new ItemStack(item);
         itemStack.set(DataComponents.CUSTOM_MODEL_DATA, createCustomModelData(index));

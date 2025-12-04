@@ -2,12 +2,14 @@
   "required": true,
   "minVersion": "0.8.5",
   "package": "com.stevekung.fishofthieves.neoforge.mixin",
+  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "accessor.CropBlockAccessor",
     "block.MixinFOTRotatedPillarBlock",
     "block.MixinMediumRotatedPillarBlock",
-    "block.MixinSmallRotatedPillarBlock"
+    "block.MixinSmallRotatedPillarBlock",
+    "item.MixinFOTWormItem"
   ],
   "client": [
   ],
