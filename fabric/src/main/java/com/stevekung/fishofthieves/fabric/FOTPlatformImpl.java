@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
 import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
@@ -22,6 +23,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -47,6 +49,11 @@ public class FOTPlatformImpl
     public static void addFlammableBlock(Block block, int encouragement, int flammability)
     {
         FlammableBlockRegistry.getDefaultInstance().add(block, encouragement, flammability);
+    }
+
+    public static CreativeModeTab.Builder getCreativeTabBuilder()
+    {
+        return FabricItemGroup.builder();
     }
 
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)

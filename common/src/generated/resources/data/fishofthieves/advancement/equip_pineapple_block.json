@@ -26,14 +26,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.equip_pineapple_block.description"
+      "translate": "advancements.fishofthieves.equip_pineapple_block.description"
     },
     "icon": {
       "count": 1,
       "id": "fishofthieves:ripe_pineapple_block"
     },
     "title": {
-      "translate": "advancements.fot.equip_pineapple_block.title"
+      "translate": "advancements.fishofthieves.equip_pineapple_block.title"
     }
   },
   "requirements": [

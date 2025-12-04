@@ -8,7 +8,7 @@ import net.minecraft.advancements.criterion.EntitySubPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
-public class FOTEntitySubPredicate
+public class FOTEntitySubPredicates
 {
     public static final MapCodec<TrophyFishPredicate> TROPHY = register("trophy", TrophyFishPredicate.CODEC);
 

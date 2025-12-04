@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.predicates.WeatherCheck;
 
 public class FOTLootItemConditions
 {
-    public static final LootItemConditionType FOT_LOCATION_CHECK = register("fot_location_check", new LootItemConditionType(FOTLocationCheck.CODEC));
+    public static final LootItemConditionType LOCATION_CHECK = register("location_check", new LootItemConditionType(FOTLocationCheck.CODEC));
     public static final LootItemConditionType FISH_VARIANT_LOOT_CONFIG = register("fish_variant_loot_config", new LootItemConditionType(FishVariantLootConfigCondition.CODEC));
     public static final LootItemConditionType BAIT_ATTACHED_HOOK = register("bait_attached_hook", new LootItemConditionType(BaitAttachedCondition.CODEC));
 

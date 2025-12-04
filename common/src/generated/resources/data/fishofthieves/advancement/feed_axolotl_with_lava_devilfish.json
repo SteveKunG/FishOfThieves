@@ -26,14 +26,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.description"
+      "translate": "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"
     },
     "icon": {
       "count": 1,
       "id": "fishofthieves:devilfish"
     },
     "title": {
-      "translate": "advancements.fot.feed_axolotl_with_lava_devilfish.title"
+      "translate": "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"
     }
   },
   "requirements": [

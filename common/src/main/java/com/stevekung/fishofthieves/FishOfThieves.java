@@ -16,15 +16,11 @@ import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapForEmeralds;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTDisplayItems;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,8 +29,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
 
@@ -48,8 +42,6 @@ public class FishOfThieves
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
-    public static final ResourceKey<CreativeModeTab> FOT_MAIN = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot_main"));
-    public static final ResourceKey<CreativeModeTab> FOT_FISH = ResourceKey.create(Registries.CREATIVE_MODE_TAB, FishOfThieves.id("fot"));
     public static final Identifier RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
     public static final Identifier SYNC_CLIENT_SHOAL_FISH = FishOfThieves.id("sync_client_shoal_fish");
     public static final Identifier REQUEST_SERVER_SHOAL_FISH = FishOfThieves.id("request_server_shoal_fish");
@@ -232,16 +224,6 @@ public class FishOfThieves
             }
         }
         return list;
-    }
-
-    public static CreativeModeTab.Builder getFishCreativeTabBuilder(CreativeModeTab.Builder builder)
-    {
-        return builder.title(Component.translatable("itemGroup.fishofthieves.fish")).icon(() -> new ItemStack(FOTItems.SPLASHTAIL)).displayItems(FOTDisplayItems::displayFishItems);
-    }
-
-    public static CreativeModeTab.Builder getMainCreativeTabBuilder(CreativeModeTab.Builder builder)
-    {
-        return builder.title(Component.translatable("itemGroup.fishofthieves.main")).icon(() -> new ItemStack(FOTBlocks.COCONUT_LOG)).displayItems(FOTDisplayItems::displayMainItems);
     }
 
     public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
