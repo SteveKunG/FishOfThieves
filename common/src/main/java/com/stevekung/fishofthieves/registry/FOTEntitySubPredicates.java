@@ -14,7 +14,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
-public class FOTEntitySubPredicate
+public class FOTEntitySubPredicates
 {
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<SplashtailVariant> SPLASHTAIL = register("splashtail", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.SPLASHTAIL_VARIANT, entity -> entity instanceof Splashtail splashtail ? Optional.of(splashtail.getVariant()) : Optional.empty()));
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<PondieVariant> PONDIE = register("pondie", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.PONDIE_VARIANT, entity -> entity instanceof Pondie pondie ? Optional.of(pondie.getVariant()) : Optional.empty()));
