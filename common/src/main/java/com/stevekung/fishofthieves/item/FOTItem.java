@@ -36,7 +36,7 @@ public class FOTItem extends Item
 
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {
-            for (var i = 1; i < 5; i++)
+            for (var i = 1; i < 6; i++)
             {
                 output.accept(create(item, i));
             }

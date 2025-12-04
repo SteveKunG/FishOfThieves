@@ -67,6 +67,9 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.Tooltip
         public boolean displayTrophySpawnEggInCreativeTab = false;
+
+        @ConfigEntry.Gui.Tooltip
+        public boolean displayTrophyBucketInCreativeTab = false;
     }
 
     public static class Biome

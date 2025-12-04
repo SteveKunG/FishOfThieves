@@ -34,6 +34,18 @@ public class FOTMobBucketItem extends MobBucketItem
     }
 
     @Override
+    public Component getName(ItemStack itemStack)
+    {
+        var name = super.getName(itemStack).copy();
+
+        if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && itemStack.hasTag() && itemStack.getTag().getBoolean(ThievesFish.TROPHY_TAG))
+        {
+            return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
+        }
+        return name;
+    }
+
+    @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced)
     {
         var compoundTag = itemStack.getTag();
@@ -66,9 +78,17 @@ public class FOTMobBucketItem extends MobBucketItem
 
         if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {
-            for (var i = 1; i < 5; i++)
+            for (var i = 1; i < 6; i++)
             {
-                output.accept(create(item, ((FOTMobBucketItem) item).variantToCustomModelData, i));
+                if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab)
+                {
+                    output.accept(create(item, ((FOTMobBucketItem) item).variantToCustomModelData, i, false));
+                    output.accept(create(item, ((FOTMobBucketItem) item).variantToCustomModelData, i, true));
+                }
+                else
+                {
+                    output.accept(create(item, ((FOTMobBucketItem) item).variantToCustomModelData, i, null));
+                }
             }
         }
     }
@@ -78,12 +98,18 @@ public class FOTMobBucketItem extends MobBucketItem
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, BiMap<String, Integer> variantToCustomModelData, int index)
+    private static ItemStack create(Item item, BiMap<String, Integer> variantToCustomModelData, int index, Boolean trophy)
     {
         var itemStack = new ItemStack(item);
         var compoundTag = itemStack.getOrCreateTag();
         compoundTag.putInt("CustomModelData", index);
         compoundTag.putString(ThievesFish.VARIANT_TAG, variantToCustomModelData.inverse().get(index));
+
+        if (trophy != null)
+        {
+            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy);
+        }
+
         return itemStack;
     }
 }
