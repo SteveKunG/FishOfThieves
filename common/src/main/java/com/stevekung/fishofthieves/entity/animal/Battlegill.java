@@ -91,6 +91,8 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
             MemoryModuleType.IS_PANICKING,
+            FOTMemoryModuleTypes.FOLLOW_WITH_EFFECT_COOLDOWN_TICKS,
+            FOTMemoryModuleTypes.IS_EFFECT_FOLLOWER,
 
             // Jump AI
             MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS,
