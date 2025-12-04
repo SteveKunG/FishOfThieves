@@ -22,7 +22,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.mango_gravity.description"
+      "translate": "advancements.fishofthieves.mango_gravity.description"
     },
     "hidden": true,
     "icon": {
@@ -30,7 +30,7 @@
       "id": "fishofthieves:mango"
     },
     "title": {
-      "translate": "advancements.fot.mango_gravity.title"
+      "translate": "advancements.fishofthieves.mango_gravity.title"
     }
   },
   "requirements": [

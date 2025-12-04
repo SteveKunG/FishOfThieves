@@ -15,14 +15,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.crush_pomegranate.description"
+      "translate": "advancements.fishofthieves.crush_pomegranate.description"
     },
     "icon": {
       "count": 1,
       "id": "minecraft:red_dye"
     },
     "title": {
-      "translate": "advancements.fot.crush_pomegranate.title"
+      "translate": "advancements.fishofthieves.crush_pomegranate.title"
     }
   },
   "requirements": [

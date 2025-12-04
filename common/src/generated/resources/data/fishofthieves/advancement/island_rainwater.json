@@ -28,14 +28,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.island_rainwater.description"
+      "translate": "advancements.fishofthieves.island_rainwater.description"
     },
     "icon": {
       "count": 1,
       "id": "fishofthieves:coconut_fronds"
     },
     "title": {
-      "translate": "advancements.fot.island_rainwater.title"
+      "translate": "advancements.fishofthieves.island_rainwater.title"
     }
   },
   "requirements": [

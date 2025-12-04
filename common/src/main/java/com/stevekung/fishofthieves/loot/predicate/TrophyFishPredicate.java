@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.registry.FOTEntitySubPredicates;
 
 import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.server.level.ServerLevel;
@@ -17,9 +18,9 @@ public record TrophyFishPredicate(boolean trophy) implements EntitySubPredicate
     public static final MapCodec<TrophyFishPredicate> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("trophy", false).forGetter(TrophyFishPredicate::trophy)).apply(instance, TrophyFishPredicate::new));
 
     @Override
-    public MapCodec<? extends EntitySubPredicate> codec()
+    public MapCodec<TrophyFishPredicate> codec()
     {
-        return CODEC;
+        return FOTEntitySubPredicates.TROPHY;
     }
 
     @Override
