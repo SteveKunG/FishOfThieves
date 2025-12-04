@@ -554,7 +554,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.legendary_fish_collectors.description"
+      "translate": "advancements.fishofthieves.legendary_fish_collectors.description"
     },
     "frame": "challenge",
     "icon": {
@@ -562,7 +562,7 @@
       "id": "fishofthieves:splashtail_bucket"
     },
     "title": {
-      "translate": "advancements.fot.legendary_fish_collectors.title"
+      "translate": "advancements.fishofthieves.legendary_fish_collectors.title"
     }
   },
   "requirements": [

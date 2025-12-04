@@ -64,7 +64,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.play_jukebox_near_fish.description"
+      "translate": "advancements.fishofthieves.play_jukebox_near_fish.description"
     },
     "hidden": true,
     "icon": {
@@ -72,7 +72,7 @@
       "id": "minecraft:jukebox"
     },
     "title": {
-      "translate": "advancements.fot.play_jukebox_near_fish.title"
+      "translate": "advancements.fishofthieves.play_jukebox_near_fish.title"
     }
   },
   "requirements": [

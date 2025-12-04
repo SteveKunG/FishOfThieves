@@ -7,14 +7,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.shoal_hunter.description"
+      "translate": "advancements.fishofthieves.shoal_hunter.description"
     },
     "icon": {
       "count": 1,
       "id": "minecraft:fishing_rod"
     },
     "title": {
-      "translate": "advancements.fot.shoal_hunter.title"
+      "translate": "advancements.fishofthieves.shoal_hunter.title"
     }
   },
   "requirements": [

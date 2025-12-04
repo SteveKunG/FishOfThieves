@@ -20,14 +20,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.explore_tropical_island.description"
+      "translate": "advancements.fishofthieves.explore_tropical_island.description"
     },
     "icon": {
       "count": 1,
       "id": "fishofthieves:tropical_monstera"
     },
     "title": {
-      "translate": "advancements.fot.explore_tropical_island.title"
+      "translate": "advancements.fishofthieves.explore_tropical_island.title"
     }
   },
   "requirements": [

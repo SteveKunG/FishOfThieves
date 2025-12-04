@@ -17,14 +17,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.fot.ancient_myth.description"
+      "translate": "advancements.fishofthieves.ancient_myth.description"
     },
     "icon": {
       "count": 1,
       "id": "fishofthieves:megalodon_pottery_sherd"
     },
     "title": {
-      "translate": "advancements.fot.ancient_myth.title"
+      "translate": "advancements.fishofthieves.ancient_myth.title"
     }
   },
   "requirements": [
