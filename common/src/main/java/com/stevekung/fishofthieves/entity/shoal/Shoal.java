@@ -1,9 +1,6 @@
 package com.stevekung.fishofthieves.entity.shoal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import org.jspecify.annotations.Nullable;
 
@@ -12,10 +9,12 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.ShoalBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +23,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.ProblemReporter;
@@ -52,10 +52,12 @@ public class Shoal extends Entity
     public static final String LIFETIME_TAG = "lifetime";
     public static final String NATURAL_TAG = "natural";
     public static final String TREASURED_TAG = "treasured";
+    public static final String PARTICIPATES_TAG = "participates";
 
     public static final String FILLED_MAP_TREASURED_FISH = "filled_map.fishofthieves_treasured_fish";
 
     private final List<ShoalFishData> shoalFishData = new ArrayList<>();
+    private final Set<UUID> participates = new HashSet<>();
     private long expiredAt = -1;
 
     private List<LivingEntity> shoalFishClient = new ArrayList<>();
@@ -77,6 +79,7 @@ public class Shoal extends Entity
     {
         this.shoalFishData.clear();
         input.read(SHOAL_FISH_TAG, ShoalFishData.CODEC).ifPresent(this.shoalFishData::addAll);
+        input.read(PARTICIPATES_TAG, UUIDUtil.CODEC_SET).ifPresent(this.participates::addAll);
         this.expiredAt = input.getLongOr(LIFETIME_TAG, -1);
         this.setTreasured(input.getBooleanOr(TREASURED_TAG, false));
 
@@ -94,6 +97,7 @@ public class Shoal extends Entity
     protected void addAdditionalSaveData(ValueOutput output)
     {
         output.store(SHOAL_FISH_TAG, ShoalFishData.CODEC, this.shoalFishData);
+        output.store(PARTICIPATES_TAG, UUIDUtil.CODEC_SET, this.participates);
 
         if (this.expiredAt > 0)
         {
@@ -246,6 +250,15 @@ public class Shoal extends Entity
 
             if (this.shoalFishData.isEmpty())
             {
+                for (var participate : this.participates)
+                {
+                    var player = this.level().getPlayerByUUID(participate);
+
+                    if (player instanceof ServerPlayer serverPlayer)
+                    {
+                        FOTCriteriaTriggers.PARTICIPATE_SHOAL.trigger(serverPlayer);
+                    }
+                }
                 this.destroy();
             }
 
@@ -339,6 +352,11 @@ public class Shoal extends Entity
         }
         this.expiredAt = -1;
         FOTPlatform.syncClientShoalFish(this, true);
+    }
+
+    public void addParticipatePlayer(UUID uuid)
+    {
+        this.participates.add(uuid);
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
