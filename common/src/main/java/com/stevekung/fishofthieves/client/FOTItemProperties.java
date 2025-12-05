@@ -26,7 +26,7 @@ public class FOTItemProperties
 
             ItemProperties.register(item, FishOfThieves.id(registryName), (itemStack, level, livingEntity, seed) ->
             {
-                if (!itemStack.hasTag() || level == null || !FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+                if (!itemStack.hasTag() || level == null)
                 {
                     return 0;
                 }
