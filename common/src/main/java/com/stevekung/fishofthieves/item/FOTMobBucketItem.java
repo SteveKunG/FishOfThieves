@@ -140,4 +140,11 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         }
         return itemStack;
     }
+
+    public static ItemStack createRandomBucket(Item item)
+    {
+        var itemStack = new ItemStack(item);
+        itemStack.getOrCreateTag().putBoolean(ThievesFish.CREATIVE_TAG, true);
+        return itemStack;
+    }
 }
