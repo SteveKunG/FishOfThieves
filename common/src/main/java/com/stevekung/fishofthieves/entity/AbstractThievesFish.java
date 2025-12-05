@@ -155,7 +155,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
     {
         var itemStack = player.getItemInHand(hand);
 
-        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed())
+        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed() && !this.isTreasured())
         {
             if (!this.level().isClientSide())
             {

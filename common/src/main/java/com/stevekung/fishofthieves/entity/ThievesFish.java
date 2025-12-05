@@ -65,6 +65,11 @@ public interface ThievesFish<T extends FishData> extends PartyFish
         return brain.hasMemoryValue(FOTMemoryModuleTypes.BREACHED_TICK) && brain.getMemory(FOTMemoryModuleTypes.BREACHED_TICK).get() > 0;
     }
 
+    default boolean isTreasured()
+    {
+        return this.getVariant().isTreasured().isPresent();
+    }
+
     default void saveToBucket(CompoundTag compound)
     {
         var variant = this.getRegistry().getKey(this.getVariant());

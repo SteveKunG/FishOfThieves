@@ -60,7 +60,7 @@ public abstract class ThievesFishRenderer<V extends FishData, T extends Abstract
     @Override
     protected void scale(T livingEntity, PoseStack poseStack, float partialTickTime)
     {
-        var scale = livingEntity.getVariant().isTreasured().isPresent() ? 1.25f : livingEntity.isTrophy() ? 1.0F : 0.5F;
+        var scale = livingEntity.isTreasured() ? 1.25f : livingEntity.isTrophy() ? 1.0F : 0.5F;
         poseStack.scale(scale, scale, scale);
     }
 

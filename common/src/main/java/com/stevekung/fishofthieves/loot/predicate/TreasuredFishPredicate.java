@@ -63,7 +63,7 @@ public record TreasuredFishPredicate(boolean treasured) implements EntitySubPred
         }
         else
         {
-            return this.treasured == thievesFish.getVariant().isTreasured().isPresent();
+            return this.treasured == thievesFish.isTreasured();
         }
     }
 }
