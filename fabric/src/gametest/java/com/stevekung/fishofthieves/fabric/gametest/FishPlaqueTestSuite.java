@@ -37,7 +37,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
         var ruby = fishRegistry.getKey(SplashtailVariants.RUBY).toString();
 
-        compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+        compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY.location().getPath(), ruby);
         compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -75,7 +75,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var fishRegistry = level.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY);
         var ruby = fishRegistry.getKey(SplashtailVariants.RUBY).toString();
 
-        compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+        compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY.location().getPath(), ruby);
         compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -271,7 +271,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var fishRegistry = level.registryAccess().registryOrThrow(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY);
         var ruby = fishRegistry.getKey(SplashtailVariants.RUBY).toString();
 
-        compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+        compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY.location().getPath(), ruby);
         compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -285,7 +285,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
             var bucketCompoundTag = mainHandItem.getOrCreateTag();
 
-            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketCompoundTag.getString(ThievesFish.VARIANT_TAG).equals(ruby))
+            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketCompoundTag.getString(FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY.location().getPath()).equals(ruby))
             {
                 helper.succeed();
             }

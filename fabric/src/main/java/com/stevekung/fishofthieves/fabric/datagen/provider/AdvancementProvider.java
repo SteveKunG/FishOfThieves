@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.item.FOTItem;
+import com.stevekung.fishofthieves.item.ResourceKeyHolder;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
@@ -114,9 +115,9 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ContextAwarePredicate.ANY,
-                                ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(ThievesFish.VARIANT_TAG, FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariants.LAVA).toString()))),
+                                ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasNbt(Util.make(new CompoundTag(), compound -> compound.putString(FOTRegistries.DEVILFISH_VARIANT_REGISTRY.location().getPath(), FOTRegistry.DEVILFISH_VARIANT.getKey(DevilfishVariants.LAVA).toString()))),
                                 EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build())))
-                .display(FOTItems.DEVILFISH,
+                .display(FOTItem.create(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
                         null, FrameType.TASK, true, true, false)
@@ -309,7 +310,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
                 builder.addCriterion(variant.getPath() + "_" + this.getItemName(item), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
                 {
-                    compound.putString(ThievesFish.VARIANT_TAG, variant.toString());
+                    compound.putString(((ResourceKeyHolder) item).getResourceKey().location().getPath(), variant.toString());
 
                     if (trophy)
                     {

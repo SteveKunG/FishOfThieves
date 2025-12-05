@@ -16,7 +16,7 @@
           "items": [
             "fishofthieves:devilfish_bucket"
           ],
-          "nbt": "{variant:\"fishofthieves:lava\"}"
+          "nbt": "{devilfish_variant:\"fishofthieves:lava\"}"
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"
@@ -30,7 +30,8 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "fishofthieves:devilfish"
+      "item": "fishofthieves:devilfish",
+      "nbt": "{devilfish_variant:\"fishofthieves:lava\"}"
     },
     "show_toast": true,
     "title": {
