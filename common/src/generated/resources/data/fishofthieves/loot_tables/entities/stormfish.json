@@ -33,6 +33,16 @@
                       "trophy": true
                     }
                   }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:treasured",
+                      "treasured": false
+                    }
+                  }
                 }
               ],
               "count": {

@@ -6,6 +6,7 @@ import java.util.function.IntFunction;
 
 import com.stevekung.fishofthieves.item.ResourceKeyHolder;
 import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
@@ -76,7 +77,9 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                                 .apply(SmeltItemFunction.smelted()
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TrophyFishPredicate.trophy(true))))), entityType, function)))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TrophyFishPredicate.trophy(true))))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(TreasuredFishPredicate.treasured(false))))
+                                ), entityType, function)))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(Items.BONE_MEAL))

@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableBiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 
 import net.minecraft.advancements.critereon.EntitySubPredicate;
@@ -27,6 +28,7 @@ public class FOTEntitySubPredicate
     public static final EntityVariantPredicate<WreckerVariant> WRECKER = EntityVariantPredicate.create(FOTRegistry.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty());
     public static final EntityVariantPredicate<StormfishVariant> STORMFISH = EntityVariantPredicate.create(FOTRegistry.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty());
     public static final EntitySubPredicate.Type TROPHY = TrophyFishPredicate::fromJson;
+    public static final EntitySubPredicate.Type TREASURED = TreasuredFishPredicate::fromJson;
 
     public static void init()
     {
@@ -42,6 +44,7 @@ public class FOTEntitySubPredicate
         newSubPredicates.put("wrecker", WRECKER.type());
         newSubPredicates.put("stormfish", STORMFISH.type());
         newSubPredicates.put("trophy", TROPHY);
+        newSubPredicates.put("treasured", TREASURED);
 
         var modifyMap = new LinkedHashMap<>(EntitySubPredicate.Types.TYPES);
         modifyMap.putAll(newSubPredicates.entrySet().stream().collect(Collectors.toMap(e -> FishOfThieves.MOD_RESOURCES + e.getKey(), Map.Entry::getValue)));
