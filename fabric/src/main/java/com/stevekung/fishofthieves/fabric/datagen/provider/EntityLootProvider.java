@@ -1,8 +1,10 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.IntFunction;
 
+import com.stevekung.fishofthieves.item.ResourceKeyHolder;
 import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
@@ -11,6 +13,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.EntitySubPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -35,9 +38,12 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class EntityLootProvider extends SimpleFabricLootTableProvider
 {
-    public EntityLootProvider(FabricDataOutput dataOutput)
+    private final HolderLookup.Provider provider;
+
+    public EntityLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, LootContextParamSets.ENTITY);
+        this.provider = provider.join();
     }
 
     @Override
@@ -66,7 +72,7 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
         consumer.accept(entityType.getDefaultLootTable(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
-                        .add(this.applyCustomModelDataFromVariant(LootItem.lootTableItem(item)
+                        .add(this.applyVariant((ResourceKeyHolder) item, LootItem.lootTableItem(item)
                                 .apply(SmeltItemFunction.smelted()
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
@@ -82,18 +88,31 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
     }
 
     @SuppressWarnings("deprecation")
-    private LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, IntFunction<EntitySubPredicate> function)
+    private LootPoolEntryContainer.Builder<?> applyVariant(ResourceKeyHolder resourceKeyHolder, LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, IntFunction<EntitySubPredicate> function)
     {
-        for (var i = 1; i < 5; i++)
+        var variantList = this.provider.lookupOrThrow(resourceKeyHolder.getResourceKey()).listElementIds().toList();
+
+        // Variant items
+        for (var i = 0; i < variantList.size(); i++)
         {
+            var resourceKey = variantList.get(i);
             var compound = new CompoundTag();
-            compound.putInt("CustomModelData", i);
+            compound.putString(resourceKey.registry().getPath(), resourceKey.location().toString());
 
             builder.apply(SetNbtFunction.setTag(compound)
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(i))))
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE).invert()));
         }
+
+        // Default variant item
+        var resourceKey = variantList.get(0);
+        var compound = new CompoundTag();
+        compound.putString(resourceKey.registry().getPath(), resourceKey.location().toString());
+        builder.apply(SetNbtFunction.setTag(compound)
+                .when(FishVariantLootConfigCondition.configEnabled().invert())
+                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityLootSubProvider.ENTITY_ON_FIRE).invert()));
+
         return builder;
     }
 }

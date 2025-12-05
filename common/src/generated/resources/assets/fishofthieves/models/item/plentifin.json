@@ -2,31 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/olive_plentifin",
+      "predicate": {
+        "fishofthieves:plentifin_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/amber_plentifin",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:plentifin_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/cloudy_plentifin",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:plentifin_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/bonedust_plentifin",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:plentifin_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/watery_plentifin",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:plentifin_variant": 0.25
+      }
+    },
+    {
+      "model": "fishofthieves:item/crimson_plentifin",
+      "predicate": {
+        "fishofthieves:plentifin_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/plentifin"
+    "layer0": "fishofthieves:item/olive_plentifin"
   }
 }

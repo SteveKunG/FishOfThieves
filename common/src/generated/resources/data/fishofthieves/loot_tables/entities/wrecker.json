@@ -54,6 +54,38 @@
                     "type": "fishofthieves:wrecker",
                     "type_specific": {
                       "type": "fishofthieves:wrecker",
+                      "variant": "fishofthieves:rose"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{wrecker_variant:\"fishofthieves:rose\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:wrecker",
+                    "type_specific": {
+                      "type": "fishofthieves:wrecker",
                       "variant": "fishofthieves:sun"
                     }
                   }
@@ -72,7 +104,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "tag": "{wrecker_variant:\"fishofthieves:sun\"}"
             },
             {
               "conditions": [
@@ -104,7 +136,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "tag": "{wrecker_variant:\"fishofthieves:blackcloud\"}"
             },
             {
               "conditions": [
@@ -136,7 +168,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "tag": "{wrecker_variant:\"fishofthieves:snow\"}"
             },
             {
               "conditions": [
@@ -168,7 +200,63 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "tag": "{wrecker_variant:\"fishofthieves:moon\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:wrecker",
+                    "type_specific": {
+                      "type": "fishofthieves:wrecker",
+                      "variant": "fishofthieves:emerald"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{wrecker_variant:\"fishofthieves:emerald\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{wrecker_variant:\"fishofthieves:rose\"}"
             }
           ],
           "name": "fishofthieves:wrecker"

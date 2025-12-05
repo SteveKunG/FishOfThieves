@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.entity.animal.Battlegill;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
@@ -276,7 +275,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(battlegillAdvancement)
                 .addCriterion("drunken_sailor", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicate.variant(BattlegillVariants.RUM)).build(), MobEffectsPredicate.effects().and(MobEffects.CONFUSION)))
-                .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
+                .display(FOTItem.create(FOTItems.BATTLEGILL, "battlegill_variant", "fishofthieves:rum"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.title"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.description"),
                         null, FrameType.TASK, true, true, false)

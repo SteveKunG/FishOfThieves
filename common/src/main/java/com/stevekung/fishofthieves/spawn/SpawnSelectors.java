@@ -8,9 +8,10 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
@@ -83,10 +84,8 @@ public final class SpawnSelectors
         return context -> continentalnessSet.stream().anyMatch(continentalness -> context.continentalness() == continentalness);
     }
 
-    public static SpawnConditionContext get(LivingEntity livingEntity)
+    public static SpawnConditionContext get(ServerLevel level, BlockPos blockPos, RandomSource randomSource)
     {
-        var level = (ServerLevel) livingEntity.level();
-        var blockPos = livingEntity.blockPosition();
-        return new SpawnConditionContext(level, blockPos, livingEntity.getRandom(), level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), level.getBiome(blockPos), TerrainUtils.getContinentalness(level, blockPos));
+        return new SpawnConditionContext(level, blockPos, randomSource, level.isDay(), level.isNight(), level.isRaining(), level.isThundering(), level.canSeeSkyFromBelowWater(blockPos), level.getBiome(blockPos), TerrainUtils.getContinentalness(level, blockPos));
     }
 }

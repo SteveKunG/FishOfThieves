@@ -54,6 +54,38 @@
                     "type": "fishofthieves:plentifin",
                     "type_specific": {
                       "type": "fishofthieves:plentifin",
+                      "variant": "fishofthieves:olive"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{plentifin_variant:\"fishofthieves:olive\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:plentifin",
+                    "type_specific": {
+                      "type": "fishofthieves:plentifin",
                       "variant": "fishofthieves:amber"
                     }
                   }
@@ -72,7 +104,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "tag": "{plentifin_variant:\"fishofthieves:amber\"}"
             },
             {
               "conditions": [
@@ -104,7 +136,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "tag": "{plentifin_variant:\"fishofthieves:cloudy\"}"
             },
             {
               "conditions": [
@@ -136,7 +168,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "tag": "{plentifin_variant:\"fishofthieves:bonedust\"}"
             },
             {
               "conditions": [
@@ -168,7 +200,63 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "tag": "{plentifin_variant:\"fishofthieves:watery\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:plentifin",
+                    "type_specific": {
+                      "type": "fishofthieves:plentifin",
+                      "variant": "fishofthieves:crimson"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{plentifin_variant:\"fishofthieves:crimson\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{plentifin_variant:\"fishofthieves:olive\"}"
             }
           ],
           "name": "fishofthieves:plentifin"

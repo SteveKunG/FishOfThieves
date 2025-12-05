@@ -54,6 +54,38 @@
                     "type": "fishofthieves:ancientscale",
                     "type_specific": {
                       "type": "fishofthieves:ancientscale",
+                      "variant": "fishofthieves:almond"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{ancientscale_variant:\"fishofthieves:almond\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:ancientscale",
+                    "type_specific": {
+                      "type": "fishofthieves:ancientscale",
                       "variant": "fishofthieves:sapphire"
                     }
                   }
@@ -72,7 +104,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "tag": "{ancientscale_variant:\"fishofthieves:sapphire\"}"
             },
             {
               "conditions": [
@@ -104,7 +136,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "tag": "{ancientscale_variant:\"fishofthieves:smoke\"}"
             },
             {
               "conditions": [
@@ -136,7 +168,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "tag": "{ancientscale_variant:\"fishofthieves:bone\"}"
             },
             {
               "conditions": [
@@ -168,7 +200,63 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "tag": "{ancientscale_variant:\"fishofthieves:starshine\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:ancientscale",
+                    "type_specific": {
+                      "type": "fishofthieves:ancientscale",
+                      "variant": "fishofthieves:blossom"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{ancientscale_variant:\"fishofthieves:blossom\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{ancientscale_variant:\"fishofthieves:almond\"}"
             }
           ],
           "name": "fishofthieves:ancientscale"

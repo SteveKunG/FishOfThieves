@@ -2,31 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/ancient_stormfish",
+      "predicate": {
+        "fishofthieves:stormfish_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/shores_stormfish",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:stormfish_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/wild_stormfish",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:stormfish_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/shadow_stormfish",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:stormfish_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/twilight_stormfish",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:stormfish_variant": 0.25
+      }
+    },
+    {
+      "model": "fishofthieves:item/starshine_stormfish",
+      "predicate": {
+        "fishofthieves:stormfish_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/stormfish"
+    "layer0": "fishofthieves:item/ancient_stormfish"
   }
 }

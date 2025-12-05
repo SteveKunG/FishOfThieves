@@ -54,6 +54,38 @@
                     "type": "fishofthieves:stormfish",
                     "type_specific": {
                       "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:ancient"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{stormfish_variant:\"fishofthieves:ancient\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
                       "variant": "fishofthieves:shores"
                     }
                   }
@@ -72,7 +104,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "tag": "{stormfish_variant:\"fishofthieves:shores\"}"
             },
             {
               "conditions": [
@@ -104,7 +136,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "tag": "{stormfish_variant:\"fishofthieves:wild\"}"
             },
             {
               "conditions": [
@@ -136,7 +168,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "tag": "{stormfish_variant:\"fishofthieves:shadow\"}"
             },
             {
               "conditions": [
@@ -168,7 +200,63 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "tag": "{stormfish_variant:\"fishofthieves:twilight\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:stormfish",
+                    "type_specific": {
+                      "type": "fishofthieves:stormfish",
+                      "variant": "fishofthieves:starshine"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{stormfish_variant:\"fishofthieves:starshine\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{stormfish_variant:\"fishofthieves:ancient\"}"
             }
           ],
           "name": "fishofthieves:stormfish"

@@ -136,8 +136,8 @@ public class FishOfThievesClient
 
         if (player != null && (
                 isConfigChanged(config, "displayAllFishVariantInCreativeTab") ||
-                isConfigChanged(config, "displayTrophySpawnEggInCreativeTab") ||
-                isConfigChanged(config, "displayTrophyBucketInCreativeTab")
+                        isConfigChanged(config, "displayTrophySpawnEggInCreativeTab") ||
+                        isConfigChanged(config, "displayTrophyBucketInCreativeTab")
         ))
         {
             MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.level().registryAccess()));

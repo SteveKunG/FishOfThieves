@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
 
 import net.minecraft.core.Holder;
@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTTagEntry extends LootPoolSingletonContainer
@@ -50,44 +51,8 @@ public class FOTTagEntry extends LootPoolSingletonContainer
     private void createItemStackWithData(Consumer<ItemStack> stackConsumer, LootContext lootContext, Holder<Item> holder)
     {
         var itemStack = new ItemStack(holder);
-
-        if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
-        {
-            var isNight = !lootContext.getLevel().isDay();
-            var data = getData(lootContext, isNight);
-
-            if (data > 0)
-            {
-                itemStack.getOrCreateTag().putInt("CustomModelData", data);
-            }
-        }
-
-        stackConsumer.accept(itemStack);
-    }
-
-    private static int getData(LootContext lootContext, boolean isNight)
-    {
-        var random = lootContext.getRandom();
-        var chance = random.nextDouble();
-        var data = 0;
-
-        if (chance < 0.7)
-        {
-            data = isNight && random.nextInt(3) == 0 ? 4 : 0;
-        }
-        else if (chance < 0.85)
-        {
-            data = 1;
-        }
-        else if (chance < 0.95)
-        {
-            data = 2;
-        }
-        else if (chance < 1.0)
-        {
-            data = 3;
-        }
-        return data;
+        var vec3 = lootContext.getParamOrNull(LootContextParams.ORIGIN);
+        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, lootContext.getLevel(), vec3, lootContext.getRandom()));
     }
 
     private boolean expandTag(LootContext context, Consumer<LootPoolEntry> generatorConsumer)

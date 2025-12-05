@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +10,6 @@ import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,15 +26,6 @@ import net.minecraft.world.level.Level;
 public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 {
     private static final EntityDataAccessor<SplashtailVariant> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:ruby", 0);
-        map.put("fishofthieves:sunny", 1);
-        map.put("fishofthieves:indigo", 2);
-        map.put("fishofthieves:umber", 3);
-        map.put("fishofthieves:seafoam", 4);
-        map.put("fishofthieves:obsidian", 5);
-    });
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {
@@ -96,15 +84,9 @@ public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
     }
 
     @Override
-    public Holder<SplashtailVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<SplashtailVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariants.RUBY, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_SPLASHTAIL_SPAWNS, SplashtailVariants.RUBY, creativeBucket);
     }
 
     @Override

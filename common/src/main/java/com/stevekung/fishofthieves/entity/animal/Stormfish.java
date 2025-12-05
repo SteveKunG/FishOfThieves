@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
@@ -12,7 +10,6 @@ import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -36,15 +33,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
     private static final EntityDataAccessor<StormfishVariant> VARIANT = SynchedEntityData.defineId(Stormfish.class, FOTDataSerializers.STORMFISH_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:ancient", 0);
-        map.put("fishofthieves:shores", 1);
-        map.put("fishofthieves:wild", 2);
-        map.put("fishofthieves:shadow", 3);
-        map.put("fishofthieves:twilight", 4);
-        map.put("fishofthieves:starshine", 5);
-    });
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)
     {
@@ -103,15 +91,9 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    public Holder<StormfishVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<StormfishVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_STORMFISH_SPAWNS, StormfishVariants.ANCIENT, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_STORMFISH_SPAWNS, StormfishVariants.ANCIENT, creativeBucket);
     }
 
     @Override

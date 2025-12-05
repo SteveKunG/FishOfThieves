@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +10,6 @@ import com.stevekung.fishofthieves.entity.variant.PondieVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PondieVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,15 +26,6 @@ import net.minecraft.world.level.Level;
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
     private static final EntityDataAccessor<PondieVariant> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:charcoal", 0);
-        map.put("fishofthieves:orchid", 1);
-        map.put("fishofthieves:bronze", 2);
-        map.put("fishofthieves:bright", 3);
-        map.put("fishofthieves:moonsky", 4);
-        map.put("fishofthieves:dewdrop", 5);
-    });
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
     {
@@ -96,15 +84,9 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    public Holder<PondieVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<PondieVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PONDIE_SPAWNS, PondieVariants.CHARCOAL, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PONDIE_SPAWNS, PondieVariants.CHARCOAL, creativeBucket);
     }
 
     @Override

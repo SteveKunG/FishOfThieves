@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +10,6 @@ import com.stevekung.fishofthieves.entity.variant.PlentifinVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.PlentifinVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -36,15 +33,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
     private static final EntityDataAccessor<PlentifinVariant> VARIANT = SynchedEntityData.defineId(Plentifin.class, FOTDataSerializers.PLENTIFIN_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:olive", 0);
-        map.put("fishofthieves:amber", 1);
-        map.put("fishofthieves:cloudy", 2);
-        map.put("fishofthieves:bonedust", 3);
-        map.put("fishofthieves:watery", 4);
-        map.put("fishofthieves:crimson", 5);
-    });
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {
@@ -103,15 +91,9 @@ public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
     }
 
     @Override
-    public Holder<PlentifinVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<PlentifinVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PLENTIFIN_SPAWNS, PlentifinVariants.OLIVE, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_PLENTIFIN_SPAWNS, PlentifinVariants.OLIVE, creativeBucket);
     }
 
     @Override

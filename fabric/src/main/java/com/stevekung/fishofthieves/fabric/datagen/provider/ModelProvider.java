@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -10,19 +11,24 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.*;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.fabric.datagen.FOTModelTemplates;
 import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -33,36 +39,38 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 public class ModelProvider extends FabricModelProvider
 {
     private static final ModelTemplate SPAWN_EGG = ModelTemplates.createItem("template_spawn_egg");
+    private final HolderLookup.Provider provider;
 
-    public ModelProvider(FabricDataOutput dataOutput)
+    public ModelProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput);
+        this.provider = provider.join();
     }
 
     @Override
     public void generateItemModels(ItemModelGenerators generator)
     {
-        this.generateFlatItemWithFishVariant(FOTItems.SPLASHTAIL, List.of("sunny", "indigo", "umber", "seafoam"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.PONDIE, List.of("orchid", "bronze", "bright", "moonsky"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.ISLEHOPPER, List.of("moss", "honey", "raven", "amethyst"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.ANCIENTSCALE, List.of("sapphire", "smoke", "bone", "starshine"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.PLENTIFIN, List.of("amber", "cloudy", "bonedust", "watery"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.WILDSPLASH, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.DEVILFISH, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.BATTLEGILL, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.WRECKER, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.STORMFISH, List.of("shores", "wild", "shadow", "twilight"), generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.SPLASHTAIL, "ruby", FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.PONDIE, "charcoal", FOTRegistries.PONDIE_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.ISLEHOPPER, "stone", FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.ANCIENTSCALE, "almond", FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.PLENTIFIN, "olive", FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.WILDSPLASH, "russet", FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.DEVILFISH, "ashen", FOTRegistries.DEVILFISH_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.BATTLEGILL, "jade", FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.WRECKER, "rose", FOTRegistries.WRECKER_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.STORMFISH, "ancient", FOTRegistries.STORMFISH_VARIANT_REGISTRY, generator.output);
 
-        this.generateFlatItemWithFishVariant(FOTItems.SPLASHTAIL_BUCKET, List.of("sunny", "indigo", "umber", "seafoam"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.PONDIE_BUCKET, List.of("orchid", "bronze", "bright", "moonsky"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.ISLEHOPPER_BUCKET, List.of("moss", "honey", "raven", "amethyst"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.ANCIENTSCALE_BUCKET, List.of("sapphire", "smoke", "bone", "starshine"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.PLENTIFIN_BUCKET, List.of("amber", "cloudy", "bonedust", "watery"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.WILDSPLASH_BUCKET, List.of("sandy", "ocean", "muddy", "coral"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.DEVILFISH_BUCKET, List.of("seashell", "lava", "forsaken", "firelight"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.BATTLEGILL_BUCKET, List.of("sky", "rum", "sand", "bittersweet"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.WRECKER_BUCKET, List.of("sun", "blackcloud", "snow", "moon"), generator.output);
-        this.generateFlatItemWithFishVariant(FOTItems.STORMFISH_BUCKET, List.of("shores", "wild", "shadow", "twilight"), generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.SPLASHTAIL_BUCKET, "ruby", FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.PONDIE_BUCKET, "charcoal", FOTRegistries.PONDIE_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.ISLEHOPPER_BUCKET, "stone", FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.ANCIENTSCALE_BUCKET, "almond", FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.PLENTIFIN_BUCKET, "olive", FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.WILDSPLASH_BUCKET, "russet", FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.DEVILFISH_BUCKET, "ashen", FOTRegistries.DEVILFISH_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.BATTLEGILL_BUCKET, "jade", FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.WRECKER_BUCKET, "rose", FOTRegistries.WRECKER_VARIANT_REGISTRY, generator.output);
+        this.generateFlatItemWithFishVariant(FOTItems.STORMFISH_BUCKET, "ancient", FOTRegistries.STORMFISH_VARIANT_REGISTRY, generator.output);
 
         generator.generateFlatItem(FOTItems.EARTHWORMS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
@@ -1350,34 +1358,35 @@ public class ModelProvider extends FabricModelProvider
         return new TextureMapping().put(FOTModelTemplates.PLANKS, TextureMapping.getBlockTexture(planks)).put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(planks));
     }
 
-    private void generateFlatItemWithFishVariant(Item item, List<String> overrides, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput)
+    private void generateFlatItemWithFishVariant(Item item, String firstItemPrefix, ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput)
     {
         var suffixes = "_" + BuiltInRegistries.ITEM.getKey(item).getPath();
+        var texture = new TextureMapping().put(TextureSlot.LAYER0, BuiltInRegistries.ITEM.getKey(item).withPrefix("item/" + firstItemPrefix + "_"));
 
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(item), modelOutput, (resourceLocation, map) ->
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), texture, modelOutput, (resourceLocation, map) ->
         {
             var jsonObject = ModelTemplates.FLAT_ITEM.createBaseTemplate(resourceLocation, map);
             var overridesArray = new JsonArray();
-            var index = 1;
+            var index = 0;
 
-            for (var override : overrides)
+            for (var holder : this.provider.lookupOrThrow(resourceKey).listElements().toList())
             {
-                var customModelDataPredicate = new JsonObject();
-                var customModelData = new JsonObject();
-                var customModel = this.getCustomModelLocation(resourceLocation, override + suffixes);
-                customModelData.addProperty("custom_model_data", index++);
-                customModelDataPredicate.add("predicate", customModelData);
-                customModelDataPredicate.addProperty("model", customModel.toString());
-                overridesArray.add(customModelDataPredicate);
+                var fishVariantDataPredicate = new JsonObject();
+                var fishVariantData = new JsonObject();
+                var customModel = this.getCustomModelLocation(resourceLocation, holder.key().location().getPath() + suffixes);
+                fishVariantData.addProperty(FishOfThieves.MOD_RESOURCES + resourceKey.location().getPath(), index++ / 16f);
+                fishVariantDataPredicate.add("predicate", fishVariantData);
+                fishVariantDataPredicate.addProperty("model", customModel.toString());
+                overridesArray.add(fishVariantDataPredicate);
             }
 
             jsonObject.add("overrides", overridesArray);
             return jsonObject;
         });
 
-        for (var override : overrides)
+        for (var holder : this.provider.lookupOrThrow(resourceKey).listElements().toList())
         {
-            var customModel = this.getCustomModelLocation(ModelLocationUtils.getModelLocation(item), override + suffixes);
+            var customModel = this.getCustomModelLocation(ModelLocationUtils.getModelLocation(item), holder.key().location().getPath() + suffixes);
             ModelTemplates.FLAT_ITEM.create(customModel, TextureMapping.layer0(customModel), modelOutput);
         }
     }

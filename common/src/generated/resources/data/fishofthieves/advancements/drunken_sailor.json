@@ -32,7 +32,7 @@
     "hidden": false,
     "icon": {
       "item": "fishofthieves:battlegill",
-      "nbt": "{CustomModelData:2}"
+      "nbt": "{battlegill_variant:\"fishofthieves:rum\"}"
     },
     "show_toast": true,
     "title": {

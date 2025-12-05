@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -12,7 +10,6 @@ import com.stevekung.fishofthieves.entity.variant.WildsplashVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WildsplashVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -36,15 +33,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
 {
     private static final EntityDataAccessor<WildsplashVariant> VARIANT = SynchedEntityData.defineId(Wildsplash.class, FOTDataSerializers.WILDSPLASH_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:russet", 0);
-        map.put("fishofthieves:sandy", 1);
-        map.put("fishofthieves:ocean", 2);
-        map.put("fishofthieves:muddy", 3);
-        map.put("fishofthieves:coral", 4);
-        map.put("fishofthieves:calico", 5);
-    });
 
     public Wildsplash(EntityType<? extends Wildsplash> entityType, Level level)
     {
@@ -103,15 +91,9 @@ public class Wildsplash extends AbstractSchoolingThievesFish<WildsplashVariant>
     }
 
     @Override
-    public Holder<WildsplashVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<WildsplashVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_WILDSPLASH_SPAWNS, WildsplashVariants.RUSSET, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_WILDSPLASH_SPAWNS, WildsplashVariants.RUSSET, creativeBucket);
     }
 
     @Override

@@ -54,6 +54,38 @@
                     "type": "fishofthieves:devilfish",
                     "type_specific": {
                       "type": "fishofthieves:devilfish",
+                      "variant": "fishofthieves:ashen"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{devilfish_variant:\"fishofthieves:ashen\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:devilfish",
+                    "type_specific": {
+                      "type": "fishofthieves:devilfish",
                       "variant": "fishofthieves:seashell"
                     }
                   }
@@ -72,7 +104,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:1}"
+              "tag": "{devilfish_variant:\"fishofthieves:seashell\"}"
             },
             {
               "conditions": [
@@ -104,7 +136,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:2}"
+              "tag": "{devilfish_variant:\"fishofthieves:lava\"}"
             },
             {
               "conditions": [
@@ -136,7 +168,7 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:3}"
+              "tag": "{devilfish_variant:\"fishofthieves:forsaken\"}"
             },
             {
               "conditions": [
@@ -168,7 +200,63 @@
                 }
               ],
               "function": "minecraft:set_nbt",
-              "tag": "{CustomModelData:4}"
+              "tag": "{devilfish_variant:\"fishofthieves:firelight\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "fishofthieves:fish_variant_loot_config"
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type": "fishofthieves:devilfish",
+                    "type_specific": {
+                      "type": "fishofthieves:devilfish",
+                      "variant": "fishofthieves:leopard"
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{devilfish_variant:\"fishofthieves:leopard\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "flags": {
+                        "is_on_fire": true
+                      }
+                    }
+                  }
+                }
+              ],
+              "function": "minecraft:set_nbt",
+              "tag": "{devilfish_variant:\"fishofthieves:ashen\"}"
             }
           ],
           "name": "fishofthieves:devilfish"

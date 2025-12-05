@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.FishOfThievesClient;
+import com.stevekung.fishofthieves.client.FOTItemProperties;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.entity.shoal.ShoalFishData;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
@@ -51,6 +52,8 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         ParticleRenderEvents.ALLOW_BLOCK_DUST_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
         FishOfThievesClient.registerBlockEntityRenderers();
+
+        FOTItemProperties.register();
 
         FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRendererRegistry.register(entry.entityType(), entry.factory()));
 

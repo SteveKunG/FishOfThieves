@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
@@ -16,7 +14,6 @@ import com.stevekung.fishofthieves.utils.Continentalness;
 import com.stevekung.fishofthieves.utils.PeakTypes;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -42,15 +39,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
     private static final EntityDataAccessor<IslehopperVariant> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:stone", 0);
-        map.put("fishofthieves:moss", 1);
-        map.put("fishofthieves:honey", 2);
-        map.put("fishofthieves:raven", 3);
-        map.put("fishofthieves:amethyst", 4);
-        map.put("fishofthieves:briny", 5);
-    });
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
     {
@@ -109,15 +97,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    public Holder<IslehopperVariant> getSpawnVariant(boolean fromBucket)
+    public Holder<IslehopperVariant> getSpawnVariant(boolean creativeBucket)
     {
-        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariants.STONE, fromBucket);
-    }
-
-    @Override
-    public BiMap<String, Integer> variantToCustomModelData()
-    {
-        return VARIANT_TO_INT;
+        return this.getSpawnVariant(this, FOTTags.FishVariant.DEFAULT_ISLEHOPPER_SPAWNS, IslehopperVariants.STONE, creativeBucket);
     }
 
     @Override

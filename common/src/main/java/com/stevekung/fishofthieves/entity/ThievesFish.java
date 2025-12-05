@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -11,8 +10,8 @@ import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -29,6 +28,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     Ingredient LEECHES_FOOD = Ingredient.of(FOTTags.Items.LEECHES_FOOD);
 
     String VARIANT_TAG = "variant";
+    String CREATIVE_TAG = "creative";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
     String NO_FLIP_TAG = "NoFlip";
@@ -37,11 +37,9 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     void setVariant(T variant);
 
-    Holder<T> getSpawnVariant(boolean fromBucket);
+    Holder<T> getSpawnVariant(boolean creativeBucket);
 
     Registry<T> getRegistry();
-
-    BiMap<String, Integer> variantToCustomModelData();
 
     boolean isTrophy();
 
@@ -73,16 +71,7 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
         if (variant != null)
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
-            {
-                var customModelData = this.variantToCustomModelData().get(variant.toString());
-
-                if (customModelData > 0)
-                {
-                    compound.putInt("CustomModelData", customModelData);
-                }
-            }
-            compound.putString(VARIANT_TAG, variant.toString());
+            compound.putString(this.getVariantKey(), variant.toString());
         }
         if (this.isTrophy())
         {
@@ -97,9 +86,9 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     default void loadFromBucket(CompoundTag compound)
     {
-        if (compound.contains(VARIANT_TAG))
+        if (compound.contains(this.getVariantKey()))
         {
-            var variant = this.getRegistry().get(ResourceLocation.tryParse(compound.getString(VARIANT_TAG)));
+            var variant = this.getRegistry().get(ResourceLocation.tryParse(this.getVariantKey()));
 
             if (variant != null)
             {
@@ -122,9 +111,11 @@ public interface ThievesFish<T extends FishData> extends PartyFish
 
     default SpawnGroupData defaultFinalizeSpawn(LivingEntity livingEntity, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag)
     {
-        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(VARIANT_TAG, Tag.TAG_STRING))
+        var fromCreative = dataTag != null && dataTag.contains(CREATIVE_TAG);
+
+        if (reason == MobSpawnType.BUCKET && dataTag != null && dataTag.contains(this.getVariantKey()) && !dataTag.contains(CREATIVE_TAG))
         {
-            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(VARIANT_TAG)));
+            var variant = this.getRegistry().get(ResourceLocation.tryParse(dataTag.getString(this.getVariantKey())));
 
             if (variant != null)
             {
@@ -139,12 +130,17 @@ public interface ThievesFish<T extends FishData> extends PartyFish
             this.setTrophy(true);
             livingEntity.setHealth(FishOfThieves.CONFIG.general.trophyMaxHealth);
         }
-        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET).value());
+        this.setVariant(this.getSpawnVariant(reason == MobSpawnType.BUCKET && fromCreative).value());
         return spawnData;
     }
 
-    default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean fromBucket)
+    default Holder<T> getSpawnVariant(LivingEntity livingEntity, TagKey<T> tagKey, T defaultSpawn, boolean creativeBucket)
     {
-        return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> fromBucket || variant.value().getCondition().test(SpawnSelectors.get(livingEntity))).orElseGet(() -> Holder.direct(defaultSpawn));
+        return this.getRegistry().getTag(tagKey).flatMap(named -> named.getRandomElement(livingEntity.getRandom())).filter(variant -> creativeBucket || variant.value().getCondition().test(SpawnSelectors.get((ServerLevel) livingEntity.level(), livingEntity.blockPosition(), livingEntity.getRandom()))).orElseGet(() -> Holder.direct(defaultSpawn));
+    }
+
+    private String getVariantKey()
+    {
+        return this.getRegistry().key().location().getPath();
     }
 }

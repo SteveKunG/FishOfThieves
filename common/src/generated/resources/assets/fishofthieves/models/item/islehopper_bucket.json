@@ -2,31 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/stone_islehopper_bucket",
+      "predicate": {
+        "fishofthieves:islehopper_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/moss_islehopper_bucket",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:islehopper_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/honey_islehopper_bucket",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:islehopper_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/raven_islehopper_bucket",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:islehopper_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/amethyst_islehopper_bucket",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:islehopper_variant": 0.25
+      }
+    },
+    {
+      "model": "fishofthieves:item/briny_islehopper_bucket",
+      "predicate": {
+        "fishofthieves:islehopper_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/islehopper_bucket"
+    "layer0": "fishofthieves:item/stone_islehopper_bucket"
   }
 }
