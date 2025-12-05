@@ -49,6 +49,7 @@
     "entity.MixinLivingEntity",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
+    "inventory.MixinMerchantMenu",
     "item.MixinFishingRodItem",
     "item.MixinRecordItem",
     "level.MixinFlowingFluid",
