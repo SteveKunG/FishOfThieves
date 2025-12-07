@@ -95,6 +95,11 @@ public class CommonProxyForge
             var trades = event.getTrades();
             FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
         }
+        else if (event.getType() == VillagerProfession.FARMER)
+        {
+            var trades = event.getTrades();
+            FishOfThieves.getFarmerTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
+        }
     }
 
     @SubscribeEvent
