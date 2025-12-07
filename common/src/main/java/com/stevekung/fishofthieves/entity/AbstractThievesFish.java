@@ -152,12 +152,12 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
         super.loadFromBucketTag(compound);
         this.loadFromBucket(compound, this.registryAccess());
 
-        if (!compound.contains(VARIANT_TAG))
+        if (compound.contains(CREATIVE_TAG))
         {
             var registry = this.registryAccess().registryOrThrow(this.registryKey);
-            var muha = Util.getRandomSafe(registry.holders().toList(), this.getRandom());
+            var muha = Util.getRandomSafe(registry.holders().filter(holder -> holder.value().treasured().isEmpty()).toList(), this.getRandom());
             this.setVariant(muha.orElseGet(() -> registry.getHolderOrThrow(this.resourceKey)));
-            this.setTrophy(this.random.nextBoolean());
+            this.setTrophy(compound.contains(ThievesFish.TROPHY_TAG) ? compound.getBoolean(ThievesFish.TROPHY_TAG) : this.random.nextBoolean());
         }
     }
 
@@ -179,7 +179,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     {
         var itemStack = player.getItemInHand(hand);
 
-        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed())
+        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed() && !this.isTreasured())
         {
             if (!this.level().isClientSide())
             {

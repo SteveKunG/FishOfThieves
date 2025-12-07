@@ -9,15 +9,15 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<AncientscaleVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(AncientscaleVariant::new);
     public static final Codec<AncientscaleVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(AncientscaleVariant::new);
     public static final Codec<Holder<AncientscaleVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.ANCIENTSCALE_VARIANT, DIRECT_CODEC);
 
-    public AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public AncientscaleVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.fabric.datagen.provider;
 
-import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -8,6 +7,7 @@ import java.util.function.Function;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.loot.condition.FishVariantLootConfigCondition;
+import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
@@ -18,6 +18,7 @@ import net.minecraft.advancements.critereon.EntitySubPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -29,7 +30,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.SetCustomModelDataFunction;
+import net.minecraft.world.level.storage.loot.functions.SetCustomDataFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -79,7 +80,9 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
                                 .apply(SmeltItemFunction.smelted()
                                         .when(FOTLootManager.shouldSmeltLoot(this.provider)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TrophyFishPredicate(true))))), entityType, registryKey, function)))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TrophyFishPredicate(true))))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TreasuredFishPredicate(false))))
+                                ), entityType, registryKey, function)))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(Items.BONE_MEAL))
@@ -92,18 +95,32 @@ public class EntityLootProvider extends SimpleFabricLootTableProvider
 
     private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomModelDataFromVariant(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, Function<HolderSet<T>, EntitySubPredicate> function)
     {
-        this.provider.lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing(holder -> holder.value().customModelData())).forEach(holder ->
+        var list = this.provider.lookupOrThrow(registryKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();
+
+        // Variant items
+        list.forEach(holder ->
         {
-            builder.apply(this.setCustomModelData(holder.value().customModelData())
+            var compound = new CompoundTag();
+            compound.putString(holder.key().registry().getPath(), holder.key().location().toString());
+
+            builder.apply(this.setCustomData(compound)
                     .when(FishVariantLootConfigCondition.configEnabled())
                     .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityType).subPredicate(function.apply(HolderSet.direct(this.provider.lookupOrThrow(registryKey).getOrThrow(holder.key()))))))
                     .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
         });
+
+        // Default variant item
+        var resourceKey = list.getFirst();
+        var compound = new CompoundTag();
+        compound.putString(resourceKey.key().registry().getPath(), resourceKey.key().location().toString());
+        builder.apply(this.setCustomData(compound)
+                .when(FishVariantLootConfigCondition.configEnabled().invert())
+                .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
         return builder;
     }
 
-    private LootItemConditionalFunction.Builder<?> setCustomModelData(int data)
+    private LootItemConditionalFunction.Builder<?> setCustomData(CompoundTag compoundTag)
     {
-        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomModelDataFunction(lootItemConditions, ConstantValue.exactly(data)));
+        return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomDataFunction(lootItemConditions, compoundTag));
     }
 }

@@ -6,12 +6,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
@@ -29,6 +27,7 @@ import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -49,17 +48,17 @@ import net.minecraft.world.level.material.Fluids;
 
 public class AdvancementProvider extends FabricAdvancementProvider
 {
-    private static final Map<Item, BiMap<String, Integer>> BUCKET_TO_VARIANTS_MAP = Map.of(
-            FOTItems.SPLASHTAIL_BUCKET, Splashtail.VARIANT_TO_INT,
-            FOTItems.PONDIE_BUCKET, Pondie.VARIANT_TO_INT,
-            FOTItems.ISLEHOPPER_BUCKET, Islehopper.VARIANT_TO_INT,
-            FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.VARIANT_TO_INT,
-            FOTItems.PLENTIFIN_BUCKET, Plentifin.VARIANT_TO_INT,
-            FOTItems.WILDSPLASH_BUCKET, Wildsplash.VARIANT_TO_INT,
-            FOTItems.DEVILFISH_BUCKET, Devilfish.VARIANT_TO_INT,
-            FOTItems.BATTLEGILL_BUCKET, Battlegill.VARIANT_TO_INT,
-            FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT,
-            FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT
+    private static final Map<Item, ResourceKey<? extends Registry<? extends AbstractFishVariant>>> BUCKET_TO_VARIANTS_MAP = Map.of(
+            FOTItems.SPLASHTAIL_BUCKET, FOTRegistries.SPLASHTAIL_VARIANT,
+            FOTItems.PONDIE_BUCKET, FOTRegistries.PONDIE_VARIANT,
+            FOTItems.ISLEHOPPER_BUCKET, FOTRegistries.ISLEHOPPER_VARIANT,
+            FOTItems.ANCIENTSCALE_BUCKET, FOTRegistries.ANCIENTSCALE_VARIANT,
+            FOTItems.PLENTIFIN_BUCKET, FOTRegistries.PLENTIFIN_VARIANT,
+            FOTItems.WILDSPLASH_BUCKET, FOTRegistries.WILDSPLASH_VARIANT,
+            FOTItems.DEVILFISH_BUCKET, FOTRegistries.DEVILFISH_VARIANT,
+            FOTItems.BATTLEGILL_BUCKET, FOTRegistries.BATTLEGILL_VARIANT,
+            FOTItems.WRECKER_BUCKET, FOTRegistries.WRECKER_VARIANT,
+            FOTItems.STORMFISH_BUCKET, FOTRegistries.STORMFISH_VARIANT
     );
     private static final Item[] FRUITS = new Item[] {
             FOTItems.BANANA,
@@ -118,9 +117,9 @@ public class AdvancementProvider extends FabricAdvancementProvider
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
                                 ItemPredicate.Builder.item().of(FOTItems.DEVILFISH_BUCKET).hasComponents(DataComponentPredicate.builder()
-                                        .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.location().toString())))).build()
+                                        .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(FOTRegistries.DEVILFISH_VARIANT.location().getPath(), DevilfishVariants.LAVA.location().toString())))).build()
                                 ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.AXOLOTL).build()))))
-                .display(FOTItems.DEVILFISH,
+                .display(FOTItem.create(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
                         null, AdvancementType.TASK, true, true, false)
@@ -268,7 +267,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 
         Advancement.Builder.advancement().parent(battlegillAdvancement)
                 .addCriterion("drunken_sailor", FollowLivingWithEffectTrigger.TriggerInstance.entityWithEffect(EntityPredicate.Builder.entity().of(FOTEntities.BATTLEGILL).subPredicate(FOTEntitySubPredicates.battlegill(HolderSet.direct(provider.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.RUM)))), MobEffectsPredicate.Builder.effects().and(MobEffects.CONFUSION)))
-                .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
+                .display(FOTItem.create(FOTItems.BATTLEGILL, "battlegill_variant", "fishofthieves:rum"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.title"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.description"),
                         null, AdvancementType.TASK, true, true, false)
@@ -293,26 +292,24 @@ public class AdvancementProvider extends FabricAdvancementProvider
     {
         for (var bucket : Arrays.stream(FOTTags.FISH_BUCKETS).map(FOTMobBucketItem.class::cast).toList())
         {
-            var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
+            var resourceKey = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-            for (var variant : variants.keySet().stream().map(ResourceLocation::parse).toList())
+            for (var holder : provider.lookupOrThrow(resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList())
             {
-                var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(bucket.getRegistryKey());
-
-                if (provider.lookupOrThrow(registryKey).getOrThrow(ResourceKey.create(registryKey, variant)).value().treasured().isPresent())
+                if (holder.value().treasured().isPresent())
                 {
                     continue;
                 }
 
                 var compoundTag = new CompoundTag();
-                compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
+                compoundTag.putString(holder.key().registry().getPath(), holder.key().location().toString());
 
                 if (trophy)
                 {
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                     compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 }
-                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).withSubPredicate(FOTItemSubPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
+                builder.addCriterion(holder.key().location().getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(bucket).withSubPredicate(FOTItemSubPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))));
             }
         }
         return builder;

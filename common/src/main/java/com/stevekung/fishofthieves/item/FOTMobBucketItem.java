@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.item;
 
-import java.util.Comparator;
 import java.util.List;
 
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -9,40 +8,58 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-public class FOTMobBucketItem extends MobBucketItem
+public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
 {
     private final EntityType<?> entityType;
-    private final ResourceLocation registryKey;
+    private final ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey;
 
-    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<?> registryKey, Item.Properties properties)
+    public FOTMobBucketItem(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
-        this.registryKey = registryKey.location();
+        this.resourceKey = resourceKey;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void verifyComponentsAfterLoad(ItemStack itemStack)
+    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slotId, boolean isSelected)
     {
-        if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && !itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
+        var registryKeyTag = this.resourceKey.location().getPath();
+
+        // Item contains CustomModelData component
+        if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
-            // item without a custom model data component is always 0 if enable all fish variants
-            itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(0));
+            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant)
+            {
+                var bucketEntityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+                CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
+                {
+                    compoundTag.putString(registryKeyTag, bucketEntityData.getUnsafe().getString(ThievesFish.VARIANT_TAG));
+                    compoundTag.remove(ThievesFish.VARIANT_TAG);
+                });
+                itemStack.remove(DataComponents.CUSTOM_MODEL_DATA);
+            }
+        }
+        // Item does not have any component
+        else if (!itemStack.has(DataComponents.BUCKET_ENTITY_DATA))
+        {
+            var variant = level.registryAccess().registryOrThrow(this.resourceKey).holders().sorted(AbstractFishVariant.COMPARATOR).toList().getFirst().key().location().toString();
+            itemStack.set(DataComponents.BUCKET_ENTITY_DATA, FOTItem.createCustomData(registryKeyTag, variant));
         }
     }
 
@@ -53,56 +70,92 @@ public class FOTMobBucketItem extends MobBucketItem
         {
             var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
 
-            if (!customData.isEmpty())
+            if (context.registries() != null && !customData.isEmpty())
             {
                 var compoundTag = customData.copyTag();
 
-                if (compoundTag.contains(ThievesFish.VARIANT_TAG, Tag.TAG_STRING))
+                for (var entry : context.registries().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList())
                 {
-                    var type = this.createTooltip(compoundTag.getString(ThievesFish.VARIANT_TAG));
+                    var key = entry.key().registry().getPath();
+                    var variant = entry.key().location();
 
-                    if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                    if (compoundTag.getString(key).equals(variant.toString()))
                     {
-                        type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                        var treasured = entry.value().treasured().isPresent();
+                        var type = this.createTooltip(variant.getPath(), treasured);
+
+                        if (!treasured && compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                        {
+                            type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
+                        }
+                        tooltipComponents.add(type);
                     }
-                    tooltipComponents.add(type);
                 }
             }
         }
     }
 
+    @Override
+    public ResourceKey<? extends Registry<? extends AbstractFishVariant>> getResourceKey()
+    {
+        return this.resourceKey;
+    }
+
     public static void addFishVariantsBucket(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output, Item item)
     {
-        if (FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+        var list = itemDisplayParameters.holders().lookupOrThrow(((FOTMobBucketItem) item).resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();
+
+        for (var i = 0; i < list.size(); i++)
         {
-            if (item instanceof FOTMobBucketItem fotItem)
+            if (!FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab && i > 0)
             {
-                Comparator<Holder<? extends AbstractFishVariant>> comparator = Comparator.comparing(Holder::value, Comparator.comparingInt(AbstractFishVariant::customModelData));
-                var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(fotItem.getRegistryKey());
-                itemDisplayParameters.holders().lookup(registryKey).ifPresent(lookup -> lookup.listElements().sorted(comparator).map(Holder.Reference::value).forEach(variant -> output.accept(create(item, variant))));
+                break;
+            }
+
+            var entry = list.get(i);
+            var key = entry.key().registry().getPath();
+            var variant = entry.key().location();
+
+            var itemStack = new ItemStack(item);
+            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(key, variant.toString()));
+
+            if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && entry.value().treasured().isEmpty())
+            {
+                output.accept(create(item, key, variant.toString(), false));
+                output.accept(create(item, key, variant.toString(), true));
+            }
+            else
+            {
+                output.accept(create(item, key, variant.toString(), null));
             }
         }
-        else
-        {
-            output.accept(item);
-        }
     }
 
-    public ResourceLocation getRegistryKey()
+    private MutableComponent createTooltip(String variant, boolean treasured)
     {
-        return this.registryKey;
+        return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(variant).getPath())).withStyle(ChatFormatting.ITALIC, treasured ? ChatFormatting.GOLD : ChatFormatting.GRAY);
     }
 
-    private MutableComponent createTooltip(String location)
-    {
-        return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(location).getPath())).withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY);
-    }
-
-    private static ItemStack create(Item item, AbstractFishVariant variant)
+    private static ItemStack create(Item item, String registryPath, String variant, Boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        itemStack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(variant.customModelData()));
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(ThievesFish.VARIANT_TAG, FishOfThieves.id(variant.name()).toString()));
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(registryPath, variant));
+
+        if (!FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
+        {
+            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.CREATIVE_TAG, true));
+        }
+        if (trophy != null)
+        {
+            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy));
+        }
+        return itemStack;
+    }
+
+    public static ItemStack createRandomBucket(Item item)
+    {
+        var itemStack = new ItemStack(item);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.CREATIVE_TAG, true));
         return itemStack;
     }
 }

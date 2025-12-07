@@ -2,37 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/ashen_devilfish_bucket",
+      "predicate": {
+        "fishofthieves:devilfish_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/seashell_devilfish_bucket",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:devilfish_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/lava_devilfish_bucket",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:devilfish_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/forsaken_devilfish_bucket",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:devilfish_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/firelight_devilfish_bucket",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:devilfish_variant": 0.25
       }
     },
     {
       "model": "fishofthieves:item/leopard_devilfish_bucket",
       "predicate": {
-        "custom_model_data": 5
+        "fishofthieves:devilfish_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/devilfish_bucket"
+    "layer0": "fishofthieves:item/ashen_devilfish_bucket"
   }
 }

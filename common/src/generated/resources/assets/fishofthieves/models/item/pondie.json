@@ -2,37 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/charcoal_pondie",
+      "predicate": {
+        "fishofthieves:pondie_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/orchid_pondie",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:pondie_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/bronze_pondie",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:pondie_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/bright_pondie",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:pondie_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/moonsky_pondie",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:pondie_variant": 0.25
       }
     },
     {
       "model": "fishofthieves:item/dewdrop_pondie",
       "predicate": {
-        "custom_model_data": 5
+        "fishofthieves:pondie_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/pondie"
+    "layer0": "fishofthieves:item/charcoal_pondie"
   }
 }

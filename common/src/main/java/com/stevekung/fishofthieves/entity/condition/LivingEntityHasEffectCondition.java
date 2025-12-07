@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.registry.FOTSpawnConditions;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.LivingEntity;
 
 public record LivingEntityHasEffectCondition(Holder<MobEffect> mobEffect) implements SpawnCondition
 {
@@ -20,7 +21,7 @@ public record LivingEntityHasEffectCondition(Holder<MobEffect> mobEffect) implem
     @Override
     public boolean test(SpawnConditionContext context)
     {
-        return context.livingEntity() != null && context.livingEntity().hasEffect(this.mobEffect);
+        return context.entity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(this.mobEffect);
     }
 
     public static Builder effect(Holder<MobEffect> mobEffect)

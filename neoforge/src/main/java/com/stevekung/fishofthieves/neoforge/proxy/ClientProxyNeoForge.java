@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
+import com.stevekung.fishofthieves.client.FOTItemProperties;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
@@ -40,6 +41,7 @@ public class ClientProxyNeoForge
     public void clientSetup(FMLClientSetupEvent event)
     {
         FishOfThievesClient.registerBlockEntityRenderers();
+        FOTItemProperties.register();
     }
 
     private void registerRenderers(EntityRenderersEvent.RegisterRenderers event)

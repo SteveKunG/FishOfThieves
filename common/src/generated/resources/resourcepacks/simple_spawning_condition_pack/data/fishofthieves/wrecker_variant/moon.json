@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/wrecker/moon_glow",
   "name": "moon",
+  "order": 4,
   "spawn_settings": {
     "entity": [
       {

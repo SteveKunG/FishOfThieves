@@ -1,5 +1,5 @@
 {
-  "custom_model_data": 1,
   "name": "sandy",
+  "order": 1,
   "texture": "fishofthieves:entity/wildsplash/sandy"
 }

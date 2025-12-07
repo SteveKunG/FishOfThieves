@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 5,
   "glow_texture": "fishofthieves:entity/wrecker/treasured/emerald_glow",
   "name": "emerald",
+  "order": 5,
   "spawn_settings": {
     "entity": [
       {

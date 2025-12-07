@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 
 import net.minecraft.advancements.critereon.EntitySubPredicate;
@@ -27,6 +28,7 @@ public class FOTEntitySubPredicates
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<WreckerVariant> WRECKER = register("wrecker", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.WRECKER_VARIANT, entity -> entity instanceof Wrecker wrecker ? Optional.of(wrecker.getVariant()) : Optional.empty()));
     public static final EntitySubPredicates.EntityHolderVariantPredicateType<StormfishVariant> STORMFISH = register("stormfish", EntitySubPredicates.EntityHolderVariantPredicateType.create(FOTRegistries.STORMFISH_VARIANT, entity -> entity instanceof Stormfish stormfish ? Optional.of(stormfish.getVariant()) : Optional.empty()));
     public static final MapCodec<TrophyFishPredicate> TROPHY = register("trophy", TrophyFishPredicate.CODEC);
+    public static final MapCodec<TreasuredFishPredicate> TREASURED = register("treasured", TreasuredFishPredicate.CODEC);
 
     public static void init()
     {

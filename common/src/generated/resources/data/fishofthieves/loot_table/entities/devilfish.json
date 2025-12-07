@@ -55,6 +55,16 @@
                       "trophy": true
                     }
                   }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:treasured",
+                      "treasured": false
+                    }
+                  }
                 }
               ],
               "count": {
@@ -115,8 +125,8 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 0.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:ashen\"}"
             },
             {
               "conditions": [
@@ -169,8 +179,8 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 1.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:seashell\"}"
             },
             {
               "conditions": [
@@ -223,8 +233,8 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 2.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:lava\"}"
             },
             {
               "conditions": [
@@ -277,8 +287,8 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 3.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:forsaken\"}"
             },
             {
               "conditions": [
@@ -331,8 +341,8 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 4.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:firelight\"}"
             },
             {
               "conditions": [
@@ -385,8 +395,54 @@
                   }
                 }
               ],
-              "function": "minecraft:set_custom_model_data",
-              "value": 5.0
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:leopard\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "function": "minecraft:set_custom_data",
+              "tag": "{devilfish_variant:\"fishofthieves:ashen\"}"
             }
           ],
           "name": "fishofthieves:devilfish"

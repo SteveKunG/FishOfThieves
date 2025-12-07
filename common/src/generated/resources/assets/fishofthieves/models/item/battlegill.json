@@ -2,37 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/jade_battlegill",
+      "predicate": {
+        "fishofthieves:battlegill_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/sky_battlegill",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:battlegill_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/rum_battlegill",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:battlegill_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/sand_battlegill",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:battlegill_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/bittersweet_battlegill",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:battlegill_variant": 0.25
       }
     },
     {
       "model": "fishofthieves:item/zest_battlegill",
       "predicate": {
-        "custom_model_data": 5
+        "fishofthieves:battlegill_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/battlegill"
+    "layer0": "fishofthieves:item/jade_battlegill"
   }
 }

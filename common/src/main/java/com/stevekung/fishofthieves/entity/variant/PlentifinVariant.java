@@ -9,15 +9,15 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<PlentifinVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(PlentifinVariant::new);
     public static final Codec<PlentifinVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(PlentifinVariant::new);
     public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC);
 
-    public PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public PlentifinVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

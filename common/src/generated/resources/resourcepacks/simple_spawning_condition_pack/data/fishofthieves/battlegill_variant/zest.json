@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 5,
   "glow_texture": "fishofthieves:entity/battlegill/treasured/zest_glow",
   "name": "zest",
+  "order": 5,
   "spawn_settings": {
     "entity": [
       {

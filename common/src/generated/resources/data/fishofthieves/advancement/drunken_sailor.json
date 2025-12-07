@@ -23,7 +23,9 @@
     },
     "icon": {
       "components": {
-        "minecraft:custom_model_data": 2
+        "minecraft:custom_data": {
+          "battlegill_variant": "fishofthieves:rum"
+        }
       },
       "count": 1,
       "id": "fishofthieves:battlegill"

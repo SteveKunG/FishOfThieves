@@ -9,15 +9,15 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<WildsplashVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(WildsplashVariant::new);
     public static final Codec<WildsplashVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(WildsplashVariant::new);
     public static final Codec<Holder<WildsplashVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.WILDSPLASH_VARIANT, DIRECT_CODEC);
 
-    public WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public WildsplashVariant(String name, ResourceLocation texture, Optional<ResourceLocation> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

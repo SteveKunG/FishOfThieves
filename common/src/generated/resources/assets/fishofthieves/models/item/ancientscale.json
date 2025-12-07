@@ -2,37 +2,43 @@
   "parent": "minecraft:item/generated",
   "overrides": [
     {
+      "model": "fishofthieves:item/almond_ancientscale",
+      "predicate": {
+        "fishofthieves:ancientscale_variant": 0.0
+      }
+    },
+    {
       "model": "fishofthieves:item/sapphire_ancientscale",
       "predicate": {
-        "custom_model_data": 1
+        "fishofthieves:ancientscale_variant": 0.0625
       }
     },
     {
       "model": "fishofthieves:item/smoke_ancientscale",
       "predicate": {
-        "custom_model_data": 2
+        "fishofthieves:ancientscale_variant": 0.125
       }
     },
     {
       "model": "fishofthieves:item/bone_ancientscale",
       "predicate": {
-        "custom_model_data": 3
+        "fishofthieves:ancientscale_variant": 0.1875
       }
     },
     {
       "model": "fishofthieves:item/starshine_ancientscale",
       "predicate": {
-        "custom_model_data": 4
+        "fishofthieves:ancientscale_variant": 0.25
       }
     },
     {
       "model": "fishofthieves:item/blossom_ancientscale",
       "predicate": {
-        "custom_model_data": 5
+        "fishofthieves:ancientscale_variant": 0.3125
       }
     }
   ],
   "textures": {
-    "layer0": "fishofthieves:item/ancientscale"
+    "layer0": "fishofthieves:item/almond_ancientscale"
   }
 }
