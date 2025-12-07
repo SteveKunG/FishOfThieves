@@ -187,7 +187,7 @@ public class FOTFeatures
                 new CoconutTrunkPlacer(7, 2, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
                 new CoconutFrondsPlacer(2, 1, List.of(Pair.of(7, 1))),
-                new ThreeLayersFeatureSize(5, 15, 1, 2, 4, OptionalInt.empty()));
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createBananaTree()
@@ -197,7 +197,7 @@ public class FOTFeatures
                 new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM)),
                 BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES),
                 new BananaLeavesPlacer(0.2f),
-                new ThreeLayersFeatureSize(5, 8, 1, 2, 5, OptionalInt.empty()));
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
