@@ -41,7 +41,14 @@ public final class ShoalSpawner
             return;
         }
 
-        if (isOpenWater(level, blockPos) && ShoalChance.canSpawnAt(level, blockPos))
+        var belowState = level.getBlockState(blockPos.below());
+
+        if (belowState.is(Blocks.ICE))
+        {
+            blockPos = blockPos.below();
+        }
+
+        if ((isOpenWater(level, blockPos) || belowState.is(Blocks.ICE)) && ShoalChance.canSpawnAt(level, blockPos))
         {
             level.setBlock(blockPos.below(), FOTBlocks.SHOAL.defaultBlockState(), Block.UPDATE_ALL);
 
@@ -62,7 +69,7 @@ public final class ShoalSpawner
 
     private static Optional<BlockPos> findNearestExistingShoal(ServerLevel level, BlockPos pos)
     {
-        var optional = level.getPoiManager().findClosest(holder -> holder.is(FOTTags.PoiTypes.SHOAL), blockPos -> blockPos.getY() == level.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos.getX(), blockPos.getZ()) - 1, pos, FishOfThieves.CONFIG.shoal.spreadDistance, PoiManager.Occupancy.ANY);
+        var optional = level.getPoiManager().findClosest(holder -> holder.is(FOTTags.PoiTypes.SHOAL), blockPos -> level.getBlockState(blockPos.above(1)).is(Blocks.ICE) || blockPos.getY() == level.getHeight(Heightmap.Types.WORLD_SURFACE, blockPos.getX(), blockPos.getZ()) - 1, pos, FishOfThieves.CONFIG.shoal.spreadDistance, PoiManager.Occupancy.ANY);
         return optional.map(blockPos -> blockPos.above(1));
     }
 
