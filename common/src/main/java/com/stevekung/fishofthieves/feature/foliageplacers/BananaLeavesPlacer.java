@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.Fluids;
 public class BananaLeavesPlacer extends FoliagePlacer
 {
     public static final MapCodec<BananaLeavesPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> frondsPart(instance).apply(instance, BananaLeavesPlacer::new));
-    protected final float oneLeavesChance;
+    final float oneLeavesChance;
 
     protected static <P extends BananaLeavesPlacer> Products.P1<Mu<P>, Float> frondsPart(Instance<P> instance)
     {
@@ -48,11 +48,16 @@ public class BananaLeavesPlacer extends FoliagePlacer
     {
         var pos = attachment.pos();
 
-        if (TreeFeature.validTreePos(level, pos))
+        if (!TreeFeature.validTreePos(level, pos))
         {
-            for (var localY = offset; localY >= offset - 1; localY--)
+            return;
+        }
+
+        for (var localY = offset; localY >= offset - 1; localY--)
+        {
+            if (localY == 0)
             {
-                if (localY == 0)
+                if (TreeFeature.validTreePos(level, pos))
                 {
                     var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
 
@@ -60,17 +65,21 @@ public class BananaLeavesPlacer extends FoliagePlacer
                     {
                         blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
                     }
+
                     blockSetter.set(pos, blockState);
                 }
-                else
+            }
+            else
+            {
+                var mutableBlockPos = pos.mutable();
+
+                for (var direction : Direction.Plane.HORIZONTAL)
                 {
-                    var mutableBlockPos = pos.mutable();
+                    var direction2 = direction.getOpposite();
+                    var blockPos2 = mutableBlockPos.offset(direction2.getStepX(), localY, direction2.getStepZ());
 
-                    for (var direction : Direction.Plane.HORIZONTAL)
+                    if (TreeFeature.validTreePos(level, blockPos2))
                     {
-                        var direction2 = direction.getOpposite();
-                        var blockPos2 = mutableBlockPos.offset(direction2.getStepX(), localY, direction2.getStepZ());
-
                         var blockState = config.foliageProvider.getState(random, pos).setValue(BananaLeavesBlock.FACING, direction2).setValue(BananaLeavesBlock.COUNT, random.nextFloat() < this.oneLeavesChance ? 1 : 2).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER);
 
                         if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
@@ -78,11 +87,8 @@ public class BananaLeavesPlacer extends FoliagePlacer
                             blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
                         }
 
-                        if (TreeFeature.validTreePos(level, blockPos2))
-                        {
-                            blockSetter.set(blockPos2, blockState);
-                            blockSetter.set(blockPos2.relative(direction2, 1), blockState.setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL));
-                        }
+                        blockSetter.set(blockPos2, blockState);
+                        blockSetter.set(blockPos2.relative(direction2, 1), blockState.setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL));
                     }
                 }
             }

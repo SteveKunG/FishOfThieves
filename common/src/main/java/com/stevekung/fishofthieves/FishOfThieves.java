@@ -233,11 +233,46 @@ public class FishOfThieves
         return list;
     }
 
+    private static List<VillagerTrades.ItemListing> getFarmerTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
+    {
+        switch (level)
+        {
+            case 1 ->
+            {
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.BANANA, 10, 16, 2));
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.COCONUT, 6, 12, 2));
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.POMEGRANATE, 8, 12, 4));
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.RAW_MANGO, 6, 12, 3));
+            }
+            case 2 ->
+            {
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.MANGO, 8, 10, 6));
+            }
+            case 3 ->
+            {
+                list.add(new VillagerTrades.EmeraldForItems(FOTItems.PINEAPPLE, 2, 6, 5));
+                list.add(new VillagerTrades.ItemsForEmeralds(FOTItems.MANGO, 1, 3, 10, 8));
+            }
+            case 4 ->
+            {
+                list.add(new VillagerTrades.ItemsForEmeralds(FOTItems.PINEAPPLE, 1, 1, 5, 10));
+            }
+        }
+        return list;
+    }
+
     public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
     {
         return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.rangeClosed(1, 5)
                 .boxed()
                 .forEach(level -> map.put((int)level, list -> getFishermanTradesByLevel(level, list))));
+    }
+
+    public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFarmerTrades()
+    {
+        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.rangeClosed(1, 4)
+                .boxed()
+                .forEach(level -> map.put((int)level, list -> getFarmerTradesByLevel(level, list))));
     }
 
     public static Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> getEntityAttributes()
