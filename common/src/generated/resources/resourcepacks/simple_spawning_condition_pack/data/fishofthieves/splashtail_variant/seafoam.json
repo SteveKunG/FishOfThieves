@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/splashtail/seafoam_glow",
   "name": "seafoam",
+  "order": 4,
   "spawn_settings": {
     "entity": [
       {

@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -13,7 +11,6 @@ import com.stevekung.fishofthieves.entity.variant.SplashtailVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,15 +27,6 @@ import net.minecraft.world.level.Level;
 public class Splashtail extends AbstractSchoolingThievesFish<SplashtailVariant>
 {
     private static final EntityDataAccessor<Holder<SplashtailVariant>> VARIANT = SynchedEntityData.defineId(Splashtail.class, FOTDataSerializers.SPLASHTAIL_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:ruby", 0);
-        map.put("fishofthieves:sunny", 1);
-        map.put("fishofthieves:indigo", 2);
-        map.put("fishofthieves:umber", 3);
-        map.put("fishofthieves:seafoam", 4);
-        map.put("fishofthieves:obsidian", 5);
-    });
 
     public Splashtail(EntityType<? extends Splashtail> entityType, Level level)
     {

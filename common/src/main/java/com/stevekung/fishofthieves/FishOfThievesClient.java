@@ -126,6 +126,7 @@ public class FishOfThievesClient
     {
         PREVIOUS_CONFIG_VALUES.put("displayAllFishVariantInCreativeTab", FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab);
         PREVIOUS_CONFIG_VALUES.put("displayTrophySpawnEggInCreativeTab", FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab);
+        PREVIOUS_CONFIG_VALUES.put("displayTrophyBucketInCreativeTab", FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab);
     }
 
     private static InteractionResult onConfigChanged(FishOfThievesConfig config)
@@ -133,7 +134,11 @@ public class FishOfThievesClient
         var minecraft = Minecraft.getInstance();
         var player = minecraft.player;
 
-        if (player != null && (isConfigChanged(config, "displayAllFishVariantInCreativeTab") || isConfigChanged(config, "displayTrophySpawnEggInCreativeTab")))
+        if (player != null && (
+                isConfigChanged(config, "displayAllFishVariantInCreativeTab") ||
+                        isConfigChanged(config, "displayTrophySpawnEggInCreativeTab") ||
+                        isConfigChanged(config, "displayTrophyBucketInCreativeTab")
+        ))
         {
             MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.registryAccess()));
             MixinCreativeModeTabs.invokeBuildAllTabContents(MixinCreativeModeTabs.getCACHED_PARAMETERS());
@@ -149,6 +154,7 @@ public class FishOfThievesClient
         {
             case "displayAllFishVariantInCreativeTab" -> config.general.displayAllFishVariantInCreativeTab;
             case "displayTrophySpawnEggInCreativeTab" -> config.general.displayTrophySpawnEggInCreativeTab;
+            case "displayTrophyBucketInCreativeTab" -> config.general.displayTrophyBucketInCreativeTab;
             default ->
             {
                 FishOfThieves.LOGGER.error("Unknown configuration parameter: {}", configName);

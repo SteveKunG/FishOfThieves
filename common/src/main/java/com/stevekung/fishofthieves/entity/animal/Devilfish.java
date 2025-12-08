@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
@@ -13,7 +11,6 @@ import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -42,15 +39,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
 {
     private static final EntityDataAccessor<Holder<DevilfishVariant>> VARIANT = SynchedEntityData.defineId(Devilfish.class, FOTDataSerializers.DEVILFISH_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:ashen", 0);
-        map.put("fishofthieves:seashell", 1);
-        map.put("fishofthieves:lava", 2);
-        map.put("fishofthieves:forsaken", 3);
-        map.put("fishofthieves:firelight", 4);
-        map.put("fishofthieves:leopard", 5);
-    });
 
     private static final List<SensorType<? extends Sensor<? super Devilfish>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.BattlegillAi;
@@ -14,7 +12,6 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -43,15 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 {
     private static final EntityDataAccessor<Holder<BattlegillVariant>> VARIANT = SynchedEntityData.defineId(Battlegill.class, FOTDataSerializers.BATTLEGILL_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:jade", 0);
-        map.put("fishofthieves:sky", 1);
-        map.put("fishofthieves:rum", 2);
-        map.put("fishofthieves:sand", 3);
-        map.put("fishofthieves:bittersweet", 4);
-        map.put("fishofthieves:zest", 5);
-    });
 
     private static final List<SensorType<? extends Sensor<? super Battlegill>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,

@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/stone_islehopper_bucket"
+        },
+        "when": {
+          "islehopper_variant": "fishofthieves:stone"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/moss_islehopper_bucket"
         },
-        "threshold": 1.0
+        "when": {
+          "islehopper_variant": "fishofthieves:moss"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/honey_islehopper_bucket"
         },
-        "threshold": 2.0
+        "when": {
+          "islehopper_variant": "fishofthieves:honey"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/raven_islehopper_bucket"
         },
-        "threshold": 3.0
+        "when": {
+          "islehopper_variant": "fishofthieves:raven"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/amethyst_islehopper_bucket"
         },
-        "threshold": 4.0
+        "when": {
+          "islehopper_variant": "fishofthieves:amethyst"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/briny_islehopper_bucket"
         },
-        "threshold": 5.0
+        "when": {
+          "islehopper_variant": "fishofthieves:briny"
+        }
       }
     ],
+    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/islehopper_bucket"
+      "model": "fishofthieves:item/stone_islehopper_bucket"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

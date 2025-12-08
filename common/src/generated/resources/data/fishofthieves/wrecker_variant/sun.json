@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 1,
   "glow_texture": "fishofthieves:entity/wrecker/sun_glow",
   "name": "sun",
+  "order": 1,
   "spawn_settings": {
     "entity": [
       {

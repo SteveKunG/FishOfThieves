@@ -381,7 +381,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     {
         var itemStack = player.getItemInHand(hand);
 
-        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed())
+        if (this.isFood(itemStack) && !this.isTrophy() && !this.hasFed() && !this.isTreasured())
         {
             if (!this.level().isClientSide())
             {

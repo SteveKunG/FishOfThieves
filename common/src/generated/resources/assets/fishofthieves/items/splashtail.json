@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/ruby_splashtail"
+        },
+        "when": {
+          "splashtail_variant": "fishofthieves:ruby"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sunny_splashtail"
         },
-        "threshold": 1.0
+        "when": {
+          "splashtail_variant": "fishofthieves:sunny"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/indigo_splashtail"
         },
-        "threshold": 2.0
+        "when": {
+          "splashtail_variant": "fishofthieves:indigo"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/umber_splashtail"
         },
-        "threshold": 3.0
+        "when": {
+          "splashtail_variant": "fishofthieves:umber"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/seafoam_splashtail"
         },
-        "threshold": 4.0
+        "when": {
+          "splashtail_variant": "fishofthieves:seafoam"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/obsidian_splashtail"
         },
-        "threshold": 5.0
+        "when": {
+          "splashtail_variant": "fishofthieves:obsidian"
+        }
       }
     ],
+    "component": "minecraft:custom_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/splashtail"
+      "model": "fishofthieves:item/ruby_splashtail"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

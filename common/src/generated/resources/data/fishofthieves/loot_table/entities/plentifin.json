@@ -55,6 +55,16 @@
                       "trophy": true
                     }
                   }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "fishofthieves:treasured",
+                      "treasured": false
+                    }
+                  }
                 }
               ],
               "count": {
@@ -114,13 +124,8 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  0.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:olive\"}"
             },
             {
               "conditions": [
@@ -172,13 +177,8 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  1.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:amber\"}"
             },
             {
               "conditions": [
@@ -230,13 +230,8 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  2.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:cloudy\"}"
             },
             {
               "conditions": [
@@ -288,13 +283,8 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  3.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:bonedust\"}"
             },
             {
               "conditions": [
@@ -346,13 +336,8 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  4.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:watery\"}"
             },
             {
               "conditions": [
@@ -404,13 +389,54 @@
                   }
                 }
               ],
-              "floats": {
-                "mode": "replace_all",
-                "values": [
-                  5.0
-                ]
-              },
-              "function": "minecraft:set_custom_model_data"
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:crimson\"}"
+            },
+            {
+              "conditions": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "fishofthieves:fish_variant_loot_config"
+                  }
+                },
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:any_of",
+                    "terms": [
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                          "flags": {
+                            "is_on_fire": true
+                          }
+                        }
+                      },
+                      {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "direct_attacker",
+                        "predicate": {
+                          "equipment": {
+                            "mainhand": {
+                              "predicates": {
+                                "minecraft:enchantments": [
+                                  {
+                                    "enchantments": "#minecraft:smelts_loot"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "function": "minecraft:set_custom_data",
+              "tag": "{plentifin_variant:\"fishofthieves:olive\"}"
             }
           ],
           "name": "fishofthieves:plentifin"

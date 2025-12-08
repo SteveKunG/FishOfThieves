@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/wildsplash/coral_glow",
   "name": "coral",
+  "order": 4,
   "spawn_settings": {
     "entity": [
       {

@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/almond_ancientscale"
+        },
+        "when": {
+          "ancientscale_variant": "fishofthieves:almond"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sapphire_ancientscale"
         },
-        "threshold": 1.0
+        "when": {
+          "ancientscale_variant": "fishofthieves:sapphire"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/smoke_ancientscale"
         },
-        "threshold": 2.0
+        "when": {
+          "ancientscale_variant": "fishofthieves:smoke"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bone_ancientscale"
         },
-        "threshold": 3.0
+        "when": {
+          "ancientscale_variant": "fishofthieves:bone"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/starshine_ancientscale"
         },
-        "threshold": 4.0
+        "when": {
+          "ancientscale_variant": "fishofthieves:starshine"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/blossom_ancientscale"
         },
-        "threshold": 5.0
+        "when": {
+          "ancientscale_variant": "fishofthieves:blossom"
+        }
       }
     ],
+    "component": "minecraft:custom_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/ancientscale"
+      "model": "fishofthieves:item/almond_ancientscale"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }
