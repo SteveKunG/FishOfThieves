@@ -81,6 +81,7 @@ public class FOTDisplayItems
         output.accept(FOTItems.COCONUT_TRAPDOOR);
         output.accept(FOTItems.COCONUT_PRESSURE_PLATE);
         output.accept(FOTItems.COCONUT_BUTTON);
+        output.accept(FOTItems.COCONUT_SHELF);
         output.accept(FOTItems.COCONUT_SIGN);
         output.accept(FOTItems.COCONUT_HANGING_SIGN);
         output.accept(FOTItems.COCONUT_BOAT);

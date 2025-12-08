@@ -125,6 +125,7 @@ public class FishOfThieves
         FOTPlatform.addFlammableBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, 30, 20);
         FOTPlatform.addFlammableBlock(FOTBlocks.RIPE_PINEAPPLE_BLOCK, 30, 20);
+        FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_SHELF, 30, 20);
     }
 
     public static void initCompostables()

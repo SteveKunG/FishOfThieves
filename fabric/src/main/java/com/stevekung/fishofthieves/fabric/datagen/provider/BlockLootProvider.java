@@ -203,6 +203,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
         this.dropOther(FOTBlocks.BUDDING_PRISMARIZED_LOG, FOTBlocks.PRISMARIZED_LOG);
         this.dropOther(FOTBlocks.GUARDIAN_FRUIT, FOTItems.GUARDIAN_FRUIT);
         this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTItems.BANANA_LEAVES);
+        this.dropSelf(FOTBlocks.COCONUT_SHELF);
     }
 
     private LootTable.Builder createPomegranatePlant(Block block, HolderLookup.RegistryLookup<Enchantment> registryLookup)

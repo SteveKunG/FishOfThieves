@@ -254,6 +254,7 @@ public class ModelProvider extends FabricModelProvider
         this.createBuddingPrismarizedLog(generator);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.GUARDIAN_FRUIT, plainVariant(ModelLocationUtils.getModelLocation(FOTBlocks.GUARDIAN_FRUIT))));
         generator.createNonTemplateModelBlock(FOTBlocks.SHOAL, Blocks.WATER);
+        generator.createShelf(FOTBlocks.COCONUT_SHELF, FOTBlocks.STRIPPED_COCONUT_LOG);
     }
 
     private void createBuddingPrismarizedLog(BlockModelGenerators generator)

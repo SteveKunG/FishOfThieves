@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
@@ -143,6 +144,7 @@ public class FOTItems
     public static final Item COPPER_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GILDED_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
+    public static final Item COCONUT_SHELF = registerBlock(FOTBlocks.COCONUT_SHELF, properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
 
     // Item
     public static final Item EARTHWORMS = register("earthworms", properties -> new FOTWormItem(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS)));

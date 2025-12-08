@@ -147,5 +147,6 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
                 .add(FOTBlocks.BANANA_SHOOTS, FOTBlocks.BANANA_SHOOTS_PLANT, FOTBlocks.POMEGRANATE_SAPLING,
                         FOTBlocks.COCONUT_SAPLING, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.MANGO_SAPLING, FOTBlocks.MANGO_PIT,
                         FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT);
+        this.valueLookupBuilder(BlockTags.WOODEN_SHELVES).add(FOTBlocks.COCONUT_SHELF);
     }
 }

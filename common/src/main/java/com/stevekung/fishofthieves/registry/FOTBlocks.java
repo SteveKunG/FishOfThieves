@@ -176,6 +176,7 @@ public class FOTBlocks
     public static final Block COPPER_FRAME_COCONUT_FISH_PLAQUE = register("copper_frame_coconut_fish_plaque", properties -> new FishPlaqueBlock(properties, FishPlaqueBlock.Type.GOLDEN), BlockBehaviour.Properties.ofLegacyCopy(COCONUT_FISH_PLAQUE));
     public static final Block GOLDEN_FRAME_COCONUT_FISH_PLAQUE = register("golden_frame_coconut_fish_plaque", properties -> new FishPlaqueBlock(properties, FishPlaqueBlock.Type.GOLDEN), BlockBehaviour.Properties.ofLegacyCopy(COCONUT_FISH_PLAQUE));
     public static final Block GILDED_COCONUT_FISH_PLAQUE = register("gilded_coconut_fish_plaque", properties -> new FishPlaqueBlock(properties, FishPlaqueBlock.Type.GILDED), BlockBehaviour.Properties.ofLegacyCopy(COCONUT_FISH_PLAQUE));
+    public static final Block COCONUT_SHELF = register("coconut_shelf", ShelfBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).instrument(NoteBlockInstrument.BASS).sound(SoundType.SHELF).ignitedByLava().strength(2.0F, 3.0F));
 
     public static void init()
     {
