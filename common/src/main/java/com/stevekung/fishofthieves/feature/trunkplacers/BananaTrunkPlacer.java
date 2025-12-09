@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.feature.trunkplacers;
 
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -46,17 +45,17 @@ public class BananaTrunkPlacer extends TrunkPlacer
 
         for (var i = 0; i < freeTreeHeight; i++)
         {
-            this.placeLog(level, blockSetter, random, pos.above(i), config, Function.identity(), i == freeTreeHeight - 1);
+            this.placeLog(level, blockSetter, random, pos.above(i), config, i == freeTreeHeight - 1);
         }
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }
 
-    private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter, boolean isTop)
+    private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, boolean isTop)
     {
         if (this.validTreePos(level, pos))
         {
             var log = isTop ? this.topLog : config.trunkProvider;
-            var blockState = propertySetter.apply(log.getState(random, pos));
+            var blockState = log.getState(random, pos);
             blockSetter.accept(pos, blockState);
         }
     }

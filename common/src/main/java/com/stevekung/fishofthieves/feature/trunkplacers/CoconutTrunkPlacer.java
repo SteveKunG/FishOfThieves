@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.feature.trunkplacers;
 
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -55,26 +54,26 @@ public class CoconutTrunkPlacer extends TrunkPlacer
 
         for (var i = 0; i < freeTreeHeight; i++)
         {
-            this.placeLog(level, blockSetter, random, pos.above(i), config, Function.identity(), i, i == freeTreeHeight - 1);
+            this.placeLog(level, blockSetter, random, pos.above(i), config, i, i == freeTreeHeight - 1);
         }
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }
 
-    private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Function<BlockState, BlockState> propertySetter, int height, boolean isTop)
+    private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, int height, boolean isTop)
     {
         if (this.validTreePos(level, pos))
         {
-            var blockState = propertySetter.apply(config.trunkProvider.getState(random, pos));
+            var blockState = config.trunkProvider.getState(random, pos);
             var mediumTrunkHeight = random.nextInt(this.mediumTrunkHeight) + 1;
 
             if (height > 0 && height <= mediumTrunkHeight)
             {
-                blockState = propertySetter.apply(this.mediumLog.getState(random, pos));
+                blockState = this.mediumLog.getState(random, pos);
             }
             else if (height > mediumTrunkHeight)
             {
                 var log = isTop ? this.topLog : this.smallLog;
-                blockState = propertySetter.apply(log.getState(random, pos));
+                blockState = log.getState(random, pos);
             }
             blockSetter.accept(pos, blockState);
         }
