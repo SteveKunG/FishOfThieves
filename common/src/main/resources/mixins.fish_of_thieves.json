@@ -30,6 +30,7 @@
     "damagesource.MixinDamageSources",
     "datafix.MixinDataFixers",
     "datafix.MixinItemStackComponentizationFix",
+    "datafix.MixinV99_And_1460",
     "effect.MixinMobEffectUtil",
     "entity.MixinBoat",
     "entity.MixinBoat$BoatType",
