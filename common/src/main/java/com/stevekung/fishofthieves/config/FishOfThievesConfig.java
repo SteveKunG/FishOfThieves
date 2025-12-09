@@ -55,14 +55,17 @@ public final class FishOfThievesConfig implements ConfigData
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
 
+        @ConfigEntry.Gui.Tooltip(count = 2)
+        public boolean enableFishItemDropWithVariant = false;
+
         @ConfigEntry.Gui.Tooltip
         public boolean displayAllFishVariantInCreativeTab = false;
 
-        @ConfigEntry.Gui.Tooltip(count = 2)
-        public boolean enableFishItemWithAllVariant = false;
-
         @ConfigEntry.Gui.Tooltip
         public boolean displayTrophySpawnEggInCreativeTab = false;
+
+        @ConfigEntry.Gui.Tooltip
+        public boolean displayTrophyBucketInCreativeTab = false;
     }
 
     public static class Biome

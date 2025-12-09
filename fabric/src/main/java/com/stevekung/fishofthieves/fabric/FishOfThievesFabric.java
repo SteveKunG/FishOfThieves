@@ -37,6 +37,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -122,9 +123,12 @@ public class FishOfThievesFabric implements ModInitializer
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
+        BlockEntityType.SHELF.addSupportedBlock(FOTBlocks.COCONUT_SHELF);
+
         FuelRegistryEvents.BUILD.register((builder, context) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
 
         FishOfThieves.getFishermanTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, level, factories::apply));
+        FishOfThieves.getFarmerTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, level, factories::apply));
 
         LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {

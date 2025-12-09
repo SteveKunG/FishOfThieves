@@ -1,5 +1,5 @@
 {
-  "custom_model_data": 1,
   "name": "moss",
+  "order": 1,
   "texture": "fishofthieves:entity/islehopper/moss"
 }

@@ -94,15 +94,27 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentState, Direction direction)
     {
-        if (this.type == Type.WOODEN)
+        var adjacentBlock = adjacentState.getBlock();
+        var isHorizontal = direction.getAxis().isHorizontal();
+        var sameFacing = adjacentBlock instanceof FishPlaqueBlock && adjacentState.getValue(FACING) == state.getValue(FACING);
+
+        if (this.type == Type.GILDED)
         {
-            return false;
+            return direction.getAxis().isVertical() && adjacentState.isSolid() || adjacentBlock instanceof FishPlaqueBlock fishPlaqueBlock && isHorizontal && fishPlaqueBlock.type == Type.GILDED && sameFacing;
         }
-        else if (this.type == Type.GILDED)
+        else if (adjacentBlock instanceof FishPlaqueBlock fishPlaqueBlock)
         {
-            return direction.getAxis().isVertical() && adjacentState.isSolid() || direction.getAxis().isHorizontal() && adjacentState.is(this);
+            if (this.type == Type.WOODEN)
+            {
+                return isHorizontal && fishPlaqueBlock.type != Type.WOODEN && sameFacing;
+            }
+            else if (this.type == Type.IRON)
+            {
+                return fishPlaqueBlock.type != Type.WOODEN && sameFacing;
+            }
+            return sameFacing;
         }
-        return adjacentState.is(this) || super.skipRendering(state, adjacentState, direction);
+        return super.skipRendering(state, adjacentState, direction);
     }
 
     @Override

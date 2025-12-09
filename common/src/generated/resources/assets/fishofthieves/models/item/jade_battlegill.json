@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/plentifin"
+    "layer0": "fishofthieves:item/jade_battlegill"
   }
 }

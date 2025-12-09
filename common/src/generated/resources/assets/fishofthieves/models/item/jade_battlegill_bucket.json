@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/wrecker"
+    "layer0": "fishofthieves:item/jade_battlegill_bucket"
   }
 }

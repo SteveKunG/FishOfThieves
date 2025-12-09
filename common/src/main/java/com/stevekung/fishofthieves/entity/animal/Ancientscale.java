@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -38,15 +36,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
     private static final EntityDataAccessor<Holder<AncientscaleVariant>> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:almond", 0);
-        map.put("fishofthieves:sapphire", 1);
-        map.put("fishofthieves:smoke", 2);
-        map.put("fishofthieves:bone", 3);
-        map.put("fishofthieves:starshine", 4);
-        map.put("fishofthieves:blossom", 5);
-    });
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
     {

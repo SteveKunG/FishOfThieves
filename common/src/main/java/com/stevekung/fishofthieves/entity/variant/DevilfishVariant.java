@@ -13,16 +13,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.Identifier;
 
-public record DevilfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record DevilfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<DevilfishVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(DevilfishVariant::new);
     public static final Codec<DevilfishVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(DevilfishVariant::new);
     public static final Codec<Holder<DevilfishVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.DEVILFISH_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<DevilfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.DEVILFISH_VARIANT);
 
-    public DevilfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public DevilfishVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

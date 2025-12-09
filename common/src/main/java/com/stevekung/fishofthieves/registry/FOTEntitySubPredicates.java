@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.registry;
 
 import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 
 import net.minecraft.advancements.criterion.EntitySubPredicate;
@@ -11,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 public class FOTEntitySubPredicates
 {
     public static final MapCodec<TrophyFishPredicate> TROPHY = register("trophy", TrophyFishPredicate.CODEC);
+    public static final MapCodec<TreasuredFishPredicate> TREASURED = register("treasured", TreasuredFishPredicate.CODEC);
 
     public static void init()
     {

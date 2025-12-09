@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
@@ -37,15 +35,6 @@ import net.minecraft.world.level.block.Blocks;
 public class Plentifin extends AbstractSchoolingThievesFish<PlentifinVariant>
 {
     private static final EntityDataAccessor<Holder<PlentifinVariant>> VARIANT = SynchedEntityData.defineId(Plentifin.class, FOTDataSerializers.PLENTIFIN_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:olive", 0);
-        map.put("fishofthieves:amber", 1);
-        map.put("fishofthieves:cloudy", 2);
-        map.put("fishofthieves:bonedust", 3);
-        map.put("fishofthieves:watery", 4);
-        map.put("fishofthieves:crimson", 5);
-    });
 
     public Plentifin(EntityType<? extends Plentifin> entityType, Level level)
     {

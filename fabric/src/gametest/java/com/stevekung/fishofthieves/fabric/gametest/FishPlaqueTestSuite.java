@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.gametest.core.FOTGameTest;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
+import com.stevekung.fishofthieves.registry.FOTRegistries;
 import com.stevekung.fishofthieves.registry.variant.SplashtailVariants;
 
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
@@ -41,7 +42,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {
-            compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+            compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT.identifier().getPath(), ruby);
             compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
         });
 
@@ -78,7 +79,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {
-            compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+            compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT.identifier().getPath(), ruby);
             compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
         });
 
@@ -276,7 +277,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
         {
-            compoundTag.putString(ThievesFish.VARIANT_TAG, ruby);
+            compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT.identifier().getPath(), ruby);
             compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
         });
 
@@ -291,7 +292,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
             var bucketEntityData = mainHandItem.get(DataComponents.BUCKET_ENTITY_DATA);
 
-            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketEntityData.copyTag().getString(ThievesFish.VARIANT_TAG).orElseThrow().equals(ruby))
+            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketEntityData.copyTag().getString(FOTRegistries.SPLASHTAIL_VARIANT.identifier().getPath()).orElseThrow().equals(ruby))
             {
                 helper.succeed();
             }

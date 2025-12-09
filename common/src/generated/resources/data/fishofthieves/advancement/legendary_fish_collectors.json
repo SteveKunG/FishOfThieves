@@ -6,7 +6,7 @@
         "item": {
           "items": "fishofthieves:ancientscale_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:almond\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:almond\"}"
           }
         }
       },
@@ -17,7 +17,7 @@
         "item": {
           "items": "fishofthieves:plentifin_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:amber\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:amber\"}"
           }
         }
       },
@@ -28,7 +28,7 @@
         "item": {
           "items": "fishofthieves:islehopper_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:amethyst\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:amethyst\"}"
           }
         }
       },
@@ -39,7 +39,7 @@
         "item": {
           "items": "fishofthieves:stormfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:ancient\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:ancient\"}"
           }
         }
       },
@@ -50,7 +50,7 @@
         "item": {
           "items": "fishofthieves:devilfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:ashen\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:ashen\"}"
           }
         }
       },
@@ -61,7 +61,7 @@
         "item": {
           "items": "fishofthieves:battlegill_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:bittersweet\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:bittersweet\"}"
           }
         }
       },
@@ -72,7 +72,7 @@
         "item": {
           "items": "fishofthieves:wrecker_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:blackcloud\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:blackcloud\"}"
           }
         }
       },
@@ -83,7 +83,7 @@
         "item": {
           "items": "fishofthieves:ancientscale_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:bone\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:bone\"}"
           }
         }
       },
@@ -94,7 +94,7 @@
         "item": {
           "items": "fishofthieves:plentifin_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:bonedust\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:bonedust\"}"
           }
         }
       },
@@ -105,7 +105,7 @@
         "item": {
           "items": "fishofthieves:pondie_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:bright\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:bright\"}"
           }
         }
       },
@@ -116,7 +116,7 @@
         "item": {
           "items": "fishofthieves:pondie_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:bronze\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:bronze\"}"
           }
         }
       },
@@ -127,7 +127,7 @@
         "item": {
           "items": "fishofthieves:pondie_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:charcoal\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:charcoal\"}"
           }
         }
       },
@@ -138,7 +138,7 @@
         "item": {
           "items": "fishofthieves:plentifin_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:cloudy\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:cloudy\"}"
           }
         }
       },
@@ -149,7 +149,7 @@
         "item": {
           "items": "fishofthieves:wildsplash_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:coral\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:coral\"}"
           }
         }
       },
@@ -160,7 +160,7 @@
         "item": {
           "items": "fishofthieves:devilfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:firelight\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:firelight\"}"
           }
         }
       },
@@ -171,7 +171,7 @@
         "item": {
           "items": "fishofthieves:devilfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:forsaken\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:forsaken\"}"
           }
         }
       },
@@ -182,7 +182,7 @@
         "item": {
           "items": "fishofthieves:islehopper_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:honey\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:honey\"}"
           }
         }
       },
@@ -193,7 +193,7 @@
         "item": {
           "items": "fishofthieves:splashtail_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:indigo\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:indigo\"}"
           }
         }
       },
@@ -204,7 +204,7 @@
         "item": {
           "items": "fishofthieves:battlegill_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:jade\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:jade\"}"
           }
         }
       },
@@ -215,7 +215,7 @@
         "item": {
           "items": "fishofthieves:devilfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:lava\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:lava\"}"
           }
         }
       },
@@ -226,7 +226,7 @@
         "item": {
           "items": "fishofthieves:wrecker_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:moon\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:moon\"}"
           }
         }
       },
@@ -237,7 +237,7 @@
         "item": {
           "items": "fishofthieves:pondie_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:moonsky\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:moonsky\"}"
           }
         }
       },
@@ -248,7 +248,7 @@
         "item": {
           "items": "fishofthieves:islehopper_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:moss\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:moss\"}"
           }
         }
       },
@@ -259,7 +259,7 @@
         "item": {
           "items": "fishofthieves:wildsplash_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:muddy\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:muddy\"}"
           }
         }
       },
@@ -270,7 +270,7 @@
         "item": {
           "items": "fishofthieves:wildsplash_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:ocean\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:ocean\"}"
           }
         }
       },
@@ -281,7 +281,7 @@
         "item": {
           "items": "fishofthieves:plentifin_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:olive\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:olive\"}"
           }
         }
       },
@@ -292,7 +292,7 @@
         "item": {
           "items": "fishofthieves:pondie_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:orchid\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:orchid\"}"
           }
         }
       },
@@ -303,7 +303,7 @@
         "item": {
           "items": "fishofthieves:islehopper_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:raven\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:raven\"}"
           }
         }
       },
@@ -314,7 +314,7 @@
         "item": {
           "items": "fishofthieves:wrecker_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:rose\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:rose\"}"
           }
         }
       },
@@ -325,7 +325,7 @@
         "item": {
           "items": "fishofthieves:splashtail_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:ruby\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:ruby\"}"
           }
         }
       },
@@ -336,7 +336,7 @@
         "item": {
           "items": "fishofthieves:battlegill_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:rum\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:rum\"}"
           }
         }
       },
@@ -347,7 +347,7 @@
         "item": {
           "items": "fishofthieves:wildsplash_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:russet\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:russet\"}"
           }
         }
       },
@@ -358,7 +358,7 @@
         "item": {
           "items": "fishofthieves:battlegill_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sand\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:sand\"}"
           }
         }
       },
@@ -369,7 +369,7 @@
         "item": {
           "items": "fishofthieves:wildsplash_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sandy\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:sandy\"}"
           }
         }
       },
@@ -380,7 +380,7 @@
         "item": {
           "items": "fishofthieves:ancientscale_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sapphire\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:sapphire\"}"
           }
         }
       },
@@ -391,7 +391,7 @@
         "item": {
           "items": "fishofthieves:splashtail_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:seafoam\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:seafoam\"}"
           }
         }
       },
@@ -402,7 +402,7 @@
         "item": {
           "items": "fishofthieves:devilfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:seashell\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:seashell\"}"
           }
         }
       },
@@ -413,7 +413,7 @@
         "item": {
           "items": "fishofthieves:stormfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:shadow\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:shadow\"}"
           }
         }
       },
@@ -424,7 +424,7 @@
         "item": {
           "items": "fishofthieves:stormfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:shores\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:shores\"}"
           }
         }
       },
@@ -435,7 +435,7 @@
         "item": {
           "items": "fishofthieves:battlegill_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sky\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:sky\"}"
           }
         }
       },
@@ -446,7 +446,7 @@
         "item": {
           "items": "fishofthieves:ancientscale_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:smoke\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:smoke\"}"
           }
         }
       },
@@ -457,7 +457,7 @@
         "item": {
           "items": "fishofthieves:wrecker_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:snow\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:snow\"}"
           }
         }
       },
@@ -468,7 +468,7 @@
         "item": {
           "items": "fishofthieves:ancientscale_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:starshine\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:starshine\"}"
           }
         }
       },
@@ -479,7 +479,7 @@
         "item": {
           "items": "fishofthieves:islehopper_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:stone\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:stone\"}"
           }
         }
       },
@@ -490,7 +490,7 @@
         "item": {
           "items": "fishofthieves:wrecker_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sun\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:sun\"}"
           }
         }
       },
@@ -501,7 +501,7 @@
         "item": {
           "items": "fishofthieves:splashtail_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:sunny\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:sunny\"}"
           }
         }
       },
@@ -512,7 +512,7 @@
         "item": {
           "items": "fishofthieves:stormfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:twilight\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:twilight\"}"
           }
         }
       },
@@ -523,7 +523,7 @@
         "item": {
           "items": "fishofthieves:splashtail_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:umber\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:umber\"}"
           }
         }
       },
@@ -534,7 +534,7 @@
         "item": {
           "items": "fishofthieves:plentifin_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:watery\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:watery\"}"
           }
         }
       },
@@ -545,7 +545,7 @@
         "item": {
           "items": "fishofthieves:stormfish_bucket",
           "predicates": {
-            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,variant:\"fishofthieves:wild\"}"
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:wild\"}"
           }
         }
       },

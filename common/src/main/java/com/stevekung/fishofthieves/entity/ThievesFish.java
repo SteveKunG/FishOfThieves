@@ -4,7 +4,6 @@ import org.jspecify.annotations.Nullable;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
-import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -34,6 +33,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     TagKey<Item> LEECHES_FOOD = FOTTags.Items.LEECHES_FOOD;
 
     String VARIANT_TAG = "variant";
+    String CREATIVE_TAG = "creative";
     String TROPHY_TAG = "Trophy";
     String HAS_FED_TAG = "HasFed";
     String NO_FLIP_TAG = "NoFlip";
@@ -66,13 +66,13 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
         return brain.hasMemoryValue(FOTMemoryModuleTypes.BREACHED_TICK) && brain.getMemory(FOTMemoryModuleTypes.BREACHED_TICK).get() > 0;
     }
 
+    default boolean isTreasured()
+    {
+        return this.getVariant().value().treasured().isPresent();
+    }
+
     default void saveToBucket(ItemStack bucket)
     {
-        if (FishOfThieves.CONFIG.general.enableFishItemWithAllVariant)
-        {
-            bucket.set(DataComponents.CUSTOM_MODEL_DATA, FOTItem.createCustomModelData(this.getVariant().value().customModelData()));
-        }
-
         CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, compoundTag ->
         {
             if (this.isTrophy())
@@ -111,7 +111,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
     {
         // Set random variant for bucket that has no data component
         var registry = registryAccess.lookupOrThrow(this.getRegistryKey());
-        var muha = Util.getRandomSafe(registry.listElements().toList(), randomSource);
+        var muha = Util.getRandomSafe(registry.listElements().filter(holder -> holder.value().treasured().isEmpty()).toList(), randomSource);
         this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.getDefaultKey())));
         this.setTrophy(randomSource.nextBoolean());
     }

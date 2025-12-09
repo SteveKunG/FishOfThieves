@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_unpowered",
+  "textures": {
+    "all": "fishofthieves:block/coconut_shelf",
+    "particle": "fishofthieves:block/stripped_coconut_log"
+  }
+}

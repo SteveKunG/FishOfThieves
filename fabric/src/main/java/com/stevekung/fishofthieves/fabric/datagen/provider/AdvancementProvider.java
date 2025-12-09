@@ -6,12 +6,10 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import com.google.common.collect.BiMap;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
 import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.ThievesFish;
-import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.item.FOTItem;
 import com.stevekung.fishofthieves.item.FOTMobBucketItem;
@@ -28,6 +26,7 @@ import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
@@ -36,7 +35,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
@@ -51,17 +49,17 @@ import net.minecraft.world.level.material.Fluids;
 
 public class AdvancementProvider extends FabricAdvancementProvider
 {
-    private static final Map<Item, BiMap<String, Integer>> BUCKET_TO_VARIANTS_MAP = Map.of(
-            FOTItems.SPLASHTAIL_BUCKET, Splashtail.VARIANT_TO_INT,
-            FOTItems.PONDIE_BUCKET, Pondie.VARIANT_TO_INT,
-            FOTItems.ISLEHOPPER_BUCKET, Islehopper.VARIANT_TO_INT,
-            FOTItems.ANCIENTSCALE_BUCKET, Ancientscale.VARIANT_TO_INT,
-            FOTItems.PLENTIFIN_BUCKET, Plentifin.VARIANT_TO_INT,
-            FOTItems.WILDSPLASH_BUCKET, Wildsplash.VARIANT_TO_INT,
-            FOTItems.DEVILFISH_BUCKET, Devilfish.VARIANT_TO_INT,
-            FOTItems.BATTLEGILL_BUCKET, Battlegill.VARIANT_TO_INT,
-            FOTItems.WRECKER_BUCKET, Wrecker.VARIANT_TO_INT,
-            FOTItems.STORMFISH_BUCKET, Stormfish.VARIANT_TO_INT
+    private static final Map<Item, ResourceKey<? extends Registry<? extends AbstractFishVariant>>> BUCKET_TO_VARIANTS_MAP = Map.of(
+            FOTItems.SPLASHTAIL_BUCKET, FOTRegistries.SPLASHTAIL_VARIANT,
+            FOTItems.PONDIE_BUCKET, FOTRegistries.PONDIE_VARIANT,
+            FOTItems.ISLEHOPPER_BUCKET, FOTRegistries.ISLEHOPPER_VARIANT,
+            FOTItems.ANCIENTSCALE_BUCKET, FOTRegistries.ANCIENTSCALE_VARIANT,
+            FOTItems.PLENTIFIN_BUCKET, FOTRegistries.PLENTIFIN_VARIANT,
+            FOTItems.WILDSPLASH_BUCKET, FOTRegistries.WILDSPLASH_VARIANT,
+            FOTItems.DEVILFISH_BUCKET, FOTRegistries.DEVILFISH_VARIANT,
+            FOTItems.BATTLEGILL_BUCKET, FOTRegistries.BATTLEGILL_VARIANT,
+            FOTItems.WRECKER_BUCKET, FOTRegistries.WRECKER_VARIANT,
+            FOTItems.STORMFISH_BUCKET, FOTRegistries.STORMFISH_VARIANT
     );
     private static final Item[] FRUITS = new Item[] {
             FOTItems.BANANA,
@@ -129,10 +127,10 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                                         .exact(DataComponentExactPredicate.builder()
                                                                 .expect(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(
                                                                         new CompoundTag(), compoundTag -> compoundTag
-                                                                                .putString(ThievesFish.VARIANT_TAG, DevilfishVariants.LAVA.identifier().toString())))).build())
+                                                                                .putString(FOTRegistries.DEVILFISH_VARIANT.identifier().getPath(), DevilfishVariants.LAVA.identifier().toString())))).build())
                                                         .build()
                                         ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
-                .display(FOTItems.DEVILFISH,
+                .display(FOTItem.create(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
                         null, AdvancementType.TASK, true, true, false)
@@ -305,7 +303,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                 .exact(DataComponentExactPredicate.expect(FOTDataComponentTypes.BATTLEGILL_VARIANT, battlegillLookup.getOrThrow(BattlegillVariants.RUM)))
                                 .build()
                 ), MobEffectsPredicate.Builder.effects().and(MobEffects.NAUSEA)))
-                .display(FOTItem.create(FOTItems.BATTLEGILL, Battlegill.VARIANT_TO_INT.get("fishofthieves:rum")),
+                .display(FOTItem.create(FOTItems.BATTLEGILL, "battlegill_variant", "fishofthieves:rum"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.title"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.description"),
                         null, AdvancementType.TASK, true, true, false)
@@ -330,26 +328,24 @@ public class AdvancementProvider extends FabricAdvancementProvider
     {
         for (var bucket : Arrays.stream(FOTTags.FISH_BUCKETS).map(FOTMobBucketItem.class::cast).toList())
         {
-            var variants = BUCKET_TO_VARIANTS_MAP.get(bucket);
+            var resourceKey = BUCKET_TO_VARIANTS_MAP.get(bucket);
 
-            for (var variant : variants.keySet().stream().map(Identifier::parse).toList())
+            for (var holder : provider.lookupOrThrow(resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList())
             {
-                var registryKey = ResourceKey.<AbstractFishVariant>createRegistryKey(bucket.getRegistryKey());
-
-                if (provider.lookupOrThrow(registryKey).getOrThrow(ResourceKey.create(registryKey, variant)).value().treasured().isPresent())
+                if (holder.value().treasured().isPresent())
                 {
                     continue;
                 }
 
                 var compoundTag = new CompoundTag();
-                compoundTag.putString(ThievesFish.VARIANT_TAG, variant.toString());
+                compoundTag.putString(holder.key().registry().getPath(), holder.key().identifier().toString());
 
                 if (trophy)
                 {
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                     compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 }
-                builder.addCriterion(variant.getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item()
+                builder.addCriterion(holder.key().identifier().getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item()
                         .of(itemLookup, bucket)
                         .withComponents(
                                 DataComponentMatchers.Builder.components()

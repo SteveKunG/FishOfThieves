@@ -14,8 +14,10 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -139,6 +141,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.woodenBoat(FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
         this.chestBoat(FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
         this.hangingSign(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
+        this.shelf(FOTBlocks.COCONUT_SHELF, FOTBlocks.STRIPPED_COCONUT_LOG);
     }
 
     private void generateForFOTBlockFamilies()
