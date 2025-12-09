@@ -64,6 +64,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.getOrCreateTagBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
         this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
                 FOTBlocks.TROPICAL_MONSTERA, FOTBlocks.TROPICAL_RED_FERN);
+        this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES).add(FOTBlocks.COCONUT_FRUIT, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
 
         var replaceableList = provider.lookupOrThrow(Registries.BLOCK)
                 .filterElements(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FishOfThieves.MOD_ID) && block.defaultBlockState().canBeReplaced())

@@ -103,44 +103,40 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                         blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
                     }
 
-                    if (TreeFeature.validTreePos(level, blockPos2))
+                    if (level.isStateAtPosition(blockPos2, BlockBehaviour.BlockStateBase::isAir))
                     {
                         blockSetter.set(blockPos2, blockState);
+                    }
+                    else
+                    {
+                        // Skip when found non-air while placing leaves
+                        continue;
                     }
 
                     for (var leavesLength = 0; leavesLength < maxLeavesFromLocalYLength; leavesLength++)
                     {
-                        if (leavesLength == maxLeavesFromLocalYLength - 1)
-                        {
-                            blockState = blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL);
-                        }
-                        else
-                        {
-                            blockState = blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE);
-                        }
+                        // Set to tail state because it already updates their state in updateShape
+                        blockState = blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL);
 
-                        switch (direction.getAxis())
+                        if (direction.getAxis() == Direction.Axis.X)
                         {
-                            case X ->
+                            var x = isPositiveDir ? direction2.getStepX() + leavesLength : direction2.getStepX() - leavesLength;
+
+                            if (!level.isStateAtPosition(blockPos2.offset(x, 0, 0), BlockBehaviour.BlockStateBase::isAir))
                             {
-                                var x = isPositiveDir ? direction2.getStepX() + leavesLength : direction2.getStepX() - leavesLength;
-
-                                if (!level.isStateAtPosition(blockPos2.offset(x, 0, 0), BlockBehaviour.BlockStateBase::isAir))
-                                {
-                                    break;
-                                }
-                                blockSetter.set(blockPos2.offset(x, 0, 0), blockState);
+                                break;
                             }
-                            case Z ->
+                            blockSetter.set(blockPos2.offset(x, 0, 0), blockState);
+                        }
+                        else if (direction.getAxis() == Direction.Axis.Z)
+                        {
+                            var z = isPositiveDir ? direction2.getStepZ() + leavesLength : direction2.getStepZ() - leavesLength;
+
+                            if (!level.isStateAtPosition(blockPos2.offset(0, 0, z), BlockBehaviour.BlockStateBase::isAir))
                             {
-                                var z = isPositiveDir ? direction2.getStepZ() + leavesLength : direction2.getStepZ() - leavesLength;
-
-                                if (!level.isStateAtPosition(blockPos2.offset(0, 0, z), BlockBehaviour.BlockStateBase::isAir))
-                                {
-                                    break;
-                                }
-                                blockSetter.set(blockPos2.offset(0, 0, z), blockState);
+                                break;
                             }
+                            blockSetter.set(blockPos2.offset(0, 0, z), blockState);
                         }
                     }
                 }
