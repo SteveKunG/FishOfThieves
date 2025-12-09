@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/ashen_devilfish_bucket"
+        },
+        "when": {
+          "devilfish_variant": "fishofthieves:ashen"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/seashell_devilfish_bucket"
         },
-        "threshold": 1.0
+        "when": {
+          "devilfish_variant": "fishofthieves:seashell"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/lava_devilfish_bucket"
         },
-        "threshold": 2.0
+        "when": {
+          "devilfish_variant": "fishofthieves:lava"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/forsaken_devilfish_bucket"
         },
-        "threshold": 3.0
+        "when": {
+          "devilfish_variant": "fishofthieves:forsaken"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/firelight_devilfish_bucket"
         },
-        "threshold": 4.0
+        "when": {
+          "devilfish_variant": "fishofthieves:firelight"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/leopard_devilfish_bucket"
         },
-        "threshold": 5.0
+        "when": {
+          "devilfish_variant": "fishofthieves:leopard"
+        }
       }
     ],
+    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/devilfish_bucket"
+      "model": "fishofthieves:item/ashen_devilfish_bucket"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

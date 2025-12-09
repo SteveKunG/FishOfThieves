@@ -1,5 +1,5 @@
 {
-  "custom_model_data": 2,
   "name": "rum",
+  "order": 2,
   "texture": "fishofthieves:entity/battlegill/rum"
 }

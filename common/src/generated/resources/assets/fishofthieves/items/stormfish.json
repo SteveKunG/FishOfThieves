@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/ancient_stormfish"
+        },
+        "when": {
+          "stormfish_variant": "fishofthieves:ancient"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/shores_stormfish"
         },
-        "threshold": 1.0
+        "when": {
+          "stormfish_variant": "fishofthieves:shores"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/wild_stormfish"
         },
-        "threshold": 2.0
+        "when": {
+          "stormfish_variant": "fishofthieves:wild"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/shadow_stormfish"
         },
-        "threshold": 3.0
+        "when": {
+          "stormfish_variant": "fishofthieves:shadow"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/twilight_stormfish"
         },
-        "threshold": 4.0
+        "when": {
+          "stormfish_variant": "fishofthieves:twilight"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/starshine_stormfish"
         },
-        "threshold": 5.0
+        "when": {
+          "stormfish_variant": "fishofthieves:starshine"
+        }
       }
     ],
+    "component": "minecraft:custom_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/stormfish"
+      "model": "fishofthieves:item/ancient_stormfish"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

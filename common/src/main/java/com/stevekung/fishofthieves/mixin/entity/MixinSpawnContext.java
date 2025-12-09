@@ -5,24 +5,24 @@ import org.spongepowered.asm.mixin.Unique;
 
 import com.stevekung.fishofthieves.entity.condition.SpawnContextExtender;
 
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.variant.SpawnContext;
 
 @Mixin(SpawnContext.class)
 public class MixinSpawnContext implements SpawnContextExtender
 {
     @Unique
-    private LivingEntity livingEntity;
+    private Entity entity;
 
     @Override
-    public LivingEntity fishofthieves$livingEntity()
+    public Entity fishofthieves$entity()
     {
-        return this.livingEntity;
+        return this.entity;
     }
 
     @Override
-    public void fishofthieves$setLivingEntity(LivingEntity livingEntity)
+    public void fishofthieves$setEntity(Entity entity)
     {
-        this.livingEntity = livingEntity;
+        this.entity = entity;
     }
 }

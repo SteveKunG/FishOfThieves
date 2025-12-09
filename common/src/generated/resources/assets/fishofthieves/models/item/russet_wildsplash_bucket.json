@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/plentifin_bucket"
+    "layer0": "fishofthieves:item/russet_wildsplash_bucket"
   }
 }

@@ -13,16 +13,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record PondieVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record PondieVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<PondieVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(PondieVariant::new);
     public static final Codec<PondieVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(PondieVariant::new);
     public static final Codec<Holder<PondieVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PONDIE_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<PondieVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.PONDIE_VARIANT);
 
-    public PondieVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public PondieVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

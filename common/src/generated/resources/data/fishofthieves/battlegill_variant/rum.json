@@ -1,6 +1,6 @@
 {
-  "custom_model_data": 2,
   "name": "rum",
+  "order": 2,
   "spawn_settings": {
     "entity": [],
     "fishing": [

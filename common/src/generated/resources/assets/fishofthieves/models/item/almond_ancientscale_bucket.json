@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/wildsplash_bucket"
+    "layer0": "fishofthieves:item/almond_ancientscale_bucket"
   }
 }

@@ -13,16 +13,16 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record BattlegillVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int customModelData) implements AbstractFishVariant
+public record BattlegillVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<BattlegillVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(BattlegillVariant::new);
     public static final Codec<BattlegillVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(BattlegillVariant::new);
     public static final Codec<Holder<BattlegillVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.BATTLEGILL_VARIANT, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<BattlegillVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.BATTLEGILL_VARIANT);
 
-    public BattlegillVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int customModelData)
+    public BattlegillVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int order)
     {
-        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, customModelData);
+        this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
 
     @Override

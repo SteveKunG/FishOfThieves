@@ -126,6 +126,7 @@ public class FishOfThievesFabric implements ModInitializer
         FuelRegistryEvents.BUILD.register((builder, context) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
 
         FishOfThieves.getFishermanTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, level, factories::apply));
+        FishOfThieves.getFarmerTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, level, factories::apply));
 
         LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
         {
