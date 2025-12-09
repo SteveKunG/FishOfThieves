@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/olive_plentifin_bucket"
+        },
+        "when": {
+          "plentifin_variant": "fishofthieves:olive"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/amber_plentifin_bucket"
         },
-        "threshold": 1.0
+        "when": {
+          "plentifin_variant": "fishofthieves:amber"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/cloudy_plentifin_bucket"
         },
-        "threshold": 2.0
+        "when": {
+          "plentifin_variant": "fishofthieves:cloudy"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bonedust_plentifin_bucket"
         },
-        "threshold": 3.0
+        "when": {
+          "plentifin_variant": "fishofthieves:bonedust"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/watery_plentifin_bucket"
         },
-        "threshold": 4.0
+        "when": {
+          "plentifin_variant": "fishofthieves:watery"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/crimson_plentifin_bucket"
         },
-        "threshold": 5.0
+        "when": {
+          "plentifin_variant": "fishofthieves:crimson"
+        }
       }
     ],
+    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/plentifin_bucket"
+      "model": "fishofthieves:item/olive_plentifin_bucket"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

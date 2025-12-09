@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 
@@ -21,7 +22,7 @@ public record LivingEntityHasEffectCondition(Holder<MobEffect> mobEffect) implem
     @Override
     public boolean test(SpawnContext context)
     {
-        return context.fishofthieves$livingEntity() != null && context.fishofthieves$livingEntity().hasEffect(this.mobEffect);
+        return context.fishofthieves$entity() instanceof LivingEntity livingEntity && livingEntity.hasEffect(this.mobEffect);
     }
 
     public static SpawnCondition effect(Holder<MobEffect> mobEffect)

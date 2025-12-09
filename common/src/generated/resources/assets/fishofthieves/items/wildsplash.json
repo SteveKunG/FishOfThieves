@@ -1,47 +1,67 @@
 {
   "model": {
-    "type": "minecraft:range_dispatch",
-    "entries": [
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "fishofthieves:item/russet_wildsplash"
+        },
+        "when": {
+          "wildsplash_variant": "fishofthieves:russet"
+        }
+      },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sandy_wildsplash"
         },
-        "threshold": 1.0
+        "when": {
+          "wildsplash_variant": "fishofthieves:sandy"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/ocean_wildsplash"
         },
-        "threshold": 2.0
+        "when": {
+          "wildsplash_variant": "fishofthieves:ocean"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/muddy_wildsplash"
         },
-        "threshold": 3.0
+        "when": {
+          "wildsplash_variant": "fishofthieves:muddy"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/coral_wildsplash"
         },
-        "threshold": 4.0
+        "when": {
+          "wildsplash_variant": "fishofthieves:coral"
+        }
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/calico_wildsplash"
         },
-        "threshold": 5.0
+        "when": {
+          "wildsplash_variant": "fishofthieves:calico"
+        }
       }
     ],
+    "component": "minecraft:custom_data",
     "fallback": {
       "type": "minecraft:model",
-      "model": "fishofthieves:item/wildsplash"
+      "model": "fishofthieves:item/russet_wildsplash"
     },
-    "property": "minecraft:custom_model_data"
+    "property": "minecraft:component"
   }
 }

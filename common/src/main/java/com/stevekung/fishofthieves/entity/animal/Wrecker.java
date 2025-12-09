@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.WreckerAi;
@@ -14,7 +12,6 @@ import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.WreckerVariants;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
@@ -48,15 +45,6 @@ import net.minecraft.world.level.storage.ValueInput;
 public class Wrecker extends AbstractThievesFish<WreckerVariant>
 {
     private static final EntityDataAccessor<Holder<WreckerVariant>> VARIANT = SynchedEntityData.defineId(Wrecker.class, FOTDataSerializers.WRECKER_VARIANT);
-    public static final BiMap<String, Integer> VARIANT_TO_INT = Util.make(HashBiMap.create(), map ->
-    {
-        map.put("fishofthieves:rose", 0);
-        map.put("fishofthieves:sun", 1);
-        map.put("fishofthieves:blackcloud", 2);
-        map.put("fishofthieves:snow", 3);
-        map.put("fishofthieves:moon", 4);
-        map.put("fishofthieves:emerald", 5);
-    });
 
     private static final List<SensorType<? extends Sensor<? super Wrecker>>> SENSOR_TYPES = List.of(
             SensorType.NEAREST_LIVING_ENTITIES,

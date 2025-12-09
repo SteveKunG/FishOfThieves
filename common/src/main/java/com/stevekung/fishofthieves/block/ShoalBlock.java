@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -37,6 +38,16 @@ public class ShoalBlock extends Block implements BucketPickup
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(TREASURED, false));
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random)
+    {
+        double x = pos.getX();
+        double y = pos.getY();
+        double z = pos.getZ();
+        level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE, x + 0.5, y, z + 0.5, 0.0, 0.04, 0.0);
+        level.addAlwaysVisibleParticle(ParticleTypes.BUBBLE, x + random.nextFloat(), y + random.nextFloat(), z + random.nextFloat(), 0.0, 0.04, 0.0);
     }
 
     @Override

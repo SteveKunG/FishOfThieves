@@ -1,6 +1,6 @@
 {
-  "custom_model_data": 3,
   "name": "sand",
+  "order": 3,
   "spawn_settings": {
     "entity": [
       {

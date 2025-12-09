@@ -1,7 +1,7 @@
 {
-  "custom_model_data": 4,
   "glow_texture": "fishofthieves:entity/pondie/moonsky_glow",
   "name": "moonsky",
+  "order": 4,
   "spawn_settings": {
     "entity": [
       {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/ancientscale"
+    "layer0": "fishofthieves:item/rose_wrecker_bucket"
   }
 }

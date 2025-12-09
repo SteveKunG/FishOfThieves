@@ -52,6 +52,7 @@
     "entity.MixinSpawnContext",
     "entity.monster.MixinGuardian",
     "entity.monster.MixinGuardian$MixinGuardian_GuardianAttackSelector",
+    "inventory.MixinMerchantMenu",
     "item.MixinFishingRodItem",
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",

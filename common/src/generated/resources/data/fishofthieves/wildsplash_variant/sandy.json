@@ -1,6 +1,6 @@
 {
-  "custom_model_data": 1,
   "name": "sandy",
+  "order": 1,
   "spawn_settings": {
     "entity": [
       {

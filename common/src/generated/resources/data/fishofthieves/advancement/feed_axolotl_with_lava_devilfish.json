@@ -15,7 +15,7 @@
         "item": {
           "components": {
             "minecraft:bucket_entity_data": {
-              "variant": "fishofthieves:lava"
+              "devilfish_variant": "fishofthieves:lava"
             }
           },
           "items": "fishofthieves:devilfish_bucket"
@@ -29,6 +29,11 @@
       "translate": "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"
     },
     "icon": {
+      "components": {
+        "minecraft:custom_data": {
+          "devilfish_variant": "fishofthieves:lava"
+        }
+      },
       "count": 1,
       "id": "fishofthieves:devilfish"
     },

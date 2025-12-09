@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "fishofthieves:item/devilfish"
+    "layer0": "fishofthieves:item/ancient_stormfish"
   }
 }
