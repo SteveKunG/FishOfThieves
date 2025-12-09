@@ -119,7 +119,7 @@ public class FOTPlatformImpl
 
         if (connection != null)
         {
-            Minecraft.getInstance().player.connection.send(new ServerboundCustomPayloadPacket(new RequestServerShoalFishPacket(shoal.getId())));
+            connection.send(new ServerboundCustomPayloadPacket(new RequestServerShoalFishPacket(shoal.getId())));
         }
     }
 
