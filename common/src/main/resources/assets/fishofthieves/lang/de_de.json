@@ -399,6 +399,8 @@
   "death.attack.falling_mango": "%1$s hat unter einem Mangobaum die Schwerkraft entdeckt.",
   "death.attack.falling_coconut": "%1$s wurde von der härtesten Nuss zerquetscht.",
 
+  "gamerule.fishofthieves:shoal_spawning": "Spawn shoals",
+
   "advancements.fishofthieves.root.title": "Fish of Thieves",
   "advancements.fishofthieves.root.description": "Angeln und Jagen",
   "advancements.fishofthieves.fish_collectors.title": "Fischsammler",
