@@ -68,6 +68,11 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
             var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList().getFirst().key().location().toString();
             itemStack.set(DataComponents.BUCKET_ENTITY_DATA, FOTItem.createCustomData(registryKeyTag, variant));
         }
+        else if (itemStack.has(DataComponents.CUSTOM_DATA))
+        {
+            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.merge(itemStack.get(DataComponents.CUSTOM_DATA).copyTag()));
+            itemStack.remove(DataComponents.CUSTOM_DATA);
+        }
     }
 
     @SuppressWarnings({ "deprecation", "unchecked" })

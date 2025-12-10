@@ -380,6 +380,8 @@
   "death.attack.falling_mango": "%1$s ได้ค้นพบแรงโน้มถ่วงใต้ต้นมะม่วง",
   "death.attack.falling_coconut": "%1$s ถูกบดขยี้ด้วยถั่วที่แข็งที่สุดในธรรมชาติ",
 
+  "gamerule.fishofthieves:shoal_spawning": "ให้ฝูงปลาเกิด",
+
   "advancements.fishofthieves.root.title": "ฟิชออฟธีฟส์",
   "advancements.fishofthieves.root.description": "ตกปลาและออกล่า",
   "advancements.fishofthieves.fish_collectors.title": "นักสะสมปลา",
