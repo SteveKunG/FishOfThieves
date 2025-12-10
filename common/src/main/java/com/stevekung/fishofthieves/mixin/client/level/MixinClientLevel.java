@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 @Mixin(ClientLevel.class)
@@ -36,14 +37,21 @@ public abstract class MixinClientLevel extends Level
                 return;
             }
 
-            if (this.random.nextDouble() < 0.0000625d && this.isMoonVisible() && this.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY())
-            {
-                this.playLocalSound(blockPos, SoundEvents.FIREFLY_BUSH_IDLE, SoundSource.AMBIENT, 0.2f, 1.0F, false);
-            }
+            var height = this.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos);
+            var mutableBlockPos = new BlockPos.MutableBlockPos(blockPos.getX(), height, blockPos.getZ());
+            var blockState = this.getBlockState(mutableBlockPos);
 
-            if (this.getMaxLocalRawBrightness(blockPos) <= 13 && random.nextFloat() <= 0.00625F)
+            if (blockState.is(Blocks.SHORT_GRASS) || blockState.is(Blocks.FERN))
             {
-                this.addParticle(ParticleTypes.FIREFLY, blockPos.getX() + this.random.nextDouble(), blockPos.getY() + this.random.nextDouble(), blockPos.getZ() + this.random.nextDouble(), 0.0, 0.0, 0.0);
+                if (this.random.nextDouble() < 0.0000625d && this.isMoonVisible() && height <= blockPos.getY())
+                {
+                    this.playLocalSound(blockPos, SoundEvents.FIREFLY_BUSH_IDLE, SoundSource.AMBIENT, 0.2f, 1.0F, false);
+                }
+
+                if (this.getMaxLocalRawBrightness(blockPos) <= 13 && random.nextFloat() <= 0.00225F)
+                {
+                    this.addParticle(ParticleTypes.FIREFLY, blockPos.getX() + this.random.nextDouble(), blockPos.getY() + this.random.nextDouble(), blockPos.getZ() + this.random.nextDouble(), 0.0, 0.0, 0.0);
+                }
             }
         }
     }
