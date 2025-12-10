@@ -21,6 +21,7 @@
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [
+    "accessor.CompoundTagAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",

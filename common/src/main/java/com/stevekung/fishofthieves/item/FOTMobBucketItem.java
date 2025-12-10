@@ -5,6 +5,7 @@ import java.util.List;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
+import com.stevekung.fishofthieves.mixin.accessor.CompoundTagAccessor;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.ChatFormatting;
@@ -60,6 +61,14 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         {
             var variant = level.registryAccess().registryOrThrow(this.resourceKey).holders().sorted(AbstractFishVariant.COMPARATOR).toList().getFirst().key().location().toString();
             itemStack.set(DataComponents.BUCKET_ENTITY_DATA, FOTItem.createCustomData(registryKeyTag, variant));
+        }
+        else if (itemStack.has(DataComponents.CUSTOM_DATA))
+        {
+            for (var entry : ((CompoundTagAccessor) itemStack.get(DataComponents.CUSTOM_DATA).copyTag()).getTags().entrySet())
+            {
+                CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.put(entry.getKey(), entry.getValue()));
+            }
+            itemStack.remove(DataComponents.CUSTOM_DATA);
         }
     }
 
