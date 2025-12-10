@@ -21,6 +21,7 @@ public class FOTPlacements
 {
     public static final ResourceKey<PlacedFeature> FISH_BONE = createKey("fish_bone");
     public static final ResourceKey<PlacedFeature> COCONUT_TREE_CHECKED = createKey("coconut_tree_checked");
+    public static final ResourceKey<PlacedFeature> OLD_COCONUT_TREE_CHECKED = createKey("old_coconut_tree_checked");
     public static final ResourceKey<PlacedFeature> MANGO_TREE_CHECKED = createKey("mango_tree_checked");
     public static final ResourceKey<PlacedFeature> BANANA_TREE_CHECKED = createKey("banana_tree_checked");
 
@@ -50,6 +51,7 @@ public class FOTPlacements
 
         PlacementUtils.register(context, FISH_BONE, holderGetter.getOrThrow(FOTFeatures.FISH_BONE), RarityFilter.onAverageOnceEvery(384), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, CountPlacement.of(UniformInt.of(4, 8)), BiomeFilter.biome());
         PlacementUtils.register(context, COCONUT_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.COCONUT_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.COCONUT_SAPLING));
+        PlacementUtils.register(context, OLD_COCONUT_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.OLD_COCONUT_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.COCONUT_SAPLING));
         PlacementUtils.register(context, MANGO_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.MANGO_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.MANGO_SAPLING));
         PlacementUtils.register(context, BANANA_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.BANANA_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.BANANA_SHOOTS));
 

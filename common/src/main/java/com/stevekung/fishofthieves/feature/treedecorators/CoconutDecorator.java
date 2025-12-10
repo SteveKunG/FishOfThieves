@@ -7,6 +7,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.block.CoconutFruitBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
 import net.minecraft.core.Direction;
@@ -49,20 +50,23 @@ public class CoconutDecorator extends TreeDecorator
             var maxY = Collections.max(list.stream().map(blockPos -> blockPos.getY() - yAtStart).toList());
             var yToGrowCoconutAt = maxY - this.yToGrowCoconutAt;
 
-            list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).forEach(blockPos ->
+            list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).findFirst().ifPresent(blockPos ->
             {
-                context.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG.defaultBlockState());
-
-                for (var direction : Direction.Plane.HORIZONTAL)
+                if (context.level().isStateAtPosition(blockPos.below(), blockState -> blockState.is(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE_BELOW)))
                 {
-                    if (randomSource.nextFloat() <= this.coconutProbability)
-                    {
-                        var direction2 = direction.getOpposite();
-                        var blockPos2 = blockPos.offset(direction2.getStepX(), 0, direction2.getStepZ());
+                    context.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG.defaultBlockState());
 
-                        if (context.isAir(blockPos2))
+                    for (var direction : Direction.Plane.HORIZONTAL)
+                    {
+                        if (randomSource.nextFloat() <= this.coconutProbability)
                         {
-                            context.setBlock(blockPos2, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(CoconutFruitBlock.FACING, direction));
+                            var direction2 = direction.getOpposite();
+                            var blockPos2 = blockPos.offset(direction2.getStepX(), 0, direction2.getStepZ());
+
+                            if (context.isAir(blockPos2))
+                            {
+                                context.setBlock(blockPos2, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(CoconutFruitBlock.FACING, direction));
+                            }
                         }
                     }
                 }

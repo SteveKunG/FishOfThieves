@@ -91,9 +91,11 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         level.setBlock(pos.relative(state.getValue(FACING)), state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
+        var oppositeState = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
         var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
 
         if (state.getValue(WATERLOGGED))
@@ -114,7 +116,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
             case STEM ->
             {
                 // Update leaf to single state if destroyed
-                if (!otherState.is(this))
+                if (!otherState.is(this) || otherState.is(this) && otherState.getValue(PART) != Part.MIDDLE && otherState.getValue(PART) != Part.TAIL)
                 {
                     return state.setValue(PART, Part.SINGLE);
                 }
@@ -126,6 +128,10 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
                 {
                     return state.setValue(PART, Part.TAIL);
                 }
+                else if (!oppositeState.is(this) && oppositeState.isSolid())
+                {
+                    return state.setValue(PART, Part.STEM);
+                }
             }
             case TAIL ->
             {
@@ -133,6 +139,10 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
                 if (otherState.is(this) && otherState.getValue(FACING) == state.getValue(FACING) && otherState.getValue(PART) == Part.TAIL)
                 {
                     return state.setValue(PART, Part.MIDDLE);
+                }
+                else if (!oppositeState.is(this) && oppositeState.isSolid())
+                {
+                    return state.setValue(PART, Part.STEM);
                 }
             }
         }

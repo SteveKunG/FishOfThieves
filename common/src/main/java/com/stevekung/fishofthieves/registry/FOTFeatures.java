@@ -67,6 +67,7 @@ public class FOTFeatures
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> FISH_BONE = createKey("fish_bone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_TREE = createKey("coconut_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OLD_COCONUT_TREE = createKey("old_coconut_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> BANANA_TREE = createKey("banana_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE = createKey("mango_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02 = createKey("mango_tree_bees_02");
@@ -100,6 +101,11 @@ public class FOTFeatures
         FeatureUtils.register(context, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
         FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree()
                 .decorators(List.of(new CoconutDecorator(0.6F, 0.45F, 2)))
+                .dirt(BlockStateProvider.simple(Blocks.SAND))
+                .ignoreVines()
+                .build());
+        FeatureUtils.register(context, OLD_COCONUT_TREE, Feature.TREE, createOldCoconutTree()
+                .decorators(List.of(new CoconutDecorator(0.2F, 0.7F, 3)))
                 .dirt(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
@@ -142,7 +148,10 @@ public class FOTFeatures
                         BlockPredicate.replaceable(),
                         BlockPredicate.noFluid(),
                         BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)))));
-        FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED))));
+        FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+                placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED),
+                placedFeature.getOrThrow(FOTPlacements.OLD_COCONUT_TREE_CHECKED)
+        )));
         FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 1), 6)
@@ -183,9 +192,19 @@ public class FOTFeatures
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(7, 2, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                new CoconutTrunkPlacer(7, 2, 0, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(2, 1, List.of(Pair.of(7, 1))),
+                new CoconutFrondsPlacer(2, 1, Pair.of(7, 1)),
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
+    }
+
+    private static TreeConfiguration.TreeConfigurationBuilder createOldCoconutTree()
+    {
+        return new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
+                new CoconutTrunkPlacer(12, 3, 9, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
+                new CoconutFrondsPlacer(3, 1),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
