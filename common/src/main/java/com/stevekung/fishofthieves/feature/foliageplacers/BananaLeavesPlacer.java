@@ -78,7 +78,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
                     var direction2 = direction.getOpposite();
                     var blockPos2 = mutableBlockPos.offset(direction2.getStepX(), localY, direction2.getStepZ());
 
-                    if (TreeFeature.validTreePos(level, blockPos2))
+                    if (TreeFeature.validTreePos(level, blockPos2) && TreeFeature.validTreePos(level, blockPos2.relative(direction2)))
                     {
                         var blockState = config.foliageProvider.getState(random, pos).setValue(BananaLeavesBlock.FACING, direction2).setValue(BananaLeavesBlock.COUNT, random.nextFloat() < this.oneLeavesChance ? 1 : 2).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER);
 
@@ -88,7 +88,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
                         }
 
                         blockSetter.set(blockPos2, blockState);
-                        blockSetter.set(blockPos2.relative(direction2, 1), blockState.setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL));
+                        blockSetter.set(blockPos2.relative(direction2), blockState.setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL));
                     }
                 }
             }
