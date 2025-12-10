@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.feature.BananaTreeGrower;
 import com.stevekung.fishofthieves.feature.CoconutTreeGrower;
 import com.stevekung.fishofthieves.feature.MangoTreeGrower;
+import com.stevekung.fishofthieves.feature.OldCoconutTreeGrower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -99,7 +100,7 @@ public class FOTBlocks
     public static final Block STRIPPED_MEDIUM_COCONUT_WOOD = new MediumRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_SMALL_COCONUT_LOG = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
     public static final Block STRIPPED_SMALL_COCONUT_WOOD = new SmallRotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava());
-    public static final Block COCONUT_SAPLING = new CoconutSaplingBlock(new CoconutTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
+    public static final Block COCONUT_SAPLING = new CoconutSaplingBlock(new CoconutTreeGrower(), new OldCoconutTreeGrower(), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.FLOWERING_AZALEA).pushReaction(PushReaction.DESTROY));
     public static final Block COCONUT_FRUIT = new CoconutFruitBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOD).strength(1.0F).pushReaction(PushReaction.DESTROY));
     public static final Block COCONUT_FRONDS = new CoconutFrondsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().ignitedByLava().noOcclusion().instabreak().sound(SoundType.CHERRY_LEAVES).isSuffocating(FOTBlocks::never).isViewBlocking(FOTBlocks::never).isRedstoneConductor(FOTBlocks::never).isValidSpawn(FOTBlocks::never).pushReaction(PushReaction.DESTROY));
     public static final Block BANANA_STEM = new BananaStemBlock(BlockBehaviour.Properties.of().mapColor(blockState -> blockState.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? MapColor.COLOR_GREEN : MapColor.COLOR_BROWN).noOcclusion().instrument(NoteBlockInstrument.BASS).strength(1.5F).sound(SoundType.WOOD).ignitedByLava());
