@@ -23,6 +23,8 @@ public class FOTPlacements
     public static final ResourceKey<PlacedFeature> COCONUT_TREE_CHECKED = createKey("coconut_tree_checked");
     public static final ResourceKey<PlacedFeature> OLD_COCONUT_TREE_CHECKED = createKey("old_coconut_tree_checked");
     public static final ResourceKey<PlacedFeature> MANGO_TREE_CHECKED = createKey("mango_tree_checked");
+    public static final ResourceKey<PlacedFeature> MANGO_TREE_LEAF_LITTER_CHECKED = createKey("mango_tree_leaf_litter_checked");
+    public static final ResourceKey<PlacedFeature> MANGO_TREE_BEES_02_LEAF_LITTER_CHECKED = createKey("mango_tree_bees_02_leaf_litter_checked");
     public static final ResourceKey<PlacedFeature> BANANA_TREE_CHECKED = createKey("banana_tree_checked");
 
     public static final ResourceKey<PlacedFeature> TROPICAL_FLOWER = createKey("tropical_flower");
@@ -53,6 +55,8 @@ public class FOTPlacements
         PlacementUtils.register(context, COCONUT_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.COCONUT_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.COCONUT_SAPLING));
         PlacementUtils.register(context, OLD_COCONUT_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.OLD_COCONUT_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.COCONUT_SAPLING));
         PlacementUtils.register(context, MANGO_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.MANGO_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.MANGO_SAPLING));
+        PlacementUtils.register(context, MANGO_TREE_LEAF_LITTER_CHECKED, holderGetter.getOrThrow(FOTFeatures.MANGO_TREE_LEAF_LITTER), PlacementUtils.filteredByBlockSurvival(FOTBlocks.MANGO_SAPLING));
+        PlacementUtils.register(context, MANGO_TREE_BEES_02_LEAF_LITTER_CHECKED, holderGetter.getOrThrow(FOTFeatures.MANGO_TREE_BEES_02_LEAF_LITTER), PlacementUtils.filteredByBlockSurvival(FOTBlocks.MANGO_SAPLING));
         PlacementUtils.register(context, BANANA_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.BANANA_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.BANANA_SHOOTS));
 
         PlacementUtils.register(context, TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());

@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
 
@@ -34,6 +35,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
@@ -56,6 +58,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntSt
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.PlaceOnGroundDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
 public class FOTFeatures
@@ -71,6 +75,8 @@ public class FOTFeatures
     public static final ResourceKey<ConfiguredFeature<?, ?>> BANANA_TREE = createKey("banana_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE = createKey("mango_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02 = createKey("mango_tree_bees_02");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_LEAF_LITTER = createKey("mango_tree_leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MANGO_TREE_BEES_02_LEAF_LITTER = createKey("mango_tree_bees_02_leaf_litter");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> TROPICAL_FLOWER = createKey("tropical_flower");
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_TROPICAL_ISLAND = createKey("trees_tropical_island");
@@ -116,14 +122,21 @@ public class FOTFeatures
                 .dirt(BlockStateProvider.simple(Blocks.DIRT))
                 .ignoreVines()
                 .build());
+        List<TreeDecorator> leafLitters = List.of(
+                new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3))),
+                new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4))));
         FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F).build());
         FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F).build());
+        FeatureUtils.register(context, MANGO_TREE_LEAF_LITTER, Feature.TREE, createMangoTree(0.01F, leafLitters).build());
+        FeatureUtils.register(context, MANGO_TREE_BEES_02_LEAF_LITTER, Feature.TREE, createMangoTree(0.2F, leafLitters).build());
 
         FeatureUtils.register(context, TREES_TROPICAL_ISLAND, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
-                new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FANCY_OAK_CHECKED), 0.05F),
-                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED), 0.1F),
-                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F)),
-                placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
+                new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FANCY_OAK_LEAF_LITTER), 0.05F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_LEAF_LITTER_CHECKED), 0.05F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_BEES_02_LEAF_LITTER_CHECKED), 0.05F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F),
+                new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FALLEN_JUNGLE_TREE), 0.0125F)
+        ), placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
         FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 12)
                 .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 10)
@@ -218,26 +231,34 @@ public class FOTFeatures
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
+    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance, List<TreeDecorator> additionalDecorators)
     {
+        var decorators = new ArrayList<>(List.of(
+                new AttachedToLeavesDecorator(0.1F, 2, 0,
+                        new RandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
+                                HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
+                new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
+                        new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
+                                MangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                MangoFruitBlock.FACING,
+                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
+                new BeehiveDecorator(beehiveChance)
+        ));
+        decorators.addAll(additionalDecorators);
         return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(Blocks.OAK_LOG),
                 new FancyTrunkPlacer(5, 11, 0),
                 BlockStateProvider.simple(FOTBlocks.MANGO_LEAVES),
                 new FancyFoliagePlacer(ConstantInt.of(3),
                         ConstantInt.of(4), 4),
                 new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
-                .decorators(List.of(
-                        new AttachedToLeavesDecorator(0.1F, 2, 0,
-                                new RandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
-                                        HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
-                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
-                        new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
-                                new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
-                                        MangoFruitBlock.AGE, UniformInt.of(0, 2),
-                                        MangoFruitBlock.FACING,
-                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
-                        new BeehiveDecorator(beehiveChance)))
+                .decorators(decorators)
                 .ignoreVines();
+    }
+
+    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
+    {
+        return createMangoTree(beehiveChance, List.of());
     }
 
     private static RandomPatchConfiguration grassPatch(BlockStateProvider blockStateProvider, int tries)
