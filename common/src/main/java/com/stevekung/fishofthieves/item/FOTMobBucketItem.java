@@ -121,9 +121,6 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
             var key = entry.key().registry().getPath();
             var variant = entry.key().location();
 
-            var itemStack = new ItemStack(item);
-            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(key, variant.toString()));
-
             if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && entry.value().treasured().isEmpty())
             {
                 output.accept(create(item, key, variant.toString(), false));
