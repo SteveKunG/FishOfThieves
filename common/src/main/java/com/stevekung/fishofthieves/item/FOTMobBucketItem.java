@@ -28,13 +28,13 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.material.Fluid;
 
-public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
+public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketItem implements ResourceKeyHolder
 {
     private final EntityType<? extends Mob> entityType;
     private final ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey;
-    private final DataComponentType<?> dataComponentType;
+    private final DataComponentType<Holder<T>> dataComponentType;
 
-    public FOTMobBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, DataComponentType<?> dataComponentType, Item.Properties properties)
+    public FOTMobBucketItem(EntityType<? extends Mob> entityType, Fluid fluid, SoundEvent soundEvent, ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, DataComponentType<Holder<T>> dataComponentType, Item.Properties properties)
     {
         super(entityType, fluid, soundEvent, properties);
         this.entityType = entityType;
@@ -42,70 +42,67 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         this.dataComponentType = dataComponentType;
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("unchecked")
     @Override
     public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, EquipmentSlot equipmentSlot)
     {
-        var registryKeyTag = this.resourceKey.location().getPath();
-
         // Item contains CustomModelData component
         if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
             if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant)
             {
-                var bucketEntityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
-                CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
-                {
-                    compoundTag.putString(registryKeyTag, bucketEntityData.getUnsafe().getString(ThievesFish.VARIANT_TAG).orElseThrow());
-                    compoundTag.remove(ThievesFish.VARIANT_TAG);
-                });
+                var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).getFloat(0);
+                var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).filter(holder -> holder.value().order() == customModelData).findFirst().get();
+                itemStack.set(this.dataComponentType, (Holder<T>) variant);
                 itemStack.remove(DataComponents.CUSTOM_MODEL_DATA);
             }
         }
-        // Item does not have any component
-        else if (!itemStack.has(DataComponents.BUCKET_ENTITY_DATA))
-        {
-            var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList().getFirst().key().location().toString();
-            itemStack.set(DataComponents.BUCKET_ENTITY_DATA, FOTItem.createCustomData(registryKeyTag, variant));
-        }
+        // Remove custom data component
         else if (itemStack.has(DataComponents.CUSTOM_DATA))
         {
-            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.merge(itemStack.get(DataComponents.CUSTOM_DATA).copyTag()));
+            var customData = itemStack.get(DataComponents.CUSTOM_DATA).copyTag();
+            var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).filter(holder -> holder.is(ResourceLocation.tryParse(customData.getStringOr(this.resourceKey.location().getPath(), "")))).toList().getFirst();
+            itemStack.set(this.dataComponentType, (Holder<T>) variant);
             itemStack.remove(DataComponents.CUSTOM_DATA);
+        }
+        // Item does not have any component
+        else if (!itemStack.has(this.dataComponentType))
+        {
+            var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList().getFirst();
+            itemStack.set(this.dataComponentType, (Holder<T>) variant);
         }
     }
 
-    @SuppressWarnings({ "deprecation", "unchecked" })
+    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
         if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE))
         {
+            var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             MutableComponent component = null;
-            var fishData = (Holder<? extends AbstractFishVariant>) itemStack.get(this.dataComponentType);
 
-            if (fishData != null)
+            if (!itemStack.has(this.dataComponentType))
             {
-//                type = this.createTooltip(fishData.value().name());TODO Apply component instead of bucket_entity_data
+                return;
             }
 
-            var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
+            var fishVariantComponent = (Holder<? extends AbstractFishVariant>) itemStack.get(this.dataComponentType);
 
-            if (context.registries() != null && !customData.isEmpty())
+            if (context.registries() != null && fishVariantComponent.unwrapKey().isPresent())
             {
-                var compoundTag = customData.copyTag();
+                var fishVariantKey = fishVariantComponent.unwrapKey().get().location();
 
                 for (var entry : context.registries().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList())
                 {
-                    var key = entry.key().registry().getPath();
                     var variant = entry.key().location();
 
-                    if (compoundTag.getStringOr(key, "").equals(variant.toString()))
+                    if (fishVariantKey.equals(variant))
                     {
                         var treasured = entry.value().treasured().isPresent();
                         var type = this.createTooltip(variant.getPath(), treasured);
 
-                        if (!treasured && compoundTag.getBooleanOr(ThievesFish.TROPHY_TAG, false))
+                        if (!treasured && customData.copyTag().getBooleanOr(ThievesFish.TROPHY_TAG, false))
                         {
                             type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
                         }
@@ -129,7 +126,7 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
 
     public static void addFishVariantsBucket(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output, Item item)
     {
-        var list = itemDisplayParameters.holders().lookupOrThrow(((FOTMobBucketItem) item).resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();
+        var list = itemDisplayParameters.holders().lookupOrThrow(((FOTMobBucketItem<?>) item).resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();
 
         for (var i = 0; i < list.size(); i++)
         {
@@ -139,20 +136,15 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
             }
 
             var entry = list.get(i);
-            var key = entry.key().registry().getPath();
-            var variant = entry.key().location();
-
-            var itemStack = new ItemStack(item);
-            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(key, variant.toString()));
 
             if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && entry.value().treasured().isEmpty())
             {
-                output.accept(create(item, key, variant.toString(), false));
-                output.accept(create(item, key, variant.toString(), true));
+                output.accept(create(item, entry, false));
+                output.accept(create(item, entry, true));
             }
             else
             {
-                output.accept(create(item, key, variant.toString(), null));
+                output.accept(create(item, entry, null));
             }
         }
     }
@@ -162,10 +154,11 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(variant).getPath())).withStyle(ChatFormatting.ITALIC, treasured ? ChatFormatting.GOLD : ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, String registryPath, String variant, Boolean trophy)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    private static ItemStack create(Item item, Holder<?> holder, Boolean trophy)
     {
         var itemStack = new ItemStack(item);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putString(registryPath, variant));
+        itemStack.set(((FOTMobBucketItem<?>) item).dataComponentType, (Holder) holder);
 
         if (!FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab)
         {

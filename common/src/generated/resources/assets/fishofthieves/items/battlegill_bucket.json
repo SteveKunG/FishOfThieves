@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/jade_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:jade"
-        }
+        "when": "fishofthieves:jade"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sky_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:sky"
-        }
+        "when": "fishofthieves:sky"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/rum_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:rum"
-        }
+        "when": "fishofthieves:rum"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sand_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:sand"
-        }
+        "when": "fishofthieves:sand"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bittersweet_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:bittersweet"
-        }
+        "when": "fishofthieves:bittersweet"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/zest_battlegill_bucket"
         },
-        "when": {
-          "battlegill_variant": "fishofthieves:zest"
-        }
+        "when": "fishofthieves:zest"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/jade_battlegill_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:battlegill_variant"
   }
 }

@@ -12,6 +12,7 @@
     "client.level.MixinClientLevel",
     "client.entity.MixinEntity",
     "client.entity.MixinLocalPlayer",
+    "client.item.properties.MixinSelectItemModelProperties",
     "client.model.MixinTadpoleModel",
     "client.renderer.entity.state.MixinFishingHookRenderState",
     "client.renderer.entity.state.MixinLivingEntityRenderState",
