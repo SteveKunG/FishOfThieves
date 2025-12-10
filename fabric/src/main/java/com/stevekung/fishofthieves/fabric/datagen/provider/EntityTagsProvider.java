@@ -35,6 +35,8 @@ public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
         this.valueLookupBuilder(EntityTypeTags.AQUATIC).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
         this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
         this.valueLookupBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.valueLookupBuilder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.valueLookupBuilder(EntityTypeTags.BOAT).add(FOTEntities.COCONUT_BOAT);
         this.valueLookupBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
         this.valueLookupBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
         this.valueLookupBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
