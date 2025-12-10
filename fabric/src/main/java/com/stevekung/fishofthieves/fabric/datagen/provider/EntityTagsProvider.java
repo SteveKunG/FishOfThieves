@@ -32,6 +32,9 @@ public class EntityTagsProvider extends FabricTagProvider.EntityTypeTagProvider
         var neutralFishes = new EntityType<?>[] { FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER };
         var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
         this.getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
+        this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
         this.getOrCreateTagBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
