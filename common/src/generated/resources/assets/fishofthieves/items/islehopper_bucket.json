@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/stone_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:stone"
-        }
+        "when": "fishofthieves:stone"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/moss_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:moss"
-        }
+        "when": "fishofthieves:moss"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/honey_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:honey"
-        }
+        "when": "fishofthieves:honey"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/raven_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:raven"
-        }
+        "when": "fishofthieves:raven"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/amethyst_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:amethyst"
-        }
+        "when": "fishofthieves:amethyst"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/briny_islehopper_bucket"
         },
-        "when": {
-          "islehopper_variant": "fishofthieves:briny"
-        }
+        "when": "fishofthieves:briny"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/stone_islehopper_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:islehopper_variant"
   }
 }

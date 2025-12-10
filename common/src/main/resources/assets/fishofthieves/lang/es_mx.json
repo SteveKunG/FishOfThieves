@@ -380,6 +380,8 @@
   "death.attack.falling_mango": "%1$s estaba sentado debajo de un arbol, debajo de un arbol de mango.",
   "death.attack.falling_coconut": "%1$s hizo una competencia de dureza entre un coco y su cabeza.",
 
+  "gamerule.fishofthieves:shoal_spawning": "Spawn shoals",
+
   "advancements.fishofthieves.root.title": "Fish of Thieves",
   "advancements.fishofthieves.root.description": "Pesca y Caza",
   "advancements.fishofthieves.fish_collectors.title": "Coleccionistas de Peces",

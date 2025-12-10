@@ -64,6 +64,9 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.valueLookupBuilder(BlockTags.MAINTAINS_FARMLAND).add(FOTBlocks.PINEAPPLE_CROP);
         this.valueLookupBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.VERTICAL_COCONUT_FRONDS,
                 FOTBlocks.TROPICAL_MONSTERA, FOTBlocks.TROPICAL_RED_FERN);
+        this.valueLookupBuilder(BlockTags.REPLACEABLE_BY_TREES).add(FOTBlocks.COCONUT_FRUIT, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT);
+        this.valueLookupBuilder(BlockTags.BEE_ATTRACTIVE).add(FOTBlocks.PINK_PLUMERIA, FOTBlocks.WHITE_PLUMERIA, FOTBlocks.LIGHT_BLUE_PLUMERIA,
+                FOTBlocks.POMEGRANATE_PLANT, FOTBlocks.TALL_POMEGRANATE_PLANT, FOTBlocks.PINEAPPLE_CROP, FOTBlocks.BANANA_BLOSSOM, FOTBlocks.BANANA_BLOSSOM_PLANT);
 
         var replaceableList = provider.lookupOrThrow(Registries.BLOCK)
                 .filterElements(block -> BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals(FishOfThieves.MOD_ID) && block.defaultBlockState().canBeReplaced())
@@ -119,6 +122,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.valueLookupBuilder(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
                 FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, FOTBlocks.SMALL_TOP_COCONUT_LOG,
                 FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+        this.valueLookupBuilder(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE_BELOW).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.MEDIUM_COCONUT_LOG);
         this.valueLookupBuilder(FOTTags.Blocks.BANANA_STEMS).add(FOTBlocks.BANANA_STEM, FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM);
         this.valueLookupBuilder(FOTTags.Blocks.BANANA_CLUSTER_PLANTS).add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);

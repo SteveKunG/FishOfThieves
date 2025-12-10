@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.regex.Pattern;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 
@@ -14,6 +15,7 @@ import net.minecraft.data.DataProvider;
 
 public class LanguageSyncProvider implements DataProvider
 {
+    private static final Pattern ENTRY_PATTERN = Pattern.compile("\"(.*?)\"\\s*:\\s*\"(.*?)\"\\s*,?");
     private final CompletableFuture<HolderLookup.Provider> provider;
 
     public LanguageSyncProvider(CompletableFuture<HolderLookup.Provider> provider)
@@ -49,11 +51,16 @@ public class LanguageSyncProvider implements DataProvider
                     {
                         line = line.substring(0, line.length() - 1);
                     }
-                    if (line.contains(":"))
+
+                    var matcher = ENTRY_PATTERN.matcher(line);
+
+                    if (matcher.find())
                     {
-                        var parts = line.split(":", 2);
-                        orderedMainJson.put(parts[0].trim().replace("\"", ""), parts[1].trim().replace("\"", ""));
-                        lineBreaks.put(parts[0].trim().replace("\"", ""), i > 0 && lines[i - 1].trim().isEmpty());
+                        var key = matcher.group(1);
+                        var value = matcher.group(2);
+
+                        orderedMainJson.put(key, value);
+                        lineBreaks.put(key, i > 0 && lines[i - 1].trim().isEmpty());
                     }
                 }
 
@@ -72,13 +79,14 @@ public class LanguageSyncProvider implements DataProvider
                                 continue;
                             }
 
-                            var parts = line.trim().split(":", 2);
+                            var matcher = ENTRY_PATTERN.matcher(line);
 
-                            if (parts[1].trim().endsWith(","))
+                            if (matcher.find())
                             {
-                                parts[1] = parts[1].trim().substring(0, parts[1].trim().length() - 1);
+                                var key = matcher.group(1);
+                                var value = matcher.group(2);
+                                orderedTranslationJson.put(key, value);
                             }
-                            orderedTranslationJson.put(parts[0].trim().replace("\"", ""), parts[1].trim().replace("\"", ""));
                         }
 
                         var modified = false;
@@ -91,19 +99,28 @@ public class LanguageSyncProvider implements DataProvider
                         while (iterator.hasNext())
                         {
                             var entry = iterator.next();
+                            var key = entry.getKey();
+                            var value = entry.getValue();
+                            var isComment = key.startsWith("_comment");
 
-                            if (lineBreaks.get(entry.getKey()))
+                            if (lineBreaks.get(key))
                             {
                                 updatedJson.append("\n");
                             }
 
-                            if (orderedTranslationJson.containsKey(entry.getKey()))
+                            // Always update _commentN keys
+                            if (isComment)
                             {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", entry.getKey(), orderedTranslationJson.get(entry.getKey())));
+                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
+                                modified = true;
+                            }
+                            else if (orderedTranslationJson.containsKey(key))
+                            {
+                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, orderedTranslationJson.get(key)));
                             }
                             else
                             {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", entry.getKey(), entry.getValue()));
+                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
                                 modified = true;
                             }
 

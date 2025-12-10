@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/ancient_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:ancient"
-        }
+        "when": "fishofthieves:ancient"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/shores_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:shores"
-        }
+        "when": "fishofthieves:shores"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/wild_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:wild"
-        }
+        "when": "fishofthieves:wild"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/shadow_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:shadow"
-        }
+        "when": "fishofthieves:shadow"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/twilight_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:twilight"
-        }
+        "when": "fishofthieves:twilight"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/starshine_stormfish_bucket"
         },
-        "when": {
-          "stormfish_variant": "fishofthieves:starshine"
-        }
+        "when": "fishofthieves:starshine"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/ancient_stormfish_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:stormfish_variant"
   }
 }

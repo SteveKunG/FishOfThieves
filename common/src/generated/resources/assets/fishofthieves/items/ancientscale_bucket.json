@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/almond_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:almond"
-        }
+        "when": "fishofthieves:almond"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sapphire_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:sapphire"
-        }
+        "when": "fishofthieves:sapphire"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/smoke_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:smoke"
-        }
+        "when": "fishofthieves:smoke"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bone_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:bone"
-        }
+        "when": "fishofthieves:bone"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/starshine_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:starshine"
-        }
+        "when": "fishofthieves:starshine"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/blossom_ancientscale_bucket"
         },
-        "when": {
-          "ancientscale_variant": "fishofthieves:blossom"
-        }
+        "when": "fishofthieves:blossom"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/almond_ancientscale_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:ancientscale_variant"
   }
 }

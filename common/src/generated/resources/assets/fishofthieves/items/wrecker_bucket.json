@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/rose_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:rose"
-        }
+        "when": "fishofthieves:rose"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/sun_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:sun"
-        }
+        "when": "fishofthieves:sun"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/blackcloud_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:blackcloud"
-        }
+        "when": "fishofthieves:blackcloud"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/snow_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:snow"
-        }
+        "when": "fishofthieves:snow"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/moon_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:moon"
-        }
+        "when": "fishofthieves:moon"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/emerald_wrecker_bucket"
         },
-        "when": {
-          "wrecker_variant": "fishofthieves:emerald"
-        }
+        "when": "fishofthieves:emerald"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/rose_wrecker_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:wrecker_variant"
   }
 }

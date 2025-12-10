@@ -18,8 +18,8 @@
     "foliage_placer": {
       "type": "fishofthieves:coconut_fronds_placer",
       "height": 2,
-      "max_leaves_length_from_local_y": 1,
-      "reduce_leaves_length": [
+      "max_leaves_distance_from_local_y": 1,
+      "reduce_leaves_distance": [
         {
           "at_tree_height": 7,
           "reduce_by": 1
@@ -62,6 +62,7 @@
         }
       },
       "medium_trunk_height": 2,
+      "medium_trunk_start": 0,
       "small_log": {
         "type": "minecraft:simple_state_provider",
         "state": {

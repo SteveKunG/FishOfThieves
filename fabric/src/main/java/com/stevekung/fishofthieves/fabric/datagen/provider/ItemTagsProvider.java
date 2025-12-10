@@ -42,6 +42,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
         this.valueLookupBuilder(ItemTags.PIG_FOOD).add(FOTItems.COCONUT, FOTItems.BANANA, FOTItems.PINEAPPLE, FOTItems.HALF_PINEAPPLE,
                 FOTItems.CROWNLESS_PINEAPPLE, FOTItems.MANGO, FOTItems.RAW_MANGO, FOTItems.POMEGRANATE, FOTItems.BANANA_BLOSSOM,
                 FOTItems.GUARDIAN_FRUIT);
+        this.valueLookupBuilder(ItemTags.BEE_FOOD).add(FOTItems.BANANA_BLOSSOM, FOTItems.PINK_PLUMERIA, FOTItems.LIGHT_BLUE_PLUMERIA, FOTItems.WHITE_PLUMERIA);
         this.valueLookupBuilder(ItemTags.FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
         this.valueLookupBuilder(ItemTags.SIGNS).add(FOTItems.COCONUT_SIGN);
         this.valueLookupBuilder(ItemTags.HANGING_SIGNS).add(FOTItems.COCONUT_HANGING_SIGN);
