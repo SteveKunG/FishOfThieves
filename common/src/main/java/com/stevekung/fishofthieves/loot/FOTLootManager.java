@@ -63,6 +63,7 @@ public class FOTLootManager
             map.put(BuiltInLootTables.FISHERMAN_GIFT, FOTLootManager::getFishermanGiftLoot);
             map.put(BuiltInLootTables.FISHING, builder -> getFishingLoot(builder, true));
             map.put(BuiltInLootTables.FISHING_FISH, builder -> getFishingLoot(builder, false));
+            map.put(BuiltInLootTables.FISHING_JUNK, builder -> builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE).setWeight(1)));
 
             // Entity Loot
             map.put(EntityType.POLAR_BEAR.getDefaultLootTable(), FOTLootManager::getPolarBearLoot);
