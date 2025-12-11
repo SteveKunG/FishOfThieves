@@ -87,7 +87,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             else
             {
                 var mutableBlockPos = pos.mutable();
-                var maxLeavesDistanceFromLocalY = this.maxLeavesDistanceFromLocalY - localY;
+                var maxLeavesDistanceFromLocalY = this.maxLeavesDistanceFromLocalY - localY + 1;
 
                 for (var pair : this.reduceLeavesDistance)
                 {
@@ -132,7 +132,13 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                             }
                             else
                             {
-                                // Skip when found non-air while placing leaves
+                                var previousLeavesPos = mutableBlockPos.offset(opposite.getStepX() * (i - 1), localY, opposite.getStepZ() * (i - 1));
+
+                                if (level.isStateAtPosition(previousLeavesPos, blockState1 -> blockState1.is(FOTBlocks.COCONUT_FRONDS) && blockState1.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.MIDDLE))
+                                {
+                                    blockSetter.set(previousLeavesPos, blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL));
+                                }
+                                // Skip when found non-air while placing leaves and set leaves to tail state
                                 break;
                             }
                         }
