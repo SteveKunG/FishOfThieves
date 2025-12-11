@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.monster.Ravager;
@@ -21,10 +22,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CoconutSaplingBlock extends SaplingBlock
 {
     private static final VoxelShape AABB = Block.box(3, 0, 3, 13, 5, 13);
+    private final TreeGrower oldCoconutTree;
 
-    public CoconutSaplingBlock(TreeGrower treeGrower, BlockBehaviour.Properties properties)
+    public CoconutSaplingBlock(TreeGrower treeGrower, TreeGrower oldCoconutTree, BlockBehaviour.Properties properties)
     {
         super(treeGrower, properties);
+        this.oldCoconutTree = oldCoconutTree;
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
 
@@ -36,6 +39,26 @@ public class CoconutSaplingBlock extends SaplingBlock
             serverLevel.destroyBlock(pos, true, entity);
         }
         super.entityInside(state, level, pos, entity, insideBlockEffectApplier, intersectInsideBlock);
+    }
+
+    @Override
+    public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random)
+    {
+        if (state.getValue(STAGE) == 0)
+        {
+            level.setBlock(pos, state.cycle(STAGE), Block.UPDATE_INVISIBLE);
+        }
+        else
+        {
+            if (random.nextInt(8) == 0)
+            {
+                this.oldCoconutTree.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
+            }
+            else
+            {
+                super.advanceTree(level, pos, state, random);
+            }
+        }
     }
 
     @Override

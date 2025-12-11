@@ -381,6 +381,8 @@
   "death.attack.falling_mango": "%1$s has discovered gravity under the mango tree.",
   "death.attack.falling_coconut": "%1$s crushed by nature's hardest nut.",
 
+  "gamerule.fishofthieves:shoal_spawning": "Spawn shoals",
+
   "advancements.fishofthieves.root.title": "Fish of Thieves",
   "advancements.fishofthieves.root.description": "Fishing and Hunting",
   "advancements.fishofthieves.fish_collectors.title": "Fish Collectors",

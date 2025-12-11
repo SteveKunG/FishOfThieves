@@ -38,11 +38,11 @@ public class ParticleUtils
         for (var i = 0; i < count; i++)
         {
             var leavesModelAngle = component.leavesModelAngle();
-            var leavesLength = component.leavesLength();
+            var leavesDistance = component.leavesDistance();
             var leavesAngle = component.leavesAngle();
             var tan = Math.tan(leavesModelAngle * Math.PI / 180.0f);
             var distance = Math.pow(Mth.nextDouble(random, 0, 1), particleSpread); // Use Math.pow to spread water drop particles
-            var leavesArea = isPositiveDir ^ flipAxis ? leavesLength : -leavesLength;
+            var leavesArea = isPositiveDir ^ flipAxis ? leavesDistance : -leavesDistance;
 
             // (distance - 0.5d) = offset particles position from center pos
             // (isPositiveDir ? 1 : -1) = flip adjacent

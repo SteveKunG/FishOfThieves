@@ -381,6 +381,8 @@
   "death.attack.falling_mango": "%1$s はマンゴーの木の下で重力を思い知った。",
   "death.attack.falling_coconut": "%1$s は自然界で最も硬いナッツに潰された。",
 
+  "gamerule.fishofthieves:shoal_spawning": "Spawn shoals",
+
   "advancements.fishofthieves.root.title": "盗賊の魚",
   "advancements.fishofthieves.root.description": "釣りと狩り",
   "advancements.fishofthieves.fish_collectors.title": "魚コレクター",

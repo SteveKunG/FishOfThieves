@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.block.BananaClusterGrowableStemBlock;
+import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
 import net.minecraft.core.Direction;
@@ -43,6 +44,7 @@ public class BananaDecorator extends TreeDecorator
     @Override
     public void place(Context context)
     {
+        var level = context.level();
         var randomSource = context.random();
         var list = context.logs();
         var yAtStart = list.getFirst().getY();
@@ -58,9 +60,9 @@ public class BananaDecorator extends TreeDecorator
                     var direction2 = direction.getOpposite();
                     var blockPos2 = blockPos.offset(direction2.getStepX(), 0, direction2.getStepZ());
 
-                    if (context.isAir(blockPos2))
+                    if (context.isAir(blockPos2) && level.isStateAtPosition(blockPos2.above(), blockState -> blockState.is(FOTBlocks.BANANA_LEAVES)))
                     {
-                        BananaClusterGrowableStemBlock.growBananaBlossomOrCluster(direction2, context.level(), (blockPos1, blockState, flags) -> context.setBlock(blockPos1, blockState), blockPosx -> context.level().isFluidAtPosition(blockPosx, fluidState -> fluidState.is(Fluids.WATER)), randomSource, blockPos2);
+                        BananaClusterGrowableStemBlock.growBananaBlossomOrCluster(direction2, level, (blockPos1, blockState, flags) -> context.setBlock(blockPos1, blockState), blockPosx -> level.isFluidAtPosition(blockPosx, fluidState -> fluidState.is(Fluids.WATER)), randomSource, blockPos2);
                     }
                 }
             }

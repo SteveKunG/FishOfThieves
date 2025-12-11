@@ -7,61 +7,48 @@
           "type": "minecraft:model",
           "model": "fishofthieves:item/charcoal_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:charcoal"
-        }
+        "when": "fishofthieves:charcoal"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/orchid_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:orchid"
-        }
+        "when": "fishofthieves:orchid"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bronze_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:bronze"
-        }
+        "when": "fishofthieves:bronze"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/bright_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:bright"
-        }
+        "when": "fishofthieves:bright"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/moonsky_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:moonsky"
-        }
+        "when": "fishofthieves:moonsky"
       },
       {
         "model": {
           "type": "minecraft:model",
           "model": "fishofthieves:item/dewdrop_pondie_bucket"
         },
-        "when": {
-          "pondie_variant": "fishofthieves:dewdrop"
-        }
+        "when": "fishofthieves:dewdrop"
       }
     ],
-    "component": "minecraft:bucket_entity_data",
     "fallback": {
       "type": "minecraft:model",
       "model": "fishofthieves:item/charcoal_pondie_bucket"
     },
-    "property": "minecraft:component"
+    "property": "fishofthieves:pondie_variant"
   }
 }
