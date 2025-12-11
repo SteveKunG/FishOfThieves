@@ -83,7 +83,7 @@ public class ClientProxyNeoForge
 
     private void onFogChange(ViewportEvent.RenderFog event)
     {
-        if (event.getType() == FogType.WATER && event.getCamera().getEntity() instanceof LocalPlayer localPlayer)
+        if (event.getType() == FogType.WATER && event.getCamera().entity() instanceof LocalPlayer localPlayer)
         {
             var holder = localPlayer.level().getBiome(localPlayer.blockPosition());
 

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.neoforge;
 
 import java.util.Set;
 
-import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.neoforge.mixin.accessor.CropBlockAccessor;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
@@ -19,7 +18,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -58,16 +56,6 @@ public class FOTPlatformImpl
     public static CreativeModeTab.Builder getCreativeTabBuilder()
     {
         return CreativeModeTab.builder();
-    }
-
-    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type)
-    {
-        return GameRules.register(FishOfThieves.MOD_RESOURCES + name, category, type);
-    }
-
-    public static GameRules.Type<GameRules.BooleanValue> getGameRuleBoolean(boolean defaultValue)
-    {
-        return GameRules.BooleanValue.create(defaultValue);
     }
 
     public static void sendFishingHookBait(FishingHook fishingHook)

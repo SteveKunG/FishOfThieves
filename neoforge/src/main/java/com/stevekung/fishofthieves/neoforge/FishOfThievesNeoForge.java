@@ -106,6 +106,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> FOTPoiTypes.init());
         event.register(Registries.MAP_DECORATION_TYPE, helper -> FOTMapDecorationTypes.init());
         event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
+        event.register(Registries.ENVIRONMENT_ATTRIBUTE, helper -> FOTEnvironmentAttributes.init());
         event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
     }
 

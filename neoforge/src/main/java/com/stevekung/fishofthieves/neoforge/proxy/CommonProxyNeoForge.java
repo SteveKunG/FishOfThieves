@@ -17,7 +17,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -77,12 +77,12 @@ public class CommonProxyNeoForge
         if (event.getType() == VillagerProfession.FISHERMAN)
         {
             var trades = event.getTrades();
-            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
+            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level).addAll(factories.apply(new ArrayList<>())));
         }
         else if (event.getType() == VillagerProfession.FARMER)
         {
             var trades = event.getTrades();
-            FishOfThieves.getFarmerTrades().forEach((level, factories) -> trades.get(level.intValue()).addAll(factories.apply(new ArrayList<>())));
+            FishOfThieves.getFarmerTrades().forEach((level, factories) -> trades.get(level).addAll(factories.apply(new ArrayList<>())));
         }
     }
 
@@ -97,7 +97,7 @@ public class CommonProxyNeoForge
         {
             if (id.equals(resourceKey))
             {
-                injectLoot(table, id.location().toString(), function.apply(LootPool.lootPool(), provider).entries);
+                injectLoot(table, id.identifier().toString(), function.apply(LootPool.lootPool(), provider).entries);
             }
         });
         FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
