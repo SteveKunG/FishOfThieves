@@ -38,12 +38,12 @@ public class BananaShootsDecorator extends TreeDecorator
         {
             if (!(randomSource.nextFloat() >= this.probability))
             {
-                var direction2 = direction.getOpposite();
-                var blockPos2 = blockPos.offset(direction2.getStepX(), 0, direction2.getStepZ());
+                var opposite = direction.getOpposite();
+                var posAroundLog = blockPos.offset(opposite.getStepX(), 0, opposite.getStepZ());
 
-                if (context.isAir(blockPos2))
+                if (context.isAir(posAroundLog))
                 {
-                    context.setBlock(blockPos2, FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction));
+                    context.setBlock(posAroundLog, FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction));
                 }
             }
         }

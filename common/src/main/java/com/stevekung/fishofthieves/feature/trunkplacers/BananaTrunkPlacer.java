@@ -43,9 +43,9 @@ public class BananaTrunkPlacer extends TrunkPlacer
     {
         setDirtAt(level, blockSetter, random, pos.below(), config);
 
-        for (var i = 0; i < freeTreeHeight; i++)
+        for (var height = 0; height < freeTreeHeight; height++)
         {
-            this.placeLog(level, blockSetter, random, pos.above(i), config, i == freeTreeHeight - 1);
+            this.placeLog(level, blockSetter, random, pos.above(height), config, height == freeTreeHeight - 1);
         }
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }

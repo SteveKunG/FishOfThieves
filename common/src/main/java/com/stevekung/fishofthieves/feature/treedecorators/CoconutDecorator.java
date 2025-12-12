@@ -59,12 +59,12 @@ public class CoconutDecorator extends TreeDecorator
                     {
                         if (randomSource.nextFloat() <= this.coconutProbability)
                         {
-                            var direction2 = direction.getOpposite();
-                            var blockPos2 = blockPos.offset(direction2.getStepX(), 0, direction2.getStepZ());
+                            var opposite = direction.getOpposite();
+                            var posAroundLog = blockPos.offset(opposite.getStepX(), 0, opposite.getStepZ());
 
-                            if (context.isAir(blockPos2))
+                            if (context.isAir(posAroundLog))
                             {
-                                context.setBlock(blockPos2, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(CoconutFruitBlock.FACING, direction));
+                                context.setBlock(posAroundLog, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(CoconutFruitBlock.FACING, direction));
                             }
                         }
                     }

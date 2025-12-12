@@ -6,10 +6,7 @@ import java.util.OptionalInt;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.block.HangingMangoFruitBlock;
-import com.stevekung.fishofthieves.block.MangoFruitBlock;
-import com.stevekung.fishofthieves.block.PineappleCropBlock;
-import com.stevekung.fishofthieves.block.PomegranatePlantBlock;
+import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
 import com.stevekung.fishofthieves.feature.SingleBlockFeature;
@@ -195,7 +192,7 @@ public class FOTFeatures
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
                 new CoconutTrunkPlacer(7, 2, 0, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(2, 1, Pair.of(7, 1)),
+                new CoconutFrondsPlacer(2, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(7, 1)),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
@@ -205,7 +202,7 @@ public class FOTFeatures
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
                 new CoconutTrunkPlacer(12, 3, 9, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(3, 1),
+                new CoconutFrondsPlacer(3, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL))),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
@@ -214,8 +211,8 @@ public class FOTFeatures
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.BANANA_STEM),
                 new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM)),
-                BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES),
-                new BananaLeavesPlacer(0.2f),
+                BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)),
+                new BananaLeavesPlacer(0.2f, BlockStateProvider.simple(FOTBlocks.VERTICAL_BANANA_LEAVES), BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER))),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 

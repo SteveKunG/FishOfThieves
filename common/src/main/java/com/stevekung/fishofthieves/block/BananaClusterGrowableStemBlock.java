@@ -95,18 +95,18 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
             var yBottom = 0;
             var randHeight = 1 + random.nextInt(maxY);
 
-            for (var i = 0; i < randHeight; i++)
+            for (var height = 0; height < randHeight; height++)
             {
-                var blockPos = pos.below(i);
+                var blockPos = pos.below(height);
                 Predicate<BlockState> stateAbove = state -> level.isStateAtPosition(blockPos.above(), blockState -> blockState.is(state.getBlock()));
                 var banana = selectBananaState(random);
 
-                banana = updateBananaHangingState(banana, stateAbove, i);
+                banana = updateBananaHangingState(banana, stateAbove, height);
                 isSmallCluster |= banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING);
 
                 setBlock.accept(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(blockPos)), Block.UPDATE_ALL);
 
-                yBottom = Math.max(yBottom, i);
+                yBottom = Math.max(yBottom, height);
             }
             setBlock.accept(pos.below(yBottom), createBlossomState(direction, isWater.apply(pos.below(yBottom)), determineHangingType(yBottom, isSmallCluster)), Block.UPDATE_ALL);
         }
