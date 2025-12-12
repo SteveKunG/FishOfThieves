@@ -22,14 +22,37 @@
     },
     "foliage_placer": {
       "type": "fishofthieves:banana_leaves_placer",
-      "one_leaves_chance": 0.2
+      "one_leaves_chance": 0.2,
+      "tail_leaves_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "fishofthieves:banana_leaves",
+          "Properties": {
+            "type": "upper",
+            "count": "1",
+            "facing": "north",
+            "part": "tail",
+            "waterlogged": "false"
+          }
+        }
+      },
+      "top_leaves_state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "fishofthieves:vertical_banana_leaves",
+          "Properties": {
+            "ceiling": "false",
+            "waterlogged": "false"
+          }
+        }
+      }
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
         "Name": "fishofthieves:banana_leaves",
         "Properties": {
-          "type": "lower",
+          "type": "upper",
           "count": "1",
           "facing": "north",
           "part": "stem",
