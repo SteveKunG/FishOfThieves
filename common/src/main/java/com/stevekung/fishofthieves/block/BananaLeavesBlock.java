@@ -37,6 +37,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -114,6 +115,19 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     public VoxelShape getVisualShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
         return Shapes.empty();
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
+    {
+        if (context instanceof EntityCollisionContext entityCollisionContext)
+        {
+            if (entityCollisionContext.getEntity() != null && entityCollisionContext.getEntity().isSwimming())
+            {
+                return Shapes.empty();
+            }
+        }
+        return super.getCollisionShape(state, level, pos, context);
     }
 
     @Override

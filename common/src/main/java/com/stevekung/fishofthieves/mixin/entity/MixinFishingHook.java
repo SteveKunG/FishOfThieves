@@ -22,7 +22,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -151,11 +150,6 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
                 else
                 {
                     shoal.addParticipatePlayer(player.getUUID());
-                }
-
-                if (randomFish instanceof Bucketable bucketable)
-                {
-                    bucketable.setFromBucket(true);
                 }
 
                 var dx = player.getX() - this.getX();
