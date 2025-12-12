@@ -13,6 +13,7 @@ import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTFoliagePlacerTypes;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -110,7 +111,11 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                     if (maxLeavesDistanceFromLocalY == 1)
                     {
                         var posAroundLog = mutableBlockPos.offset(opposite.getStepX(), localY, opposite.getStepZ());
-                        blockSetter.set(posAroundLog, blockState);
+
+                        if (this.isAir(level, posAroundLog))
+                        {
+                            blockSetter.set(posAroundLog, blockState);
+                        }
                     }
                     else
                     {
@@ -118,7 +123,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                         {
                             var posAroundLog = mutableBlockPos.offset(opposite.getStepX() * i, localY, opposite.getStepZ() * i);
 
-                            if (level.isStateAtPosition(posAroundLog, BlockBehaviour.BlockStateBase::isAir))
+                            if (this.isAir(level, posAroundLog))
                             {
                                 if (i > 1 && i < maxLeavesDistanceFromLocalY)
                                 {
@@ -158,5 +163,10 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large)
     {
         return localX == range && localZ == range && (random.nextInt(2) == 0 || localY == 0);
+    }
+
+    private boolean isAir(LevelSimulatedReader level, BlockPos blockPos)
+    {
+        return level.isStateAtPosition(blockPos, BlockBehaviour.BlockStateBase::isAir);
     }
 }
