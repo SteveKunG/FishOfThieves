@@ -7,34 +7,43 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.RecordCodecBuilder.Instance;
 import com.mojang.serialization.codecs.RecordCodecBuilder.Mu;
 import com.stevekung.fishofthieves.block.BananaLeavesBlock;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTFoliagePlacerTypes;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.material.Fluids;
 
 public class BananaLeavesPlacer extends FoliagePlacer
 {
     public static final MapCodec<BananaLeavesPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> frondsPart(instance).apply(instance, BananaLeavesPlacer::new));
     final float oneLeavesChance;
+    final BlockStateProvider topLeavesState;
+    final BlockStateProvider tailLeavesState;
 
-    protected static <P extends BananaLeavesPlacer> Products.P1<Mu<P>, Float> frondsPart(Instance<P> instance)
+    static <P extends BananaLeavesPlacer> Products.P3<Mu<P>, Float, BlockStateProvider, BlockStateProvider> frondsPart(Instance<P> instance)
     {
-        return instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("one_leaves_chance").forGetter(placer -> placer.oneLeavesChance));
+        return instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("one_leaves_chance").forGetter(placer -> placer.oneLeavesChance))
+                .and(BlockStateProvider.CODEC.fieldOf("top_leaves_state").forGetter(placer -> placer.topLeavesState))
+                .and(BlockStateProvider.CODEC.fieldOf("tail_leaves_state").forGetter(placer -> placer.tailLeavesState));
     }
 
-    public BananaLeavesPlacer(float oneLeavesChance)
+    public BananaLeavesPlacer(float oneLeavesChance, BlockStateProvider topLeavesState, BlockStateProvider tailLeavesState)
     {
         super(ConstantInt.of(0), ConstantInt.of(0));
         this.oneLeavesChance = oneLeavesChance;
+        this.topLeavesState = topLeavesState;
+        this.tailLeavesState = tailLeavesState;
     }
 
     @Override
@@ -57,17 +66,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
         {
             if (localY == 0)
             {
-                if (TreeFeature.validTreePos(level, pos))
-                {
-                    var blockState = FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState();
-
-                    if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
-                    {
-                        blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
-                    }
-
-                    blockSetter.set(pos, blockState);
-                }
+                this.placeTopLeaves(level, pos, random, blockSetter);
             }
             else
             {
@@ -75,20 +74,13 @@ public class BananaLeavesPlacer extends FoliagePlacer
 
                 for (var direction : Direction.Plane.HORIZONTAL)
                 {
-                    var direction2 = direction.getOpposite();
-                    var blockPos2 = mutableBlockPos.offset(direction2.getStepX(), localY, direction2.getStepZ());
+                    var opposite = direction.getOpposite();
+                    var posAroundLog = mutableBlockPos.offset(opposite.getStepX(), localY, opposite.getStepZ());
 
-                    if (TreeFeature.validTreePos(level, blockPos2) && TreeFeature.validTreePos(level, blockPos2.relative(direction2)))
+                    if (this.isAir(level, posAroundLog) && this.isAir(level, posAroundLog.relative(opposite)))
                     {
-                        var blockState = config.foliageProvider.getState(random, pos).setValue(BananaLeavesBlock.FACING, direction2).setValue(BananaLeavesBlock.COUNT, random.nextFloat() < this.oneLeavesChance ? 1 : 2).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER);
-
-                        if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
-                        {
-                            blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
-                        }
-
-                        blockSetter.set(blockPos2, blockState);
-                        blockSetter.set(blockPos2.relative(direction2), blockState.setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL));
+                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, random, config.foliageProvider.getState(random, pos), opposite));
+                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, random, this.tailLeavesState.getState(random, pos), opposite));
                     }
                 }
             }
@@ -105,5 +97,42 @@ public class BananaLeavesPlacer extends FoliagePlacer
     protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large)
     {
         return localX == range && localZ == range && (random.nextInt(2) == 0 || localY == 0);
+    }
+
+    private boolean isAir(LevelSimulatedReader level, BlockPos blockPos)
+    {
+        return level.isStateAtPosition(blockPos, BlockBehaviour.BlockStateBase::isAir);
+    }
+
+    private void placeTopLeaves(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, FoliageSetter blockSetter)
+    {
+        if (TreeFeature.validTreePos(level, blockPos))
+        {
+            var blockState = this.topLeavesState.getState(random, blockPos);
+
+            if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
+            {
+                blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
+            }
+
+            blockSetter.set(blockPos, blockState);
+        }
+    }
+
+    private BlockState applyAdditionalState(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, BlockState blockState, Direction opposite)
+    {
+        if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
+        {
+            blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
+        }
+        if (blockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+        {
+            blockState = blockState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+        }
+        if (blockState.hasProperty(BananaLeavesBlock.COUNT))
+        {
+            blockState = blockState.setValue(BananaLeavesBlock.COUNT, random.nextFloat() < this.oneLeavesChance ? 1 : 2);
+        }
+        return blockState;
     }
 }

@@ -10,10 +10,9 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.codecs.RecordCodecBuilder.Instance;
 import com.mojang.serialization.codecs.RecordCodecBuilder.Mu;
-import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
-import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTFoliagePlacerTypes;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -24,34 +23,44 @@ import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.material.Fluids;
 
 public class CoconutFrondsPlacer extends FoliagePlacer
 {
     public static final MapCodec<CoconutFrondsPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> frondsPart(instance).apply(instance, CoconutFrondsPlacer::new));
-    protected final int height;
-    protected final int maxLeavesDistanceFromLocalY;
-    protected final List<Pair<Integer, Integer>> reduceLeavesDistance;
+    final int height;
+    final int maxLeavesDistanceFromLocalY;
+    final BlockStateProvider topLeavesState;
+    final BlockStateProvider middleLeavesState;
+    final BlockStateProvider tailLeavesState;
+    final List<Pair<Integer, Integer>> reduceLeavesDistance;
 
-    protected static <P extends CoconutFrondsPlacer> Products.P3<Mu<P>, Integer, Integer, List<Pair<Integer, Integer>>> frondsPart(Instance<P> instance)
+    static <P extends CoconutFrondsPlacer> Products.P6<Mu<P>, Integer, Integer, BlockStateProvider, BlockStateProvider, BlockStateProvider, List<Pair<Integer, Integer>>> frondsPart(Instance<P> instance)
     {
         return instance.group(Codec.intRange(0, 8).fieldOf("height").forGetter(placer -> placer.height))
                 .and(Codec.intRange(0, 8).fieldOf("max_leaves_distance_from_local_y").forGetter(placer -> placer.maxLeavesDistanceFromLocalY))
+                .and(BlockStateProvider.CODEC.fieldOf("top_leaves_state").forGetter(placer -> placer.topLeavesState))
+                .and(BlockStateProvider.CODEC.fieldOf("middle_leaves_state").forGetter(placer -> placer.middleLeavesState))
+                .and(BlockStateProvider.CODEC.fieldOf("tail_leaves_state").forGetter(placer -> placer.tailLeavesState))
                 .and(Codec.mapPair(Codec.intRange(0, 16).fieldOf("at_tree_height"), Codec.intRange(0, 8).fieldOf("reduce_by")).codec().listOf().optionalFieldOf("reduce_leaves_distance", List.of()).forGetter(placer -> placer.reduceLeavesDistance));
     }
 
-    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, List<Pair<Integer, Integer>> reduceLeavesDistance)
+    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, BlockStateProvider topLeavesState, BlockStateProvider middleLeavesState, BlockStateProvider tailLeavesState, List<Pair<Integer, Integer>> reduceLeavesDistance)
     {
         super(ConstantInt.of(0), ConstantInt.of(0));
         this.height = height;
         this.maxLeavesDistanceFromLocalY = maxLeavesDistanceFromLocalY;
+        this.topLeavesState = topLeavesState;
+        this.middleLeavesState = middleLeavesState;
+        this.tailLeavesState = tailLeavesState;
         this.reduceLeavesDistance = reduceLeavesDistance;
     }
 
     @SafeVarargs
-    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, Pair<Integer, Integer>... reduceLeavesDistance)
+    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, BlockStateProvider topLeavesState, BlockStateProvider middleLeavesState, BlockStateProvider tailLeavesState, Pair<Integer, Integer>... reduceLeavesDistance)
     {
-        this(height, maxLeavesDistanceFromLocalY, Arrays.stream(reduceLeavesDistance).toList());
+        this(height, maxLeavesDistanceFromLocalY, topLeavesState, middleLeavesState, tailLeavesState, Arrays.stream(reduceLeavesDistance).toList());
     }
 
     @Override
@@ -74,21 +83,11 @@ public class CoconutFrondsPlacer extends FoliagePlacer
         {
             if (localY == 0)
             {
-                if (TreeFeature.validTreePos(level, pos))
-                {
-                    var blockState = FOTBlocks.VERTICAL_COCONUT_FRONDS.defaultBlockState();
-
-                    if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
-                    {
-                        blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
-                    }
-                    blockSetter.set(pos, blockState);
-                }
+                this.placeTopLeaves(level, pos, random, blockSetter);
             }
             else
             {
-                var mutableBlockPos = pos.mutable();
-                var maxLeavesDistanceFromLocalY = this.maxLeavesDistanceFromLocalY - localY;
+                var maxLeavesDistanceFromLocalY = this.maxLeavesDistanceFromLocalY - localY + 1;
 
                 for (var pair : this.reduceLeavesDistance)
                 {
@@ -98,47 +97,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                     }
                 }
 
-                for (var direction : Direction.Plane.HORIZONTAL)
-                {
-                    var opposite = direction.getOpposite();
-                    var blockState = config.foliageProvider.getState(random, pos).setValue(CoconutFrondsBlock.FACING, opposite);
-
-                    if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
-                    {
-                        blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
-                    }
-
-                    if (maxLeavesDistanceFromLocalY == 1)
-                    {
-                        var posAroundLog = mutableBlockPos.offset(opposite.getStepX(), localY, opposite.getStepZ());
-                        blockSetter.set(posAroundLog, blockState);
-                    }
-                    else
-                    {
-                        for (var i = 1; i <= maxLeavesDistanceFromLocalY; i++)
-                        {
-                            var posAroundLog = mutableBlockPos.offset(opposite.getStepX() * i, localY, opposite.getStepZ() * i);
-
-                            if (level.isStateAtPosition(posAroundLog, BlockBehaviour.BlockStateBase::isAir))
-                            {
-                                if (i > 1 && i < maxLeavesDistanceFromLocalY)
-                                {
-                                    blockState = blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE);
-                                }
-                                else if (i == maxLeavesDistanceFromLocalY)
-                                {
-                                    blockState = blockState.setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL);
-                                }
-                                blockSetter.set(posAroundLog, blockState);
-                            }
-                            else
-                            {
-                                // Skip when found non-air while placing leaves
-                                break;
-                            }
-                        }
-                    }
-                }
+                this.placeLeavesHorizontalDirections(level, pos, random, config, blockSetter, maxLeavesDistanceFromLocalY, localY);
             }
         }
     }
@@ -153,5 +112,102 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     protected boolean shouldSkipLocation(RandomSource random, int localX, int localY, int localZ, int range, boolean large)
     {
         return localX == range && localZ == range && (random.nextInt(2) == 0 || localY == 0);
+    }
+
+    private void placeTopLeaves(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, FoliagePlacer.FoliageSetter blockSetter)
+    {
+        if (TreeFeature.validTreePos(level, blockPos))
+        {
+            var blockState = this.topLeavesState.getState(random, blockPos);
+
+            if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
+            {
+                blockState = blockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
+            }
+            blockSetter.set(blockPos, blockState);
+        }
+    }
+
+    private void placeLeavesHorizontalDirections(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, TreeConfiguration config, FoliagePlacer.FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
+    {
+        var mutableBlockPos = blockPos.mutable();
+
+        for (var direction : Direction.Plane.HORIZONTAL)
+        {
+            var opposite = direction.getOpposite();
+            var leavesBlockState = config.foliageProvider.getState(random, blockPos);
+
+            if (leavesBlockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+            {
+                leavesBlockState = leavesBlockState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+            }
+            if (leavesBlockState.hasProperty(BlockStateProperties.WATERLOGGED))
+            {
+                leavesBlockState = leavesBlockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
+            }
+
+            if (maxLeavesDistanceFromLocalY == 1)
+            {
+                var posAroundLog = mutableBlockPos.offset(opposite.getStepX(), localY, opposite.getStepZ());
+
+                if (this.isAir(level, posAroundLog))
+                {
+                    blockSetter.set(posAroundLog, leavesBlockState);
+                }
+            }
+            else
+            {
+                var tailLeavesState = this.tailLeavesState.getState(random, blockPos);
+
+                if (tailLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+                {
+                    tailLeavesState = tailLeavesState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+                }
+
+                var middleLeavesState = this.middleLeavesState.getState(random, blockPos);
+
+                if (middleLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+                {
+                    middleLeavesState = middleLeavesState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+                }
+
+                for (var i = 1; i <= maxLeavesDistanceFromLocalY; i++)
+                {
+                    var posAroundLog = mutableBlockPos.offset(opposite.getStepX() * i, localY, opposite.getStepZ() * i);
+
+                    if (this.isAir(level, posAroundLog))
+                    {
+                        if (i > 1 && i < maxLeavesDistanceFromLocalY)
+                        {
+                            blockSetter.set(posAroundLog, middleLeavesState);
+                        }
+                        else if (i == maxLeavesDistanceFromLocalY)
+                        {
+                            blockSetter.set(posAroundLog, tailLeavesState);
+                        }
+                        else
+                        {
+                            blockSetter.set(posAroundLog, leavesBlockState);
+                        }
+                    }
+                    else
+                    {
+                        var previousLeavesPos = mutableBlockPos.offset(opposite.getStepX() * (i - 1), localY, opposite.getStepZ() * (i - 1));
+
+                        if (level.isStateAtPosition(previousLeavesPos, middleLeavesState::equals))
+                        {
+                            blockSetter.set(previousLeavesPos, tailLeavesState);
+                        }
+                        // Skip when found non-air while placing leaves and set leaves to tail state
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isAir(LevelSimulatedReader level, BlockPos blockPos)
+    {
+        return level.isStateAtPosition(blockPos, BlockBehaviour.BlockStateBase::isAir);
     }
 }
