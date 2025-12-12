@@ -78,8 +78,9 @@ public class BananaLeavesPlacer extends FoliagePlacer
 
                     if (this.isAir(level, posAroundLog) && this.isAir(level, posAroundLog.relative(opposite)))
                     {
-                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, random, config.foliageProvider.getState(random, pos), opposite));
-                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, random, this.tailLeavesState.getState(random, pos), opposite));
+                        var singleLeaves = random.nextFloat() < this.oneLeavesChance;
+                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, random, config.foliageProvider.getState(random, pos), opposite, singleLeaves));
+                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, random, this.tailLeavesState.getState(random, pos), opposite, singleLeaves));
                     }
                 }
             }
@@ -118,7 +119,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
         }
     }
 
-    private BlockState applyAdditionalState(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, BlockState blockState, Direction opposite)
+    private BlockState applyAdditionalState(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, BlockState blockState, Direction opposite, boolean singleLeaves)
     {
         if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
         {
@@ -130,7 +131,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
         }
         if (blockState.hasProperty(BananaLeavesBlock.COUNT))
         {
-            blockState = blockState.setValue(BananaLeavesBlock.COUNT, random.nextFloat() < this.oneLeavesChance ? 1 : 2);
+            blockState = blockState.setValue(BananaLeavesBlock.COUNT, singleLeaves ? 1 : 2);
         }
         return blockState;
     }
