@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.spawn.SpawnSelectors;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +20,8 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 
 public interface ThievesFish<T extends FishData> extends PartyFish
 {
@@ -147,5 +150,29 @@ public interface ThievesFish<T extends FishData> extends PartyFish
     private String getVariantKey()
     {
         return this.getRegistry().key().location().getPath();
+    }
+
+    default float calculateTreasuredGlow(Level level, BlockPos blockPos)
+    {
+        var dayTime = level.getDayTime() % Level.TICKS_PER_DAY;
+        var skyLight = level.getBrightness(LightLayer.SKY, blockPos);
+        var glowIntensityWithSkylight = (15 - skyLight) / 15.0f;
+        var glowingNightTimeStart = 12500;
+        var glowingNightTimeEnd = 13500;
+        var glowingMorningTimeStart = 22700;
+
+        if (dayTime >= glowingNightTimeStart && dayTime < glowingNightTimeEnd)
+        {
+            glowIntensityWithSkylight = Math.min(0.5f, Math.max((dayTime - glowingNightTimeStart) / 1000.0f, glowIntensityWithSkylight) + 0.05f);
+        }
+        else if (dayTime >= glowingNightTimeEnd && dayTime < glowingMorningTimeStart)
+        {
+            glowIntensityWithSkylight = 0.5f;
+        }
+        else if (dayTime >= glowingMorningTimeStart)
+        {
+            glowIntensityWithSkylight = Math.max(glowIntensityWithSkylight, 0.5f - (dayTime - glowingMorningTimeStart) / 1000.0f + 0.05f);
+        }
+        return Math.min(glowIntensityWithSkylight, (15 - level.getBrightness(LightLayer.BLOCK, blockPos)) / 15.0f);
     }
 }

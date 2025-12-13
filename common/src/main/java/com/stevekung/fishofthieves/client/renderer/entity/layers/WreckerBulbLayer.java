@@ -23,7 +23,7 @@ import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(new HashMap<>(), map -> map.putAll(FOTRegistry.WRECKER_VARIANT.stream().collect(Collectors.toMap(Function.identity(), variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(FOTRegistry.WRECKER_VARIANT.getKey(variant).getPath()))))));
+    private static final Map<WreckerVariant, ResourceLocation> BULB_BY_TYPE = Util.make(new HashMap<>(), map -> map.putAll(FOTRegistry.WRECKER_VARIANT.stream().collect(Collectors.toMap(Function.identity(), variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted((variant.isTreasured().isPresent() ? "treasured/" : "") + FOTRegistry.WRECKER_VARIANT.getKey(variant).getPath()))))));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {

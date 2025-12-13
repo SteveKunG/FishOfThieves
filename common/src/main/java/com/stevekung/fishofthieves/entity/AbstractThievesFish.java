@@ -232,6 +232,16 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
         return this.entityData.get(NO_FLIP);
     }
 
+    @Override
+    public float getGlowBrightness(float ageInTicks)
+    {
+        if (this.isTreasured())
+        {
+            return this.calculateTreasuredGlow(this.level(), this.blockPosition());
+        }
+        return ThievesFish.super.getGlowBrightness(ageInTicks);
+    }
+
     private void growUp(Player player, ItemStack itemStack)
     {
         if (!player.getAbilities().instabuild)
