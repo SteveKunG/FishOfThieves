@@ -70,7 +70,7 @@ public class FOTItem extends Item implements ResourceKeyHolder
         // Item contains CustomModelData tag
         else
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getTag().contains("CustomModelData"))
+            if (itemStack.getTag().contains("CustomModelData") && (itemStack.getTag().getInt("CustomModelData") == 0 || FishOfThieves.CONFIG.general.enableFishItemDropWithVariant))
             {
                 var customModelData = itemStack.getTag().getInt("CustomModelData");
                 var variant = level.registryAccess().registryOrThrow(this.resourceKey).holders().toList().get(customModelData).key().location().toString();

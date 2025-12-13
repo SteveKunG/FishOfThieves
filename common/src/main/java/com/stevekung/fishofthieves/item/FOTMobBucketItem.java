@@ -48,7 +48,7 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         // Item contains CustomModelData tag
         else
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getTag().contains("CustomModelData") && itemStack.getTag().contains(ThievesFish.VARIANT_TAG))
+            if (itemStack.getTag().contains("CustomModelData") && (itemStack.getTag().getInt("CustomModelData") == 0 || FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getTag().contains(ThievesFish.VARIANT_TAG)))
             {
                 var variantOld = itemStack.getTag().getString(ThievesFish.VARIANT_TAG);
                 itemStack.getOrCreateTag().putString(registryKeyTag, variantOld);
