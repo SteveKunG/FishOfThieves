@@ -72,9 +72,10 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
 
                 if (compoundTag.getString(key).equals(variant.toString()))
                 {
-                    var type = this.createTooltip(variant.getPath(), entry.value().isTreasured().isPresent());
+                    var treasured = entry.value().isTreasured().isPresent();
+                    var type = this.createTooltip(variant.getPath(), treasured);
 
-                    if (compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
+                    if (!treasured && compoundTag.getBoolean(ThievesFish.TROPHY_TAG))
                     {
                         type.append(", ").append(Component.translatable("entity.fishofthieves.trophy"));
                     }
