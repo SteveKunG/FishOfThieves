@@ -262,6 +262,11 @@ public class Shoal extends Entity
                 this.destroy();
             }
 
+            if (livingEntity instanceof Mob mob && livingEntity instanceof ThievesFish<?> thievesFish && thievesFish.isTreasured())
+            {
+                mob.setPersistenceRequired();
+            }
+
             return livingEntity;
         }
         else

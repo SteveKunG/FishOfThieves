@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.minecraft.util.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -23,6 +24,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, VariantHolder<Holder<T>>
@@ -114,5 +117,29 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
         var muha = Util.getRandomSafe(registry.listElements().filter(holder -> holder.value().treasured().isEmpty()).toList(), randomSource);
         this.setVariant(muha.orElseGet(() -> registry.getOrThrow(this.getDefaultKey())));
         this.setTrophy(randomSource.nextBoolean());
+    }
+
+    default float calculateTreasuredGlow(Level level, BlockPos blockPos)
+    {
+        var dayTime = level.getDayTime() % 24000;
+        var skyLight = level.getBrightness(LightLayer.SKY, blockPos);
+        var glowIntensityWithSkylight = (15 - skyLight) / 15.0f;
+        var glowingNightTimeStart = 12500;
+        var glowingNightTimeEnd = 13500;
+        var glowingMorningTimeStart = 22700;
+
+        if (dayTime >= glowingNightTimeStart && dayTime < glowingNightTimeEnd)
+        {
+            glowIntensityWithSkylight = Math.min(0.5f, Math.max((dayTime - glowingNightTimeStart) / 1000.0f, glowIntensityWithSkylight) + 0.05f);
+        }
+        else if (dayTime >= glowingNightTimeEnd && dayTime < glowingMorningTimeStart)
+        {
+            glowIntensityWithSkylight = 0.5f;
+        }
+        else if (dayTime >= glowingMorningTimeStart)
+        {
+            glowIntensityWithSkylight = Math.max(glowIntensityWithSkylight, 0.5f - (dayTime - glowingMorningTimeStart) / 1000.0f + 0.05f);
+        }
+        return Math.min(glowIntensityWithSkylight, (15 - level.getBrightness(LightLayer.BLOCK, blockPos)) / 15.0f);
     }
 }
