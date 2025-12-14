@@ -21,7 +21,7 @@ import net.minecraft.util.Mth;
 
 public class WreckerBulbLayer<T extends Wrecker, M extends EntityModel<T>> extends RenderLayer<T, M>
 {
-    private static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
+    private static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted((variant.value().treasured().isPresent() ? "treasured/" : "") + variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
 
     public WreckerBulbLayer(RenderLayerParent<T, M> renderLayerParent)
     {

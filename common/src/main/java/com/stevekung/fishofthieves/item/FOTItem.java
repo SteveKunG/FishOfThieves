@@ -70,9 +70,10 @@ public class FOTItem extends Item implements ResourceKeyHolder
         // Item contains CustomModelData component
         if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant)
+            var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value();
+
+            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant || customModelData == 0)
             {
-                var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value();
                 var variant = level.registryAccess().registryOrThrow(this.resourceKey).holders().sorted(AbstractFishVariant.COMPARATOR).filter(holder -> holder.value().order() == customModelData).findFirst().get().key().location().toString();
                 itemStack.set(DataComponents.CUSTOM_DATA, createCustomData(registryKeyTag, variant));
                 itemStack.remove(DataComponents.CUSTOM_MODEL_DATA);

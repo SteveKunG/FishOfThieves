@@ -189,9 +189,9 @@ public class FOTFeatures
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(7, 2, 0, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                new CoconutTrunkPlacer(8, 2, UniformInt.of(1, 2), UniformInt.of(1, 2), false, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(2, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(7, 1)),
+                new CoconutFrondsPlacer(2, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(8, 1)),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
     }
 
@@ -199,7 +199,7 @@ public class FOTFeatures
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(12, 3, 9, 2, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                new CoconutTrunkPlacer(12, 3, UniformInt.of(8, 9), UniformInt.of(1, 2), true, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
                 new CoconutFrondsPlacer(3, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL))),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));

@@ -44,7 +44,9 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         // Item contains CustomModelData component
         if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant)
+            var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).value();
+
+            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant || customModelData == 0)
             {
                 var bucketEntityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
                 CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
@@ -123,7 +125,10 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
 
             if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && entry.value().treasured().isEmpty())
             {
-                output.accept(create(item, key, variant.toString(), false));
+                if (entry.value().treasured().isEmpty())
+                {
+                    output.accept(create(item, key, variant.toString(), false));
+                }
                 output.accept(create(item, key, variant.toString(), true));
             }
             else

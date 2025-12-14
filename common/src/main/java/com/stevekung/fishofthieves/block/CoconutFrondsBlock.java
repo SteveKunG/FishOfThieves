@@ -109,8 +109,9 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        var oppositeState = level.getBlockState(pos.relative(state.getValue(FACING).getOpposite()));
-        var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
+        var oppositePos = pos.relative(state.getValue(FACING).getOpposite());
+        var oppositeState = level.getBlockState(oppositePos);
+        var facingState = level.getBlockState(pos.relative(state.getValue(FACING)));
 
         if (state.getValue(WATERLOGGED))
         {
@@ -121,27 +122,28 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         {
             case SINGLE ->
             {
-                // Update leaf to stem state
-                if (otherState.is(this) && otherState.getValue(FACING) == state.getValue(FACING))
+                // Update to stem state if placing at next block
+                if (facingState.is(this) && facingState.getValue(FACING) == state.getValue(FACING))
                 {
                     return state.setValue(PART, Part.STEM);
                 }
             }
             case STEM ->
             {
-                // Update leaf to single state if destroyed
-                if (!otherState.is(this) || otherState.is(this) && otherState.getValue(PART) != Part.MIDDLE && otherState.getValue(PART) != Part.TAIL)
+                // Update to single state if block next to leaves isn't itself
+                if (!facingState.is(this))
                 {
                     return state.setValue(PART, Part.SINGLE);
                 }
             }
             case MIDDLE ->
             {
-                // Update leaf to tail state if destroyed
-                if (!otherState.is(this))
+                // Update to tail state if block next to leaves isn't itself
+                if (!facingState.is(this))
                 {
                     return state.setValue(PART, Part.TAIL);
                 }
+                // If block behind leaves isn't itself, and it is solid block, update to stem state.
                 else if (!oppositeState.is(this) && oppositeState.isSolid())
                 {
                     return state.setValue(PART, Part.STEM);
@@ -149,14 +151,20 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
             }
             case TAIL ->
             {
-                // Update leaf to middle state if placing more leaf
-                if (otherState.is(this) && otherState.getValue(FACING) == state.getValue(FACING) && otherState.getValue(PART) == Part.TAIL)
+                // If block next to leaves is itself with the same facing and tail state, set to middle state.
+                if (facingState.is(this) && facingState.getValue(FACING) == state.getValue(FACING) && facingState.getValue(PART) == Part.TAIL)
                 {
                     return state.setValue(PART, Part.MIDDLE);
                 }
+                // If block behind leaves is air, destroy
+                else if (oppositeState.is(Blocks.AIR))
+                {
+                    return Blocks.AIR.defaultBlockState();
+                }
+                // If block behind leaves isn't itself, and it is solid block, update to single state.
                 else if (!oppositeState.is(this) && oppositeState.isSolid())
                 {
-                    return state.setValue(PART, Part.STEM);
+                    return state.setValue(PART, Part.SINGLE);
                 }
             }
         }
@@ -243,7 +251,6 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         else
         {
             var blockState = this.defaultBlockState().setValue(FACING, direction);
-
             var otherState = context.getLevel().getBlockState(context.getClickedPos().relative(blockState.getValue(FACING).getOpposite()));
 
             if (otherState.is(this))
