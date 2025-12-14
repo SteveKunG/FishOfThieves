@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WreckerRenderState extends ThievesFishRenderState
 {
-    public static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted(variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
+    public static final Function<Holder<WreckerVariant>, ResourceLocation> BULB_BY_VARIANT = variant -> FishOfThieves.id("textures/entity/wrecker/%s_bulb.png".formatted((variant.value().treasured().isPresent() ? "treasured/" : "") + variant.unwrapKey().orElse(WreckerVariants.ROSE).location().getPath()));
 
     public ResourceLocation bulbTexture;
 }
