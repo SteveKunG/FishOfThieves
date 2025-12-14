@@ -122,7 +122,7 @@ public class BlockTagsProvider extends FabricTagProvider.BlockTagProvider
         this.valueLookupBuilder(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.SMALL_COCONUT_LOG, FOTBlocks.SMALL_COCONUT_WOOD,
                 FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG, FOTBlocks.SMALL_TOP_COCONUT_LOG,
                 FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
-        this.valueLookupBuilder(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE_BELOW).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.MEDIUM_COCONUT_LOG);
+        this.valueLookupBuilder(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS).add(FOTBlocks.MEDIUM_COCONUT_LOG);
         this.valueLookupBuilder(FOTTags.Blocks.BANANA_STEMS).add(FOTBlocks.BANANA_STEM, FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM);
         this.valueLookupBuilder(FOTTags.Blocks.BANANA_CLUSTER_PLANTS).add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT,
                 FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT);

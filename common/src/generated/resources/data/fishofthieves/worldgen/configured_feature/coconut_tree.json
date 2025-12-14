@@ -32,7 +32,7 @@
       },
       "reduce_leaves_distance": [
         {
-          "at_tree_height": 7,
+          "at_tree_height": 8,
           "reduce_by": 1
         }
       ],
@@ -81,8 +81,9 @@
     },
     "trunk_placer": {
       "type": "fishofthieves:coconut_trunk_placer",
-      "base_height": 7,
+      "base_height": 8,
       "height_rand_a": 2,
+      "increase_medium_trunk_by_one": false,
       "medium_log": {
         "type": "minecraft:simple_state_provider",
         "state": {
@@ -93,8 +94,16 @@
           }
         }
       },
-      "medium_trunk_height": 2,
-      "medium_trunk_start": 0,
+      "medium_trunk_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      },
+      "medium_trunk_start": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      },
       "small_log": {
         "type": "minecraft:simple_state_provider",
         "state": {

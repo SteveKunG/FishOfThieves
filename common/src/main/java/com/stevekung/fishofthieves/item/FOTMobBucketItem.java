@@ -49,9 +49,10 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
         // Item contains CustomModelData component
         if (itemStack.has(DataComponents.CUSTOM_MODEL_DATA))
         {
-            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant)
+            var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).getFloat(0);
+
+            if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant || customModelData == 0)
             {
-                var customModelData = itemStack.get(DataComponents.CUSTOM_MODEL_DATA).getFloat(0);
                 var variant = level.registryAccess().lookupOrThrow(this.resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).filter(holder -> holder.value().order() == customModelData).findFirst().get();
                 itemStack.set(this.dataComponentType, (Holder<T>) variant);
                 itemStack.remove(DataComponents.CUSTOM_MODEL_DATA);
@@ -139,7 +140,10 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
 
             if (FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab && entry.value().treasured().isEmpty())
             {
-                output.accept(create(item, entry, false));
+                if (entry.value().treasured().isEmpty())
+                {
+                    output.accept(create(item, entry, false));
+                }
                 output.accept(create(item, entry, true));
             }
             else
