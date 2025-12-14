@@ -46,16 +46,16 @@ public class FOTDisplayItems
         FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.WRECKER_BUCKET);
         FOTMobBucketItem.addFishVariantsBucket(itemDisplayParameters, output, FOTItems.STORMFISH_BUCKET);
 
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.SPLASHTAIL_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PONDIE_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ISLEHOPPER_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.ANCIENTSCALE_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.PLENTIFIN_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WILDSPLASH_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.DEVILFISH_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.BATTLEGILL_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.WRECKER_SPAWN_EGG);
-        FOTSpawnEggItem.addTrophySpawnEgg(output, FOTItems.STORMFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.SPLASHTAIL_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.PONDIE_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.ISLEHOPPER_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.ANCIENTSCALE_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.PLENTIFIN_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.WILDSPLASH_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.DEVILFISH_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.BATTLEGILL_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.WRECKER_SPAWN_EGG);
+        FOTSpawnEggItem.addSpawnEgg(itemDisplayParameters, output, FOTItems.STORMFISH_SPAWN_EGG);
     }
 
     public static void displayMainItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output)

@@ -47,16 +47,16 @@ public class FOTItems
     public static final Item WRECKER_BUCKET = new FOTMobBucketItem(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT_REGISTRY, new Item.Properties().stacksTo(1));
     public static final Item STORMFISH_BUCKET = new FOTMobBucketItem(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT_REGISTRY, new Item.Properties().stacksTo(1));
 
-    public static final Item SPLASHTAIL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, new Item.Properties());
-    public static final Item PONDIE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, new Item.Properties());
-    public static final Item ISLEHOPPER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, new Item.Properties());
-    public static final Item ANCIENTSCALE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, new Item.Properties());
-    public static final Item PLENTIFIN_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, new Item.Properties());
-    public static final Item WILDSPLASH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, new Item.Properties());
-    public static final Item DEVILFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, new Item.Properties());
-    public static final Item BATTLEGILL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, new Item.Properties());
-    public static final Item WRECKER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, new Item.Properties());
-    public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, new Item.Properties());
+    public static final Item SPLASHTAIL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, 10368309, 3949737, FOTRegistries.SPLASHTAIL_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item PONDIE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PONDIE, 8553918, 6255174, FOTRegistries.PONDIE_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item ISLEHOPPER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, 5854313, 8600128, FOTRegistries.ISLEHOPPER_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item ANCIENTSCALE_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, 16224860, 7878952, FOTRegistries.ANCIENTSCALE_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item PLENTIFIN_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.PLENTIFIN, 12901959, 3298579, FOTRegistries.PLENTIFIN_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item WILDSPLASH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WILDSPLASH, 6453062, 7556888, FOTRegistries.WILDSPLASH_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item DEVILFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.DEVILFISH, 8618392, 13068147, FOTRegistries.DEVILFISH_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item BATTLEGILL_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.BATTLEGILL, 2311985, 11047794, FOTRegistries.BATTLEGILL_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item WRECKER_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.WRECKER, 12022988, 4597359, FOTRegistries.WRECKER_VARIANT_REGISTRY, new Item.Properties());
+    public static final Item STORMFISH_SPAWN_EGG = new FOTSpawnEggItem(FOTEntities.STORMFISH, 9541044, 8608620, FOTRegistries.STORMFISH_VARIANT_REGISTRY, new Item.Properties());
 
     public static final Item COCONUT = new ItemNameBlockItem(FOTBlocks.COCONUT_SAPLING, new Item.Properties().food(FOTFoodProperties.COCONUT));
     public static final Item BANANA = new Item(new Item.Properties().food(FOTFoodProperties.BANANA));
