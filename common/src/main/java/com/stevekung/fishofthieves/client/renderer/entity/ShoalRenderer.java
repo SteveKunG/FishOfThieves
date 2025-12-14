@@ -93,7 +93,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
         for (var livingEntity : entity.getShoalFishClient())
         {
             var renderer = (EntityRenderer<? super Entity, ? super EntityRenderState>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(livingEntity.getType());
-            var entityRenderState = renderer.createRenderState(livingEntity, partialTicks);
+            var entityRenderState = renderer.createRenderState(livingEntity, 1.0f);
             entityRenderState.ageInTicks = entity.tickCount + partialTicks;
             entityRenderStateList.add(entityRenderState);
         }
