@@ -61,7 +61,7 @@ public interface FOTTags
         TagKey<Block> NON_FULL_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("non_full_logs"));
         TagKey<Block> COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_logs"));
         TagKey<Block> SMALL_COCONUT_LOGS = TagKey.create(Registries.BLOCK, FishOfThieves.id("small_coconut_logs"));
-        TagKey<Block> COCONUT_GROWABLE_LOG_SPAWNABLE_BELOW = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_growable_log_spawnable_below"));
+        TagKey<Block> COCONUT_GROWABLE_LOG_SPAWNABLE = TagKey.create(Registries.BLOCK, FishOfThieves.id("coconut_growable_log_spawnable"));
         TagKey<Block> BANANA_STEMS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_stems"));
         TagKey<Block> BANANA_CLUSTER_PLANTS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_cluster_plants"));
         TagKey<Block> BANANA_CLUSTERS = TagKey.create(Registries.BLOCK, FishOfThieves.id("banana_clusters"));

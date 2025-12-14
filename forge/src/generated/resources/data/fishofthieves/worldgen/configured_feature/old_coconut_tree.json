@@ -77,6 +77,7 @@
       "type": "fishofthieves:coconut_trunk_placer",
       "base_height": 12,
       "height_rand_a": 3,
+      "increase_medium_trunk_by_one": true,
       "medium_log": {
         "type": "minecraft:simple_state_provider",
         "state": {
@@ -87,8 +88,20 @@
           }
         }
       },
-      "medium_trunk_height": 2,
-      "medium_trunk_start": 9,
+      "medium_trunk_height": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        }
+      },
+      "medium_trunk_start": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 9,
+          "min_inclusive": 8
+        }
+      },
       "small_log": {
         "type": "minecraft:simple_state_provider",
         "state": {

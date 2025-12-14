@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.feature.treedecorators;
 
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -10,6 +11,7 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
@@ -51,7 +53,9 @@ public class CoconutDecorator extends TreeDecorator
 
             list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).findFirst().ifPresent(blockPos ->
             {
-                if (context.level().isStateAtPosition(blockPos.below(), blockState -> blockState.is(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE_BELOW)))
+                Predicate<BlockState> canGrow = blockState -> blockState.is(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE);
+
+                if (context.level().isStateAtPosition(blockPos.above(), canGrow) && context.level().isStateAtPosition(blockPos.below(), canGrow))
                 {
                     context.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG.defaultBlockState());
 
