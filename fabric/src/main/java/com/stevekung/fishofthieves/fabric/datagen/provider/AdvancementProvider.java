@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.block.CoconutFrondsBlock;
 import com.stevekung.fishofthieves.entity.FishData;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.item.FOTItem;
+import com.stevekung.fishofthieves.item.FOTMobBucketItem;
 import com.stevekung.fishofthieves.item.ResourceKeyHolder;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
@@ -112,6 +113,14 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         null, FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                 .save(consumer, this.mod("legendary_fish_collectors"));
+
+        this.addTreasuredFishVariantsBuckets(Advancement.Builder.advancement().parent(fishCollectors))
+                .display(FOTMobBucketItem.create(FOTItems.STORMFISH_BUCKET, "stormfish_variant", "fishofthieves:starshine", null),
+                        Component.translatable("advancements.fishofthieves.treasured_fish_collectors.title"),
+                        Component.translatable("advancements.fishofthieves.treasured_fish_collectors.description"),
+                        null, FrameType.CHALLENGE, true, true, false)
+                .rewards(AdvancementRewards.Builder.experience(3000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
+                .save(consumer, this.mod("treasured_fish_collectors"));
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ContextAwarePredicate.ANY,
@@ -317,6 +326,28 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         compound.putBoolean(ThievesFish.TROPHY_TAG, true);
                         compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
                     }
+                })).build()));
+            }
+        }
+        return builder;
+    }
+
+    private Advancement.Builder addTreasuredFishVariantsBuckets(Advancement.Builder builder)
+    {
+        for (var item : FOTTags.FISH_BUCKETS)
+        {
+            for (var variant : new TreeSet<>(BUCKET_TO_VARIANTS_MAP.get(item).keySet()))
+            {
+                if (BUCKET_TO_VARIANTS_MAP.get(item).getOptional(variant).orElseThrow().isTreasured().isEmpty())
+                {
+                    continue;
+                }
+
+                builder.addCriterion(variant.getPath() + "_" + this.getItemName(item), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(item).hasNbt(Util.make(new CompoundTag(), compound ->
+                {
+                    compound.putString(((ResourceKeyHolder) item).getResourceKey().location().getPath(), variant.toString());
+                    compound.putBoolean(ThievesFish.TROPHY_TAG, true);
+                    compound.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 })).build()));
             }
         }

@@ -129,7 +129,7 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), ResourceLocation.tryParse(variant).getPath())).withStyle(ChatFormatting.ITALIC, treasured ? ChatFormatting.GOLD : ChatFormatting.GRAY);
     }
 
-    private static ItemStack create(Item item, String registryPath, String variant, Boolean trophy)
+    public static ItemStack create(Item item, String registryPath, String variant, Boolean trophy)
     {
         var itemStack = new ItemStack(item);
         itemStack.getOrCreateTag().putString(registryPath, variant);
