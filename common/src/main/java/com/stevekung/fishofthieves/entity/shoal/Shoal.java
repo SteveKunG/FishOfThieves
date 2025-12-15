@@ -415,10 +415,7 @@ public class Shoal extends Entity
 
     public void addParticipatePlayer(UUID uuid)
     {
-        if (!this.participates.contains(uuid))
-        {
-            this.participates.add(uuid);
-        }
+        this.participates.add(uuid);
     }
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
