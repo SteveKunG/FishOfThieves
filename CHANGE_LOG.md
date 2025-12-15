@@ -101,7 +101,7 @@
   - Added "Drunken Sailor" advancement
 - [1.21.1+] Fishing Rum Battlegill now required Nausea active
 - [1.21.1+] Fishing Raven Islehopper now required Blindness active with 1 in 3 chance
-- Coconut fronds now has drop chance of 33%, 50% and 100%
+- Coconut fronds now has 50% drop chance
   - Requires tool enchanted with Silk Touch or shears to make it always drop
 - Better Coconut Fronds block state handling
 - Added Fruits trade for Farmer Villager

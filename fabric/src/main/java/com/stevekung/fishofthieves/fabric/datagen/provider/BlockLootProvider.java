@@ -127,11 +127,11 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2f, 4f))))
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
-        this.add(FOTBlocks.COCONUT_FRONDS, block -> createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.33F, 0.5F, 1.0F))));
+        this.add(FOTBlocks.COCONUT_FRONDS, block -> createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.5F, 1.0F))));
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.dropOther(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM, FOTBlocks.BANANA_STEM);
         this.dropOther(FOTBlocks.VERTICAL_BANANA_LEAVES, FOTBlocks.BANANA_LEAVES);
-        this.add(FOTBlocks.VERTICAL_COCONUT_FRONDS, block -> createSilkTouchOrShearsDispatchTable(FOTBlocks.COCONUT_FRONDS, LootItem.lootTableItem(FOTBlocks.COCONUT_FRONDS).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.33F, 0.5F, 1.0F))));
+        this.add(FOTBlocks.VERTICAL_COCONUT_FRONDS, block -> createSilkTouchOrShearsDispatchTable(FOTBlocks.COCONUT_FRONDS, LootItem.lootTableItem(FOTBlocks.COCONUT_FRONDS).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.5F, 1.0F))));
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
