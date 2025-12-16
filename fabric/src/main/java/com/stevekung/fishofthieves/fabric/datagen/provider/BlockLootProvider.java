@@ -26,6 +26,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -130,7 +131,7 @@ public class BlockLootProvider extends FabricBlockLootTableProvider
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2f, 4f))))
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
                                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
-        this.dropSelf(FOTBlocks.COCONUT_FRONDS);
+        this.add(FOTBlocks.COCONUT_FRONDS, block -> this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5F, 1.0F))));
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()

@@ -226,7 +226,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
                 }
                 else
                 {
-                    helper.fail("EntityType id is not a axolotl!");
+                    helper.fail("EntityType id is not an axolotl!");
                 }
             }
         }

@@ -32,7 +32,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, T exten
     @Override
     public void render(T livingEntity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight)
     {
-        this.shadowRadius = livingEntity.isTrophy() ? 0.25f : 0.15f;
+        this.shadowRadius = livingEntity.isTreasured() ? 0.3f : livingEntity.isTrophy() ? 0.25f : 0.15f;
         super.render(livingEntity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 

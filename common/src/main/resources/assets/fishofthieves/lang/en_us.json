@@ -257,6 +257,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "Trophy",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "Splashtail",
   "entity.fishofthieves.splashtail.ruby": "Ruby",
   "entity.fishofthieves.splashtail.sunny": "Sunny",
@@ -383,6 +384,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "Collects all the thieves fish variants",
   "advancements.fishofthieves.legendary_fish_collectors.title": "Legendary Fish Collectors",
   "advancements.fishofthieves.legendary_fish_collectors.description": "Collects all the fish variants but all are Trophy!",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "Hottest Fish",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "Feed an Axolotl with a Lava Devilfish!",
   "advancements.fishofthieves.so_chill.title": "Oh you're so chill",

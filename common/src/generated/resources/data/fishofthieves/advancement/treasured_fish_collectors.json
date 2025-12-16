@@ -1,0 +1,173 @@
+{
+  "parent": "fishofthieves:fish_collectors",
+  "criteria": {
+    "blossom_ancientscale_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:ancientscale_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,ancientscale_variant:\"fishofthieves:blossom\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "briny_islehopper_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:islehopper_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,islehopper_variant:\"fishofthieves:briny\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "calico_wildsplash_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:wildsplash_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wildsplash_variant:\"fishofthieves:calico\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "crimson_plentifin_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:plentifin_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,plentifin_variant:\"fishofthieves:crimson\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "dewdrop_pondie_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:pondie_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,pondie_variant:\"fishofthieves:dewdrop\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "emerald_wrecker_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:wrecker_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,wrecker_variant:\"fishofthieves:emerald\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "leopard_devilfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:devilfish_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,devilfish_variant:\"fishofthieves:leopard\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "obsidian_splashtail_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:splashtail_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,splashtail_variant:\"fishofthieves:obsidian\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "starshine_stormfish_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:stormfish_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,stormfish_variant:\"fishofthieves:starshine\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    },
+    "zest_battlegill_bucket": {
+      "conditions": {
+        "item": {
+          "items": "fishofthieves:battlegill_bucket",
+          "predicates": {
+            "minecraft:bucket_entity_data": "{HasFed:0b,Trophy:1b,battlegill_variant:\"fishofthieves:zest\"}"
+          }
+        }
+      },
+      "trigger": "minecraft:filled_bucket"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.fishofthieves.treasured_fish_collectors.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "minecraft:bucket_entity_data": {
+          "creative": 1,
+          "stormfish_variant": "fishofthieves:starshine"
+        }
+      },
+      "count": 1,
+      "id": "fishofthieves:stormfish_bucket"
+    },
+    "title": {
+      "translate": "advancements.fishofthieves.treasured_fish_collectors.title"
+    }
+  },
+  "requirements": [
+    [
+      "obsidian_splashtail_bucket"
+    ],
+    [
+      "dewdrop_pondie_bucket"
+    ],
+    [
+      "briny_islehopper_bucket"
+    ],
+    [
+      "blossom_ancientscale_bucket"
+    ],
+    [
+      "crimson_plentifin_bucket"
+    ],
+    [
+      "calico_wildsplash_bucket"
+    ],
+    [
+      "leopard_devilfish_bucket"
+    ],
+    [
+      "zest_battlegill_bucket"
+    ],
+    [
+      "emerald_wrecker_bucket"
+    ],
+    [
+      "starshine_stormfish_bucket"
+    ]
+  ],
+  "rewards": {
+    "experience": 3000,
+    "loot": [
+      "fishofthieves:rewards/legendary_fish_collectors"
+    ]
+  },
+  "sends_telemetry_event": true
+}

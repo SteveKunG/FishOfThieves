@@ -257,6 +257,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "奖杯",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "浪尾鱼",
   "entity.fishofthieves.splashtail.ruby": "赤晶",
   "entity.fishofthieves.splashtail.sunny": "阳光",
@@ -383,6 +384,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "收集所有盗贼鱼类变种",
   "advancements.fishofthieves.legendary_fish_collectors.title": "鱼类收藏传奇",
   "advancements.fishofthieves.legendary_fish_collectors.description": "收集所有盗贼鱼类变种，全都是奖杯鱼！",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "红烧鱼",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "喂美西螈吃熔岩魔鬼鱼！",
   "advancements.fishofthieves.so_chill.title": "铁石心肠",
