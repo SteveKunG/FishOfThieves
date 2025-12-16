@@ -27,14 +27,14 @@ public class FOTFoodProperties
     public static final FoodProperties COOKED_WRECKER = new FoodProperties.Builder().nutrition(6).saturationModifier(0.65f).build();
     public static final FoodProperties COOKED_STORMFISH = new FoodProperties.Builder().nutrition(6).saturationModifier(0.65f).build();
 
-    public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(3).saturationModifier(0.125f).build();
+    public static final FoodProperties COCONUT = new FoodProperties.Builder().nutrition(3).saturationModifier(0.1f).build();
     public static final FoodProperties BANANA = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
     public static final FoodProperties PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationModifier(1.0f).build();
-    public static final FoodProperties HALF_PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationModifier(0.5f).build();
-    public static final FoodProperties MANGO = new FoodProperties.Builder().nutrition(5).saturationModifier(1.0f).build();
-    public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationModifier(0.5f).build();
-    public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(4).saturationModifier(0.8f).build();
-    public static final FoodProperties GUARDIAN_FRUIT = new FoodProperties.Builder().nutrition(8).saturationModifier(1.0f)
+    public static final FoodProperties HALF_PINEAPPLE = new FoodProperties.Builder().nutrition(6).saturationModifier(1.0f).build();
+    public static final FoodProperties MANGO = new FoodProperties.Builder().nutrition(6).saturationModifier(0.3f).build();
+    public static final FoodProperties RAW_MANGO = new FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).build();
+    public static final FoodProperties POMEGRANATE = new FoodProperties.Builder().nutrition(4).saturationModifier(0.2f).build();
+    public static final FoodProperties GUARDIAN_FRUIT = new FoodProperties.Builder().nutrition(6).saturationModifier(1.2f)
             .alwaysEdible()
             .build();
 }

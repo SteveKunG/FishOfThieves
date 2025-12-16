@@ -31,7 +31,7 @@ public class BattlegillVariants
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1, SeeSkyCheck.seeSky());
-        registerContext.register(context, RUM, "rum", 2, List.of(), List.of(registerContext.select(LivingEntityHasEffectCondition.effect(MobEffects.NAUSEA), 0)));
+        registerContext.register(context, RUM, "rum", 2, List.of(), List.of(registerContext.select(LivingEntityHasEffectCondition.effect(HolderSet.direct(MobEffects.NAUSEA)), 0)));
         registerContext.register(context, SAND, "sand", 3, AllConditionCheck.allOf(
                 ProbabilityCheck.defaultRareProbablity(),
                 new BiomeCheck(HolderSet.direct(

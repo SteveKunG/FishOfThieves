@@ -1,46 +1,65 @@
 package com.stevekung.fishofthieves.item;
 
+import java.util.function.Consumer;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.ThievesFish;
+import com.stevekung.fishofthieves.entity.variant.AbstractFishVariant;
 
-import net.minecraft.util.Util;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Util;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TypedEntityData;
 
 public class FOTSpawnEggItem extends SpawnEggItem
 {
-    public FOTSpawnEggItem(Item.Properties properties)
+    private final ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey;
+
+    public FOTSpawnEggItem(ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, Item.Properties properties)
     {
         super(properties);
+        this.resourceKey = resourceKey;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public Component getName(ItemStack itemStack)
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
-        var name = super.getName(itemStack).copy();
-
-        if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
+        if (context.registries() != null)
         {
             var entityData = itemStack.get(DataComponents.ENTITY_DATA);
 
-            if (entityData != null)
+            if (entityData == null)
             {
-                if (entityData.copyTagWithoutId().getBooleanOr(ThievesFish.TROPHY_TAG, false))
+                return;
+            }
+
+            var entityTag = entityData.copyTagWithoutId();
+            var trophy = entityTag.getBooleanOr(ThievesFish.TROPHY_TAG, false);
+            var treasured = false;
+
+            for (var entry : context.registries().lookupOrThrow(this.resourceKey).listElements().toList())
+            {
+                if (entry.value().treasured().isPresent() && entityTag.getStringOr(ThievesFish.VARIANT_TAG, "").equals(entry.key().identifier().toString()))
                 {
-                    return name.append(" (").append(Component.translatable("entity.fishofthieves.trophy")).append(")");
+                    consumer.accept(Component.translatable(this.getType(itemStack).getDescriptionId() + "." + entry.key().identifier().getPath()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GOLD));
+                    treasured = true;
                 }
             }
+            if (!treasured)
+            {
+                consumer.accept(Component.translatable(trophy ? "entity.fishofthieves.trophy" : "entity.fishofthieves.non_trophy").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
+            }
         }
-        return name;
     }
 
-    public static void addTrophySpawnEgg(CreativeModeTab.Output output, Item item)
+    public static void addSpawnEgg(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output, Item item)
     {
         if (FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab)
         {
@@ -51,12 +70,30 @@ public class FOTSpawnEggItem extends SpawnEggItem
         {
             output.accept(item);
         }
+
+        var spawnEgg = (FOTSpawnEggItem) item;
+
+        for (var entry : itemDisplayParameters.holders().lookupOrThrow(spawnEgg.resourceKey).listElements().filter(holder -> holder.value().treasured().isPresent()).toList())
+        {
+            output.accept(createTreasured(item, entry.key().identifier().toString()));
+        }
     }
 
     private static ItemStack create(Item item, boolean trophy)
     {
         var itemStack = new ItemStack(item);
         itemStack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(itemStack.get(DataComponents.ENTITY_DATA).type(), Util.make(new CompoundTag(), compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, trophy))));
+        return itemStack;
+    }
+
+    private static ItemStack createTreasured(Item item, String variant)
+    {
+        var itemStack = new ItemStack(item);
+        itemStack.set(DataComponents.ENTITY_DATA, TypedEntityData.of(itemStack.get(DataComponents.ENTITY_DATA).type(), Util.make(new CompoundTag(), compoundTag ->
+        {
+            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
+            compoundTag.putString(ThievesFish.VARIANT_TAG, variant);
+        })));
         return itemStack;
     }
 }
