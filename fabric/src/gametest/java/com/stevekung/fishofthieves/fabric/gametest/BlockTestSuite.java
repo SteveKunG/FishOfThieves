@@ -444,12 +444,12 @@ public class BlockTestSuite implements FOTGameTest
     }
 
     //TODO
-    @GameTest(template = EMPTY_3X3)
+    @GameTest(structure = EMPTY_3X3)
     public void foxInteractWithPomegranatePlant(GameTestHelper helper)
     {
     }
 
-    @GameTest(template = EMPTY_3X3)
+    @GameTest(structure = EMPTY_3X3)
     public void foxInteractWithTallPomegranatePlant(GameTestHelper helper)
     {
     }
