@@ -187,7 +187,7 @@ public class FOTFeatures
         FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockStateConfiguration(Blocks.STONE.defaultBlockState()));
 
         FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
-                placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_CHECKED),
+                placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_LEAF_LITTER_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED))));
         FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE),
