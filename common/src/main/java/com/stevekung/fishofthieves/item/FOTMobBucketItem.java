@@ -35,7 +35,6 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
         this.resourceKey = resourceKey;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slotId, boolean isSelected)
     {
@@ -51,7 +50,7 @@ public class FOTMobBucketItem extends MobBucketItem implements ResourceKeyHolder
                 var bucketEntityData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
                 CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
                 {
-                    compoundTag.putString(registryKeyTag, bucketEntityData.getUnsafe().getString(ThievesFish.VARIANT_TAG));
+                    compoundTag.putString(registryKeyTag, bucketEntityData.copyTag().getString(ThievesFish.VARIANT_TAG));
                     compoundTag.remove(ThievesFish.VARIANT_TAG);
                 });
                 itemStack.remove(DataComponents.CUSTOM_MODEL_DATA);

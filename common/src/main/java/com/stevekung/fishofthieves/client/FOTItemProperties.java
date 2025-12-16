@@ -25,7 +25,6 @@ public class FOTItemProperties
         createItemProperties(BUCKET_ITEMS, DataComponents.BUCKET_ENTITY_DATA);
     }
 
-    @SuppressWarnings("deprecation")
     private static void createItemProperties(List<Item> items, DataComponentType<CustomData> dataComponentType)
     {
         for (var item : items)
@@ -45,7 +44,7 @@ public class FOTItemProperties
                 }
 
                 var customData = itemStack.getOrDefault(dataComponentType, CustomData.EMPTY);
-                var variant = customData.getUnsafe().getString(registryKey);
+                var variant = customData.copyTag().getString(registryKey);
                 var variantList = level.registryAccess().lookupOrThrow(resourceKeyHolder.getResourceKey()).listElements().sorted(AbstractFishVariant.COMPARATOR).map(Holder.Reference::key).toList();
 
                 for (var i = 0; i < variantList.size(); i++)

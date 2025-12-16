@@ -87,7 +87,6 @@ public class FOTItem extends Item implements ResourceKeyHolder
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag)
     {
@@ -100,7 +99,7 @@ public class FOTItem extends Item implements ResourceKeyHolder
                 var key = entry.key().registry().getPath();
                 var variant = entry.key().location();
 
-                if (customData.getUnsafe().getString(key).equals(variant.toString()))
+                if (customData.copyTag().getString(key).equals(variant.toString()))
                 {
                     tooltipComponents.add(Component.translatable(this.entityType.getDescriptionId() + "." + variant.getPath()).withStyle(ChatFormatting.ITALIC, entry.value().treasured().isPresent() ? ChatFormatting.GOLD : ChatFormatting.GRAY));
                 }
