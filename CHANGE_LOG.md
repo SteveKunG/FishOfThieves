@@ -81,7 +81,7 @@
 - Fixed Fish Bone block particle with correct texture size
 - Fixed z-fighting for Gilded Fish Plaque
 - Fixed rare case of fish models are sync their animation with entity in world and inside the Fish Plaque
-- Fixed FoT's flowers are not attracted to bee and cannot feed to bee
+- [1.21.5+] Fixed FoT's flowers are not attracted to bee and cannot feed to bee
 
 ## Misc
 
