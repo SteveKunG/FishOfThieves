@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "트로피",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "스플래시테일",
   "entity.fishofthieves.splashtail.ruby": "루비",
   "entity.fishofthieves.splashtail.sunny": "햇살",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "모든 종류의 물고기들을 수집하세요!",
   "advancements.fishofthieves.legendary_fish_collectors.title": "전설의 물고기 수집가",
   "advancements.fishofthieves.legendary_fish_collectors.description": "트로피 사이즈의 모든 물고기 종류를 수집하세요!",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "가장 뜨거운 물고기",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "아홀로틀에게 용암 물고기를 먹이세요!",
   "advancements.fishofthieves.so_chill.title": "오, 당신은 매우 Chill하군요!",

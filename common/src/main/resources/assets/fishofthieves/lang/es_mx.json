@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "Trofeo",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "Cola de Salpicadura",
   "entity.fishofthieves.splashtail.ruby": "Rubí",
   "entity.fishofthieves.splashtail.sunny": "Soleado",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "Colecciona todas las variantes de Fish of Thieves",
   "advancements.fishofthieves.legendary_fish_collectors.title": "Coleccionistas Legendarios de Peces",
   "advancements.fishofthieves.legendary_fish_collectors.description": "¡Colecciona todas las variantes de peces, pero todos son Trofeo!",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "El Pez Más Caliente",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "¡Alimenta a un ajolote con un Pez Diablo de Lava!",
   "advancements.fishofthieves.so_chill.title": "Oh, qué relajado estás",

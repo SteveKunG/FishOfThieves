@@ -182,16 +182,16 @@ public class FOTItems
     public static final Item WRECKER_BUCKET = register("wrecker_bucket", properties -> new FOTMobBucketItem<>(FOTEntities.WRECKER, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.WRECKER_VARIANT, FOTDataComponentTypes.WRECKER_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
     public static final Item STORMFISH_BUCKET = register("stormfish_bucket", properties -> new FOTMobBucketItem<>(FOTEntities.STORMFISH, Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, FOTRegistries.STORMFISH_VARIANT, FOTDataComponentTypes.STORMFISH_VARIANT, properties.stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
-    public static final Item SPLASHTAIL_SPAWN_EGG = register("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, properties));
-    public static final Item PONDIE_SPAWN_EGG = register("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, properties));
-    public static final Item ISLEHOPPER_SPAWN_EGG = register("islehopper_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, properties));
-    public static final Item ANCIENTSCALE_SPAWN_EGG = register("ancientscale_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, properties));
-    public static final Item PLENTIFIN_SPAWN_EGG = register("plentifin_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PLENTIFIN, properties));
-    public static final Item WILDSPLASH_SPAWN_EGG = register("wildsplash_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WILDSPLASH, properties));
-    public static final Item DEVILFISH_SPAWN_EGG = register("devilfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.DEVILFISH, properties));
-    public static final Item BATTLEGILL_SPAWN_EGG = register("battlegill_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.BATTLEGILL, properties));
-    public static final Item WRECKER_SPAWN_EGG = register("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, properties));
-    public static final Item STORMFISH_SPAWN_EGG = register("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, properties));
+    public static final Item SPLASHTAIL_SPAWN_EGG = register("splashtail_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, properties));
+    public static final Item PONDIE_SPAWN_EGG = register("pondie_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, properties));
+    public static final Item ISLEHOPPER_SPAWN_EGG = register("islehopper_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, properties));
+    public static final Item ANCIENTSCALE_SPAWN_EGG = register("ancientscale_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, properties));
+    public static final Item PLENTIFIN_SPAWN_EGG = register("plentifin_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, properties));
+    public static final Item WILDSPLASH_SPAWN_EGG = register("wildsplash_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, properties));
+    public static final Item DEVILFISH_SPAWN_EGG = register("devilfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, properties));
+    public static final Item BATTLEGILL_SPAWN_EGG = register("battlegill_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, properties));
+    public static final Item WRECKER_SPAWN_EGG = register("wrecker_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, properties));
+    public static final Item STORMFISH_SPAWN_EGG = register("stormfish_spawn_egg", properties -> new FOTSpawnEggItem(FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, properties));
 
     public static final Item COCONUT = register("coconut", properties -> new BlockItem(FOTBlocks.COCONUT_SAPLING, properties.useItemDescriptionPrefix().food(FOTFoodProperties.COCONUT)));
     public static final Item BANANA = register("banana", new Item.Properties().food(FOTFoodProperties.BANANA));

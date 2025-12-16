@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "Трофей",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "Хлюпохвіст",
   "entity.fishofthieves.splashtail.ruby": "Рубіновий",
   "entity.fishofthieves.splashtail.sunny": "Сонячний",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "Зберіть усі різновиди риби Fish of Thieves",
   "advancements.fishofthieves.legendary_fish_collectors.title": "Легендарний збирач риби",
   "advancements.fishofthieves.legendary_fish_collectors.description": "Зберіть усі різновиди риби, але трофейні!",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "Гаряча рибка",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "Згодуйте лавову бісорибу аксолотлю!",
   "advancements.fishofthieves.so_chill.title": "Ти дуже холодний",
