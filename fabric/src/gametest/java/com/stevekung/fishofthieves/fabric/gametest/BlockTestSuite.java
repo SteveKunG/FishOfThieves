@@ -449,14 +449,45 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
 
-    //TODO
+    //TODO Test
     @GameTest(template = EMPTY_3X3)
     public void foxInteractWithPomegranatePlant(GameTestHelper helper)
     {
+        var blockPos = new BlockPos(1, 2, 1);
+
+        helper.forEveryBlockInStructure(blockPos1 ->
+        {
+            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            {
+                helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
+            }
+        });
+
+        helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3));
+        helper.spawn(EntityType.FOX, blockPos.north());
+
+        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, () -> "Fox doesn't like pomegranate!"));
     }
 
     @GameTest(template = EMPTY_3X3)
     public void foxInteractWithTallPomegranatePlant(GameTestHelper helper)
     {
+        var blockPos = new BlockPos(1, 2, 1);
+
+        helper.forEveryBlockInStructure(blockPos1 ->
+        {
+            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            {
+                helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
+            }
+        });
+
+        helper.runAtTickTime(50, () ->
+        {
+            DoublePlantBlock.placeAt(helper.getLevel(), FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3), blockPos, Block.UPDATE_CLIENTS);
+            helper.spawn(EntityType.FOX, blockPos.north());
+        });
+
+        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, () -> "Fox doesn't like pomegranate!"));
     }
 }
