@@ -47,7 +47,10 @@
               },
               {
                 "condition": "fishofthieves:living_entity_has_effect",
-                "mob_effect": "minecraft:blindness"
+                "mob_effect": [
+                  "minecraft:blindness",
+                  "minecraft:darkness"
+                ]
               }
             ]
           }

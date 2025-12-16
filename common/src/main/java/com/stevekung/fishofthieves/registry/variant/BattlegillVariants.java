@@ -30,7 +30,7 @@ public class BattlegillVariants
         var biomeLookup = context.lookup(Registries.BIOME);
         registerContext.register(context, JADE, "jade", 0);
         registerContext.register(context, SKY, "sky", 1, SeeSkyCondition.seeSky().build());
-        registerContext.register(context, RUM, "rum", 2, List.of(), List.of(LivingEntityHasEffectCondition.effect(MobEffects.CONFUSION).build()));
+        registerContext.register(context, RUM, "rum", 2, List.of(), List.of(LivingEntityHasEffectCondition.effect(HolderSet.direct(MobEffects.CONFUSION)).build()));
         registerContext.register(context, SAND, "sand", 3, AllOfCondition.allOf(ProbabilityCondition.defaultRareProbablity(), MatchBiomeCondition.biomes(HolderSet.direct(biomeLookup.getOrThrow(Biomes.DESERT), biomeLookup.getOrThrow(Biomes.WARM_OCEAN), biomeLookup.getOrThrow(Biomes.LUKEWARM_OCEAN), biomeLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)))).build());
         registerContext.register(context, BITTERSWEET, "bittersweet", 4, true, AllOfCondition.allOf(NightCondition.night(), SeeSkyCondition.seeSky()).build());
         registerContext.register(context, ZEST, "zest", 5, true, true);
