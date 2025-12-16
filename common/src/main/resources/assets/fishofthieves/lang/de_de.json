@@ -263,6 +263,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "Trophähe",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "Panschstieber",
   "entity.fishofthieves.splashtail.ruby": "Rubinroter Panschstieber",
   "entity.fishofthieves.splashtail.sunny": "Sonnengelber Panschstieber",
@@ -391,6 +392,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "Sammle alle Diebesfischarten",
   "advancements.fishofthieves.legendary_fish_collectors.title": "Legendärer Fischsammler",
   "advancements.fishofthieves.legendary_fish_collectors.description": "Sammle alle Fischarten, aber als Trophäen!",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "Heißester Fisch",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "Füttere ein Axolotl mit einem Lavarotem Teufelsfisch!",
   "advancements.fishofthieves.so_chill.title": "Oh, du bist so cool",

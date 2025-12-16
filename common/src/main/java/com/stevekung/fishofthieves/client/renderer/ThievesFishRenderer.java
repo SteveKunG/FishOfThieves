@@ -34,7 +34,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     @Override
     public void submit(S renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState)
     {
-        this.shadowRadius = renderState.isTrophy ? 0.25f : 0.15f;
+        this.shadowRadius = renderState.isTreasured ? 0.3f : renderState.isTrophy ? 0.25f : 0.15f;
         super.submit(renderState, poseStack, submitNodeCollector, cameraRenderState);
     }
 

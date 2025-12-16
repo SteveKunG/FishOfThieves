@@ -18,6 +18,7 @@ import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
+import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import com.stevekung.fishofthieves.trigger.*;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -82,6 +83,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         var blockLookup = provider.lookupOrThrow(Registries.BLOCK);
         var itemLookup = provider.lookupOrThrow(Registries.ITEM);
         var battlegillLookup = provider.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT);
+        var stormfishLookup = provider.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT);
 
         var advancement = Advancement.Builder.advancement()
                 .display(FOTItems.SPLASHTAIL,
@@ -118,6 +120,14 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         null, AdvancementType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
                 .save(consumer, this.mod("legendary_fish_collectors"));
+
+        this.addTreasuredFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup)
+                .display(FOTMobBucketItem.create(FOTItems.STORMFISH_BUCKET, stormfishLookup.getOrThrow(StormfishVariants.STARSHINE), null),
+                        Component.translatable("advancements.fishofthieves.treasured_fish_collectors.title"),
+                        Component.translatable("advancements.fishofthieves.treasured_fish_collectors.description"),
+                        null, AdvancementType.CHALLENGE, true, true, false)
+                .rewards(AdvancementRewards.Builder.experience(3000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
+                .save(consumer, this.mod("treasured_fish_collectors"));
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),
@@ -345,6 +355,36 @@ public class AdvancementProvider extends FabricAdvancementProvider
                     compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
                     compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
                 }
+                builder.addCriterion(holder.key().location().getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item()
+                        .of(itemLookup, bucket)
+                        .withComponents(
+                                DataComponentMatchers.Builder.components()
+                                        .partial(FOTDataComponentPredicates.BUCKET_ENTITY_DATA, ItemBucketEntityDataPredicate.bucketEntityData(new BucketNbtPredicate(compoundTag)))
+                                        .build()
+                        )));
+            }
+        }
+        return builder;
+    }
+
+    private Advancement.Builder addTreasuredFishVariantsBuckets(HolderLookup.Provider provider, Advancement.Builder builder, HolderGetter<Item> itemLookup)
+    {
+        for (var bucket : Arrays.stream(FOTTags.FISH_BUCKETS).map(FOTMobBucketItem.class::cast).toList())
+        {
+            var resourceKey = BUCKET_TO_VARIANTS_MAP.get(bucket);
+
+            for (var holder : provider.lookupOrThrow(resourceKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList())
+            {
+                if (holder.value().treasured().isEmpty())
+                {
+                    continue;
+                }
+
+                var compoundTag = new CompoundTag();
+                compoundTag.putString(holder.key().registry().getPath(), holder.key().location().toString());
+                compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
+                compoundTag.putBoolean(ThievesFish.HAS_FED_TAG, false);
+
                 builder.addCriterion(holder.key().location().getPath() + "_" + BuiltInRegistries.ITEM.getKey(bucket).getPath(), FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item()
                         .of(itemLookup, bucket)
                         .withComponents(
