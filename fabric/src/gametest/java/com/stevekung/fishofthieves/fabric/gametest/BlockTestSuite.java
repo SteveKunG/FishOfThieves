@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class BlockTestSuite implements FOTGameTest
 {
@@ -449,7 +450,6 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
 
-    //TODO Test
     @GameTest(template = EMPTY_3X3)
     public void foxInteractWithPomegranatePlant(GameTestHelper helper)
     {
@@ -484,10 +484,16 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(50, () ->
         {
-            DoublePlantBlock.placeAt(helper.getLevel(), FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3), blockPos, Block.UPDATE_CLIENTS);
+            var pomegranate = FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3);
+            helper.setBlock(blockPos, pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+            helper.setBlock(blockPos.above(), pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
             helper.spawn(EntityType.FOX, blockPos.north());
         });
 
-        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, () -> "Fox doesn't like pomegranate!"));
+        helper.succeedWhen(() ->
+        {
+            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, () -> "Fox doesn't like pomegranate!");
+            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, () -> "Fox doesn't like pomegranate!");
+        });
     }
 }

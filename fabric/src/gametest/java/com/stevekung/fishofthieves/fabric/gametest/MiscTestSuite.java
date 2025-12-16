@@ -15,11 +15,10 @@ import net.minecraft.world.level.block.Blocks;
 
 public class MiscTestSuite implements FOTGameTest
 {
-    //TODO
     @GameTest(template = FISH_TANK_SPLIT, timeoutTicks = 300)
     public void rumBattlegillFollowNausea(GameTestHelper helper)
     {
-        var battlegillPos = new BlockPos(1, 3, 1);
+        var battlegillPos = new BlockPos(1, 7, 1);
         var dolphinPos = new BlockPos(6, 3, 1);
 
         var battlegill = helper.spawn(FOTEntities.BATTLEGILL, battlegillPos);

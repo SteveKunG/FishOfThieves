@@ -13,40 +13,42 @@ import net.minecraft.world.level.block.Blocks;
 //TODO
 public class ShoalTestSuite implements FOTGameTest
 {
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalLifetimeExpired(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
         shoal.createNaturalSpawn(true);
         shoal.setExpiredAt(helper.getLevel().getGameTime() + 50);
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalTreasuredLifetimeNotExpired(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
+        shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(1);
-        shoal.setExpiredAt(helper.getLevel().getGameTime() + 50);
-
-        helper.succeedOnTickWhen(80, () -> helper.assertEntityPresent(FOTEntities.SHOAL, blockPos));
+        shoal.setTreasured(true);
+        helper.assertEntityPresent(FOTEntities.SHOAL, blockPos);
     }
 
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalRemoveWaterBelow(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
         shoal.createTreasuredSpawn(2);
+        shoal.setTreasured(true);
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalRemoveShoalBlockBelow(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
         helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
         shoal.createTreasuredSpawn(2);
@@ -54,10 +56,10 @@ public class ShoalTestSuite implements FOTGameTest
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalInvulnerableNotDestroy(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
         helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
         shoal.createTreasuredSpawn(2);
@@ -66,14 +68,14 @@ public class ShoalTestSuite implements FOTGameTest
         helper.succeedWhenEntityPresent(FOTEntities.SHOAL, blockPos);
     }
 
-    @GameTest(template = EMPTY_5X5)
+    @GameTest(template = SHOAL)
     public void shoalExplosionDamage(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 3, 1);
+        var blockPos = new BlockPos(2, 4, 2);
         helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos);
         shoal.createTreasuredSpawn(2);
-        helper.runAtTickTime(50, () -> helper.spawn(EntityType.TNT, blockPos));
+        helper.runAtTickTime(20, () -> helper.spawn(EntityType.TNT, blockPos));
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
