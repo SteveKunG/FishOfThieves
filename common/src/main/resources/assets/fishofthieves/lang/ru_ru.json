@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "Рыба-трофей",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "Брызгохвост",
   "entity.fishofthieves.splashtail.ruby": "Рубиновый",
   "entity.fishofthieves.splashtail.sunny": "Янтарный",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "Собери все варианты рыб моря воров",
   "advancements.fishofthieves.legendary_fish_collectors.title": "Легендарный рыболов",
   "advancements.fishofthieves.legendary_fish_collectors.description": "Собери все варианты рыб-трофеев моря воров",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "Самая горячая рыба",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "Скормите аксолотлю лавовую рыбу-дьявола",
   "advancements.fishofthieves.so_chill.title": "Крутизна зашкаливает",

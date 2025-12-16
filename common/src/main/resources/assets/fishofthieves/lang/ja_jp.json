@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "トロフィー",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "スプラッシュテイル",
   "entity.fishofthieves.splashtail.ruby": "ルビー",
   "entity.fishofthieves.splashtail.sunny": "サニー",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "すべての盗賊の魚のバリエーションを集めよう",
   "advancements.fishofthieves.legendary_fish_collectors.title": "伝説の魚コレクター",
   "advancements.fishofthieves.legendary_fish_collectors.description": "すべての魚のバリエーションを集め、しかも全部トロフィー！",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "最も熱い魚",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "ウーパールーパーに溶岩デビルフィッシュを与える！",
   "advancements.fishofthieves.so_chill.title": "なんて冷静なんだ",

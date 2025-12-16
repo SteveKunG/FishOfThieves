@@ -235,7 +235,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
             }
             else
             {
-                helper.fail(Component.literal("EntityType id is not a axolotl!"));
+                helper.fail(Component.literal("EntityType id is not an axolotl!"));
             }
         }
     }

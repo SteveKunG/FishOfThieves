@@ -45,7 +45,7 @@ public class IslehopperVariants
                         registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), HeightCheck.height(MinMaxBounds.Ints.atMost(0))), 0)),
                 List.of(
                         registerContext.select(AllConditionCheck.allOf(ProbabilityCheck.defaultRareProbablity(), HeightCheck.height(MinMaxBounds.Ints.atMost(0))), 1),
-                        registerContext.select(AllConditionCheck.allOf(RandomChanceCheck.chance(3), LivingEntityHasEffectCondition.effect(MobEffects.BLINDNESS)), 0)
+                        registerContext.select(AllConditionCheck.allOf(RandomChanceCheck.chance(3), LivingEntityHasEffectCondition.effect(HolderSet.direct(MobEffects.BLINDNESS, MobEffects.DARKNESS))), 0)
                 ));
         registerContext.register(context, AMETHYST, "amethyst", 4, true, MinimumBlockRangeCheck.minimumBlocksInRange(Optional.of(context.lookup(Registries.BLOCK).getOrThrow(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON)), Optional.empty(), 4, 12));
         registerContext.register(context, BRINY, "briny", 5, true, true);

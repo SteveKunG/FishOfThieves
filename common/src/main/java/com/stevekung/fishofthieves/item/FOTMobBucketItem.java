@@ -159,7 +159,7 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static ItemStack create(Item item, Holder<?> holder, Boolean trophy)
+    public static ItemStack create(Item item, Holder<?> holder, Boolean trophy)
     {
         var itemStack = new ItemStack(item);
         itemStack.set(((FOTMobBucketItem<?>) item).dataComponentType, (Holder) holder);

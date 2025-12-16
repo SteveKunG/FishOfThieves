@@ -442,4 +442,15 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
+
+    //TODO
+    @GameTest(template = EMPTY_3X3)
+    public void foxInteractWithPomegranatePlant(GameTestHelper helper)
+    {
+    }
+
+    @GameTest(template = EMPTY_3X3)
+    public void foxInteractWithTallPomegranatePlant(GameTestHelper helper)
+    {
+    }
 }

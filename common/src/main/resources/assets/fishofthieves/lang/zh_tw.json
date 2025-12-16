@@ -262,6 +262,7 @@
   "filled_map.fishofthieves_treasured_fish": "Treasured Fish",
 
   "entity.fishofthieves.trophy": "獎盃",
+  "entity.fishofthieves.non_trophy": "Non-trophy",
   "entity.fishofthieves.splashtail": "飛濺魚",
   "entity.fishofthieves.splashtail.ruby": "紅寶石",
   "entity.fishofthieves.splashtail.sunny": "陽光",
@@ -390,6 +391,8 @@
   "advancements.fishofthieves.master_fish_collectors.description": "收集所有盜賊之魚變種",
   "advancements.fishofthieves.legendary_fish_collectors.title": "傳奇級魚類收藏家",
   "advancements.fishofthieves.legendary_fish_collectors.description": "收集所有魚類變種，但全部都是獎盃！",
+  "advancements.fishofthieves.treasured_fish_collectors.title": "Treasured Fish Collectors",
+  "advancements.fishofthieves.treasured_fish_collectors.description": "Collects all the treasured fish variants",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title": "最辣的魚",
   "advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description": "用熔岩惡魔魚餵食一隻六角恐龍！",
   "advancements.fishofthieves.so_chill.title": "哦，你真冷靜",
