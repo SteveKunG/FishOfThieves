@@ -102,7 +102,7 @@ public class FOTItem extends Item implements ResourceKeyHolder
                 var key = entry.key().registry().getPath();
                 var variant = entry.key().location();
 
-                if (customData.getUnsafe().getStringOr(key, "").equals(variant.toString()))
+                if (customData.copyTag().getStringOr(key, "").equals(variant.toString()))
                 {
                     consumer.accept(Component.translatable(this.entityType.getDescriptionId() + "." + variant.getPath()).withStyle(ChatFormatting.ITALIC, entry.value().treasured().isPresent() ? ChatFormatting.GOLD : ChatFormatting.GRAY));
                 }
