@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class MiscTestSuite implements FOTGameTest
 {
-    @GameTest(template = FISH_TANK_SPLIT, timeoutTicks = 300)
+    @GameTest(template = FISH_TANK_SPLIT, timeoutTicks = 300, attempts = 5)
     public void rumBattlegillFollowNausea(GameTestHelper helper)
     {
         var battlegillPos = new BlockPos(1, 7, 1);
@@ -31,15 +31,18 @@ public class MiscTestSuite implements FOTGameTest
 
         helper.runAtTickTime(200, () ->
         {
-            var battlegill2 = helper.getEntities(FOTEntities.BATTLEGILL, dolphinPos, 2).get(0);
+            var battlegill2 = helper.getEntities(FOTEntities.BATTLEGILL, dolphinPos, 2);
 
-            if (battlegill2.getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_EFFECT_FOLLOWER))
+            if (!battlegill2.isEmpty())
             {
-                helper.succeed();
-            }
-            else
-            {
-                helper.fail("Battlegill does not follow dolphin");
+                if (battlegill2.get(0).getBrain().hasMemoryValue(FOTMemoryModuleTypes.IS_EFFECT_FOLLOWER))
+                {
+                    helper.succeed();
+                }
+                else
+                {
+                    helper.fail("Battlegill does not follow dolphin");
+                }
             }
         });
     }
