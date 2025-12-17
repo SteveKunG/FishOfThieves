@@ -18,6 +18,7 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class BlockTestSuite implements FOTGameTest
 {
@@ -443,14 +444,50 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
 
-    //TODO
     @GameTest(structure = EMPTY_3X3)
     public void foxInteractWithPomegranatePlant(GameTestHelper helper)
     {
+        var blockPos = new BlockPos(1, 2, 1);
+
+        helper.forEveryBlockInStructure(blockPos1 ->
+        {
+            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            {
+                helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
+            }
+        });
+
+        helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3));
+        helper.spawn(EntityType.FOX, blockPos.north());
+
+        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!")));
     }
 
     @GameTest(structure = EMPTY_3X3)
     public void foxInteractWithTallPomegranatePlant(GameTestHelper helper)
     {
+        var blockPos = new BlockPos(1, 2, 1);
+
+        helper.forEveryBlockInStructure(blockPos1 ->
+        {
+            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            {
+                helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
+            }
+        });
+
+        helper.runAtTickTime(50, () ->
+        {
+            var pomegranate = FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3);
+            helper.setBlock(blockPos, pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+            helper.setBlock(blockPos.above(), pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
+            helper.spawn(EntityType.FOX, blockPos.north());
+        });
+
+        helper.succeedWhen(() ->
+        {
+            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!"));
+            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!"));
+        });
     }
 }
