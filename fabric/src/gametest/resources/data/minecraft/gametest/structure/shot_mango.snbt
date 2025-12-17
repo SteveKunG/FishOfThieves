@@ -1,5 +1,5 @@
 {
-    DataVersion: 4189,
+    DataVersion: 4556,
     size: [3, 5, 8],
     data: [
         {pos: [0, 0, 0], state: "minecraft:bedrock"},
