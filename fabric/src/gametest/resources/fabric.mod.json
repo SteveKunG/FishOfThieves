@@ -10,7 +10,9 @@
       "com.stevekung.fishofthieves.fabric.gametest.BlockTestSuite",
       "com.stevekung.fishofthieves.fabric.gametest.CreateFlockTestSuite",
       "com.stevekung.fishofthieves.fabric.gametest.FishPlaqueTestSuite",
-      "com.stevekung.fishofthieves.fabric.gametest.MergeFlockTestSuite"
+      "com.stevekung.fishofthieves.fabric.gametest.MergeFlockTestSuite",
+      "com.stevekung.fishofthieves.fabric.gametest.MiscTestSuite",
+      "com.stevekung.fishofthieves.fabric.gametest.ShoalTestSuite"
     ]
   },
   "depends": {

@@ -405,6 +405,11 @@ public class Shoal extends Entity
         this.participates.add(uuid);
     }
 
+    public void setExpiredAt(long expiredAt)
+    {
+        this.expiredAt = expiredAt;
+    }
+
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
     {
         level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
