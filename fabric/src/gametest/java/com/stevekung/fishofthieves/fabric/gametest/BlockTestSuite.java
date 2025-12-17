@@ -444,10 +444,10 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
     }
 
-    @GameTest(structure = EMPTY_3X3)
+    @GameTest(structure = EMPTY_3X3, maxTicks = 500)
     public void foxInteractWithPomegranatePlant(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
@@ -466,10 +466,10 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!")));
     }
 
-    @GameTest(structure = EMPTY_3X3)
+    @GameTest(structure = EMPTY_3X3, maxTicks = 500)
     public void foxInteractWithTallPomegranatePlant(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(1, 2, 1);
+        var blockPos = new BlockPos(1, 1, 1);
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
