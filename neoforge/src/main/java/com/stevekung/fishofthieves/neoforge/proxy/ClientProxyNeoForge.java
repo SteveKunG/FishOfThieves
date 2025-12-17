@@ -27,14 +27,14 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
-import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.AutoConfigClient;
 
 public class ClientProxyNeoForge
 {
     public void init()
     {
         var eventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get());
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (mc, screen) -> AutoConfigClient.getConfigScreen(FishOfThievesConfig.class, screen).get());
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::registerRenderers);
         eventBus.addListener(this::registerLayerDefinitions);
