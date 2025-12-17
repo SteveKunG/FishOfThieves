@@ -10,4 +10,5 @@ run
 /fabric/**/simple_spawning_condition_pack/
 
 # files
-common/src/generated/resources/*.snbt
+common/src/generated/resources/*_structures/*.snbt
+common/src/generated/resources/*_structures/*.nbt

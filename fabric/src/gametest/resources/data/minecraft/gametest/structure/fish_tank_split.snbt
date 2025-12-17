@@ -1,5 +1,5 @@
 {
-    DataVersion: 3465,
+    DataVersion: 3955,
     size: [9, 8, 8],
     data: [
         {pos: [0, 0, 0], state: "minecraft:glass"},

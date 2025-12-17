@@ -14,4 +14,5 @@ public interface FOTGameTest extends FabricGameTest
     String EMPTY_3X4 = "3x4";
     String EMPTY_3X5 = "3x5";
     String EMPTY_5X5 = "5x5";
+    String SHOAL = "shoal";
 }

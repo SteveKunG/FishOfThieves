@@ -1,5 +1,5 @@
 {
-    DataVersion: 3465,
+    DataVersion: 3955,
     size: [3, 5, 8],
     data: [
         {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
@@ -82,7 +82,7 @@
         {pos: [0, 3, 5], state: "minecraft:air"},
         {pos: [0, 3, 6], state: "minecraft:air"},
         {pos: [0, 3, 7], state: "minecraft:air"},
-        {pos: [1, 3, 0], state: "minecraft:dispenser{facing:south,triggered:false}", nbt: {Items: [{Count: 64b, Slot: 4b, id: "minecraft:arrow"}], id: "minecraft:dispenser"}},
+        {pos: [1, 3, 0], state: "minecraft:dispenser{facing:south,triggered:false}", nbt: {Items: [{Slot: 4b, count: 64, id: "minecraft:arrow"}], id: "minecraft:dispenser"}},
         {pos: [1, 3, 1], state: "minecraft:air"},
         {pos: [1, 3, 2], state: "minecraft:air"},
         {pos: [1, 3, 3], state: "minecraft:air"},

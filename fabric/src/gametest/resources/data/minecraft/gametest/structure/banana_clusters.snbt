@@ -1,5 +1,5 @@
 {
-    DataVersion: 3465,
+    DataVersion: 3955,
     size: [3, 7, 4],
     data: [
         {pos: [0, 0, 0], state: "minecraft:polished_andesite"},
@@ -54,7 +54,7 @@
         {pos: [0, 4, 1], state: "minecraft:air"},
         {pos: [0, 4, 2], state: "minecraft:air"},
         {pos: [0, 4, 3], state: "minecraft:air"},
-        {pos: [1, 4, 0], state: "minecraft:dispenser{facing:south,triggered:false}", nbt: {Items: [{Count: 64b, Slot: 4b, id: "minecraft:arrow"}], id: "minecraft:dispenser"}},
+        {pos: [1, 4, 0], state: "minecraft:dispenser{facing:south,triggered:false}", nbt: {Items: [{Slot: 4b, count: 64, id: "minecraft:arrow"}], id: "minecraft:dispenser"}},
         {pos: [1, 4, 1], state: "minecraft:air"},
         {pos: [1, 4, 2], state: "minecraft:air"},
         {pos: [1, 4, 3], state: "fishofthieves:banana_stem{axis:y,waterlogged:false}"},
