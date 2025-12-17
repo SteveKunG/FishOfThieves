@@ -451,14 +451,17 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
-            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            if (helper.getBlockState(blockPos1).is(Blocks.BEDROCK))
             {
                 helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
             }
         });
 
-        helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3));
-        helper.spawn(EntityType.FOX, blockPos.north());
+        helper.runAtTickTime(50, () ->
+        {
+            helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3));
+            helper.spawn(EntityType.FOX, blockPos.north());
+        });
 
         helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!")));
     }
@@ -470,7 +473,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.forEveryBlockInStructure(blockPos1 ->
         {
-            if (helper.getBlockState(blockPos1).is(Blocks.POLISHED_ANDESITE))
+            if (helper.getBlockState(blockPos1).is(Blocks.BEDROCK))
             {
                 helper.setBlock(blockPos1, Blocks.GRASS_BLOCK);
             }
