@@ -80,8 +80,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
         // Update regular structures
         pack.addProvider((dataOutput, provider) -> new NbtToSnbt(customOutput.apply(dataOutput, snbtOutputPath), List.of(inputPath)));
-        pack.addProvider((dataOutput, provider) -> new SnbtToNbt(customOutput.apply(dataOutput, inputPath), List.of(snbtOutputPath))
-                .addFilter(StructureUpdater::update));
+        pack.addProvider((dataOutput, provider) -> new SnbtToNbt(customOutput.apply(dataOutput, inputPath), List.of(snbtOutputPath)).addFilter(StructureUpdater::update));
 
         // Update game test snbt structures
         var snbtGameTestInputPath = basePath.resolve("fabric/src/gametest/resources/data/minecraft/gametest/structure");
