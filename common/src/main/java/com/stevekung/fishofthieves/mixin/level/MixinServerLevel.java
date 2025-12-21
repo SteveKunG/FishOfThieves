@@ -60,7 +60,12 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
         if (this.getGameRules().getBoolean(FishOfThieves.SHOAL_SPAWNING))
         {
             profilerFiller.push("fishofthieves_shoal");
-            ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            var chance = this.isRaining() ? FishOfThieves.CONFIG.shoal.chanceRaining : FishOfThieves.CONFIG.shoal.chance;
+
+            if (this.random.nextInt(chance) == 0)
+            {
+                ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            }
             profilerFiller.pop();
         }
     }
