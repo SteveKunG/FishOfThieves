@@ -27,7 +27,7 @@ public class GlowFishLayer<S extends ThievesFishRenderState, M extends EntityMod
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(glowTexture));
             var color = renderState.glowBrightness;
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color));
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(color, 1.0f, 1.0f, 1.0f));
         }
     }
 }

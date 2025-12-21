@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric.gametest;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.fabric.gametest.core.FOTGameTest;
+import com.stevekung.fishofthieves.registry.FOTDataComponentTypes;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
@@ -40,11 +41,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var entityTypeRegistry = level.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
         var ruby = SplashtailVariants.RUBY.location().toString();
 
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
-        {
-            compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT.location().getPath(), ruby);
-            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
-        });
+        itemStack.set(FOTDataComponentTypes.SPLASHTAIL_VARIANT, level.registryAccess().lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getOrThrow(SplashtailVariants.RUBY));
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true));
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -273,13 +271,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
         var itemStack = new ItemStack(FOTItems.SPLASHTAIL_BUCKET);
 
-        var ruby = SplashtailVariants.RUBY.location().toString();
-
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag ->
-        {
-            compoundTag.putString(FOTRegistries.SPLASHTAIL_VARIANT.location().getPath(), ruby);
-            compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
-        });
+        itemStack.set(FOTDataComponentTypes.SPLASHTAIL_VARIANT, helper.getLevel().registryAccess().lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT).getOrThrow(SplashtailVariants.RUBY));
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true));
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
         helper.useBlock(blockPos, player);
@@ -290,9 +283,8 @@ public class FishPlaqueTestSuite implements FOTGameTest
             helper.useBlock(blockPos, player);
 
             var mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
-            var bucketEntityData = mainHandItem.get(DataComponents.BUCKET_ENTITY_DATA);
 
-            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && bucketEntityData.copyTag().getString(FOTRegistries.SPLASHTAIL_VARIANT.location().getPath()).orElseThrow().equals(ruby))
+            if (mainHandItem.is(FOTItems.SPLASHTAIL_BUCKET) && mainHandItem.has(FOTDataComponentTypes.SPLASHTAIL_VARIANT) && mainHandItem.get(FOTDataComponentTypes.SPLASHTAIL_VARIANT).is(SplashtailVariants.RUBY))
             {
                 helper.succeed();
             }

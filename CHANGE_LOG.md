@@ -40,6 +40,9 @@
 
 - Can be found only after the Treasured Fish map is revealed which bought from the Fisherman Villager or inside the Seapost Barrel Supply
   - Treasured Fish map can be trade with Villager Fisherman Stage 3 and 4
+    - One time trade only per fisherman
+  - Treasured Fish shoal will spawn based on this algorithm
+    - Find the farthest shoal first -> Attempted to spawn shoal in suitable locations -> Find nearest natural shoal -> Empty map
 - Added Treasured Fish
   - Has 10 total variants
   - Tier 1 Fish:
@@ -82,6 +85,7 @@
 - Fixed z-fighting for Gilded Fish Plaque
 - Fixed rare case of fish models are sync their animation with entity in world and inside the Fish Plaque
 - [1.21.5+] Fixed FoT's flowers are not attracted to bee and cannot feed to bee
+- [1.21.10] Fixed headphone rendering
 
 ## Misc
 
