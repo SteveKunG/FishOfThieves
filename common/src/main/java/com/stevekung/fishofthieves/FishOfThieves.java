@@ -205,14 +205,14 @@ public class FishOfThieves
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
-                list.add(new TreasuredFishMapForEmeralds(12, Shoal.FILLED_MAP_TREASURED_FISH, 3, 20, 1));
+                list.add(new TreasuredFishMapForEmeralds(12, 20, Shoal.FILLED_MAP_TREASURED_FISH, 1, 20, 1));
             }
             case 4 ->
             {
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 6, 10, 20));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 5, 12, 25));
                 list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 5, 12, 25));
-                list.add(new TreasuredFishMapForEmeralds(16, Shoal.FILLED_MAP_TREASURED_FISH, 3, 24, 2));
+                list.add(new TreasuredFishMapForEmeralds(16, 24, Shoal.FILLED_MAP_TREASURED_FISH, 1, 24, 2));
             }
             case 5 ->
             {

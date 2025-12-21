@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTGameRules;
 import com.stevekung.fishofthieves.shoal.ShoalSpawner;
@@ -61,7 +62,12 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
         if (ServerLevel.class.cast(this).getGameRules().get(FOTGameRules.SHOAL_SPAWNING))
         {
             profilerFiller.push("fishofthieves_shoal");
-            ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            var chance = this.isRaining() ? FishOfThieves.CONFIG.shoal.chanceRaining : FishOfThieves.CONFIG.shoal.chance;
+
+            if (this.random.nextInt(chance) == 0)
+            {
+                ShoalSpawner.spawn(ServerLevel.class.cast(this), x, z);
+            }
             profilerFiller.pop();
         }
     }
