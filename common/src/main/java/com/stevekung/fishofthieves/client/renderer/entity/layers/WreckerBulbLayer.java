@@ -26,7 +26,7 @@ public class WreckerBulbLayer extends RenderLayer<WreckerRenderState, WreckerMod
         {
             var vertexConsumer = buffer.getBuffer(RenderType.eyes(renderState.bulbTexture));
             var color = Mth.clamp(1.0F + Mth.cos(renderState.ageInTicks * 0.05f), 0.25F, 1.0F);
-            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color));
+            this.getParentModel().renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(color, 1.0f, 1.0f, 1.0f));
         }
     }
 }
