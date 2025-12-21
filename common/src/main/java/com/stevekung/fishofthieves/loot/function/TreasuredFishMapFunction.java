@@ -34,7 +34,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     public static final MapCodec<TreasuredFishMapFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance)
             .and(
                     instance.group(
-                            Codec.BYTE.optionalFieldOf("zoom", (byte)2).forGetter(function -> function.zoom),
+                            Codec.BYTE.optionalFieldOf("zoom", (byte) 2).forGetter(function -> function.zoom),
                             Codec.INT.fieldOf("mininum_search_radius").forGetter(function -> function.minimumSearchRadius),
                             Codec.INT.fieldOf("maximum_search_radius").forGetter(function -> function.maximumSearchRadius),
                             Codec.INT.fieldOf("max_attempt").forGetter(function -> function.maxAttempt),
