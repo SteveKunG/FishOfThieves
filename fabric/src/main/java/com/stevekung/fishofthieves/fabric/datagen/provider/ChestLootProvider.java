@@ -94,6 +94,7 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
                                         .setZoom((byte) 1)
                                         .setMinimumSearchRadius(50)
                                         .setMaximumSearchRadius(100)
+                                        .setMaxAttempt(10)
                                         .setHighTierChance(0.4f))
                                 .apply(SetNameFunction.setName(Component.translatable(Shoal.FILLED_MAP_TREASURED_FISH), SetNameFunction.Target.ITEM_NAME)))));
 
