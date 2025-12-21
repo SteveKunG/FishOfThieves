@@ -15,7 +15,6 @@ import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
-import net.minecraft.util.Util;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -26,6 +25,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

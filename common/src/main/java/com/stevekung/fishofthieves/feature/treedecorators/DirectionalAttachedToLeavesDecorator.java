@@ -9,10 +9,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.feature.stateproviders.DirectionalRandomizedIntBooleanStateProvider;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
-import net.minecraft.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 

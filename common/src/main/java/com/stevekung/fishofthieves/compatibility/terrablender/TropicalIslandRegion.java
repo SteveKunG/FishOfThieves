@@ -6,8 +6,8 @@ import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.registry.FOTBiomes;
 
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 

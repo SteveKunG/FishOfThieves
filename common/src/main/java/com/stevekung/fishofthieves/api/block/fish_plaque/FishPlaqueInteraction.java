@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 
 import net.minecraft.core.Holder;
-import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryFileCodec;
 
 public record FishPlaqueInteraction(Identifier entityType, Identifier item)
 {
