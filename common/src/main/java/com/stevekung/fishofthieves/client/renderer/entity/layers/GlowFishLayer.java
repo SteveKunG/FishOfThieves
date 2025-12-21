@@ -26,7 +26,7 @@ public class GlowFishLayer<S extends ThievesFishRenderState, M extends EntityMod
         if (!renderState.isInvisible && glowTexture != null)
         {
             var color = renderState.glowBrightness;
-            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderType.eyes(glowTexture), 15728640, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(1.0f, color, color, color), null);
+            submitNodeCollector.order(1).submitModel(this.getParentModel(), renderState, poseStack, RenderType.eyes(glowTexture), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(color, 1.0f, 1.0f, 1.0f), null, renderState.outlineColor, null);
         }
     }
 }
