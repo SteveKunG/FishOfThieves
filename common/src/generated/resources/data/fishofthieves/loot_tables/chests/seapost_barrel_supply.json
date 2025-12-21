@@ -178,6 +178,8 @@
             {
               "function": "fishofthieves:treasured_fish_map",
               "high_tier_chance": 0.4,
+              "maximum_search_radius": 100,
+              "mininum_search_radius": 50,
               "zoom": 1
             },
             {

@@ -64,12 +64,16 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
                                 .apply(ExplorationMapFunction.makeExplorationMap()
                                         .setDestination(StructureTags.ON_TREASURE_MAPS)
                                         .setMapDecoration(MapDecoration.Type.RED_X)
-                                        .setZoom((byte)1)
+                                        .setZoom((byte) 1)
                                         .setSkipKnownStructures(false))))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(Items.MAP)
-                                .apply(TreasuredFishMapFunction.makeTreasuredFishMap().setZoom((byte)1).setHighTierChance(0.4f))
+                                .apply(TreasuredFishMapFunction.makeTreasuredFishMap()
+                                        .setZoom((byte) 1)
+                                        .setMinimumSearchRadius(50)
+                                        .setMaximumSearchRadius(100)
+                                        .setHighTierChance(0.4f))
                                 .apply(SetNameFunction.setName(Component.translatable(Shoal.FILLED_MAP_TREASURED_FISH))))));
 
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()

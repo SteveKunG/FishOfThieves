@@ -6,12 +6,15 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.registry.FOTLootItemFunctions;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.item.ItemStack;
@@ -29,14 +32,16 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 public class TreasuredFishMapFunction extends LootItemConditionalFunction
 {
     private final byte zoom;
-    private final int searchRadius;
+    private final int minimumSearchRadius;
+    private final int maximumSearchRadius;
     private final float highTierChance;
 
-    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int searchRadius, float highTierChance)
+    TreasuredFishMapFunction(LootItemCondition[] conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, float highTierChance)
     {
         super(conditions);
         this.zoom = zoom;
-        this.searchRadius = searchRadius;
+        this.minimumSearchRadius = minimumSearchRadius;
+        this.maximumSearchRadius = maximumSearchRadius;
         this.highTierChance = highTierChance;
     }
 
@@ -59,23 +64,52 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         {
             var vec3 = context.getParamOrNull(LootContextParams.ORIGIN);
 
-            if (vec3 != null)
+            if (vec3 == null)
             {
-                var serverLevel = context.getLevel();
-                var optional = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 100, PoiManager.Occupancy.ANY);
+                return stack;
+            }
 
-                if (optional.isPresent())
+            var serverLevel = context.getLevel();
+            var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 50, 100, serverLevel.getPoiManager());
+
+            if (farthest.isPresent())
+            {
+                var blockPos = farthest.get();
+                FishOfThieves.LOGGER.debug("Found farthest shoal at: {}", blockPos);
+                return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance);
+            }
+            else
+            {
+                var attemptPos = ShoalSpawner.attemptSpawnShoal(serverLevel, BlockPos.containing(vec3), 10);
+
+                if (attemptPos != null)
                 {
-                    var blockPos = optional.get();
-                    var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), this.zoom, true, true);
-                    MapItem.renderBiomePreviewMap(serverLevel, itemStack);
-                    MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
-                    Shoal.setTreasuredShoal(serverLevel, blockPos, context.getRandom().nextFloat() < this.highTierChance ? 1 : 2);
-                    return itemStack;
+                    FishOfThieves.LOGGER.debug("Shoal spawn from map at: {}", attemptPos);
+                    return createTreasuredFishMap(serverLevel, attemptPos, context, this.zoom, this.highTierChance);
+                }
+                else
+                {
+                    var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 100, PoiManager.Occupancy.ANY);
+
+                    if (nearest.isPresent())
+                    {
+                        var blockPos = nearest.get();
+                        FishOfThieves.LOGGER.debug("Found nearest shoal at: {}", blockPos);
+                        return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance);
+                    }
                 }
             }
         }
         return stack;
+    }
+
+    private static ItemStack createTreasuredFishMap(ServerLevel serverLevel, BlockPos blockPos, LootContext context, byte zoom, float highTierChance)
+    {
+        var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), zoom, true, true);
+        MapItem.renderBiomePreviewMap(serverLevel, itemStack);
+        MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
+        Shoal.setTreasuredShoal(serverLevel, blockPos, context.getRandom().nextFloat() < highTierChance ? 1 : 2);
+        return itemStack;
     }
 
     public static TreasuredFishMapFunction.Builder makeTreasuredFishMap()
@@ -86,7 +120,8 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     public static class Builder extends LootItemConditionalFunction.Builder<TreasuredFishMapFunction.Builder>
     {
         private byte zoom = 2;
-        private int searchRadius = 50;
+        private int minimumSearchRadius;
+        private int maximumSearchRadius;
         private float highTierChance;
 
         @Override
@@ -101,9 +136,15 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             return this;
         }
 
-        public TreasuredFishMapFunction.Builder setSearchRadius(int searchRadius)
+        public TreasuredFishMapFunction.Builder setMinimumSearchRadius(int minimumSearchRadius)
         {
-            this.searchRadius = searchRadius;
+            this.minimumSearchRadius = minimumSearchRadius;
+            return this;
+        }
+
+        public TreasuredFishMapFunction.Builder setMaximumSearchRadius(int maximumSearchRadius)
+        {
+            this.maximumSearchRadius = maximumSearchRadius;
             return this;
         }
 
@@ -116,7 +157,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.searchRadius, this.highTierChance);
+            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.highTierChance);
         }
     }
 
@@ -131,12 +172,8 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             {
                 json.addProperty("zoom", treasuredFishMapFunction.zoom);
             }
-
-            if (treasuredFishMapFunction.searchRadius != 50)
-            {
-                json.addProperty("search_radius", treasuredFishMapFunction.searchRadius);
-            }
-
+            json.addProperty("mininum_search_radius", treasuredFishMapFunction.minimumSearchRadius);
+            json.addProperty("maximum_search_radius", treasuredFishMapFunction.maximumSearchRadius);
             json.addProperty("high_tier_chance", treasuredFishMapFunction.highTierChance);
         }
 
@@ -144,9 +181,10 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         public TreasuredFishMapFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions)
         {
             var zoom = GsonHelper.getAsByte(object, "zoom", (byte) 2);
-            var searchRadius = GsonHelper.getAsInt(object, "search_radius", 50);
+            var minimumSearchRadius = GsonHelper.getAsInt(object, "mininum_search_radius");
+            var maximumSearchRadius = GsonHelper.getAsInt(object, "maximum_search_radius");
             var highTierChance = GsonHelper.getAsFloat(object, "high_tier_chance");
-            return new TreasuredFishMapFunction(conditions, zoom, searchRadius, highTierChance);
+            return new TreasuredFishMapFunction(conditions, zoom, minimumSearchRadius, maximumSearchRadius, highTierChance);
         }
     }
 }
