@@ -25,7 +25,7 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
-public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, int maxUses, int villagerXp, int tier) implements VillagerTrades.ItemListing
+public record TreasuredFishMapForEmeralds(int farEmeraldCost, int nearEmeraldCost, String displayName, int maxUses, int villagerXp, int tier) implements VillagerTrades.ItemListing
 {
     @Nullable
     @Override
@@ -37,14 +37,14 @@ public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, i
         }
         else
         {
+            ItemStack itemStack = null;
             var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), trader.blockPosition(), 50, 100, serverLevel.getPoiManager());
 
             if (farthest.isPresent())
             {
                 var blockPos = farthest.get();
-                var itemStack = createTreasuredFishMap(serverLevel, blockPos, this.displayName, this.tier);
+                itemStack = createTreasuredFishMap(serverLevel, blockPos, this.displayName, this.tier);
                 FishOfThieves.LOGGER.debug("Found farthest shoal at: {}", blockPos);
-                return new MerchantOffer(new ItemCost(Items.EMERALD, this.emeraldCost), Optional.of(new ItemCost(Items.COMPASS)), itemStack, this.maxUses, this.villagerXp, 0.2F);
             }
             else
             {
@@ -52,19 +52,23 @@ public record TreasuredFishMapForEmeralds(int emeraldCost, String displayName, i
 
                 if (attemptPos != null)
                 {
+                    itemStack = createTreasuredFishMap(serverLevel, attemptPos, this.displayName, this.tier);
                     FishOfThieves.LOGGER.debug("Shoal spawn from map by fisherman at: {}", attemptPos);
-                    var itemStack = createTreasuredFishMap(serverLevel, attemptPos, this.displayName, this.tier);
-                    return new MerchantOffer(new ItemCost(Items.EMERALD, this.emeraldCost), Optional.of(new ItemCost(Items.COMPASS)), itemStack, this.maxUses, this.villagerXp, 0.2F);
                 }
                 else
                 {
                     var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), trader.blockPosition(), 100, PoiManager.Occupancy.ANY);
-                    var blockPos = nearest.get();
-                    var itemStack = createTreasuredFishMap(serverLevel, blockPos, this.displayName, this.tier);
-                    FishOfThieves.LOGGER.debug("Found nearest shoal at: {}", blockPos);
-                    return new MerchantOffer(new ItemCost(Items.EMERALD, this.emeraldCost), Optional.of(new ItemCost(Items.COMPASS)), itemStack, this.maxUses, this.villagerXp, 0.2F);
+
+                    if (nearest.isPresent())
+                    {
+                        var blockPos = nearest.get();
+                        itemStack = createTreasuredFishMap(serverLevel, blockPos, this.displayName, this.tier);
+                        FishOfThieves.LOGGER.debug("Found nearest shoal at: {}", blockPos);
+                    }
                 }
             }
+
+            return itemStack == null ? null : new MerchantOffer(new ItemCost(Items.EMERALD, this.farEmeraldCost), Optional.of(new ItemCost(Items.COMPASS)), itemStack, this.maxUses, this.villagerXp, 0.2F);
         }
     }
 
