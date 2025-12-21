@@ -17,7 +17,8 @@ public class ShoalTestSuite implements FOTGameTest
     @GameTest(structure = SHOAL, maxTicks = 100)
     public void shoalLifetimeExpired(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(2, 3, 2);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.setExpiredAt(helper.getLevel().getGameTime() + 10);
@@ -28,7 +29,7 @@ public class ShoalTestSuite implements FOTGameTest
     public void shoalTreasuredLifetimeNotExpired(GameTestHelper helper)
     {
         var blockPos = new BlockPos(2, 3, 2);
-        helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(1);
@@ -40,51 +41,54 @@ public class ShoalTestSuite implements FOTGameTest
     @GameTest(structure = SHOAL, maxTicks = 100)
     public void shoalRemoveWaterBelow(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(2, 3, 2);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
         shoal.setTreasured(true);
-        helper.runAtTickTime(50, () -> helper.setBlock(blockPos.below(), Blocks.STONE));
+        helper.runAtTickTime(50, () -> helper.setBlock(blockPos, Blocks.STONE));
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
     @GameTest(structure = SHOAL, maxTicks = 100)
     public void shoalRemoveShoalBlockBelow(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(2, 3, 2);
-        helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
-        shoal.createTreasuredSpawn(2);
         shoal.setTreasured(true);
-        helper.runAtTickTime(50, () -> helper.setBlock(blockPos.below(), Blocks.WATER));
+        shoal.createTreasuredSpawn(2);
+        helper.runAtTickTime(50, () -> helper.setBlock(blockPos, Blocks.WATER));
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
     @GameTest(structure = SHOAL, maxTicks = 100)
     public void shoalInvulnerableNotDestroy(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(2, 3, 2);
-        helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, Blocks.STONE);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
         shoal.setInvulnerable(true);
-        helper.runAtTickTime(50, () -> helper.setBlock(blockPos.below(), Blocks.WATER));
-        helper.succeedWhenEntityPresent(FOTEntities.SHOAL, blockPos);
+        helper.runAtTickTime(50, () -> helper.succeedWhenEntityPresent(FOTEntities.SHOAL, blockPos));
     }
 
     @GameTest(structure = SHOAL, maxTicks = 100)
     public void shoalExplosionDamage(GameTestHelper helper)
     {
-        var blockPos = new BlockPos(2, 3, 2);
-        helper.setBlock(blockPos.below(), FOTBlocks.SHOAL);
+        var blockPos = new BlockPos(2, 4, 2);
+        helper.setBlock(blockPos, FOTBlocks.SHOAL);
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
         shoal.setTreasured(true);
-        helper.runAtTickTime(20, () -> helper.spawn(EntityType.TNT, blockPos));
+        helper.runAtTickTime(20, () -> {
+            var tnt = helper.spawn(EntityType.TNT, blockPos);
+            tnt.setFuse(10);
+        });
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }
 
