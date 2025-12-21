@@ -34,22 +34,25 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     public static final MapCodec<TreasuredFishMapFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance)
             .and(
                     instance.group(
-                            Codec.BYTE.optionalFieldOf("zoom", (byte)2).forGetter(function -> function.zoom),
-                            Codec.INT.optionalFieldOf("mininum_search_radius", 50).forGetter(function -> function.minimumSearchRadius),
-                            Codec.INT.optionalFieldOf("maximum_search_radius", 50).forGetter(function -> function.maximumSearchRadius),
+                            Codec.BYTE.optionalFieldOf("zoom", (byte) 2).forGetter(function -> function.zoom),
+                            Codec.INT.fieldOf("mininum_search_radius").forGetter(function -> function.minimumSearchRadius),
+                            Codec.INT.fieldOf("maximum_search_radius").forGetter(function -> function.maximumSearchRadius),
+                            Codec.INT.fieldOf("max_attempt").forGetter(function -> function.maxAttempt),
                             Codec.FLOAT.fieldOf("high_tier_chance").forGetter(function -> function.highTierChance)))
             .apply(instance, TreasuredFishMapFunction::new));
     private final byte zoom;
     private final int minimumSearchRadius;
     private final int maximumSearchRadius;
+    private final int maxAttempt;
     private final float highTierChance;
 
-    TreasuredFishMapFunction(List<LootItemCondition> conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, float highTierChance)
+    TreasuredFishMapFunction(List<LootItemCondition> conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, int maxAttempt, float highTierChance)
     {
         super(conditions);
         this.zoom = zoom;
         this.minimumSearchRadius = minimumSearchRadius;
         this.maximumSearchRadius = maximumSearchRadius;
+        this.maxAttempt = maxAttempt;
         this.highTierChance = highTierChance;
     }
 
@@ -78,7 +81,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             }
 
             var serverLevel = context.getLevel();
-            var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 50, 100, serverLevel.getPoiManager());
+            var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), this.minimumSearchRadius, this.maximumSearchRadius, serverLevel.getPoiManager());
 
             if (farthest.isPresent())
             {
@@ -88,7 +91,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             }
             else
             {
-                var attemptPos = ShoalSpawner.attemptSpawnShoal(serverLevel, BlockPos.containing(vec3), 10);
+                var attemptPos = ShoalSpawner.attemptSpawnShoal(serverLevel, BlockPos.containing(vec3), this.maxAttempt);
 
                 if (attemptPos != null)
                 {
@@ -97,7 +100,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                 }
                 else
                 {
-                    var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), 100, PoiManager.Occupancy.ANY);
+                    var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), this.maximumSearchRadius, PoiManager.Occupancy.ANY);
 
                     if (nearest.isPresent())
                     {
@@ -130,6 +133,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         private byte zoom = 2;
         private int minimumSearchRadius;
         private int maximumSearchRadius;
+        private int maxAttempt;
         private float highTierChance;
 
         @Override
@@ -156,6 +160,12 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             return this;
         }
 
+        public TreasuredFishMapFunction.Builder setMaxAttempt(int maxAttempt)
+        {
+            this.maxAttempt = maxAttempt;
+            return this;
+        }
+
         public TreasuredFishMapFunction.Builder setHighTierChance(float highTierChance)
         {
             this.highTierChance = highTierChance;
@@ -165,7 +175,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.highTierChance);
+            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.maxAttempt, this.highTierChance);
         }
     }
 }
