@@ -40,11 +40,11 @@ public class FOTSpawnEggItem extends SpawnEggItem
             {
                 if (entry.value().treasured().isPresent() && entityTag.getString(ThievesFish.VARIANT_TAG).equals(entry.key().location().toString()))
                 {
-                    tooltipComponents.add(Component.translatable(this.getType(null).getDescriptionId() + "." + entry.key().location().getPath()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GOLD));
+                    tooltipComponents.add(Component.translatable(this.getType(itemStack).getDescriptionId() + "." + entry.key().location().getPath()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GOLD));
                     treasured = true;
                 }
             }
-            if (!treasured)
+            if (entityTag.contains(ThievesFish.TROPHY_TAG) && !treasured)
             {
                 tooltipComponents.add(Component.translatable(trophy ? "entity.fishofthieves.trophy" : "entity.fishofthieves.non_trophy").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
             }
@@ -87,6 +87,7 @@ public class FOTSpawnEggItem extends SpawnEggItem
         var itemStack = new ItemStack(item);
         CustomData.update(DataComponents.ENTITY_DATA, itemStack, compoundTag ->
         {
+            compoundTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(((SpawnEggItem) item).getType(itemStack)).toString());
             compoundTag.putBoolean(ThievesFish.TROPHY_TAG, true);
             compoundTag.putString(ThievesFish.VARIANT_TAG, variant);
         });
