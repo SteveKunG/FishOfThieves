@@ -105,7 +105,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             {
                 return isHorizontal && fishPlaqueBlock.type != Type.WOODEN && sameFacing;
             }
-            else if (this.type == Type.IRON)
+            else if (this.type == Type.IRON || this.type == Type.GOLDEN)
             {
                 return fishPlaqueBlock.type != Type.WOODEN && sameFacing;
             }
