@@ -20,6 +20,7 @@ public class AncientscaleRenderer extends ThievesFishRenderer<AncientscaleVarian
         var bodyRotBase = inWater ? 1.0f : 1.7f;
         var bodyRotSpeed = entity.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.65f;
         var baseDegree = entity.fishofthieves$isDancing() ? -20.0f : 5.0f;
-        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(entity.isTrophy() ? 0.285f : 0.165f, 0.1f, 0.1f));
+        var xPos = entity.isTreasured() ? 0.35f : entity.isTrophy() ? 0.285f : 0.165f;
+        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(xPos, 0.1f, 0.1f));
     }
 }

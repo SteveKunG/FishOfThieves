@@ -20,6 +20,7 @@ public class DevilfishRenderer extends ThievesFishRenderer<DevilfishVariant, Dev
         var bodyRotBase = inWater ? 1.0f : 1.7f;
         var bodyRotSpeed = entity.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.6f;
         var baseDegree = entity.fishofthieves$isDancing() ? -20.0f : 4.0f;
-        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(entity.isTrophy() ? 0.35f : 0.175f, 0.1f, 0.0f));
+        var xPos = entity.isTreasured() ? 0.35f : entity.isTrophy() ? 0.275f : 0.175f;
+        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(xPos, 0.1f, 0.0f));
     }
 }
