@@ -21,6 +21,7 @@ public class WildsplashRenderer<S extends ThievesFishRenderState> extends Thieve
         var bodyRotBase = inWater ? 1.0f : 1.8f;
         var bodyRotSpeed = entity.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.7f;
         var baseDegree = entity.fishofthieves$isDancing() ? -20.0f : 5.0f;
-        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(entity.isTrophy ? 0.275f : 0.15f, 0.1f, 0.05f));
+        var xPos = entity.isTreasured ? 0.35f : entity.isTrophy ? 0.275f : 0.15f;
+        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(xPos, 0.1f, 0.05f));
     }
 }
