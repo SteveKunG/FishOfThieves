@@ -23,7 +23,8 @@ public class WreckerRenderer extends ThievesFishRenderer<WreckerVariant, Wrecker
         var bodyRotBase = inWater ? 1.0f : 1.7f;
         var bodyRotSpeed = renderState.fishofthieves$isDancing() ? inWater ? 2.0f : 1.0f : 0.6f;
         var baseDegree = renderState.fishofthieves$isDancing() ? -20.0f : 4.0f;
-        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(renderState.isTrophy ? 0.275f : 0.15f, 0.1f, 0.0f));
+        var xPos = renderState.isTreasured ? 0.35f : renderState.isTrophy ? 0.275f : 0.15f;
+        return RotationRenderData.create(bodyRotBase, bodyRotSpeed, baseDegree, poseStack -> poseStack.translate(xPos, 0.1f, 0.0f));
     }
 
     @Override
