@@ -1,11 +1,11 @@
 package com.stevekung.fishofthieves.fabric.datagen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -33,7 +33,7 @@ public class BookShapelessRecipeBuilder extends CraftingRecipeBuilder implements
 {
     private final RecipeCategory category;
     private final String bookId;
-    private final List<Ingredient> ingredients = Lists.newArrayList();
+    private final List<Ingredient> ingredients = new ArrayList<>();
     private final Advancement.Builder advancement = Advancement.Builder.recipeAdvancement();
     @Nullable
     private String group;
