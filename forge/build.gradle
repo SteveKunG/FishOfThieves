@@ -31,6 +31,11 @@ loom {
     }
 }
 
+// Include resources from the common project
+sourceSets.main.resources {
+    srcDir "../common/src/main/resources"
+}
+
 repositories {
     maven {
         name = "Aquaculture 2"
@@ -46,11 +51,20 @@ dependencies {
     modImplementation "com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}"
     modCompileOnly "com.github.glitchfiend:SereneSeasons-forge:${minecraft_version}-${serene_seasons_version}"
     modImplementation "com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${glitchcore_version}"
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE"
     modRuntimeOnly "maven.modrinth:cyanide:${cyanide_forge_version}"
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
+}
+
+processResources {
+    filesMatching("data/fishofthieves/patchouli_books/fot_book/book.json") {
+        filter { line ->
+            line.replaceAll("patchouli_book_version", patchouli_book_version)
+        }
+    }
 }
 
 String fileName = "${archives_base_name}-mc${minecraft_version}"

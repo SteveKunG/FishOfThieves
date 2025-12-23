@@ -30,5 +30,6 @@ public interface FOTLootTables
         ResourceLocation FISH_COLLECTORS = FishOfThieves.id("rewards/fish_collectors");
         ResourceLocation MASTER_FISH_COLLECTORS = FishOfThieves.id("rewards/master_fish_collectors");
         ResourceLocation LEGENDARY_FISH_COLLECTORS = FishOfThieves.id("rewards/legendary_fish_collectors");
+        ResourceLocation PATCHOULI_BOOK = FishOfThieves.id("rewards/patchouli_book");
     }
 }

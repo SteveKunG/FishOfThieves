@@ -1,0 +1,13 @@
+{
+  "name": "item.fishofthieves.fot_book",
+  "landing_text": "patchouli.fishofthieves.landing",
+  "version": "patchouli_book_version",
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "creative_tab": "fishofthieves:fot_main",
+  "use_blocky_font": true,
+  "use_resource_pack": true,
+  "i18n": true,
+  "macros": {
+    "$(item)": "$(9)"
+  }
+}

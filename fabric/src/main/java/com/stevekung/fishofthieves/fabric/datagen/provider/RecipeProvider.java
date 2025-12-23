@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 import java.util.function.Consumer;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.fabric.datagen.BookShapelessRecipeBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlockFamilies;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -122,6 +123,13 @@ public class RecipeProvider extends FabricRecipeProvider
         woodenBoat(consumer, FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
         chestBoat(consumer, FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
         hangingSign(consumer, FOTItems.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
+
+        BookShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, FishOfThieves.MOD_RESOURCES + "fot_book")
+                .requires(Items.BOOK)
+                .requires(Ingredient.of(FOTTags.Items.THIEVES_FISH))
+                .unlockedBy(getHasName(Items.BOOK), inventoryTrigger(ItemPredicate.Builder.item().of(Items.BOOK)
+                        .build()))
+                .save(consumer, FishOfThieves.MOD_RESOURCES + "fot_book");
     }
 
     private static void generateForFOTBlockFamilies(Consumer<FinishedRecipe> consumer)

@@ -17,5 +17,12 @@ allprojects {
                 includeGroup "com.github.glitchfiend"
             }
         }
+        maven {
+            name = "Patchouli"
+            url = "https://maven.blamejared.com/"
+            content {
+                includeGroup "vazkii.patchouli"
+            }
+        }
     }
 }

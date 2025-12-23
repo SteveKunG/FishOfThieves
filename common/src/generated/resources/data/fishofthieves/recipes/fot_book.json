@@ -1,0 +1,13 @@
+{
+  "type": "patchouli:shapeless_book_recipe",
+  "book": "fishofthieves:fot_book",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "tag": "fishofthieves:thieves_fish"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "grant_fot_book": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "grant_fot_book"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "fishofthieves:rewards/patchouli_book"
+    ]
+  },
+  "sends_telemetry_event": true
+}

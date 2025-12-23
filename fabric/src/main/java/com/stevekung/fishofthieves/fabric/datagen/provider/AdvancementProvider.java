@@ -78,6 +78,11 @@ public class AdvancementProvider extends FabricAdvancementProvider
             compound.put(ItemStack.TAG_DISPLAY, displayCompound);
         });
 
+        Advancement.Builder.advancement()
+                .addCriterion("grant_fot_book", PlayerTrigger.TriggerInstance.tick())
+                .rewards(AdvancementRewards.Builder.loot(FOTLootTables.Advancements.PATCHOULI_BOOK))
+                .save(consumer, this.mod("grant_fot_book"));
+
         var advancement = Advancement.Builder.advancement()
                 .display(FOTItems.SPLASHTAIL,
                         Component.translatable("advancements.fishofthieves.root.title"),
