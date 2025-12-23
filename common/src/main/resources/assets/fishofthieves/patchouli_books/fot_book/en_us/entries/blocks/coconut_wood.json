@@ -1,0 +1,31 @@
+{
+  "name": "patchouli.fishofthieves.entry.blocks.coconut_wood",
+  "category": "fishofthieves:blocks",
+  "icon": "fishofthieves:coconut_log",
+  "priority": true,
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_wood.page0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "fishofthieves:coconut_planks",
+      "title": "patchouli.fishofthieves.entry.blocks.coconut_wood.crafting.title0",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_wood.crafting.text0"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/coconut_wood/img0.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_wood.image.text0",
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_wood.page1"
+    }
+  ]
+}

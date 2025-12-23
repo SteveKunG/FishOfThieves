@@ -12,10 +12,10 @@
     {
       "type": "patchouli:image",
       "images": [
-        "fishofthieves:textures/gui/patchouli/entries/fish_bone/img0.png",
-        "fishofthieves:textures/gui/patchouli/entries/fish_bone/img1.png"
+        "fishofthieves:textures/gui/patchouli/entries/fish_bone/img0_0.png",
+        "fishofthieves:textures/gui/patchouli/entries/fish_bone/img0_1.png"
       ],
-      "text": "Fish Bone located in the various locations",
+      "text": "patchouli.fishofthieves.entry.blocks.fish_bone.image.text0",
       "border": true
     },
     {
