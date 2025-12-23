@@ -85,7 +85,8 @@ public class ShoalTestSuite implements FOTGameTest
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
         shoal.setTreasured(true);
-        helper.runAtTickTime(20, () -> {
+        helper.runAtTickTime(20, () ->
+        {
             var tnt = helper.spawn(EntityType.TNT, blockPos);
             tnt.setFuse(10);
         });
