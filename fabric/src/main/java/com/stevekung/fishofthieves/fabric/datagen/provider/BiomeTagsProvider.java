@@ -20,7 +20,7 @@ public class BiomeTagsProvider extends FabricTagProvider<Biome>
 {
     private static final TagKey<Biome> C_IS_LUSH = cTag("is_lush");
 
-        public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public BiomeTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, Registries.BIOME, provider);
     }
