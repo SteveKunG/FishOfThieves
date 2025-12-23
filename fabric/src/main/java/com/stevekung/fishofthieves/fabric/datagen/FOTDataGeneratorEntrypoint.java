@@ -64,7 +64,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             try
             {
                 var clientEntrypointClass = Class.forName("com.stevekung.fishofthieves.fabric.datagen.client.ClientDataGenerator");
-                var entrypoint = (DataGeneratorEntrypoint)clientEntrypointClass.getConstructor().newInstance();
+                var entrypoint = (DataGeneratorEntrypoint) clientEntrypointClass.getConstructor().newInstance();
                 entrypoint.onInitializeDataGenerator(dataGenerator);
             }
             catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e)

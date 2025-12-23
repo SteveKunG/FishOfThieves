@@ -16,7 +16,7 @@ import com.stevekung.fishofthieves.registry.FOTTypeReferences;
 import net.minecraft.util.datafix.schemas.V1460;
 import net.minecraft.util.datafix.schemas.V99;
 
-@Mixin(value = { V1460.class, V99.class})
+@Mixin(value = { V1460.class, V99.class })
 public class MixinDataFixSchemas
 {
     @Inject(method = "registerTypes", at = @At("TAIL"))

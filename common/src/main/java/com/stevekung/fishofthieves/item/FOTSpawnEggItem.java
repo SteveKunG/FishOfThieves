@@ -24,7 +24,7 @@ public class FOTSpawnEggItem<T extends AbstractFishVariant> extends SpawnEggItem
     private final ResourceKey<Registry<T>> resourceKey;
     private final DataComponentType<Holder<T>> dataComponentType;
 
-    public FOTSpawnEggItem(ResourceKey<Registry<T>> resourceKey, DataComponentType<Holder<T>> dataComponentType,  Item.Properties properties)
+    public FOTSpawnEggItem(ResourceKey<Registry<T>> resourceKey, DataComponentType<Holder<T>> dataComponentType, Item.Properties properties)
     {
         super(properties);
         this.resourceKey = resourceKey;

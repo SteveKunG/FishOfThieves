@@ -109,6 +109,7 @@
 - Coconut fronds now has 50% drop chance
   - Requires tool enchanted with Silk Touch or shears to make it always drop
 - Better Coconut Fronds block state handling
+- Added Big Coconut Tree, taller than normal one
 - Adjust stranded fish render position a little bit
 - Added Fruits trade for Farmer Villager
 - Fisherman Villager now trade with random FoT's Fish Bucket
