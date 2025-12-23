@@ -20,8 +20,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import vazkii.patchouli.common.item.PatchouliItems;
-
 public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
 {
     public AdvancementRewardProvider(FabricDataOutput dataOutput)
@@ -29,6 +27,7 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
         super(dataOutput, LootContextParamSets.ADVANCEMENT_REWARD);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer)
     {
@@ -56,7 +55,7 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
         consumer.accept(FOTLootTables.Advancements.PATCHOULI_BOOK, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(BuiltInRegistries.ITEM.get(PatchouliItems.BOOK_ID))
+                        .add(LootItem.lootTableItem(BuiltInRegistries.ITEM.get(new ResourceLocation("patchouli", "guide_book")))
                                 .apply(SetNbtFunction.setTag(Util.make(
                                         new CompoundTag(), compoundTag -> compoundTag.putString("patchouli:book", "fishofthieves:guide_book")))))
                 ));

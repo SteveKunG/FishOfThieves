@@ -27,7 +27,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.patchouli.common.item.PatchouliItems;
 import vazkii.patchouli.common.recipe.ShapelessBookRecipe;
 
 public class BookShapelessRecipeBuilder extends CraftingRecipeBuilder implements RecipeBuilder
@@ -120,7 +119,7 @@ public class BookShapelessRecipeBuilder extends CraftingRecipeBuilder implements
     @Override
     public Item getResult()
     {
-        return BuiltInRegistries.ITEM.get(PatchouliItems.BOOK_ID);
+        return BuiltInRegistries.ITEM.get(new ResourceLocation("patchouli", "guide_book"));
     }
 
     @Override

@@ -79,9 +79,9 @@ public class AdvancementProvider extends FabricAdvancementProvider
         });
 
         Advancement.Builder.advancement()
-                .addCriterion("grant_fot_guide_book", PlayerTrigger.TriggerInstance.tick())
+                .addCriterion("grant_fishofthieves_guide_book", PlayerTrigger.TriggerInstance.tick())
                 .rewards(AdvancementRewards.Builder.loot(FOTLootTables.Advancements.PATCHOULI_BOOK))
-                .save(consumer, this.mod("grant_fot_guide_book"));
+                .save(consumer, this.mod("grant_fishofthieves_guide_book"));
 
         var advancement = Advancement.Builder.advancement()
                 .display(FOTItems.SPLASHTAIL,

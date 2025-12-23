@@ -1,13 +1,13 @@
 {
   "criteria": {
-    "grant_fot_guide_book": {
+    "grant_fishofthieves_guide_book": {
       "conditions": {},
       "trigger": "minecraft:tick"
     }
   },
   "requirements": [
     [
-      "grant_fot_guide_book"
+      "grant_fishofthieves_guide_book"
     ]
   ],
   "rewards": {
