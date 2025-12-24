@@ -1,7 +1,7 @@
 {
   "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
-  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
-  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+  "_comment1": "Untranslated entries will automatically include in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution.",
 
   "text.autoconfig.fishofthieves.title": "Конфігурація Fish of Thieves",
   "text.autoconfig.fishofthieves.category.general": "Загальні",
@@ -13,9 +13,9 @@
   "text.autoconfig.fishofthieves.option.general.enableEarthwormsDrop": "Увімкнути падіння дощових черв'яків",
   "text.autoconfig.fishofthieves.option.general.enableGrubsDrop": "Увімкнути падіння личинок",
   "text.autoconfig.fishofthieves.option.general.enableLeechesDrop": "Увімкнути падіння п'явок",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook": "Enable Worms Attached to Fishing Hook",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[0]": "When casting fishing rod it will attached any worms to the fishing hook and consumed from your offhand or inventory.",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[1]": "This will increase chance to get specific fish and increase fishing speed by 10% with their favorite bait.",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook": "Enable worms attached to hook",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[0]": "When casting fishing rod it will attach any worms to the hook and consumed from your offhand or inventory.",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[1]": "This will increase chance to get specific fish and increase fishing speed by 10% with their favorite bait.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior": "Нейтральна поведінка риби",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[0]": "Вмикає нейтральну поведінку для риби.",
   "text.autoconfig.fishofthieves.option.general.neutralFishBehavior.@Tooltip[1]": "Це включає боєжабра, бісорибу, острівного стрибуна та трощителя.",
