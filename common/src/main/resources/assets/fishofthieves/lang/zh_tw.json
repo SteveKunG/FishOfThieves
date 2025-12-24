@@ -1,7 +1,7 @@
 {
   "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
-  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
-  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+  "_comment1": "Untranslated entries will automatically include in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution.",
 
   "text.autoconfig.fishofthieves.title": "盜賊之魚設定",
   "text.autoconfig.fishofthieves.category.general": "一般",
@@ -13,9 +13,9 @@
   "text.autoconfig.fishofthieves.option.general.enableEarthwormsDrop": "啟用蚯蚓掉落",
   "text.autoconfig.fishofthieves.option.general.enableGrubsDrop": "啟用幼蟲掉落",
   "text.autoconfig.fishofthieves.option.general.enableLeechesDrop": "啟用水蛭掉落",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook": "Enable Worms Attached to Fishing Hook",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[0]": "When casting fishing rod it will attached any worms to the fishing hook and consumed from your offhand or inventory.",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[1]": "This will increase chance to get specific fish and increase fishing speed by 10% with their favorite bait.",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook": "Enable worms attached to hook",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[0]": "When casting fishing rod it will attach any worms to the hook and consumed from your offhand or inventory.",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[1]": "This will increase chance to get specific fish and increase fishing speed by 10% with their favorite bait.",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "簡易生成條件",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "允許輕鬆生成所有魚類變種，無論其特殊條件為何。",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "如果啟用，將始終生成，包括稀有和夜間變種。",

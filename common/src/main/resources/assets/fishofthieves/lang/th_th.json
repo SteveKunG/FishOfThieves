@@ -1,7 +1,7 @@
 {
   "_comment0": "DO NOT MANUALLY COPY ENTRIES FROM THIS FILE!",
-  "_comment1": "Untranslated entries will automatically included in other language files through datagen.",
-  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution. :>3",
+  "_comment1": "Untranslated entries will automatically include in other language files through datagen.",
+  "_comment2": "Datagen runs everytime when the mod has content update, Thank you for your contribution.",
 
   "text.autoconfig.fishofthieves.title": "การตั้งค่าฟิชออฟธีฟส์",
   "text.autoconfig.fishofthieves.category.general": "ทั่วไป",
@@ -13,9 +13,9 @@
   "text.autoconfig.fishofthieves.option.general.enableEarthwormsDrop": "เปิดใช้งานการดรอปของไส้เดือน",
   "text.autoconfig.fishofthieves.option.general.enableGrubsDrop": "เปิดใช้งานการดรอปของด้วง",
   "text.autoconfig.fishofthieves.option.general.enableLeechesDrop": "เปิดใช้งานการดรอปของปลิง",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook": "เปิดใช้งานหนอนติดกับตะขอตกปลา",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[0]": "เมื่อเหวี่ยงคันเบ็ด หนอนจะติดกับตะขอและใช้ไอเท็มจากมืออีกข้างหรือในช่องเก็บของของคุณ",
-  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedFishingHook.@Tooltip[1]": "วิธีนี้จะช่วยเพิ่มโอกาสในการได้ปลาที่ต้องการและเพิ่มความเร็วในการตกปลาถึง 10% ด้วยเหยื่อล่อที่พวกมันชื่นชอบ",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook": "เปิดใช้งานหนอนติดกับตะขอตกปลา",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[0]": "เมื่อเหวี่ยงคันเบ็ด หนอนจะติดกับตะขอและใช้ไอเท็มจากมืออีกข้างหรือในช่องเก็บของของคุณ",
+  "text.autoconfig.fishofthieves.option.general.enableWormsAttachedHook.@Tooltip[1]": "วิธีนี้จะช่วยเพิ่มโอกาสในการได้ปลาที่ต้องการและเพิ่มความเร็วในการตกปลาถึง 10% ด้วยเหยื่อล่อที่พวกมันชื่นชอบ",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition": "เงื่อนไขการเกิดแบบเรียบง่าย",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[0]": "ช่วยให้การเกิดของพันธุ์ปลาต่าง ๆ ทำได้ง่าย โดยไม่คำนึงถึงเงื่อนไขพิเศษของพวกมัน",
   "text.autoconfig.fishofthieves.option.general.simpleSpawningCondition.@Tooltip[1]": "หากเปิดใช้งาน การเกิดของปลาจะเกิดเสมอ รวมถึงพันธุ์หายากและกลางคืน",
