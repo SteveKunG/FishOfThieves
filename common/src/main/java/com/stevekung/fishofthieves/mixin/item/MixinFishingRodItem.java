@@ -44,7 +44,7 @@ public class MixinFishingRodItem
     @WrapOperation(method = "use", at = @At(value = "INVOKE", target = "net/minecraft/world/level/Level.addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean fishofthieves$setBaitOnCast(Level level, Entity entity, Operation<Boolean> operation, @Local(argsOnly = true) Player player)
     {
-        if (FishOfThieves.CONFIG.general.enableWormsAttachedFishingHook)
+        if (FishOfThieves.CONFIG.general.enableWormsAttachedHook)
         {
             var baitStack = FishingHookBait.getBait(player);
 
