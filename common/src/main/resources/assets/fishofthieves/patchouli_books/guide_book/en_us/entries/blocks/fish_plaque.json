@@ -10,12 +10,28 @@
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.page0"
     },
     {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img0_0.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.image.text0",
+      "border": true
+    },
+    {
       "type": "patchouli:text",
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.page1"
     },
     {
       "type": "patchouli:text",
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.page2"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img1_0.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.image.text1",
+      "border": true
     },
     {
       "type": "patchouli:text",
@@ -35,15 +51,33 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "fishofthieves:golden_frame_oak_fish_plaque",
+      "recipe": "fishofthieves:copper_frame_oak_fish_plaque",
       "title": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.title2",
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.text2"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "fishofthieves:gilded_oak_fish_plaque",
+      "recipe": "fishofthieves:golden_frame_oak_fish_plaque",
       "title": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.title3",
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.text3"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "fishofthieves:gilded_oak_fish_plaque",
+      "title": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.title4",
+      "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.crafting.text4"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img2_0.png",
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img2_1.png",
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img2_2.png",
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img2_3.png",
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img2_4.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.image.text2",
+      "border": true
     }
   ]
 }
