@@ -50,7 +50,7 @@ public final class FishOfThievesConfig implements ConfigData
         public boolean enableLeechesDrop = true;
 
         @ConfigEntry.Gui.Tooltip(count = 2)
-        public boolean enableWormsAttachedFishingHook = true;
+        public boolean enableWormsAttachedHook = true;
 
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean neutralFishBehavior = false;
