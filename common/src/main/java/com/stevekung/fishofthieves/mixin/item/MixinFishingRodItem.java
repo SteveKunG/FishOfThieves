@@ -47,7 +47,7 @@ public class MixinFishingRodItem
     {
         var baitStack = FishingHookBait.getBait(player);
 
-        if (FishOfThieves.CONFIG.general.enableWormsAttachedFishingHook && projectile instanceof FishingHook fishingHook && !baitStack.isEmpty())
+        if (FishOfThieves.CONFIG.general.enableWormsAttachedHook && projectile instanceof FishingHook fishingHook && !baitStack.isEmpty())
         {
             fishingHook.fishofthieves$setBaitStack(baitStack.copyWithCount(1));
 
