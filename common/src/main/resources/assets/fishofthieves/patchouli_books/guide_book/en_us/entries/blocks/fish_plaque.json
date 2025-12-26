@@ -12,7 +12,7 @@
     {
       "type": "patchouli:image",
       "images": [
-        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img0_0.png"
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img0.png"
       ],
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.image.text0",
       "border": true
@@ -28,7 +28,7 @@
     {
       "type": "patchouli:image",
       "images": [
-        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img1_0.png"
+        "fishofthieves:textures/gui/patchouli/entries/fish_plaque/img1.png"
       ],
       "text": "patchouli.fishofthieves.entry.blocks.fish_plaque.image.text1",
       "border": true
