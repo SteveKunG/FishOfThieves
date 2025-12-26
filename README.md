@@ -53,13 +53,13 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ![Wrecker around the shipwreck](https://i.imgur.com/VwyAl67.png)
 
-<img width="1920" height="1081" alt="fishing_hook_with_bait" src="https://github.com/user-attachments/assets/7e23df75-e1f6-4554-9706-9734b8384bb9" />
+<img width="1920" height="1081" alt="fishing_hook_with_bait" src="https://github.com/user-attachments/assets/7e23df75-e1f6-4554-9706-9734b8384bb9" /><br>
 
-<img width="1920" height="1081" alt="treasured_fish" src="https://github.com/user-attachments/assets/bf7c118f-ba48-49c7-9875-6c6e6b4c3720" />
+<img width="1920" height="1081" alt="treasured_fish" src="https://github.com/user-attachments/assets/bf7c118f-ba48-49c7-9875-6c6e6b4c3720" /><br>
 
-<img width="1920" height="1081" alt="fish_shoal_at_seapost" src="https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171" />
+<img width="1920" height="1081" alt="fish_shoal_at_seapost" src="https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171" /><br>
 
-<img width="1920" height="1081" alt="treasured_fish_map" src="https://github.com/user-attachments/assets/a50c0489-b07e-4c69-ad6a-676f0750b27b" />
+<img width="1920" height="1081" alt="treasured_fish_map" src="https://github.com/user-attachments/assets/a50c0489-b07e-4c69-ad6a-676f0750b27b" /><br>
 
 ![Coconut Tree at beaches](https://i.imgur.com/Ly2BYkX.png)
 
@@ -103,9 +103,7 @@ Absolutely! Make sure to give credit and DO NOT claim as your own work.
 
 **If Sea of Thieves introduces new fish into the game, Will you add them?**
 
-Yes, but I don't think SoT will add more fish after all. So we'll see.
-
-**Edit**: Season 15 might get new contents instead. I do have plans by the way. :)
+Yes, but we'll see.
 
 **When will the mod be updated to [insert version here]?**
 
