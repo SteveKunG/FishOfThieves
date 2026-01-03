@@ -6,8 +6,6 @@
   "client": [
     "client.accessor.ModelLayersAccessor",
     "client.accessor.EntityRenderDispatcherAccessor",
-    "client.debug.MixinClientDebugSubscriber",
-    "client.debug.MixinDebugRenderer",
     "client.MixinCreativeModeTabs",
     "client.MixinLevelEventHandler",
     "client.level.MixinClientLevel",

@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.mixin.client.debug;
+package com.stevekung.fishofthieves.fabric.mixin.client.debug;
 
 import java.util.List;
 
