@@ -8,7 +8,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.teammetallurgy.aquaculture.api.bait.IBaitItem;
 
 @Mixin(FOTWormItem.class)
-@IfModLoaded(value = "aquaculture")
+@IfModLoaded(value = "aquaculture", minVersion = "1.20.1-2.5.6")
 public class MixinFOTWormItem implements IBaitItem
 {
     @Override
