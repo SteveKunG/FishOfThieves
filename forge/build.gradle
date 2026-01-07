@@ -53,14 +53,13 @@ dependencies {
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
-String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> commonExcludes = [".cache", "data/fabric/**", "*.snbt", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
     excludes = commonExcludes
 }
 
@@ -79,7 +78,7 @@ tasks.register("apiJar", Jar) {
     from project(":common").sourceSets.main.output
     include "com/stevekung/fishofthieves/api/**/*"
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
     archiveClassifier = "api"
 }
 
@@ -87,7 +86,7 @@ assemble.dependsOn(apiJar)
 
 remapSourcesJar {
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
 }
 
 remapJar {
@@ -95,5 +94,5 @@ remapJar {
     dependsOn shadowJar
     archiveClassifier = "forge" + (release_type != "release" ? "-" + release_type : "")
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
 }

@@ -74,14 +74,13 @@ dependencies {
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
-String fileName = "${archives_base_name}-mc${minecraft_version}"
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "*.snbt", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
     excludes = devExcludes
 }
 
@@ -99,7 +98,7 @@ tasks.register("apiJar", Jar) {
     from project(":common").sourceSets.main.output
     include "com/stevekung/fishofthieves/api/**/*"
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
     archiveClassifier = "api"
 }
 
@@ -107,7 +106,7 @@ assemble.dependsOn(apiJar)
 
 remapSourcesJar {
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
 }
 
 remapJar {
@@ -116,7 +115,7 @@ remapJar {
     dependsOn shadowJar
     archiveClassifier = "fabric" + (release_type != "release" ? "-${release_type}" : "")
     archiveVersion = "v${mod_version}"
-    archiveBaseName = fileName
+    archiveBaseName = project(":common").ext.fileName
 }
 
 processGametestResources {
