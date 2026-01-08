@@ -20,7 +20,7 @@ public class MixinMapDecoration_Type
 
     @SuppressWarnings({ "unused", "SameParameterValue" })
     @Invoker("<init>")
-    private static MapDecoration.Type fishofthieves$create(String name, int ordinal, boolean renderedOnFrame, boolean trackCount)
+    static MapDecoration.Type fishofthieves$create(String name, int ordinal, boolean renderedOnFrame, boolean trackCount)
     {
         throw new IllegalStateException("Unreachable");
     }
