@@ -35,6 +35,6 @@ jobs:
         with:
           name: Artifacts
           path: |
-            ./common/build/libs/
-            ./fabric/build/libs/
-            ./neoforge/build/libs/
+            common/build/libs/fish_of_thieves-mc*.jar
+            fabric/build/libs/fish_of_thieves-mc*.jar
+            neoforge/build/libs/fish_of_thieves-mc*.jar

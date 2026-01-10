@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.storage;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -30,7 +30,7 @@ public class BaitPreserveSavedData extends SavedData
     public static final SavedDataType<BaitPreserveSavedData> TYPE = new SavedDataType<>(FILE_ID,
             context -> new BaitPreserveSavedData(), context -> CODEC, FOTDataFixTypes.SAVED_BAIT_PRESERVE);
 
-    private final Map<Vec3, ItemStack> baitStorage = new HashMap<>();
+    private final Map<Vec3, ItemStack> baitStorage = new ConcurrentHashMap<>();
 
     public BaitPreserveSavedData(List<BaitPreserve> list)
     {
@@ -47,8 +47,11 @@ public class BaitPreserveSavedData extends SavedData
 
     public void spawnBaitOnLoad(Level level)
     {
-        for (var entry : this.baitStorage.entrySet())
+        var iterator = this.baitStorage.entrySet().iterator();
+
+        while (iterator.hasNext())
         {
+            var entry = iterator.next();
             var blockPos = BlockPos.containing(entry.getKey());
 
             if (level.isLoaded(blockPos))
@@ -57,7 +60,7 @@ public class BaitPreserveSavedData extends SavedData
                 var itemEntity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), entry.getValue());
                 itemEntity.setDefaultPickUpDelay();
                 level.addFreshEntity(itemEntity);
-                this.baitStorage.remove(entry.getKey());
+                iterator.remove();
                 this.setDirty();
             }
         }
