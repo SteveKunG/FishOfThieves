@@ -20,15 +20,14 @@ import com.stevekung.fishofthieves.item.trade.RestockableVillager;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 
-import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 @Mixin(AbstractVillager.class)
 public abstract class MixinAbstractVillager extends AgeableMob implements RestockableVillager
@@ -45,20 +44,17 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
         super(null, null);
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "net/minecraft/nbt/CompoundTag.put(Ljava/lang/String;Lnet/minecraft/nbt/Tag;)Lnet/minecraft/nbt/Tag;", shift = At.Shift.AFTER))
-    private void fishofthieves$saveRestockableData(CompoundTag compound, CallbackInfo info, @Local MerchantOffers offers)
+    @Inject(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/ValueOutput.store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", shift = At.Shift.AFTER))
+    private void fishofthieves$saveRestockableData(ValueOutput output, CallbackInfo info, @Local MerchantOffers offers)
     {
         this.validateTreasuredFishMapIndex(offers);
-        compound.put(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG, RestockableData.CODEC_LINKED_SET.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.restockableDataSet).getOrThrow());
+        output.store(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG, RestockableData.CODEC_LINKED_SET, this.restockableDataSet);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void fishofthieves$readRestockableData(CompoundTag compound, CallbackInfo info)
+    private void fishofthieves$readRestockableData(ValueInput input, CallbackInfo info)
     {
-        if (compound.contains(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG))
-        {
-            RestockableData.CODEC_LINKED_SET.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG)).resultOrPartial(Util.prefix("Failed to load restock data: ", FishOfThieves.LOGGER::warn)).ifPresent(restockableDataList -> this.restockableDataSet = restockableDataList);
-        }
+        this.restockableDataSet = input.read(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG, RestockableData.CODEC_LINKED_SET).orElse(new LinkedHashSet<>());
 
         if (this.offers != null)
         {
