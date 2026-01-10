@@ -63,7 +63,10 @@
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
     "level.block.state.MixinWoodType",
-    "loot.MixinLootPoolSingletonContainer_Builder"
+    "loot.MixinLootPoolSingletonContainer_Builder",
+    "trading.MixinAbstractVillager",
+    "trading.MixinMerchantOffer",
+    "trading.MixinVillager"
   ],
   "injectors": {
     "defaultRequire": 1

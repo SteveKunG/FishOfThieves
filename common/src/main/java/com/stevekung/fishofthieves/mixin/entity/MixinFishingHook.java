@@ -42,6 +42,9 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Unique
     private boolean isCreative;
 
+    @Unique
+    private boolean saved;
+
     @Shadow
     abstract Player getPlayerOwner();
 
@@ -53,11 +56,12 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
     @Override
     public boolean save(ValueOutput output)
     {
-        if (!this.isCreative && this.level() instanceof ServerLevel serverLevel)
+        if (!this.isCreative && !this.saved && this.level() instanceof ServerLevel serverLevel)
         {
             var baitPreserveSavedData = serverLevel.getBaitPreserve();
             baitPreserveSavedData.getBaitStorage().putIfAbsent(this.position(), this.baitStack);
             baitPreserveSavedData.setDirty();
+            this.saved = true;
         }
         return super.save(output);
     }
