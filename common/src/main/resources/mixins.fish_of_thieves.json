@@ -58,7 +58,9 @@
     "level.block.state.MixinBlockBehaviour",
     "loot.MixinLootPoolSingletonContainer_Builder",
     "map.MixinMapDecoration_Type",
-    "map.MixinMapItemSavedData"
+    "map.MixinMapItemSavedData",
+    "trading.MixinMerchantOffer",
+    "trading.MixinVillager"
   ],
   "injectors": {
     "defaultRequire": 1
