@@ -59,12 +59,17 @@ repositories {
             includeGroup "com.github.Chocohead"
         }
     }
+    maven {
+        url = "https://chocolateminecraft.com/maven"
+        name = "Xaero's Maven"
+    }
 }
 
 dependencies {
     modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
     modRuntimeOnly "maven.modrinth:cyanide:${cyanide_fabric_version}"
     modRuntimeOnly "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
+    modRuntimeOnly "xaero.lib:xaerolib-fabric-${minecraft_version}:+"
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
