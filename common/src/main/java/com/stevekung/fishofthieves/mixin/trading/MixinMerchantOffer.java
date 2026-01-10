@@ -22,10 +22,10 @@ public class MixinMerchantOffer implements TreasuredFishMapRestock
     ItemStack result;
 
     @Unique
-    boolean isTreasuredMap;
+    private boolean isTreasuredMap;
 
     @Unique
-    int tier;
+    private int tier;
 
     @Inject(method = "<init>(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     private void fishofthieves$init(CompoundTag compoundTag, CallbackInfo info)
