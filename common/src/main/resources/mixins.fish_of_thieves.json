@@ -54,6 +54,7 @@
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
     "loot.MixinLootPoolSingletonContainer_Builder",
+    "trading.MixinAbstractVillager",
     "trading.MixinMerchantOffer",
     "trading.MixinVillager"
   ],
