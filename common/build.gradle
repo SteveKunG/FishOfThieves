@@ -18,6 +18,21 @@ dependencies {
     modImplementation(fabricApi.module("fabric-transitive-access-wideners-v1", fabric_api_version))
 }
 
+ext {
+    fileName = "${archives_base_name}-mc${minecraft_version}"
+}
+
+remapJar {
+    archiveClassifier = "common"
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project.ext.fileName
+}
+
+remapSourcesJar {
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project.ext.fileName
+}
+
 processResources {
     doFirst {
         processCutoutModels()

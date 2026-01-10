@@ -53,7 +53,9 @@
     "level.MixinServerLevel",
     "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
-    "loot.MixinLootPoolSingletonContainer_Builder"
+    "loot.MixinLootPoolSingletonContainer_Builder",
+    "trading.MixinMerchantOffer",
+    "trading.MixinVillager"
   ],
   "injectors": {
     "defaultRequire": 1

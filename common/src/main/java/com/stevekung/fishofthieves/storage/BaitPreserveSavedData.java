@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.storage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.stevekung.fishofthieves.registry.FOTDataFixTypes;
 
@@ -28,7 +28,7 @@ public class BaitPreserveSavedData extends SavedData
 
     public BaitPreserveSavedData()
     {
-        this(new HashMap<>());
+        this(new ConcurrentHashMap<>());
     }
 
     public static SavedData.Factory<BaitPreserveSavedData> factory()
@@ -38,7 +38,7 @@ public class BaitPreserveSavedData extends SavedData
 
     public static BaitPreserveSavedData load(CompoundTag tag, HolderLookup.Provider provider)
     {
-        var baitStorage = new HashMap<Vec3, ItemStack>();
+        var baitStorage = new ConcurrentHashMap<Vec3, ItemStack>();
         var listTag = tag.getList(TAG_BAIT_PRESERVES, CompoundTag.TAG_COMPOUND);
 
         for (var i = 0; i < listTag.size(); i++)
@@ -51,8 +51,11 @@ public class BaitPreserveSavedData extends SavedData
 
     public void spawnBaitOnLoad(Level level)
     {
-        for (var entry : this.baitStorage.entrySet())
+        var iterator = this.baitStorage.entrySet().iterator();
+
+        while (iterator.hasNext())
         {
+            var entry = iterator.next();
             var blockPos = BlockPos.containing(entry.getKey());
 
             if (level.isLoaded(blockPos))
@@ -61,7 +64,7 @@ public class BaitPreserveSavedData extends SavedData
                 var itemEntity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), entry.getValue());
                 itemEntity.setDefaultPickUpDelay();
                 level.addFreshEntity(itemEntity);
-                this.baitStorage.remove(entry.getKey());
+                iterator.remove();
                 this.setDirty();
             }
         }
