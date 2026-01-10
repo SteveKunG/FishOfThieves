@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapForEmeralds;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
@@ -23,7 +24,7 @@ public abstract class MixinVillager extends AbstractVillager
         super(null, null);
     }
 
-    @Inject(method = "restock", at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffer.resetUses()V"))
+    @Inject(method = { "restock", "catchUpDemand" }, cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffer.resetUses()V"))
     private void fishofthieves$treasuredFishMapRestock(CallbackInfo info, @Local MerchantOffer merchantOffer)
     {
         var treasuredFishOffer = (TreasuredFishMapRestock) merchantOffer;
@@ -37,6 +38,14 @@ public abstract class MixinVillager extends AbstractVillager
             {
                 treasuredFishOffer.fishofthieves$setResult(pair.getFirst());
                 merchantOffer.getBaseCostA().setCount(pair.getSecond());
+                FishOfThieves.LOGGER.info("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
+            }
+            else
+            {
+                // Do not reset uses until new treasured fish location is available
+                FishOfThieves.LOGGER.info("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
+                treasuredFishOffer.fishofthieves$setUses(merchantOffer.getUses());
+                info.cancel();
             }
         }
     }
