@@ -79,7 +79,7 @@ dependencies {
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
-List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "*.snbt", "architectury.common.json"]
+List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json", "resourcepacks/simple_spawning_condition_pack/**"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]

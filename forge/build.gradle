@@ -53,7 +53,7 @@ dependencies {
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
-List<String> commonExcludes = [".cache", "data/fabric/**", "*.snbt", "architectury.common.json"]
+List<String> commonExcludes = [".cache", "data/fabric/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json"]
 
 shadowJar {
     configurations = [project.configurations.shadowBundle]
