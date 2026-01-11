@@ -25,7 +25,7 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
         super(null, null);
     }
 
-    @Inject(method = { "restock", "catchUpDemand" }, at = @At(value = "INVOKE", target = "net/minecraft/world/entity/npc/Villager.getOffers()Lnet/minecraft/world/item/trading/MerchantOffers;"))
+    @Inject(method = { "restock", "catchUpDemand" }, at = @At(value = "INVOKE", target = "net/minecraft/world/entity/npc/villager/Villager.getOffers()Lnet/minecraft/world/item/trading/MerchantOffers;"))
     private void fishofthieves$treasuredFishMapRestock(CallbackInfo info, @Share("treasuredMapOfferIndex") LocalIntRef treasuredMapOfferIndexRef)
     {
         var data = this.fishofthieves$getRestockableDataSet();

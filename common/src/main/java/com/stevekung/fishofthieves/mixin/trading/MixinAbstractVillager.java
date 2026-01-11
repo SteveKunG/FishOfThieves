@@ -21,6 +21,7 @@ import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
@@ -63,11 +64,11 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
     }
 
     @Inject(method = "addOffersFromItemListings", at = @At("TAIL"))
-    private void fishofthieves$addRestockableData(MerchantOffers givenMerchantOffers, VillagerTrades.ItemListing[] newTrades, int maxNumbers, CallbackInfo info)
+    private void fishofthieves$addRestockableData(ServerLevel level, MerchantOffers offers, VillagerTrades.ItemListing[] listings, int slots, CallbackInfo info)
     {
-        for (var index = 0; index < givenMerchantOffers.size(); index++)
+        for (var index = 0; index < offers.size(); index++)
         {
-            var offer = givenMerchantOffers.get(index);
+            var offer = offers.get(index);
 
             if (offer instanceof RestockableMerchantOffer restockableOffer)
             {
