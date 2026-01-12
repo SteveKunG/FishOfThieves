@@ -38,12 +38,12 @@ public abstract class MixinVillager extends AbstractVillager
             {
                 treasuredFishOffer.fishofthieves$setResult(pair.getFirst());
                 merchantOffer.getBaseCostA().setCount(pair.getSecond());
-                FishOfThieves.LOGGER.info("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
+                FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
             }
             else
             {
                 // Do not reset uses until new treasured fish location is available
-                FishOfThieves.LOGGER.info("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
+                FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
                 info.cancel();
             }
         }
