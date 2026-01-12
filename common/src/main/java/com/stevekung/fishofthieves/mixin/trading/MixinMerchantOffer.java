@@ -21,9 +21,6 @@ public class MixinMerchantOffer implements TreasuredFishMapRestock
     @Mutable
     ItemStack result;
 
-    @Shadow
-    int uses;
-
     @Unique
     private boolean isTreasuredMap;
 
@@ -81,11 +78,5 @@ public class MixinMerchantOffer implements TreasuredFishMapRestock
     public void fishofthieves$setTier(int tier)
     {
         this.tier = tier;
-    }
-
-    @Override
-    public void fishofthieves$setUses(int uses)
-    {
-        this.uses = uses;
     }
 }

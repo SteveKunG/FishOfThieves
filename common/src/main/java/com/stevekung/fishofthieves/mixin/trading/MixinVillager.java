@@ -30,7 +30,7 @@ public abstract class MixinVillager extends AbstractVillager
         var treasuredFishOffer = (TreasuredFishMapRestock) merchantOffer;
         var isTreasuredFishMap = treasuredFishOffer.fishofthieves$isTreasuredFishMap();
 
-        if (isTreasuredFishMap)
+        if (isTreasuredFishMap && merchantOffer.isOutOfStock())
         {
             var pair = TreasuredFishMapForEmeralds.getTreasuredFishMap((ServerLevel) this.level(), this, Shoal.FILLED_MAP_TREASURED_FISH, treasuredFishOffer.fishofthieves$getTier());
 
@@ -44,7 +44,6 @@ public abstract class MixinVillager extends AbstractVillager
             {
                 // Do not reset uses until new treasured fish location is available
                 FishOfThieves.LOGGER.info("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
-                treasuredFishOffer.fishofthieves$setUses(merchantOffer.getUses());
                 info.cancel();
             }
         }
