@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate entityPredicate) implements LootItemCondition
 {
@@ -25,9 +23,9 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
             .apply(instance, BaitAttachedCondition::new));
 
     @Override
-    public LootItemConditionType getType()
+    public MapCodec<? extends LootItemCondition> codec()
     {
-        return FOTLootItemConditions.BAIT_ATTACHED_HOOK;
+        return CODEC;
     }
 
     @Override

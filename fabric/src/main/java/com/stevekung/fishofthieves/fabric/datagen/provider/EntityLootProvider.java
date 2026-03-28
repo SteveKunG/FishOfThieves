@@ -10,8 +10,8 @@ import com.stevekung.fishofthieves.loot.predicate.TreasuredFishPredicate;
 import com.stevekung.fishofthieves.loot.predicate.TrophyFishPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.advancements.criterion.DataComponentMatchers;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.core.Holder;
@@ -43,11 +43,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWit
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class EntityLootProvider extends SimpleFabricLootTableProvider
+public class EntityLootProvider extends SimpleFabricLootTableSubProvider
 {
     private final HolderLookup.Provider provider;
 
-    public EntityLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public EntityLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider, LootContextParamSets.ENTITY);
         this.provider = provider.join();

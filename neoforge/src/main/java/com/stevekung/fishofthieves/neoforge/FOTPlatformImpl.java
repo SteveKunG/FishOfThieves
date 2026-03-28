@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.neoforge;
 
 import java.util.Set;
 
+import com.stevekung.fishofthieves.entity.FishingHookBait;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.neoforge.mixin.accessor.CropBlockAccessor;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
@@ -64,7 +65,7 @@ public class FOTPlatformImpl
         {
             for (var serverPlayer : serverLevel.getPlayers(serverPlayer -> serverPlayer.isAlive() && serverPlayer.distanceTo(fishingHook) < 1024f))
             {
-                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new ReceiveFishingHookBaitPacket(fishingHook.getId(), fishingHook.fishofthieves$getBaitStack())));
+                serverPlayer.connection.send(new ClientboundCustomPayloadPacket(new ReceiveFishingHookBaitPacket(fishingHook.getId(), ((FishingHookBait) fishingHook).fishofthieves$getBaitStack())));
             }
         }
     }

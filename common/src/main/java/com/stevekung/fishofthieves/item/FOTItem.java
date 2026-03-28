@@ -11,6 +11,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,10 +23,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.variant.SpawnContext;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.phys.Vec3;
@@ -130,6 +128,14 @@ public class FOTItem extends Item implements ResourceKeyHolder
             }
         }
         return itemStack;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static ItemStackTemplate advancementTemplate(Item item, String registryPath, String variant)
+    {
+        var builder = DataComponentPatch.builder();
+        builder.set(DataComponents.CUSTOM_DATA, createCustomData(registryPath, variant));
+        return new ItemStackTemplate(item.builtInRegistryHolder(), 1, builder.build());
     }
 
     public static ItemStack create(Item item, String registryPath, String variant)

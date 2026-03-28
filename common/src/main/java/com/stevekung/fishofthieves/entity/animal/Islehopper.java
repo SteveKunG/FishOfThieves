@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
@@ -38,6 +37,8 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<AbstractThievesFish<?>> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList(), _ -> AbstractThievesFishAi.getActivities());
     private static final EntityDataAccessor<Holder<IslehopperVariant>> VARIANT = SynchedEntityData.defineId(Islehopper.class, FOTDataSerializers.ISLEHOPPER_VARIANT);
 
     public Islehopper(EntityType<? extends Islehopper> entityType, Level level)
@@ -46,15 +47,9 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     }
 
     @Override
-    protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

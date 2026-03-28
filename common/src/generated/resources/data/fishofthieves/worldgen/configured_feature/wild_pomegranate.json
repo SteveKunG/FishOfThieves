@@ -1,69 +1,50 @@
 {
-  "type": "minecraft:flower",
+  "type": "fishofthieves:single_block",
   "config": {
-    "feature": {
-      "feature": {
-        "type": "fishofthieves:single_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
-              {
-                "data": {
-                  "Name": "fishofthieves:pomegranate_plant",
-                  "Properties": {
-                    "age": "0",
-                    "persistent": "false"
-                  }
-                },
-                "weight": 8
-              },
-              {
-                "data": {
-                  "Name": "fishofthieves:pomegranate_plant",
-                  "Properties": {
-                    "age": "1",
-                    "persistent": "false"
-                  }
-                },
-                "weight": 6
-              },
-              {
-                "data": {
-                  "Name": "fishofthieves:pomegranate_plant",
-                  "Properties": {
-                    "age": "2",
-                    "persistent": "false"
-                  }
-                },
-                "weight": 4
-              },
-              {
-                "data": {
-                  "Name": "fishofthieves:pomegranate_plant",
-                  "Properties": {
-                    "age": "3",
-                    "persistent": "false"
-                  }
-                },
-                "weight": 2
-              }
-            ]
-          }
-        }
-      },
-      "placement": [
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:air"
-          }
+          "data": {
+            "Name": "fishofthieves:pomegranate_plant",
+            "Properties": {
+              "age": "0",
+              "persistent": "false"
+            }
+          },
+          "weight": 8
+        },
+        {
+          "data": {
+            "Name": "fishofthieves:pomegranate_plant",
+            "Properties": {
+              "age": "1",
+              "persistent": "false"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "fishofthieves:pomegranate_plant",
+            "Properties": {
+              "age": "2",
+              "persistent": "false"
+            }
+          },
+          "weight": 4
+        },
+        {
+          "data": {
+            "Name": "fishofthieves:pomegranate_plant",
+            "Properties": {
+              "age": "3",
+              "persistent": "false"
+            }
+          },
+          "weight": 2
         }
       ]
-    },
-    "tries": 16,
-    "xz_spread": 5,
-    "y_spread": 3
+    }
   }
 }

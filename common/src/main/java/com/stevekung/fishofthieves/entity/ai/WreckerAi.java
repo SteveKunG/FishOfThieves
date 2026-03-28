@@ -19,7 +19,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -28,15 +28,9 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class WreckerAi
 {
-    public static Brain<?> makeBrain(Brain<Wrecker> brain)
+    public static List<ActivityData<Wrecker>> getActivities()
     {
-        initCoreActivity(brain);
-        initIdleActivity(brain);
-        initFightActivity(brain);
-        brain.setCoreActivities(Set.of(Activity.CORE));
-        brain.setDefaultActivity(Activity.IDLE);
-        brain.useDefaultActivity();
-        return brain;
+        return List.of(initCoreActivity(), initIdleActivity(), initFightActivity());
     }
 
     public static void updateActivity(Wrecker fish)
@@ -59,9 +53,9 @@ public class WreckerAi
         }
     }
 
-    private static void initCoreActivity(Brain<Wrecker> brain)
+    private static ActivityData<Wrecker> initCoreActivity()
     {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+        return ActivityData.create(Activity.CORE, 0, ImmutableList.of(
                 new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
@@ -72,13 +66,13 @@ public class WreckerAi
     }
 
     @SuppressWarnings("deprecation")
-    private static void initIdleActivity(Brain<Wrecker> brain)
+    private static ActivityData<Wrecker> initIdleActivity()
     {
-        brain.addActivity(Activity.IDLE, ImmutableList.of(
+        return ActivityData.create(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
-                        Pair.of(new FollowTemptation(livingEntity -> 1.15F), 1),
+                        Pair.of(new FollowTemptation(_ -> 1.15F), 1),
                         Pair.of(new GoToClosestWreckerLocated(2.0f, 8), 2),
                         Pair.of(new GoToLowBrightness(2.0f, 4), 3),
                         Pair.of(new FishBreaching<>(AbstractThievesFishAi.TIME_BETWEEN_BREACH, 0.2F, 0.12f), 4)
@@ -90,9 +84,9 @@ public class WreckerAi
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5))))));
     }
 
-    private static void initFightActivity(Brain<Wrecker> brain)
+    private static ActivityData<Wrecker> initFightActivity()
     {
-        brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(
+        return ActivityData.create(Activity.FIGHT, 0, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.25f),
                 MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);

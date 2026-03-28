@@ -1,0 +1,16 @@
+{
+  "gives": {
+    "components": {
+      "minecraft:bucket_entity_data": {
+        "creative": 1
+      }
+    },
+    "id": "fishofthieves:islehopper_bucket"
+  },
+  "max_uses": 16.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  }
+}

@@ -10,7 +10,7 @@ import com.stevekung.fishofthieves.registry.FOTTrunkPlacerTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
@@ -40,9 +40,9 @@ public class BananaTrunkPlacer extends TrunkPlacer
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config)
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config)
     {
-        setDirtAt(level, blockSetter, random, pos.below(), config);
+        placeBelowTrunkBlock(level, blockSetter, random, pos.below(), config);
 
         for (var height = 0; height < freeTreeHeight; height++)
         {
@@ -51,12 +51,12 @@ public class BananaTrunkPlacer extends TrunkPlacer
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }
 
-    private void placeLog(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, boolean isTop)
+    private void placeLog(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, boolean isTop)
     {
         if (this.validTreePos(level, pos))
         {
             var log = isTop ? this.topLog : config.trunkProvider;
-            var blockState = log.getState(random, pos);
+            var blockState = log.getState(level, random, pos);
             blockSetter.accept(pos, blockState);
         }
     }

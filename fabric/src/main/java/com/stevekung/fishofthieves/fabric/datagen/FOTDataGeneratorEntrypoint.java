@@ -16,7 +16,7 @@ import com.stevekung.fishofthieves.registry.variant.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.HolderLookup;
@@ -40,6 +40,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.BIOME, FOTBiomes::bootstrap);
         builder.add(Registries.NOISE, FOTNoises::bootstrap);
         builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
+        builder.add(Registries.VILLAGER_TRADE, FOTVillagerTrades::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -92,13 +93,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider((dataOutput, provider) -> new LanguageSyncProvider(provider));
         pack.addProvider(TimelineTagsProvider::new);
+        pack.addProvider(VillagerTradesTagsProvider::new);
 
         new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
 
         var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
         var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structure");
         var snbtOutputPath = basePath.resolve("common/src/generated/resources/regular_structures");
-        BiFunction<FabricDataOutput, Path, FabricDataOutput> customOutput = (dataOutput, path) -> new FabricDataOutput(dataOutput.getModContainer(), path, dataOutput.isStrictValidationEnabled());
+        BiFunction<FabricPackOutput, Path, FabricPackOutput> customOutput = (dataOutput, path) -> new FabricPackOutput(dataOutput.getModContainer(), path, dataOutput.isStrictValidationEnabled());
         snbtOutputPath.toFile().mkdirs();
 
         // Update regular structures
@@ -129,7 +131,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
     {
-        public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
+        public DynamicRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
         {
             super(output, registriesFuture);
         }
@@ -145,6 +147,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.BIOME));
             entries.addAll(registries.lookupOrThrow(Registries.NOISE));
             entries.addAll(registries.lookupOrThrow(Registries.TIMELINE));
+            entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.attribute.modifier.BooleanModifier;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.timeline.Timeline;
 
 public interface FOTTimelines
@@ -14,7 +15,7 @@ public interface FOTTimelines
 
     static void bootstrap(BootstrapContext<Timeline> context)
     {
-        var builder = Timeline.builder()
+        var builder = Timeline.builder(context.lookup(Registries.WORLD_CLOCK).getOrThrow(WorldClocks.OVERWORLD))
                 .setPeriodTicks(24000)
                 .addModifierTrack(FOTEnvironmentAttributes.AMBER_PLENTIFIN_SPAWNS, BooleanModifier.OR, builderx -> builderx
                         .addKeyframe(500, true)

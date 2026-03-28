@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -26,6 +25,8 @@ import net.minecraft.world.level.Level;
 
 public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
 {
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<AbstractFlockFish> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList(), _ -> AbstractSchoolingThievesFishAi.getActivities());
     private static final EntityDataAccessor<Holder<PondieVariant>> VARIANT = SynchedEntityData.defineId(Pondie.class, FOTDataSerializers.PONDIE_VARIANT);
 
     public Pondie(EntityType<? extends Pondie> entityType, Level level)
@@ -34,15 +35,9 @@ public class Pondie extends AbstractSchoolingThievesFish<PondieVariant>
     }
 
     @Override
-    protected Brain.Provider<AbstractFlockFish> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.COMMON_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return AbstractSchoolingThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

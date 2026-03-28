@@ -12,8 +12,8 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -35,7 +35,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import it.unimi.dsi.fastutil.ints.IntList;
 
-public class ChestLootProvider extends SimpleFabricLootTableProvider
+public class ChestLootProvider extends SimpleFabricLootTableSubProvider
 {
     private static final FireworkExplosion.Shape[] VALUES = FireworkExplosion.Shape.values();
     private static final IntList FIREWORK_COLORS = IntList.of(
@@ -52,7 +52,7 @@ public class ChestLootProvider extends SimpleFabricLootTableProvider
             6942120 // athena
     );
 
-    public ChestLootProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public ChestLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider, LootContextParamSets.CHEST);
     }

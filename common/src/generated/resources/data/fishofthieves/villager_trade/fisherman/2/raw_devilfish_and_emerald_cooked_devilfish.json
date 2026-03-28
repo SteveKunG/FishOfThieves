@@ -1,0 +1,17 @@
+{
+  "additional_wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  },
+  "gives": {
+    "count": 4,
+    "id": "fishofthieves:cooked_devilfish"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 4.0,
+    "id": "fishofthieves:devilfish"
+  },
+  "xp": 4.0
+}

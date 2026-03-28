@@ -14,7 +14,7 @@ public class FOTSignBlockEntity extends SignBlockEntity
         super(FOTBlockEntityTypes.SIGN, pos, blockState);
     }
 
-    public FOTSignBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState)
+    public FOTSignBlockEntity(BlockEntityType<? extends SignBlockEntity> type, BlockPos pos, BlockState blockState)
     {
         super(type, pos, blockState);
     }

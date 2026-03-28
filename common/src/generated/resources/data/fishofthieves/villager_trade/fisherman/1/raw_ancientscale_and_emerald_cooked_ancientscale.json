@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "id": "minecraft:emerald"
+  },
+  "gives": {
+    "count": 3,
+    "id": "fishofthieves:cooked_ancientscale"
+  },
+  "max_uses": 5.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 3.0,
+    "id": "fishofthieves:ancientscale"
+  },
+  "xp": 3.0
+}

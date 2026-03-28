@@ -18,7 +18,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTRegistries;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -29,6 +29,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.SelectItemModel;
 import net.minecraft.client.renderer.item.properties.select.ComponentContents;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -52,7 +53,7 @@ public class ModelProvider extends FabricModelProvider
 {
     private final HolderLookup.Provider provider;
 
-    public ModelProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public ModelProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput);
         this.provider = provider.join();
@@ -211,13 +212,13 @@ public class ModelProvider extends FabricModelProvider
         this.createSmallCoconutLog(generator);
         this.createCoconutFruitGrowableLog(generator);
         this.createSmallTopCoconutLog(generator);
-        this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
-        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
-        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
-        this.createMediumLog(generator, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
-        this.createMediumLog(generator, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
-        this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, "_top"), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
-        this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG), ModelLocationUtils.getModelLocation(FOTBlocks.STRIPPED_COCONUT_LOG));
+        this.createSmallLog(generator, FOTBlocks.SMALL_COCONUT_WOOD, TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG), TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_LOG, TextureMapping.getBlockTexture(FOTBlocks.MEDIUM_COCONUT_LOG, "_top"), TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.MEDIUM_COCONUT_WOOD, TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG), TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, "_top"), TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG));
+        this.createMediumLog(generator, FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG), TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG));
+        this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, "_top"), TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG));
+        this.createSmallLog(generator, FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG), TextureMapping.getBlockTexture(FOTBlocks.STRIPPED_COCONUT_LOG));
         this.generateRotatedExistedModel(generator, FOTBlocks.COCONUT_SAPLING);
         this.createCoconutFruit(generator);
         this.createCoconutFronds(generator);
@@ -491,7 +492,7 @@ public class ModelProvider extends FabricModelProvider
 
     private void createPottedMangoPit(BlockModelGenerators generator)
     {
-        var textureMapping = TextureMapping.plant(ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_PIT, "_plant"));
+        var textureMapping = TextureMapping.plant(TextureMapping.getBlockTexture(FOTBlocks.MANGO_PIT, "_plant"));
         var resourceLocation = BlockModelGenerators.PlantType.NOT_TINTED.getCrossPot().create(FOTBlocks.POTTED_MANGO_PIT, textureMapping, generator.modelOutput);
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(FOTBlocks.POTTED_MANGO_PIT, plainVariant(resourceLocation)));
     }
@@ -502,7 +503,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(PropertyDispatch.initial(HangingMangoFruitBlock.AGE).generate(age ->
                 {
                     var model = ModelLocationUtils.getModelLocation(FOTBlocks.HANGING_MANGO_FRUIT, "_stage_" + age);
-                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, ModelLocationUtils.getModelLocation(FOTBlocks.MANGO_FRUIT, "_stage_" + age));
+                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, TextureMapping.getBlockTexture(FOTBlocks.MANGO_FRUIT, "_stage_" + age));
 
                     if (age == 0)
                     {
@@ -528,7 +529,7 @@ public class ModelProvider extends FabricModelProvider
                 {
                     var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
                     var mirroredModel = ModelLocationUtils.getModelLocation(block, "_stage_" + age + "_mirrored");
-                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, model);
+                    var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, new Material(model));
 
                     if (age == 0)
                     {
@@ -547,7 +548,7 @@ public class ModelProvider extends FabricModelProvider
     private void createPineappleCrop(BlockModelGenerators generator)
     {
         var block = FOTBlocks.PINEAPPLE_CROP;
-        var fullStageModel = BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_lower_stage_full"), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_lower_stage_full")), generator.modelOutput);
+        var fullStageModel = BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_lower_stage_full"), TextureMapping.cross(TextureMapping.getBlockTexture(block, "_lower_stage_full")), generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
                 .with(PropertyDispatch.initial(PineappleCropBlock.AGE, PineappleCropBlock.HALF).generate((age, half) ->
                         {
@@ -555,7 +556,7 @@ public class ModelProvider extends FabricModelProvider
                             {
                                 if (age <= 2)
                                 {
-                                    return plainVariant(BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age), TextureMapping.cross(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age)), generator.modelOutput));
+                                    return plainVariant(BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_" + half + "_stage_" + age), TextureMapping.cross(TextureMapping.getBlockTexture(block, "_" + half + "_stage_" + age)), generator.modelOutput));
                                 }
                                 else if (age > 3)
                                 {
@@ -598,7 +599,7 @@ public class ModelProvider extends FabricModelProvider
     private void createSmallCoconutLog(BlockModelGenerators generator)
     {
         var block = FOTBlocks.SMALL_COCONUT_LOG;
-        var textureMapping1 = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var textureMapping1 = new TextureMapping().put(TextureSlot.END, TextureMapping.getBlockTexture(block, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG));
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping1, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
@@ -606,7 +607,7 @@ public class ModelProvider extends FabricModelProvider
     private void createSmallTopCoconutLog(BlockModelGenerators generator)
     {
         var block = FOTBlocks.SMALL_TOP_COCONUT_LOG;
-        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_trunk")).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_LOG));
+        var textureMapping = new TextureMapping().put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.SMALL_COCONUT_LOG, "_top")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(FOTBlocks.SMALL_COCONUT_LOG, "_trunk")).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.COCONUT_LOG));
         var topModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block, "_trunk"), textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, topModelLocation);
     }
@@ -614,7 +615,7 @@ public class ModelProvider extends FabricModelProvider
     private void createCoconutFruitGrowableLog(BlockModelGenerators generator)
     {
         var block = FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG;
-        var textureMapping = new TextureMapping().put(TextureSlot.END, ModelLocationUtils.getModelLocation(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG));
+        var textureMapping = new TextureMapping().put(TextureSlot.END, TextureMapping.getBlockTexture(FOTBlocks.SMALL_COCONUT_LOG, "_top")).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG));
         var growableModelLocation = FOTModelTemplates.SMALL_LOG.create(ModelLocationUtils.getModelLocation(block), textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, growableModelLocation);
     }
@@ -629,7 +630,7 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.BANANA_LEAVES;
 
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_tail")), generator.modelOutput);
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(TextureMapping.getBlockTexture(block, "_tail")), generator.modelOutput);
 
         var stemLower = ModelLocationUtils.getModelLocation(block, "_stem_lower");
         var stem2Lower = ModelLocationUtils.getModelLocation(block, "_stem_lower_2");
@@ -932,14 +933,14 @@ public class ModelProvider extends FabricModelProvider
                         .select(false, plainVariant(ModelLocationUtils.getModelLocation(block)))));
     }
 
-    private void createSmallLog(BlockModelGenerators generator, Block block, Identifier endTexture, Identifier sideTexture)
+    private void createSmallLog(BlockModelGenerators generator, Block block, Material endTexture, Material sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).copySlot(TextureSlot.END, TextureSlot.TOP).put(TextureSlot.SIDE, sideTexture);
         var modelLocation = FOTModelTemplates.SMALL_LOG.create(block, textureMapping, generator.modelOutput);
         this.createRotatedPillarWithHorizontalVariant(generator, block, modelLocation);
     }
 
-    private void createMediumLog(BlockModelGenerators generator, Block block, Identifier endTexture, Identifier sideTexture)
+    private void createMediumLog(BlockModelGenerators generator, Block block, Material endTexture, Material sideTexture)
     {
         var textureMapping = new TextureMapping().put(TextureSlot.END, endTexture).put(TextureSlot.SIDE, sideTexture);
         var modelLocation = FOTModelTemplates.MEDIUM_LOG.create(block, textureMapping, generator.modelOutput);
@@ -954,7 +955,7 @@ public class ModelProvider extends FabricModelProvider
                         .generate(part ->
                                 plainVariant(ModelLocationUtils.getModelLocation(block, "_" + part.name().toLowerCase(Locale.ROOT)))))
                 .with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING_ALT));
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(ModelLocationUtils.getModelLocation(block, "_single")), generator.modelOutput);
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(TextureMapping.getBlockTexture(block, "_single")), generator.modelOutput);
     }
 
     private void createCoconutFruit(BlockModelGenerators generator)
@@ -1075,14 +1076,14 @@ public class ModelProvider extends FabricModelProvider
 
     private void createBananaCluster(BlockModelGenerators generator, Block block)
     {
-        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(block, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(block, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(block, "_bottom"));
+        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top")).put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"));
         var normalCluster = FOTModelTemplates.BANANA_CLUSTER.create(block, textureMapping, generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, this.createRotatedVariants(normalCluster)));
     }
 
     private void createBananaClusterPlant(BlockModelGenerators generator, Block block, Block base)
     {
-        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, ModelLocationUtils.getModelLocation(base, "_side")).put(TextureSlot.TOP, ModelLocationUtils.getModelLocation(base, "_top")).put(TextureSlot.BOTTOM, ModelLocationUtils.getModelLocation(base, "_bottom"));
+        var textureMapping = new TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(base, "_side")).put(TextureSlot.TOP, TextureMapping.getBlockTexture(base, "_top")).put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(base, "_bottom"));
         var normalCluster = FOTModelTemplates.BANANA_CLUSTER_PLANT.create(block, textureMapping, generator.modelOutput);
         var smallCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_small_cluster");
         var stemCluster = FishOfThieves.id("block/").withSuffix("banana_cluster_plant_stem");
@@ -1276,7 +1277,7 @@ public class ModelProvider extends FabricModelProvider
 
     private void createFramedFishPlaque(Block block, Block planks, ModelTemplate template, String framedTexture, BlockModelGenerators generator)
     {
-        var textureMapping = this.planks(planks).put(FOTModelTemplates.FISH_PLAQUE, FishOfThieves.id("block/" + framedTexture));
+        var textureMapping = this.planks(planks).put(FOTModelTemplates.FISH_PLAQUE, new Material(FishOfThieves.id("block/" + framedTexture)));
         var resourceLocation = template.create(block, textureMapping, generator.modelOutput);
         generator.registerSimpleFlatItemModel(block.asItem());
         generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, plainVariant(resourceLocation)).with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING));
@@ -1290,7 +1291,7 @@ public class ModelProvider extends FabricModelProvider
     private <T extends AbstractFishVariant> void generateFlatItemWithFishVariant(Item item, String firstItemPrefix, ResourceKey<Registry<T>> registryKey, ItemModelGenerators generator)
     {
         var itemModelName = BuiltInRegistries.ITEM.getKey(item).withPrefix("item/" + firstItemPrefix + "_");
-        var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(itemModelName, TextureMapping.layer0(itemModelName), generator.modelOutput));
+        var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(itemModelName, TextureMapping.layer0(new Material(itemModelName)), generator.modelOutput));
         generator.itemModelOutput.accept(item, ItemModelUtils.select(new ComponentContents<>(DataComponents.CUSTOM_DATA), unbaked, this.createFishVariantModel(item, registryKey, generator)));
     }
 
@@ -1304,7 +1305,7 @@ public class ModelProvider extends FabricModelProvider
         {
             var variant = variants.get(i);
             var fishModel = FishOfThieves.id(variant.value().name()).withPath(modelName -> "item/" + modelName + suffixes);
-            list.add(new SelectItemModel.SwitchCase<>(List.of(CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(registryKey.identifier().getPath(), variant.key().identifier().toString())))), ItemModelUtils.plainModel(i == 0 ? fishModel : ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(fishModel), generator.modelOutput))));
+            list.add(new SelectItemModel.SwitchCase<>(List.of(CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(registryKey.identifier().getPath(), variant.key().identifier().toString())))), ItemModelUtils.plainModel(i == 0 ? fishModel : ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(new Material(fishModel)), generator.modelOutput))));
         }
         return list;
     }
@@ -1312,7 +1313,7 @@ public class ModelProvider extends FabricModelProvider
     private <T extends AbstractFishVariant> void generateFlatBucketItemWithFishVariant(Item item, String firstItemPrefix, ResourceKey<Registry<T>> registryKey, SelectItemModelProperty<ResourceKey<T>> selectItemModelProperty, ItemModelGenerators generator)
     {
         var itemModelName = BuiltInRegistries.ITEM.getKey(item).withPrefix("item/" + firstItemPrefix + "_");
-        var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(itemModelName, TextureMapping.layer0(itemModelName), generator.modelOutput));
+        var unbaked = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(itemModelName, TextureMapping.layer0(new Material(itemModelName)), generator.modelOutput));
         generator.itemModelOutput.accept(item, ItemModelUtils.select(selectItemModelProperty, unbaked, this.createFishVariantBucketModel(item, registryKey, generator)));
     }
 
@@ -1326,7 +1327,7 @@ public class ModelProvider extends FabricModelProvider
         {
             var variant = variants.get(i);
             var fishModel = FishOfThieves.id(variant.value().name()).withPath(modelName -> "item/" + modelName + suffixes);
-            list.add(new SelectItemModel.SwitchCase<>(List.of(variant.key()), ItemModelUtils.plainModel(i == 0 ? fishModel : ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(fishModel), generator.modelOutput))));
+            list.add(new SelectItemModel.SwitchCase<>(List.of(variant.key()), ItemModelUtils.plainModel(i == 0 ? fishModel : ModelTemplates.FLAT_ITEM.create(fishModel, TextureMapping.layer0(new Material(fishModel)), generator.modelOutput))));
         }
         return list;
     }

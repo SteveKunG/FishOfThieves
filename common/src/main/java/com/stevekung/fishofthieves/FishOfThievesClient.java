@@ -17,25 +17,28 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Util;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import me.shedaniel.autoconfig.AutoConfig;
 
@@ -46,7 +49,7 @@ public class FishOfThievesClient
     public static void init()
     {
         onConfigLoad();
-        AutoConfig.getConfigHolder(FishOfThievesConfig.class).registerSaveListener((holder, config) -> onConfigChanged(config));
+        AutoConfig.getConfigHolder(FishOfThievesConfig.class).registerSaveListener((_, config) -> onConfigChanged(config));
     }
 
     public static List<ModelLayerEntry> getModelLayers()
@@ -95,7 +98,7 @@ public class FishOfThievesClient
     public static void registerBlockEntityRenderers()
     {
         BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, SignRenderer::new);
+        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, StandingSignRenderer::new);
         BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
@@ -116,9 +119,9 @@ public class FishOfThievesClient
     {
         return Util.make(new ArrayList<>(), list ->
         {
-            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_LEAVES));
-            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null && tintIndex == 1 ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.FOLIAGE_DEFAULT, FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
-            list.add(new BlockColorEntry((blockState, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1, FOTBlocks.SHOAL));
+            list.add(new BlockColorEntry(BlockTintSources.foliage(), FOTBlocks.MANGO_LEAVES));
+            list.add(new BlockColorEntry(mangoFruit(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
+            list.add(new BlockColorEntry(BlockTintSources.water(), FOTBlocks.SHOAL));
         });
     }
 
@@ -170,11 +173,35 @@ public class FishOfThievesClient
         return false;
     }
 
+    public static BlockTintSource mangoFruit()
+    {
+        return new BlockTintSource()
+        {
+            @Override
+            public int color(BlockState state)
+            {
+                return -12012264;
+            }
+
+            @Override
+            public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos)
+            {
+                return BiomeColors.getAverageFoliageColor(level, pos);
+            }
+
+            @Override
+            public int colorAsTerrainParticle(BlockState state, BlockAndTintGetter level, BlockPos pos)
+            {
+                return -1;
+            }
+        };
+    }
+
     public record ModelLayerEntry(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {}
 
     public record EntityRendererEntry<E extends Entity>(EntityType<? extends E> entityType, EntityRendererProvider<E> factory) {}
 
     public record HeadphoneEntry<E extends LivingEntity, S extends LivingEntityRenderState>(EntityType<? extends E> entityType, HeadphoneModel.Scaleable<S> scaleable) {}
 
-    public record BlockColorEntry(BlockColor blockColor, Block... blocks) {}
+    public record BlockColorEntry(BlockTintSource blockColor, Block... blocks) {}
 }

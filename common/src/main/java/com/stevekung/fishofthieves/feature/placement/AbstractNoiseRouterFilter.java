@@ -24,7 +24,7 @@ public abstract class AbstractNoiseRouterFilter extends PlacementFilter
         var randomState = serverChunkCache.randomState();
         var singlePointContext = new DensityFunction.SinglePointContext(pos.getX(), pos.getY(), pos.getZ());
         var densityFunction = this.getDensityFunction(randomState.router()).compute(singlePointContext);
-        return densityFunction >= this.floatProvider.getMinValue() && densityFunction <= this.floatProvider.getMaxValue();
+        return densityFunction >= this.floatProvider.min() && densityFunction <= this.floatProvider.max();
     }
 
     protected abstract DensityFunction getDensityFunction(NoiseRouter noiseRouter);

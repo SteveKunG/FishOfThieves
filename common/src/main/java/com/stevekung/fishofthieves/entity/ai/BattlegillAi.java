@@ -21,7 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -30,15 +30,9 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class BattlegillAi
 {
-    public static Brain<?> makeBrain(Brain<Battlegill> brain)
+    public static List<ActivityData<Battlegill>> getActivities()
     {
-        initCoreActivity(brain);
-        initIdleActivity(brain);
-        initFightActivity(brain);
-        brain.setCoreActivities(Set.of(Activity.CORE));
-        brain.setDefaultActivity(Activity.IDLE);
-        brain.useDefaultActivity();
-        return brain;
+        return List.of(initCoreActivity(), initIdleActivity(), initFightActivity());
     }
 
     public static void updateActivity(Battlegill fish)
@@ -61,9 +55,9 @@ public class BattlegillAi
         }
     }
 
-    private static void initCoreActivity(Brain<Battlegill> brain)
+    private static ActivityData<Battlegill> initCoreActivity()
     {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+        return ActivityData.create(Activity.CORE, 0, ImmutableList.of(
                 new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
@@ -76,18 +70,18 @@ public class BattlegillAi
     }
 
     @SuppressWarnings("deprecation")
-    private static void initIdleActivity(Brain<Battlegill> brain)
+    private static ActivityData<Battlegill> initIdleActivity()
     {
-        brain.addActivity(Activity.IDLE, ImmutableList.of(
+        return ActivityData.create(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
-                        Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
-                        Pair.of(new FollowLivingWithEffect(livingEntity -> 1.25F, sourceEntity ->
+                        Pair.of(new FollowTemptation(_ -> 1.25F), 1),
+                        Pair.of(new FollowLivingWithEffect(_ -> 1.25F, sourceEntity ->
                         {
                             if (!(sourceEntity instanceof ThievesFish<?> thievesFish))
                             {
-                                return livingEntity -> false;
+                                return _ -> false;
                             }
                             return livingEntity -> isRumBattlegill(thievesFish.getVariant()) && livingEntity.hasEffect(MobEffects.NAUSEA);
                         }), 1),
@@ -102,10 +96,10 @@ public class BattlegillAi
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5))))));
     }
 
-    private static void initFightActivity(Brain<Battlegill> brain)
+    private static ActivityData<Battlegill> initFightActivity()
     {
-        brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(
-                StopAttackingIfTargetInvalid.create((serverLevel, livingEntity) -> false, (serverLevel, mob, livingEntity) -> livingEntity.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(livingEntity.getRandom(), 200)), true),
+        return ActivityData.create(Activity.FIGHT, 0, ImmutableList.of(
+                StopAttackingIfTargetInvalid.create((_, _) -> false, (_, _, livingEntity) -> livingEntity.getBrain().setMemory(FOTMemoryModuleTypes.FOLLOW_FLOCK_COOLDOWN_TICKS, CreateFishFlock.nextStartTick(livingEntity.getRandom(), 200)), true),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.25f),
                 MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
     }

@@ -1,0 +1,17 @@
+{
+  "additional_wants": {
+    "count": 2.0,
+    "id": "minecraft:emerald"
+  },
+  "gives": {
+    "count": 3,
+    "id": "fishofthieves:cooked_plentifin"
+  },
+  "max_uses": 5.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 3.0,
+    "id": "fishofthieves:plentifin"
+  },
+  "xp": 3.0
+}

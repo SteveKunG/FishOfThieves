@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -53,7 +54,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
+    protected void createFoliage(WorldGenLevel level, FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
     {
         var pos = attachment.pos();
 
@@ -80,8 +81,8 @@ public class BananaLeavesPlacer extends FoliagePlacer
                     if (this.isAir(level, posAroundLog) && this.isAir(level, posAroundLog.relative(opposite)))
                     {
                         var singleLeaves = random.nextFloat() < this.oneLeavesChance;
-                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, config.foliageProvider.getState(random, pos), opposite, singleLeaves));
-                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, this.tailLeavesState.getState(random, pos), opposite, singleLeaves));
+                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, config.foliageProvider.getState(level, random, pos), opposite, singleLeaves));
+                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, this.tailLeavesState.getState(level, random, pos), opposite, singleLeaves));
                     }
                 }
             }
@@ -105,11 +106,11 @@ public class BananaLeavesPlacer extends FoliagePlacer
         return level.isStateAtPosition(blockPos, BlockBehaviour.BlockStateBase::isAir);
     }
 
-    private void placeTopLeaves(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, FoliageSetter blockSetter)
+    private void placeTopLeaves(WorldGenLevel level, BlockPos blockPos, RandomSource random, FoliageSetter blockSetter)
     {
         if (TreeFeature.validTreePos(level, blockPos))
         {
-            var blockState = this.topLeavesState.getState(random, blockPos);
+            var blockState = this.topLeavesState.getState(level, random, blockPos);
 
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
             {

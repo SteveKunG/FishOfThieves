@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractFlockFish;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractSchoolingThievesFishAi;
@@ -34,6 +33,8 @@ import net.minecraft.world.level.block.Blocks;
 
 public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVariant>
 {
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<AbstractFlockFish> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList(), _ -> AbstractSchoolingThievesFishAi.getActivities());
     private static final EntityDataAccessor<Holder<AncientscaleVariant>> VARIANT = SynchedEntityData.defineId(Ancientscale.class, FOTDataSerializers.ANCIENTSCALE_VARIANT);
 
     public Ancientscale(EntityType<? extends Ancientscale> entityType, Level level)
@@ -42,15 +43,9 @@ public class Ancientscale extends AbstractSchoolingThievesFish<AncientscaleVaria
     }
 
     @Override
-    protected Brain.Provider<AbstractFlockFish> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return AbstractSchoolingThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

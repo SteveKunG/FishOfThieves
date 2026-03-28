@@ -119,12 +119,8 @@
     "frame": "challenge",
     "icon": {
       "components": {
-        "fishofthieves:stormfish/variant": "fishofthieves:starshine",
-        "minecraft:bucket_entity_data": {
-          "creative": 1
-        }
+        "fishofthieves:stormfish/variant": "fishofthieves:starshine"
       },
-      "count": 1,
       "id": "fishofthieves:stormfish_bucket"
     },
     "title": {

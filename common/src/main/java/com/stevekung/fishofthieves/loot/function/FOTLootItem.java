@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.item.FOTItem;
-import com.stevekung.fishofthieves.registry.FOTLootPoolEntries;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,7 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -32,9 +30,9 @@ public class FOTLootItem extends LootPoolSingletonContainer
     }
 
     @Override
-    public LootPoolEntryType getType()
+    public MapCodec<? extends LootPoolSingletonContainer> codec()
     {
-        return FOTLootPoolEntries.ITEM;
+        return CODEC;
     }
 
     @Override

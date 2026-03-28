@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.DevilfishAi;
 import com.stevekung.fishofthieves.entity.variant.DevilfishVariant;
@@ -84,21 +83,18 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
             FOTMemoryModuleTypes.BREACHED_TICK
     );
 
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<Devilfish> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, SENSOR_TYPES, _ -> DevilfishAi.getActivities());
+
     public Devilfish(EntityType<? extends Devilfish> entityType, Level level)
     {
         super(entityType, level, FOTRegistries.DEVILFISH_VARIANT, DevilfishVariants.ASHEN, FOTDataComponentTypes.DEVILFISH_VARIANT);
     }
 
     @Override
-    protected Brain.Provider<Devilfish> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return DevilfishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

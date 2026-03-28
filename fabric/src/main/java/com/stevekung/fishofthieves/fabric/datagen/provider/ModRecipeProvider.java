@@ -8,7 +8,7 @@ import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderGetter;
@@ -22,10 +22,7 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SmokingRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
@@ -176,14 +173,14 @@ public class ModRecipeProvider extends RecipeProvider
 
     private void addCookingRecipes(RecipeOutput output, float xp, ItemLike rawFood, ItemLike cookedFood)
     {
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), RecipeCategory.FOOD, cookedFood, xp, 200).unlockedBy(getHasName(rawFood), this.has(rawFood)).save(output);
-        this.simpleCookingRecipe("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100, rawFood, cookedFood, xp);
-        this.simpleCookingRecipe("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600, rawFood, cookedFood, xp);
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(rawFood), RecipeCategory.FOOD, CookingBookCategory.FOOD, cookedFood, xp, 200).unlockedBy(getHasName(rawFood), this.has(rawFood)).save(output);
+        this.simpleCookingRecipe("smoking", SmokingRecipe::new, 100, rawFood, cookedFood, xp);
+        this.simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, rawFood, cookedFood, xp);
     }
 
     public static class Runner extends FabricRecipeProvider
     {
-        public Runner(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture)
+        public Runner(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture)
         {
             super(output, completableFuture);
         }

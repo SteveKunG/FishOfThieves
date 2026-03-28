@@ -134,7 +134,7 @@ public class BlockTestSuite implements FOTGameTest
             helper.setBlock(polePos.above(y), Blocks.BEDROCK);
         }
 
-        level.setWeatherParameters(0, 10000, true, false);
+        level.getServer().setWeatherParameters(0, 10000, true, false);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRONDS);
         helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL));
@@ -146,7 +146,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() ->
         {
             helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, blockState -> Component.literal("Expected full water cauldron!"));
-            level.setWeatherParameters(0, 0, false, false);
+            level.getServer().setWeatherParameters(0, 0, false, false);
         });
     }
 
@@ -232,7 +232,7 @@ public class BlockTestSuite implements FOTGameTest
         var cauldronPos = new BlockPos(1, 1, 1);
         var level = helper.getLevel();
 
-        level.setWeatherParameters(0, 10000, true, false);
+        level.getServer().setWeatherParameters(0, 10000, true, false);
 
         helper.setBlock(blockPos, FOTBlocks.BANANA_STEM);
         helper.setBlock(blockPos.north(), FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.COUNT, 2));
@@ -245,7 +245,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.succeedWhen(() ->
         {
             helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, blockState -> Component.literal("Expected full water cauldron!"));
-            level.setWeatherParameters(0, 0, false, false);
+            level.getServer().setWeatherParameters(0, 0, false, false);
         });
     }
 

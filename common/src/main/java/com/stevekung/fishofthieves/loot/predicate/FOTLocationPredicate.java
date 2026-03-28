@@ -40,7 +40,8 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
 
     private boolean isInRangeOfStructures(ServerLevel level, BlockPos blockPos, @Nullable Entity entity, StructureRangeCondition structureRangeCondition)
     {
-        var structureRange = structureRangeCondition.range().getValue();
+        var random = level.getRandom();
+        var structureRange = structureRangeCondition.range().sample(random);
 
         for (var structureHolder : structureRangeCondition.structures().stream().toList())
         {
@@ -68,9 +69,9 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
                     Structure structure1 = null;
                     ChunkPos chunkPos1 = null;
 
-                    for (var chunkPos : ChunkPos.rangeClosed(entityChunkPos, structureRangeCondition.chunkRadius().getValue()).toList())
+                    for (var chunkPos : ChunkPos.rangeClosed(entityChunkPos, structureRangeCondition.chunkRadius().sample(random)).toList())
                     {
-                        var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+                        var structureRefMap = level.getChunk(chunkPos.x(), chunkPos.z(), ChunkStatus.STRUCTURE_STARTS).getAllReferences();
                         // Filtering structure within chunks from tag
                         var optional = structureRefMap.keySet().stream().filter(structurex -> structurex.equals(structure)).findAny();
 

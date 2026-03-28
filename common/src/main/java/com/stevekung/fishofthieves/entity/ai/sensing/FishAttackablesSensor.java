@@ -24,7 +24,7 @@ public class FishAttackablesSensor extends NearestVisibleLivingEntitySensor
     }
 
     @Override
-    protected MemoryModuleType<LivingEntity> getMemory()
+    protected MemoryModuleType<LivingEntity> getMemoryToSet()
     {
         return MemoryModuleType.NEAREST_ATTACKABLE;
     }

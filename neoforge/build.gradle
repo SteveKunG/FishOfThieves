@@ -1,4 +1,4 @@
-apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/main/architectury/neoforge.gradle"
+apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/refs/heads/v2/architectury/neoforge.gradle"
 
 loom {
     runs.configureEach {
@@ -37,9 +37,9 @@ repositories {
 
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_${aquaculture_version}:api"
-    modImplementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
-    modCompileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${serene_seasons_version}"
-    modImplementation "com.github.glitchfiend:GlitchCore-neoforge:${glitchcore_version}"
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
+    //compileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${serene_seasons_version}"TODO
+    //implementation "com.github.glitchfiend:GlitchCore-neoforge:${glitchcore_version}"TODO
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 

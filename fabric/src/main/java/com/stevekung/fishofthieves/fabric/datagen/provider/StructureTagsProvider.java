@@ -4,17 +4,17 @@ import java.util.concurrent.CompletableFuture;
 
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
-public class StructureTagsProvider extends FabricTagProvider<Structure>
+public class StructureTagsProvider extends FabricTagsProvider<Structure>
 {
-    public StructureTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public StructureTagsProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, Registries.STRUCTURE, provider);
     }

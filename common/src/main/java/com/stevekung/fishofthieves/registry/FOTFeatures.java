@@ -11,8 +11,6 @@ import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
 import com.stevekung.fishofthieves.feature.SingleBlockFeature;
 import com.stevekung.fishofthieves.feature.TropicalIslandBlockBlobFeature;
-import com.stevekung.fishofthieves.feature.blockpredicates.BlockBrightnessPredicate;
-import com.stevekung.fishofthieves.feature.blockpredicates.SeeSkyPredicate;
 import com.stevekung.fishofthieves.feature.configurations.SimpleAgeBlockConfiguration;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
@@ -33,9 +31,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -64,7 +62,7 @@ public class FOTFeatures
     private static final FishBoneFeature FISH_BONE_FEATURE = register("fish_bone", new FishBoneFeature(NoneFeatureConfiguration.CODEC));
     private static final SimpleAgeBlockFeature SIMPLE_AGE_BLOCK = register("simple_age_block", new SimpleAgeBlockFeature(SimpleAgeBlockConfiguration.CODEC));
     private static final SingleBlockFeature SINGLE_BLOCK = register("single_block", new SingleBlockFeature(SimpleBlockConfiguration.CODEC));
-    private static final TropicalIslandBlockBlobFeature TROPICAL_ISLAND_BLOB = register("tropical_island_blob", new TropicalIslandBlockBlobFeature(BlockStateConfiguration.CODEC));
+    private static final TropicalIslandBlockBlobFeature TROPICAL_ISLAND_BLOB = register("tropical_island_blob", new TropicalIslandBlockBlobFeature(BlockBlobConfiguration.CODEC));
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> FISH_BONE = createKey("fish_bone");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCONUT_TREE = createKey("coconut_tree");
@@ -104,19 +102,19 @@ public class FOTFeatures
         FeatureUtils.register(context, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
         FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree()
                 .decorators(List.of(new CoconutDecorator(0.6F, 0.45F, 2)))
-                .dirt(BlockStateProvider.simple(Blocks.SAND))
+                .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
         FeatureUtils.register(context, OLD_COCONUT_TREE, Feature.TREE, createOldCoconutTree()
                 .decorators(List.of(new CoconutDecorator(0.2F, 0.7F, 3)))
-                .dirt(BlockStateProvider.simple(Blocks.SAND))
+                .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
         FeatureUtils.register(context, BANANA_TREE, Feature.TREE, createBananaTree()
                 .decorators(List.of(
                         new BananaDecorator(0.4f, 0.2f, 0.4f, 6),
                         new BananaShootsDecorator(0.3f)))
-                .dirt(BlockStateProvider.simple(Blocks.DIRT))
+                .belowTrunkProvider(BlockStateProvider.simple(Blocks.DIRT))
                 .ignoreVines()
                 .build());
         List<TreeDecorator> leafLitters = List.of(
@@ -134,57 +132,47 @@ public class FOTFeatures
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED), 0.1F),
                 new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FALLEN_JUNGLE_TREE), 0.0125F)
         ), placedFeature.getOrThrow(TreePlacements.JUNGLE_TREE_CHECKED)));
-        FeatureUtils.register(context, TROPICAL_FLOWER, Feature.FLOWER, grassPatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
+        FeatureUtils.register(context, TROPICAL_FLOWER, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.PINK_PLUMERIA.defaultBlockState(), 12)
                 .add(FOTBlocks.LIGHT_BLUE_PLUMERIA.defaultBlockState(), 10)
                 .add(FOTBlocks.WHITE_PLUMERIA.defaultBlockState(), 8)
                 .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 3)
                 .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 3)
                 .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 2)
-        ), 64));
-        FeatureUtils.register(context, WILD_PINEAPPLE, Feature.FLOWER, wildPineapplePatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
+        )));
+        FeatureUtils.register(context, WILD_PINEAPPLE, SINGLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 0), 8)
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 1), 6)
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 2), 4)
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 3), 2)
-        ), 16));
+        )));
         FeatureUtils.register(context, TALL_WILD_PINEAPPLE, SIMPLE_AGE_BLOCK, new SimpleAgeBlockConfiguration(
                 new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState()), PineappleCropBlock.AGE, UniformInt.of(4, 5))));
         FeatureUtils.register(context, PATCH_WILD_PINEAPPLE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE), 0.85F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE)));
-        FeatureUtils.register(context, PATCH_TROPICAL_MELON, Feature.RANDOM_PATCH, new RandomPatchConfiguration(16, 7, 3, PlacementUtils.filtered(Feature.SIMPLE_BLOCK,
-                new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MELON)), BlockPredicate.allOf(
-                        BlockPredicate.replaceable(),
-                        BlockPredicate.noFluid(),
-                        BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)))));
+        FeatureUtils.register(context, PATCH_TROPICAL_MELON, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MELON)));
         FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.OLD_COCONUT_TREE_CHECKED)
         )));
-        FeatureUtils.register(context, WILD_POMEGRANATE, Feature.FLOWER, wildPomegranatePatch(new WeightedStateProvider(WeightedList.<BlockState>builder()
+        FeatureUtils.register(context, WILD_POMEGRANATE, SINGLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder()
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 0), 8)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 1), 6)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 2), 4)
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3), 2)
-        ), 16));
+        )));
         FeatureUtils.register(context, TALL_WILD_POMEGRANATE, SIMPLE_AGE_BLOCK, new SimpleAgeBlockConfiguration(
                 new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState()), PomegranatePlantBlock.AGE, UniformInt.of(0, 3))));
         FeatureUtils.register(context, PATCH_WILD_POMEGRANATE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE), 0.5F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE)));
-        FeatureUtils.register(context, PATCH_TROPICAL_BUSH, Feature.FLOWER,
-                new RandomPatchConfiguration(32, 4, 2, PlacementUtils.filtered(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
-                                new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                        .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 4)
-                                        .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 2)
-                                        .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))),
-                        BlockPredicate.allOf(
-                                BlockPredicate.replaceable(),
-                                BlockPredicate.not(BlockBrightnessPredicate.value(13)),
-                                BlockPredicate.not(SeeSkyPredicate.INSTANCE),
-                                BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), Blocks.GRASS_BLOCK)))));
-        FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockStateConfiguration(Blocks.STONE.defaultBlockState()));
+        FeatureUtils.register(context, PATCH_TROPICAL_BUSH, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+                        new WeightedStateProvider(WeightedList.<BlockState>builder()
+                                .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 4)
+                                .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 2)
+                                .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))));
+        FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockBlobConfiguration(Blocks.STONE.defaultBlockState(), BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)));
 
         FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_LEAF_LITTER_CHECKED),
@@ -256,21 +244,6 @@ public class FOTFeatures
     private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
     {
         return createMangoTree(beehiveChance, List.of());
-    }
-
-    private static RandomPatchConfiguration grassPatch(BlockStateProvider blockStateProvider, int tries)
-    {
-        return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
-    }
-
-    private static RandomPatchConfiguration wildPineapplePatch(BlockStateProvider blockStateProvider, int tries)
-    {
-        return new RandomPatchConfiguration(tries, 4, 2, PlacementUtils.onlyWhenEmpty(SINGLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
-    }
-
-    private static RandomPatchConfiguration wildPomegranatePatch(BlockStateProvider blockStateProvider, int tries)
-    {
-        return new RandomPatchConfiguration(tries, 5, 3, PlacementUtils.onlyWhenEmpty(SINGLE_BLOCK, new SimpleBlockConfiguration(blockStateProvider)));
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F feature)

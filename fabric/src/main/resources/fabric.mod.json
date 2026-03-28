@@ -43,9 +43,9 @@
   ],
   "depends": {
     "fabricloader": ">=0.18",
-    "fabric": ">=0.139",
-    "cloth-config": ">=20.0",
-    "minecraft": "~1.21.11"
+    "fabric-api": ">=0.144",
+    "cloth-config": ">=26.1",
+    "minecraft": "~26.1"
   },
   "custom": {
     "modmenu": {
@@ -54,31 +54,31 @@
       }
     },
     "loom:injected_interfaces": {
-      "net/minecraft/class_1309": [
+      "net/minecraft/world/entity/LivingEntity": [
         "com/stevekung/fishofthieves/entity/PartyFish"
       ],
-      "net/minecraft/class_8109": [
+      "net/minecraft/world/damagesource/DamageSources": [
         "com/stevekung/fishofthieves/damagesource/FOTDamageSources"
       ],
-      "net/minecraft/class_10042": [
+      "net/minecraft/client/renderer/entity/state/LivingEntityRenderState": [
         "com/stevekung/fishofthieves/client/renderer/entity/state/LivingEntityRenderStateExtender"
       ],
-      "net/minecraft/class_1297": [
+      "net/minecraft/world/entity/Entity": [
         "com/stevekung/fishofthieves/client/entity/FishPlaqueDisplay"
       ],
-      "net/minecraft/class_85\u0024class_86": [
+      "net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer\u0024Builder": [
         "com/stevekung/fishofthieves/loot/function/LootPoolSingletonContainerWeightAdder"
       ],
-      "net/minecraft/class_1536": [
+      "net/minecraft/world/entity/projectile/FishingHook": [
         "com/stevekung/fishofthieves/entity/FishingHookBait"
       ],
-      "net/minecraft/class_3218": [
+      "net/minecraft/server/level/ServerLevel": [
         "com/stevekung/fishofthieves/storage/BaitStorageAccessor"
       ],
-      "net/minecraft/class_10026": [
+      "net/minecraft/client/renderer/entity/state/FishingHookRenderState": [
         "com/stevekung/fishofthieves/client/renderer/entity/state/FishingHookRenderStateExtender"
       ],
-      "net/minecraft/class_10701": [
+      "net/minecraft/world/entity/variant/SpawnContext": [
         "com/stevekung/fishofthieves/entity/condition/SpawnContextExtender"
       ]
     }

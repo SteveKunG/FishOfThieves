@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.WreckerAi;
 import com.stevekung.fishofthieves.entity.variant.WreckerVariant;
@@ -91,21 +90,18 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
             FOTMemoryModuleTypes.BREACHED_TICK
     );
 
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<Wrecker> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, SENSOR_TYPES, _ -> WreckerAi.getActivities());
+
     public Wrecker(EntityType<? extends Wrecker> entityType, Level level)
     {
         super(entityType, level, FOTRegistries.WRECKER_VARIANT, WreckerVariants.ROSE, FOTDataComponentTypes.WRECKER_VARIANT);
     }
 
     @Override
-    protected Brain.Provider<Wrecker> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return WreckerAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override
@@ -235,7 +231,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
         for (var structureHolder : structureHolderSet)
         {
             var structure = structureHolder.value();
-            var structureRefMap = level.getChunk(chunkPos.x, chunkPos.z, ChunkStatus.STRUCTURE_STARTS).getAllReferences();
+            var structureRefMap = level.getChunk(chunkPos.x(), chunkPos.z(), ChunkStatus.STRUCTURE_STARTS).getAllReferences();
             var optional = structureRefMap.keySet().stream().filter(structurex -> structurex.equals(structure)).findAny();
 
             if (optional.isPresent())

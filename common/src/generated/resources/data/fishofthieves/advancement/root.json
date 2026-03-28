@@ -26,7 +26,6 @@
       "translate": "advancements.fishofthieves.root.description"
     },
     "icon": {
-      "count": 1,
       "id": "fishofthieves:splashtail"
     },
     "show_toast": false,

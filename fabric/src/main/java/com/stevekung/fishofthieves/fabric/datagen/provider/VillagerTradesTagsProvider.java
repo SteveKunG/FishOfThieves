@@ -1,0 +1,64 @@
+package com.stevekung.fishofthieves.fabric.datagen.provider;
+
+import java.util.concurrent.CompletableFuture;
+
+import com.stevekung.fishofthieves.registry.FOTVillagerTrades;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.KeyTagProvider;
+import net.minecraft.tags.VillagerTradeTags;
+import net.minecraft.world.item.trading.VillagerTrade;
+
+public class VillagerTradesTagsProvider extends KeyTagProvider<VillagerTrade>
+{
+    public VillagerTradesTagsProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    {
+        super(dataOutput, Registries.VILLAGER_TRADE, provider);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void addTags(HolderLookup.Provider provider)
+    {
+        this.tag(VillagerTradeTags.FISHERMAN_LEVEL_1).add(
+                FOTVillagerTrades.FISHERMAN_1_RAW_SPLASHTAIL_AND_EMERALD_COOKED_SPLASHTAIL,
+                FOTVillagerTrades.FISHERMAN_1_RAW_PONDIE_AND_EMERALD_COOKED_PONDIE,
+                FOTVillagerTrades.FISHERMAN_1_RAW_ISLEHOPPER_AND_EMERALD_COOKED_ISLEHOPPER,
+                FOTVillagerTrades.FISHERMAN_1_RAW_ANCIENTSCALE_AND_EMERALD_COOKED_ANCIENTSCALE,
+
+                FOTVillagerTrades.FISHERMAN_1_EARTHWORMS_EMERALD,
+                FOTVillagerTrades.FISHERMAN_1_GRUBS_EMERALD,
+                FOTVillagerTrades.FISHERMAN_1_LEECHES_EMERALD,
+
+                FOTVillagerTrades.FISHERMAN_1_EMERALD_SPLASHTAIL_BUCKET,
+                FOTVillagerTrades.FISHERMAN_1_EMERALD_PONDIE_BUCKET,
+                FOTVillagerTrades.FISHERMAN_1_EMERALD_ISLEHOPPER_BUCKET,
+                FOTVillagerTrades.FISHERMAN_1_EMERALD_ANCIENTSCALE_BUCKET
+        );
+
+        this.tag(VillagerTradeTags.FISHERMAN_LEVEL_2).add(
+                FOTVillagerTrades.FISHERMAN_2_SPLASHTAIL_EMERALD,
+                FOTVillagerTrades.FISHERMAN_2_PONDIE_EMERALD,
+                FOTVillagerTrades.FISHERMAN_2_ISLEHOPPER_EMERALD,
+                FOTVillagerTrades.FISHERMAN_2_ANCIENTSCALE_EMERALD,
+
+                FOTVillagerTrades.FISHERMAN_2_RAW_PLENTIFIN_AND_EMERALD_COOKED_PLENTIFIN,
+                FOTVillagerTrades.FISHERMAN_2_RAW_WILDSPLASH_AND_EMERALD_COOKED_WILDSPLASH,
+                FOTVillagerTrades.FISHERMAN_2_RAW_DEVILFISH_AND_EMERALD_COOKED_DEVILFISH,
+
+                FOTVillagerTrades.FISHERMAN_2_EMERALD_PLENTIFIN_BUCKET,
+                FOTVillagerTrades.FISHERMAN_2_EMERALD_WILDSPLASH_BUCKET,
+                FOTVillagerTrades.FISHERMAN_2_EMERALD_DEVILFISH_BUCKET
+        );
+
+        this.tag(VillagerTradeTags.FISHERMAN_LEVEL_3).add(
+                FOTVillagerTrades.FISHERMAN_3_PLENTIFIN_EMERALD,
+                FOTVillagerTrades.FISHERMAN_3_WILDSPLASH_EMERALD,
+                FOTVillagerTrades.FISHERMAN_3_DEVILFISH_EMERALD,
+
+                FOTVillagerTrades.FISHERMAN_3_EMERALD_AND_TREASURED_FISH_MAP
+        );
+    }
+}

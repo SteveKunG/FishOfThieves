@@ -65,7 +65,7 @@ public class FishBreaching<E extends LivingEntity> extends Behavior<E>
     @Override
     protected void stop(ServerLevel level, E entity, long gameTime)
     {
-        entity.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, this.chance.sample(level.random));
+        entity.getBrain().setMemory(MemoryModuleType.LONG_JUMP_COOLDOWN_TICKS, this.chance.sample(level.getRandom()));
         entity.setXRot(0.0F);
     }
 

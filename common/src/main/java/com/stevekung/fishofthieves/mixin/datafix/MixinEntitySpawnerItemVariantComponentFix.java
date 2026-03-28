@@ -32,7 +32,7 @@ public class MixinEntitySpawnerItemVariantComponentFix
             "fishofthieves:stormfish_bucket", "stormfish/variant"
     );
 
-    @Inject(method = "method_66604(Lcom/mojang/datafixers/OpticFinder;Lcom/mojang/datafixers/OpticFinder;Lcom/mojang/datafixers/Typed;)Lcom/mojang/datafixers/Typed;",
+    @Inject(method = "lambda$makeRule$0(Lcom/mojang/datafixers/OpticFinder;Lcom/mojang/datafixers/OpticFinder;Lcom/mojang/datafixers/Typed;)Lcom/mojang/datafixers/Typed;",
             cancellable = true,
             at = @At(value = "HEAD"))
     private static void fishofthieves$fixThievesBucket(OpticFinder<Pair<String, String>> opticFinder, OpticFinder<?> opticFinder2, Typed<?> typed, CallbackInfoReturnable<Typed<?>> info)

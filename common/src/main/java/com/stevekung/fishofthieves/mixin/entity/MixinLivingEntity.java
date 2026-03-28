@@ -42,10 +42,11 @@ public abstract class MixinLivingEntity extends Entity implements PartyFish
         super(null, null);
     }
 
+    @SuppressWarnings("deprecation")
     @Inject(method = "dropFromLootTable(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;ZLnet/minecraft/resources/ResourceKey;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/loot/LootTable.getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;JLjava/util/function/Consumer;)V"))
     private void fishofthieves$dropFishBone(ServerLevel serverLevel, DamageSource damageSource, boolean hitByPlayer, ResourceKey<LootTable> resourceKey, Consumer<ItemStack> consumer, CallbackInfo info, @Local LootParams.Builder builder)
     {
-        if (this.getType().is(FOTTags.EntityTypes.FISH_BONE_DROP))
+        if (this.getType().builtInRegistryHolder().is(FOTTags.EntityTypes.FISH_BONE_DROP))
         {
             var fishBoneDropLootTable = serverLevel.getServer().reloadableRegistries().getLootTable(FOTLootTables.Entities.FISH_BONE_DROP);
             fishBoneDropLootTable.getRandomItems(builder.create(LootContextParamSets.ENTITY), itemStack -> this.spawnAtLocation(serverLevel, itemStack));

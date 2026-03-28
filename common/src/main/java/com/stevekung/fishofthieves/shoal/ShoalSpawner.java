@@ -57,7 +57,7 @@ public final class ShoalSpawner
     private static Stream<PoiRecord> getInSquare(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
     {
         var chunkRadius = Math.floorDiv(maximumDistance, 16) + 1;
-        return ChunkPos.rangeClosed(new ChunkPos(pos), chunkRadius).flatMap(chunkPos -> poiManager.getInChunk(typePredicate, chunkPos, PoiManager.Occupancy.ANY)).filter(poiRecord ->
+        return ChunkPos.rangeClosed(ChunkPos.containing(pos), chunkRadius).flatMap(chunkPos -> poiManager.getInChunk(typePredicate, chunkPos, PoiManager.Occupancy.ANY)).filter(poiRecord ->
         {
             var blockPos2 = poiRecord.getPos();
             FishOfThieves.LOGGER.debug("absX: {}", Math.abs(blockPos2.getX() - pos.getX()));
@@ -75,7 +75,7 @@ public final class ShoalSpawner
         if (maxAttempt > 0)
         {
             BlockPos shoalPos = null;
-            var currentChunkPos = new ChunkPos(blockPos);
+            var currentChunkPos = ChunkPos.containing(blockPos);
 
             for (var chunkPos : ChunkPos.rangeClosed(currentChunkPos, 8).toList())
             {

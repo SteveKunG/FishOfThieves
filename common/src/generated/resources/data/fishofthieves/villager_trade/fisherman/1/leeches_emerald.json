@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 8.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 24.0,
+    "id": "fishofthieves:leeches"
+  },
+  "xp": 14.0
+}

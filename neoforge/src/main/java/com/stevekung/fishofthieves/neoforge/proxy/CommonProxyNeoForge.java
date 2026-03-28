@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
+import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +18,6 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -34,7 +34,6 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 public class CommonProxyNeoForge
 {
@@ -72,21 +71,6 @@ public class CommonProxyNeoForge
     }
 
     @SubscribeEvent
-    public void registerVillagerTrades(VillagerTradesEvent event)
-    {
-        if (event.getType() == VillagerProfession.FISHERMAN)
-        {
-            var trades = event.getTrades();
-            FishOfThieves.getFishermanTrades().forEach((level, factories) -> trades.get(level).addAll(factories.apply(new ArrayList<>())));
-        }
-        else if (event.getType() == VillagerProfession.FARMER)
-        {
-            var trades = event.getTrades();
-            FishOfThieves.getFarmerTrades().forEach((level, factories) -> trades.get(level).addAll(factories.apply(new ArrayList<>())));
-        }
-    }
-
-    @SubscribeEvent
     public void onLootTableLoad(LootTableLoadEvent event)
     {
         var provider = event.getRegistries();
@@ -114,7 +98,7 @@ public class CommonProxyNeoForge
     {
         if (event.getLevel() instanceof ServerLevel serverLevel)
         {
-            serverLevel.getBaitPreserve().spawnBaitOnLoad(serverLevel);
+            ((BaitStorageAccessor) serverLevel).getBaitPreserve().spawnBaitOnLoad(serverLevel);
         }
     }
 

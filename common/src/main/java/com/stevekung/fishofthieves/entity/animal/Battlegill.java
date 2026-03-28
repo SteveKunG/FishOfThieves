@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.ai.BattlegillAi;
 import com.stevekung.fishofthieves.entity.variant.BattlegillVariant;
@@ -87,21 +86,18 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
             FOTMemoryModuleTypes.BREACHED_TICK
     );
 
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<Battlegill> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, SENSOR_TYPES, _ -> BattlegillAi.getActivities());
+
     public Battlegill(EntityType<? extends Battlegill> entityType, Level level)
     {
         super(entityType, level, FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariants.JADE, FOTDataComponentTypes.BATTLEGILL_VARIANT);
     }
 
     @Override
-    protected Brain.Provider<Battlegill> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return BattlegillAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override

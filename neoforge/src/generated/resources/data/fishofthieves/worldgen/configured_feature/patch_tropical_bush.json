@@ -1,80 +1,35 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:simple_block",
   "config": {
-    "feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
-              {
-                "data": {
-                  "Name": "fishofthieves:tropical_monstera"
-                },
-                "weight": 4
-              },
-              {
-                "data": {
-                  "Name": "fishofthieves:tropical_red_fern",
-                  "Properties": {
-                    "ceiling": "false"
-                  }
-                },
-                "weight": 2
-              },
-              {
-                "data": {
-                  "Name": "fishofthieves:vertical_banana_leaves",
-                  "Properties": {
-                    "ceiling": "false",
-                    "waterlogged": "false"
-                  }
-                },
-                "weight": 1
-              }
-            ]
-          }
-        }
-      },
-      "placement": [
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "minecraft:replaceable"
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "fishofthieves:block_brightness",
-                  "raw_brightness": 13
-                }
-              },
-              {
-                "type": "minecraft:not",
-                "predicate": {
-                  "type": "fishofthieves:see_sky"
-                }
-              },
-              {
-                "type": "minecraft:matching_blocks",
-                "blocks": "minecraft:grass_block",
-                "offset": [
-                  0,
-                  -1,
-                  0
-                ]
-              }
-            ]
-          }
+          "data": {
+            "Name": "fishofthieves:tropical_monstera"
+          },
+          "weight": 4
+        },
+        {
+          "data": {
+            "Name": "fishofthieves:tropical_red_fern",
+            "Properties": {
+              "ceiling": "false"
+            }
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "fishofthieves:vertical_banana_leaves",
+            "Properties": {
+              "ceiling": "false",
+              "waterlogged": "false"
+            }
+          },
+          "weight": 1
         }
       ]
-    },
-    "tries": 32,
-    "xz_spread": 4,
-    "y_spread": 2
+    }
   }
 }

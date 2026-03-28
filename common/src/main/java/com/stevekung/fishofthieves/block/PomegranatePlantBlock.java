@@ -116,9 +116,9 @@ public class PomegranatePlantBlock extends BushBlock implements BonemealableBloc
 
     public static InteractionResult pick(BlockState state, Level level, BlockPos pos, Entity sourceEntity)
     {
-        var count = 1 + level.random.nextInt(2);
+        var count = 1 + level.getRandom().nextInt(2);
         popResource(level, pos, new ItemStack(FOTItems.POMEGRANATE, count + 1));
-        level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+        level.playSound(null, pos, FOTSoundEvents.POMEGRANATE_PLANT_PICK, SoundSource.BLOCKS, 1.0F, 0.8F + level.getRandom().nextFloat() * 0.4F);
         var blockState = state.setValue(AGE, 0);
         level.setBlock(pos, blockState, Block.UPDATE_CLIENTS);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(sourceEntity, blockState));

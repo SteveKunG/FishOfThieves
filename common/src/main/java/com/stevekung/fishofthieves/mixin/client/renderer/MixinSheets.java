@@ -9,27 +9,27 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTWoodTypes;
 
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.world.level.block.state.properties.WoodType;
 
 @Mixin(Sheets.class)
 public class MixinSheets
 {
-    @Inject(method = "createSignMaterial", cancellable = true, at = @At("HEAD"))
-    private static void fishofthieves$createSignMaterial(WoodType woodType, CallbackInfoReturnable<Material> info)
+    @Inject(method = "createSignSprite", cancellable = true, at = @At("HEAD"))
+    private static void fishofthieves$createSignMaterial(WoodType woodType, CallbackInfoReturnable<SpriteId> info)
     {
         if (woodType == FOTWoodTypes.COCONUT)
         {
-            info.setReturnValue(new Material(Sheets.SIGN_SHEET, FishOfThieves.id("entity/signs/coconut")));
+            info.setReturnValue(Sheets.SIGN_MAPPER.apply(FishOfThieves.id("coconut")));
         }
     }
 
-    @Inject(method = "createHangingSignMaterial", cancellable = true, at = @At("HEAD"))
-    private static void fishofthieves$createHangingSignMaterial(WoodType woodType, CallbackInfoReturnable<Material> info)
+    @Inject(method = "createHangingSignSprite", cancellable = true, at = @At("HEAD"))
+    private static void fishofthieves$createHangingSignMaterial(WoodType woodType, CallbackInfoReturnable<SpriteId> info)
     {
         if (woodType == FOTWoodTypes.COCONUT)
         {
-            info.setReturnValue(new Material(Sheets.SIGN_SHEET, FishOfThieves.id("entity/signs/hanging/coconut")));
+            info.setReturnValue(Sheets.HANGING_SIGN_MAPPER.apply(FishOfThieves.id("coconut")));
         }
     }
 }

@@ -5,8 +5,8 @@ import java.util.concurrent.CompletableFuture;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -15,7 +15,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
+public class ItemTagsProvider extends FabricTagsProvider.ItemTagsProvider
 {
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("croptopia", "fishes"));
@@ -24,7 +24,7 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
     private static final TagKey<Item> C_SEEDS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "seeds"));
     private static final TagKey<Item> C_FRUITS_SWEET = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "fruits/sweet"));
 
-    public ItemTagsProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagProvider.BlockTagProvider blockTagProvider)
+    public ItemTagsProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider, FabricTagsProvider.BlockTagsProvider blockTagProvider)
     {
         super(dataOutput, provider, blockTagProvider);
     }

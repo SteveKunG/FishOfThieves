@@ -79,7 +79,7 @@ public abstract class AbstractBananaClusterBlock extends HorizontalDirectionalBl
     {
         var blockPos = hit.getBlockPos();
 
-        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, blockPos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES))
+        if (level instanceof ServerLevel serverLevel && projectile.mayInteract(serverLevel, blockPos) && projectile.typeHolder().is(EntityTypeTags.IMPACT_PROJECTILES))
         {
             level.destroyBlock(blockPos, true, projectile);
         }

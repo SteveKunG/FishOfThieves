@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.entity.animal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.mojang.serialization.Dynamic;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.variant.StormfishVariant;
@@ -31,6 +30,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
+    @SuppressWarnings("deprecation")
+    private static final Brain.Provider<AbstractThievesFish<?>> BRAIN_PROVIDER = Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList(), _ -> AbstractThievesFishAi.getActivities());
     private static final EntityDataAccessor<Holder<StormfishVariant>> VARIANT = SynchedEntityData.defineId(Stormfish.class, FOTDataSerializers.STORMFISH_VARIANT);
 
     public Stormfish(EntityType<? extends Stormfish> entityType, Level level)
@@ -39,15 +40,9 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     }
 
     @Override
-    protected Brain.Provider<AbstractThievesFish<?>> brainProvider()
+    protected Brain<?> makeBrain(Brain.Packed packedBrain)
     {
-        return Brain.provider(MEMORY_TYPES, Stream.of(SENSOR_TYPES, List.of(FOTSensorTypes.LEECHES_THIEVES_FISH_TEMPTATIONS)).flatMap(List::stream).toList());
-    }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic)
-    {
-        return AbstractThievesFishAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+        return BRAIN_PROVIDER.makeBrain(this, packedBrain);
     }
 
     @Override
@@ -143,6 +138,6 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     {
         var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var levelData = level.getLevelData();
-        return isWater && levelData.isRaining() && levelData.isThundering() && level.canSeeSkyFromBelowWater(blockPos);
+        return isWater && level.getLevel().isRaining() && level.getLevel().isThundering() && level.canSeeSkyFromBelowWater(blockPos);
     }
 }

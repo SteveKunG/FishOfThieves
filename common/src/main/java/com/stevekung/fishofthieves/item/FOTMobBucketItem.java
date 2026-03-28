@@ -12,15 +12,18 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -80,7 +83,7 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag)
     {
-        if (this.entityType.is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE))
+        if (this.entityType.builtInRegistryHolder().is(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE))
         {
             var customData = itemStack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             MutableComponent component = null;
@@ -160,6 +163,14 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
         return Component.translatable("entity.fishofthieves.%s.%s".formatted(BuiltInRegistries.ENTITY_TYPE.getKey(this.entityType).getPath(), Identifier.tryParse(variant).getPath())).withStyle(ChatFormatting.ITALIC, treasured ? ChatFormatting.GOLD : ChatFormatting.GRAY);
     }
 
+    @SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+    public static ItemStackTemplate advancementTemplate(Item item, Holder<?> holder)
+    {
+        var builder = DataComponentPatch.builder();
+        builder.set(((FOTMobBucketItem<?>) item).dataComponentType, (Holder) holder);
+        return new ItemStackTemplate(item.builtInRegistryHolder(), 1, builder.build());
+    }
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static ItemStack create(Item item, Holder<?> holder, Boolean trophy)
     {
@@ -177,10 +188,11 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
         return itemStack;
     }
 
-    public static ItemStack createRandomBucket(Item item)
+    @SuppressWarnings("deprecation")
+    public static ItemStackTemplate createRandomBucket(Item item)
     {
-        var itemStack = new ItemStack(item);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, itemStack, compoundTag -> compoundTag.putBoolean(ThievesFish.CREATIVE_TAG, true));
-        return itemStack;
+        var builder = DataComponentPatch.builder();
+        builder.set(DataComponents.BUCKET_ENTITY_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putBoolean(ThievesFish.CREATIVE_TAG, true))));
+        return new ItemStackTemplate(item.builtInRegistryHolder(), 1, builder.build());
     }
 }

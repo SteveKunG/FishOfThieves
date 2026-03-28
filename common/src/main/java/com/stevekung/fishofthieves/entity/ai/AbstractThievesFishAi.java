@@ -23,6 +23,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -37,15 +38,9 @@ public class AbstractThievesFishAi
 {
     public static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(1200, 2000);
 
-    public static Brain<?> makeBrain(Brain<AbstractThievesFish<?>> brain)
+    public static List<ActivityData<AbstractThievesFish<?>>> getActivities()
     {
-        initCoreActivity(brain);
-        initIdleActivity(brain);
-        initRetreatActivity(brain);
-        brain.setCoreActivities(Set.of(Activity.CORE));
-        brain.setDefaultActivity(Activity.IDLE);
-        brain.useDefaultActivity();
-        return brain;
+        return List.of(initCoreActivity(), initIdleActivity(), initRetreatActivity());
     }
 
     public static void initMemories(AbstractThievesFish<?> fish)
@@ -92,9 +87,9 @@ public class AbstractThievesFishAi
         profiler.pop();
     }
 
-    private static void initCoreActivity(Brain<AbstractThievesFish<?>> brain)
+    private static ActivityData<AbstractThievesFish<?>> initCoreActivity()
     {
-        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+        return ActivityData.create(Activity.CORE, 0, ImmutableList.of(
                 new AnimalPanic<>(2.0F),
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink(),
@@ -106,13 +101,13 @@ public class AbstractThievesFishAi
     }
 
     @SuppressWarnings("deprecation")
-    private static void initIdleActivity(Brain<AbstractThievesFish<?>> brain)
+    private static ActivityData<AbstractThievesFish<?>> initIdleActivity()
     {
-        brain.addActivity(Activity.IDLE, ImmutableList.of(
+        return ActivityData.create(Activity.IDLE, ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(avoidRepellent(), 1),
-                        Pair.of(new FollowTemptation(livingEntity -> 1.25F), 1),
+                        Pair.of(new FollowTemptation(_ -> 1.25F), 1),
                         Pair.of(new FishBreaching<>(TIME_BETWEEN_BREACH, 0.3F, 0.16f), 2)
                 ))),
                 Pair.of(2, new GateBehavior<>(Map.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), Set.of(), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.TRY_ALL, List.of(
@@ -121,9 +116,9 @@ public class AbstractThievesFishAi
                         Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5))))));
     }
 
-    private static void initRetreatActivity(Brain<AbstractThievesFish<?>> brain)
+    private static ActivityData<AbstractThievesFish<?>> initRetreatActivity()
     {
-        brain.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(
+        return ActivityData.create(Activity.AVOID, 10, ImmutableList.of(
                 SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 5.0F, 12, true),
                 createIdleLookBehaviors(),
                 createIdleMovementBehaviors(),

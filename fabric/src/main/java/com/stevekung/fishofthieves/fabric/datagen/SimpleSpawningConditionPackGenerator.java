@@ -8,7 +8,7 @@ import com.stevekung.fishofthieves.registry.variant.*;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -41,7 +41,7 @@ public class SimpleSpawningConditionPackGenerator implements DataGeneratorEntryp
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider
     {
-        public DynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
+        public DynamicRegistryProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture)
         {
             super(output, registriesFuture);
         }

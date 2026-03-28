@@ -9,11 +9,11 @@ import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
 import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
@@ -43,7 +43,7 @@ public class FOTPlatformImpl
 
     public static void addComposting(ItemLike item, float value)
     {
-        CompostingChanceRegistry.INSTANCE.add(item, value);
+        CompostableRegistry.INSTANCE.add(item, value);
     }
 
     public static void addFlammableBlock(Block block, int encouragement, int flammability)
@@ -53,7 +53,7 @@ public class FOTPlatformImpl
 
     public static CreativeModeTab.Builder getCreativeTabBuilder()
     {
-        return FabricItemGroup.builder();
+        return FabricCreativeModeTab.builder();
     }
 
     public static float getGrowthSpeedFromCropBlock(BlockState state, ServerLevel level, BlockPos pos)
@@ -63,7 +63,7 @@ public class FOTPlatformImpl
 
     public static void registerSerializer(String name, EntityDataSerializer<?> serializer)
     {
-        FabricTrackedDataRegistry.register(FishOfThieves.id(name), serializer);
+        FabricEntityDataRegistry.register(FishOfThieves.id(name), serializer);
     }
 
     public static void sendFishingHookBait(FishingHook fishingHook)

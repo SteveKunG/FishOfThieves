@@ -10,8 +10,8 @@ import com.stevekung.fishofthieves.registry.FOTBlockStateProviderTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.ConstantFloat;
-import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -25,10 +25,10 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
     public static final MapCodec<DirectionalRandomizedIntBooleanStateProvider> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     BlockStateProvider.CODEC.fieldOf("source").forGetter(provider -> provider.source),
                     Codec.STRING.fieldOf("integer_property").forGetter(provider -> provider.integerPropertyName),
-                    IntProvider.CODEC.fieldOf("integer_values").forGetter(provider -> provider.integerValues),
+                    IntProviders.CODEC.fieldOf("integer_values").forGetter(provider -> provider.integerValues),
                     Codec.STRING.fieldOf("direction_property").forGetter(provider -> provider.directionPropertyName),
                     Codec.STRING.fieldOf("boolean_property").forGetter(provider -> provider.booleanPropertyName),
-                    ConstantFloat.CODEC.fieldOf("boolean_chance").forGetter(provider -> provider.booleanChance))
+                    FloatProviders.CODEC.fieldOf("boolean_chance").forGetter(provider -> provider.booleanChance))
             .apply(instance, DirectionalRandomizedIntBooleanStateProvider::new));
     private final BlockStateProvider source;
     private final String integerPropertyName;
@@ -41,9 +41,9 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
     private final String booleanPropertyName;
     @Nullable
     private BooleanProperty booleanProperty;
-    private final ConstantFloat booleanChance;
+    private final FloatProvider booleanChance;
 
-    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, EnumProperty<Direction> directionProperty, BooleanProperty booleanProperty, ConstantFloat booleanChance)
+    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, EnumProperty<Direction> directionProperty, BooleanProperty booleanProperty, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerProperty = integerProperty;
@@ -56,7 +56,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
         this.booleanChance = booleanChance;
         var collection = integerProperty.getPossibleValues();
 
-        for (var i = integerValues.getMinValue(); i <= integerValues.getMaxValue(); i++)
+        for (var i = integerValues.minInclusive(); i <= integerValues.maxInclusive(); i++)
         {
             if (!collection.contains(i))
             {
@@ -65,7 +65,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
         }
     }
 
-    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, String integerPropertyName, IntProvider integerValues, String directionPropertyName, String booleanPropertyName, ConstantFloat booleanChance)
+    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, String integerPropertyName, IntProvider integerValues, String directionPropertyName, String booleanPropertyName, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerPropertyName = integerPropertyName;
@@ -82,15 +82,15 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
     }
 
     @Override
-    public BlockState getState(RandomSource random, BlockPos pos)
+    public BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos)
     {
         throw new UnsupportedOperationException();
     }
 
     @SuppressWarnings("unchecked")
-    public BlockState getState(RandomSource random, BlockPos pos, Direction direction)
+    public BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos, Direction direction)
     {
-        var blockState = this.source.getState(random, pos);
+        var blockState = this.source.getState(level, random, pos);
 
         if (this.integerProperty == null || !blockState.hasProperty(this.integerProperty))
         {
@@ -106,7 +106,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
         }
         return blockState.setValue(this.integerProperty, this.integerValues.sample(random))
                 .setValue(this.directionProperty, direction)
-                .setValue(this.booleanProperty, random.nextFloat() < this.booleanChance.getValue());
+                .setValue(this.booleanProperty, random.nextFloat() < this.booleanChance.sample(random));
     }
 
     private static <T extends Property<?>> T findProperty(BlockState state, String propertyName, Class<T> propertyClass)

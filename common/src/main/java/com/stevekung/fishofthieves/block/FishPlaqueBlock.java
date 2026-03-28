@@ -424,7 +424,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         {
             var entity = FishPlaqueBlockEntity.createEntity(fishPlaque, level);
             var direction = state.getValue(FACING);
-            var random = level.random.nextDouble() * 0.1 + 0.2;
+            var random = level.getRandom().nextDouble() * 0.1 + 0.2;
 
             if (!state.getValue(WATERLOGGED))
             {
@@ -432,7 +432,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             }
 
             entity.snapTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, direction.toYRot(), 0.0f);
-            entity.setDeltaMovement(level.random.triangle(direction.getStepX() * random, 0.0172275), 0.4, level.random.triangle(direction.getStepZ() * random, 0.0172275));
+            entity.setDeltaMovement(level.getRandom().triangle(direction.getStepX() * random, 0.0172275), 0.4, level.getRandom().triangle(direction.getStepZ() * random, 0.0172275));
             level.addFreshEntity(entity);
         }
     }

@@ -20,7 +20,7 @@ public class SingleBlockFeature extends Feature<SimpleBlockConfiguration>
         var simpleBlockConfiguration = context.config();
         var worldGenLevel = context.level();
         var blockPos = context.origin();
-        var blockState = simpleBlockConfiguration.toPlace().getState(context.random(), blockPos);
+        var blockState = simpleBlockConfiguration.toPlace().getState(worldGenLevel, context.random(), blockPos);
 
         if (blockState.canSurvive(worldGenLevel, blockPos))
         {

@@ -11,7 +11,7 @@ public class EarlyRisers implements Runnable
     {
         var remapper = FabricLoader.getInstance().getMappingResolver();
 
-        var grassColorModifier = remapper.mapClassName("intermediary", "net.minecraft.class_4763$class_5486");
+        var grassColorModifier = remapper.mapClassName("official", "net.minecraft.world.level.biome.BiomeSpecialEffects$GrassColorModifier");
         ClassTinkerers.enumBuilder(grassColorModifier, String.class).addEnumSubclass("FISHOFTHIEVES_TROPICAL_ISLAND", "com.stevekung.fishofthieves.fabric.asm.TropicalIslandGrassColorModifier", "fishofthieves:tropical_island").build();
     }
 }

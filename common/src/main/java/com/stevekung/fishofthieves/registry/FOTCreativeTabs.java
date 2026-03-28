@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.function.Supplier;
+
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 
@@ -18,12 +20,12 @@ public class FOTCreativeTabs
 
     public static void init()
     {
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FOTCreativeTabs.MAIN, create("itemGroup.fishofthieves.main", new ItemStack(FOTBlocks.COCONUT_LOG), FOTDisplayItems::displayMainItems));
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FOTCreativeTabs.FISH, create("itemGroup.fishofthieves.fish", new ItemStack(FOTItems.SPLASHTAIL), FOTDisplayItems::displayFishItems));
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FOTCreativeTabs.MAIN, create("itemGroup.fishofthieves.main", () -> new ItemStack(FOTBlocks.COCONUT_LOG), FOTDisplayItems::displayMainItems));
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, FOTCreativeTabs.FISH, create("itemGroup.fishofthieves.fish", () -> new ItemStack(FOTItems.SPLASHTAIL), FOTDisplayItems::displayFishItems));
     }
 
-    private static CreativeModeTab create(String title, ItemStack itemStack, CreativeModeTab.DisplayItemsGenerator displayItemsGenerator)
+    private static CreativeModeTab create(String title, Supplier<ItemStack> iconGenerator, CreativeModeTab.DisplayItemsGenerator displayItemsGenerator)
     {
-        return FOTPlatform.getCreativeTabBuilder().title(Component.translatable(title)).icon(() -> itemStack).displayItems(displayItemsGenerator).build();
+        return FOTPlatform.getCreativeTabBuilder().title(Component.translatable(title)).icon(iconGenerator).displayItems(displayItemsGenerator).build();
     }
 }

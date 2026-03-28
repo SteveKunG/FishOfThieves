@@ -21,7 +21,7 @@ import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
 import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import com.stevekung.fishofthieves.trigger.*;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
@@ -70,7 +70,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
             FOTItems.PINEAPPLE
     };
 
-    public AdvancementProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public AdvancementProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider);
     }
@@ -122,7 +122,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .save(consumer, this.mod("legendary_fish_collectors"));
 
         this.addTreasuredFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup)
-                .display(FOTMobBucketItem.create(FOTItems.STORMFISH_BUCKET, stormfishLookup.getOrThrow(StormfishVariants.STARSHINE), null),
+                .display(FOTMobBucketItem.advancementTemplate(FOTItems.STORMFISH_BUCKET, stormfishLookup.getOrThrow(StormfishVariants.STARSHINE)),
                         Component.translatable("advancements.fishofthieves.treasured_fish_collectors.title"),
                         Component.translatable("advancements.fishofthieves.treasured_fish_collectors.description"),
                         null, AdvancementType.CHALLENGE, true, true, false)
@@ -140,7 +140,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                                                                 .putString(FOTRegistries.DEVILFISH_VARIANT.identifier().getPath(), DevilfishVariants.LAVA.identifier().toString())))).build())
                                                         .build()
                                         ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
-                .display(FOTItem.create(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
+                .display(FOTItem.advancementTemplate(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
                         null, AdvancementType.TASK, true, true, false)
@@ -313,7 +313,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                 .exact(DataComponentExactPredicate.expect(FOTDataComponentTypes.BATTLEGILL_VARIANT, battlegillLookup.getOrThrow(BattlegillVariants.RUM)))
                                 .build()
                 ), MobEffectsPredicate.Builder.effects().and(MobEffects.NAUSEA)))
-                .display(FOTItem.create(FOTItems.BATTLEGILL, "battlegill_variant", "fishofthieves:rum"),
+                .display(FOTItem.advancementTemplate(FOTItems.BATTLEGILL, "battlegill_variant", "fishofthieves:rum"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.title"),
                         Component.translatable("advancements.fishofthieves.drunken_sailor.description"),
                         null, AdvancementType.TASK, true, true, false)

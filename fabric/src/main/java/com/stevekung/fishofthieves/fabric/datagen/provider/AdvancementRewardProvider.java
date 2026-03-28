@@ -6,8 +6,8 @@ import java.util.function.BiConsumer;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -16,9 +16,9 @@ import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-public class AdvancementRewardProvider extends SimpleFabricLootTableProvider
+public class AdvancementRewardProvider extends SimpleFabricLootTableSubProvider
 {
-    public AdvancementRewardProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
+    public AdvancementRewardProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider, LootContextParamSets.ADVANCEMENT_REWARD);
     }

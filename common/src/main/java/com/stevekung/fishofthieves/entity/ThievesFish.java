@@ -121,7 +121,7 @@ public interface ThievesFish<T extends AbstractFishVariant> extends PartyFish, V
 
     default float calculateTreasuredGlow(Level level, BlockPos blockPos)
     {
-        var dayTime = level.getDayTime() % 24000;
+        var dayTime = level.getOverworldClockTime() % 24000;
         var skyLight = level.getBrightness(LightLayer.SKY, blockPos);
         var glowIntensityWithSkylight = (15 - skyLight) / 15.0f;
         var glowingNightTimeStart = 12500;

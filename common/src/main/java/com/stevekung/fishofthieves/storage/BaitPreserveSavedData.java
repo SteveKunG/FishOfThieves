@@ -6,9 +6,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTDataFixTypes;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class BaitPreserveSavedData extends SavedData
 {
-    public static final String FILE_ID = "fishofthieves_bait_preserve";
+    public static final Identifier FILE_ID = FishOfThieves.id("fishofthieves_bait_preserve");
     private static final String TAG_BAIT_PRESERVES = "bait_preserves";
     public static final Codec<BaitPreserveSavedData> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
@@ -56,7 +58,7 @@ public class BaitPreserveSavedData extends SavedData
 
             if (level.isLoaded(blockPos))
             {
-                var vec3 = Vec3.atLowerCornerWithOffset(blockPos, 0.5, 0.25, 0.5).offsetRandom(level.random, 0.3F);
+                var vec3 = Vec3.atLowerCornerWithOffset(blockPos, 0.5, 0.25, 0.5).offsetRandom(level.getRandom(), 0.3F);
                 var itemEntity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), entry.getValue());
                 itemEntity.setDefaultPickUpDelay();
                 level.addFreshEntity(itemEntity);

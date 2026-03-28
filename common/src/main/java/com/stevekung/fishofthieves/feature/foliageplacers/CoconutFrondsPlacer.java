@@ -17,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -70,7 +71,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(LevelSimulatedReader level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
+    protected void createFoliage(WorldGenLevel level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
     {
         var pos = attachment.pos();
 
@@ -114,11 +115,11 @@ public class CoconutFrondsPlacer extends FoliagePlacer
         return localX == range && localZ == range && (random.nextInt(2) == 0 || localY == 0);
     }
 
-    private void placeTopLeaves(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, FoliagePlacer.FoliageSetter blockSetter)
+    private void placeTopLeaves(WorldGenLevel level, BlockPos blockPos, RandomSource random, FoliagePlacer.FoliageSetter blockSetter)
     {
         if (TreeFeature.validTreePos(level, blockPos))
         {
-            var blockState = this.topLeavesState.getState(random, blockPos);
+            var blockState = this.topLeavesState.getState(level, random, blockPos);
 
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
             {
@@ -128,14 +129,14 @@ public class CoconutFrondsPlacer extends FoliagePlacer
         }
     }
 
-    private void placeLeavesHorizontalDirections(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, TreeConfiguration config, FoliagePlacer.FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
+    private void placeLeavesHorizontalDirections(WorldGenLevel level, BlockPos blockPos, RandomSource random, TreeConfiguration config, FoliagePlacer.FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
     {
         var mutableBlockPos = blockPos.mutable();
 
         for (var direction : Direction.Plane.HORIZONTAL)
         {
             var opposite = direction.getOpposite();
-            var leavesBlockState = config.foliageProvider.getState(random, blockPos);
+            var leavesBlockState = config.foliageProvider.getState(level, random, blockPos);
 
             if (leavesBlockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
             {
@@ -157,14 +158,14 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             }
             else
             {
-                var tailLeavesState = this.tailLeavesState.getState(random, blockPos);
+                var tailLeavesState = this.tailLeavesState.getState(level, random, blockPos);
 
                 if (tailLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {
                     tailLeavesState = tailLeavesState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
                 }
 
-                var middleLeavesState = this.middleLeavesState.getState(random, blockPos);
+                var middleLeavesState = this.middleLeavesState.getState(level, random, blockPos);
 
                 if (middleLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {

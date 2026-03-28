@@ -38,7 +38,7 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends Living
         {
             poseStack.pushPose();
             this.scaleable.scale(renderState, poseStack);
-            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderTypes.entityCutoutNoCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, 0, null);
+            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderTypes.entityCutoutCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, 0, null);
             poseStack.popPose();
         }
     }

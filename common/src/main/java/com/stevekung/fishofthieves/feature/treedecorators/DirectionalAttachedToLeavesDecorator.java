@@ -67,7 +67,7 @@ public class DirectionalAttachedToLeavesDecorator extends TreeDecorator
                     set.add(blockPos5.immutable());
                 }
 
-                context.setBlock(blockPos2, this.blockProvider.getState(randomSource, blockPos2, this.opposite ? direction.getOpposite() : direction));
+                context.setBlock(blockPos2, this.blockProvider.getState(context.level(), randomSource, blockPos2, this.opposite ? direction.getOpposite() : direction));
             }
         }
     }

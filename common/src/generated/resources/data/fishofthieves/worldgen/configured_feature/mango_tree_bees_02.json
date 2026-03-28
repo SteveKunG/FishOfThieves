@@ -1,14 +1,32 @@
 {
   "type": "minecraft:tree",
   "config": {
+    "below_trunk_provider": {
+      "type": "minecraft:rule_based_state_provider",
+      "rules": [
+        {
+          "if_true": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:cannot_replace_below_tree_trunk"
+            }
+          },
+          "then": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:dirt"
+            }
+          }
+        }
+      ]
+    },
     "decorators": [
       {
         "type": "minecraft:attached_to_leaves",
         "block_provider": {
           "type": "fishofthieves:randomized_int_boolean_state_provider",
-          "boolean_chance": {
-            "value": 0.6
-          },
+          "boolean_chance": 0.6,
           "boolean_property": "falling",
           "integer_property": "age",
           "integer_values": {
@@ -38,9 +56,7 @@
       {
         "type": "fishofthieves:directional_attached_to_leaves",
         "block_provider": {
-          "boolean_chance": {
-            "value": 0.6
-          },
+          "boolean_chance": 0.6,
           "boolean_property": "falling",
           "direction_property": "facing",
           "integer_property": "age",
@@ -78,12 +94,6 @@
         "probability": 0.2
       }
     ],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
     "foliage_placer": {
       "type": "minecraft:fancy_foliage_placer",
       "height": 4,
@@ -101,7 +111,6 @@
         }
       }
     },
-    "force_dirt": false,
     "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",

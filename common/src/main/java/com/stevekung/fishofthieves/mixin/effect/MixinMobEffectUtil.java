@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 @Mixin(MobEffectUtil.class)
 public class MixinMobEffectUtil
 {
-    @Inject(method = "method_42145(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;DLnet/minecraft/core/Holder;Lnet/minecraft/world/effect/MobEffectInstance;ILnet/minecraft/server/level/ServerPlayer;)Z",
+    @Inject(method = "lambda$addEffectToPlayersAround$0(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;DLnet/minecraft/core/Holder;Lnet/minecraft/world/effect/MobEffectInstance;ILnet/minecraft/server/level/ServerPlayer;)Z",
             cancellable = true,
             at = @At("HEAD"))
     private static void fishofthieves$preventMiningFatigueFromElderGuardian(Entity source, Vec3 vec3, double radius, Holder<MobEffect> mobEffect, MobEffectInstance mobEffectInstance, int duration, ServerPlayer serverPlayer, CallbackInfoReturnable<Boolean> info)

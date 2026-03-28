@@ -1,6 +1,12 @@
 {
   "type": "minecraft:tree",
   "config": {
+    "below_trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
     "decorators": [
       {
         "type": "fishofthieves:banana",
@@ -14,12 +20,6 @@
         "probability": 0.3
       }
     ],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
     "foliage_placer": {
       "type": "fishofthieves:banana_leaves_placer",
       "one_leaves_chance": 0.2,
@@ -60,7 +60,6 @@
         }
       }
     },
-    "force_dirt": false,
     "ignore_vines": true,
     "minimum_size": {
       "type": "minecraft:three_layers_feature_size",

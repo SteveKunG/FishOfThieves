@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.loot.function;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
@@ -9,7 +10,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
-import com.stevekung.fishofthieves.registry.FOTLootItemFunctions;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 import com.stevekung.fishofthieves.shoal.ShoalSpawner;
@@ -25,7 +25,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
@@ -38,15 +37,17 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                             Codec.INT.fieldOf("mininum_search_radius").forGetter(function -> function.minimumSearchRadius),
                             Codec.INT.fieldOf("maximum_search_radius").forGetter(function -> function.maximumSearchRadius),
                             Codec.INT.fieldOf("max_attempt").forGetter(function -> function.maxAttempt),
-                            Codec.FLOAT.fieldOf("high_tier_chance").forGetter(function -> function.highTierChance)))
+                            Codec.FLOAT.optionalFieldOf("high_tier_chance", 0f).forGetter(function -> function.highTierChance),
+                            Codec.intRange(1, 2).optionalFieldOf("tier").forGetter(function -> function.tier)))
             .apply(instance, TreasuredFishMapFunction::new));
     private final byte zoom;
     private final int minimumSearchRadius;
     private final int maximumSearchRadius;
     private final int maxAttempt;
     private final float highTierChance;
+    private final Optional<Integer> tier;
 
-    TreasuredFishMapFunction(List<LootItemCondition> conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, int maxAttempt, float highTierChance)
+    TreasuredFishMapFunction(List<LootItemCondition> conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, int maxAttempt, float highTierChance, Optional<Integer> tier)
     {
         super(conditions);
         this.zoom = zoom;
@@ -54,12 +55,13 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         this.maximumSearchRadius = maximumSearchRadius;
         this.maxAttempt = maxAttempt;
         this.highTierChance = highTierChance;
+        this.tier = tier;
     }
 
     @Override
-    public LootItemFunctionType<TreasuredFishMapFunction> getType()
+    public MapCodec<? extends LootItemConditionalFunction> codec()
     {
-        return FOTLootItemFunctions.TREASURED_FISH_MAP;
+        return CODEC;
     }
 
     @Override
@@ -87,7 +89,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             {
                 var blockPos = farthest.get();
                 FishOfThieves.LOGGER.debug("Found farthest shoal at: {}", blockPos);
-                return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance);
+                return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance, this.tier);
             }
             else
             {
@@ -96,7 +98,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                 if (attemptPos != null)
                 {
                     FishOfThieves.LOGGER.debug("Shoal spawn from map at: {}", attemptPos);
-                    return createTreasuredFishMap(serverLevel, attemptPos, context, this.zoom, this.highTierChance);
+                    return createTreasuredFishMap(serverLevel, attemptPos, context, this.zoom, this.highTierChance, this.tier);
                 }
                 else
                 {
@@ -106,7 +108,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
                     {
                         var blockPos = nearest.get();
                         FishOfThieves.LOGGER.debug("Found nearest shoal at: {}", blockPos);
-                        return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance);
+                        return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance, this.tier);
                     }
                 }
             }
@@ -114,12 +116,12 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         return stack;
     }
 
-    private static ItemStack createTreasuredFishMap(ServerLevel serverLevel, BlockPos blockPos, LootContext context, byte zoom, float highTierChance)
+    private static ItemStack createTreasuredFishMap(ServerLevel serverLevel, BlockPos blockPos, LootContext context, byte zoom, float highTierChance, Optional<Integer> tier)
     {
         var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), zoom, true, true);
         MapItem.renderBiomePreviewMap(serverLevel, itemStack);
         MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
-        Shoal.setTreasuredShoal(serverLevel, blockPos, context.getRandom().nextFloat() < highTierChance ? 1 : 2);
+        Shoal.setTreasuredShoal(serverLevel, blockPos, tier.orElseGet(() -> context.getRandom().nextFloat() < highTierChance ? 1 : 2));
         return itemStack;
     }
 
@@ -135,6 +137,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         private int maximumSearchRadius;
         private int maxAttempt;
         private float highTierChance;
+        private Optional<Integer> tier = Optional.empty();
 
         @Override
         protected TreasuredFishMapFunction.Builder getThis()
@@ -172,10 +175,16 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             return this;
         }
 
+        public TreasuredFishMapFunction.Builder setTier(int tier)
+        {
+            this.tier = Optional.of(tier);
+            return this;
+        }
+
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.maxAttempt, this.highTierChance);
+            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.maxAttempt, this.highTierChance, this.tier);
         }
     }
 }

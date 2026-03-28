@@ -6,14 +6,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
-import com.stevekung.fishofthieves.registry.FOTLootItemConditions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPos offset) implements LootItemCondition
 {
@@ -21,9 +19,9 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
     public static final MapCodec<FOTLocationCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(FOTLocationPredicate.CODEC.optionalFieldOf("predicate").forGetter(FOTLocationCheck::predicate), OFFSET_CODEC.forGetter(FOTLocationCheck::offset)).apply(instance, FOTLocationCheck::new));
 
     @Override
-    public LootItemConditionType getType()
+    public MapCodec<? extends LootItemCondition> codec()
     {
-        return FOTLootItemConditions.LOCATION_CHECK;
+        return CODEC;
     }
 
     @Override

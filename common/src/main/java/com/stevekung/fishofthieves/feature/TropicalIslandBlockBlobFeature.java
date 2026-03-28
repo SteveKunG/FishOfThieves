@@ -6,38 +6,29 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockBlobConfiguration;
 
-public class TropicalIslandBlockBlobFeature extends Feature<BlockStateConfiguration>
+public class TropicalIslandBlockBlobFeature extends Feature<BlockBlobConfiguration>
 {
-    public TropicalIslandBlockBlobFeature(Codec<BlockStateConfiguration> codec)
+    public TropicalIslandBlockBlobFeature(Codec<BlockBlobConfiguration> codec)
     {
         super(codec);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<BlockStateConfiguration> context)
+    public boolean place(FeaturePlaceContext<BlockBlobConfiguration> context)
     {
         var blockPos = context.origin();
-        var worldGenLevel = context.level();
+        var level = context.level();
         var randomSource = context.random();
+        var config = context.config();
 
-        BlockStateConfiguration blockStateConfiguration;
-
-        for (blockStateConfiguration = context.config(); blockPos.getY() > worldGenLevel.getMinY() + 3; blockPos = blockPos.below())
+        while (blockPos.getY() > level.getMinY() + 3 && !config.canPlaceOn().test(level, blockPos.below()))
         {
-            if (!worldGenLevel.isEmptyBlock(blockPos.below()))
-            {
-                var blockState = worldGenLevel.getBlockState(blockPos.below());
-
-                if (isDirt(blockState) || isStone(blockState))
-                {
-                    break;
-                }
-            }
+            blockPos = blockPos.below();
         }
 
-        if (blockPos.getY() <= worldGenLevel.getMinY() + 3)
+        if (blockPos.getY() <= level.getMinY() + 3)
         {
             return false;
         }
@@ -54,7 +45,7 @@ public class TropicalIslandBlockBlobFeature extends Feature<BlockStateConfigurat
                 {
                     if (blockPos2.distSqr(blockPos) <= (double) (f * f))
                     {
-                        worldGenLevel.setBlock(blockPos2, blockStateConfiguration.state, Block.UPDATE_ALL);
+                        level.setBlock(blockPos2, config.state(), Block.UPDATE_ALL);
                     }
                 }
 

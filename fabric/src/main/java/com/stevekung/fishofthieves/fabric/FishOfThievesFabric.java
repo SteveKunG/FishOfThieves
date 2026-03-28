@@ -23,8 +23,7 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
@@ -34,7 +33,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -77,7 +75,7 @@ public class FishOfThievesFabric implements ModInitializer
         FabricLoader.getInstance().getModContainer(FishOfThieves.MOD_ID)
                 .map(container -> ResourceLoader.registerBuiltinPack(FishOfThieves.id("simple_spawning_condition_pack"),
                         container, Component.translatable("dataPack.simple_spawning_condition_pack.name"), PackActivationType.NORMAL))
-                .filter(success -> !success).ifPresent(success -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
+                .filter(success -> !success).ifPresent(_ -> FishOfThieves.LOGGER.warn("Could not register Simple Spawning Condition pack."));
 
         FOTBlocks.init();
         FOTItems.init();
@@ -123,14 +121,11 @@ public class FishOfThievesFabric implements ModInitializer
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
-        BlockEntityType.SHELF.addSupportedBlock(FOTBlocks.COCONUT_SHELF);
+        BlockEntityType.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 
-        FuelRegistryEvents.BUILD.register((builder, context) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
+        FuelValueEvents.BUILD.register((builder, _) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
 
-        FishOfThieves.getFishermanTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FISHERMAN, level, factories::apply));
-        FishOfThieves.getFarmerTrades().forEach((level, factories) -> TradeOfferHelper.registerVillagerOffers(VillagerProfession.FARMER, level, factories::apply));
-
-        LootTableEvents.MODIFY.register((id, tableBuilder, source, provider) ->
+        LootTableEvents.MODIFY.register((id, tableBuilder, _, provider) ->
         {
             FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
             {
@@ -172,11 +167,11 @@ public class FishOfThievesFabric implements ModInitializer
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_WRECKERS), FOTEntities.WRECKER.getCategory(), FOTEntities.WRECKER, FishOfThieves.CONFIG.spawnRate.fishWeight.wrecker, 4, 8);
         BiomeModifications.addSpawn(BiomeSelectors.tag(FOTTags.Biomes.SPAWNS_STORMFISH), FOTEntities.STORMFISH.getCategory(), FOTEntities.STORMFISH, FishOfThieves.CONFIG.spawnRate.fishWeight.stormfish, 4, 8);
 
-        PayloadTypeRegistry.playS2C().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ReceiveFishingHookBaitPacket.TYPE, ReceiveFishingHookBaitPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncClientShoalFishPacket.TYPE, SyncClientShoalFishPacket.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(RequestServerShoalFishPacket.TYPE, RequestServerShoalFishPacket.CODEC);
 
-        ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> level.getBaitPreserve().spawnBaitOnLoad(level));
+        ServerChunkEvents.CHUNK_LOAD.register((level, _, _) -> level.getBaitPreserve().spawnBaitOnLoad(level));
 
         ServerPlayNetworking.registerGlobalReceiver(RequestServerShoalFishPacket.TYPE, FishOfThievesFabric::requestServerShoalFish);
     }
@@ -198,6 +193,6 @@ public class FishOfThievesFabric implements ModInitializer
 
     private static void addListenerForDynamic(DynamicRegistryView registryView, ResourceKey<? extends Registry<?>> key)
     {
-        registryView.registerEntryAdded(key, (rawId, id, object) -> FishOfThieves.LOGGER.debug("Loaded entry of {}: {} = {}", key, id, object));
+        registryView.registerEntryAdded(key, (_, id, object) -> FishOfThieves.LOGGER.debug("Loaded entry of {}: {} = {}", key, id, object));
     }
 }

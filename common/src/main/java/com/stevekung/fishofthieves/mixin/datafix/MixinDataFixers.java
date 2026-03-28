@@ -20,6 +20,7 @@ import com.stevekung.fishofthieves.datafixers.V3940;
 
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.util.datafix.fixes.*;
+import net.minecraft.util.filefix.FileFixerUpper;
 
 @Mixin(DataFixers.class)
 public class MixinDataFixers
@@ -41,7 +42,7 @@ public class MixinDataFixers
     private static final int MC_24W18A = 3940;
 
     @Inject(method = "addFixers", at = @At("TAIL"))
-    private static void fishofthieves$addFixers(DataFixerBuilder builder, CallbackInfo info)
+    private static void fishofthieves$addFixers(DataFixerBuilder builder, FileFixerUpper.Builder fileFixerUpper, CallbackInfo info)
     {
         var schema = builder.addSchema(MC_22W46A, SAME_NAMESPACED);
 
@@ -122,21 +123,21 @@ public class MixinDataFixers
     }
 
     @Inject(method = "addFixers", at = @At(value = "CONSTANT", args = "intValue=3943"))
-    private static void fishofthieves$registerThievesFish(DataFixerBuilder builder, CallbackInfo info)
+    private static void fishofthieves$registerThievesFish(DataFixerBuilder builder, FileFixerUpper.Builder fileFixerUpper, CallbackInfo info)
     {
         var schema = builder.addSchema(MC_24W18A, V3940::new);
         builder.addFixer(new AddNewChoices(schema, "Added Thieves Fish", References.ENTITY));
     }
 
     @Inject(method = "addFixers", at = @At(value = "CONSTANT", args = "stringValue=Updated sign text format for Signs"))
-    private static void fishofthieves$registerCoconutSigns(DataFixerBuilder builder, CallbackInfo info, @Local(ordinal = 182, index = 188) Schema schema183)
+    private static void fishofthieves$registerCoconutSigns(DataFixerBuilder builder, FileFixerUpper.Builder fileFixerUpper, CallbackInfo info, @Local(ordinal = 182, index = 188) Schema schema183)
     {
         builder.addFixer(new BlockEntitySignDoubleSidedEditableTextFix(schema183, "Updated sign text format for Signs", "fishofthieves:sign"));
         builder.addFixer(new BlockEntitySignDoubleSidedEditableTextFix(schema183, "Updated sign text format for Hanging Signs", "fishofthieves:hanging_sign"));
     }
 
     @Inject(method = "addFixers", at = @At(value = "NEW", target = "net/minecraft/util/datafix/fixes/DropInvalidSignDataFix", ordinal = 0))
-    private static void fishofthieves$registerDropInvalidSignData(DataFixerBuilder builder, CallbackInfo info, @Local(ordinal = 188, index = 195) Schema schema189)
+    private static void fishofthieves$registerDropInvalidSignData(DataFixerBuilder builder, FileFixerUpper.Builder fileFixerUpper, CallbackInfo info, @Local(ordinal = 188, index = 195) Schema schema189)
     {
         builder.addFixer(new DropInvalidSignDataFix(schema189, "fishofthieves:sign"));
         builder.addFixer(new DropInvalidSignDataFix(schema189, "fishofthieves:hanging_sign"));
