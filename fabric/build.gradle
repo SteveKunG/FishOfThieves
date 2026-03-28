@@ -96,18 +96,30 @@ processResources {
 
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "*.snbt", "architectury.common.json"]
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = "dev"
+jar {
+    archiveClassifier = "raw"
     archiveVersion = "v${mod_version}"
     archiveBaseName = project(":common").ext.fileName
     excludes = devExcludes
+}
+
+shadowJar {
+    dependsOn jar
+    mainSpec.sourcePaths.clear()       // Remove default source set inclusion
+    from zipTree(jar.archiveFile)     // Unpack jar output (preserves Loom modifications)
+
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = "fabric" + (release_type != "release" ? "-${release_type}" : "")
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project(":common").ext.fileName
 }
 
 sourcesJar {
     Jar commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project(":common").ext.fileName
     excludes = devExcludes
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
@@ -123,20 +135,6 @@ tasks.register("apiJar", Jar) {
 }
 
 assemble.dependsOn(apiJar)
-
-remapSourcesJar {
-    archiveVersion = "v${mod_version}"
-    archiveBaseName = project(":common").ext.fileName
-}
-
-remapJar {
-    injectAccessWidener = true
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier = "fabric" + (release_type != "release" ? "-${release_type}" : "")
-    archiveVersion = "v${mod_version}"
-    archiveBaseName = project(":common").ext.fileName
-}
 
 processGametestResources {
     File sourceDir = project(":fabric").file("src/gametest/resources/data/minecraft/gametest/structure")

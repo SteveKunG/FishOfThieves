@@ -22,14 +22,19 @@ jar {
     archiveBaseName = project.ext.fileName
 }
 
+sourcesJar {
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project.ext.fileName
+}
+
 processResources {
     doFirst {
         processCutoutModels()
     }
 }
 
-tasks.shadowJar {
-    zip64 = true
+tasks.named("shadowJar") {
+    enabled = false
 }
 
 void processCutoutModels() {

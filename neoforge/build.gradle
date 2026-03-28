@@ -55,12 +55,22 @@ processResources {
 
 List<String> commonExcludes = [".cache", "**/datagen/", "**/resourcepacks/", "*.snbt", "data/fabric/**", "architectury.common.json"]
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = "dev"
+jar {
+    archiveClassifier = "raw"
     archiveVersion = "v${mod_version}"
     archiveBaseName = project(":common").ext.fileName
     excludes = commonExcludes
+}
+
+shadowJar {
+    dependsOn jar
+    mainSpec.sourcePaths.clear()       // Remove default source set inclusion
+    from zipTree(jar.archiveFile)     // Unpack jar output (preserves Loom modifications)
+
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = "neoforge" + (release_type != "release" ? "-${release_type}" : "")
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project(":common").ext.fileName
 }
 
 sourcesJar {
@@ -69,6 +79,8 @@ sourcesJar {
     commonSources.exclude ".cache"
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from commonSources.archiveFile.map { zipTree(it) }
+    archiveVersion = "v${mod_version}"
+    archiveBaseName = project(":common").ext.fileName
     excludes = commonExcludes
 }
 
@@ -83,16 +95,3 @@ tasks.register("apiJar", Jar) {
 }
 
 assemble.dependsOn(apiJar)
-
-remapSourcesJar {
-    archiveVersion = "v${mod_version}"
-    archiveBaseName = project(":common").ext.fileName
-}
-
-remapJar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier = "neoforge" + (project.release_type != "release" ? "-" + project.release_type : "")
-    archiveVersion = "v${mod_version}"
-    archiveBaseName = project(":common").ext.fileName
-}
