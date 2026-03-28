@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.mixin.trading;
 
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -12,21 +13,26 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.trade.RestockableData;
-import com.stevekung.fishofthieves.item.trade.RestockableMerchantOffer;
 import com.stevekung.fishofthieves.item.trade.RestockableVillager;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
+import com.stevekung.fishofthieves.registry.FOTTags;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.npc.villager.AbstractVillager;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.world.item.trading.TradeSet;
+import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
@@ -63,19 +69,31 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
         }
     }
 
-    @Inject(method = "addOffersFromItemListings", at = @At("TAIL"))
-    private void fishofthieves$addRestockableData(ServerLevel level, MerchantOffers offers, VillagerTrades.ItemListing[] listings, int slots, CallbackInfo info)
+    @Inject(method = "addOffersFromTradeSet", at = @At("TAIL"))
+    private void fishofthieves$addRestockableData(ServerLevel level, MerchantOffers merchantOffers, ResourceKey<TradeSet> resourceKey, CallbackInfo info)
     {
-        for (var index = 0; index < offers.size(); index++)
+        for (var index = 0; index < merchantOffers.size(); index++)
         {
-            var offer = offers.get(index);
+            var offer = merchantOffers.get(index);
 
-            if (offer instanceof RestockableMerchantOffer restockableOffer)
+            if (offer instanceof TreasuredFishMapRestock restock && restock.fishofthieves$isTreasuredFishMap())
             {
-                this.restockableDataSet.add(new RestockableData(index, restockableOffer.getTier()));
-                FishOfThieves.LOGGER.debug("Restockable data added with index: {}", index);
+                this.restockableDataSet.add(new RestockableData(index, restock.fishofthieves$getResourceKey()));
+                FishOfThieves.LOGGER.debug("Restockable data added with index: {}, resourceKey: {}", index, restock.fishofthieves$getResourceKey());
             }
         }
+    }
+
+    @WrapOperation(method = "addOffersFromItemListings", at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffers.add(Ljava/lang/Object;)Z"))
+    private static boolean fishofthieves$setIsTreasuredFishMapFromOffer(MerchantOffers merchantOffers, Object object, Operation<Boolean> operation, @Local Optional<Holder<VillagerTrade>> villagerTrade)
+    {
+        return operation.call(merchantOffers, temporarySetTreasuredFishMapData(object, villagerTrade.get()));
+    }
+
+    @WrapOperation(method = "addOffersFromItemListingsWithoutDuplicates", at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffers.add(Ljava/lang/Object;)Z"))
+    private static boolean fishofthieves$setIsTreasuredFishMapFromDuplicateOffer(MerchantOffers merchantOffers, Object object, Operation<Boolean> operation, @Local Holder<VillagerTrade> villagerTrade)
+    {
+        return operation.call(merchantOffers, temporarySetTreasuredFishMapData(object, villagerTrade));
     }
 
     @Override
@@ -114,5 +132,19 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
                 }
             }
         }
+    }
+
+    @Unique
+    private static Object temporarySetTreasuredFishMapData(Object object, Holder<VillagerTrade> villagerTrade)
+    {
+        if (object instanceof TreasuredFishMapRestock restock && villagerTrade.is(FOTTags.VillagerTrades.TREASURED_FISH_MAP))
+        {
+            var resourceKey = villagerTrade.unwrapKey().orElseThrow();
+            restock.fishofthieves$setIsTreasuredFishMap();
+            restock.fishofthieves$setResourceKey(resourceKey);
+            FishOfThieves.LOGGER.debug("Getting treasured fish map offer from: {}", resourceKey);
+            return restock;
+        }
+        return object;
     }
 }

@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.fabric.datagen.provider;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.registry.FOTVillagerTrades;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -98,6 +99,11 @@ public class VillagerTradesTagsProvider extends KeyTagProvider<VillagerTrade>
 
         this.tag(VillagerTradeTags.FARMER_LEVEL_4).add(
                 FOTVillagerTrades.FARMER_4_EMERALD_PINEAPPLE
+        );
+
+        this.tag(FOTTags.VillagerTrades.TREASURED_FISH_MAP).add(
+                FOTVillagerTrades.FISHERMAN_3_EMERALD_AND_TREASURED_FISH_MAP,
+                FOTVillagerTrades.FISHERMAN_4_EMERALD_AND_TREASURED_FISH_MAP
         );
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -131,5 +132,10 @@ public interface FOTTags
     interface PoiTypes
     {
         TagKey<PoiType> SHOAL = TagKey.create(Registries.POINT_OF_INTEREST_TYPE, FishOfThieves.id("shoal"));
+    }
+
+    interface VillagerTrades
+    {
+        TagKey<VillagerTrade> TREASURED_FISH_MAP = TagKey.create(Registries.VILLAGER_TRADE, FishOfThieves.id("treasured_fish_map"));
     }
 }
