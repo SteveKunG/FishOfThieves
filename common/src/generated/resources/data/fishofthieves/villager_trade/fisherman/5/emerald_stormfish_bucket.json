@@ -1,0 +1,17 @@
+{
+  "gives": {
+    "components": {
+      "minecraft:bucket_entity_data": {
+        "creative": 1
+      }
+    },
+    "id": "fishofthieves:stormfish_bucket"
+  },
+  "max_uses": 8.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 6.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 2.0
+}

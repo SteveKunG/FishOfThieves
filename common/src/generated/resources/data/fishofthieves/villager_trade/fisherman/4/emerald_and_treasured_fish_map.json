@@ -1,0 +1,41 @@
+{
+  "given_item_modifiers": [
+    {
+      "function": "fishofthieves:treasured_fish_map",
+      "max_attempt": 10,
+      "maximum_search_radius": 100,
+      "mininum_search_radius": 50,
+      "tier": 2,
+      "zoom": 1
+    },
+    {
+      "function": "minecraft:set_name",
+      "name": {
+        "translate": "filled_map.fishofthieves_treasured_fish"
+      },
+      "target": "item_name"
+    },
+    {
+      "function": "minecraft:filtered",
+      "item_filter": {
+        "items": "minecraft:filled_map",
+        "predicates": {
+          "minecraft:map_id": {}
+        }
+      },
+      "on_fail": {
+        "function": "minecraft:discard"
+      }
+    }
+  ],
+  "gives": {
+    "id": "minecraft:map"
+  },
+  "max_uses": 1.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "count": 16.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 24.0
+}

@@ -60,5 +60,44 @@ public class VillagerTradesTagsProvider extends KeyTagProvider<VillagerTrade>
 
                 FOTVillagerTrades.FISHERMAN_3_EMERALD_AND_TREASURED_FISH_MAP
         );
+
+        this.tag(VillagerTradeTags.FISHERMAN_LEVEL_4).add(
+                FOTVillagerTrades.FISHERMAN_4_BATTLEGILL_EMERALD,
+                FOTVillagerTrades.FISHERMAN_4_WRECKER_EMERALD,
+                FOTVillagerTrades.FISHERMAN_4_STORMFISH_EMERALD,
+
+                FOTVillagerTrades.FISHERMAN_4_EMERALD_AND_TREASURED_FISH_MAP
+        );
+
+        this.tag(VillagerTradeTags.FISHERMAN_LEVEL_5).add(
+                FOTVillagerTrades.FISHERMAN_5_RAW_BATTLEGILL_AND_EMERALD_COOKED_BATTLEGILL,
+                FOTVillagerTrades.FISHERMAN_5_RAW_WRECKER_AND_EMERALD_COOKED_WRECKER,
+                FOTVillagerTrades.FISHERMAN_5_RAW_STORMFISH_AND_EMERALD_COOKED_STORMFISH,
+
+                FOTVillagerTrades.FISHERMAN_5_EMERALD_BATTLEGILL_BUCKET,
+                FOTVillagerTrades.FISHERMAN_5_EMERALD_WRECKER_BUCKET,
+                FOTVillagerTrades.FISHERMAN_5_EMERALD_STORMFISH_BUCKET
+        );
+
+        this.tag(VillagerTradeTags.FARMER_LEVEL_1).add(
+                FOTVillagerTrades.FARMER_1_BANANA_EMERALD,
+                FOTVillagerTrades.FARMER_1_COCONUT_EMERALD,
+                FOTVillagerTrades.FARMER_1_POMEGRANATE_EMERALD,
+                FOTVillagerTrades.FARMER_1_RAW_MANGO_EMERALD
+        );
+
+        this.tag(VillagerTradeTags.FARMER_LEVEL_2).add(
+                FOTVillagerTrades.FARMER_2_MANGO_EMERALD
+        );
+
+        this.tag(VillagerTradeTags.FARMER_LEVEL_3).add(
+                FOTVillagerTrades.FARMER_3_PINEAPPLE_EMERALD,
+
+                FOTVillagerTrades.FARMER_3_EMERALD_MANGO
+        );
+
+        this.tag(VillagerTradeTags.FARMER_LEVEL_4).add(
+                FOTVillagerTrades.FARMER_4_EMERALD_PINEAPPLE
+        );
     }
 }

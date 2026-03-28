@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "id": "fishofthieves:pineapple"
+  },
+  "max_uses": 5.0,
+  "reputation_discount": 0.05,
+  "wants": {
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

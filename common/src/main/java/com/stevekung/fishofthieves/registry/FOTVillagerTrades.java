@@ -59,6 +59,33 @@ public class FOTVillagerTrades
 
     public static final ResourceKey<VillagerTrade> FISHERMAN_3_EMERALD_AND_TREASURED_FISH_MAP = resourceKey("fisherman/3/emerald_and_treasured_fish_map");
 
+    public static final ResourceKey<VillagerTrade> FISHERMAN_4_BATTLEGILL_EMERALD = resourceKey("fisherman/4/battlegill_emerald");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_4_WRECKER_EMERALD = resourceKey("fisherman/4/wrecker_emerald");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_4_STORMFISH_EMERALD = resourceKey("fisherman/4/stormfish_emerald");
+
+    public static final ResourceKey<VillagerTrade> FISHERMAN_4_EMERALD_AND_TREASURED_FISH_MAP = resourceKey("fisherman/4/emerald_and_treasured_fish_map");
+
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_RAW_BATTLEGILL_AND_EMERALD_COOKED_BATTLEGILL = resourceKey("fisherman/5/raw_battlegill_and_emerald_cooked_battlegill");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_RAW_WRECKER_AND_EMERALD_COOKED_WRECKER = resourceKey("fisherman/5/raw_wrecker_and_emerald_cooked_wrecker");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_RAW_STORMFISH_AND_EMERALD_COOKED_STORMFISH = resourceKey("fisherman/5/raw_stormfish_and_emerald_cooked_stormfish");
+
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_EMERALD_BATTLEGILL_BUCKET = resourceKey("fisherman/5/emerald_battlegill_bucket");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_EMERALD_WRECKER_BUCKET = resourceKey("fisherman/5/emerald_wrecker_bucket");
+    public static final ResourceKey<VillagerTrade> FISHERMAN_5_EMERALD_STORMFISH_BUCKET = resourceKey("fisherman/5/emerald_stormfish_bucket");
+
+    public static final ResourceKey<VillagerTrade> FARMER_1_BANANA_EMERALD = resourceKey("farmer/1/banana_emerald");
+    public static final ResourceKey<VillagerTrade> FARMER_1_COCONUT_EMERALD = resourceKey("farmer/1/coconut_emerald");
+    public static final ResourceKey<VillagerTrade> FARMER_1_POMEGRANATE_EMERALD = resourceKey("farmer/1/pomegranate_emerald");
+    public static final ResourceKey<VillagerTrade> FARMER_1_RAW_MANGO_EMERALD = resourceKey("farmer/1/raw_mango_emerald");
+
+    public static final ResourceKey<VillagerTrade> FARMER_2_MANGO_EMERALD = resourceKey("farmer/2/mango_emerald");
+
+    public static final ResourceKey<VillagerTrade> FARMER_3_PINEAPPLE_EMERALD = resourceKey("farmer/3/pineapple_emerald");
+
+    public static final ResourceKey<VillagerTrade> FARMER_3_EMERALD_MANGO = resourceKey("farmer/3/emerald_mango");
+
+    public static final ResourceKey<VillagerTrade> FARMER_4_EMERALD_PINEAPPLE = resourceKey("farmer/4/emerald_pineapple");
+
     public static void bootstrap(BootstrapContext<VillagerTrade> context)
     {
         var itemLookup = context.lookup(Registries.ITEM);
@@ -107,6 +134,43 @@ public class FOTVillagerTrades
                                 .withComponents(DataComponentMatchers.Builder.components().any(DataComponents.MAP_ID).build()).build())
                         .onFail(Optional.of(DiscardItem.discardItem().build())).build())));
 
+        VillagerTrades.register(context, FISHERMAN_4_BATTLEGILL_EMERALD, new VillagerTrade(new TradeCost(FOTItems.DEVILFISH, 6), new ItemStackTemplate(Items.EMERALD), 10, 20, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_4_WRECKER_EMERALD, new VillagerTrade(new TradeCost(FOTItems.DEVILFISH, 5), new ItemStackTemplate(Items.EMERALD), 12, 25, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_4_STORMFISH_EMERALD, new VillagerTrade(new TradeCost(FOTItems.DEVILFISH, 5), new ItemStackTemplate(Items.EMERALD), 12, 25, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FISHERMAN_4_EMERALD_AND_TREASURED_FISH_MAP, new VillagerTrade(new TradeCost(Items.EMERALD, 16), new ItemStackTemplate(Items.MAP), 1, 24, 0.2F, Optional.empty(), List.of(
+                TreasuredFishMapFunction.makeTreasuredFishMap()
+                        .setZoom((byte) 1)
+                        .setMinimumSearchRadius(50)
+                        .setMaximumSearchRadius(100)
+                        .setMaxAttempt(10)
+                        .setTier(2)
+                        .build(),
+                SetNameFunction.setName(Component.translatable(Shoal.FILLED_MAP_TREASURED_FISH), SetNameFunction.Target.ITEM_NAME).build(),
+                FilteredFunction.filtered(new ItemPredicate.Builder().of(itemLookup, Items.FILLED_MAP)
+                                .withComponents(DataComponentMatchers.Builder.components().any(DataComponents.MAP_ID).build()).build())
+                        .onFail(Optional.of(DiscardItem.discardItem().build())).build())));
+
+        VillagerTrades.register(context, FISHERMAN_5_RAW_BATTLEGILL_AND_EMERALD_COOKED_BATTLEGILL, new VillagerTrade(new TradeCost(FOTItems.BATTLEGILL, 4), Optional.of(new TradeCost(Items.EMERALD, 3)), new ItemStackTemplate(FOTItems.COOKED_BATTLEGILL, 4), 6, 4, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_5_RAW_WRECKER_AND_EMERALD_COOKED_WRECKER, new VillagerTrade(new TradeCost(FOTItems.WRECKER, 5), Optional.of(new TradeCost(Items.EMERALD, 5)), new ItemStackTemplate(FOTItems.COOKED_WRECKER, 5), 8, 5, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_5_RAW_STORMFISH_AND_EMERALD_COOKED_STORMFISH, new VillagerTrade(new TradeCost(FOTItems.STORMFISH, 5), Optional.of(new TradeCost(Items.EMERALD, 5)), new ItemStackTemplate(FOTItems.COOKED_STORMFISH, 5), 8, 8, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FISHERMAN_5_EMERALD_BATTLEGILL_BUCKET, new VillagerTrade(new TradeCost(Items.EMERALD, 6), FOTMobBucketItem.createRandomBucket(FOTItems.BATTLEGILL_BUCKET), 8, 2, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_5_EMERALD_WRECKER_BUCKET, new VillagerTrade(new TradeCost(Items.EMERALD, 6), FOTMobBucketItem.createRandomBucket(FOTItems.WRECKER_BUCKET), 8, 2, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FISHERMAN_5_EMERALD_STORMFISH_BUCKET, new VillagerTrade(new TradeCost(Items.EMERALD, 6), FOTMobBucketItem.createRandomBucket(FOTItems.STORMFISH_BUCKET), 8, 2, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FARMER_1_BANANA_EMERALD, new VillagerTrade(new TradeCost(FOTItems.BANANA, 10), new ItemStackTemplate(Items.EMERALD), 16, 2, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FARMER_1_COCONUT_EMERALD, new VillagerTrade(new TradeCost(FOTItems.COCONUT, 6), new ItemStackTemplate(Items.EMERALD), 12, 2, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FARMER_1_POMEGRANATE_EMERALD, new VillagerTrade(new TradeCost(FOTItems.POMEGRANATE, 8), new ItemStackTemplate(Items.EMERALD), 12, 4, 0.05F, Optional.empty(), List.of()));
+        VillagerTrades.register(context, FARMER_1_RAW_MANGO_EMERALD, new VillagerTrade(new TradeCost(FOTItems.RAW_MANGO, 6), new ItemStackTemplate(Items.EMERALD), 12, 3, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FARMER_2_MANGO_EMERALD, new VillagerTrade(new TradeCost(FOTItems.MANGO, 8), new ItemStackTemplate(Items.EMERALD), 10, 6, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FARMER_3_PINEAPPLE_EMERALD, new VillagerTrade(new TradeCost(FOTItems.PINEAPPLE, 2), new ItemStackTemplate(Items.EMERALD), 6, 5, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FARMER_3_EMERALD_MANGO, new VillagerTrade(new TradeCost(Items.EMERALD, 1), new ItemStackTemplate(FOTItems.MANGO, 3), 10, 8, 0.05F, Optional.empty(), List.of()));
+
+        VillagerTrades.register(context, FARMER_4_EMERALD_PINEAPPLE, new VillagerTrade(new TradeCost(Items.EMERALD, 1), new ItemStackTemplate(FOTItems.PINEAPPLE), 5, 10, 0.05F, Optional.empty(), List.of()));
     }
 
     private static ResourceKey<VillagerTrade> resourceKey(String path)

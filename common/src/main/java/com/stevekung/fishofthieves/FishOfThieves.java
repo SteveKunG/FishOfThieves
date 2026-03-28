@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 
@@ -13,9 +11,6 @@ import com.mojang.logging.LogUtils;
 import com.stevekung.fishofthieves.config.FishOfThievesConfig;
 import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
-import com.stevekung.fishofthieves.entity.shoal.Shoal;
-import com.stevekung.fishofthieves.item.FOTMobBucketItem;
-import com.stevekung.fishofthieves.item.trade.TreasuredFishMapForEmeralds;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTItems;
@@ -29,11 +24,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
-import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
@@ -163,111 +156,6 @@ public class FishOfThieves
         FOTPlatform.addComposting(FOTBlocks.TROPICAL_RED_FERN, 0.4F);
         FOTPlatform.addComposting(FOTBlocks.TROPICAL_MONSTERA, 0.3F);
         FOTPlatform.addComposting(FOTItems.GUARDIAN_FRUIT, 0.3F);
-    }
-
-    private static List<VillagerTrades.ItemListing> getFishermanTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
-    {
-        switch (level)
-        {
-            case 1 ->
-            {
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.SPLASHTAIL, 6, 1, FOTItems.COOKED_SPLASHTAIL, 6, 8, 1, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PONDIE, 6, 1, FOTItems.COOKED_PONDIE, 6, 8, 1, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ISLEHOPPER, 2, 2, FOTItems.COOKED_ISLEHOPPER, 2, 8, 2, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.ANCIENTSCALE, 3, 1, FOTItems.COOKED_ANCIENTSCALE, 3, 5, 3, 0.05F));
-
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.EARTHWORMS, 48, 8, 10));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.GRUBS, 32, 8, 12));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.LEECHES, 24, 8, 14));
-
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.SPLASHTAIL_BUCKET), 3, 1, 16, 1));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.PONDIE_BUCKET), 3, 1, 16, 1));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.ISLEHOPPER_BUCKET), 3, 1, 16, 1));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.ANCIENTSCALE_BUCKET), 3, 1, 16, 1));
-            }
-            case 2 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.SPLASHTAIL, 12, 8, 12));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.PONDIE, 12, 8, 12));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.ISLEHOPPER, 8, 8, 15));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.ANCIENTSCALE, 8, 9, 15));
-
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.PLENTIFIN, 3, 2, FOTItems.COOKED_PLENTIFIN, 3, 5, 3, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WILDSPLASH, 4, 2, FOTItems.COOKED_WILDSPLASH, 4, 6, 3, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.DEVILFISH, 4, 3, FOTItems.COOKED_DEVILFISH, 4, 6, 4, 0.05F));
-
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.PLENTIFIN_BUCKET), 3, 1, 16, 1));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.WILDSPLASH_BUCKET), 3, 1, 16, 1));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.DEVILFISH_BUCKET), 3, 1, 16, 1));
-            }
-            case 3 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.PLENTIFIN, 8, 9, 17));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.WILDSPLASH, 8, 9, 17));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.DEVILFISH, 6, 10, 20));
-                list.add(new TreasuredFishMapForEmeralds(12, 20, Shoal.FILLED_MAP_TREASURED_FISH, 1, 20, 1));
-            }
-            case 4 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.BATTLEGILL, 6, 10, 20));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.WRECKER, 5, 12, 25));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.STORMFISH, 5, 12, 25));
-                list.add(new TreasuredFishMapForEmeralds(16, 24, Shoal.FILLED_MAP_TREASURED_FISH, 1, 24, 2));
-            }
-            case 5 ->
-            {
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.BATTLEGILL, 4, 3, FOTItems.COOKED_BATTLEGILL, 4, 6, 4, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.WRECKER, 5, 5, FOTItems.COOKED_WRECKER, 5, 8, 5, 0.05F));
-                list.add(new VillagerTrades.ItemsAndEmeraldsToItems(FOTItems.STORMFISH, 5, 5, FOTItems.COOKED_STORMFISH, 5, 8, 8, 0.05F));
-
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.BATTLEGILL_BUCKET), 6, 1, 8, 2));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.WRECKER_BUCKET), 6, 1, 8, 2));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTMobBucketItem.createRandomBucket(FOTItems.STORMFISH_BUCKET), 6, 1, 8, 2));
-            }
-        }
-        return list;
-    }
-
-    private static List<VillagerTrades.ItemListing> getFarmerTradesByLevel(int level, List<VillagerTrades.ItemListing> list)
-    {
-        switch (level)
-        {
-            case 1 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.BANANA, 10, 16, 2));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.COCONUT, 6, 12, 2));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.POMEGRANATE, 8, 12, 4));
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.RAW_MANGO, 6, 12, 3));
-            }
-            case 2 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.MANGO, 8, 10, 6));
-            }
-            case 3 ->
-            {
-                list.add(new VillagerTrades.EmeraldForItems(FOTItems.PINEAPPLE, 2, 6, 5));
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTItems.MANGO, 1, 3, 10, 8));
-            }
-            case 4 ->
-            {
-                list.add(new VillagerTrades.ItemsForEmeralds(FOTItems.PINEAPPLE, 1, 1, 5, 10));
-            }
-        }
-        return list;
-    }
-
-    public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFishermanTrades()
-    {
-        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.rangeClosed(1, 5)
-                .boxed()
-                .forEach(level -> map.put((int)level, list -> getFishermanTradesByLevel(level, list))));
-    }
-
-    public static Int2ObjectOpenHashMap<Function<List<VillagerTrades.ItemListing>, List<VillagerTrades.ItemListing>>> getFarmerTrades()
-    {
-        return Util.make(new Int2ObjectOpenHashMap<>(), map -> IntStream.rangeClosed(1, 4)
-                .boxed()
-                .forEach(level -> map.put((int)level, list -> getFarmerTradesByLevel(level, list))));
     }
 
     public static Map<EntityType<? extends LivingEntity>, AttributeSupplier.Builder> getEntityAttributes()
