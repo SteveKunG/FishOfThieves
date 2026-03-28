@@ -24,7 +24,7 @@ public class SplashtailModel<S extends ThievesFishRenderState> extends EntityMod
 
     public SplashtailModel(ModelPart part)
     {
-        super(part, RenderTypes::entityCutout);
+        super(part, RenderTypes::entityCutoutCull);
         this.main = part.getChild("main");
         this.body_back = this.main.getChild("body_back");
     }

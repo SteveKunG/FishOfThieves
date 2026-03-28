@@ -25,7 +25,7 @@ public class IslehopperModel<S extends ThievesFishRenderState> extends EntityMod
 
     public IslehopperModel(ModelPart part)
     {
-        super(part, RenderTypes::entityCutout);
+        super(part, RenderTypes::entityCutoutCull);
         this.main = part.getChild("main");
         this.body_back = this.main.getChild("body_back");
         this.body_back_2 = this.body_back.getChild("body_back_2");

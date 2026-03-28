@@ -26,7 +26,7 @@ public class WreckerModel extends EntityModel<WreckerRenderState> implements Hea
 
     public WreckerModel(ModelPart part)
     {
-        super(part, RenderTypes::entityCutout);
+        super(part, RenderTypes::entityCutoutCull);
         this.main = part.getChild("main");
         var head = this.main.getChild("head");
         this.bulb = head.getChild("bulb");

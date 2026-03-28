@@ -25,7 +25,7 @@ public class PondieModel<S extends ThievesFishRenderState> extends EntityModel<S
 
     public PondieModel(ModelPart part)
     {
-        super(part, RenderTypes::entityCutout);
+        super(part, RenderTypes::entityCutoutCull);
         this.main = part.getChild("main");
         this.mouth = this.main.getChild("head").getChild("mouth_r1");
         this.body_back = this.main.getChild("body_back");

@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,7 +37,7 @@ public class HeadphoneLayer<T extends LivingEntity & PartyFish, S extends Living
         {
             poseStack.pushPose();
             this.scaleable.scale(renderState, poseStack);
-            submitNodeCollector.submitModel(this.model, renderState, poseStack, RenderTypes.entityCutoutCull(TEXTURE), packedLight, OverlayTexture.NO_OVERLAY, 0, null);
+            submitNodeCollector.submitModel(this.model, renderState, poseStack, TEXTURE, packedLight, OverlayTexture.NO_OVERLAY, 0, null);
             poseStack.popPose();
         }
     }

@@ -25,7 +25,7 @@ public class DevilfishModel<S extends ThievesFishRenderState> extends EntityMode
 
     public DevilfishModel(ModelPart part)
     {
-        super(part, RenderTypes::entityCutout);
+        super(part, RenderTypes::entityCutoutCull);
         this.main = part.getChild("main");
         this.mouth = this.main.getChild("head").getChild("mouth");
         this.body_back = this.main.getChild("body_back");
