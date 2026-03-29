@@ -26,8 +26,8 @@
 			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 0]},
 			"faces": {
-				"east": {"uv": [4, 0, 10, 4], "texture": "#stem", "tintindex": 1},
-				"west": {"uv": [10, 0, 4, 4], "texture": "#stem", "tintindex": 1}
+				"east": {"uv": [4, 0, 10, 4], "texture": "#stem", "tintindex": 0},
+				"west": {"uv": [10, 0, 4, 4], "texture": "#stem", "tintindex": 0}
 			}
 		}
 	]

@@ -119,9 +119,9 @@ public class FishOfThievesClient
     {
         return Util.make(new ArrayList<>(), list ->
         {
-            list.add(new BlockColorEntry(BlockTintSources.foliage(), FOTBlocks.MANGO_LEAVES));
-            list.add(new BlockColorEntry(mangoFruit(), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
-            list.add(new BlockColorEntry(BlockTintSources.water(), FOTBlocks.SHOAL));
+            list.add(new BlockColorEntry(List.of(BlockTintSources.foliage()), FOTBlocks.MANGO_LEAVES));
+            list.add(new BlockColorEntry(List.of(mangoFruit()), FOTBlocks.MANGO_FRUIT, FOTBlocks.HANGING_MANGO_FRUIT));
+            list.add(new BlockColorEntry(List.of(BlockTintSources.water()), FOTBlocks.SHOAL));
         });
     }
 
@@ -203,5 +203,5 @@ public class FishOfThievesClient
 
     public record HeadphoneEntry<E extends LivingEntity, S extends LivingEntityRenderState>(EntityType<? extends E> entityType, HeadphoneModel.Scaleable<S> scaleable) {}
 
-    public record BlockColorEntry(BlockTintSource blockColor, Block... blocks) {}
+    public record BlockColorEntry(List<BlockTintSource> blockColors, Block... blocks) {}
 }

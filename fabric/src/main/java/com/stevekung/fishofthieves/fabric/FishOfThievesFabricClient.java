@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.fabric;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.FOTDebugScreenEntries;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
@@ -27,7 +25,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         FishOfThievesClient.init();
         FOTDebugScreenEntries.init();
 
-        FishOfThievesClient.getBlockColors().forEach(entry -> BlockColorRegistry.register(List.of(entry.blockColor()), entry.blocks()));
+        FishOfThievesClient.getBlockColors().forEach(entry -> BlockColorRegistry.register(entry.blockColors(), entry.blocks()));
         ParticleRenderEvents.ALLOW_TERRAIN_PARTICLE_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
         FishOfThievesClient.registerBlockEntityRenderers();

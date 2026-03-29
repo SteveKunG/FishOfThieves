@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.neoforge.proxy;
 
-import java.util.List;
-
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.model.HeadphoneModel;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
@@ -61,7 +59,7 @@ public class ClientProxyNeoForge
 
     private void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event)
     {
-        FishOfThievesClient.getBlockColors().forEach(entry -> event.register(List.of(entry.blockColor()), entry.blocks()));
+        FishOfThievesClient.getBlockColors().forEach(entry -> event.register(entry.blockColors(), entry.blocks()));
     }
 
     private void onFogChange(ViewportEvent.RenderFog event)
