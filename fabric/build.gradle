@@ -59,13 +59,6 @@ loom {
 
 repositories {
     maven {
-        name = "Fabric ASM"
-        url = "https://jitpack.io/"
-        content {
-            includeGroup "com.github.Chocohead"
-        }
-    }
-    maven {
         url = "https://chocolateminecraft.com/maven"
         name = "Xaero's Maven"
     }
