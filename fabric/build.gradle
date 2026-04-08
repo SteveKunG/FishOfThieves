@@ -81,7 +81,6 @@ dependencies {
     }
     //compileOnly("com.github.glitchfiend:SereneSeasons-fabric:${serene_seasons_version}")TODO
     localRuntime "curse.maven:structure-void-toggle-357304:7808523"
-    implementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
 processResources {

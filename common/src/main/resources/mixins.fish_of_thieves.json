@@ -56,7 +56,6 @@
     "item.MixinFishingRodItem",
     "item.MixinJukeboxPlayable",
     "item.MixinPotionBrewing",
-    "level.MixinDataFixTypes",
     "level.MixinFlowingFluid",
     "level.MixinLevelChunk",
     "level.MixinServerLevel",

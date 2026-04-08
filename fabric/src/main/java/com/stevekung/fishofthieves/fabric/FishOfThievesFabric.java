@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.fabric;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
@@ -114,7 +113,7 @@ public class FishOfThievesFabric implements ModInitializer
 
         FishOfThieves.initCompostables();
 
-        FOTGrassColorModifier.TROPICAL_ISLAND = ClassTinkerers.getEnum(BiomeSpecialEffects.GrassColorModifier.class, "FISHOFTHIEVES_TROPICAL_ISLAND");
+        FOTGrassColorModifier.TROPICAL_ISLAND = BiomeSpecialEffects.GrassColorModifier.valueOf("FISHOFTHIEVES_TROPICAL_ISLAND");
 
         FOTCreativeTabs.init();
 

@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.mixin.level;
+package com.stevekung.fishofthieves.neoforge.mixin.datafix;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.Final;

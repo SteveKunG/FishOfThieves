@@ -8,8 +8,10 @@
     "client.debug.MixinDebugRenderer"
   ],
   "mixins": [
+    "datafix.MixinDataFixTypes",
     "item.MixinAxeItem",
-    "world.level.MixinNaturalSpawner"
+    "world.level.MixinNaturalSpawner",
+    "world.level.biome.MixinBiomeSpecialEffects_GrassColorModifier"
   ],
   "injectors": {
     "defaultRequire": 1

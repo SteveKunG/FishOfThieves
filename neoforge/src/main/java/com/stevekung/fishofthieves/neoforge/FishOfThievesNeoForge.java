@@ -130,7 +130,7 @@ public class FishOfThievesNeoForge
         {
             case 0 -> "fishofthieves:tropical_island";
             case 1 ->
-                    (BiomeSpecialEffects.GrassColorModifier.ColorModifier) (x, z, grassColor) -> FOTGrassColorModifier.getGrassColor(x, z);
+                    (BiomeSpecialEffects.GrassColorModifier.ColorModifier) (x, z, baseColor) -> FOTGrassColorModifier.getGrassColor(x, z);
             default -> throw new IllegalArgumentException("Unexpected parameter index: " + idx);
         });
     }

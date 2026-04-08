@@ -1,0 +1,4 @@
+classTweaker v2 official
+
+extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects/GrassColorModifier FISHOFTHIEVES_TROPICAL_ISLAND
+extend-enum net/minecraft/util/datafix/DataFixTypes FISHOFTHIEVES_SAVED_BAIT_PRESERVE
