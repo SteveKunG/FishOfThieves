@@ -33,7 +33,7 @@ public class PineappleBlockItem extends BlockItem
     @Override
     protected boolean canPlace(BlockPlaceContext context, BlockState state)
     {
-        if (context.getLevel().getBlockState(context.getClickedPos().below()).is(BlockTags.DIRT))
+        if (context.getLevel().getBlockState(context.getClickedPos().below()).is(BlockTags.SUBSTRATE_OVERWORLD))
         {
             return false;
         }

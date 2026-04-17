@@ -138,7 +138,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos)
     {
-        return state.is(Blocks.FARMLAND) || state.is(BlockTags.DIRT);
+        return state.is(Blocks.FARMLAND) || state.is(BlockTags.SUBSTRATE_OVERWORLD);
     }
 
     @Override
