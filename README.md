@@ -12,18 +12,12 @@
 
 ---
 
-| Minecraft Version | Status         |
-|-------------------|----------------|
-| 1.18.x            | ❌ EOL          |
-| 1.19.x            | ❌ EOL          |
-| 1.20.1            | ✅ Active       |
-| 1.20.2–1.20.6     | ❌ EOL          |
-| 1.21.1            | ✅ Active       |
-| 1.21.4            | ❌ EOL          |
-| 1.21.5            | ❌ EOL          |
-| 1.21.8            | ❌ EOL          |
-| 1.21.10           | ⚠️ EOL at Apr 2026  |
-| 1.21.11           | ✅ Active       |
+| Minecraft Version | Status       |
+|-------------------|--------------|
+| 1.20.1            | ✅ Active     |
+| 1.21.1            | ✅ Active     |
+| 1.21.11           | ✅ Active     |
+| 26.1.x            | ✅ Active     |
 
 ## **About**
 
