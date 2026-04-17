@@ -1,3 +1,2 @@
-
-# Bug fixes
-* Fixed bait preserve storage save invalid ItemStack data
+# Main
+- Initial release for 26.1.2

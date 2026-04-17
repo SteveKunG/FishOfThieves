@@ -22,7 +22,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
 
       - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v5
+        uses: gradle/actions/wrapper-validation@v6
 
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
@@ -31,7 +31,7 @@ jobs:
         run: ./gradlew build
 
       - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: Artifacts
           path: |
