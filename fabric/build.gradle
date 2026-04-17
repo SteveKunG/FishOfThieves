@@ -65,7 +65,7 @@ repositories {
 }
 
 dependencies {
-    //localRuntime "maven.modrinth:continuity:${continuity_version}"TODO
+    localRuntime "maven.modrinth:continuity:${continuity_version}"
     //localRuntime "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"TODO
     //localRuntime "xaero.lib:xaerolib-fabric-${minecraft_version}:+"TODO
     implementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}") {
