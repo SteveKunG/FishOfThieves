@@ -24,7 +24,9 @@ import com.stevekung.fishofthieves.trigger.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.predicates.*;
+import net.minecraft.advancements.predicates.entity.*;
+import net.minecraft.advancements.triggers.*;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -41,7 +43,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.util.Util;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -139,7 +141,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                                                         new CompoundTag(), compoundTag -> compoundTag
                                                                                 .putString(FOTRegistries.DEVILFISH_VARIANT.identifier().getPath(), DevilfishVariants.LAVA.identifier().toString())))).build())
                                                         .build()
-                                        ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.AXOLOTL).build()))))
+                                        ), Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityTypes.AXOLOTL).build()))))
                 .display(FOTItem.advancementTemplate(FOTItems.DEVILFISH, "devilfish_variant", "fishofthieves:lava"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.title"),
                         Component.translatable("advancements.fishofthieves.feed_axolotl_with_lava_devilfish.description"),
@@ -161,7 +163,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.lightning_straight_to_my_fish.title"),
                         Component.translatable("advancements.fishofthieves.lightning_straight_to_my_fish.description"),
                         null, AdvancementType.TASK, true, true, false)
-                .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lightningStrike(Optional.of(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).subPredicate(LightningBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build()), Optional.of(EntityPredicate.Builder.entity().of(entityLookup, FOTEntities.STORMFISH).build())))
+                .addCriterion("lightning_strike_at_stormfish", LightningStrikeTrigger.TriggerInstance.lightningStrike(Optional.of(EntityPredicate.Builder.entity().distance(DistancePredicate.absolute(MinMaxBounds.Doubles.atMost(16.0))).put(LightningBoltPredicate.CODEC, LightningBoltPredicate.blockSetOnFire(MinMaxBounds.Ints.exactly(0))).build()), Optional.of(EntityPredicate.Builder.entity().of(entityLookup, FOTEntities.STORMFISH).build())))
                 .save(consumer, this.mod("lightning_straight_to_my_fish"));
 
         Advancement.Builder.advancement().parent(advancement)
@@ -169,7 +171,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.spyglass_at_plentifins.title"),
                         Component.translatable("advancements.fishofthieves.spyglass_at_plentifins.description"),
                         null, AdvancementType.TASK, true, true, false)
-                .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().subPredicate(PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(entityLookup, FOTEntities.PLENTIFIN)).build()), ItemPredicate.Builder.item().of(itemLookup, Items.SPYGLASS)))
+                .addCriterion("spyglass_at_plentifins", UsingItemTrigger.TriggerInstance.lookingAt(EntityPredicate.Builder.entity().put(PlayerPredicate.CODEC, PlayerPredicate.Builder.player().setLookingAt(EntityPredicate.Builder.entity().of(entityLookup, FOTEntities.PLENTIFIN)).build()), ItemPredicate.Builder.item().of(itemLookup, Items.SPYGLASS)))
                 .save(consumer, this.mod("spyglass_at_plentifins"));
 
         Advancement.Builder.advancement().parent(advancement).requirements(AdvancementRequirements.Strategy.OR)
@@ -205,7 +207,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                                 .build())
                                         .build()
                         ),
-                        Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityType.SALMON)))))
+                        Optional.of(EntityPredicate.wrap(EntityPredicate.Builder.entity().of(entityLookup, EntityTypes.SALMON)))))
                 .addCriterion(BuiltInRegistries.ITEM.getKey(Items.SALMON_BUCKET).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(LocationPredicate.Builder.location()
                                 .setBlock(BlockPredicate.Builder.block().of(blockLookup, Blocks.WATER)),
                         ItemPredicate.Builder.item().of(itemLookup, Items.SALMON_BUCKET)
@@ -235,7 +237,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .addCriterion("mango_gravity", EntityHurtPlayerTrigger.TriggerInstance.entityHurtPlayer(
                         DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType()
                                 .tag(TagPredicate.is(FOTTags.DamageTypes.IS_MANGO))
-                                .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityLookup, EntityType.FALLING_BLOCK)))
+                                .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityLookup, EntityTypes.FALLING_BLOCK)))
                         ))
                 )
                 .display(FOTItems.MANGO,
@@ -285,7 +287,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         Advancement.Builder.advancement().parent(tropicalIsland)
                 .addCriterion("crush_pomegranate", FallingAnvilCrushItemTrigger.TriggerInstance.crushItem(ItemPredicate.Builder.item()
                         .of(itemLookup, FOTItems.POMEGRANATE).withCount(MinMaxBounds.Ints.atLeast(8))))
-                .display(Items.RED_DYE,
+                .display(Items.DYE.red(),
                         Component.translatable("advancements.fishofthieves.crush_pomegranate.title"),
                         Component.translatable("advancements.fishofthieves.crush_pomegranate.description"),
                         null, AdvancementType.TASK, true, true, false)

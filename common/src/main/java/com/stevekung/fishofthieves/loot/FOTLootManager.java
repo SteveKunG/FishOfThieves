@@ -15,7 +15,11 @@ import com.stevekung.fishofthieves.loot.function.FOTTagEntry;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 import com.stevekung.fishofthieves.registry.*;
 
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.predicates.*;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
+import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
@@ -26,7 +30,7 @@ import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Util;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -72,8 +76,8 @@ public class FOTLootManager
             map.put(BuiltInLootTables.FISHING_JUNK, (builder, provider) -> builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE).setWeight(1)));
 
             // Entity Loot
-            EntityType.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getPolarBearLoot));
-            EntityType.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getDolphinLoot));
+            EntityTypes.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getPolarBearLoot));
+            EntityTypes.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getDolphinLoot));
 
             // Archaeology
             map.put(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
@@ -86,8 +90,8 @@ public class FOTLootManager
         return Util.make(new HashMap<>(), map ->
         {
             // Entity Loot
-            EntityType.GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, false)));
-            EntityType.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, true)));
+            EntityTypes.GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, false)));
+            EntityTypes.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, true)));
 
             // Chests
             map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder));
@@ -169,7 +173,7 @@ public class FOTLootManager
                 if (pair.getFirst() != null)
                 {
                     pair.getSecond().fishofthieves$addWeight(100);
-                    pair.getSecond().when(BaitAttachedCondition.baitMatches(ItemPredicate.Builder.item().of(itemLookup, pair.getFirst()), EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityTypeLookup, EntityType.FISHING_BOBBER))));
+                    pair.getSecond().when(BaitAttachedCondition.baitMatches(ItemPredicate.Builder.item().of(itemLookup, pair.getFirst()), EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityTypeLookup, EntityTypes.FISHING_BOBBER))));
                     builder.add(pair.getSecond());
                 }
             });

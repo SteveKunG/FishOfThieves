@@ -7,10 +7,10 @@
           "minecraft:nausea": {}
         },
         "source_entity": {
-          "type": "fishofthieves:battlegill",
-          "components": {
+          "minecraft:components": {
             "fishofthieves:battlegill/variant": "fishofthieves:rum"
-          }
+          },
+          "minecraft:entity_type": "fishofthieves:battlegill"
         }
       },
       "trigger": "fishofthieves:follow_living_with_effect"

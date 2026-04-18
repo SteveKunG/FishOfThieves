@@ -8,11 +8,11 @@ import com.stevekung.fishofthieves.registry.FOTVillagerTrades;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.KeyTagProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.trading.VillagerTrade;
 
-public class VillagerTradesTagsProvider extends KeyTagProvider<VillagerTrade>
+public class VillagerTradesTagsProvider extends TagsProvider<VillagerTrade>
 {
     public VillagerTradesTagsProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {

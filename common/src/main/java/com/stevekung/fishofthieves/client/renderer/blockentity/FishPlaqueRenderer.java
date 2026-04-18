@@ -103,7 +103,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             }
 
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.getSubmitNodeStorage());
+            this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.submitNodeStorage());
         }
         poseStack.popPose();
     }

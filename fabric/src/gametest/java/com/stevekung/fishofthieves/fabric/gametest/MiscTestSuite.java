@@ -12,7 +12,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.block.Blocks;
 
 public class MiscTestSuite implements FOTGameTest
@@ -26,7 +26,7 @@ public class MiscTestSuite implements FOTGameTest
         var battlegill = helper.spawn(FOTEntities.BATTLEGILL, battlegillPos);
         battlegill.setVariant(helper.getLevel().registryAccess().lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT).getOrThrow(BattlegillVariants.RUM));
 
-        var dolphin = helper.spawnWithNoFreeWill(EntityType.DOLPHIN, dolphinPos);
+        var dolphin = helper.spawnWithNoFreeWill(EntityTypes.DOLPHIN, dolphinPos);
         dolphin.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 10000));
 
         helper.runAtTickTime(100, () -> this.removeTintedGlass(helper));

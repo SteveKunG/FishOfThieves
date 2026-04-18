@@ -1,13 +1,15 @@
 package com.stevekung.fishofthieves.registry;
 
+import java.util.function.BiConsumer;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.DecoratedPotPattern;
-import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 
 public class FOTDecoratedPotPatterns
 {
@@ -29,12 +31,12 @@ public class FOTDecoratedPotPatterns
         register(GREAT_MOUTH_NAME);
     }
 
-    public static void putItemsToPotTexture()
+    public static void putItemsToPotTexture(BiConsumer<ResourceKey<Item>, ResourceKey<DecoratedPotPattern>> itemToPattern)
     {
-        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
-        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.KRAKEN_POTTERY_SHERD, FOTDecoratedPotPatterns.KRAKEN);
-        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.MEGALODON_POTTERY_SHERD, FOTDecoratedPotPatterns.MEGALODON);
-        DecoratedPotPatterns.ITEM_TO_POT_TEXTURE.put(FOTItems.GREAT_MOUTH_POTTERY_SHERD, FOTDecoratedPotPatterns.GREAT_MOUTH);
+        itemToPattern.accept(FOTItemIds.STORMFISH_POTTERY_SHERD, FOTDecoratedPotPatterns.STORMFISH);
+        itemToPattern.accept(FOTItemIds.KRAKEN_POTTERY_SHERD, FOTDecoratedPotPatterns.KRAKEN);
+        itemToPattern.accept(FOTItemIds.MEGALODON_POTTERY_SHERD, FOTDecoratedPotPatterns.MEGALODON);
+        itemToPattern.accept(FOTItemIds.GREAT_MOUTH_POTTERY_SHERD, FOTDecoratedPotPatterns.GREAT_MOUTH);
     }
 
     private static void register(String key)

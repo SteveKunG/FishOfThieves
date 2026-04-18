@@ -19,10 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
@@ -104,7 +101,7 @@ public class AbstractThievesFishAi
     private static ActivityData<AbstractThievesFish<?>> initIdleActivity()
     {
         return ActivityData.create(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
+                Pair.of(0, SetEntityLookTargetSometimes.create(EntityTypes.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(_ -> 1.25F), 1),
@@ -128,7 +125,7 @@ public class AbstractThievesFishAi
     private static RunOne<AbstractThievesFish<?>> createIdleLookBehaviors()
     {
         return new RunOne<>(List.of(
-                Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 6.0F), 1),
+                Pair.of(SetEntityLookTarget.create(EntityTypes.PLAYER, 6.0F), 1),
                 Pair.of(SetEntityLookTarget.create(8.0F), 1),
                 Pair.of(new DoNothing(30, 60), 1)));
     }

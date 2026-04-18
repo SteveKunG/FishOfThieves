@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -222,7 +223,7 @@ public class FOTBlocks
 
     private static boolean ocelotOrParrot(BlockState state, BlockGetter blockGetter, BlockPos pos, EntityType<?> entity)
     {
-        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+        return entity == EntityTypes.OCELOT || entity == EntityTypes.PARROT;
     }
 
     private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos)
@@ -235,7 +236,7 @@ public class FOTBlocks
         return false;
     }
 
-    private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos)
+    private static boolean always(BlockState state)
     {
         return true;
     }

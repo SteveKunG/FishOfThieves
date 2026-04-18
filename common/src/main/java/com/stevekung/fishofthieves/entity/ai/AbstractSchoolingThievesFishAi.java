@@ -18,7 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
@@ -90,7 +90,7 @@ public class AbstractSchoolingThievesFishAi
     private static ActivityData<AbstractFlockFish> initIdleActivity()
     {
         return ActivityData.create(Activity.IDLE, ImmutableList.of(
-                Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
+                Pair.of(0, SetEntityLookTargetSometimes.create(EntityTypes.PLAYER, 6.0F, UniformInt.of(30, 60))),
                 Pair.of(1, new RunOne<>(List.of(
                         Pair.of(AbstractThievesFishAi.avoidRepellent(), 1),
                         Pair.of(new FollowTemptation(_ -> 1.25F), 1),
@@ -117,7 +117,7 @@ public class AbstractSchoolingThievesFishAi
     private static RunOne<AbstractFlockFish> createIdleLookBehaviors()
     {
         return new RunOne<>(List.of(
-                Pair.of(SetEntityLookTarget.create(EntityType.PLAYER, 6.0F), 1),
+                Pair.of(SetEntityLookTarget.create(EntityTypes.PLAYER, 6.0F), 1),
                 Pair.of(SetEntityLookTarget.create(8.0F), 1),
                 Pair.of(new DoNothing(30, 60), 1)));
     }

@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 
@@ -87,7 +87,7 @@ public class ShoalTestSuite implements FOTGameTest
         shoal.setTreasured(true);
         helper.runAtTickTime(20, () ->
         {
-            var tnt = helper.spawn(EntityType.TNT, blockPos);
+            var tnt = helper.spawn(EntityTypes.TNT, blockPos);
             tnt.setFuse(10);
         });
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);

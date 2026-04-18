@@ -18,7 +18,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.npc.villager.VillagerType;
@@ -128,7 +128,7 @@ public class SeapostPieces
                 }
                 case "seapost_leather_worker" ->
                 {
-                    var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
+                    var villager = EntityTypes.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
                     villager.setVillagerData(new VillagerData(villagerTypeLookup.getOrThrow(VillagerType.PLAINS), villagerProfessionLookup.getOrThrow(VillagerProfession.LEATHERWORKER), 1));
                     villager.setPersistenceRequired();
                     villager.snapTo(pos, 0.0F, 0.0F);
@@ -138,7 +138,7 @@ public class SeapostPieces
                 }
                 case "seapost_fisherman" ->
                 {
-                    var villager = EntityType.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
+                    var villager = EntityTypes.VILLAGER.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
                     villager.setVillagerData(new VillagerData(villagerTypeLookup.getOrThrow(VillagerType.PLAINS), villagerProfessionLookup.getOrThrow(VillagerProfession.FISHERMAN), 1));
                     villager.setPersistenceRequired();
                     villager.snapTo(pos, 0.0F, 0.0F);

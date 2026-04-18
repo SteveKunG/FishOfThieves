@@ -92,9 +92,14 @@ public class FOTStructures
         }
 
         StructurePieceType SEAPOST_PIECE = register("seapost", SeapostPieces.SeapostPiece::new);
-        StructurePieceType GUARDIAN_FRUIT_TREE_PIECE = register("guardian_fruit_tree", GuardianFruitTreePiece::new);
+        StructurePieceType GUARDIAN_FRUIT_TREE_PIECE = setFullContextPieceId("guardian_fruit_tree", GuardianFruitTreePiece::new);
 
         private static StructurePieceType register(String pieceId, StructurePieceType.StructureTemplateType pieceType)
+        {
+            return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.id(pieceId), pieceType);
+        }
+
+        private static StructurePieceType setFullContextPieceId(String pieceId, StructurePieceType pieceType)
         {
             return Registry.register(BuiltInRegistries.STRUCTURE_PIECE, FishOfThieves.id(pieceId), pieceType);
         }

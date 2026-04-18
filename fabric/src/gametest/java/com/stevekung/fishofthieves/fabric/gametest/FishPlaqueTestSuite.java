@@ -17,7 +17,7 @@ import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.fish.Salmon;
 import net.minecraft.world.entity.animal.fish.TropicalFish;
@@ -109,7 +109,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.SALMON).toString());
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityTypes.SALMON).toString());
             var matchVariant = plaqueData.getString("type").orElseThrow().equals(Salmon.Variant.LARGE.getSerializedName());
 
             if (matchId && matchVariant)
@@ -137,7 +137,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
 
         helper.destroyBlock(blockPos.south(1));
 
-        helper.succeedWhenEntityPresent(EntityType.SALMON, blockPos);
+        helper.succeedWhenEntityPresent(EntityTypes.SALMON, blockPos);
     }
 
     @GameTest(structure = FISH_PLAQUE)
@@ -162,7 +162,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.TROPICAL_FISH).toString());
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityTypes.TROPICAL_FISH).toString());
             var matchVariant = plaqueData.getIntOr("Variant", 0) == 65536;
 
             if (matchId && matchVariant)
@@ -195,11 +195,11 @@ public class FishPlaqueTestSuite implements FOTGameTest
         helper.succeedWhen(() ->
         {
             var pos = helper.absolutePos(blockPos);
-            var list = helper.getLevel().getEntities(EntityType.TROPICAL_FISH, new AABB(pos), entity -> entity.isAlive() && entity.getPackedVariant() == 65536);
+            var list = helper.getLevel().getEntities(EntityTypes.TROPICAL_FISH, new AABB(pos), entity -> entity.isAlive() && entity.getPackedVariant() == 65536);
 
             if (list.isEmpty())
             {
-                throw new GameTestAssertPosException(Component.literal("Expected " + EntityType.TROPICAL_FISH.toShortString()), pos, blockPos, (int) helper.getTick());
+                throw new GameTestAssertPosException(Component.literal("Expected " + EntityTypes.TROPICAL_FISH.toShortString()), pos, blockPos, (int) helper.getTick());
             }
         });
     }
@@ -224,7 +224,7 @@ public class FishPlaqueTestSuite implements FOTGameTest
         if (fishPlaque.hasPlaqueData())
         {
             var plaqueData = fishPlaque.getPlaqueData();
-            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityType.AXOLOTL).toString());
+            var matchId = plaqueData.getString("id").orElseThrow().equals(entityTypeRegistry.getKey(EntityTypes.AXOLOTL).toString());
             var matchVariant = plaqueData.getIntOr("Variant", 0) == Axolotl.Variant.CYAN.getId();
 
             if (matchId && matchVariant)
@@ -255,11 +255,11 @@ public class FishPlaqueTestSuite implements FOTGameTest
         helper.succeedWhen(() ->
         {
             var pos = helper.absolutePos(blockPos);
-            var list = helper.getLevel().getEntities(EntityType.AXOLOTL, new AABB(pos), entity -> entity.isAlive() && entity.getVariant() == Axolotl.Variant.CYAN);
+            var list = helper.getLevel().getEntities(EntityTypes.AXOLOTL, new AABB(pos), entity -> entity.isAlive() && entity.getVariant() == Axolotl.Variant.CYAN);
 
             if (list.isEmpty())
             {
-                throw new GameTestAssertPosException(Component.literal("Expected " + EntityType.AXOLOTL.toShortString()), pos, blockPos, (int) helper.getTick());
+                throw new GameTestAssertPosException(Component.literal("Expected " + EntityTypes.AXOLOTL.toShortString()), pos, blockPos, (int) helper.getTick());
             }
         });
     }

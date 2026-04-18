@@ -16,7 +16,7 @@
                       "condition": "minecraft:entity_properties",
                       "entity": "this",
                       "predicate": {
-                        "flags": {
+                        "minecraft:flags": {
                           "is_on_fire": true
                         }
                       }
@@ -25,7 +25,7 @@
                       "condition": "minecraft:entity_properties",
                       "entity": "direct_attacker",
                       "predicate": {
-                        "equipment": {
+                        "minecraft:equipment": {
                           "mainhand": {
                             "predicates": {
                               "minecraft:enchantments": [
@@ -50,8 +50,7 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:trophy",
+                    "fishofthieves:trophy": {
                       "trophy": true
                     }
                   }
@@ -60,8 +59,7 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type_specific": {
-                      "type": "fishofthieves:treasured",
+                    "fishofthieves:treasured": {
                       "treasured": false
                     }
                   }
@@ -83,10 +81,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:jade"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -98,7 +96,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -107,7 +105,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -136,10 +134,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:sky"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -151,7 +149,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -160,7 +158,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -189,10 +187,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:rum"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -204,7 +202,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -213,7 +211,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -242,10 +240,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:sand"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -257,7 +255,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -266,7 +264,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -295,10 +293,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:bittersweet"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -310,7 +308,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -319,7 +317,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -348,10 +346,10 @@
                   "condition": "minecraft:entity_properties",
                   "entity": "this",
                   "predicate": {
-                    "type": "fishofthieves:battlegill",
-                    "components": {
+                    "minecraft:components": {
                       "fishofthieves:battlegill/variant": "fishofthieves:zest"
-                    }
+                    },
+                    "minecraft:entity_type": "fishofthieves:battlegill"
                   }
                 },
                 {
@@ -363,7 +361,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -372,7 +370,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [
@@ -409,7 +407,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                          "flags": {
+                          "minecraft:flags": {
                             "is_on_fire": true
                           }
                         }
@@ -418,7 +416,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "direct_attacker",
                         "predicate": {
-                          "equipment": {
+                          "minecraft:equipment": {
                             "mainhand": {
                               "predicates": {
                                 "minecraft:enchantments": [

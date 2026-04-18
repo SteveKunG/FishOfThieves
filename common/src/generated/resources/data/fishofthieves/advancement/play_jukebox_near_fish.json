@@ -24,7 +24,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "#minecraft:axolotl_hunt_targets"
+              "minecraft:entity_type": "#minecraft:axolotl_hunt_targets"
             }
           }
         ]
@@ -54,7 +54,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "#fishofthieves:thieves_fish"
+              "minecraft:entity_type": "#fishofthieves:thieves_fish"
             }
           }
         ]

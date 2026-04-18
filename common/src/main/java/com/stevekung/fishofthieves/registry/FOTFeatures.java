@@ -152,7 +152,7 @@ public class FOTFeatures
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE), 0.85F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE)));
         FeatureUtils.register(context, PATCH_TROPICAL_MELON, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.MELON)));
-        FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+        FeatureUtils.register(context, TREES_COCONUT, Feature.SIMPLE_RANDOM_SELECTOR, new CompositeFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.OLD_COCONUT_TREE_CHECKED)
         )));
@@ -174,13 +174,13 @@ public class FOTFeatures
                                 .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))));
         FeatureUtils.register(context, TROPICAL_ISLAND_ROCK, TROPICAL_ISLAND_BLOB, new BlockBlobConfiguration(Blocks.STONE.defaultBlockState(), BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)));
 
-        FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+        FeatureUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, Feature.SIMPLE_RANDOM_SELECTOR, new CompositeFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_LEAF_LITTER_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.BANANA_TREE_CHECKED))));
-        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, Feature.SIMPLE_RANDOM_SELECTOR, new CompositeFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE),
                 placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE))));
-        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+        FeatureUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, Feature.SIMPLE_RANDOM_SELECTOR, new CompositeFeatureConfiguration(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE),
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE))));
     }

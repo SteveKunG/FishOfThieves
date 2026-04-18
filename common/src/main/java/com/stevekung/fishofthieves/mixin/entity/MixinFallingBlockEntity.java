@@ -49,7 +49,7 @@ public abstract class MixinFallingBlockEntity extends Entity
                 var itemStackFromEntity = itemEntity.getItem().copy();
                 itemStack = itemStackFromEntity;
                 var count = itemStackFromEntity.getCount();
-                itemEntity.setItem(new ItemStack(Items.RED_DYE, count));
+                itemEntity.setItem(new ItemStack(Items.DYE.red(), count));
                 crush = true;
             }
 

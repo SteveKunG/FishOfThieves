@@ -20,7 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
@@ -49,7 +49,7 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
 
             if (blockPos.isPresent())
             {
-                var lightningBolt = EntityType.LIGHTNING_BOLT.create(this, EntitySpawnReason.EVENT);
+                var lightningBolt = EntityTypes.LIGHTNING_BOLT.create(this, EntitySpawnReason.EVENT);
                 lightningBolt.snapTo(Vec3.atBottomCenterOf(blockPos.get()));
                 this.addFreshEntity(lightningBolt);
             }

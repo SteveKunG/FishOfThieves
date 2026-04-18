@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -178,7 +178,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, targetPos));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityTypes.FALLING_BLOCK, targetPos));
     }
 
     @GameTest(structure = COCONUT_FALL, maxTicks = 40)
@@ -187,7 +187,7 @@ public class BlockTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 7, 2);
         var targetPos = new BlockPos(1, 1, 1);
 
-        var chicken = helper.spawnWithNoFreeWill(EntityType.CHICKEN, targetPos);
+        var chicken = helper.spawnWithNoFreeWill(EntityTypes.CHICKEN, targetPos);
         helper.withLowHealth(chicken);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
@@ -195,7 +195,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityNotPresent(EntityType.CHICKEN, targetPos));
+        helper.succeedWhen(() -> helper.assertEntityNotPresent(EntityTypes.CHICKEN, targetPos));
     }
 
     @GameTest(structure = EMPTY_3X3, maxTicks = 100)
@@ -286,7 +286,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below()));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityTypes.FALLING_BLOCK, blockPos.below()));
     }
 
     @GameTest(structure = SHOT_MANGO, maxAttempts = 64, maxTicks = 60)
@@ -296,7 +296,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.pressButton(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, new BlockPos(1, 1, 6)));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityTypes.FALLING_BLOCK, new BlockPos(1, 1, 6)));
     }
 
     @GameTest(structure = EMPTY_3X4, maxAttempts = 64, maxTicks = 60)
@@ -314,7 +314,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.setBlock(blockPos.above(), FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
         helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(HangingMangoFruitBlock.AGE, 2));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below()));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityTypes.FALLING_BLOCK, blockPos.below()));
     }
 
     @GameTest(structure = EMPTY_3X3)
@@ -354,7 +354,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, targetPos));
+        helper.succeedWhen(() -> helper.assertEntityPresent(EntityTypes.FALLING_BLOCK, targetPos));
     }
 
     @GameTest(structure = EMPTY_3X4, maxTicks = 40)
@@ -365,12 +365,12 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
         helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
-        var chicken = helper.spawnWithNoFreeWill(EntityType.CHICKEN, targetPos);
+        var chicken = helper.spawnWithNoFreeWill(EntityTypes.CHICKEN, targetPos);
         helper.withLowHealth(chicken);
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
-        helper.succeedWhen(() -> helper.assertEntityNotPresent(EntityType.CHICKEN, targetPos));
+        helper.succeedWhen(() -> helper.assertEntityNotPresent(EntityTypes.CHICKEN, targetPos));
     }
 
     @GameTest(structure = EMPTY_3X3)
@@ -441,7 +441,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.spawnItem(FOTItems.POMEGRANATE, targetPos.getX() + 0.5f, targetPos.getY(), targetPos.getZ() + 0.5f);
 
-        helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.RED_DYE, targetPos, 1, 1));
+        helper.succeedWhen(() -> helper.assertItemEntityCountIs(Items.DYE.red(), targetPos, 1, 1));
     }
 
     @GameTest(structure = EMPTY_3X3, maxTicks = 500)
@@ -460,7 +460,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.runAtTickTime(50, () ->
         {
             helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3));
-            helper.spawn(EntityType.FOX, blockPos.north());
+            helper.spawn(EntityTypes.FOX, blockPos.north());
         });
 
         helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!")));
@@ -484,7 +484,7 @@ public class BlockTestSuite implements FOTGameTest
             var pomegranate = FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3);
             helper.setBlock(blockPos, pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
             helper.setBlock(blockPos.above(), pomegranate.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
-            helper.spawn(EntityType.FOX, blockPos.north());
+            helper.spawn(EntityTypes.FOX, blockPos.north());
         });
 
         helper.succeedWhen(() ->

@@ -10,7 +10,7 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -22,7 +22,10 @@ import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
@@ -123,10 +126,10 @@ public class ModRecipeProvider extends RecipeProvider
         this.addCookingRecipes(this.output, 0.5F, FOTItems.WRECKER, FOTItems.COOKED_WRECKER);
         this.addCookingRecipes(this.output, 0.6F, FOTItems.STORMFISH, FOTItems.COOKED_STORMFISH);
 
-        this.oneToOneConversionRecipe(Items.PINK_DYE, FOTBlocks.PINK_PLUMERIA, "pink_dye");
-        this.oneToOneConversionRecipe(Items.LIGHT_BLUE_DYE, FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
-        this.oneToOneConversionRecipe(Items.WHITE_DYE, FOTBlocks.WHITE_PLUMERIA, "white_dye");
-        this.oneToOneConversionRecipe(Items.PURPLE_DYE, FOTBlocks.BANANA_BLOSSOM, "purple_dye");
+        this.oneToOneConversionRecipe(Items.DYE.pink(), FOTBlocks.PINK_PLUMERIA, "pink_dye");
+        this.oneToOneConversionRecipe(Items.DYE.lightBlue(), FOTBlocks.LIGHT_BLUE_PLUMERIA, "light_blue_dye");
+        this.oneToOneConversionRecipe(Items.DYE.white(), FOTBlocks.WHITE_PLUMERIA, "white_dye");
+        this.oneToOneConversionRecipe(Items.DYE.purple(), FOTBlocks.BANANA_BLOSSOM, "purple_dye");
         this.shapeless(RecipeCategory.MISC, FOTItems.PINEAPPLE_SEEDS, 4).requires(Ingredient.of(FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE)).unlockedBy(getHasName(FOTItems.PINEAPPLE), inventoryTrigger(ItemPredicate.Builder.item().of(this.items, FOTItems.PINEAPPLE, FOTItems.CROWNLESS_PINEAPPLE).build())).save(this.output, getConversionRecipeName(FOTItems.PINEAPPLE_SEEDS, FOTItems.PINEAPPLE));
         this.woodFromLogs(FOTBlocks.COCONUT_WOOD, FOTBlocks.COCONUT_LOG);
         this.woodFromLogs(FOTBlocks.SMALL_COCONUT_WOOD, FOTBlocks.SMALL_COCONUT_LOG);

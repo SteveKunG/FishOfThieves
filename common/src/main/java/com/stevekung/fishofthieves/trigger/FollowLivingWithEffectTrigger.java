@@ -6,11 +6,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.ContextAwarePredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.MobEffectsPredicate;
-import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.advancements.predicates.ContextAwarePredicate;
+import net.minecraft.advancements.predicates.MobEffectsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 
@@ -38,7 +38,7 @@ public class FollowLivingWithEffectTrigger extends SimpleCriterionTrigger<Follow
 
         public static Criterion<TriggerInstance> entityWithEffect(EntityPredicate.Builder entityPredicate, MobEffectsPredicate.Builder mobEffects)
         {
-            return FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(entityPredicate.build()), mobEffects.build()));
+            return FOTCriteriaTriggers.FOLLOW_LIVING_WITH_EFFECT.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(entityPredicate.build()), Optional.of(mobEffects.build())));
         }
 
         public boolean matches(ServerPlayer serverPlayer, Entity sourceEntity)

@@ -6,7 +6,7 @@
         "damage": {
           "type": {
             "source_entity": {
-              "type": "minecraft:falling_block"
+              "minecraft:entity_type": "minecraft:falling_block"
             },
             "tags": [
               {

@@ -42,7 +42,7 @@
     "fabricloader": ">=0.19",
     "fabric-api": ">=0.145",
     "cloth-config": ">=26.1",
-    "minecraft": "~26.1"
+    "minecraft": ">=26.1"
   },
   "accessWidener": "fish_of_thieves.accesswidener",
   "custom": {

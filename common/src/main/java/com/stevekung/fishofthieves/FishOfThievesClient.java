@@ -35,6 +35,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
@@ -107,11 +108,11 @@ public class FishOfThievesClient
     {
         return Util.make(new ArrayList<HeadphoneEntry<?, ?>>(), list ->
         {
-            list.add(new HeadphoneEntry<>(EntityType.COD, HeadphoneModel.Scaleable.COD));
-            list.add(new HeadphoneEntry<>(EntityType.SALMON, HeadphoneModel.Scaleable.SALMON));
-            list.add(new HeadphoneEntry<>(EntityType.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH));
-            list.add(new HeadphoneEntry<>(EntityType.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH));
-            list.add(new HeadphoneEntry<>(EntityType.TADPOLE, HeadphoneModel.Scaleable.TADPOLE));
+            list.add(new HeadphoneEntry<>(EntityTypes.COD, HeadphoneModel.Scaleable.COD));
+            list.add(new HeadphoneEntry<>(EntityTypes.SALMON, HeadphoneModel.Scaleable.SALMON));
+            list.add(new HeadphoneEntry<>(EntityTypes.PUFFERFISH, HeadphoneModel.Scaleable.PUFFERFISH));
+            list.add(new HeadphoneEntry<>(EntityTypes.TROPICAL_FISH, HeadphoneModel.Scaleable.TROPICAL_FISH));
+            list.add(new HeadphoneEntry<>(EntityTypes.TADPOLE, HeadphoneModel.Scaleable.TADPOLE));
         }).stream().map(entry -> (HeadphoneEntry<LivingEntity, LivingEntityRenderState>) entry).toList();
     }
 

@@ -34,7 +34,7 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -109,8 +109,6 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemFunctions.init();
         FOTGameRules.init();
 
-        FOTDecoratedPotPatterns.putItemsToPotTexture();
-
         FishOfThieves.initCompostables();
 
         FOTGrassColorModifier.TROPICAL_ISLAND = BiomeSpecialEffects.GrassColorModifier.valueOf("FISHOFTHIEVES_TROPICAL_ISLAND");
@@ -120,7 +118,7 @@ public class FishOfThievesFabric implements ModInitializer
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
-        BlockEntityType.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
+        BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 
         FuelValueEvents.BUILD.register((builder, _) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));
 

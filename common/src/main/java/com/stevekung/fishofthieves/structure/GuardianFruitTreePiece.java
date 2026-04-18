@@ -7,6 +7,8 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
@@ -25,15 +27,15 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
 {
     private float fruitChance;
 
-    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, BlockPos templatePosition, Identifier location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
+    public GuardianFruitTreePiece(HolderLookup.Provider registries, StructureTemplateManager structureTemplateManager, BlockPos templatePosition, Identifier location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
     {
-        super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, 0, structureTemplateManager, location, location.toString(), makeSettings(mirror, rotation, pivotPos), templatePosition);
+        super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, 0, structureTemplateManager, location, location.toString(), makeSettings(registries, mirror, rotation, pivotPos), templatePosition);
         this.fruitChance = fruitChance;
     }
 
-    public GuardianFruitTreePiece(StructureTemplateManager structureTemplateManager, CompoundTag tag)
+    public GuardianFruitTreePiece(StructurePieceSerializationContext context, CompoundTag tag)
     {
-        super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, tag, structureTemplateManager, resourceLocation -> makeSettings(structureTemplateManager, tag, resourceLocation));
+        super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, tag, context.structureTemplateManager(), resourceLocation -> makeSettings(context.registryAccess(), context.structureTemplateManager(), tag, resourceLocation));
     }
 
     @Override
@@ -45,24 +47,25 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     }
 
     @SuppressWarnings("deprecation")
-    private static StructurePlaceSettings makeSettings(StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
+    private static StructurePlaceSettings makeSettings(HolderLookup.Provider registries, StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
     {
         var structureTemplate = structureTemplateManager.getOrCreate(location);
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
-        return makeSettings(tag.read("Mirror", Mirror.LEGACY_CODEC).orElseThrow(), tag.read("Rotation", Rotation.LEGACY_CODEC).orElseThrow(), blockPos);
+        return makeSettings(registries, tag.read("Mirror", Mirror.LEGACY_CODEC).orElseThrow(), tag.read("Rotation", Rotation.LEGACY_CODEC).orElseThrow(), blockPos);
     }
 
-    private static StructurePlaceSettings makeSettings(Mirror mirror, Rotation rotation, BlockPos pos)
+    private static StructurePlaceSettings makeSettings(HolderLookup.Provider registries, Mirror mirror, Rotation rotation, BlockPos pos)
     {
         var blockIgnoreProcessor = BlockIgnoreProcessor.STRUCTURE_BLOCK;
         var list = new ArrayList<ProcessorRule>();
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.1F, FOTBlocks.PRISMARIZED_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.Z)));
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.1F, FOTBlocks.PRISMARIZED_LOG.defaultBlockState().setValue(RotatedPillarBlock.AXIS, Direction.Axis.X)));
         list.add(getBlockReplaceRule(Blocks.PRISMARINE, 0.03F, Blocks.MAGMA_BLOCK));
+        var blocks = registries.lookupOrThrow(Registries.BLOCK);
         return new StructurePlaceSettings().setRotation(rotation).setMirror(mirror).setRotationPivot(pos)
                 .addProcessor(blockIgnoreProcessor)
                 .addProcessor(new RuleProcessor(list))
-                .addProcessor(new ProtectedBlockProcessor(BlockTags.FEATURES_CANNOT_REPLACE));
+                .addProcessor(new ProtectedBlockProcessor(blocks.getOrThrow(BlockTags.FEATURES_CANNOT_REPLACE)));
     }
 
     @SuppressWarnings("deprecation")

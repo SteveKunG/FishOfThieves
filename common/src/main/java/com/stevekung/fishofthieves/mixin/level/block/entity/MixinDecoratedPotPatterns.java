@@ -1,12 +1,8 @@
 package com.stevekung.fishofthieves.mixin.level.block.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.BiConsumer;
 
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,20 +19,15 @@ import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 @Mixin(DecoratedPotPatterns.class)
 public class MixinDecoratedPotPatterns
 {
-    @Shadow
-    @Final
-    @Mutable
-    static Map<Item, ResourceKey<String>> ITEM_TO_POT_TEXTURE;
-
-    @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void fishofthieves$reinitNewSherds(CallbackInfo info)
-    {
-        ITEM_TO_POT_TEXTURE = new HashMap<>(ITEM_TO_POT_TEXTURE);
-    }
-
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void fishofthieves$bootstrapEarly(Registry<DecoratedPotPattern> registry, CallbackInfoReturnable<DecoratedPotPattern> info)
     {
         FOTDecoratedPotPatterns.init();
+    }
+
+    @Inject(method = "itemToPatternMappings", at = @At("TAIL"))
+    private static void fishofthieves$itemToPatternMappings(BiConsumer<ResourceKey<Item>, ResourceKey<DecoratedPotPattern>> itemToPattern, CallbackInfo info)
+    {
+        FOTDecoratedPotPatterns.putItemsToPotTexture(itemToPattern);
     }
 }

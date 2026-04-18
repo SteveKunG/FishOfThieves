@@ -55,7 +55,7 @@ public class GuardianFruitTreeStructure extends Structure
         var height = chunkGenerator.getBaseHeight(blockPos3.getX(), blockPos3.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, levelHeightAccessor, randomState) - 1;
         var y = findSuitableY(chunkGenerator, height, boundingBox, levelHeightAccessor, randomState);
         var blockPos4 = new BlockPos(blockPos2.getX(), y, blockPos2.getZ());
-        return Optional.of(new Structure.GenerationStub(blockPos4, structurePiecesBuilder -> structurePiecesBuilder.addPiece(new GuardianFruitTreePiece(context.structureTemplateManager(), blockPos4, resourceLocation, rotation, mirror, blockPos, this.fruitChance))));
+        return Optional.of(new Structure.GenerationStub(blockPos4, structurePiecesBuilder -> structurePiecesBuilder.addPiece(new GuardianFruitTreePiece(context.registryAccess(), context.structureTemplateManager(), blockPos4, resourceLocation, rotation, mirror, blockPos, this.fruitChance))));
     }
 
     private static int findSuitableY(ChunkGenerator chunkGenerator, int height, BoundingBox box, LevelHeightAccessor level, RandomState randomState)

@@ -12,8 +12,8 @@ import com.stevekung.fishofthieves.registry.*;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-import net.minecraft.advancements.criterion.DataComponentMatchers;
-import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.predicates.DataComponentMatchers;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -83,8 +83,8 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
                                 .apply(SmeltItemFunction.smelted()
                                         .when(FOTLootManager.shouldSmeltLoot(this.provider)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
-                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TrophyFishPredicate(true))))
-                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().subPredicate(new TreasuredFishPredicate(false))))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TROPHY, new TrophyFishPredicate(true))))
+                                        .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TREASURED, new TreasuredFishPredicate(false))))
                                 ), entityType, registryKey, dataComponentType)))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))

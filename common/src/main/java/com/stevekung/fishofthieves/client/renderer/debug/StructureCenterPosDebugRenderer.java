@@ -54,7 +54,7 @@ public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements De
                         distFromStructure = structureDist;
                     }
 
-                    this.minecraft.gui.setOverlayMessage(Component.literal(optional.get().identifier() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
+                    this.minecraft.gui.hud.setOverlayMessage(Component.literal(optional.get().identifier() + ": " + distFromStructure + ", pos: " + blockPos.toShortString()), false);
                 }
             }
         }));

@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "fishofthieves:stormfish"
+              "minecraft:entity_type": "fishofthieves:stormfish"
             }
           }
         ],
@@ -17,13 +17,12 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "distance": {
+              "minecraft:distance": {
                 "absolute": {
                   "max": 16.0
                 }
               },
-              "type_specific": {
-                "type": "minecraft:lightning",
+              "minecraft:type_specific/lightning": {
                 "blocks_set_on_fire": 0
               }
             }

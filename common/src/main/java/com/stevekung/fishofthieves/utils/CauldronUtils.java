@@ -5,6 +5,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import com.stevekung.fishofthieves.mixin.accessor.PointedDripstoneBlockAccessor;
+import com.stevekung.fishofthieves.mixin.accessor.SpeleothemBlockAccessor;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 
 import net.minecraft.core.BlockPos;
@@ -65,6 +66,6 @@ public class CauldronUtils
     public static Optional<BlockPos> findFillableCauldronBelowLeavesTail(Level level, BlockPos pos)
     {
         BiPredicate<BlockPos, BlockState> biPredicate = (blockPos, blockState) -> PointedDripstoneBlockAccessor.invokeCanDripThrough(level, blockPos, blockState);
-        return PointedDripstoneBlockAccessor.invokeFindBlockVertical(level, pos, Direction.DOWN.getAxisDirection(), biPredicate, IS_CAULDRON, 11);
+        return SpeleothemBlockAccessor.invokeFindBlockVertical(level, pos, Direction.DOWN.getAxisDirection(), biPredicate, IS_CAULDRON, 11);
     }
 }

@@ -15,6 +15,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 
 public class EntityTagsProvider extends FabricTagsProvider.EntityTypeTagsProvider
 {
@@ -31,23 +32,23 @@ public class EntityTagsProvider extends FabricTagsProvider.EntityTypeTagsProvide
     {
         var neutralFishes = new EntityType<?>[] { FOTEntities.DEVILFISH, FOTEntities.BATTLEGILL, FOTEntities.WRECKER };
         var fishes = new EntityType<?>[] { FOTEntities.SPLASHTAIL, FOTEntities.PONDIE, FOTEntities.ISLEHOPPER, FOTEntities.ANCIENTSCALE, FOTEntities.PLENTIFIN, FOTEntities.WILDSPLASH, FOTEntities.STORMFISH };
-        this.valueLookupBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
-        this.valueLookupBuilder(EntityTypeTags.AQUATIC).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.valueLookupBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.valueLookupBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.valueLookupBuilder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.valueLookupBuilder(EntityTypeTags.BOAT).add(FOTEntities.COCONUT_BOAT);
-        this.valueLookupBuilder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
-        this.valueLookupBuilder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH);
-        this.valueLookupBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER).add(EntityType.PUFFERFISH, EntityType.TADPOLE, EntityType.AXOLOTL);
-        this.valueLookupBuilder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED)
-                .add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.AXOLOTL)
+        this.builder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(ArrayUtils.removeElements(fishes, neutralFishes));
+        this.builder(EntityTypeTags.AQUATIC).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.builder(EntityTypeTags.CAN_BREATHE_UNDER_WATER).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.builder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.builder(EntityTypeTags.CANNOT_BE_PUSHED_ONTO_BOATS).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.builder(EntityTypeTags.BOAT).add(FOTEntities.COCONUT_BOAT);
+        this.builder(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE).add(ArrayUtils.addAll(fishes, neutralFishes));
+        this.builder(FOTTags.EntityTypes.FISH_BONE_DROP).add(EntityTypes.COD, EntityTypes.SALMON, EntityTypes.TROPICAL_FISH);
+        this.builder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER).add(EntityTypes.PUFFERFISH, EntityTypes.TADPOLE, EntityTypes.AXOLOTL);
+        this.builder(FOTTags.EntityTypes.FISH_PLAQUE_HORIZONTAL_RENDER_ON_POWERED)
+                .add(EntityTypes.COD, EntityTypes.SALMON, EntityTypes.TROPICAL_FISH, EntityTypes.AXOLOTL)
                 .forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
-        this.valueLookupBuilder(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE).add(EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN, EntityType.PILLAGER);
-        this.valueLookupBuilder(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE).add(EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);
-        this.valueLookupBuilder(FOTTags.EntityTypes.WRECKER_ATTACKABLE).add(EntityType.PLAYER, EntityType.DROWNED, EntityType.ZOMBIE, EntityType.SKELETON, EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);
+        this.builder(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE).add(EntityTypes.DROWNED, EntityTypes.ZOMBIE, EntityTypes.SKELETON, EntityTypes.GUARDIAN, EntityTypes.ELDER_GUARDIAN, EntityTypes.PILLAGER);
+        this.builder(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE).add(EntityTypes.DROWNED, EntityTypes.ZOMBIE, EntityTypes.SKELETON, EntityTypes.GUARDIAN, EntityTypes.ELDER_GUARDIAN);
+        this.builder(FOTTags.EntityTypes.WRECKER_ATTACKABLE).add(EntityTypes.PLAYER, EntityTypes.DROWNED, EntityTypes.ZOMBIE, EntityTypes.SKELETON, EntityTypes.GUARDIAN, EntityTypes.ELDER_GUARDIAN);
 
         // Immersive Weathering compatibility
-        this.valueLookupBuilder(LIGHT_FREEZE_IMMUNE).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
+        this.builder(LIGHT_FREEZE_IMMUNE).forceAddTag(FOTTags.EntityTypes.THIEVES_FISH_ENTITY_TYPE);
     }
 }

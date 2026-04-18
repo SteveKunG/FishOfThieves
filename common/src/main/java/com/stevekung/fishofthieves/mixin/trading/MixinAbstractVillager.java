@@ -52,9 +52,9 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "net/minecraft/world/level/storage/ValueOutput.store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", shift = At.Shift.AFTER))
-    private void fishofthieves$saveRestockableData(ValueOutput output, CallbackInfo info, @Local MerchantOffers offers)
+    private void fishofthieves$saveRestockableData(ValueOutput output, CallbackInfo info)
     {
-        this.validateTreasuredFishMapIndex(offers);
+        this.validateTreasuredFishMapIndex(this.offers);
         output.store(TreasuredFishMapRestock.RESTOCKABLE_DATA_TAG, RestockableData.CODEC_LINKED_SET, this.restockableDataSet);
     }
 

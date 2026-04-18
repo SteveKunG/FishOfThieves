@@ -26,7 +26,7 @@ public class MixinLocalPlayer
     {
         if (signEntity instanceof FOTHangingSignBlockEntity hangingSignBlockEntity)
         {
-            this.minecraft.setScreen(new HangingSignEditScreen(hangingSignBlockEntity, isFrontText, this.minecraft.isTextFilteringEnabled()));
+            this.minecraft.gui.setScreen(new HangingSignEditScreen(hangingSignBlockEntity, isFrontText, this.minecraft.isTextFilteringEnabled()));
             info.cancel();
         }
     }
