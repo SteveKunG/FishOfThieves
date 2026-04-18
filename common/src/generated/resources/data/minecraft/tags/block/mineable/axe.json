@@ -1,14 +1,14 @@
 {
   "values": [
-    "#fishofthieves:fish_plaque",
-    "#fishofthieves:banana_cluster_plants",
-    "#fishofthieves:banana_clusters",
     "fishofthieves:coconut_fruit",
     "fishofthieves:pineapple_crop",
     "fishofthieves:underripe_pineapple_block",
     "fishofthieves:ripe_pineapple_block",
     "fishofthieves:crownless_ripe_pineapple_block",
     "fishofthieves:prismarized_log",
-    "fishofthieves:budding_prismarized_log"
+    "fishofthieves:budding_prismarized_log",
+    "#fishofthieves:fish_plaque",
+    "#fishofthieves:banana_cluster_plants",
+    "#fishofthieves:banana_clusters"
   ]
 }

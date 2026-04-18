@@ -1,7 +1,7 @@
 {
   "values": [
-    "#minecraft:sand",
     "minecraft:mud",
-    "minecraft:muddy_mangrove_roots"
+    "minecraft:muddy_mangrove_roots",
+    "#minecraft:sand"
   ]
 }

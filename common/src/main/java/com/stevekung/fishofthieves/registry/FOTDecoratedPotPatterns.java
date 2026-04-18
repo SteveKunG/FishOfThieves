@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.registry;
 import java.util.function.BiConsumer;
 
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.references.FOTItemIds;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
