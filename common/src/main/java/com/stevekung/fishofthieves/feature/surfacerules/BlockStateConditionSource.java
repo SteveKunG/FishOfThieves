@@ -3,20 +3,18 @@ package com.stevekung.fishofthieves.feature.surfacerules;
 import java.util.Objects;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public class BlockStateConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
 {
-    public static final KeyDispatchDataCodec<BlockStateConditionSource> CODEC = KeyDispatchDataCodec.of(
-            RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    BlockState.CODEC.fieldOf("block_state").forGetter(BlockStateConditionSource::blockState),
-                    Codec.INT.fieldOf("offset").forGetter(BlockStateConditionSource::offset)
-            ).apply(instance, BlockStateConditionSource::new))
-    );
+    public static final MapCodec<BlockStateConditionSource> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BlockState.CODEC.fieldOf("block_state").forGetter(BlockStateConditionSource::blockState),
+            Codec.INT.fieldOf("offset").forGetter(BlockStateConditionSource::offset)
+    ).apply(instance, BlockStateConditionSource::new));
 
     private final BlockState blockState;
     private final int offset;
@@ -39,7 +37,7 @@ public class BlockStateConditionSource extends SurfaceRules implements SurfaceRu
     }
 
     @Override
-    public KeyDispatchDataCodec<? extends ConditionSource> codec()
+    public MapCodec<? extends ConditionSource> codec()
     {
         return BlockStateConditionSource.CODEC;
     }

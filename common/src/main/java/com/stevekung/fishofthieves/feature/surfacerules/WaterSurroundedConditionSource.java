@@ -4,15 +4,14 @@ import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 public class WaterSurroundedConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
 {
-    public static final KeyDispatchDataCodec<WaterSurroundedConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new WaterSurroundedConditionSource()));
+    public static final MapCodec<WaterSurroundedConditionSource> CODEC = MapCodec.unit(new WaterSurroundedConditionSource());
 
     @Override
-    public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec()
+    public MapCodec<? extends ConditionSource> codec()
     {
         return WaterSurroundedConditionSource.CODEC;
     }

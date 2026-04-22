@@ -5,6 +5,8 @@ import com.stevekung.fishofthieves.feature.surfacerules.WaterSurroundedCondition
 import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTNoises;
 
+import net.minecraft.core.HolderGetter;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -15,12 +17,12 @@ public class FOTSurfaceRuleData
     private static final SurfaceRules.RuleSource SAND = makeStateRule(Blocks.SAND);
     private static final SurfaceRules.RuleSource SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
-    public static SurfaceRules.RuleSource overworld()
+    public static SurfaceRules.RuleSource overworld(HolderGetter<Biome> biomes)
     {
-        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules()));
+        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules(biomes)));
     }
 
-    private static SurfaceRules.RuleSource makeRules()
+    private static SurfaceRules.RuleSource makeRules(HolderGetter<Biome> biomes)
     {
         var waterAboveCheck = SurfaceRules.waterBlockCheck(1, 0);
         var y62 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
@@ -40,7 +42,7 @@ public class FOTSurfaceRuleData
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
                                         SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(FOTBiomes.TROPICAL_ISLAND),
+                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                                         SurfaceRules.sequence(
                                                                 SurfaceRules.ifTrue(surfaceBelow64,
                                                                         SurfaceRules.sequence(
@@ -57,7 +59,7 @@ public class FOTSurfaceRuleData
                 SurfaceRules.ifTrue(
                         SurfaceRules.ON_FLOOR,
                         SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.isBiome(FOTBiomes.TROPICAL_ISLAND),
+                                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                         SurfaceRules.ifTrue(airAboveCheck, SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(
                                                         SurfaceRules.noiseCondition(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
