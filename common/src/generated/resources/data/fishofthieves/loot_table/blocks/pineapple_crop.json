@@ -7,7 +7,6 @@
   ],
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:alternatives",
@@ -28,7 +27,6 @@
                   ],
                   "functions": [
                     {
-                      "add": false,
                       "count": 1.0,
                       "function": "minecraft:set_count"
                     }
@@ -53,7 +51,6 @@
                   "type": "minecraft:item",
                   "functions": [
                     {
-                      "add": false,
                       "count": 1.0,
                       "function": "minecraft:set_count"
                     }
@@ -113,7 +110,6 @@
                       ],
                       "functions": [
                         {
-                          "add": false,
                           "count": 1.0,
                           "function": "minecraft:set_count"
                         }
@@ -133,7 +129,6 @@
                       ],
                       "functions": [
                         {
-                          "add": false,
                           "count": 1.0,
                           "function": "minecraft:set_count"
                         }
@@ -160,7 +155,6 @@
                   "type": "minecraft:item",
                   "functions": [
                     {
-                      "add": false,
                       "conditions": [
                         {
                           "block": "fishofthieves:pineapple_crop",
@@ -174,7 +168,6 @@
                       "function": "minecraft:set_count"
                     },
                     {
-                      "add": false,
                       "conditions": [
                         {
                           "block": "fishofthieves:pineapple_crop",
@@ -188,7 +181,6 @@
                       "function": "minecraft:set_count"
                     },
                     {
-                      "add": false,
                       "conditions": [
                         {
                           "block": "fishofthieves:pineapple_crop",
@@ -202,7 +194,6 @@
                       "function": "minecraft:set_count"
                     },
                     {
-                      "add": false,
                       "conditions": [
                         {
                           "block": "fishofthieves:pineapple_crop",

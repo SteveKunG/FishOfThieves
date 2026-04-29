@@ -98,19 +98,21 @@ public class FOTFeatures
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context)
     {
         var placedFeature = context.lookup(Registries.PLACED_FEATURE);
+        var biomes = context.lookup(Registries.BIOME);
+        var belowTrunkProvider = TreeConfiguration.defaultPlaceBelowTreeTrunkProvider(biomes);
 
         FeatureUtils.register(context, FISH_BONE, FISH_BONE_FEATURE, NoneFeatureConfiguration.INSTANCE);
-        FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree()
+        FeatureUtils.register(context, COCONUT_TREE, Feature.TREE, createCoconutTree(belowTrunkProvider)
                 .decorators(List.of(new CoconutDecorator(0.6F, 0.45F, 2)))
                 .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
-        FeatureUtils.register(context, OLD_COCONUT_TREE, Feature.TREE, createOldCoconutTree()
+        FeatureUtils.register(context, OLD_COCONUT_TREE, Feature.TREE, createOldCoconutTree(belowTrunkProvider)
                 .decorators(List.of(new CoconutDecorator(0.2F, 0.7F, 3)))
                 .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
                 .ignoreVines()
                 .build());
-        FeatureUtils.register(context, BANANA_TREE, Feature.TREE, createBananaTree()
+        FeatureUtils.register(context, BANANA_TREE, Feature.TREE, createBananaTree(belowTrunkProvider)
                 .decorators(List.of(
                         new BananaDecorator(0.4f, 0.2f, 0.4f, 6),
                         new BananaShootsDecorator(0.3f)))
@@ -120,10 +122,10 @@ public class FOTFeatures
         List<TreeDecorator> leafLitters = List.of(
                 new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3))),
                 new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4))));
-        FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F).build());
-        FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F).build());
-        FeatureUtils.register(context, MANGO_TREE_LEAF_LITTER, Feature.TREE, createMangoTree(0.01F, leafLitters).build());
-        FeatureUtils.register(context, MANGO_TREE_BEES_02_LEAF_LITTER, Feature.TREE, createMangoTree(0.2F, leafLitters).build());
+        FeatureUtils.register(context, MANGO_TREE, Feature.TREE, createMangoTree(0.01F, belowTrunkProvider).build());
+        FeatureUtils.register(context, MANGO_TREE_BEES_02, Feature.TREE, createMangoTree(0.2F, belowTrunkProvider).build());
+        FeatureUtils.register(context, MANGO_TREE_LEAF_LITTER, Feature.TREE, createMangoTree(0.01F, leafLitters, belowTrunkProvider).build());
+        FeatureUtils.register(context, MANGO_TREE_BEES_02_LEAF_LITTER, Feature.TREE, createMangoTree(0.2F, leafLitters, belowTrunkProvider).build());
 
         FeatureUtils.register(context, TREES_TROPICAL_ISLAND, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(TreePlacements.FANCY_OAK_LEAF_LITTER), 0.05F),
@@ -186,37 +188,37 @@ public class FOTFeatures
     }
 
 
-    private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree()
+    private static TreeConfiguration.TreeConfigurationBuilder createCoconutTree(BlockStateProvider belowTrunkProvider)
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
                 new CoconutTrunkPlacer(8, 2, UniformInt.of(1, 2), UniformInt.of(1, 2), false, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
                 new CoconutFrondsPlacer(2, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(8, 1)),
-                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createOldCoconutTree()
+    private static TreeConfiguration.TreeConfigurationBuilder createOldCoconutTree(BlockStateProvider belowTrunkProvider)
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
                 new CoconutTrunkPlacer(12, 3, UniformInt.of(8, 9), UniformInt.of(1, 2), true, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
                 BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
                 new CoconutFrondsPlacer(3, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL))),
-                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createBananaTree()
+    private static TreeConfiguration.TreeConfigurationBuilder createBananaTree(BlockStateProvider belowTrunkProvider)
     {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(FOTBlocks.BANANA_STEM),
                 new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM)),
                 BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)),
                 new BananaLeavesPlacer(0.2f, BlockStateProvider.simple(FOTBlocks.VERTICAL_BANANA_LEAVES), BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER))),
-                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()));
+                new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance, List<TreeDecorator> additionalDecorators)
+    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance, List<TreeDecorator> additionalDecorators, BlockStateProvider belowTrunkProvider)
     {
         var decorators = new ArrayList<>(List.of(
                 new AttachedToLeavesDecorator(0.1F, 2, 0,
@@ -236,14 +238,14 @@ public class FOTFeatures
                 BlockStateProvider.simple(FOTBlocks.MANGO_LEAVES),
                 new FancyFoliagePlacer(ConstantInt.of(3),
                         ConstantInt.of(4), 4),
-                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
+                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)), belowTrunkProvider)
                 .decorators(decorators)
                 .ignoreVines();
     }
 
-    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance)
+    private static TreeConfiguration.TreeConfigurationBuilder createMangoTree(float beehiveChance, BlockStateProvider belowTrunkProvider)
     {
-        return createMangoTree(beehiveChance, List.of());
+        return createMangoTree(beehiveChance, List.of(), belowTrunkProvider);
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F feature)

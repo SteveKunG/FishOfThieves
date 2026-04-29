@@ -2,7 +2,6 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -44,7 +43,6 @@
               "function": "minecraft:furnace_smelt"
             },
             {
-              "add": false,
               "conditions": [
                 {
                   "condition": "minecraft:entity_properties",
@@ -443,7 +441,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "chance": 0.05,
@@ -459,7 +456,6 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:random_chance_with_enchanted_bonus",

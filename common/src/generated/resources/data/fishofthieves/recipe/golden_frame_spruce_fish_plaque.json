@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "golden_frame_fish_plaque",
   "key": {
     "F": "fishofthieves:spruce_fish_plaque",

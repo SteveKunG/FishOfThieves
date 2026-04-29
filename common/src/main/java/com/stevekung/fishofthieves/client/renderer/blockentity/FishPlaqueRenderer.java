@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.client.renderer.blockentity.state.FishPlaqueBlockEntityRenderState;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -103,7 +102,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             }
 
             poseStack.scale(scale, scale, scale);
-            this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, Minecraft.getInstance().gameRenderer.submitNodeStorage());
+            this.entityRenderer.submit(entityRenderState, cameraRenderState, 0.0, 0.0, 0.0, poseStack, submitNodeCollector);
         }
         poseStack.popPose();
     }
