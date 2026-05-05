@@ -382,7 +382,7 @@
   "death.attack.falling_mango": "%1$s가 망고나무 아래에서 중력을 발견했습니다.",
   "death.attack.falling_coconut": "%1$s가 자연에서 가장 단단한 견과류에 눌렸습니다.",
 
-  "gamerule.fishofthieves:shoal_spawning": "Spawn shoals",
+  "gamerule.fishofthieves.shoal_spawning": "Spawn shoals",
 
   "advancements.fishofthieves.root.title": "Fish of Thieves",
   "advancements.fishofthieves.root.description": "낚시와 사냥",
