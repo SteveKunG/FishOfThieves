@@ -113,7 +113,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
         this.registryKey = registryKey;
         this.resourceKey = resourceKey;
         this.dataComponentType = dataComponentType;
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl<>(this, 85, 10, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 

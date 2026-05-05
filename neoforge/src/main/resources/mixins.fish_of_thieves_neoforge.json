@@ -9,7 +9,6 @@
     "block.MixinFOTRotatedPillarBlock",
     "block.MixinMediumRotatedPillarBlock",
     "block.MixinSmallRotatedPillarBlock",
-    "datafix.MixinDataFixTypes",
     "item.MixinFOTWormItem"
   ],
   "client": [

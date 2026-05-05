@@ -36,6 +36,7 @@
     "datafix.MixinBoatSplitFix",
     "datafix.MixinDataFixers",
     "datafix.MixinDataFixSchemas",
+    "datafix.MixinDataFixTypes",
     "datafix.MixinEntitySpawnerItemVariantComponentFix",
     "datafix.MixinItemStackComponentizationFix",
     "datafix.MixinV99_And_1460",
