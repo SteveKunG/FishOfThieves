@@ -86,7 +86,7 @@ processResources {
     }
 }
 
-List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json", "resourcepacks/simple_spawning_condition_pack/**"]
+List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json"]
 
 jar {
     archiveClassifier = "raw"
