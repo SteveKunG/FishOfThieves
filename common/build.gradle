@@ -4,11 +4,11 @@ import groovy.json.JsonSlurper
 apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/refs/heads/v2/architectury/common.gradle"
 
 dependencies {
-    implementation("com.github.glitchfiend:TerraBlender-fabric:${terrablender_version}") {
+    implementation("com.github.glitchfiend:TerraBlender-common:${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-//    compileOnly("com.github.glitchfiend:SereneSeasons-fabric:${serene_seasons_version}")TODO
+    compileOnly("com.github.glitchfiend:SereneSeasons-common:${serene_seasons_version}")
     implementation(fabricApi.module("fabric-transitive-access-wideners-v1", fabric_api_version))
 }
 
