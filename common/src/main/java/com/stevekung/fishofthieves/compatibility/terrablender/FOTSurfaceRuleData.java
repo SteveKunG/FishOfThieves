@@ -62,10 +62,10 @@ public class FOTSurfaceRuleData
                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                         SurfaceRules.ifTrue(airAboveCheck, SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(
-                                                        SurfaceRules.noiseCondition(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
+                                                        SurfaceRules.noiseCondition2d(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
 
                                                 SurfaceRules.ifTrue(
-                                                        SurfaceRules.noiseCondition(FOTNoises.SAND_PATCHES, 0.1, 0.2), SAND)
+                                                        SurfaceRules.noiseCondition2d(FOTNoises.SAND_PATCHES, 0.1, 0.2), SAND)
                                         )))
                         )
                 )
