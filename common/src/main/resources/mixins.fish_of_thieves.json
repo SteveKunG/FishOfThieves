@@ -22,7 +22,8 @@
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",
     "client.renderer.entity.MixinTropicalFishRenderer",
-    "client.screen.MixinHangingSignEditScreen"
+    "client.screen.MixinHangingSignEditScreen",
+    "client.screen.MixinSignEditScreen"
   ],
   "mixins": [
     "accessor.PointedDripstoneBlockAccessor",
