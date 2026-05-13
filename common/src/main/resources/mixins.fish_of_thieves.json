@@ -22,7 +22,6 @@
     "client.renderer.entity.MixinSalmonRenderer",
     "client.renderer.entity.MixinTadpoleRenderer",
     "client.renderer.entity.MixinTropicalFishRenderer",
-    "client.renderer.MixinSheets",
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [

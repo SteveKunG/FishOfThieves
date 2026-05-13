@@ -4,6 +4,9 @@
       "translate": "dataPack.simple_spawning_condition_pack.description"
     },
     "max_format": 105,
-    "min_format": 105
+    "min_format": [
+      105,
+      1
+    ]
   }
 }

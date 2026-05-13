@@ -140,7 +140,6 @@ public class ModRecipeProvider extends RecipeProvider
         this.planksFromLogs(FOTBlocks.COCONUT_PLANKS, FOTTags.Items.COCONUT_LOGS, 4);
         this.woodenBoat(FOTItems.COCONUT_BOAT, FOTBlocks.COCONUT_PLANKS);
         this.chestBoat(FOTItems.COCONUT_CHEST_BOAT, FOTItems.COCONUT_BOAT);
-        this.hangingSign(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.STRIPPED_COCONUT_LOG);
         this.shelf(FOTBlocks.COCONUT_SHELF, FOTBlocks.STRIPPED_COCONUT_LOG);
     }
 

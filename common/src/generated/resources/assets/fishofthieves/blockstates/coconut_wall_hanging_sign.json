@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
-      "model": "fishofthieves:block/coconut_hanging_sign"
+    "facing=east": {
+      "model": "fishofthieves:block/coconut_wall_hanging_sign",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "fishofthieves:block/coconut_wall_hanging_sign",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "fishofthieves:block/coconut_wall_hanging_sign"
+    },
+    "facing=west": {
+      "model": "fishofthieves:block/coconut_wall_hanging_sign",
+      "y": 90
     }
   }
 }

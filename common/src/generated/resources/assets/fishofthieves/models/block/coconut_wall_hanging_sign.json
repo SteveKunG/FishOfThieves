@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/wall_hanging_sign",
+  "textures": {
+    "all": "fishofthieves:block/coconut_hanging_sign",
+    "particle": "fishofthieves:block/stripped_coconut_log"
+  }
+}

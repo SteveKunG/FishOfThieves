@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/sign_rot_2",
+  "textures": {
+    "all": "fishofthieves:block/coconut_sign",
+    "particle": "fishofthieves:block/coconut_planks"
+  }
+}

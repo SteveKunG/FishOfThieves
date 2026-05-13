@@ -228,7 +228,6 @@ public class ModelProvider extends FabricModelProvider
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_BANANA_LEAVES);
         this.createVerticalLeaves(generator, FOTBlocks.VERTICAL_COCONUT_FRONDS);
         generator.family(FOTBlocks.COCONUT_PLANKS).generateFor(FOTBlockFamilies.COCONUT_PLANKS);
-        generator.createHangingSign(FOTBlocks.STRIPPED_COCONUT_LOG, FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN);
         this.createBananaShootsPlant(generator);
         this.createBananaBlossom(generator);
         this.createBananaBlossomPlant(generator);
