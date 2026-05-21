@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.mixin.trading;
 
 import java.util.LinkedHashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -84,14 +83,8 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
         }
     }
 
-    @WrapOperation(method = "addOffersFromItemListings", at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffers.add(Ljava/lang/Object;)Z"))
-    private static boolean fishofthieves$setIsTreasuredFishMapFromOffer(MerchantOffers merchantOffers, Object object, Operation<Boolean> operation, @Local Optional<Holder<VillagerTrade>> villagerTrade)
-    {
-        return operation.call(merchantOffers, temporarySetTreasuredFishMapData(object, villagerTrade.get()));
-    }
-
-    @WrapOperation(method = "addOffersFromItemListingsWithoutDuplicates", at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffers.add(Ljava/lang/Object;)Z"))
-    private static boolean fishofthieves$setIsTreasuredFishMapFromDuplicateOffer(MerchantOffers merchantOffers, Object object, Operation<Boolean> operation, @Local Holder<VillagerTrade> villagerTrade)
+    @WrapOperation(method = { "addOffersFromItemListings", "addOffersFromItemListingsWithoutDuplicates" }, at = @At(value = "INVOKE", target = "net/minecraft/world/item/trading/MerchantOffers.add(Ljava/lang/Object;)Z"))
+    private static boolean fishofthieves$setIsTreasuredFishMapFromOffer(MerchantOffers merchantOffers, Object object, Operation<Boolean> operation, @Local Holder<VillagerTrade> villagerTrade)
     {
         return operation.call(merchantOffers, temporarySetTreasuredFishMapData(object, villagerTrade));
     }
