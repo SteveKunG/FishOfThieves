@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.mixin.entity;
 
-import java.util.function.Consumer;
-
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,10 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -28,26 +23,24 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
     @Nullable
     public T fishofthieves$spawnByBucket(ServerLevel serverLevel, @Nullable ItemStack stack, @Nullable Player player, EntitySpawnReason entitySpawnReason)
     {
-        Consumer<T> consumer;
+        PostSpawnProcessor<T> postSpawnConfig;
 
         if (stack != null)
         {
-            consumer = EntityType.createDefaultStackConfig(serverLevel, stack, player);
+            postSpawnConfig = EntityType.createDefaultStackConfig(serverLevel, stack, player);
         }
         else
         {
-            consumer = entity ->
-            {
-            };
+            postSpawnConfig = PostSpawnProcessor.nop();
         }
-        return this.fishofthieves$spawnByBucket(serverLevel, consumer, entitySpawnReason);
+        return this.fishofthieves$spawnByBucket(serverLevel, postSpawnConfig, entitySpawnReason);
     }
 
     @Override
     @Nullable
-    public T fishofthieves$spawnByBucket(ServerLevel level, @Nullable Consumer<T> consumer, EntitySpawnReason entitySpawnReason)
+    public T fishofthieves$spawnByBucket(ServerLevel level, @Nullable PostSpawnProcessor<T> postSpawnConfig, EntitySpawnReason entitySpawnReason)
     {
-        var entity = this.fishofthieves$createByBucket(level, consumer, entitySpawnReason);
+        var entity = this.fishofthieves$createByBucket(level, postSpawnConfig, entitySpawnReason);
 
         if (entity != null)
         {
@@ -58,7 +51,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
 
     @Override
     @Nullable
-    public T fishofthieves$createByBucket(ServerLevel level, @Nullable Consumer<T> consumer, EntitySpawnReason entitySpawnReason)
+    public T fishofthieves$createByBucket(ServerLevel level, @Nullable PostSpawnProcessor<T> postSpawnConfig, EntitySpawnReason entitySpawnReason)
     {
         var entity = this.create(level, entitySpawnReason);
 
@@ -73,9 +66,9 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
                 mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), entitySpawnReason, null);
             }
 
-            if (consumer != null)
+            if (postSpawnConfig != null)
             {
-                consumer.accept(entity);
+                postSpawnConfig.apply(entity);
             }
             return entity;
         }
