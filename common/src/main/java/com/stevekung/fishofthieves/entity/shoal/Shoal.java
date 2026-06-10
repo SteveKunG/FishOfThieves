@@ -220,7 +220,7 @@ public class Shoal extends Entity
                     {
                         var compoundTag = shoalFishData1.data();
                         compoundTag.putString("id", shoalFishData1.id());
-                        return EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+                        return EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), EntityProcessor.NOP);
                     })
                     .filter(LivingEntity.class::isInstance)
                     .map(LivingEntity.class::cast)
@@ -241,7 +241,7 @@ public class Shoal extends Entity
         var uuid = shoalFish.uuid();
         var compoundTag = shoalFish.data();
         compoundTag.putString("id", shoalFish.id());
-        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), EntityProcessor.NOP);
 
         if (entity instanceof LivingEntity livingEntity)
         {
