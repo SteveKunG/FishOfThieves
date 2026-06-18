@@ -18,7 +18,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -119,7 +119,7 @@ public class CommonProxyNeoForge
 
     private void onModifyBlockEntityTypeBlocks(BlockEntityTypeAddBlocksEvent event)
     {
-        event.modify(BlockEntityType.SHELF, FOTBlocks.COCONUT_SHELF);
+        event.modify(BlockEntityTypes.SHELF, FOTBlocks.COCONUT_SHELF);
     }
 
     private static void injectLoot(LootTable table, String id, ImmutableList.Builder<LootPoolEntryContainer> builder)
