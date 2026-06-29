@@ -2,6 +2,8 @@ package com.stevekung.fishofthieves.block;
 
 import java.util.Optional;
 
+import com.stevekung.fishofthieves.entity.shoal.Shoal;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -54,7 +57,7 @@ public class ShoalBlock extends Block implements BucketPickup
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random)
     {
         super.tick(state, level, pos, random);
-        this.destroyShoal(state, level, pos);
+        this.destroyShoal(state, level, pos, level.getEntitiesOfClass(Shoal.class, new AABB(pos).inflate(1)).isEmpty());
     }
 
     @Override
@@ -82,7 +85,7 @@ public class ShoalBlock extends Block implements BucketPickup
 
         if (!state.canSurvive(level, pos) || movedByPiston)
         {
-            this.destroyShoal(state, level, pos);
+            this.destroyShoal(state, level, pos, false);
         }
     }
 
@@ -138,9 +141,9 @@ public class ShoalBlock extends Block implements BucketPickup
         return true;
     }
 
-    private void destroyShoal(BlockState state, Level level, BlockPos pos)
+    private void destroyShoal(BlockState state, Level level, BlockPos pos, boolean forceDestroy)
     {
-        if (!state.canSurvive(level, pos))
+        if (!state.canSurvive(level, pos) || forceDestroy)
         {
             level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
         }
