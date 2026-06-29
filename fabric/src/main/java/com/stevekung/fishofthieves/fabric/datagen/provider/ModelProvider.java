@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class ModelProvider extends FabricModelProvider
 {
-    private static final ModelTemplate SPAWN_EGG = ModelTemplates.createItem("template_spawn_egg");
     private final HolderLookup.Provider provider;
 
     public ModelProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
@@ -76,25 +75,25 @@ public class ModelProvider extends FabricModelProvider
         generator.generateFlatItem(FOTItems.GRUBS, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.LEECHES, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_SPLASHTAIL, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.SPLASHTAIL_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_PONDIE, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.PONDIE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_ISLEHOPPER, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.ISLEHOPPER_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_ANCIENTSCALE, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.ANCIENTSCALE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_PLENTIFIN, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.PLENTIFIN_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_WILDSPLASH, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.WILDSPLASH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_DEVILFISH, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.DEVILFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_BATTLEGILL, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.BATTLEGILL_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_WRECKER, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.WRECKER_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.COOKED_STORMFISH, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, SPAWN_EGG);
+        generator.generateFlatItem(FOTItems.STORMFISH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
 
         generator.generateFlatItem(FOTItems.COCONUT, ModelTemplates.FLAT_ITEM);
         generator.generateFlatItem(FOTItems.BANANA, ModelTemplates.FLAT_ITEM);

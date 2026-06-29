@@ -29,6 +29,12 @@ public class FOTSpawnEggItem extends SpawnEggItem
     }
 
     @Override
+    public int getColor(int tintIndex)
+    {
+        return -1;
+    }
+
+    @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced)
     {
         if (level != null && itemStack.hasTag())
