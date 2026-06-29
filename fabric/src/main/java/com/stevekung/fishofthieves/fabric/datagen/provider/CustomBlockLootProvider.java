@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import com.stevekung.fishofthieves.loot.condition.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -62,7 +63,9 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                 .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.05f, 0.1f, 0.15f, 0.2f)))
                         .when(BlockLootSubProvider.HAS_NO_SILK_TOUCH)
-                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST)).or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER))))
+                        .when(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_BEACH).setContinentalness(Continentalness.COAST))
+                                .or(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setBiome(BiomeTags.IS_RIVER)))
+                                .or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(FOTBiomes.TROPICAL_ISLAND))))
                         .when(waterSurrounded))
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)

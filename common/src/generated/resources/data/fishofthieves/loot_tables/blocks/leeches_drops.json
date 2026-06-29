@@ -35,6 +35,12 @@
               "predicate": {
                 "biome": "minecraft:is_river"
               }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "biome": "fishofthieves:tropical_island"
+              }
             }
           ]
         },
