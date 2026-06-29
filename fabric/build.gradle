@@ -71,14 +71,14 @@ repositories {
 dependencies {
     modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
     modRuntimeOnly "maven.modrinth:cyanide:${cyanide_fabric_version}"
-    modRuntimeOnly "maven.modrinth:xaeros-minimap:${xaeros_minimap_version}"
+    modRuntimeOnly "maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}"
     modRuntimeOnly "xaero.lib:xaerolib-fabric-${minecraft_version}:+"
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
     modCompileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}")
-    modRuntimeOnly "curse.maven:structure-void-toggle-357304:5615740"
+    modRuntimeOnly "maven.modrinth:structure-void-toggle:4.4.2+1.21.1-fabric"
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 

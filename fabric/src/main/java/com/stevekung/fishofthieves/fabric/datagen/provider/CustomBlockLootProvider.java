@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 
 import com.stevekung.fishofthieves.loot.condition.FOTLocationCheck;
 import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
+import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTLootTables;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -16,6 +17,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
@@ -69,7 +71,10 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableProvider
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)
                                 .when(BonusLevelTableCondition.bonusLevelFlatChance(this.registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 0.05f, 0.1f, 0.15f, 0.2f)))
                         .when(this.hasSilkTouch().invert())
-                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH))).and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST))).or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_RIVER)))))
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH)))
+                                .and(FOTLocationCheck.checkLocation(FOTLocationPredicate.Builder.location().setContinentalness(Continentalness.COAST)))
+                                .or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(BiomeTags.IS_RIVER))))
+                                .or(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(this.registries.lookupOrThrow(Registries.BIOME).getOrThrow(FOTBiomes.TROPICAL_ISLAND))))))
                         .when(waterSurrounded))
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.LEECHES)
