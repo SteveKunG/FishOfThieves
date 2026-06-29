@@ -148,18 +148,31 @@ public final class ShoalSpawner
 
     private static boolean isOpenWater(ServerLevel level, BlockPos pos)
     {
-        var hasSourceWater = BlockPos.betweenClosedStream(pos.offset(-2, -1, -2), pos.offset(2, -2, 2)).allMatch(blockPos ->
+        for (var blockPos : BlockPos.betweenClosed(pos.offset(-2, -2, -2), pos.offset(2, 0, 2)))
         {
             var blockState = level.getBlockState(blockPos);
-            var fluidState = blockState.getFluidState();
-            return fluidState.is(FluidTags.WATER) && fluidState.isSource() && blockState.getCollisionShape(level, blockPos).isEmpty();
-        });
-        var hasOpenAir = BlockPos.betweenClosedStream(pos.offset(-2, 0, -2), pos.offset(2, 0, 2)).allMatch(blockPos ->
-        {
-            var blockState = level.getBlockState(blockPos);
-            return level.canSeeSky(blockPos) && blockState.isAir() && !blockState.is(Blocks.LILY_PAD);
-        });
-        return hasSourceWater && hasOpenAir;
+            var relativeY = blockPos.getY() - pos.getY();
+
+            // Water layers
+            if (relativeY <= -1)
+            {
+                var fluidState = blockState.getFluidState();
+
+                if (!fluidState.is(FluidTags.WATER) || !fluidState.isSource() || !blockState.getCollisionShape(level, blockPos).isEmpty())
+                {
+                    return false;
+                }
+            }
+            // Air layer
+            else
+            {
+                if (!level.canSeeSky(blockPos) || !blockState.isAir())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private static void spawnBeacon(ServerLevel level, BlockPos blockPos)
