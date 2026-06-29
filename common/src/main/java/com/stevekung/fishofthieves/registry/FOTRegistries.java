@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.registry;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.condition.SpawnCondition;
 import com.stevekung.fishofthieves.entity.condition.SpawnConditionType;
@@ -24,11 +25,16 @@ public class FOTRegistries
 
     public static final ResourceKey<Registry<FishPlaqueInteraction>> FISH_PLAQUE_INTERACTION = create("fish_plaque_interaction");
 
-    public static final ResourceKey<Registry<SpawnCondition>> SPAWN_CONDITION = create("spawn_condition");
-    public static final ResourceKey<Registry<SpawnConditionType>> SPAWN_CONDITION_TYPE = create("spawn_condition_type");
+    public static final ResourceKey<Registry<SpawnCondition>> SPAWN_CONDITION = internal("spawn_condition");
+    public static final ResourceKey<Registry<SpawnConditionType>> SPAWN_CONDITION_TYPE = internal("spawn_condition_type");
 
     private static <T> ResourceKey<Registry<T>> create(String key)
     {
         return ResourceKey.createRegistryKey(ResourceLocation.withDefaultNamespace(key));
+    }
+
+    private static <T> ResourceKey<Registry<T>> internal(String key)
+    {
+        return ResourceKey.createRegistryKey(FishOfThieves.id(key));
     }
 }
