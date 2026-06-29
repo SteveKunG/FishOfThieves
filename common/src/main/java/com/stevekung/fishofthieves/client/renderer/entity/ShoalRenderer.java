@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
@@ -84,12 +85,13 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
         super.submit(renderState, poseStack, nodeCollector, cameraRenderState);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "deprecation" })
     @Override
     public void extractRenderState(Shoal entity, ShoalRenderState renderState, float partialTicks)
     {
         super.extractRenderState(entity, renderState, partialTicks);
         List<EntityRenderState> entityRenderStateList = new ArrayList<>();
+        var blockPos = entity.blockPosition();
 
         for (var livingEntity : entity.getShoalFishClient())
         {
@@ -98,7 +100,13 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
             entityRenderState.ageInTicks = entity.tickCount + partialTicks;
             entityRenderStateList.add(entityRenderState);
         }
+
         renderState.shoalFishClient = entityRenderStateList;
+
+        if (entity.level().getBlockState(blockPos.above()).isSolid())
+        {
+            renderState.lightCoords = LightCoordsUtil.pack(this.getBlockLightLevel(entity, blockPos.below(2)), this.getSkyLightLevel(entity, blockPos.below(2)));
+        }
     }
 
     @SuppressWarnings("unchecked")

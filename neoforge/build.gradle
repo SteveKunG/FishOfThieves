@@ -36,10 +36,10 @@ repositories {
 }
 
 dependencies {
-    api "com.teammetallurgy.aquaculture:aquaculture2_${aquaculture_version}:api"
-    implementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
-    compileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${serene_seasons_version}"
-    implementation "com.github.glitchfiend:GlitchCore-neoforge:${glitchcore_version}"
+    api "com.teammetallurgy.aquaculture:aquaculture2_26.1.1:${aquaculture_version}:api"
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
+    compileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${minecraft_version}-${serene_seasons_version}"
+    implementation "com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}"
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
