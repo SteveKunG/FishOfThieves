@@ -8,7 +8,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.compatibility.terrablender.FOTTerraBlender;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -47,9 +47,9 @@ public class CommonProxyForge
         {
             FishOfThieves.initCommon();
 
-            if (FOTPlatform.isModLoaded("terrablender"))
+            if (FOTPlatform.isModLoaded("biolith"))
             {
-                FOTTerraBlender.init();
+                FOTBiolith.init();
             }
         });
     }

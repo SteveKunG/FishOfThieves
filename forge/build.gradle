@@ -42,11 +42,11 @@ repositories {
 }
 
 dependencies {
-    api "com.teammetallurgy.aquaculture:aquaculture2_${minecraft_version}:${aquaculture_version}:api"
-    modImplementation "com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}"
-    modCompileOnly "com.github.glitchfiend:SereneSeasons-forge:${minecraft_version}-${serene_seasons_version}"
-    modImplementation "com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${glitchcore_version}"
-    modRuntimeOnly "maven.modrinth:cyanide:${cyanide_forge_version}"
+    api("com.teammetallurgy.aquaculture:aquaculture2_${minecraft_version}:${aquaculture_version}:api")
+    modImplementation("com.terraformersmc:biolith-forge:${biolith_version}")
+    modCompileOnly("com.github.glitchfiend:SereneSeasons-forge:${minecraft_version}-${serene_seasons_version}")
+    modImplementation("com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${glitchcore_version}")
+    modRuntimeOnly("maven.modrinth:cyanide:${cyanide_forge_version}")
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))

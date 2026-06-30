@@ -24,12 +24,12 @@ loom {
                 programArgs project.usernameAndUUID
             }
         }
-        clientTerrablender {
+        clientBiolith {
             client()
             if (project.hasProperty("usernameAndUUID")) {
                 programArgs project.usernameAndUUID
             }
-            programArgs "--quickPlaySingleplayer", "TerraBlender"
+            programArgs "--quickPlaySingleplayer", "Biolith"
         }
         gametest {
             if (project.hasProperty("usernameAndUUID")) {
@@ -66,16 +66,22 @@ repositories {
 }
 
 dependencies {
-    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
-    modRuntimeOnly "maven.modrinth:cyanide:${cyanide_fabric_version}"
-    modRuntimeOnly "maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}"
-    modRuntimeOnly "xaero.lib:xaerolib-fabric-${minecraft_version}:+"
-    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
+    modRuntimeOnly("maven.modrinth:continuity:${continuity_version}")
+    modRuntimeOnly("maven.modrinth:cyanide:${cyanide_fabric_version}")
+    modRuntimeOnly("maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}")
+    modRuntimeOnly("xaero.lib:xaerolib-fabric-${minecraft_version}:+") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-    modCompileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}")
-    modRuntimeOnly "maven.modrinth:structure-void-toggle:4.2.7+1.20.1_fabric"
+    modImplementation("com.terraformersmc:biolith-fabric:${biolith_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
+    modCompileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
+    modRuntimeOnly("maven.modrinth:structure-void-toggle:4.2.7+1.20.1_fabric")
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 

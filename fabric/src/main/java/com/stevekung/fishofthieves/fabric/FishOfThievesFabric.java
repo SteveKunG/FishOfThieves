@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
@@ -66,6 +67,11 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
         FOTPoiTypes.init();
+
+        if (FOTPlatform.isModLoaded("biolith"))
+        {
+            FOTBiolith.init();
+        }
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
