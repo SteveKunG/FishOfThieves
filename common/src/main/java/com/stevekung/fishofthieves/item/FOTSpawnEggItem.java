@@ -59,7 +59,7 @@ public class FOTSpawnEggItem<T extends AbstractFishVariant> extends SpawnEggItem
                     {
                         if (entry.value().treasured().isPresent() && itemStack.get(spawnEgg.dataComponentType).is(component.get().identifier()))
                         {
-                            consumer.accept(Component.translatable(this.getType(itemStack).getDescriptionId() + "." + entry.key().identifier().getPath()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GOLD));
+                            consumer.accept(Component.translatable(getType(itemStack).getDescriptionId() + "." + entry.key().identifier().getPath()).withStyle(ChatFormatting.ITALIC, ChatFormatting.GOLD));
                             treasured = true;
                         }
                     }
