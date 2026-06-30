@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "fishofthieves:wild_pineapple",
+  "features": [
+    {
+      "chance": 0.85,
+      "feature": "fishofthieves:tall_wild_pineapple"
+    }
+  ]
+}

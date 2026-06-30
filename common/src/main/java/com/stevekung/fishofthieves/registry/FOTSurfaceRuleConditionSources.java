@@ -21,6 +21,6 @@ public class FOTSurfaceRuleConditionSources
 
     private static <S extends SurfaceRules.ConditionSource> MapCodec<S> register(String key, MapCodec<S> dataCodec)
     {
-        return Registry.register(BuiltInRegistries.MATERIAL_CONDITION, FishOfThieves.id(key), dataCodec);
+        return Registry.register(BuiltInRegistries.MATERIAL_CONDITION_TYPE, FishOfThieves.id(key), dataCodec);
     }
 }

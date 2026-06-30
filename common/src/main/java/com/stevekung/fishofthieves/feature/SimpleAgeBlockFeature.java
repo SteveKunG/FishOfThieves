@@ -1,41 +1,47 @@
 package com.stevekung.fishofthieves.feature;
 
-import com.mojang.serialization.Codec;
-import com.stevekung.fishofthieves.feature.configurations.SimpleAgeBlockConfiguration;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
 
-public class SimpleAgeBlockFeature extends Feature<SimpleAgeBlockConfiguration>
+public record SimpleAgeBlockFeature(RandomizedIntStateProvider toPlace) implements Feature
 {
-    public SimpleAgeBlockFeature(Codec<SimpleAgeBlockConfiguration> codec)
+    public static final MapCodec<SimpleAgeBlockFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                    RandomizedIntStateProvider.CODEC.fieldOf("to_place").forGetter(config -> config.toPlace))
+            .apply(instance, SimpleAgeBlockFeature::new));
+
+    @Override
+    public MapCodec<? extends Feature> codec()
     {
-        super(codec);
+        return CODEC;
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<SimpleAgeBlockConfiguration> context)
+    public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin)
     {
-        var simpleBlockConfiguration = context.config();
-        var worldGenLevel = context.level();
-        var blockPos = context.origin();
-        var blockState = simpleBlockConfiguration.toPlace().getState(worldGenLevel, context.random(), blockPos);
+        var blockState = this.toPlace.getState(level, random, origin);
 
-        if (blockState.canSurvive(worldGenLevel, blockPos))
+        if (blockState.canSurvive(level, origin))
         {
             if (blockState.getBlock() instanceof DoublePlantBlock)
             {
-                if (!worldGenLevel.isEmptyBlock(blockPos.above()))
+                if (!level.isEmptyBlock(origin.above()))
                 {
                     return false;
                 }
-                DoublePlantBlock.placeAt(worldGenLevel, blockState, blockPos, Block.UPDATE_CLIENTS);
+                DoublePlantBlock.placeAt(level, blockState, origin, Block.UPDATE_CLIENTS);
             }
             else
             {
-                worldGenLevel.setBlock(blockPos, blockState, Block.UPDATE_CLIENTS);
+                level.setBlock(origin, blockState, Block.UPDATE_CLIENTS);
             }
         }
         else

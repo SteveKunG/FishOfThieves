@@ -208,10 +208,10 @@ public class FOTItems
     public static final Item POMEGRANATE_SEEDS = register("pomegranate_seeds", properties -> new BlockItem(FOTBlocks.POMEGRANATE_SAPLING, properties.useItemDescriptionPrefix()));
     public static final Item GUARDIAN_FRUIT = register("guardian_fruit", properties -> new GuardianFruitItem(properties.food(FOTFoodProperties.GUARDIAN_FRUIT, FOTConsumables.GUARDIAN_FRUIT)));
 
-    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
-    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
-    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
-    public static final Item GREAT_MOUTH_POTTERY_SHERD = register("great_mouth_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final Item STORMFISH_POTTERY_SHERD = register("stormfish_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.STORMFISH));
+    public static final Item KRAKEN_POTTERY_SHERD = register("kraken_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.KRAKEN));
+    public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.MEGALODON));
+    public static final Item GREAT_MOUTH_POTTERY_SHERD = register("great_mouth_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.GREAT_MOUTH));
 
     public static final Item COCONUT_BOAT = register("coconut_boat", properties -> new BoatItem(FOTEntities.COCONUT_BOAT, properties.stacksTo(1)));
     public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", properties -> new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, properties.stacksTo(1)));

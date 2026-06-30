@@ -66,12 +66,12 @@ repositories {
 
 dependencies {
     localRuntime "maven.modrinth:continuity:${continuity_version}"
-    localRuntime "maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}"
-    localRuntime "xaero.lib:xaerolib-fabric-${minecraft_version}:+"
-    implementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
+    //localRuntime "maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}" TODO
+    //localRuntime "xaero.lib:xaerolib-fabric-${minecraft_version}:+" TODO
+    /*implementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") { TODO
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
-    }
+    }*/
     //compileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}")TODO
     localRuntime "maven.modrinth:structure-void-toggle:4.5.5+26.2"
 }

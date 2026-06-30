@@ -108,6 +108,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTMapDecorationTypes.init();
         FOTLootItemFunctions.init();
         FOTGameRules.init();
+        FOTFeatureTypes.init();
 
         FishOfThieves.initCompostables();
 

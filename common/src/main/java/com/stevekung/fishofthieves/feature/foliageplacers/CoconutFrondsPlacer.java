@@ -21,7 +21,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -71,7 +70,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     }
 
     @Override
-    protected void createFoliage(WorldGenLevel level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeConfiguration config, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
+    protected void createFoliage(WorldGenLevel level, FoliagePlacer.FoliageSetter blockSetter, RandomSource random, TreeFeature feature, int maxFreeTreeHeight, FoliagePlacer.FoliageAttachment attachment, int foliageHeight, int foliageRadius, int offset)
     {
         var pos = attachment.pos();
 
@@ -98,13 +97,13 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                     }
                 }
 
-                this.placeLeavesHorizontalDirections(level, pos, random, config, blockSetter, maxLeavesDistanceFromLocalY, localY);
+                this.placeLeavesHorizontalDirections(level, pos, random, feature, blockSetter, maxLeavesDistanceFromLocalY, localY);
             }
         }
     }
 
     @Override
-    public int foliageHeight(RandomSource random, int height, TreeConfiguration config)
+    public int foliageHeight(RandomSource random, int height, TreeFeature feature)
     {
         return this.height;
     }
@@ -129,14 +128,14 @@ public class CoconutFrondsPlacer extends FoliagePlacer
         }
     }
 
-    private void placeLeavesHorizontalDirections(WorldGenLevel level, BlockPos blockPos, RandomSource random, TreeConfiguration config, FoliagePlacer.FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
+    private void placeLeavesHorizontalDirections(WorldGenLevel level, BlockPos blockPos, RandomSource random, TreeFeature feature, FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
     {
         var mutableBlockPos = blockPos.mutable();
 
         for (var direction : Direction.Plane.HORIZONTAL)
         {
             var opposite = direction.getOpposite();
-            var leavesBlockState = config.foliageProvider.getState(level, random, blockPos);
+            var leavesBlockState = feature.foliageProvider().getState(level, random, blockPos);
 
             if (leavesBlockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
             {

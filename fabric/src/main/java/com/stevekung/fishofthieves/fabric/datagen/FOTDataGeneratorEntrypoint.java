@@ -34,13 +34,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
     {
         builder.add(Registries.STRUCTURE, FOTStructures::bootstrap);
         builder.add(Registries.STRUCTURE_SET, FOTStructures.Sets::bootstrap);
-        builder.add(Registries.CONFIGURED_FEATURE, FOTFeatures::bootstrap);
+        builder.add(Registries.FEATURE, FOTFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, FOTPlacements::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, FOTDamageTypes::bootstrap);
         builder.add(Registries.BIOME, FOTBiomes::bootstrap);
         builder.add(Registries.NOISE, FOTNoises::bootstrap);
         builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
         builder.add(Registries.VILLAGER_TRADE, FOTVillagerTrades::bootstrap);
+        builder.add(Registries.DECORATED_POT_PATTERN, FOTDecoratedPotPatterns::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -141,13 +142,14 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         {
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE));
             entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
-            entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+            entries.addAll(registries.lookupOrThrow(Registries.FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
             entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
             entries.addAll(registries.lookupOrThrow(Registries.BIOME));
             entries.addAll(registries.lookupOrThrow(Registries.NOISE));
             entries.addAll(registries.lookupOrThrow(Registries.TIMELINE));
             entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
+            entries.addAll(registries.lookupOrThrow(Registries.DECORATED_POT_PATTERN));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

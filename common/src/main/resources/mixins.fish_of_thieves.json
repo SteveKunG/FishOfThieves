@@ -61,7 +61,6 @@
     "level.MixinFlowingFluid",
     "level.MixinLevelChunk",
     "level.MixinServerLevel",
-    "level.block.entity.MixinDecoratedPotPatterns",
     "level.block.state.MixinBlockBehaviour",
     "level.block.state.MixinWoodType",
     "loot.MixinLootPoolSingletonContainer_Builder",

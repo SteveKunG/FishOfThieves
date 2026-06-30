@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted_state_provider",
+    "entries": [
+      {
+        "data": {
+          "Name": "fishofthieves:tropical_monstera"
+        },
+        "weight": 4
+      },
+      {
+        "data": {
+          "Name": "fishofthieves:tropical_red_fern",
+          "Properties": {
+            "ceiling": "false"
+          }
+        },
+        "weight": 2
+      },
+      {
+        "data": {
+          "Name": "fishofthieves:vertical_banana_leaves",
+          "Properties": {
+            "ceiling": "false",
+            "waterlogged": "false"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

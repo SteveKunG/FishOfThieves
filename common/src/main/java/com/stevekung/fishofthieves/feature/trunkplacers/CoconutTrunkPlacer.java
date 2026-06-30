@@ -14,7 +14,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -57,9 +57,9 @@ public class CoconutTrunkPlacer extends TrunkPlacer
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config)
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeFeature feature)
     {
-        placeBelowTrunkBlock(level, blockSetter, random, pos.below(), config);
+        placeBelowTrunkBlock(level, blockSetter, random, pos.below(), feature);
         var mediumTrunkStart = this.mediumTrunkStart.sample(random);
         var mediumTrunkHeight = this.mediumTrunkHeight.sample(random);
 
@@ -71,16 +71,16 @@ public class CoconutTrunkPlacer extends TrunkPlacer
 
         for (var height = 0; height < freeTreeHeight; height++)
         {
-            this.placeLog(level, blockSetter, random, pos.above(height), config, mediumTrunkStart, mediumTrunkHeight, height, height == freeTreeHeight - 1);
+            this.placeLog(level, blockSetter, random, pos.above(height), feature, mediumTrunkStart, mediumTrunkHeight, height, height == freeTreeHeight - 1);
         }
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }
 
-    private void placeLog(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, int mediumTrunkStart, int mediumTrunkHeight, int height, boolean isTop)
+    private void placeLog(WorldGenLevel level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeFeature feature, int mediumTrunkStart, int mediumTrunkHeight, int height, boolean isTop)
     {
         if (this.validTreePos(level, pos))
         {
-            var blockState = config.trunkProvider.getState(level, random, pos);
+            var blockState = feature.trunkProvider().getState(level, random, pos);
             var maxMediumTrunkHeight = mediumTrunkStart + mediumTrunkHeight;
 
             if (isTop)

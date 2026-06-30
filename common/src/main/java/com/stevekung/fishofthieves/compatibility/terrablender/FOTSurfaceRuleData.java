@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTNoises;
 
 import net.minecraft.core.HolderGetter;
+import net.minecraft.data.worldgen.material.VanillaMaterialConditions;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -17,18 +18,18 @@ public class FOTSurfaceRuleData
     private static final SurfaceRules.RuleSource SAND = makeStateRule(Blocks.SAND);
     private static final SurfaceRules.RuleSource SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
-    public static SurfaceRules.RuleSource overworld(HolderGetter<Biome> biomes)
+    public static SurfaceRules.RuleSource overworld(HolderGetter<SurfaceRules.ConditionSource> conditionSource, HolderGetter<Biome> biomes)
     {
-        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules(biomes)));
+        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules(conditionSource, biomes)));
     }
 
-    private static SurfaceRules.RuleSource makeRules(HolderGetter<Biome> biomes)
+    private static SurfaceRules.RuleSource makeRules(HolderGetter<SurfaceRules.ConditionSource> conditionSource, HolderGetter<Biome> biomes)
     {
         var waterAboveCheck = SurfaceRules.waterBlockCheck(1, 0);
         var y62 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
         var airAboveCheck = blockStateCheck(Blocks.AIR, 1);
         var sixBelowWater = SurfaceRules.waterStartCheck(-6, -1);
-        var sandWithSandstone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_CEILING, SANDSTONE), SAND);
+        var sandWithSandstone = SurfaceRules.sequence(SurfaceRules.ifTrue(conditionSource.getOrThrow(VanillaMaterialConditions.ON_CEILING).value(), SANDSTONE), SAND);
 
         var surfaceBelow64 = SurfaceRules.not(
                 SurfaceRules.yStartCheck(
@@ -40,7 +41,7 @@ public class FOTSurfaceRuleData
                         sixBelowWater,
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
-                                        SurfaceRules.UNDER_FLOOR,
+                                        conditionSource.getOrThrow(VanillaMaterialConditions.UNDER_FLOOR).value(),
                                         SurfaceRules.sequence(
                                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                                         SurfaceRules.sequence(
@@ -57,7 +58,7 @@ public class FOTSurfaceRuleData
                 ),
 
                 SurfaceRules.ifTrue(
-                        SurfaceRules.ON_FLOOR,
+                        conditionSource.getOrThrow(VanillaMaterialConditions.ON_FLOOR).value(),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                         SurfaceRules.ifTrue(airAboveCheck, SurfaceRules.sequence(
