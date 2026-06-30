@@ -2,25 +2,25 @@ apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/refs/head
 
 loom {
     runs.configureEach {
-        properties project.commonProperties
-        vmArgs project.commonVmArgs
-        vmArgs project.hotswapVmArgs
+        systemProperties.putAll(rootProject.commonProperties)
+        jvmArguments.addAll(rootProject.commonVmArgs)
+        jvmArguments.addAll(rootProject.hotswapVmArgs)
     }
 
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
-                programArgs project.usernameAndUUID
+                programArguments.add(rootProject.usernameAndUUID)
             }
-            name "Minecraft Client " + minecraft_version
+            displayName.set("Minecraft Client " + minecraft_version)
         }
         server {
-            name "Minecraft Server " + minecraft_version
+            displayName.set("Minecraft Client " + minecraft_version)
         }
         data {
             serverData()
-            programArgs "--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/")
-            name "NeoForge Data Generation " + minecraft_version
+            programArguments.addAll("--mod=fishofthieves", "--all", "--output=" + file("src/generated/resources/"), "--existing=" + project(":common").file("src/main/resources/"))
+            displayName.set("NeoForge Data Generation " + minecraft_version)
         }
     }
 }

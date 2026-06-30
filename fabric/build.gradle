@@ -9,50 +9,51 @@ sourceSets {
 
 loom {
     runs.configureEach {
-        properties project.commonProperties
-        vmArgs project.commonVmArgs
-        vmArgs project.hotswapVmArgs
+        systemProperties.putAll(rootProject.commonProperties)
+        jvmArguments.addAll(rootProject.commonVmArgs)
+        jvmArguments.addAll(rootProject.hotswapVmArgs)
     }
 
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
-                programArgs project.usernameAndUUID
+                programArguments.add(rootProject.usernameAndUUID)
             }
         }
         clientTerrablender {
             client()
             if (project.hasProperty("usernameAndUUID")) {
-                programArgs project.usernameAndUUID
+                programArguments.add(rootProject.usernameAndUUID)
             }
-            programArgs "--quickPlaySingleplayer", "TerraBlender"
+            programArguments.add("--quickPlaySingleplayer TerraBlender")
         }
         server {
-            vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
+            jvmArguments.add("-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE")
         }
         gametest {
             if (project.hasProperty("usernameAndUUID")) {
-                programArgs project.usernameAndUUID
+                programArguments.add(rootProject.usernameAndUUID)
             }
             client()
-            name "Game Test Client"
-            source sourceSets.gametest
-            vmArg "-Dfabric-api.gametest"
+            displayName.set("Game Test Client")
+            sourceSet.set("gametest")
+            jvmArguments.add("-Dfabric-api.gametest")
         }
         datagen {
             server()
-            name "Fabric Data Generation"
-            property "fabric-api.datagen"
-            property "fabric-api.datagen.strict-validation"
-            property "fabric-api.datagen.output-dir", "${project(":common").file("src/generated/resources")}"
-            runDir "build/datagen"
+            displayName.set("Fabric Data Generation")
+            systemProperties.put("fabric-api.datagen", "")
+            systemProperties.put("fabric-api.datagen.strict-validation", "")
+            systemProperties.put("fabric-api.datagen.output-dir", "${project(":common").file("src/generated/resources")}")
+            runDirectory.set("build/datagen")
         }
         datagenClient {
             client()
-            name "Fabric Data Generation Client"
-            property "fabric-api.datagen"
-            property "fabric-api.datagen.output-dir", "${project(":common").file("src/generated/resources")}"
-            runDir "build/datagen"
+            displayName.set("Fabric Data Generation Client")
+            systemProperties.put("fabric-api.datagen", "")
+            systemProperties.put("fabric-api.datagen.strict-validation", "")
+            systemProperties.put("fabric-api.datagen.output-dir", "${project(":common").file("src/generated/resources")}")
+            runDirectory.set("build/datagen")
         }
     }
 }
