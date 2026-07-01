@@ -3,33 +3,22 @@ package com.stevekung.fishofthieves.compatibility.biolith;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
+import com.terraformersmc.biolith.api.biome.SubBiomeMatcher;
 import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
 
-import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.Biomes;
 
 public class FOTBiolith
 {
     public static void init()
     {
-        var temperature = Climate.Parameter.span(0.2F, 1.0F); // Tropical temperature
-
-        // Parameters are almost the same as mushroom islands because we can't generate islands manually
-        // So replacing the mushroom island biome at the tropical temperature is the best choice
-        var humidity = Climate.Parameter.span(-1.0F, 1.0F);
-        var continentalness = Climate.Parameter.span(-1.2F, -0.9F);
-        var erosion = Climate.Parameter.span(-1.0F, 1.0F);
-        var weirdness = Climate.Parameter.span(-1.0F, 1.0F);
-        var depth = Climate.Parameter.point(0.0F);
-
-        BiomePlacement.addOverworld(FOTBiomes.TROPICAL_ISLAND,
-                new Climate.ParameterPoint(
-                        temperature,
-                        humidity,
-                        continentalness,
-                        erosion,
-                        depth,
-                        weirdness,
-                        0L));
+        BiomePlacement.addSubOverworld(Biomes.MUSHROOM_FIELDS, FOTBiomes.TROPICAL_ISLAND, SubBiomeMatcher.of(
+                // Tropical climate
+                SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.TEMPERATURE, SubBiomeMatcher.CriterionTypes.VALUE, 0.2f, 1.0f, false),
+                // TODO: Adjust mininum weirdness by config
+                SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.WEIRDNESS, SubBiomeMatcher.CriterionTypes.VALUE, -1.0f, 1.0f, false),
+                SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.CENTER, SubBiomeMatcher.CriterionTypes.RATIO, Float.MIN_VALUE, Float.MAX_VALUE, false)
+        ));
 
         SurfaceGeneration.addOverworldSurfaceRules(FishOfThieves.id("surface_rules"), FOTSurfaceRuleData.overworld());
     }
