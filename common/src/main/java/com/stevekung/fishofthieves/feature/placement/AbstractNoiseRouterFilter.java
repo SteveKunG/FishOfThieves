@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.NoiseRouter;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 
-public abstract class AbstractNoiseRouterFilter extends PlacementFilter
+public abstract class AbstractNoiseRouterFilter implements PlacementFilter
 {
     protected final FloatProvider floatProvider;
 
@@ -18,7 +18,7 @@ public abstract class AbstractNoiseRouterFilter extends PlacementFilter
     }
 
     @Override
-    protected boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos)
+    public boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos)
     {
         var serverChunkCache = context.getLevel().getLevel().getChunkSource();
         var randomState = serverChunkCache.randomState();

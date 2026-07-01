@@ -19,12 +19,12 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class FOTOverworldBiomes extends OverworldBiomes
 {
-    public static Biome tropicalIsland(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers)
+    public static Biome tropicalIsland(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<WorldCarver> worldCarvers)
     {
         var mobSpawnBuilder = new MobSpawnSettings.Builder();
         var biomeSettingsBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);

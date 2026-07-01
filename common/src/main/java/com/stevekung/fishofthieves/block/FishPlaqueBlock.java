@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.blockentity.FishPlaqueBlockEntity;
 import com.stevekung.fishofthieves.entity.BucketableEntityType;
@@ -24,8 +22,10 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -35,7 +35,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Bucketable;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -69,10 +72,6 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
 {
     private final Map<Direction, VoxelShape> aabb;
     private final Type type;
-    public static final MapCodec<FishPlaqueBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            propertiesCodec(),
-            Type.CODEC.fieldOf("type").forGetter(FishPlaqueBlock::getType)
-    ).apply(instance, FishPlaqueBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -166,7 +165,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 {
                     if (fishPlaque.isWaxed())
                     {
-                        if (item instanceof AxeItem)
+                        if (itemStack.is(ItemTags.AXES))
                         {
                             fishPlaque.setWaxed(false);
                             blockEntity.setChanged();
@@ -200,7 +199,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                                 itemStack.shrink(1);
                             }
                             level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
-                            level.levelEvent(player, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, pos, 0);
+                            level.levelEvent(player, LevelEvent.PARTICLES_WAX_ON, pos, 0);
+                            level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
                             return InteractionResult.SUCCESS;
                         }
                         level.playSound(player, pos, FOTSoundEvents.FISH_PLAQUE_ROTATE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -372,12 +372,6 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
             return state.getValue(FishPlaqueBlock.ROTATION);
         }
         return 0;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

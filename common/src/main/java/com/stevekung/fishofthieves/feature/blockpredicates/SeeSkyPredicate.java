@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlockPredicateTypes;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 
@@ -14,9 +14,9 @@ public class SeeSkyPredicate implements BlockPredicate
     public static final MapCodec<SeeSkyPredicate> CODEC = MapCodec.unit(() -> INSTANCE);
 
     @Override
-    public boolean test(WorldGenLevel worldGenLevel, BlockPos blockPos)
+    public boolean test(LevelAccessor level, BlockPos blockPos)
     {
-        return worldGenLevel.canSeeSky(blockPos);
+        return level.canSeeSky(blockPos);
     }
 
     @Override

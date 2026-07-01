@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlockPredicateTypes;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicateType;
 
@@ -22,9 +22,9 @@ public record BlockBrightnessPredicate(int rawBrightness) implements BlockPredic
     }
 
     @Override
-    public boolean test(WorldGenLevel worldGenLevel, BlockPos blockPos)
+    public boolean test(LevelAccessor level, BlockPos blockPos)
     {
-        return worldGenLevel.getRawBrightness(blockPos, 0) >= this.rawBrightness;
+        return level.getRawBrightness(blockPos, 0) >= this.rawBrightness;
     }
 
     @Override

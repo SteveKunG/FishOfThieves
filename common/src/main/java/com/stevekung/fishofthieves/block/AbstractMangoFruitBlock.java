@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTItems;
 
@@ -29,7 +28,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class AbstractMangoFruitBlock extends Block implements BonemealableBlock, Fallable
 {
-    public static final MapCodec<AbstractMangoFruitBlock> CODEC = simpleCodec(AbstractMangoFruitBlock::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
     public static final BooleanProperty FALLING = BlockStateProperties.FALLING;
 

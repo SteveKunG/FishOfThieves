@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.block;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.client.AngledLeavesComponent;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
@@ -39,7 +38,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements BonemealableBlock, SimpleWaterloggedBlock
 {
-    public static final MapCodec<CoconutFrondsBlock> CODEC = simpleCodec(CoconutFrondsBlock::new);
     public static final EnumProperty<Part> PART = EnumProperty.create("part", Part.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape BASE = Block.box(0, 12, 0, 16, 15, 16);
@@ -49,12 +47,6 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, Part.SINGLE).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

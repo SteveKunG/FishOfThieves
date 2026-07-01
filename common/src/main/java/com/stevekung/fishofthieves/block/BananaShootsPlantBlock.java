@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.block;
 
 import java.util.Map;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -24,7 +23,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
 {
-    public static final MapCodec<BananaShootsPlantBlock> CODEC = simpleCodec(BananaShootsPlantBlock::new);
     private static final Map<Direction, VoxelShape> SHAPES = Map.of(
             Direction.NORTH, Block.box(3, 0, 0, 13, 13, 8),
             Direction.WEST, Block.box(0, 0, 3, 8, 13, 13),
@@ -36,12 +34,6 @@ public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

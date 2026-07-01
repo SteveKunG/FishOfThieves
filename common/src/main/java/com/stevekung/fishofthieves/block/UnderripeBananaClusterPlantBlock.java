@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.block;
 
 import java.util.Map;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -17,7 +16,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -27,7 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock implements BonemealableBlock
 {
-    public static final MapCodec<UnderripeBananaClusterPlantBlock> CODEC = simpleCodec(UnderripeBananaClusterPlantBlock::new);
     private static final Map<Direction, VoxelShape> UNDERRIPE_SHAPES = Map.of(
             Direction.NORTH, Block.box(4, 4, 2, 12, 16, 10),
             Direction.WEST, Block.box(2, 4, 4, 10, 16, 12),
@@ -41,12 +38,6 @@ public class UnderripeBananaClusterPlantBlock extends AbstractBananaClusterBlock
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, BananaHangingType.CLUSTER).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

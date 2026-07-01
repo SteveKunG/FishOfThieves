@@ -1,7 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
@@ -27,10 +25,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SmallRotatedPillarBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock
 {
-    private static final MapCodec<SmallRotatedPillarBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BlockState.CODEC.fieldOf("block_state").forGetter(block -> block.blockState),
-            propertiesCodec()
-    ).apply(instance, SmallRotatedPillarBlock::new));
     private static final VoxelShape SHAPE_VERTICAL = Block.box(2, 0, 2, 14, 16, 14);
     private static final VoxelShape SHAPE_HORIZONTAL_NS = Block.box(2, 2, 0, 14, 14, 16);
     private static final VoxelShape SHAPE_HORIZONTAL_WE = Block.box(0, 2, 2, 16, 14, 14);
@@ -48,12 +42,6 @@ public class SmallRotatedPillarBlock extends RotatedPillarBlock implements Simpl
         super(properties);
         this.blockState = blockState;
         this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.Y).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    public MapCodec<? extends SmallRotatedPillarBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

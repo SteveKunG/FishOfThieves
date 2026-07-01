@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.block;
 import java.util.Locale;
 import java.util.Map;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -20,7 +18,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -29,10 +26,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implements BonemealableBlock
 {
-    public static final MapCodec<BananaClusterPlantBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BananaClusterBlock.Type.CODEC.fieldOf("type").forGetter(BananaClusterPlantBlock::getClusterType),
-            propertiesCodec()
-    ).apply(instance, BananaClusterPlantBlock::new));
     private static final Map<Direction, VoxelShape> SHAPES = Map.of(
             Direction.NORTH, Block.box(2, 0, 0, 14, 16, 12),
             Direction.WEST, Block.box(0, 0, 2, 12, 16, 14),
@@ -122,17 +115,6 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
     {
         builder.add(FACING, HANGING, WATERLOGGED);
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
-    }
-
-    public BananaClusterBlock.Type getClusterType()
-    {
-        return this.type;
     }
 
     public enum HangingType implements StringRepresentable

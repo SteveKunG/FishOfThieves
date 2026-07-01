@@ -2,13 +2,12 @@ package com.stevekung.fishofthieves.feature.placement;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.registry.FOTPlacementModifiers;
 
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.FloatProviders;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.NoiseRouter;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 
 public class VegetationFilter extends AbstractNoiseRouterFilter
 {
@@ -33,8 +32,8 @@ public class VegetationFilter extends AbstractNoiseRouterFilter
     }
 
     @Override
-    public PlacementModifierType<?> type()
+    public MapCodec<? extends PlacementFilter> codec()
     {
-        return FOTPlacementModifiers.VEGETATION_FILTER;
+        return CODEC;
     }
 }

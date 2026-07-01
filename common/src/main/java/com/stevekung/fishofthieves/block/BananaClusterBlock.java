@@ -3,8 +3,6 @@ package com.stevekung.fishofthieves.block;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.core.BlockPos;
@@ -35,10 +33,6 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
     private static final VoxelShape UNDERRIPE_SHAPE = Block.box(4, 0, 4, 12, 12, 12);
     private static final VoxelShape NORMAL_SHAPE = Block.box(2, 0, 2, 14, 16, 14);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final MapCodec<BananaClusterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Type.CODEC.fieldOf("type").forGetter(BananaClusterBlock::getClusterType),
-            propertiesCodec()
-    ).apply(instance, BananaClusterBlock::new));
     private final Type type;
 
     public BananaClusterBlock(Type type, Properties properties)
@@ -46,17 +40,6 @@ public class BananaClusterBlock extends Block implements BonemealableBlock, Simp
         super(properties);
         this.type = type;
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
-    }
-
-    public Type getClusterType()
-    {
-        return this.type;
-    }
-
-    @Override
-    protected MapCodec<? extends BananaClusterBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

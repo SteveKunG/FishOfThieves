@@ -63,15 +63,15 @@ public class FOTPlacements
         PlacementUtils.register(context, MANGO_TREE_BEES_02_LEAF_LITTER_CHECKED, holderGetter.getOrThrow(FOTFeatures.MANGO_TREE_BEES_02_LEAF_LITTER), PlacementUtils.filteredByBlockSurvival(FOTBlocks.MANGO_SAPLING));
         PlacementUtils.register(context, BANANA_TREE_CHECKED, holderGetter.getOrThrow(FOTFeatures.BANANA_TREE), PlacementUtils.filteredByBlockSurvival(FOTBlocks.BANANA_SHOOTS));
 
-        PlacementUtils.register(context, TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(64), RandomOffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
+        PlacementUtils.register(context, TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(64), OffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TREES_TROPICAL_ISLAND, holderGetter.getOrThrow(FOTFeatures.TREES_TROPICAL_ISLAND), VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.1F, 1)));
-        PlacementUtils.register(context, PATCH_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_PINEAPPLE), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(32), RandomOffsetPlacement.ofTriangle(4, 2), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+        PlacementUtils.register(context, PATCH_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_PINEAPPLE), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(32), OffsetPlacement.ofTriangle(4, 2), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.replaceable(),
                 BlockPredicate.noFluid(),
                 BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), List.of(Blocks.GRASS_BLOCK)))));
         PlacementUtils.register(context, WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_PINEAPPLE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
-        PlacementUtils.register(context, PATCH_MELON_TROPICAL, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_MELON), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(16), RandomOffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+        PlacementUtils.register(context, PATCH_MELON_TROPICAL, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_MELON), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(16), OffsetPlacement.ofTriangle(7, 3), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.replaceable(),
                 BlockPredicate.noFluid(),
                 BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), List.of(Blocks.GRASS_BLOCK)))));
@@ -81,20 +81,20 @@ public class FOTPlacements
                 .add(VegetationFilter.vegetation(UniformFloat.of(-0.2f, 0.4f)))
                 .add(ContinentsFilter.continents(UniformFloat.of(-1.1f, -0.9f)))
                 .build());
-        PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(16), RandomOffsetPlacement.ofTriangle(5, 3), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+        PlacementUtils.register(context, PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.PATCH_WILD_POMEGRANATE), RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(16), OffsetPlacement.ofTriangle(5, 3), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.replaceable(),
                 BlockPredicate.noFluid(),
                 BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), List.of(Blocks.GRASS_BLOCK)))));
         PlacementUtils.register(context, WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
         PlacementUtils.register(context, TALL_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.TALL_WILD_POMEGRANATE), BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE));
-        PlacementUtils.register(context, PATCH_TROPICAL_BUSH, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_BUSH), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), CountPlacement.of(32), RandomOffsetPlacement.ofTriangle(4, 2), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+        PlacementUtils.register(context, PATCH_TROPICAL_BUSH, holderGetter.getOrThrow(FOTFeatures.PATCH_TROPICAL_BUSH), RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(), CountPlacement.of(32), OffsetPlacement.ofTriangle(4, 2), BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.replaceable(),
                 BlockPredicate.not(BlockBrightnessPredicate.value(13)),
                 BlockPredicate.not(SeeSkyPredicate.INSTANCE),
                 BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), List.of(Blocks.GRASS_BLOCK)))));
         PlacementUtils.register(context, TROPICAL_ISLAND_ROCK, holderGetter.getOrThrow(FOTFeatures.TROPICAL_ISLAND_ROCK), RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), List.of(Blocks.GRASS_BLOCK))));
 
-        PlacementUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(64), RandomOffsetPlacement.ofTriangle(7, 3));
+        PlacementUtils.register(context, SPARSE_JUNGLE_TROPICAL_FLOWER, holderGetter.getOrThrow(FOTFeatures.TROPICAL_FLOWER), RarityFilter.onAverageOnceEvery(64), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome(), CountPlacement.of(64), OffsetPlacement.ofTriangle(7, 3));
         PlacementUtils.register(context, SPARSE_JUNGLE_FRUIT_TREES, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_FRUIT_TREES), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(40)));
         PlacementUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_PATCH_WILD_PINEAPPLE), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(16)));
         PlacementUtils.register(context, SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE, holderGetter.getOrThrow(FOTFeatures.SPARSE_JUNGLE_PATCH_WILD_POMEGRANATE), VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(16)));

@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import com.mojang.serialization.MapCodec;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
@@ -31,7 +30,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoconutFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, Fallable
 {
-    public static final MapCodec<CoconutFruitBlock> CODEC = simpleCodec(CoconutFruitBlock::new);
     private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
             Block.box(12, 8, 5, 18, 14, 11),
             Block.box(10, 6, 4, 18, 14, 12),
@@ -55,12 +53,6 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(AGE, 0));
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

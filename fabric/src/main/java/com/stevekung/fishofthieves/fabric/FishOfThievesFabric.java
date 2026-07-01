@@ -23,7 +23,6 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -116,8 +115,8 @@ public class FishOfThievesFabric implements ModInitializer
 
         FOTCreativeTabs.init();
 
-        StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
-        StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
+//        StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);TODO
+//        StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
         BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 

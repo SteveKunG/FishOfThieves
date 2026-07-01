@@ -2,8 +2,6 @@ package com.stevekung.fishofthieves.block;
 
 import org.jspecify.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -29,7 +27,6 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
 {
     private static final VoxelShape X_SHAPE = Block.box(4, 0, 0, 12, 3, 16);
     private static final VoxelShape Y_SHAPE = Block.box(0, 0, 4, 16, 3, 12);
-    public static final MapCodec<FishBoneBlock> CODEC = simpleCodec(FishBoneBlock::new);
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -37,12 +34,6 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<? extends HorizontalDirectionalBlock> codec()
-    {
-        return CODEC;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class FOTBiomes
     public static void bootstrap(BootstrapContext<Biome> context)
     {
         var placedFeature = context.lookup(Registries.PLACED_FEATURE);
-        var configuredCarver = context.lookup(Registries.CONFIGURED_CARVER);
+        var configuredCarver = context.lookup(Registries.CARVER);
         context.register(TROPICAL_ISLAND, FOTOverworldBiomes.tropicalIsland(placedFeature, configuredCarver));
     }
 

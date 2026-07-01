@@ -25,7 +25,7 @@ public class WreckerBulbLayer extends RenderLayer<WreckerRenderState, WreckerMod
         if (!renderState.isInvisible)
         {
             var color = Mth.clamp(1.0F + Mth.cos(renderState.ageInTicks * 0.05f), 0.25F, 1.0F);
-            submitNodeCollector.order(2).submitModel(this.getParentModel(), renderState, poseStack, RenderTypes.eyes(renderState.bulbTexture), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(color, 1.0f, 1.0f, 1.0f), null, renderState.outlineColor, null);
+            submitNodeCollector.order(2).submitModel(this.getParentModel(), renderState, poseStack, RenderTypes.eyes(renderState.bulbTexture), packedLight, OverlayTexture.NO_OVERLAY, ARGB.colorFromFloat(color, 1.0f, 1.0f, 1.0f), null, renderState.outlineColor);
         }
     }
 }

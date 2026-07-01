@@ -9,8 +9,11 @@ import com.stevekung.fishofthieves.registry.FOTBlockStateProviderTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.*;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.util.valueproviders.FloatProvider;
+import net.minecraft.util.valueproviders.FloatProviders;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.IntProviders;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -73,7 +76,7 @@ public class RandomizedIntBooleanStateProvider extends BlockStateProvider
     }
 
     @Override
-    public BlockState getState(WorldGenLevel level, RandomSource random, BlockPos pos)
+    public BlockState getState(LevelAccessor level, RandomSource random, BlockPos pos)
     {
         var blockState = this.source.getState(level, random, pos);
 
