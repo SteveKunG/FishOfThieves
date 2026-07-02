@@ -47,7 +47,7 @@ public class CommonProxyForge
         {
             FishOfThieves.initCommon();
 
-            if (FOTPlatform.isModLoaded("biolith"))
+            if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
             {
                 FOTBiolith.init();
             }

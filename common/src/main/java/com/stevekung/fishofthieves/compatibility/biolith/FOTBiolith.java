@@ -15,8 +15,7 @@ public class FOTBiolith
         BiomePlacement.addSubOverworld(Biomes.MUSHROOM_FIELDS, FOTBiomes.TROPICAL_ISLAND, SubBiomeMatcher.of(
                 // Tropical climate
                 SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.TEMPERATURE, SubBiomeMatcher.CriterionTypes.VALUE, 0.2f, 1.0f, false),
-                // TODO: Adjust mininum weirdness by config
-                SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.WEIRDNESS, SubBiomeMatcher.CriterionTypes.VALUE, -1.0f, 1.0f, false),
+                SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.WEIRDNESS, SubBiomeMatcher.CriterionTypes.VALUE, FishOfThieves.CONFIG.biome.tropicalIslandMinimumWeirdness, FishOfThieves.CONFIG.biome.tropicalIslandMaximumWeirdness, false),
                 SubBiomeMatcher.Criterion.ofRange(SubBiomeMatcher.CriterionTargets.CENTER, SubBiomeMatcher.CriterionTypes.RATIO, Float.MIN_VALUE, Float.MAX_VALUE, false)
         ));
 

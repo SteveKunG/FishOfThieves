@@ -68,7 +68,7 @@ public class FishOfThievesFabric implements ModInitializer
         FOTSurfaceRuleConditionSources.init();
         FOTPoiTypes.init();
 
-        if (FOTPlatform.isModLoaded("biolith"))
+        if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
         {
             FOTBiolith.init();
         }

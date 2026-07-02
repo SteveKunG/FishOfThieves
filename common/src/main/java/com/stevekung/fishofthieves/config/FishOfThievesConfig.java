@@ -75,7 +75,15 @@ public final class FishOfThievesConfig implements ConfigData
     public static class Biome
     {
         @ConfigEntry.Gui.RequiresRestart
-        public int tropicalIslandRegionWeight = 8;
+        public boolean tropicalIslandBiomeGeneration = true;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @ConfigEntry.Gui.Tooltip
+        public float tropicalIslandMinimumWeirdness = -1.0f;
+
+        @ConfigEntry.Gui.RequiresRestart
+        @ConfigEntry.Gui.Tooltip
+        public float tropicalIslandMaximumWeirdness = 1.0f;
     }
 
     public static class SpawnRate
