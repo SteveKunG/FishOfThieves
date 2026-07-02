@@ -79,11 +79,11 @@ public final class FishOfThievesConfig implements ConfigData
 
         @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.Gui.Tooltip
-        public float tropicalIslandMinimumWeirdness = -1.0f;
+        public float tropicalIslandMinimumWeirdness = -1.2f;
 
         @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.Gui.Tooltip
-        public float tropicalIslandMaximumWeirdness = 1.0f;
+        public float tropicalIslandMaximumWeirdness = 1.2f;
     }
 
     public static class SpawnRate
