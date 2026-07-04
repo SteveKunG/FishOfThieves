@@ -17,13 +17,13 @@ loom {
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
-                programArguments.add(rootProject.usernameAndUUID)
+                programArguments.addAll(rootProject.usernameAndUUID)
             }
         }
         clientTerrablender {
             client()
             if (project.hasProperty("usernameAndUUID")) {
-                programArguments.add(rootProject.usernameAndUUID)
+                programArguments.addAll(rootProject.usernameAndUUID)
             }
             programArguments.add("--quickPlaySingleplayer TerraBlender")
         }
@@ -32,7 +32,7 @@ loom {
         }
         gametest {
             if (project.hasProperty("usernameAndUUID")) {
-                programArguments.add(rootProject.usernameAndUUID)
+                programArguments.addAll(rootProject.usernameAndUUID)
             }
             client()
             displayName.set("Game Test Client")

@@ -10,6 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -140,6 +141,6 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Nullable
     public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
     {
-        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, new EntitySpawnRequest(EntitySpawnReason.LOAD, true), EntityProcessor.NOP);
+        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, new EntitySpawnRequest(EntitySpawnReason.LOAD, true), BaseSpawner.SET_DISPLAY_ENTITY_ID);
     }
 }

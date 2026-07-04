@@ -39,6 +39,13 @@
         "min": -7,
         "plateau": 0
       }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "minecraft:air"
+      }
     }
   ]
 }

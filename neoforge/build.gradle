@@ -10,7 +10,7 @@ loom {
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
-                programArguments.add(rootProject.usernameAndUUID)
+                programArguments.addAll(rootProject.usernameAndUUID)
             }
             displayName.set("Minecraft Client " + minecraft_version)
         }
@@ -38,7 +38,7 @@ repositories {
 dependencies {
     api "com.teammetallurgy.aquaculture:aquaculture2_26.1.1:${aquaculture_version}:api"
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"
-    //compileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${minecraft_version}-${serene_seasons_version}"TODO
+    compileOnly "com.github.glitchfiend:SereneSeasons-neoforge:${minecraft_version}-${serene_seasons_version}"
     implementation "com.github.glitchfiend:GlitchCore-neoforge:${minecraft_version}-${glitchcore_version}"
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
