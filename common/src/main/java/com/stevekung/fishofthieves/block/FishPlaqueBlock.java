@@ -431,6 +431,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
                 entity.setAirSupply(100);
             }
 
+            entity.setId(level.getNextEntityId());
             entity.snapTo(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, direction.toYRot(), 0.0f);
             entity.setDeltaMovement(level.getRandom().triangle(direction.getStepX() * random, 0.0172275), 0.4, level.getRandom().triangle(direction.getStepZ() * random, 0.0172275));
             level.addFreshEntity(entity);

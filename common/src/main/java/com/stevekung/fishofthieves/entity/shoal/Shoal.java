@@ -30,6 +30,7 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.Util;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -47,6 +48,12 @@ public class Shoal extends Entity
     private static final List<EntityType<?>> TIER_2_FISH_QUEST = List.of(FOTEntities.SPLASHTAIL, FOTEntities.WILDSPLASH, FOTEntities.BATTLEGILL, FOTEntities.PLENTIFIN, FOTEntities.STORMFISH);
 
     private static final EntityDataAccessor<Boolean> TREASURED = SynchedEntityData.defineId(Shoal.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityProcessor SET_NEXT_ENTITY_ID = entity ->
+    {
+        entity.setId(entity.level().getNextEntityId());
+        return entity;
+    };
 
     public static final String SHOAL_FISH_TAG = "shoal_fish";
     public static final String LIFETIME_TAG = "lifetime";
@@ -220,7 +227,7 @@ public class Shoal extends Entity
                     {
                         var compoundTag = shoalFishData1.data();
                         compoundTag.putString("id", shoalFishData1.id());
-                        return EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), EntityProcessor.NOP);
+                        return EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), BaseSpawner.SET_DISPLAY_ENTITY_ID);
                     })
                     .filter(LivingEntity.class::isInstance)
                     .map(LivingEntity.class::cast)
@@ -241,7 +248,7 @@ public class Shoal extends Entity
         var uuid = shoalFish.uuid();
         var compoundTag = shoalFish.data();
         compoundTag.putString("id", shoalFish.id());
-        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), EntityProcessor.NOP);
+        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), new EntitySpawnRequest(EntitySpawnReason.LOAD, true), SET_NEXT_ENTITY_ID);
 
         if (entity instanceof LivingEntity livingEntity)
         {
