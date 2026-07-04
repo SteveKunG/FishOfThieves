@@ -10,7 +10,7 @@ loom {
     runs {
         client {
             if (project.hasProperty("usernameAndUUID")) {
-                programArguments.add(rootProject.usernameAndUUID)
+                programArguments.addAll(rootProject.usernameAndUUID)
             }
             displayName.set("Minecraft Client " + minecraft_version)
         }
