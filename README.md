@@ -18,6 +18,7 @@
 | 1.21.1            | ✅ Active     |
 | 1.21.11           | ✅ Active     |
 | 26.1.x            | ✅ Active     |
+| 26.2.x            | ✅ Active     |
 
 ## **About**
 
