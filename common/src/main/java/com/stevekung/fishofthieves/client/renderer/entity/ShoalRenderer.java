@@ -98,15 +98,20 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
             var renderer = (EntityRenderer<? super Entity, ? super EntityRenderState>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(livingEntity.getType());
             var entityRenderState = renderer.createRenderState(livingEntity, 1.0f);
             entityRenderState.ageInTicks = entity.tickCount + partialTicks;
+
+            if (entity.level().getBlockState(blockPos.above()).isSolid())
+            {
+                entityRenderState.lightCoords = LightCoordsUtil.pack(this.getBlockLightLevel(entity, blockPos.below()), this.getSkyLightLevel(entity, blockPos.below()));
+            }
+            else
+            {
+                entityRenderState.lightCoords = this.getPackedLightCoords(entity, partialTicks);
+            }
+
             entityRenderStateList.add(entityRenderState);
         }
 
         renderState.shoalFishClient = entityRenderStateList;
-
-        if (entity.level().getBlockState(blockPos.above()).isSolid())
-        {
-            renderState.lightCoords = LightCoordsUtil.pack(this.getBlockLightLevel(entity, blockPos.below(2)), this.getSkyLightLevel(entity, blockPos.below(2)));
-        }
     }
 
     @SuppressWarnings("unchecked")
