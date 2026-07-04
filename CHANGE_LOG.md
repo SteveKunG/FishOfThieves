@@ -1,4 +1,5 @@
 # Features
+- [26.2] Initial release
 - Leeches can be found when digging near water on the Tropical Island biome
 - Backport Spawn Egg textures from 1.21.11
 
