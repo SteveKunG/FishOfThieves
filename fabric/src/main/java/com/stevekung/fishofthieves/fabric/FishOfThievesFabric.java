@@ -7,6 +7,7 @@ import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
@@ -123,6 +124,11 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPoiTypes.init();
         FOTMapDecorationTypes.init();
         FOTLootItemFunctions.init();
+
+        if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
+        {
+            FOTBiolith.init();
+        }
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();

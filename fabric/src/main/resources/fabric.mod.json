@@ -30,9 +30,6 @@
     "modmenu": [
       "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
     ],
-    "terrablender": [
-      "com.stevekung.fishofthieves.fabric.terrablender.FishOfThievesTerraBlenderFabric"
-    ],
     "mm:early_risers": [
       "com.stevekung.fishofthieves.fabric.asm.EarlyRisers"
     ]
