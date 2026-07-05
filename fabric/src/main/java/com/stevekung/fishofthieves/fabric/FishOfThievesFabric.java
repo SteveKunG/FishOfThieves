@@ -4,6 +4,7 @@ import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
@@ -113,6 +114,11 @@ public class FishOfThievesFabric implements ModInitializer
         FOTGameRules.init();
 
         FOTDecoratedPotPatterns.putItemsToPotTexture();
+
+        if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
+        {
+            FOTBiolith.init();
+        }
 
         FishOfThieves.initCompostables();
 

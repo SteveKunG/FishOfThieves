@@ -24,12 +24,12 @@ loom {
                 programArgs project.usernameAndUUID
             }
         }
-        clientTerrablender {
+        clientBiolith {
             client()
             if (project.hasProperty("usernameAndUUID")) {
                 programArgs project.usernameAndUUID
             }
-            programArgs "--quickPlaySingleplayer", "TerraBlender"
+            programArgs "--quickPlaySingleplayer", "Biolith"
         }
         server {
             vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
@@ -76,15 +76,22 @@ repositories {
 }
 
 dependencies {
-    modRuntimeOnly "maven.modrinth:continuity:${continuity_version}"
-    modRuntimeOnly "maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}"
-    modRuntimeOnly "xaero.lib:xaerolib-fabric-${minecraft_version}:+"
-    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}") {
+    modRuntimeOnly("maven.modrinth:continuity:${continuity_version}")
+    modRuntimeOnly("maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}")
+    modRuntimeOnly("xaero.lib:xaerolib-fabric-${minecraft_version}:+") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
-    modCompileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}")
+    modImplementation("com.terraformersmc:biolith-fabric:${biolith_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
+    modCompileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
     modRuntimeOnly "maven.modrinth:structure-void-toggle:4.5.3+1.21.11"
+    //modRuntimeOnly "maven.modrinth:world-preview:qc0AtV3T" TODO
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
 }
 
