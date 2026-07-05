@@ -11,7 +11,7 @@ apply from: "https://raw.githubusercontent.com/SteveKunG/GradleScripts/refs/head
 allprojects {
     repositories {
         maven {
-            name = "TerraBlender"
+            name = "Glitchfiend"
             url = "https://maven.minecraftforge.net/"
             content {
                 includeGroup "com.github.glitchfiend"
