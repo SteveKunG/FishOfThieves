@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
@@ -13,6 +14,7 @@ import com.stevekung.fishofthieves.registry.variant.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -29,6 +31,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.commands.ResetChunksCommand;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -66,6 +69,11 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
         FOTPoiTypes.init();
+
+        if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
+        {
+            FOTBiolith.init();
+        }
 
         FOTDecoratedPotPatterns.init();
         FOTDecoratedPotPatterns.putItemsToPotTexture();
@@ -144,6 +152,11 @@ public class FishOfThievesFabric implements ModInitializer
         });
 
         ServerPlayNetworking.registerGlobalReceiver(FishOfThieves.REQUEST_SERVER_SHOAL_FISH, FishOfThievesFabric::requestServerShoalFish);
+
+        if (FOTPlatform.isDevelopment())
+        {
+            CommandRegistrationCallback.EVENT.register((dispatcher, context, selection) -> ResetChunksCommand.register(dispatcher));
+        }
     }
 
     private static void sendStructurePosDebugPacket(ServerLevel level, ChunkPos chunkPos)

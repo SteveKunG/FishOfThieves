@@ -22,9 +22,22 @@ public class WaterSurroundedConditionSource extends SurfaceRules implements Surf
     {
         return () ->
         {
+            var blockPos = context.pos;
+            var localX = blockPos.getX() & 15;
+            var localZ = blockPos.getZ() & 15;
+
             for (var direction : Direction.Plane.HORIZONTAL)
             {
-                var fluidState = context.chunk.getFluidState(context.pos.relative(direction));
+                // Skip directions that would cross into a neighboring chunk
+                if (direction == Direction.WEST && localX == 0 ||
+                        direction == Direction.EAST && localX == 15 ||
+                        direction == Direction.NORTH && localZ == 0 ||
+                        direction == Direction.SOUTH && localZ == 15)
+                {
+                    continue;
+                }
+
+                var fluidState = context.chunk.getFluidState(blockPos.relative(direction));
 
                 if (fluidState.is(FluidTags.WATER))
                 {
