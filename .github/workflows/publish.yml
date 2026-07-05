@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version (Example: mc26.1.2-v26.1.2.1)'
+        description: 'Version (Example: mc26.1.2-v26.1.2.2.0)'
         required: true
 
 jobs:
