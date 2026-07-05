@@ -1,4 +1,4 @@
-package com.stevekung.fishofthieves.compatibility.terrablender;
+package com.stevekung.fishofthieves.compatibility.biolith;
 
 import com.stevekung.fishofthieves.feature.surfacerules.BlockStateConditionSource;
 import com.stevekung.fishofthieves.feature.surfacerules.WaterSurroundedConditionSource;
