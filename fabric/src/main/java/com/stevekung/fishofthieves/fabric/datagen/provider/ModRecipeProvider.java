@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -18,30 +19,30 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.SmokingRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 public class ModRecipeProvider extends RecipeProvider
 {
     private final HolderGetter<Item> items;
+    private final ModBrewingProvider brewingProvider = new ModBrewingProvider(this.output);
 
-    protected ModRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput)
+    protected ModRecipeProvider(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput)
     {
-        super(provider, recipeOutput);
-        this.items = provider.lookupOrThrow(Registries.ITEM);
+        super(recipeOutput, advancementOutput);
+        this.items = recipeOutput.lookup(Registries.ITEM);
     }
 
     @Override
     public void buildRecipes()
     {
+        this.brewingProvider.buildRecipes();
         this.generateForFOTBlockFamilies();
         this.shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 4).requires(FOTBlocks.FISH_BONE).group("bonemeal").unlockedBy(getHasName(FOTBlocks.FISH_BONE), this.has(FOTBlocks.FISH_BONE)).save(this.output, FishOfThieves.MOD_RESOURCES + "bonemeals_from_fish_bone");
 
@@ -188,9 +189,9 @@ public class ModRecipeProvider extends RecipeProvider
         }
 
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput)
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements)
         {
-            return new ModRecipeProvider(provider, recipeOutput);
+            return new ModRecipeProvider(recipes, advancements);
         }
 
         @Override

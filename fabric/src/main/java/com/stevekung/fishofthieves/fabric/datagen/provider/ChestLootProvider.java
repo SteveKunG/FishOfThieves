@@ -129,4 +129,10 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
     {
         return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetFireworksFunction(lootItemConditions, Optional.of(explosions), flightDuration));
     }
+
+    @Override
+    public void run()
+    {
+        //TODO
+    }
 }

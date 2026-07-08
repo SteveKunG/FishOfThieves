@@ -38,6 +38,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.StructureTags;
@@ -322,9 +323,9 @@ public class AdvancementProvider extends FabricAdvancementProvider
                 .save(consumer, this.mod("drunken_sailor"));
     }
 
-    private String mod(String name)
+    private Identifier mod(String name)
     {
-        return FishOfThieves.MOD_RESOURCES + name;
+        return FishOfThieves.id(name);
     }
 
     private Advancement.Builder addFishBuckets(Advancement.Builder builder, HolderGetter<Item> itemLookup)

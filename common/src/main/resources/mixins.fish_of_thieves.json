@@ -57,7 +57,6 @@
     "inventory.MixinMerchantMenu",
     "item.MixinFishingRodItem",
     "item.MixinJukeboxPlayable",
-    "item.MixinPotionBrewing",
     "level.MixinFlowingFluid",
     "level.MixinLevelChunk",
     "level.MixinServerLevel",

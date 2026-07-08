@@ -22,7 +22,7 @@ public class SimpleSpawningConditionPackGenerator implements DataGeneratorEntryp
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator)
     {
         var pack = dataGenerator.createBuiltinResourcePack(FishOfThieves.id("simple_spawning_condition_pack"));
-        var extraProvider = RegistryPatchGenerator.createLookup(dataGenerator.getRegistries(), new RegistrySetBuilder()
+        var extraProvider = RegistryPatchGenerator.createWorldLookup(dataGenerator.getRegistries(), new RegistrySetBuilder()
                 .add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrapSimple)
                 .add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrapSimple)
                 .add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrapSimple)

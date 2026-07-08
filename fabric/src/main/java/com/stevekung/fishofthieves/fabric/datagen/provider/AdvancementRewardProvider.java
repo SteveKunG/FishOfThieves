@@ -47,4 +47,10 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableSubProvider
                         .setRolls(UniformGenerator.between(4.0F, 8.0F))
                         .add(TagEntry.expandTag(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE))));
     }
+
+    @Override
+    public void run()
+    {
+        //TODO
+    }
 }

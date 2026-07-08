@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,11 +37,6 @@ public class FOTPlatformImpl
     public static boolean isDevelopment()
     {
         return FabricLoader.getInstance().isDevelopmentEnvironment();
-    }
-
-    public static void addComposting(ItemLike item, float value)
-    {
-        CompostableRegistry.INSTANCE.add(item, value);
     }
 
     public static void addFlammableBlock(Block block, int encouragement, int flammability)

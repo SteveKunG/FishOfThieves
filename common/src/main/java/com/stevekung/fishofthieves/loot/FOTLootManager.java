@@ -20,6 +20,7 @@ import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
@@ -33,6 +34,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -76,8 +78,8 @@ public class FOTLootManager
             map.put(BuiltInLootTables.FISHING_JUNK, (builder, provider) -> builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE).setWeight(1)));
 
             // Entity Loot
-            EntityTypes.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getPolarBearLoot));
-            EntityTypes.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getDolphinLoot));
+            EntityTypes.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getPolarBearLoot(builder, provider.lookupOrThrow(Registries.ENCHANTMENT))));
+            EntityTypes.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getDolphinLoot(builder, provider.lookupOrThrow(Registries.ENCHANTMENT))));
 
             // Archaeology
             map.put(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
@@ -90,8 +92,8 @@ public class FOTLootManager
         return Util.make(new HashMap<>(), map ->
         {
             // Entity Loot
-            EntityTypes.GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, false)));
-            EntityTypes.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, true)));
+            EntityTypes.GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider.lookupOrThrow(Registries.ENCHANTMENT), false)));
+            EntityTypes.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider.lookupOrThrow(Registries.ENCHANTMENT), true)));
 
             // Chests
             map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder));
@@ -185,77 +187,77 @@ public class FOTLootManager
         return builder;
     }
 
-    public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, HolderLookup.Provider provider, boolean elder)
+    public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, HolderGetter<Enchantment> enchantments, boolean elder)
     {
         var weight = elder ? 3 : 2;
         return builder.setRolls(ConstantValue.exactly(1.0F))
                 .add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .setWeight(weight)
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .setWeight(weight)
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))));
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))));
     }
 
-    public static LootPool.Builder getDolphinLoot(LootPool.Builder builder, HolderLookup.Provider provider)
+    public static LootPool.Builder getDolphinLoot(LootPool.Builder builder, HolderGetter<Enchantment> enchantments)
     {
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .when(FOTLootItemConditions.THUNDERING));
     }
 
-    public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder, HolderLookup.Provider provider)
+    public static LootPool.Builder getPolarBearLoot(LootPool.Builder builder, HolderGetter<Enchantment> enchantments)
     {
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(10)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
-                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(provider)))
+                        .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(5)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
                         .when(FOTLootItemConditions.THUNDERING));
     }
 
@@ -316,16 +318,15 @@ public class FOTLootManager
                 ;
     }
 
-    public static AnyOfCondition.Builder shouldSmeltLoot(HolderLookup.Provider provider)
+    public static AnyOfCondition.Builder shouldSmeltLoot(HolderGetter<Enchantment> enchantments)
     {
-        var registryLookup = provider.lookupOrThrow(Registries.ENCHANTMENT);
         return AnyOfCondition.anyOf(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity()
                         .flags(EntityFlagsPredicate.Builder.flags().setOnFire(true))),
                 LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.entity()
                         .equipment(EntityEquipmentPredicate.Builder.equipment().mainhand(ItemPredicate.Builder.item()
                                 .withComponents(DataComponentMatchers.Builder.components()
                                         .partial(DataComponentPredicates.ENCHANTMENTS, EnchantmentsPredicate.enchantments(
-                                                List.of(new EnchantmentPredicate(registryLookup.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))))
+                                                List.of(new EnchantmentPredicate(enchantments.getOrThrow(EnchantmentTags.SMELTS_LOOT), MinMaxBounds.Ints.ANY))))
                                         .build())))));
     }
 }

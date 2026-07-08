@@ -26,6 +26,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -56,36 +57,38 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
+        var enchantments = this.provider.lookupOrThrow(Registries.ENCHANTMENT);
+
         consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
+                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, 0.025F, 0.01F))));
 
-        this.simpleFishLoot(consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, FOTDataComponentTypes.SPLASHTAIL_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, FOTDataComponentTypes.PONDIE_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.ISLEHOPPER, FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, FOTDataComponentTypes.ISLEHOPPER_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.ANCIENTSCALE, FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, FOTDataComponentTypes.ANCIENTSCALE_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.PLENTIFIN, FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, FOTDataComponentTypes.PLENTIFIN_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.WILDSPLASH, FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, FOTDataComponentTypes.WILDSPLASH_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.DEVILFISH, FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, FOTDataComponentTypes.DEVILFISH_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.BATTLEGILL, FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, FOTDataComponentTypes.BATTLEGILL_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.WRECKER, FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, FOTDataComponentTypes.WRECKER_VARIANT);
-        this.simpleFishLoot(consumer, FOTItems.STORMFISH, FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, FOTDataComponentTypes.STORMFISH_VARIANT);
+        this.simpleFishLoot(consumer, FOTItems.SPLASHTAIL, FOTEntities.SPLASHTAIL, FOTRegistries.SPLASHTAIL_VARIANT, FOTDataComponentTypes.SPLASHTAIL_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.PONDIE, FOTEntities.PONDIE, FOTRegistries.PONDIE_VARIANT, FOTDataComponentTypes.PONDIE_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.ISLEHOPPER, FOTEntities.ISLEHOPPER, FOTRegistries.ISLEHOPPER_VARIANT, FOTDataComponentTypes.ISLEHOPPER_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.ANCIENTSCALE, FOTEntities.ANCIENTSCALE, FOTRegistries.ANCIENTSCALE_VARIANT, FOTDataComponentTypes.ANCIENTSCALE_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.PLENTIFIN, FOTEntities.PLENTIFIN, FOTRegistries.PLENTIFIN_VARIANT, FOTDataComponentTypes.PLENTIFIN_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.WILDSPLASH, FOTEntities.WILDSPLASH, FOTRegistries.WILDSPLASH_VARIANT, FOTDataComponentTypes.WILDSPLASH_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.DEVILFISH, FOTEntities.DEVILFISH, FOTRegistries.DEVILFISH_VARIANT, FOTDataComponentTypes.DEVILFISH_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.BATTLEGILL, FOTEntities.BATTLEGILL, FOTRegistries.BATTLEGILL_VARIANT, FOTDataComponentTypes.BATTLEGILL_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.WRECKER, FOTEntities.WRECKER, FOTRegistries.WRECKER_VARIANT, FOTDataComponentTypes.WRECKER_VARIANT, enchantments);
+        this.simpleFishLoot(consumer, FOTItems.STORMFISH, FOTEntities.STORMFISH, FOTRegistries.STORMFISH_VARIANT, FOTDataComponentTypes.STORMFISH_VARIANT, enchantments);
     }
 
-    private <T extends AbstractFishVariant> void simpleFishLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType)
+    private <T extends AbstractFishVariant> void simpleFishLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer, Item item, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType, HolderGetter<Enchantment> enchantments)
     {
         consumer.accept(entityType.getDefaultLootTable().orElseThrow(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(this.applyCustomData(LootItem.lootTableItem(item)
                                 .apply(SmeltItemFunction.smelted()
-                                        .when(FOTLootManager.shouldSmeltLoot(this.provider)))
+                                        .when(FOTLootManager.shouldSmeltLoot(enchantments)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TROPHY, new TrophyFishPredicate(true))))
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TREASURED, new TreasuredFishPredicate(false))))
-                                ), entityType, registryKey, dataComponentType)))
+                                ), entityType, registryKey, dataComponentType, enchantments)))
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(Items.BONE_MEAL))
@@ -93,10 +96,10 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
-                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.provider, 0.025F, 0.01F))));
+                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, 0.025F, 0.01F))));
     }
 
-    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomData(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType)
+    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomData(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType, HolderGetter<Enchantment> enchantments)
     {
         HolderGetter<T> holderGetter = this.provider.lookupOrThrow(registryKey);
         var list = this.provider.lookupOrThrow(registryKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();
@@ -115,7 +118,7 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
                                             .exact(DataComponentExactPredicate.expect(dataComponentType, holderGetter.getOrThrow(holder.key())))
                                             .build()
                             )))
-                    .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
+                    .when(FOTLootManager.shouldSmeltLoot(enchantments).invert()));
         });
 
         // Default variant item
@@ -124,12 +127,18 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
         compound.putString(resourceKey.key().registry().getPath(), resourceKey.key().identifier().toString());
         builder.apply(this.setCustomData(compound)
                 .when(FishVariantLootConfigCondition.configEnabled().invert())
-                .when(FOTLootManager.shouldSmeltLoot(this.provider).invert()));
+                .when(FOTLootManager.shouldSmeltLoot(enchantments).invert()));
         return builder;
     }
 
     private LootItemConditionalFunction.Builder<?> setCustomData(CompoundTag compoundTag)
     {
         return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomDataFunction(lootItemConditions, compoundTag));
+    }
+
+    @Override
+    public void run()
+    {
+        //TODO
     }
 }

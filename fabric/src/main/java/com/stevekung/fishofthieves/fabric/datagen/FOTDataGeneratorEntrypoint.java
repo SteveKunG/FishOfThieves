@@ -42,6 +42,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
         builder.add(Registries.VILLAGER_TRADE, FOTVillagerTrades::bootstrap);
         builder.add(Registries.DECORATED_POT_PATTERN, FOTDecoratedPotPatterns::bootstrap);
+        builder.add(Registries.NUMBER_PROVIDER, FOTNumberProviders::bootstrap);
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -150,6 +151,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.TIMELINE));
             entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
             entries.addAll(registries.lookupOrThrow(Registries.DECORATED_POT_PATTERN));
+            entries.addAll(registries.lookupOrThrow(Registries.NUMBER_PROVIDER));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

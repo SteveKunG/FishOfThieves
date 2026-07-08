@@ -21,9 +21,8 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 
-public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProvider
+public class DirectionalRandomizedIntBooleanStateProvider implements BlockStateProvider
 {
     public static final MapCodec<DirectionalRandomizedIntBooleanStateProvider> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     BlockStateProvider.CODEC.fieldOf("source").forGetter(provider -> provider.source),
@@ -79,7 +78,7 @@ public class DirectionalRandomizedIntBooleanStateProvider extends BlockStateProv
     }
 
     @Override
-    protected BlockStateProviderType<?> type()
+    public MapCodec<? extends BlockStateProvider> codec()
     {
         return FOTBlockStateProviderTypes.DIRECTIONAL_RANDOMIZED_INT_BOOLEAN_STATE_PROVIDER;
     }

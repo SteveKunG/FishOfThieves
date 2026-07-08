@@ -19,9 +19,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 
-public class RandomizedIntBooleanStateProvider extends BlockStateProvider
+public class RandomizedIntBooleanStateProvider implements BlockStateProvider
 {
     public static final MapCodec<RandomizedIntBooleanStateProvider> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     BlockStateProvider.CODEC.fieldOf("source").forGetter(provider -> provider.source),
@@ -70,7 +69,7 @@ public class RandomizedIntBooleanStateProvider extends BlockStateProvider
     }
 
     @Override
-    protected BlockStateProviderType<?> type()
+    public MapCodec<? extends BlockStateProvider> codec()
     {
         return FOTBlockStateProviderTypes.RANDOMIZED_INT_BOOLEAN_STATE_PROVIDER;
     }

@@ -33,15 +33,18 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class BlockLootProvider extends FabricBlockLootSubProvider
 {
+    private final HolderLookup.Provider provider;
+
     public BlockLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider);
+        this.provider = provider.join();
     }
 
     @Override
     public void generate()
     {
-        var registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        var registryLookup = this.provider.lookupOrThrow(Registries.ENCHANTMENT);
 
         this.dropSelf(FOTBlocks.FISH_BONE);
 

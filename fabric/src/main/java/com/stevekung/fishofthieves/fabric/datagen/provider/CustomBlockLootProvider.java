@@ -93,4 +93,10 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableSubProvider
                         EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(
                                 registryLookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))).build()));
     }
+
+    @Override
+    public void run()
+    {
+        //TODO
+    }
 }
