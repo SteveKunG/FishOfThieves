@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.HangingSignEditScreen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+import net.minecraft.world.level.block.entity.SignTextSlot;
 
 @Mixin(LocalPlayer.class)
 public class MixinLocalPlayer
@@ -22,11 +23,11 @@ public class MixinLocalPlayer
     Minecraft minecraft;
 
     @Inject(method = "openTextEdit", cancellable = true, at = @At("HEAD"))
-    private void fishofthieves$openTextEdit(SignBlockEntity signEntity, boolean isFrontText, CallbackInfo info)
+    private void fishofthieves$openTextEdit(SignBlockEntity signEntity, SignTextSlot slot, CallbackInfo info)
     {
         if (signEntity instanceof FOTHangingSignBlockEntity hangingSignBlockEntity)
         {
-            this.minecraft.gui.setScreen(new HangingSignEditScreen(hangingSignBlockEntity, isFrontText, this.minecraft.isTextFilteringEnabled()));
+            this.minecraft.gui.setScreen(new HangingSignEditScreen(hangingSignBlockEntity, slot, this.minecraft.isTextFilteringEnabled()));
             info.cancel();
         }
     }

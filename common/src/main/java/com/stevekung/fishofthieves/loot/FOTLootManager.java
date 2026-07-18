@@ -38,8 +38,8 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
@@ -96,8 +96,8 @@ public class FOTLootManager
             EntityTypes.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider.lookupOrThrow(Registries.ENCHANTMENT), true)));
 
             // Chests
-            map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder));
-            map.put(BuiltInLootTables.BURIED_TREASURE, (builder, provider) -> FOTLootManager.getBuriedTreasureLoot(builder));
+            map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder, provider.lookupOrThrow(Registries.ITEM)));
+            map.put(BuiltInLootTables.BURIED_TREASURE, (builder, provider) -> FOTLootManager.getBuriedTreasureLoot(builder, provider.lookupOrThrow(Registries.ITEM)));
             map.put(BuiltInLootTables.SHIPWRECK_SUPPLY, (builder, provider) -> FOTLootManager.getShipwreckSupplyLoot(builder));
             map.put(BuiltInLootTables.JUNGLE_TEMPLE, FOTLootManager::getJungleTempleLoot);
         });
@@ -123,7 +123,7 @@ public class FOTLootManager
         var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
         var itemLookup = provider.lookupOrThrow(Registries.ITEM);
         var entityTypeLookup = provider.lookupOrThrow(Registries.ENTITY_TYPE);
-        var fishLoot = new ArrayList<Pair<TagKey<Item>, LootPoolSingletonContainer.Builder<?>>>();
+        var fishLoot = new ArrayList<Pair<TagKey<Item>, UniformContainerBase.Builder<?>>>();
 
         fishLoot.add(Pair.of(null, FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                 .setWeight(50)
@@ -272,14 +272,14 @@ public class FOTLootManager
                 ;
     }
 
-    public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder)
+    public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder, HolderGetter<Item> holderGetter)
     {
-        return builder.add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.add(FOTTagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.THIEVES_FISH)).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
     }
 
-    public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder)
+    public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder, HolderGetter<Item> holderGetter)
     {
-        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(FOTTags.Items.COOKED_THIEVES_FISH)
+        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.COOKED_THIEVES_FISH))
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
     }
 

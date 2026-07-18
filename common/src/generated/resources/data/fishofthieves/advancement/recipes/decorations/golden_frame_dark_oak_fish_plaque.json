@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:golden_frame_dark_oak_fish_plaque"
+        "recipes": "fishofthieves:golden_frame_dark_oak_fish_plaque"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

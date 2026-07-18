@@ -7,6 +7,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,19 +30,19 @@ public class TropicalMonsteraBlock extends BushBlock implements BonemealableBloc
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source)
     {
         return BonemealableBlock.hasSpreadableNeighbourPos(level, pos, state);
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         BonemealableBlock.findSpreadableNeighbourPos(level, pos, state).ifPresent(blockPos -> level.setBlockAndUpdate(blockPos, this.defaultBlockState()));
     }

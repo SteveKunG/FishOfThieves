@@ -6,7 +6,7 @@
         {
           "type": "minecraft:tag",
           "expand": true,
-          "name": "fishofthieves:gilded_frame_fish_plaque"
+          "items": "#fishofthieves:gilded_frame_fish_plaque"
         }
       ],
       "rolls": {

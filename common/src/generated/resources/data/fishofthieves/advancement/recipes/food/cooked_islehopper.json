@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_islehopper"
+        "recipes": "fishofthieves:cooked_islehopper"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

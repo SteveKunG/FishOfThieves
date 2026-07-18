@@ -64,8 +64,8 @@
       "net/minecraft/world/entity/Entity": [
         "com/stevekung/fishofthieves/client/entity/FishPlaqueDisplay"
       ],
-      "net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer\u0024Builder": [
-        "com/stevekung/fishofthieves/loot/function/LootPoolSingletonContainerWeightAdder"
+      "net/minecraft/world/level/storage/loot/entries/UniformContainerBase\u0024Builder": [
+        "com/stevekung/fishofthieves/loot/function/UniformContainerBaseWeightAdder"
       ],
       "net/minecraft/world/entity/projectile/FishingHook": [
         "com/stevekung/fishofthieves/entity/FishingHookBait"

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:iron_frame_mangrove_fish_plaque"
+        "recipes": "fishofthieves:iron_frame_mangrove_fish_plaque"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

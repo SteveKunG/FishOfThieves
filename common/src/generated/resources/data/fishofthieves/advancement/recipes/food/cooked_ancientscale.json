@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_ancientscale"
+        "recipes": "fishofthieves:cooked_ancientscale"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

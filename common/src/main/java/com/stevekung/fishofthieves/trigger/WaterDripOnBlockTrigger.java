@@ -6,10 +6,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
@@ -19,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class WaterDripOnBlockTrigger extends SimpleCriterionTrigger<WaterDripOnBlockTrigger.TriggerInstance>
 {
@@ -34,10 +33,10 @@ public class WaterDripOnBlockTrigger extends SimpleCriterionTrigger<WaterDripOnB
     }
 
     @SuppressWarnings("deprecation")
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Holder<Block>> block, Optional<StatePropertiesPredicate> state, Optional<LocationPredicate> location) implements SimpleCriterionTrigger.SimpleInstance
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<Holder<Block>> block, Optional<StatePropertiesPredicate> state, Optional<LocationPredicate> location) implements SimpleCriterionTrigger.SimpleInstance
     {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
                 BuiltInRegistries.BLOCK.holderByNameCodec().optionalFieldOf("block").forGetter(TriggerInstance::block),
                 StatePropertiesPredicate.CODEC.optionalFieldOf("state").forGetter(TriggerInstance::state),
                 LocationPredicate.CODEC.optionalFieldOf("location").forGetter(TriggerInstance::location)

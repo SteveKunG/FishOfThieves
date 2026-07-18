@@ -6,13 +6,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.MobEffectsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FollowLivingWithEffectTrigger extends SimpleCriterionTrigger<FollowLivingWithEffectTrigger.TriggerInstance>
 {
@@ -27,11 +28,11 @@ public class FollowLivingWithEffectTrigger extends SimpleCriterionTrigger<Follow
         this.trigger(player, triggerInstance -> triggerInstance.matches(player, sourceEntity));
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<EntityPredicate> sourceEntity, Optional<MobEffectsPredicate> effects) implements SimpleCriterionTrigger.SimpleInstance
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<EntityPredicate> sourceEntity, Optional<MobEffectsPredicate> effects) implements SimpleCriterionTrigger.SimpleInstance
     {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance
                 .group(
-                        EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                        LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
                         EntityPredicate.CODEC.optionalFieldOf("source_entity").forGetter(TriggerInstance::sourceEntity),
                         MobEffectsPredicate.CODEC.optionalFieldOf("effects").forGetter(TriggerInstance::effects)
                 ).apply(instance, TriggerInstance::new));

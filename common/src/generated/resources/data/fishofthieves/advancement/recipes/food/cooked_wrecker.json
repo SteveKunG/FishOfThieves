@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_wrecker"
+        "recipes": "fishofthieves:cooked_wrecker"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

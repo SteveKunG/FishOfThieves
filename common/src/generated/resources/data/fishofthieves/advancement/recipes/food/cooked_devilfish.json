@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_devilfish"
+        "recipes": "fishofthieves:cooked_devilfish"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

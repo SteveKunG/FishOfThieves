@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -41,10 +42,10 @@ public class FOTEntities
 
     public interface SpawnData
     {
-        WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, 4, 8), 12).build();
-        WeightedList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, 4, 8), 12).build();
-        WeightedList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, 2, 4), 5).build();
-        WeightedList<MobSpawnSettings.SpawnerData> WRECKER = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, 4, 8), 50).build();
+        WeightedList<MobSpawnSettings.SpawnerData> ANCIENTSCALE = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.ANCIENTSCALE, new UniformInt(4, 8)), 12).build();
+        WeightedList<MobSpawnSettings.SpawnerData> PLENTIFIN = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.PLENTIFIN, new UniformInt(4, 8)), 12).build();
+        WeightedList<MobSpawnSettings.SpawnerData> BATTLEGILL = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.BATTLEGILL, new UniformInt(2, 4)), 5).build();
+        WeightedList<MobSpawnSettings.SpawnerData> WRECKER = WeightedList.<MobSpawnSettings.SpawnerData>builder().add(new MobSpawnSettings.SpawnerData(FOTEntities.WRECKER, new UniformInt(4, 8)), 50).build();
     }
 
     public static void init()

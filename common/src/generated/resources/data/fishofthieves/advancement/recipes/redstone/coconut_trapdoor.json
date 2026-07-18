@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:coconut_trapdoor"
+        "recipes": "fishofthieves:coconut_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

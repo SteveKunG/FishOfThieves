@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,19 +56,19 @@ public class BuddingPrismarizedLogBlock extends FOTRotatedPillarBlock implements
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source)
     {
         return canFruitGrowAtState(level.getBlockState(pos.below()));
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         return random.nextInt(10) == 0;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         this.growGuardianFruit(level, pos);
     }

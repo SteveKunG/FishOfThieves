@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.loot.function;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.mojang.serialization.MapCodec;
@@ -13,26 +13,26 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.SingleEntryContainerBase;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public class FOTLootItem extends LootPoolSingletonContainer
+public class FOTLootItem extends SingleEntryContainerBase
 {
     private final Holder<Item> item;
-    public static final MapCodec<FOTLootItem> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("name").forGetter(lootItem -> lootItem.item)).and(singletonFields(instance)).apply(instance, FOTLootItem::new));
+    public static final MapCodec<FOTLootItem> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("name").forGetter(lootItem -> lootItem.item)).and(uniformFields(instance)).apply(instance, FOTLootItem::new));
 
-    FOTLootItem(Holder<Item> item, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions)
+    FOTLootItem(Holder<Item> item, int weight, int quality, Optional<Holder<LootItemCondition>> condition, Optional<Holder<LootItemFunction>> modifier)
     {
-        super(weight, quality, conditions, functions);
+        super(weight, quality, condition, modifier);
         this.item = item;
     }
 
     @Override
-    public MapCodec<? extends LootPoolSingletonContainer> codec()
+    public MapCodec<? extends SingleEntryContainerBase> codec()
     {
-        return CODEC;
+        return MAP_CODEC;
     }
 
     @Override

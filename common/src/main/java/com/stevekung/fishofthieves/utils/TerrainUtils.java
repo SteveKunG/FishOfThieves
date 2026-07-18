@@ -35,16 +35,16 @@ public class TerrainUtils
         return level.structureManager().getStructureWithPieceAt(blockPos, tagKey).isValid();
     }
 
-    public static Optional<BlockPos> lookForBlock(BlockPos blockPos, int range, Predicate<BlockPos> posFilter)
+    public static Optional<BlockPos> lookForBlock(ServerLevel level, BlockPos blockPos, int range, Predicate<BlockPos> posFilter)
     {
-        return BlockPos.findClosestMatch(blockPos, range, range, posFilter);
+        return level.findBlocksInBoxByManhattanDistance(blockPos, range, range).filterPos(posFilter).findFirst();
     }
 
     public static boolean lookForBlocksWithSize(BlockPos blockPos, int range, int maxSize, Predicate<BlockPos> posFilter)
     {
         var size = 0;
 
-        for (var blockPos2 : BlockPos.withinManhattan(blockPos, range, range, range))
+        for (var blockPos2 : BlockPos.withinManhattan(blockPos, range))
         {
             if (!posFilter.test(blockPos2))
             {

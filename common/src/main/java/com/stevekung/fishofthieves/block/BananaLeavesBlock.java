@@ -56,19 +56,19 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source)
     {
         return state.getValue(COUNT) < 2;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         if (state.getValue(COUNT) < 2)
         {

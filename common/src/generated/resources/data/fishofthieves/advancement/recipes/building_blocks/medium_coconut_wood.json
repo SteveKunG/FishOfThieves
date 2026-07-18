@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:medium_coconut_wood"
+        "recipes": "fishofthieves:medium_coconut_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

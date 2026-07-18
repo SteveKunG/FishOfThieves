@@ -17,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -59,19 +60,19 @@ public class BananaClusterPlantBlock extends AbstractBananaClusterBlock implemen
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source)
     {
         return state.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT);
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         return random.nextInt(6) == 0;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         if (this.type == BananaClusterBlock.Type.BARELY_RIPE)
         {

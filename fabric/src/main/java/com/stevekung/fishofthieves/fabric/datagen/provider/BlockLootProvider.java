@@ -12,8 +12,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -27,25 +25,20 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class BlockLootProvider extends FabricBlockLootSubProvider
 {
-    private final HolderLookup.Provider provider;
-
     public BlockLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider);
-        this.provider = provider.join();
     }
 
     @Override
     public void generate()
     {
-        var registryLookup = this.provider.lookupOrThrow(Registries.ENCHANTMENT);
-
         this.dropSelf(FOTBlocks.FISH_BONE);
 
         this.dropSelf(FOTBlocks.OAK_FISH_PLAQUE);
@@ -137,19 +130,16 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(FOTItems.COCONUT)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2f, 4f))))
-                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
-        this.add(FOTBlocks.COCONUT_FRONDS, block -> this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), 0.5F, 1.0F))));
+                        .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
+        this.add(FOTBlocks.COCONUT_FRONDS, block -> this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.5F, 1.0F))));
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(block)
                                 .apply(List.of(2), integer -> SetItemCountFunction.setCount(ConstantValue.exactly((float) integer))
-                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.COUNT, integer))))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)))))));
+                                        .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.COUNT, integer))))
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)))))));
 
         this.dropSelf(FOTBlocks.COCONUT_PLANKS);
         this.dropSelf(FOTBlocks.COCONUT_BUTTON);
@@ -172,11 +162,11 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
 
         this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, this.createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 8.0F)))
-                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE)))
+                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
                 .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
         this.add(FOTBlocks.RIPE_BANANA_CLUSTER, block -> this.createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(FOTItems.BANANA)
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 8.0F)))
-                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE)))
+                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
                 .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
         this.dropWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
         this.dropWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
@@ -195,8 +185,8 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
         this.dropPottedContents(FOTBlocks.POTTED_MANGO_SAPLING);
         this.dropPottedContents(FOTBlocks.POTTED_BANANA_SHOOTS);
         this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_SAPLING);
-        this.add(FOTBlocks.POMEGRANATE_PLANT, block -> this.createPomegranatePlant(block, registryLookup));
-        this.createTallPomegranatePlant(registryLookup);
+        this.add(FOTBlocks.POMEGRANATE_PLANT, this::createPomegranatePlant);
+        this.createTallPomegranatePlant();
         this.dropPottedContents(FOTBlocks.POTTED_POMEGRANATE_PLANT);
         this.dropSelf(FOTBlocks.POMEGRANATE_SAPLING);
         this.dropSelf(FOTBlocks.TROPICAL_RED_FERN);
@@ -210,84 +200,76 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
         this.dropSelf(FOTBlocks.COCONUT_SHELF);
     }
 
-    private LootTable.Builder createPomegranatePlant(Block block, HolderLookup.RegistryLookup<Enchantment> registryLookup)
+    private LootTable.Builder createPomegranatePlant(Block block)
     {
         return this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(AlternativesEntry.alternatives(
                                 AlternativesEntry.alternatives(IntStream.rangeClosed(0, 3).boxed().toList(), age -> LootItem.lootTableItem(block)
-                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                        .hasProperty(PomegranatePlantBlock.AGE, age))))))
+                                        .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(PomegranatePlantBlock.AGE, age))))))
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.POMEGRANATE)
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                .hasProperty(PomegranatePlantBlock.AGE, 3)))
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PomegranatePlantBlock.AGE, 3)))
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE))))));
+                                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE))))));
     }
 
-    private void createTallPomegranatePlant(HolderLookup.RegistryLookup<Enchantment> registryLookup)
+    private void createTallPomegranatePlant()
     {
-        var isLower = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FOTBlocks.TALL_POMEGRANATE_PLANT).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        var isLower = MatchBlock.blockMatches(this.blocks, FOTBlocks.TALL_POMEGRANATE_PLANT, StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
 
         this.add(FOTBlocks.TALL_POMEGRANATE_PLANT, blockx -> this.applyExplosionDecay(blockx, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .add(AlternativesEntry.alternatives(
                                 AlternativesEntry.alternatives(IntStream.rangeClosed(0, 3).boxed().toList(), age -> LootItem.lootTableItem(blockx)
-                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(blockx)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                        .hasProperty(TallPomegranatePlantBlock.AGE, age))))))
+                                        .when(MatchBlock.blockMatches(this.blocks, blockx, StatePropertiesPredicate.Builder.properties()
+                                                .hasProperty(TallPomegranatePlantBlock.AGE, age))))))
                         .when(isLower)
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
                 .withPool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(FOTItems.POMEGRANATE)
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(blockx)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                .hasProperty(TallPomegranatePlantBlock.AGE, 3)))
+                                .when(MatchBlock.blockMatches(this.blocks, blockx, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(TallPomegranatePlantBlock.AGE, 3)))
                                 .when(isLower)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                                .apply(ApplyBonusCount.addUniformBonusCount(registryLookup.getOrThrow(Enchantments.FORTUNE)))))));
+                                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))))));
     }
 
     private LootTable.Builder createMangoFruitDrops(Block block)
     {
         return this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                .setProperties(StatePropertiesPredicate.Builder.properties()
-                                        .hasProperty(MangoFruitBlock.AGE, 2)))
+                        .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                .hasProperty(MangoFruitBlock.AGE, 2)))
                         .add(LootItem.lootTableItem(FOTItems.MANGO))
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))))
                 .withPool(LootPool.lootPool()
-                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                .setProperties(StatePropertiesPredicate.Builder.properties()
-                                        .hasProperty(MangoFruitBlock.AGE, 1)))
+                        .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                .hasProperty(MangoFruitBlock.AGE, 1)))
                         .add(LootItem.lootTableItem(FOTItems.RAW_MANGO))
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)))));
     }
 
     private LootTable.Builder createPineappleCropLoot(Block block)
     {
-        var isLower = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        var isLower = MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         return this.applyExplosionDecay(block, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(AlternativesEntry.alternatives(
 
                         AlternativesEntry.alternatives(LootItem.lootTableItem(FOTItems.PINEAPPLE_SEEDS)
                                         .when(isLower)
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                .hasProperty(PineappleCropBlock.AGE, 0))),
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PineappleCropBlock.AGE, 0))),
 
                         AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)
                                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
                                 .when(this.hasSilkTouch())
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                .hasProperty(PineappleCropBlock.AGE, 4))),
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PineappleCropBlock.AGE, 4))),
 
                         AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK)
                                         .when(this.hasSilkTouch())
@@ -295,14 +277,12 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
                                         .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE)
                                                 .when(isLower)
                                                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                        .setProperties(StatePropertiesPredicate.Builder.properties()
-                                                .hasProperty(PineappleCropBlock.AGE, 5))),
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PineappleCropBlock.AGE, 5))),
 
                         AlternativesEntry.alternatives(LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN)
                                         .apply(List.of(1, 2, 3, 4), age -> SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))
-                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(PineappleCropBlock.AGE, age)))))
+                                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(PineappleCropBlock.AGE, age)))))
                                 .when(isLower)
                 ))));
     }

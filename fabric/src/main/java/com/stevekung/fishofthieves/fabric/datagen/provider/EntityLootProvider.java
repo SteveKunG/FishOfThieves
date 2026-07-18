@@ -32,7 +32,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.SetCustomDataFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -99,7 +99,7 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, 0.025F, 0.01F))));
     }
 
-    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomData(LootPoolSingletonContainer.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType, HolderGetter<Enchantment> enchantments)
+    private <T extends AbstractFishVariant> LootPoolEntryContainer.Builder<?> applyCustomData(UniformContainerBase.Builder<?> builder, EntityType<?> entityType, ResourceKey<Registry<T>> registryKey, DataComponentType<Holder<T>> dataComponentType, HolderGetter<Enchantment> enchantments)
     {
         HolderGetter<T> holderGetter = this.provider.lookupOrThrow(registryKey);
         var list = this.provider.lookupOrThrow(registryKey).listElements().sorted(AbstractFishVariant.COMPARATOR).toList();

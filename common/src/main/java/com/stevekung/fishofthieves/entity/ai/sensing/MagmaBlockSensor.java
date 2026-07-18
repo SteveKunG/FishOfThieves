@@ -30,7 +30,7 @@ public class MagmaBlockSensor extends Sensor<LivingEntity>
 
     private static Optional<BlockPos> findNearestRepellent(ServerLevel level, LivingEntity livingEntity)
     {
-        return BlockPos.findClosestMatch(livingEntity.blockPosition(), 10, 10, blockPos -> isValidRepellent(level, blockPos));
+        return level.findBlocksInBoxByManhattanDistance(livingEntity.blockPosition(), 10, 10).filterPos(blockPos -> isValidRepellent(level, blockPos)).findFirst();
     }
 
     private static boolean isValidRepellent(ServerLevel level, BlockPos blockPos)

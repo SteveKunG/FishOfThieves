@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_splashtail"
+        "recipes": "fishofthieves:cooked_splashtail"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

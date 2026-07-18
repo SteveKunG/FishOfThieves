@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:birch_fish_plaque"
+        "recipes": "fishofthieves:birch_fish_plaque"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

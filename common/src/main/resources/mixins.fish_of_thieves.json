@@ -62,7 +62,7 @@
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour",
     "level.block.state.MixinWoodType",
-    "loot.MixinLootPoolSingletonContainer_Builder",
+    "loot.MixinUniformContainerBase_Builder",
     "trading.MixinAbstractVillager",
     "trading.MixinMerchantOffer",
     "trading.MixinVillager"

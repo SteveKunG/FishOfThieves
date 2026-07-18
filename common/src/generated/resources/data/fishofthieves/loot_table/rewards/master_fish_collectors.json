@@ -6,7 +6,7 @@
         {
           "type": "minecraft:tag",
           "expand": true,
-          "name": "fishofthieves:iron_frame_fish_plaque"
+          "items": "#fishofthieves:iron_frame_fish_plaque"
         }
       ],
       "rolls": {
@@ -20,7 +20,7 @@
         {
           "type": "minecraft:tag",
           "expand": true,
-          "name": "fishofthieves:copper_frame_fish_plaque"
+          "items": "#fishofthieves:copper_frame_fish_plaque"
         }
       ],
       "rolls": {
@@ -34,7 +34,7 @@
         {
           "type": "minecraft:tag",
           "expand": true,
-          "name": "fishofthieves:golden_frame_fish_plaque"
+          "items": "#fishofthieves:golden_frame_fish_plaque"
         }
       ],
       "rolls": {

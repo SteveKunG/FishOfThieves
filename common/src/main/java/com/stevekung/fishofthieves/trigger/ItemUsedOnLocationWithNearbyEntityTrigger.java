@@ -6,13 +6,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
 
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -22,9 +22,7 @@ import net.minecraft.world.level.storage.loot.Validatable;
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.phys.Vec3;
 
 public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTrigger<ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance>
@@ -44,14 +42,14 @@ public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTr
         this.trigger(player, triggerInstance -> triggerInstance.matches(lootContext));
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> location) implements SimpleCriterionTrigger.SimpleInstance
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<Holder<LootItemCondition>> location) implements SimpleCriterionTrigger.SimpleInstance
     {
-        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), ContextAwarePredicate.CODEC.optionalFieldOf("location").forGetter(TriggerInstance::location)).apply(instance, TriggerInstance::new));
+        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), LootItemCondition.CODEC.optionalFieldOf("location").forGetter(TriggerInstance::location)).apply(instance, TriggerInstance::new));
 
         private static ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance itemUsedOnLocation(LocationPredicate.Builder location, ItemPredicate.Builder tool, EntityPredicate.Builder entity)
         {
-            var contextAwarePredicate = ContextAwarePredicate.create(LocationCheck.checkLocation(location).build(), MatchTool.toolMatches(tool).build(), LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, entity).build());
-            return new ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance(Optional.empty(), Optional.of(contextAwarePredicate));
+            var predicate = Holder.direct(AllOfCondition.allOf(LocationCheck.checkLocation(location), MatchTool.toolMatches(tool), LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, entity)).build());
+            return new ItemUsedOnLocationWithNearbyEntityTrigger.TriggerInstance(Optional.empty(), Optional.of(predicate));
         }
 
         public static Criterion<TriggerInstance> itemUsedOnBlock(LocationPredicate.Builder location, ItemPredicate.Builder tool, EntityPredicate.Builder entity)
@@ -61,14 +59,14 @@ public class ItemUsedOnLocationWithNearbyEntityTrigger extends SimpleCriterionTr
 
         public boolean matches(LootContext context)
         {
-            return this.location.isEmpty() || this.location.get().matches(context);
+            return this.location.isEmpty() || this.location.get().value().test(context);
         }
 
         @Override
         public void validate(ValidationContextSource validator)
         {
             SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
-            Validatable.validate(validator.context(LootContextParamSets.ADVANCEMENT_LOCATION), "location", this.location);
+            Validatable.validateHolder(validator.context(LootContextParamSets.ADVANCEMENT_LOCATION), "location", this.location);
         }
     }
 }

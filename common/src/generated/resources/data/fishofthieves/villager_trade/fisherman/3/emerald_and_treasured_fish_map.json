@@ -1,7 +1,7 @@
 {
-  "given_item_modifiers": [
+  "given_item_modifier": [
     {
-      "function": "fishofthieves:treasured_fish_map",
+      "type": "fishofthieves:treasured_fish_map",
       "max_attempt": 10,
       "maximum_search_radius": 100,
       "mininum_search_radius": 50,
@@ -9,14 +9,14 @@
       "zoom": 1
     },
     {
-      "function": "minecraft:set_name",
+      "type": "minecraft:set_name",
       "name": {
         "translate": "filled_map.fishofthieves_treasured_fish"
       },
       "target": "item_name"
     },
     {
-      "function": "minecraft:filtered",
+      "type": "minecraft:filtered",
       "item_filter": {
         "items": "minecraft:filled_map",
         "predicates": {
@@ -24,7 +24,7 @@
         }
       },
       "on_fail": {
-        "function": "minecraft:discard"
+        "type": "minecraft:discard"
       }
     }
   ],

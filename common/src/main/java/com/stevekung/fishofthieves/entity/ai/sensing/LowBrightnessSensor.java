@@ -29,7 +29,7 @@ public class LowBrightnessSensor extends Sensor<LivingEntity>
 
     private static Optional<BlockPos> findNearestLowLight(ServerLevel level, LivingEntity livingEntity)
     {
-        return BlockPos.findClosestMatch(livingEntity.blockPosition(), 8, 8, blockPos -> isLowLight(level, blockPos));
+        return level.findBlocksInBoxByManhattanDistance(livingEntity.blockPosition(), 8, 8).filterPos(blockPos -> isLowLight(level, blockPos)).findFirst();
     }
 
     private static boolean isLowLight(ServerLevel level, BlockPos blockPos)

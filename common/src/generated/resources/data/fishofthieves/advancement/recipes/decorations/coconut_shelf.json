@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:coconut_shelf"
+        "recipes": "fishofthieves:coconut_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

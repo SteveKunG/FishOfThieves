@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:light_blue_dye_from_light_blue_plumeria"
+        "recipes": "fishofthieves:light_blue_dye_from_light_blue_plumeria"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

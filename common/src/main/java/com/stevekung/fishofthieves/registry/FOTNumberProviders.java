@@ -23,16 +23,17 @@ public class FOTNumberProviders
 
     public static void bootstrap(BootstrapContext<NumberProvider> context)
     {
-        context.register(COMPOSTABLE_LOW_35, NumberProviders.compostable(35));
-        context.register(COMPOSTABLE_LOW_40, NumberProviders.compostable(40));
-        context.register(COMPOSTABLE_VERY_LOW_10, NumberProviders.compostable(10));
-        context.register(COMPOSTABLE_VERY_LOW_15, NumberProviders.compostable(15));
-        context.register(COMPOSTABLE_VERY_LOW_20, NumberProviders.compostable(20));
-        context.register(COMPOSTABLE_VERY_LOW_25, NumberProviders.compostable(25));
-        context.register(COMPOSTABLE_MEDIUM_60, NumberProviders.compostable(60));
-        context.register(COMPOSTABLE_MEDIUM_70, NumberProviders.compostable(70));
-        context.register(COMPOSTABLE_MEDIUM_HIGH_75, NumberProviders.compostable(75));
-        context.register(COMPOSTABLE_MEDIUM_HIGH_80, NumberProviders.compostable(80));
+        var blocks = context.lookup(Registries.BLOCK);
+        context.register(COMPOSTABLE_LOW_35, NumberProviders.compostable(blocks, 35));
+        context.register(COMPOSTABLE_LOW_40, NumberProviders.compostable(blocks, 40));
+        context.register(COMPOSTABLE_VERY_LOW_10, NumberProviders.compostable(blocks, 10));
+        context.register(COMPOSTABLE_VERY_LOW_15, NumberProviders.compostable(blocks, 15));
+        context.register(COMPOSTABLE_VERY_LOW_20, NumberProviders.compostable(blocks, 20));
+        context.register(COMPOSTABLE_VERY_LOW_25, NumberProviders.compostable(blocks, 25));
+        context.register(COMPOSTABLE_MEDIUM_60, NumberProviders.compostable(blocks, 60));
+        context.register(COMPOSTABLE_MEDIUM_70, NumberProviders.compostable(blocks, 70));
+        context.register(COMPOSTABLE_MEDIUM_HIGH_75, NumberProviders.compostable(blocks, 75));
+        context.register(COMPOSTABLE_MEDIUM_HIGH_80, NumberProviders.compostable(blocks, 80));
     }
 
     private static ResourceKey<NumberProvider> create(String location)

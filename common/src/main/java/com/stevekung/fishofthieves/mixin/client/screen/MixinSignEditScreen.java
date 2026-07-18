@@ -25,7 +25,7 @@ public abstract class MixinSignEditScreen extends AbstractSignEditScreen
 
     MixinSignEditScreen()
     {
-        super(null, false, false);
+        super(null, null, false);
     }
 
     @Inject(method = "<init>*", at = @At("TAIL"))

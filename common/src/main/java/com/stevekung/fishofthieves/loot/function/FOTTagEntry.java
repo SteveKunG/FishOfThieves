@@ -1,89 +1,83 @@
 package com.stevekung.fishofthieves.loot.function;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.item.FOTItem;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.entries.ExpandableContainerBase;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntry;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public class FOTTagEntry extends LootPoolSingletonContainer
+public class FOTTagEntry extends ExpandableContainerBase
 {
-    public static final MapCodec<FOTTagEntry> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.codec(Registries.ITEM).fieldOf("name").forGetter(tagEntry -> tagEntry.tag), Codec.BOOL.fieldOf("expand").forGetter(tagEntry -> tagEntry.expand)).and(singletonFields(instance)).apply(instance, FOTTagEntry::new));
-    private final TagKey<Item> tag;
-    private final boolean expand;
+    public static final MapCodec<FOTTagEntry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(entry -> entry.tag)).and(expandableFields(instance)).apply(instance, FOTTagEntry::new));
+    private final HolderSet<Item> tag;
 
-    FOTTagEntry(TagKey<Item> tagKey, boolean expand, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions)
+    FOTTagEntry(HolderSet<Item> tag, boolean expand, int weight, int quality, Optional<Holder<LootItemCondition>> condition, Optional<Holder<LootItemFunction>> modifier)
     {
-        super(weight, quality, conditions, functions);
-        this.tag = tagKey;
-        this.expand = expand;
+        super(expand, weight, quality, condition, modifier);
+        this.tag = tag;
     }
 
     @Override
-    public MapCodec<? extends LootPoolSingletonContainer> codec()
+    public MapCodec<? extends ExpandableContainerBase> codec()
     {
-        return CODEC;
+        return MAP_CODEC;
     }
 
     @Override
-    public void createItemStack(Consumer<ItemStack> stackConsumer, LootContext lootContext)
+    protected boolean addExpandedEntries(Consumer<LootPoolEntry> output)
     {
-        BuiltInRegistries.ITEM.getTagOrEmpty(this.tag).forEach(holder -> this.createItemStackWithData(stackConsumer, lootContext, holder));
+        for (var item : this.tag)
+        {
+            output.accept(new UniformContainerBase.EntryBase()
+            {
+                @Override
+                public void createItemStack(Consumer<ItemStack> output, LootContext context)
+                {
+                    output.accept(FOTTagEntry.this.createItemStackWithData(context, item));
+                }
+            });
+        }
+        return true;
     }
 
-    private void createItemStackWithData(Consumer<ItemStack> stackConsumer, LootContext lootContext, Holder<Item> itemHolder)
+    @Override
+    protected boolean addUnexpandedEntry(Consumer<LootPoolEntry> output)
+    {
+        output.accept(new UniformContainerBase.EntryBase()
+        {
+            @Override
+            public void createItemStack(Consumer<ItemStack> output, LootContext context)
+            {
+                FOTTagEntry.this.tag.forEach(item -> output.accept(FOTTagEntry.this.createItemStackWithData(context, item)));
+            }
+        });
+        return true;
+    }
+
+    private ItemStack createItemStackWithData(LootContext lootContext, Holder<Item> itemHolder)
     {
         var itemStack = new ItemStack(itemHolder);
         var vec3 = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
         var entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
-        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, entity, lootContext.getLevel(), vec3, lootContext.getRandom()));
+        return FOTItem.generateRandomFishVariantLootItem(itemStack, entity, lootContext.getLevel(), vec3, lootContext.getRandom());
     }
 
-    private boolean expandTag(LootContext context, Consumer<LootPoolEntry> generatorConsumer)
-    {
-        if (!this.canRun(context))
-        {
-            return false;
-        }
-        else
-        {
-            for (var holder : BuiltInRegistries.ITEM.getTagOrEmpty(this.tag))
-            {
-                generatorConsumer.accept(new LootPoolSingletonContainer.EntryBase()
-                {
-                    @Override
-                    public void createItemStack(Consumer<ItemStack> stackConsumer, LootContext lootContext)
-                    {
-                        FOTTagEntry.this.createItemStackWithData(stackConsumer, lootContext, holder);
-                    }
-                });
-            }
-            return true;
-        }
-    }
-
-    @Override
-    public boolean expand(LootContext lootContext, Consumer<LootPoolEntry> consumer)
-    {
-        return this.expand ? this.expandTag(lootContext, consumer) : super.expand(lootContext, consumer);
-    }
-
-    public static LootPoolSingletonContainer.Builder<?> expandTag(TagKey<Item> tag)
+    public static UniformContainerBase.Builder<?> expandTag(HolderSet<Item> tag)
     {
         return simpleBuilder((weight, quality, conditions, functions) -> new FOTTagEntry(tag, true, weight, quality, conditions, functions));
     }

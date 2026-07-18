@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:coconut_door"
+        "recipes": "fishofthieves:coconut_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

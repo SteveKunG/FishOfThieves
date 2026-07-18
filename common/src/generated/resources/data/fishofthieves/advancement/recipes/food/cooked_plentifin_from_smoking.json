@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:cooked_plentifin_from_smoking"
+        "recipes": "fishofthieves:cooked_plentifin_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

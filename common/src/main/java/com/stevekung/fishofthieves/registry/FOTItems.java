@@ -7,6 +7,7 @@ import java.util.function.UnaryOperator;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.*;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -138,8 +139,9 @@ public class FOTItems
     public static final Item COCONUT_STAIRS = registerBlock(FOTBlocks.COCONUT_STAIRS);
     public static final Item COCONUT_TRAPDOOR = registerBlock(FOTBlocks.COCONUT_TRAPDOOR);
     public static final Item COCONUT_DOOR = register("coconut_door", properties -> new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, properties.useBlockDescriptionPrefix()));
-    public static final Item COCONUT_SIGN = register("coconut_sign", properties -> new FOTSignItem(properties.stacksTo(16).useBlockDescriptionPrefix(), FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN));
-    public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", properties -> new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, properties.stacksTo(16).useBlockDescriptionPrefix()));
+    public static final Item COCONUT_SIGN = register("coconut_sign", properties -> new StandingAndWallBlockItem(FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN, Direction.DOWN, properties.stacksTo(16).useBlockDescriptionPrefix().signText().cookingFuel(NumberProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
+    public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", properties -> new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, properties.stacksTo(16).useBlockDescriptionPrefix().cookingFuel(NumberProviders.COOKING_TIME_HANGING_SIGNS).signText()));
+
     public static final Item COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COCONUT_FISH_PLAQUE);
     public static final Item IRON_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item COPPER_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:bonemeals_from_fish_bone"
+        "recipes": "fishofthieves:bonemeals_from_fish_bone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

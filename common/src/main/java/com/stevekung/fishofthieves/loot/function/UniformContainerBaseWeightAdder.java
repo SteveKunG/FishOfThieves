@@ -1,6 +1,6 @@
 package com.stevekung.fishofthieves.loot.function;
 
-public interface LootPoolSingletonContainerWeightAdder
+public interface UniformContainerBaseWeightAdder
 {
     default void fishofthieves$addWeight(int weight)
     {

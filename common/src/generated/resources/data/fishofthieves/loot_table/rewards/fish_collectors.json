@@ -6,7 +6,7 @@
         {
           "type": "minecraft:tag",
           "expand": true,
-          "name": "fishofthieves:wooden_fish_plaque"
+          "items": "#fishofthieves:wooden_fish_plaque"
         }
       ],
       "rolls": {

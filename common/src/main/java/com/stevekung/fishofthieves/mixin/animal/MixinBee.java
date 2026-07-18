@@ -21,6 +21,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -72,7 +73,7 @@ public class MixinBee
 
                 if (blockState.is(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT) || blockState.is(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT))
                 {
-                    ((BonemealableBlock) blockState.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, blockState);
+                    ((BonemealableBlock) blockState.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, blockState, BonemealSource.MOB);
                 }
                 else if (blockState.is(FOTBlocks.MANGO_FRUIT) || blockState.is(FOTBlocks.HANGING_MANGO_FRUIT))
                 {
@@ -108,7 +109,7 @@ public class MixinBee
                     stateToCheck.is(FOTBlocks.TALL_POMEGRANATE_PLANT) ||
                     stateToCheck.is(FOTBlocks.POMEGRANATE_SAPLING))
             {
-                ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, stateToCheck);
+                ((BonemealableBlock) stateToCheck.getBlock()).performBonemeal((ServerLevel) this.bee.level(), this.bee.getRandom(), blockPos, stateToCheck, BonemealSource.MOB);
             }
         }
     }

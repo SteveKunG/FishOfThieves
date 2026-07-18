@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:coconut_planks"
+        "recipes": "fishofthieves:coconut_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

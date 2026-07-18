@@ -78,20 +78,20 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state)
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source)
     {
         var otherState = level.getBlockState(pos.relative(state.getValue(FACING)));
         return otherState.canBeReplaced();
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state)
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source)
     {
         var fluidState = level.getFluidState(pos.relative(state.getValue(FACING)));
         level.setBlock(pos.relative(state.getValue(FACING)), state.setValue(PART, Part.TAIL).setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER), Block.UPDATE_ALL);

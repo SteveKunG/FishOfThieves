@@ -85,6 +85,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         var entityLookup = provider.lookupOrThrow(Registries.ENTITY_TYPE);
         var blockLookup = provider.lookupOrThrow(Registries.BLOCK);
         var itemLookup = provider.lookupOrThrow(Registries.ITEM);
+        var lootTableLookup = provider.lookupOrThrow(Registries.LOOT_TABLE);
         var battlegillLookup = provider.lookupOrThrow(FOTRegistries.BATTLEGILL_VARIANT);
         var stormfishLookup = provider.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT);
 
@@ -105,7 +106,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.fish_collectors.title"),
                         Component.translatable("advancements.fishofthieves.fish_collectors.description"),
                         null, AdvancementType.CHALLENGE, true, true, false)
-                .rewards(AdvancementRewards.Builder.experience(250).addLootTable(FOTLootTables.Advancements.FISH_COLLECTORS))
+                .rewards(AdvancementRewards.Builder.experience(250).addLootTable(lootTableLookup.getOrThrow(FOTLootTables.Advancements.FISH_COLLECTORS)))
                 .save(consumer, this.mod("fish_collectors"));
 
         this.addFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup, false)
@@ -113,7 +114,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.master_fish_collectors.title"),
                         Component.translatable("advancements.fishofthieves.master_fish_collectors.description"),
                         null, AdvancementType.CHALLENGE, true, true, false)
-                .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS))
+                .rewards(AdvancementRewards.Builder.experience(1000).addLootTable(lootTableLookup.getOrThrow(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS)))
                 .save(consumer, this.mod("master_fish_collectors"));
 
         this.addFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup, true)
@@ -121,7 +122,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.legendary_fish_collectors.title"),
                         Component.translatable("advancements.fishofthieves.legendary_fish_collectors.description"),
                         null, AdvancementType.CHALLENGE, true, true, false)
-                .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
+                .rewards(AdvancementRewards.Builder.experience(2000).addLootTable(lootTableLookup.getOrThrow(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS)))
                 .save(consumer, this.mod("legendary_fish_collectors"));
 
         this.addTreasuredFishVariantsBuckets(provider, Advancement.Builder.advancement().parent(fishCollectors), itemLookup)
@@ -129,7 +130,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                         Component.translatable("advancements.fishofthieves.treasured_fish_collectors.title"),
                         Component.translatable("advancements.fishofthieves.treasured_fish_collectors.description"),
                         null, AdvancementType.CHALLENGE, true, true, false)
-                .rewards(AdvancementRewards.Builder.experience(3000).addLootTable(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS))
+                .rewards(AdvancementRewards.Builder.experience(3000).addLootTable(lootTableLookup.getOrThrow(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS)))
                 .save(consumer, this.mod("treasured_fish_collectors"));
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
@@ -237,7 +238,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
         Advancement.Builder.advancement().parent(tropicalIsland)
                 .addCriterion("mango_gravity", EntityHurtPlayerTrigger.TriggerInstance.entityHurtPlayer(
                         DamagePredicate.Builder.damageInstance().type(DamageSourcePredicate.Builder.damageType()
-                                .tag(TagPredicate.is(FOTTags.DamageTypes.IS_MANGO))
+                                .tag(TagPredicate.is(provider.lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(FOTTags.DamageTypes.IS_MANGO)))
                                 .source(EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityLookup, EntityTypes.FALLING_BLOCK)))
                         ))
                 )

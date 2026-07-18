@@ -8,12 +8,12 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.AmbientSounds;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.modifier.FloatModifier;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -74,12 +74,12 @@ public class FOTOverworldBiomes extends OverworldBiomes
 
     public static void islandSpawns(MobSpawnSettings.Builder builder)
     {
-        builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.PIG, 4, 4));
-        builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 4));
-        builder.addSpawn(MobCategory.CREATURE, 30, new MobSpawnSettings.SpawnerData(EntityTypes.SHEEP, 4, 4));
-        builder.addSpawn(MobCategory.CREATURE, 20, new MobSpawnSettings.SpawnerData(EntityTypes.PARROT, 1, 2));
-        builder.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.OCELOT, 1, 3));
-        builder.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.NAUTILUS, 1, 1));
+        builder.addSpawn(EntityTypes.PIG, 40, new UniformInt(4, 4));
+        builder.addSpawn(EntityTypes.CHICKEN, 40, new UniformInt(4, 4));
+        builder.addSpawn(EntityTypes.SHEEP, 30, new UniformInt(4, 4));
+        builder.addSpawn(EntityTypes.PARROT, 20, new UniformInt(1, 2));
+        builder.addSpawn(EntityTypes.OCELOT, 4, new UniformInt(1, 3));
+        builder.addSpawn(EntityTypes.NAUTILUS, 2, new UniformInt(1, 1));
         BiomeDefaultFeatures.commonSpawns(builder);
     }
 }

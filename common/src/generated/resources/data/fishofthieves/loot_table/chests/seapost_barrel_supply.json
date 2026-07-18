@@ -5,151 +5,132 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 8.0,
+              "min": 1.0
             }
-          ],
+          },
           "name": "fishofthieves:banana",
           "weight": 12
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 6.0,
+              "min": 1.0
             }
-          ],
+          },
           "name": "fishofthieves:coconut",
           "weight": 10
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3.0,
+              "min": 1.0
             }
-          ],
+          },
           "name": "fishofthieves:pomegranate",
           "weight": 8
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3.0,
+              "min": 0.0
             }
-          ],
+          },
           "name": "fishofthieves:mango",
           "weight": 5
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2.0,
+              "min": 0.0
             }
-          ],
+          },
           "name": "fishofthieves:pineapple",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 6.0,
+              "min": 2.0
             }
-          ],
+          },
           "name": "minecraft:oak_planks",
           "weight": 8
         },
         {
           "type": "minecraft:tag",
           "expand": true,
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 16.0,
-                "min": 8.0
-              },
-              "function": "minecraft:set_count"
+          "items": "#fishofthieves:worms",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 16.0,
+              "min": 8.0
             }
-          ],
-          "name": "fishofthieves:worms",
+          },
           "weight": 5
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 8.0,
+              "min": 2.0
             }
-          ],
+          },
           "name": "minecraft:oak_log",
           "weight": 2
         },
         {
           "type": "fishofthieves:tag",
           "expand": true,
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "items": "#fishofthieves:thieves_fish",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 4.0,
+              "min": 1.0
             }
-          ],
-          "name": "fishofthieves:thieves_fish",
+          },
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "decoration": "minecraft:red_x",
-              "function": "minecraft:exploration_map",
-              "skip_existing_chunks": false,
-              "zoom": 1
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:exploration_map",
+            "decoration": "minecraft:red_x",
+            "destination": "#minecraft:on_treasure_maps",
+            "skip_existing_chunks": false,
+            "zoom": 1
+          },
           "name": "minecraft:map"
         }
       ],
@@ -163,9 +144,9 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "function": "fishofthieves:treasured_fish_map",
+              "type": "fishofthieves:treasured_fish_map",
               "high_tier_chance": 0.4,
               "max_attempt": 10,
               "maximum_search_radius": 100,
@@ -173,7 +154,7 @@
               "zoom": 1
             },
             {
-              "function": "minecraft:set_name",
+              "type": "minecraft:set_name",
               "name": {
                 "translate": "filled_map.fishofthieves_treasured_fish"
               },

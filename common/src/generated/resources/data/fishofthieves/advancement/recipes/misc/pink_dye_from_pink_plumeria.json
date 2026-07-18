@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "fishofthieves:pink_dye_from_pink_plumeria"
+        "recipes": "fishofthieves:pink_dye_from_pink_plumeria"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

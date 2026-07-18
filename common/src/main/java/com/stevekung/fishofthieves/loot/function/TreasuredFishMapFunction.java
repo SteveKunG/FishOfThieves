@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.loot.function;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,6 +14,7 @@ import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -47,9 +47,9 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     private final float highTierChance;
     private final Optional<Integer> tier;
 
-    TreasuredFishMapFunction(List<LootItemCondition> conditions, byte zoom, int minimumSearchRadius, int maximumSearchRadius, int maxAttempt, float highTierChance, Optional<Integer> tier)
+    TreasuredFishMapFunction(Optional<Holder<LootItemCondition>> condition, byte zoom, int minimumSearchRadius, int maximumSearchRadius, int maxAttempt, float highTierChance, Optional<Integer> tier)
     {
-        super(conditions);
+        super(condition);
         this.zoom = zoom;
         this.minimumSearchRadius = minimumSearchRadius;
         this.maximumSearchRadius = maximumSearchRadius;
@@ -184,7 +184,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         @Override
         public LootItemFunction build()
         {
-            return new TreasuredFishMapFunction(this.getConditions(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.maxAttempt, this.highTierChance, this.tier);
+            return new TreasuredFishMapFunction(this.getCondition(), this.zoom, this.minimumSearchRadius, this.maximumSearchRadius, this.maxAttempt, this.highTierChance, this.tier);
         }
     }
 }

@@ -11,8 +11,8 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 
 public class FOTLootPoolEntries
 {
-    public static final MapCodec<FOTLootItem> ITEM = register("item", FOTLootItem.CODEC);
-    public static final MapCodec<FOTTagEntry> TAG = register("tag", FOTTagEntry.CODEC);
+    public static final MapCodec<FOTLootItem> ITEM = register("item", FOTLootItem.MAP_CODEC);
+    public static final MapCodec<FOTTagEntry> TAG = register("tag", FOTTagEntry.MAP_CODEC);
 
     public static void init()
     {

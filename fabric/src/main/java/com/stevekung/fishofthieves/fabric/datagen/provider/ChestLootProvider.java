@@ -14,15 +14,19 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -51,10 +55,14 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
             DyeColor.WHITE.getFireworkColor(),
             6942120 // athena
     );
+    private final HolderGetter<Item> items;
+    private final HolderGetter<Structure> structures;
 
     public ChestLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> provider)
     {
         super(dataOutput, provider, LootContextParamSets.CHEST);
+        this.items = provider.join().lookupOrThrow(Registries.ITEM);
+        this.structures = provider.join().lookupOrThrow(Registries.STRUCTURE);
     }
 
     @Override
@@ -75,15 +83,14 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
                         .add(LootItem.lootTableItem(Items.OAK_PLANKS).setWeight(8)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))))
-                        .add(TagEntry.expandTag(FOTTags.Items.WORMS).setWeight(5)
+                        .add(TagEntry.expandTag(this.items.getOrThrow(FOTTags.Items.WORMS)).setWeight(5)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
                         .add(LootItem.lootTableItem(Items.OAK_LOG).setWeight(2)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
-                        .add(FOTTagEntry.expandTag(FOTTags.Items.THIEVES_FISH).setWeight(3)
+                        .add(FOTTagEntry.expandTag(this.items.getOrThrow(FOTTags.Items.THIEVES_FISH)).setWeight(3)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
                         .add(LootItem.lootTableItem(Items.MAP)
-                                .apply(ExplorationMapFunction.makeExplorationMap()
-                                        .setDestination(StructureTags.ON_TREASURE_MAPS)
+                                .apply(ExplorationMapFunction.makeExplorationMap(this.structures.getOrThrow(StructureTags.ON_TREASURE_MAPS))
                                         .setMapDecoration(MapDecorationTypes.RED_X)
                                         .setZoom((byte) 1)
                                         .setSkipKnownStructures(false))))

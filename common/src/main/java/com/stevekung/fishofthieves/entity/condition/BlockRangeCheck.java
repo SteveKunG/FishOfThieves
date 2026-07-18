@@ -34,13 +34,13 @@ public record BlockRangeCheck(Optional<HolderSet<Block>> blocks, Optional<Holder
     {
         var level = context.level().getLevel();
 
-        if (this.blocks.isPresent() && TerrainUtils.lookForBlock(context.pos(), this.range, blockPos2 -> level.getBlockState(blockPos2).is(this.blocks.get())).isPresent())
+        if (this.blocks.isPresent() && TerrainUtils.lookForBlock(level, context.pos(), this.range, blockPos2 -> level.getBlockState(blockPos2).is(this.blocks.get())).isPresent())
         {
             return true;
         }
         else
         {
-            return this.fluids.isPresent() && TerrainUtils.lookForBlock(context.pos(), this.range, blockPos2 -> level.getFluidState(blockPos2).is(this.fluids.get()) && level.getFluidState(blockPos2).isSource()).isPresent();
+            return this.fluids.isPresent() && TerrainUtils.lookForBlock(level, context.pos(), this.range, blockPos2 -> level.getFluidState(blockPos2).is(this.fluids.get()) && level.getFluidState(blockPos2).isSource()).isPresent();
         }
     }
 
