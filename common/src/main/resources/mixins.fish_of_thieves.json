@@ -34,6 +34,7 @@
     "animal.MixinChicken",
     "animal.MixinOcelot",
     "animal.MixinPig",
+    "compat.tide.MixinTideFishingHook",
     "damagesource.MixinDamageSources",
     "datafix.MixinDataFixers",
     "effect.MixinMobEffectUtil",

@@ -84,6 +84,7 @@ dependencies {
     modRuntimeOnly("maven.modrinth:structure-void-toggle:4.2.7+1.20.1_fabric")
     modRuntimeOnly "maven.modrinth:world-preview:1.3.1"
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
+    modImplementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json", "resourcepacks/simple_spawning_condition_pack/**"]

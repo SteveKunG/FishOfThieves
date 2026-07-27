@@ -21,8 +21,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
@@ -136,40 +134,11 @@ public abstract class MixinFishingHook extends Projectile implements FishingHook
             ordinal = 1))
     private void fishofthieves$fishUpShoal(ItemStack itemStack, CallbackInfoReturnable<Integer> info, @Local Player player)
     {
-        var shoals = this.level().getEntitiesOfClass(Shoal.class, this.getBoundingBox().inflate(1), Entity::isAlive);
+        var durability = Shoal.fishUpShoal(this, player);
 
-        if (!shoals.isEmpty())
+        if (durability > 0)
         {
-            var shoal = shoals.get(0);
-            var intersects = shoal.getBoundingBox().intersects(this.getBoundingBox().inflate(1d));
-
-            if (intersects)
-            {
-                var randomFish = shoal.getRandomFishInShoal();
-
-                if (randomFish == null)
-                {
-                    return;
-                }
-                else
-                {
-                    shoal.addParticipatePlayer(player.getUUID());
-                }
-
-                var dx = player.getX() - this.getX();
-                var dy = player.getY() - this.getY();
-                var dz = player.getZ() - this.getZ();
-                var power = 0.15;
-                var gravity = 0.12;
-                randomFish.moveTo(this.blockPosition(), -player.getYRot(), -player.getXRot());
-                randomFish.setDeltaMovement(dx * power, dy * power + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * gravity, dz * power);
-                randomFish.setAirSupply(500);
-                this.level().addFreshEntity(randomFish);
-
-                player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, this.random.nextInt(8) + 2));
-                this.discard();
-                info.setReturnValue(4);
-            }
+            info.setReturnValue(durability);
         }
     }
 
