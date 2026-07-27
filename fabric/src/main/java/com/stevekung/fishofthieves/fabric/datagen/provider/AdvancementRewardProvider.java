@@ -30,6 +30,12 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableSubProvider
     }
 
     @Override
+    public void run()
+    {
+        this.generate((_, _) -> {});
+    }
+
+    @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
         consumer.accept(FOTLootTables.Advancements.FISH_COLLECTORS, LootTable.lootTable()
@@ -52,11 +58,5 @@ public class AdvancementRewardProvider extends SimpleFabricLootTableSubProvider
                 .withPool(LootPool.lootPool()
                         .setRolls(UniformGenerator.between(4.0F, 8.0F))
                         .add(TagEntry.expandTag(this.items.getOrThrow(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE)))));
-    }
-
-    @Override
-    public void run()
-    {
-        //TODO
     }
 }

@@ -9,8 +9,8 @@ import com.stevekung.fishofthieves.item.FOTItem;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class FOTTagEntry extends ExpandableContainerBase
 {
-    public static final MapCodec<FOTTagEntry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(entry -> entry.tag)).and(expandableFields(instance)).apply(instance, FOTTagEntry::new));
+    public static final MapCodec<FOTTagEntry> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.holderSet(Registries.ITEM).fieldOf("items").forGetter(entry -> entry.tag)).and(expandableFields(instance)).apply(instance, FOTTagEntry::new));
     private final HolderSet<Item> tag;
 
     FOTTagEntry(HolderSet<Item> tag, boolean expand, int weight, int quality, Optional<Holder<LootItemCondition>> condition, Optional<Holder<LootItemFunction>> modifier)

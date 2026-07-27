@@ -7,17 +7,17 @@ import com.stevekung.fishofthieves.registry.FOTRegistries;
 
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.codec.RegistryFileCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryFileCodec;
 
 public record PlentifinVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
 {
     public static final Codec<PlentifinVariant> DIRECT_CODEC = AbstractFishVariant.simpleCodec(PlentifinVariant::new);
     public static final Codec<PlentifinVariant> NETWORK_CODEC = AbstractFishVariant.networkCodec(PlentifinVariant::new);
-    public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC);
+    public static final Codec<Holder<PlentifinVariant>> CODEC = RegistryFileCodec.create(FOTRegistries.PLENTIFIN_VARIANT, DIRECT_CODEC, false);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<PlentifinVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(FOTRegistries.PLENTIFIN_VARIANT);
 
     public PlentifinVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int order)

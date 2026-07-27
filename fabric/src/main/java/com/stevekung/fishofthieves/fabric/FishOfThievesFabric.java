@@ -20,6 +20,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.BlockTransformerRegistry;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -33,6 +34,8 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider;
 
 public class FishOfThievesFabric implements ModInitializer
 {
@@ -109,12 +112,12 @@ public class FishOfThievesFabric implements ModInitializer
 
         FOTCreativeTabs.init();
 
-//        StrippableBlockRegistry.register(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);TODO
-//        StrippableBlockRegistry.register(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
+        BlockTransformerRegistry.registerStripping(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
+        BlockTransformerRegistry.registerStripping(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
+
+        CustomStrippables.CUSTOM_STRIPPABLES.forEach((key, value) -> BlockTransformerRegistry.registerStripping(key, new CopyPropertiesProvider(BlockStateProvider.simple(value))));
 
         BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
-
-//        FuelValueEvents.BUILD.register((builder, _) -> builder.add(FOTTags.Items.WOODEN_FISH_PLAQUE, 300));TODO
 
         /*LootTableEvents.MODIFY.register((id, tableBuilder, _, provider) -> TODO
         {

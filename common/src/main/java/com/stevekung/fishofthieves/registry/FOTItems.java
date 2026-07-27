@@ -28,18 +28,18 @@ public class FOTItems
     // Block Item
     public static final Item FISH_BONE = registerBlock(FOTBlocks.FISH_BONE);
 
-    public static final Item OAK_FISH_PLAQUE = registerBlock(FOTBlocks.OAK_FISH_PLAQUE);
-    public static final Item SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.SPRUCE_FISH_PLAQUE);
-    public static final Item BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.BIRCH_FISH_PLAQUE);
-    public static final Item JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.JUNGLE_FISH_PLAQUE);
-    public static final Item ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.ACACIA_FISH_PLAQUE);
-    public static final Item DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.DARK_OAK_FISH_PLAQUE);
-    public static final Item MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.MANGROVE_FISH_PLAQUE);
-    public static final Item CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.CHERRY_FISH_PLAQUE);
-    public static final Item PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.PALE_OAK_FISH_PLAQUE);
-    public static final Item BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.BAMBOO_FISH_PLAQUE);
-    public static final Item CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.CRIMSON_FISH_PLAQUE);
-    public static final Item WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.WARPED_FISH_PLAQUE);
+    public static final Item OAK_FISH_PLAQUE = registerBlock(FOTBlocks.OAK_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.SPRUCE_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item BIRCH_FISH_PLAQUE = registerBlock(FOTBlocks.BIRCH_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item JUNGLE_FISH_PLAQUE = registerBlock(FOTBlocks.JUNGLE_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item ACACIA_FISH_PLAQUE = registerBlock(FOTBlocks.ACACIA_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item DARK_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.DARK_OAK_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item MANGROVE_FISH_PLAQUE = registerBlock(FOTBlocks.MANGROVE_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item CHERRY_FISH_PLAQUE = registerBlock(FOTBlocks.CHERRY_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item PALE_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.PALE_OAK_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item BAMBOO_FISH_PLAQUE = registerBlock(FOTBlocks.BAMBOO_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.CRIMSON_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.WARPED_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
 
     public static final Item IRON_FRAME_OAK_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_OAK_FISH_PLAQUE);
     public static final Item IRON_FRAME_SPRUCE_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_SPRUCE_FISH_PLAQUE);
@@ -93,20 +93,20 @@ public class FOTItems
     public static final Item GILDED_CRIMSON_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE);
     public static final Item GILDED_WARPED_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_WARPED_FISH_PLAQUE);
 
-    public static final Item SMALL_COCONUT_LOG = registerBlock(FOTBlocks.SMALL_COCONUT_LOG);
-    public static final Item SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.SMALL_COCONUT_WOOD);
-    public static final Item MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.MEDIUM_COCONUT_LOG);
-    public static final Item MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.MEDIUM_COCONUT_WOOD);
-    public static final Item COCONUT_LOG = registerBlock(FOTBlocks.COCONUT_LOG);
-    public static final Item COCONUT_WOOD = registerBlock(FOTBlocks.COCONUT_WOOD);
-    public static final Item STRIPPED_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_COCONUT_LOG);
-    public static final Item STRIPPED_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_COCONUT_WOOD);
-    public static final Item STRIPPED_MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG);
-    public static final Item STRIPPED_MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD);
-    public static final Item STRIPPED_SMALL_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG);
-    public static final Item STRIPPED_SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD);
+    public static final Item SMALL_COCONUT_LOG = registerBlock(FOTBlocks.SMALL_COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.SMALL_COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.MEDIUM_COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.MEDIUM_COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_LOG = registerBlock(FOTBlocks.COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_WOOD = registerBlock(FOTBlocks.COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_MEDIUM_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_MEDIUM_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_MEDIUM_COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_SMALL_COCONUT_LOG = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item STRIPPED_SMALL_COCONUT_WOOD = registerBlock(FOTBlocks.STRIPPED_SMALL_COCONUT_WOOD, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
     public static final Item COCONUT_FRONDS = registerBlock(FOTBlocks.COCONUT_FRONDS, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_HIGH_80));
-    public static final Item BANANA_STEM = registerBlock(FOTBlocks.BANANA_STEM, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_HIGH_80));
+    public static final Item BANANA_STEM = registerBlock(FOTBlocks.BANANA_STEM, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_HIGH_80).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
     public static final Item BANANA_LEAVES = registerBlock(FOTBlocks.BANANA_LEAVES, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_HIGH_80));
     public static final Item BANANA_BLOSSOM = registerBlock(FOTBlocks.BANANA_BLOSSOM, properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW));
     public static final Item UNDERRIPE_BANANA_CLUSTER = registerBlock(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM));
@@ -117,37 +117,37 @@ public class FOTItems
     public static final Item UNDERRIPE_PINEAPPLE_BLOCK = registerBlock(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, properties -> properties.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD).setSwappable(false).build()).compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_60));
     public static final Item MANGO_LEAVES = registerBlock(FOTBlocks.MANGO_LEAVES, properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW));
     public static final Item TALL_POMEGRANATE_PLANT = register("tall_pomegranate_plant", properties -> new DoubleHighBlockItem(FOTBlocks.TALL_POMEGRANATE_PLANT, properties.useBlockDescriptionPrefix().compostable(FOTNumberProviders.COMPOSTABLE_LOW_40)));
-    public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG);
-    public static final Item BUDDING_PRISMARIZED_LOG = registerBlock(FOTBlocks.BUDDING_PRISMARIZED_LOG);
+    public static final Item PRISMARIZED_LOG = registerBlock(FOTBlocks.PRISMARIZED_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item BUDDING_PRISMARIZED_LOG = registerBlock(FOTBlocks.BUDDING_PRISMARIZED_LOG, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
 
     public static final Item PINK_PLUMERIA = registerBlock(FOTBlocks.PINK_PLUMERIA, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_60));
     public static final Item LIGHT_BLUE_PLUMERIA = registerBlock(FOTBlocks.LIGHT_BLUE_PLUMERIA, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_60));
     public static final Item WHITE_PLUMERIA = registerBlock(FOTBlocks.WHITE_PLUMERIA, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_MEDIUM_60));
-    public static final Item BANANA_SHOOTS = registerBlock(FOTBlocks.BANANA_SHOOTS, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25));
-    public static final Item MANGO_PIT = registerBlock(FOTBlocks.MANGO_PIT, properties -> properties.useItemDescriptionPrefix().compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_20));
-    public static final Item MANGO_SAPLING = registerBlock(FOTBlocks.MANGO_SAPLING, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25));
-    public static final Item POMEGRANATE_PLANT = registerBlock(FOTBlocks.POMEGRANATE_PLANT, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25));
+    public static final Item BANANA_SHOOTS = registerBlock(FOTBlocks.BANANA_SHOOTS, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS));
+    public static final Item MANGO_PIT = registerBlock(FOTBlocks.MANGO_PIT, properties -> properties.useItemDescriptionPrefix().compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_20).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS));
+    public static final Item MANGO_SAPLING = registerBlock(FOTBlocks.MANGO_SAPLING, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS));
+    public static final Item POMEGRANATE_PLANT = registerBlock(FOTBlocks.POMEGRANATE_PLANT, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_VERY_LOW_25).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS));
     public static final Item TROPICAL_RED_FERN = registerBlock(FOTBlocks.TROPICAL_RED_FERN, properties -> properties.compostable(FOTNumberProviders.COMPOSTABLE_LOW_40));
     public static final Item TROPICAL_MONSTERA = registerBlock(FOTBlocks.TROPICAL_MONSTERA, properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW));
 
-    public static final Item COCONUT_PLANKS = registerBlock(FOTBlocks.COCONUT_PLANKS);
-    public static final Item COCONUT_BUTTON = registerBlock(FOTBlocks.COCONUT_BUTTON);
-    public static final Item COCONUT_FENCE = registerBlock(FOTBlocks.COCONUT_FENCE);
-    public static final Item COCONUT_FENCE_GATE = registerBlock(FOTBlocks.COCONUT_FENCE_GATE);
-    public static final Item COCONUT_PRESSURE_PLATE = registerBlock(FOTBlocks.COCONUT_PRESSURE_PLATE);
-    public static final Item COCONUT_SLAB = registerBlock(FOTBlocks.COCONUT_SLAB);
-    public static final Item COCONUT_STAIRS = registerBlock(FOTBlocks.COCONUT_STAIRS);
-    public static final Item COCONUT_TRAPDOOR = registerBlock(FOTBlocks.COCONUT_TRAPDOOR);
-    public static final Item COCONUT_DOOR = register("coconut_door", properties -> new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, properties.useBlockDescriptionPrefix()));
+    public static final Item COCONUT_PLANKS = registerBlock(FOTBlocks.COCONUT_PLANKS, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_BUTTON = registerBlock(FOTBlocks.COCONUT_BUTTON, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_ITEMS_EXTRA_SMALL));
+    public static final Item COCONUT_FENCE = registerBlock(FOTBlocks.COCONUT_FENCE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_FENCE_GATE = registerBlock(FOTBlocks.COCONUT_FENCE_GATE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_PRESSURE_PLATE = registerBlock(FOTBlocks.COCONUT_PRESSURE_PLATE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_SLAB = registerBlock(FOTBlocks.COCONUT_SLAB, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_STAIRS = registerBlock(FOTBlocks.COCONUT_STAIRS, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_TRAPDOOR = registerBlock(FOTBlocks.COCONUT_TRAPDOOR, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
+    public static final Item COCONUT_DOOR = register("coconut_door", properties -> new DoubleHighBlockItem(FOTBlocks.COCONUT_DOOR, properties.useBlockDescriptionPrefix().cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
     public static final Item COCONUT_SIGN = register("coconut_sign", properties -> new StandingAndWallBlockItem(FOTBlocks.COCONUT_SIGN, FOTBlocks.COCONUT_WALL_SIGN, Direction.DOWN, properties.stacksTo(16).useBlockDescriptionPrefix().signText().cookingFuel(NumberProviders.COOKING_TIME_WOOD_ITEMS_LARGE)));
     public static final Item COCONUT_HANGING_SIGN = register("coconut_hanging_sign", properties -> new FOTHangingSignItem(FOTBlocks.COCONUT_HANGING_SIGN, FOTBlocks.COCONUT_WALL_HANGING_SIGN, properties.stacksTo(16).useBlockDescriptionPrefix().cookingFuel(NumberProviders.COOKING_TIME_HANGING_SIGNS).signText()));
 
-    public static final Item COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COCONUT_FISH_PLAQUE);
+    public static final Item COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COCONUT_FISH_PLAQUE, properties -> properties.cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
     public static final Item IRON_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.IRON_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item COPPER_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.COPPER_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GOLDEN_FRAME_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GOLDEN_FRAME_COCONUT_FISH_PLAQUE);
     public static final Item GILDED_COCONUT_FISH_PLAQUE = registerBlock(FOTBlocks.GILDED_COCONUT_FISH_PLAQUE);
-    public static final Item COCONUT_SHELF = registerBlock(FOTBlocks.COCONUT_SHELF, properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
+    public static final Item COCONUT_SHELF = registerBlock(FOTBlocks.COCONUT_SHELF, properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS));
 
     // Item
     public static final Item EARTHWORMS = register("earthworms", properties -> new FOTWormItem(properties.food(FOTFoodProperties.WORMS, FOTConsumables.WORMS).compostable(FOTNumberProviders.COMPOSTABLE_LOW_40)));
@@ -216,8 +216,8 @@ public class FOTItems
     public static final Item MEGALODON_POTTERY_SHERD = register("megalodon_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.MEGALODON));
     public static final Item GREAT_MOUTH_POTTERY_SHERD = register("great_mouth_pottery_sherd", new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(FOTDecoratedPotPatterns.GREAT_MOUTH));
 
-    public static final Item COCONUT_BOAT = register("coconut_boat", properties -> new BoatItem(FOTEntities.COCONUT_BOAT, properties.stacksTo(1)));
-    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", properties -> new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, properties.stacksTo(1)));
+    public static final Item COCONUT_BOAT = register("coconut_boat", properties -> new BoatItem(FOTEntities.COCONUT_BOAT, properties.stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_BOATS)));
+    public static final Item COCONUT_CHEST_BOAT = register("coconut_chest_boat", properties -> new BoatItem(FOTEntities.COCONUT_CHEST_BOAT, properties.stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_BOATS)));
 
     public static void init()
     {

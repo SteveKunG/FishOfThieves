@@ -8,8 +8,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.level.block.Block;
@@ -18,8 +18,8 @@ import net.minecraft.world.level.material.Fluid;
 public record BlockRangeCheck(Optional<HolderSet<Block>> blocks, Optional<HolderSet<Fluid>> fluids, int range) implements SpawnCondition
 {
     public static final MapCodec<BlockRangeCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            RegistryCodecs.homogeneousList(Registries.BLOCK).optionalFieldOf("blocks").forGetter(BlockRangeCheck::blocks),
-            RegistryCodecs.homogeneousList(Registries.FLUID).optionalFieldOf("fluids").forGetter(BlockRangeCheck::fluids),
+            RegistryCodecs.holderSet(Registries.BLOCK).optionalFieldOf("blocks").forGetter(BlockRangeCheck::blocks),
+            RegistryCodecs.holderSet(Registries.FLUID).optionalFieldOf("fluids").forGetter(BlockRangeCheck::fluids),
             Codec.intRange(1, 32).fieldOf("range").forGetter(BlockRangeCheck::range)
     ).apply(instance, BlockRangeCheck::new));
 

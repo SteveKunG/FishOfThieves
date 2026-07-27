@@ -55,6 +55,12 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
     }
 
     @Override
+    public void run()
+    {
+        this.generate((_, _) -> {});
+    }
+
+    @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
         var enchantments = this.provider.lookupOrThrow(Registries.ENCHANTMENT);
@@ -134,11 +140,5 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
     private LootItemConditionalFunction.Builder<?> setCustomData(CompoundTag compoundTag)
     {
         return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetCustomDataFunction(lootItemConditions, compoundTag));
-    }
-
-    @Override
-    public void run()
-    {
-        //TODO
     }
 }

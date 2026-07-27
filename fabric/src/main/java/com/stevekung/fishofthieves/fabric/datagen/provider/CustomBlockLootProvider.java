@@ -45,6 +45,12 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableSubProvider
     }
 
     @Override
+    public void run()
+    {
+        this.generate((_, _) -> {});
+    }
+
+    @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
         var waterPredicate = LocationPredicate.Builder.location().setFluid(FluidPredicate.Builder.fluid().of(Fluids.WATER));
@@ -92,11 +98,5 @@ public class CustomBlockLootProvider extends SimpleFabricLootTableSubProvider
                 .partial(DataComponentPredicates.ENCHANTMENTS,
                         EnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(
                                 registryLookup.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1))))).build()));
-    }
-
-    @Override
-    public void run()
-    {
-        //TODO
     }
 }

@@ -66,6 +66,12 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
     }
 
     @Override
+    public void run()
+    {
+        this.generate((_, _) -> {});
+    }
+
+    @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer)
     {
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
@@ -135,11 +141,5 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
     private static LootItemConditionalFunction.Builder<?> setFirework(ListOperation.StandAlone<FireworkExplosion> explosions, Optional<Integer> flightDuration)
     {
         return LootItemConditionalFunction.simpleBuilder(lootItemConditions -> new SetFireworksFunction(lootItemConditions, Optional.of(explosions), flightDuration));
-    }
-
-    @Override
-    public void run()
-    {
-        //TODO
     }
 }
