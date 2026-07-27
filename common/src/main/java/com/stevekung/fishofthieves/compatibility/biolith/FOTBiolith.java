@@ -6,6 +6,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
 import com.terraformersmc.biolith.api.biome.sub.BiomeParameterTargets;
+import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
 import com.terraformersmc.biolith.impl.biome.sub.AllOfCriterion;
 import com.terraformersmc.biolith.impl.biome.sub.ValueCriterion;
 
@@ -21,6 +22,6 @@ public class FOTBiolith
                 new ValueCriterion(BiomeParameterTargets.WEIRDNESS, FishOfThieves.CONFIG.biome.tropicalIslandMinimumWeirdness, FishOfThieves.CONFIG.biome.tropicalIslandMaximumWeirdness)
         )));
 
-//        SurfaceGeneration.addOverworldSurfaceRules(FishOfThieves.id("surface_rules"), FOTSurfaceRuleData.overworld(null));//TODO Waiting for biolith
+        SurfaceGeneration.addOverworldSurfaceRules(FishOfThieves.id("surface_rules"), FOTSurfaceRuleData::overworld);
     }
 }
