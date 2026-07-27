@@ -17,12 +17,30 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ github.event.inputs.version }}",
-              sha: context.sha
-            })
+            const tagName = "${{ github.event.inputs.version }}";
+
+            // Check if the tag already exists
+            try {
+              await github.rest.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tagName}`
+              });
+              console.log(`Tag "${tagName}" already exists. Skipping...`);
+            } catch (error) {
+              if (error.status === 404) {
+                // Tag not found → create it
+                await github.rest.git.createRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: `refs/tags/${tagName}`,
+                  sha: context.sha
+                });
+                console.log(`Created new tag: ${tagName}`);
+              } else {
+                throw error;
+              }
+            }
 
       - name: Fetch tags
         run: git fetch --tags
