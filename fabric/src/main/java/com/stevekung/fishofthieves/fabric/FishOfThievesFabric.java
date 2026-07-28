@@ -5,6 +5,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
 import com.stevekung.fishofthieves.network.SyncClientShoalFishPacket;
@@ -17,6 +18,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider;
+import net.minecraft.world.level.storage.loot.LootPool;
 
 public class FishOfThievesFabric implements ModInitializer
 {
@@ -119,7 +122,7 @@ public class FishOfThievesFabric implements ModInitializer
 
         BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 
-        /*LootTableEvents.MODIFY.register((id, tableBuilder, _, provider) -> TODO
+        LootTableEvents.MODIFY.register((id, tableBuilder, _, provider) ->
         {
             FOTLootManager.getInjectedLootPoolMap().forEach((resourceKey, function) ->
             {
@@ -135,7 +138,7 @@ public class FishOfThievesFabric implements ModInitializer
                     function.apply(builder, provider);
                 }
             }));
-        });*/
+        });
 
         FishOfThieves.getEntityAttributes().forEach(FabricDefaultAttributeRegistry::register);
 
