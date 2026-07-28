@@ -3,17 +3,15 @@
   "criteria": {
     "battlegill_village": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:location": {
-                "structures": "#minecraft:village"
-              }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "structures": "#minecraft:village"
             }
           }
-        ],
+        },
         "item": {
           "items": "fishofthieves:battlegill"
         }

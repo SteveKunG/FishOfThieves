@@ -3,61 +3,67 @@
   "criteria": {
     "play_jukebox_near_fish": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "block": {
-                "blocks": "minecraft:jukebox"
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:jukebox"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "predicates": {
+                  "minecraft:jukebox_playable": {}
+                }
+              }
+            },
+            {
+              "type": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "minecraft:entity_type": "#minecraft:axolotl_hunt_targets"
               }
             }
-          },
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "predicates": {
-                "minecraft:jukebox_playable": {}
-              }
-            }
-          },
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "#minecraft:axolotl_hunt_targets"
-            }
-          }
-        ]
+          ]
+        }
       },
       "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
     },
     "play_jukebox_near_thieves_fish": {
       "conditions": {
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "block": {
-                "blocks": "minecraft:jukebox"
+        "location": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "blocks": "minecraft:jukebox"
+                }
+              }
+            },
+            {
+              "type": "minecraft:match_tool",
+              "predicate": {
+                "predicates": {
+                  "minecraft:jukebox_playable": {}
+                }
+              }
+            },
+            {
+              "type": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "minecraft:entity_type": "#fishofthieves:thieves_fish"
               }
             }
-          },
-          {
-            "condition": "minecraft:match_tool",
-            "predicate": {
-              "predicates": {
-                "minecraft:jukebox_playable": {}
-              }
-            }
-          },
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "#fishofthieves:thieves_fish"
-            }
-          }
-        ]
+          ]
+        }
       },
       "trigger": "fishofthieves:item_used_on_location_with_nearby_entity"
     }

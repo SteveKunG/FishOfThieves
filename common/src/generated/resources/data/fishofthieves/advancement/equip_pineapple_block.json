@@ -3,23 +3,21 @@
   "criteria": {
     "equip_pineapple_block": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:equipment": {
-                "head": {
-                  "items": [
-                    "fishofthieves:ripe_pineapple_block",
-                    "fishofthieves:crownless_ripe_pineapple_block",
-                    "fishofthieves:underripe_pineapple_block"
-                  ]
-                }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:equipment": {
+              "head": {
+                "items": [
+                  "fishofthieves:ripe_pineapple_block",
+                  "fishofthieves:crownless_ripe_pineapple_block",
+                  "fishofthieves:underripe_pineapple_block"
+                ]
               }
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

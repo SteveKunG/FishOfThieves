@@ -1,57 +1,47 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
+  "modifier": {
+    "type": "minecraft:explosion_decay"
+  },
   "pools": [
     {
-      "conditions": [
-        {
-          "block": "fishofthieves:hanging_mango_fruit",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "2"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "fishofthieves:hanging_mango_fruit",
+        "state": {
+          "age": "2"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "fishofthieves:mango"
         }
       ],
-      "functions": [
-        {
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ],
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": 1.0
+      },
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "block": "fishofthieves:hanging_mango_fruit",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "1"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "fishofthieves:hanging_mango_fruit",
+        "state": {
+          "age": "1"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "fishofthieves:raw_mango"
         }
       ],
-      "functions": [
-        {
-          "count": 1.0,
-          "function": "minecraft:set_count"
-        }
-      ],
+      "modifier": {
+        "type": "minecraft:set_count",
+        "count": 1.0
+      },
       "rolls": 1.0
     }
   ]

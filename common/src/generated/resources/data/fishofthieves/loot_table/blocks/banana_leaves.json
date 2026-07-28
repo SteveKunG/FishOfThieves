@@ -2,38 +2,30 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "fishofthieves:banana_leaves",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "part": "stem"
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "fishofthieves:banana_leaves",
+            "state": {
+              "part": "stem"
+            }
+          },
+          "modifier": {
+            "type": "minecraft:set_count",
+            "condition": {
+              "type": "minecraft:match_block",
+              "blocks": "fishofthieves:banana_leaves",
+              "state": {
+                "count": "2"
               }
-            }
-          ],
-          "functions": [
-            {
-              "conditions": [
-                {
-                  "block": "fishofthieves:banana_leaves",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "count": "2"
-                  }
-                }
-              ],
-              "count": 2.0,
-              "function": "minecraft:set_count"
-            }
-          ],
+            },
+            "count": 2.0
+          },
           "name": "fishofthieves:banana_leaves"
         }
       ],

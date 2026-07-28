@@ -3,31 +3,27 @@
   "criteria": {
     "lightning_strike_at_stormfish": {
       "conditions": {
-        "bystander": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "fishofthieves:stormfish"
-            }
+        "bystander": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "fishofthieves:stormfish"
           }
-        ],
-        "lightning": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:distance": {
-                "absolute": {
-                  "max": 16.0
-                }
-              },
-              "minecraft:type_specific/lightning": {
-                "blocks_set_on_fire": 0
+        },
+        "lightning": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:distance": {
+              "absolute": {
+                "max": 16.0
               }
+            },
+            "minecraft:type_specific/lightning": {
+              "blocks_set_on_fire": 0
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:lightning_strike"
     }

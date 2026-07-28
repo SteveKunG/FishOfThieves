@@ -3,17 +3,15 @@
   "criteria": {
     "explore_tropical_island": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:location": {
-                "biomes": "fishofthieves:tropical_island"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "fishofthieves:tropical_island"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

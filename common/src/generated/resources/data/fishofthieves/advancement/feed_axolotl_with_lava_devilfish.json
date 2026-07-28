@@ -3,15 +3,13 @@
   "criteria": {
     "devilfish_bucket": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "minecraft:axolotl"
-            }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:axolotl"
           }
-        ],
+        },
         "item": {
           "components": {
             "minecraft:bucket_entity_data": {
