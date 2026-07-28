@@ -9,19 +9,19 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class FOTNoises
 {
-    public static final ResourceKey<NormalNoise.NoiseParameters> SAND_PATCHES = createKey("sand_patches");
+    public static final ResourceKey<NormalNoise> SAND_PATCHES = createKey("sand_patches");
 
-    public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> context)
+    public static void bootstrap(BootstrapContext<NormalNoise> context)
     {
         register(context, SAND_PATCHES, -6, 1.0, 1.0, 1.0, 1.0, 1.0);
     }
 
-    private static void register(BootstrapContext<NormalNoise.NoiseParameters> context, ResourceKey<NormalNoise.NoiseParameters> key, int firstOctave, double amplitude, double... otherAmplitudes)
+    private static void register(BootstrapContext<NormalNoise> context, ResourceKey<NormalNoise> key, int firstOctave, double... amplitudes)
     {
-        context.register(key, new NormalNoise.NoiseParameters(firstOctave, amplitude, otherAmplitudes));
+        context.register(key, NormalNoise.createParity(firstOctave, amplitudes));
     }
 
-    private static ResourceKey<NormalNoise.NoiseParameters> createKey(String key)
+    private static ResourceKey<NormalNoise> createKey(String key)
     {
         return ResourceKey.create(Registries.NOISE, FishOfThieves.id(key));
     }

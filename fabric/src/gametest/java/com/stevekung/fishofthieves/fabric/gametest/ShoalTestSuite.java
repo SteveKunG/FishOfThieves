@@ -72,7 +72,7 @@ public class ShoalTestSuite implements FOTGameTest
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
-        shoal.setInvulnerable(true);
+        shoal.setPermanentlyInvulnerable(true);
         helper.runAtTickTime(50, () -> helper.succeedWhenEntityPresent(FOTEntities.SHOAL, blockPos));
     }
 
@@ -100,7 +100,7 @@ public class ShoalTestSuite implements FOTGameTest
         var shoal = helper.spawn(FOTEntities.SHOAL, blockPos.getX() + 0.5f, blockPos.getY() + 0.5f, blockPos.getZ() + 0.5f);
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
-        shoal.setInvulnerable(true);
+        shoal.setPermanentlyInvulnerable(true);
         helper.setBlock(blockPos.north(), Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.SOUTH));
         helper.runAtTickTime(50, () -> helper.setBlock(blockPos.north().above(), Blocks.REDSTONE_BLOCK));
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);

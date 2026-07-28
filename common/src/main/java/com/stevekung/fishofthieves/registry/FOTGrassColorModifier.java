@@ -11,7 +11,7 @@ public class FOTGrassColorModifier
     public static int getGrassColor(double x, double z)
     {
         var offset = 0.0275;
-        var noise = Biome.BIOME_INFO_NOISE.getValue(x * offset, z * offset, false);
+        var noise = Biome.BIOME_INFO_NOISE.get(x * offset, z * offset);
         return noise < -0.1 ? 7000834 : 8769546;
     }
 }
