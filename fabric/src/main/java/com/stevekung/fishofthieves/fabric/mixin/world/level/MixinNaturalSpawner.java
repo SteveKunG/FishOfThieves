@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.fabric.mixin.world.level;
 
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,13 +9,11 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 
@@ -24,7 +21,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 public class MixinNaturalSpawner
 {
     @Inject(method = "mobsAt", cancellable = true, at = @At("HEAD"))
-    private static void fishofthieves$addFishSpawn(ServerLevel level, StructureManager structureManager, ChunkGenerator generator, MobCategory category, BlockPos pos, @Nullable Holder<Biome> biome, CallbackInfoReturnable<WeightedList<MobSpawnSettings.SpawnerData>> info)
+    private static void fishofthieves$addFishSpawn(ServerLevel level, StructureManager structureManager, ChunkGenerator generator, MobCategory category, BlockPos pos, CallbackInfoReturnable<WeightedList<MobSpawnSettings.SpawnerData>> info)
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
