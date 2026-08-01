@@ -13,6 +13,7 @@ dependencies {
         exclude group: "net.fabricmc", module: "fabric-loader"
     }
     implementation(fabricApi.module("fabric-transitive-access-wideners-v1", fabric_api_version))
+    implementation("com.moulberry:mixinconstraints:${mixin_constraints_version}")
 }
 
 ext {
