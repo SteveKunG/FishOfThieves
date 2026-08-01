@@ -93,6 +93,7 @@ dependencies {
     modRuntimeOnly "maven.modrinth:structure-void-toggle:4.5.3+1.21.11"
     //modRuntimeOnly "maven.modrinth:world-preview:qc0AtV3T" TODO
     modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
+    modImplementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 
 processResources {

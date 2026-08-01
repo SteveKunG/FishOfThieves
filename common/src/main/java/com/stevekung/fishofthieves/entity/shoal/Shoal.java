@@ -30,6 +30,7 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.Util;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -381,6 +382,46 @@ public class Shoal extends Entity
             shoal.createTreasuredSpawn(tier);
             shoal.setTreasured(true);
         }
+    }
+
+    public static int fishUpShoal(Entity fishingHook, Player player)
+    {
+        var shoals = fishingHook.level().getEntitiesOfClass(Shoal.class, fishingHook.getBoundingBox().inflate(1), Entity::isAlive);
+
+        if (!shoals.isEmpty())
+        {
+            var shoal = shoals.getFirst();
+            var intersects = shoal.getBoundingBox().intersects(fishingHook.getBoundingBox().inflate(1d));
+
+            if (intersects)
+            {
+                var randomFish = shoal.getRandomFishInShoal();
+
+                if (randomFish == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    shoal.addParticipatePlayer(player.getUUID());
+                }
+
+                var dx = player.getX() - fishingHook.getX();
+                var dy = player.getY() - fishingHook.getY();
+                var dz = player.getZ() - fishingHook.getZ();
+                var power = 0.15;
+                var gravity = 0.12;
+                randomFish.snapTo(fishingHook.blockPosition(), -player.getYRot(), -player.getXRot());
+                randomFish.setDeltaMovement(dx * power, dy * power + Math.sqrt(Math.sqrt(dx * dx + dy * dy + dz * dz)) * gravity, dz * power);
+                randomFish.setAirSupply(500);
+                fishingHook.level().addFreshEntity(randomFish);
+
+                player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX() + 0.5, player.getY() + 0.5, player.getZ() + 0.5, fishingHook.level().getRandom().nextInt(8) + 2));
+                fishingHook.discard();
+                return 4;
+            }
+        }
+        return 0;
     }
 
     private void destroyShoalBlock()
