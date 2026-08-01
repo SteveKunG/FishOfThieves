@@ -31,7 +31,6 @@
     "animal.MixinAxolotl",
     "animal.MixinBee",
     "animal.MixinBee$MixinBeeGrowCropGoal",
-    "compat.tide.MixinTideFishingHook",
     "damagesource.MixinDamageSources",
     "datafix.MixinBoatSplitFix",
     "datafix.MixinDataFixers",

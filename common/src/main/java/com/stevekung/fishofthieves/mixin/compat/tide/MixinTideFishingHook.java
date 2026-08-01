@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 @Mixin(targets = "com.li64.tide.registries.entities.misc.fishing.TideFishingHook")
 @Pseudo
 @IfModLoaded(value = "tide", minVersion = "2.1")
+//TODO Once Tide mod updated this mixin will be revisited
 public class MixinTideFishingHook
 {
     @Inject(method = "retrieve(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/player/Player;)I", cancellable = true, at = @At(
