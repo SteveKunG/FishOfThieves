@@ -27,6 +27,7 @@
     "animal.MixinBee",
     "animal.MixinBee$MixinBeeGrowCropGoal",
     "animal.MixinBee$MixinBeePollinateGoal",
+    "compat.tide.MixinTideFishingHook",
     "damagesource.MixinDamageSources",
     "datafix.MixinDataFixers",
     "datafix.MixinItemStackComponentizationFix",
