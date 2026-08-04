@@ -42,7 +42,7 @@ public class FollowFlockLeader extends Behavior<AbstractFlockFish>
             if (entity.hasLeader())
             {
                 var leader = entity.getLeader();
-                return entity.hasLineOfSight(leader) && (!leader.getBrain().hasMemoryValue(MemoryModuleType.IS_TEMPTED) || !leader.getBrain().getMemory(MemoryModuleType.IS_TEMPTED).get());
+                return entity.hasLineOfSight(leader) && (!leader.getBrain().hasMemoryValue(MemoryModuleType.TEMPTING_PLAYER));
             }
         }
         return false;

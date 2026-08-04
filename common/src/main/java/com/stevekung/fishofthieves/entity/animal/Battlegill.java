@@ -74,7 +74,6 @@ public class Battlegill extends AbstractSchoolingThievesFish<BattlegillVariant>
 
             // Tempting AI
             MemoryModuleType.TEMPTATION_COOLDOWN_TICKS,
-            MemoryModuleType.IS_TEMPTED,
             MemoryModuleType.TEMPTING_PLAYER,
             MemoryModuleType.BREED_TARGET,
             MemoryModuleType.IS_PANICKING,

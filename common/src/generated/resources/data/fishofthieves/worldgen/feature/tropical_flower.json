@@ -4,46 +4,27 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "fishofthieves:pink_plumeria"
-        },
+        "data": "fishofthieves:pink_plumeria",
         "weight": 12
       },
       {
-        "data": {
-          "Name": "fishofthieves:light_blue_plumeria"
-        },
+        "data": "fishofthieves:light_blue_plumeria",
         "weight": 10
       },
       {
-        "data": {
-          "Name": "fishofthieves:white_plumeria"
-        },
+        "data": "fishofthieves:white_plumeria",
         "weight": 8
       },
       {
-        "data": {
-          "Name": "fishofthieves:tropical_monstera"
-        },
+        "data": "fishofthieves:tropical_monstera",
         "weight": 3
       },
       {
-        "data": {
-          "Name": "fishofthieves:tropical_red_fern",
-          "Properties": {
-            "ceiling": "false"
-          }
-        },
+        "data": "fishofthieves:tropical_red_fern",
         "weight": 3
       },
       {
-        "data": {
-          "Name": "fishofthieves:vertical_banana_leaves",
-          "Properties": {
-            "ceiling": "false",
-            "waterlogged": "false"
-          }
-        },
+        "data": "fishofthieves:vertical_banana_leaves",
         "weight": 2
       }
     ]

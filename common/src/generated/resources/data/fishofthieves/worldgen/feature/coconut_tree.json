@@ -2,9 +2,7 @@
   "type": "minecraft:tree",
   "below_trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:sand"
-    }
+    "state": "minecraft:sand"
   },
   "decorators": [
     {
@@ -21,8 +19,8 @@
     "middle_leaves_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "fishofthieves:coconut_fronds",
-        "Properties": {
+        "id": "fishofthieves:coconut_fronds",
+        "properties": {
           "facing": "north",
           "part": "middle",
           "waterlogged": "false"
@@ -38,8 +36,8 @@
     "tail_leaves_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "fishofthieves:coconut_fronds",
-        "Properties": {
+        "id": "fishofthieves:coconut_fronds",
+        "properties": {
           "facing": "north",
           "part": "tail",
           "waterlogged": "false"
@@ -48,25 +46,12 @@
     },
     "top_leaves_state": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:vertical_coconut_fronds",
-        "Properties": {
-          "ceiling": "false",
-          "waterlogged": "false"
-        }
-      }
+      "state": "fishofthieves:vertical_coconut_fronds"
     }
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "fishofthieves:coconut_fronds",
-      "Properties": {
-        "facing": "north",
-        "part": "single",
-        "waterlogged": "false"
-      }
-    }
+    "state": "fishofthieves:coconut_fronds"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -83,13 +68,7 @@
     "increase_medium_trunk_by_one": false,
     "medium_log": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:medium_coconut_log",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "fishofthieves:medium_coconut_log"
     },
     "medium_trunk_height": {
       "type": "minecraft:uniform",
@@ -103,32 +82,15 @@
     },
     "small_log": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:small_coconut_log",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "fishofthieves:small_coconut_log"
     },
     "top_log": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:small_top_coconut_log",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "fishofthieves:small_top_coconut_log"
     }
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "fishofthieves:coconut_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "fishofthieves:coconut_log"
   }
 }

@@ -4,19 +4,13 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "fishofthieves:pineapple_crop",
-          "Properties": {
-            "age": "0",
-            "half": "lower"
-          }
-        },
+        "data": "fishofthieves:pineapple_crop",
         "weight": 8
       },
       {
         "data": {
-          "Name": "fishofthieves:pineapple_crop",
-          "Properties": {
+          "id": "fishofthieves:pineapple_crop",
+          "properties": {
             "age": "1",
             "half": "lower"
           }
@@ -25,8 +19,8 @@
       },
       {
         "data": {
-          "Name": "fishofthieves:pineapple_crop",
-          "Properties": {
+          "id": "fishofthieves:pineapple_crop",
+          "properties": {
             "age": "2",
             "half": "lower"
           }
@@ -35,8 +29,8 @@
       },
       {
         "data": {
-          "Name": "fishofthieves:pineapple_crop",
-          "Properties": {
+          "id": "fishofthieves:pineapple_crop",
+          "properties": {
             "age": "3",
             "half": "lower"
           }

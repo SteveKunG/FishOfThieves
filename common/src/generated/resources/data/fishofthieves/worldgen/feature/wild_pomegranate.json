@@ -4,19 +4,13 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "fishofthieves:pomegranate_plant",
-          "Properties": {
-            "age": "0",
-            "persistent": "false"
-          }
-        },
+        "data": "fishofthieves:pomegranate_plant",
         "weight": 8
       },
       {
         "data": {
-          "Name": "fishofthieves:pomegranate_plant",
-          "Properties": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
             "age": "1",
             "persistent": "false"
           }
@@ -25,8 +19,8 @@
       },
       {
         "data": {
-          "Name": "fishofthieves:pomegranate_plant",
-          "Properties": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
             "age": "2",
             "persistent": "false"
           }
@@ -35,8 +29,8 @@
       },
       {
         "data": {
-          "Name": "fishofthieves:pomegranate_plant",
-          "Properties": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
             "age": "3",
             "persistent": "false"
           }

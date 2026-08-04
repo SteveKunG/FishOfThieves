@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -57,7 +58,7 @@ public class ReturnedOnConsumeItem extends Item
 
                         if (!player.getInventory().add(itemStack1))
                         {
-                            player.drop(itemStack1, false);
+                            player.drop(itemStack1, false, Prediction.PREDICTED);
                         }
                     }
                     return itemStack;

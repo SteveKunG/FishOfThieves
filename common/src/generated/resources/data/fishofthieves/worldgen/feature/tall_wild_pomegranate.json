@@ -4,14 +4,7 @@
     "property": "age",
     "source": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:tall_pomegranate_plant",
-        "Properties": {
-          "age": "0",
-          "half": "lower",
-          "persistent": "false"
-        }
-      }
+      "state": "fishofthieves:tall_pomegranate_plant"
     },
     "values": {
       "type": "minecraft:uniform",

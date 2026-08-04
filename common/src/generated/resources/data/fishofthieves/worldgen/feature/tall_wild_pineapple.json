@@ -4,13 +4,7 @@
     "property": "age",
     "source": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "fishofthieves:pineapple_crop",
-        "Properties": {
-          "age": "0",
-          "half": "lower"
-        }
-      }
+      "state": "fishofthieves:pineapple_crop"
     },
     "values": {
       "type": "minecraft:uniform",
