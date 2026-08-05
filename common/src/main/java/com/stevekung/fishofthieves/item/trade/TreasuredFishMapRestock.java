@@ -31,9 +31,4 @@ public interface TreasuredFishMapRestock
     {
         throw new AssertionError("Implemented via mixin");
     }
-
-    default void fishofthieves$setUses(int uses)
-    {
-        throw new AssertionError("Implemented via mixin");
-    }
 }
