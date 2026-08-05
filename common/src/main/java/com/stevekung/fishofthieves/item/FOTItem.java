@@ -149,4 +149,9 @@ public class FOTItem extends Item implements ResourceKeyHolder
     {
         return CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(registryPath, variant)));
     }
+
+    public static CustomData createDefaultCustomData(ResourceKey<? extends Registry<? extends AbstractFishVariant>> resourceKey, ResourceKey<? extends AbstractFishVariant> variant)
+    {
+        return CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(resourceKey.identifier().getPath(), variant.identifier().toString())));
+    }
 }

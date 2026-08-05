@@ -18,6 +18,7 @@
 | 1.21.1            | ✅ Active     |
 | 1.21.11           | ✅ Active     |
 | 26.1.x            | ✅ Active     |
+| 26.2.x            | ✅ Active     |
 
 ## **About**
 
@@ -75,17 +76,17 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 - [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
 - Install [Mod Menu](https://modrinth.com/mod/modmenu) (optional, for in-game configuration)
-- Install [TerraBlender](https://modrinth.com/mod/terrablender) (optional but required for Tropical Island biome generation)
+- Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ### **Forge (1.20.1)**
 
 - [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
-- Install [TerraBlender](https://modrinth.com/mod/terrablender) (optional but required for Tropical Island biome generation)
+- Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ### **NeoForge**
 
 - [NeoForge](https://projects.neoforged.net/neoforged/neoforge) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
-- Install [TerraBlender](https://modrinth.com/mod/terrablender) (optional but required for Tropical Island biome generation)
+- Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ---
 

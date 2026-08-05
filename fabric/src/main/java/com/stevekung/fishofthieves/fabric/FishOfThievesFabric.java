@@ -3,6 +3,7 @@ package com.stevekung.fishofthieves.fabric;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
+import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
@@ -110,6 +111,11 @@ public class FishOfThievesFabric implements ModInitializer
         FOTLootItemFunctions.init();
         FOTGameRules.init();
         FOTFeatureTypes.init();
+
+        if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
+        {
+            FOTBiolith.init();
+        }
 
         FOTGrassColorModifier.TROPICAL_ISLAND = BiomeSpecialEffects.GrassColorModifier.valueOf("FISHOFTHIEVES_TROPICAL_ISLAND");
 

@@ -25,21 +25,21 @@ file = "META-INF/accesstransformer.cfg"
 [[dependencies.fishofthieves]]
 modId = "neoforge"
 type = "required"
-versionRange = "[26.1.2.30-beta,)"
+versionRange = "[26.2.0.7-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "cloth_config"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "[26.2,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "minecraft"
 type = "required"
-versionRange = "[26.1,)"
+versionRange = "[26.2,)"
 ordering = "NONE"
 side = "BOTH"
 
