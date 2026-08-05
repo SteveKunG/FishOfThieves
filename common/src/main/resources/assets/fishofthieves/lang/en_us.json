@@ -496,10 +496,22 @@
   "patchouli.fishofthieves.entry.blocks.coconut_wood.image.text0": "Coconut Trees at the Warm Beach.",
 
   "patchouli.fishofthieves.entry.blocks.coconut_fronds": "Coconut Fronds",
-  "patchouli.fishofthieves.entry.blocks.coconut_fronds.page0": "$(item)Coconut Fronds$() is a new leaves type which grows from the Coconut Trees. You can even stand on the block, what a strong fronds!$(p)You can produce more fronds by using a $(item)Bone Meal$() right-clicked on the block.",
+  "patchouli.fishofthieves.entry.blocks.coconut_fronds.page0": "$(item)Coconut Fronds$() is a new leaves type which grown from the Coconut Trees. You can even stand on the block, what a strong fronds!$(p)You can produce more fronds by using a $(item)Bone Meal$() right-clicked on the block.",
   "patchouli.fishofthieves.entry.blocks.coconut_fronds.page1": "It can be used in the $(item)Composter$() to produce $(item)Bone Meals$().$(p)$(item)Coconut Fronds$() has an ability to fill rainwater into the Cauldron faster than $(item)Pointed Dripstone$(). By placing a Cauldron under the $(item)Coconut Fronds$() which is a 'tail' shape.",
   "patchouli.fishofthieves.entry.blocks.coconut_fronds.page2": "It can be placed at any direction, for up and down it will become a vertical leaves block.",
   "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text0": "Large Coconut Trees at the Warm Beach.",
   "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text1": "$(item)Coconut Fronds$() filling up rainwater into the cauldron.",
-  "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text2": "$(item)Coconut Fronds$() placed on the block and under the block."
+  "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text2": "$(item)Coconut Fronds$() placed on the block and under the block.",
+
+  "patchouli.fishofthieves.entry.blocks.banana_stem": "Banana Stems",
+  "patchouli.fishofthieves.entry.blocks.banana_stem.page0": "$(item)Banana Stem$() is a new block type which grown from the Banana Trees. Can be used to produce $(item)Bone Meal$() in the Composter.",
+  "patchouli.fishofthieves.entry.blocks.banana_stem.page1": "When placing on the ground and has empty blocks on each direction, when raining it has chance to grow $(item)Banana Shoot$() or using $(item)Bone Meal$() right-clicked on the block.",
+  "patchouli.fishofthieves.entry.blocks.banana_stem.image.text0": "A Banana Tree on the Tropical island.",
+  "patchouli.fishofthieves.entry.blocks.banana_stem.image.text1": "Banana Shoots grown from the Banana Stem.",
+
+  "patchouli.fishofthieves.entry.blocks.banana_leaves": "Banana Leaves",
+  "patchouli.fishofthieves.entry.blocks.banana_leaves.page0": "$(item)Banana Leaves$() is a new block leaves which grown from the Banana Trees. Can be used to produce $(item)Bone Meal$() in the Composter.",
+  "patchouli.fishofthieves.entry.blocks.banana_leaves.page1": "When placing on the ground and has empty blocks on each direction, when raining it has chance to grow $(item)Banana Shoot$() or using $(item)Bone Meal$() right-clicked on the block.",
+  "patchouli.fishofthieves.entry.blocks.banana_leaves.image.text0": "A Banana Tree on the Tropical island.",
+  "patchouli.fishofthieves.entry.blocks.banana_leaves.image.text1": "Banana Shoots grown from the Banana Stem."
 }
