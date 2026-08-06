@@ -26,9 +26,9 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 public record TreasuredFishMapForEmeralds(String displayName, int maxUses, int villagerXp, int tier) implements VillagerTrades.ItemListing
 {
     private static final int TIER_1_MIN_EMERALD_COST = 12;
-    private static final int TIER_1_MAX_EMERALD_COST = 48;
+    private static final int TIER_1_MAX_EMERALD_COST = 32;
     private static final int TIER_2_MIN_EMERALD_COST = 16;
-    private static final int TIER_2_MAX_EMERALD_COST = 54;
+    private static final int TIER_2_MAX_EMERALD_COST = 48;
     private static final double MAX_SEARCH_DISTANCE = 100.0D;
 
     @Nullable
@@ -88,7 +88,7 @@ public record TreasuredFishMapForEmeralds(String displayName, int maxUses, int v
 
     /**
      * Calculates a dynamic emerald cost based on distance between trader and shoal.
-     * Closer shoals are cheaper, farther shoals are more expensive.
+     * Closer shoals are more expensive, farther shoals are cheaper.
      */
     private static int calculateEmeraldCost(int tier, double distance)
     {
@@ -96,7 +96,7 @@ public record TreasuredFishMapForEmeralds(String displayName, int maxUses, int v
         var maxEmeraldCost = tier == 2 ? TIER_2_MAX_EMERALD_COST : TIER_1_MAX_EMERALD_COST;
         var clampedDistance = Mth.clamp(distance, 0.0D, MAX_SEARCH_DISTANCE);
         var ratio = clampedDistance / MAX_SEARCH_DISTANCE;
-        var cost = minEmeraldCost + (int) Math.round(ratio * (maxEmeraldCost - minEmeraldCost));
+        var cost = maxEmeraldCost - (int) Math.round(ratio * (maxEmeraldCost - minEmeraldCost));
         return Mth.clamp(cost, minEmeraldCost, maxEmeraldCost);
     }
 
