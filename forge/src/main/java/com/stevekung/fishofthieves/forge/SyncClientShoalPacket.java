@@ -27,7 +27,7 @@ public class SyncClientShoalPacket
     public SyncClientShoalPacket(FriendlyByteBuf buf)
     {
         this.entityId = buf.readVarInt();
-        this.shoalFishData = buf.readCollection(ArrayList::new, buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt()));
+        this.shoalFishData = buf.readCollection(size -> new ArrayList<>(Math.min(size, ShoalFishData.MAX_SHOAL_FISH)), buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt()));
         this.forcedUpdate = buf.readBoolean();
     }
 

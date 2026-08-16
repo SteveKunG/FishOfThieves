@@ -32,12 +32,12 @@ public class RequestServerShoalPacket
         ctx.get().enqueueWork(() ->
         {
             var player = ctx.get().getSender();
-            var shoal = (Shoal) player.level().getEntity(this.entityId);
 
-            if (shoal != null)
+            if (player == null || !(player.level().getEntity(this.entityId) instanceof Shoal shoal))
             {
-                FOTPlatform.syncClientShoalFish(shoal, false);
+                return;
             }
+            FOTPlatform.syncClientShoalFish(shoal, false);
         });
     }
 }
