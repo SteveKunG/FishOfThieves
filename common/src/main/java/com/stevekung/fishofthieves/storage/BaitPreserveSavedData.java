@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -39,7 +40,7 @@ public class BaitPreserveSavedData extends SavedData
     public static BaitPreserveSavedData load(CompoundTag tag, HolderLookup.Provider provider)
     {
         var baitStorage = new ConcurrentHashMap<Vec3, ItemStack>();
-        var listTag = tag.getList(TAG_BAIT_PRESERVES, CompoundTag.TAG_COMPOUND);
+        var listTag = tag.getList(TAG_BAIT_PRESERVES, Tag.TAG_COMPOUND);
 
         for (var i = 0; i < listTag.size(); i++)
         {

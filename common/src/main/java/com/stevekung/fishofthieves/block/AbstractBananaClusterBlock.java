@@ -26,7 +26,7 @@ public abstract class AbstractBananaClusterBlock extends HorizontalDirectionalBl
 {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public AbstractBananaClusterBlock(Properties properties)
+    protected AbstractBananaClusterBlock(Properties properties)
     {
         super(properties);
     }

@@ -10,10 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.stevekung.fishofthieves.block.MangoFruitBlock;
-import com.stevekung.fishofthieves.block.PineappleCropBlock;
-import com.stevekung.fishofthieves.block.PomegranatePlantBlock;
-import com.stevekung.fishofthieves.block.TallPomegranatePlantBlock;
+import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 
 import net.minecraft.core.BlockPos;
@@ -30,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 public class MixinBee
 {
     @Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeeGrowCropGoal")
-    public static abstract class MixinBeeGrowCropGoal extends Goal
+    public abstract static class MixinBeeGrowCropGoal extends Goal
     {
         @Unique
         private Bee bee;
@@ -59,11 +56,11 @@ public class MixinBee
                 }
                 else if (blockState.is(FOTBlocks.MANGO_FRUIT) || blockState.is(FOTBlocks.HANGING_MANGO_FRUIT))
                 {
-                    int age = blockState.getValue(MangoFruitBlock.AGE);
+                    int age = blockState.getValue(AbstractMangoFruitBlock.AGE);
 
                     if (age < 2)
                     {
-                        this.bee.level().setBlock(blockPos, blockState.getBlock().withPropertiesOf(blockState).setValue(MangoFruitBlock.AGE, age + 1), Block.UPDATE_ALL);
+                        this.bee.level().setBlock(blockPos, blockState.getBlock().withPropertiesOf(blockState).setValue(AbstractMangoFruitBlock.AGE, age + 1), Block.UPDATE_ALL);
                     }
                 }
             }

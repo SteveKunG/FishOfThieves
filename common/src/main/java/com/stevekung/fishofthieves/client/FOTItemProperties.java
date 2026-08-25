@@ -16,6 +16,8 @@ import net.minecraft.world.item.component.CustomData;
 
 public class FOTItemProperties
 {
+    private FOTItemProperties() {}
+
     private static final List<Item> FISH_ITEMS = List.of(FOTItems.SPLASHTAIL, FOTItems.PONDIE, FOTItems.ISLEHOPPER, FOTItems.ANCIENTSCALE, FOTItems.PLENTIFIN, FOTItems.WILDSPLASH, FOTItems.DEVILFISH, FOTItems.BATTLEGILL, FOTItems.WRECKER, FOTItems.STORMFISH);
     private static final List<Item> BUCKET_ITEMS = List.of(FOTItems.SPLASHTAIL_BUCKET, FOTItems.PONDIE_BUCKET, FOTItems.ISLEHOPPER_BUCKET, FOTItems.ANCIENTSCALE_BUCKET, FOTItems.PLENTIFIN_BUCKET, FOTItems.WILDSPLASH_BUCKET, FOTItems.DEVILFISH_BUCKET, FOTItems.BATTLEGILL_BUCKET, FOTItems.WRECKER_BUCKET, FOTItems.STORMFISH_BUCKET);
 

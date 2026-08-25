@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
@@ -99,7 +98,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     private final ResourceKey<? extends Registry<T>> registryKey;
     private final ResourceKey<T> resourceKey;
 
-    public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
+    protected AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -139,12 +138,9 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     public void remove(Entity.RemovalReason reason)
     {
-        if (!this.level().isClientSide() && this.isDeadOrDying())
+        if (!this.level().isClientSide() && this.isDeadOrDying() && this.isFollower())
         {
-            if (this.isFollower())
-            {
-                this.getLeader().removeFollower();
-            }
+            this.getLeader().removeFollower();
         }
         super.remove(reason);
     }
@@ -197,7 +193,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     public void addThievesFishFollowers(Stream<AbstractFlockFish> followers)
     {
-        var list = followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
+        var list = followers.limit((long) this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).toList();
         var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
 
         list.forEach(fish ->
@@ -292,7 +288,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     {
         super.readAdditionalSaveData(compound);
 
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(resourceKey)).ifPresent(this::setVariant);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(key -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(key)).ifPresent(this::setVariant);
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));

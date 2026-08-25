@@ -12,7 +12,7 @@ public abstract class AbstractNoiseRouterFilter extends PlacementFilter
 {
     protected final FloatProvider floatProvider;
 
-    public AbstractNoiseRouterFilter(FloatProvider floatProvider)
+    protected AbstractNoiseRouterFilter(FloatProvider floatProvider)
     {
         this.floatProvider = floatProvider;
     }

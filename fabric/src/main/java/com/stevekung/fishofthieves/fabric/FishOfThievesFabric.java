@@ -223,12 +223,9 @@ public class FishOfThievesFabric implements ModInitializer
                 }
             });
 
-            if (!structurePosList.isEmpty())
+            if (!structurePosList.isEmpty() && ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.STRUCTURE_CENTER_POS_DEBUG))
             {
-                if (ServerPlayNetworking.canSend(serverPlayer, FishOfThieves.STRUCTURE_CENTER_POS_DEBUG))
-                {
-                    ServerPlayNetworking.send(serverPlayer, new StructureCenterPosDebugPacket(structurePosList));
-                }
+                ServerPlayNetworking.send(serverPlayer, new StructureCenterPosDebugPacket(structurePosList));
             }
         }
     }
@@ -239,12 +236,11 @@ public class FishOfThievesFabric implements ModInitializer
 
         context.server().execute(() ->
         {
-            var shoal = (Shoal) context.player().level().getEntity(entityId);
-
-            if (shoal != null)
+            if (!(context.player().level().getEntity(entityId) instanceof Shoal shoal))
             {
-                FOTPlatform.syncClientShoalFish(shoal, false);
+                return;
             }
+            FOTPlatform.syncClientShoalFish(shoal, false);
         });
     }
 

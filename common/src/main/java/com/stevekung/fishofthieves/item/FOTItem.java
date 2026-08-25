@@ -115,17 +115,14 @@ public class FOTItem extends Item implements ResourceKeyHolder
 
     public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, @Nullable Entity entity, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
     {
-        if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getItem() instanceof ResourceKeyHolder keyHolder)
+        if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getItem() instanceof ResourceKeyHolder keyHolder && vec3 != null)
         {
-            if (vec3 != null)
-            {
-                var context = new SpawnConditionContext(level, entity, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
-                Util.getRandomSafe(level.registryAccess()
-                                .registryOrThrow(keyHolder.getResourceKey())
-                                .holders()
-                                .filter(holder -> holder.value().spawnSettings().fishing().isPresent() ? Util.allOf(holder.value().spawnSettings().fishing().get()).test(context) : Util.allOf(holder.value().spawnSettings().entity()).test(context)).toList(), randomSource)
-                        .ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(keyHolder.getResourceKey().location().getPath(), holder.key().location().toString())))));
-            }
+            var context = new SpawnConditionContext(level, entity, level.registryAccess(), BlockPos.containing(vec3.x, vec3.y, vec3.z), randomSource);
+            Util.getRandomSafe(level.registryAccess()
+                            .registryOrThrow(keyHolder.getResourceKey())
+                            .holders()
+                            .filter(holder -> holder.value().spawnSettings().fishing().isPresent() ? Util.allOf(holder.value().spawnSettings().fishing().get()).test(context) : Util.allOf(holder.value().spawnSettings().entity()).test(context)).toList(), randomSource)
+                    .ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(keyHolder.getResourceKey().location().getPath(), holder.key().location().toString())))));
         }
         return itemStack;
     }

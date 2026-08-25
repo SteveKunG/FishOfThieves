@@ -22,7 +22,7 @@ public record HeightCondition(MinMaxBounds.Ints height) implements SpawnConditio
         return this.height.matches(context.blockPos().getY());
     }
 
-    public static HeightCondition.Builder height(MinMaxBounds.Ints height)
+    public static SpawnCondition.Builder height(MinMaxBounds.Ints height)
     {
         return () -> new HeightCondition(height);
     }

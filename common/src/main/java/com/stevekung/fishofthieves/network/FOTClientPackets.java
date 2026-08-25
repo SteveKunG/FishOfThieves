@@ -15,21 +15,18 @@ import net.minecraft.world.item.ItemStack;
 
 public class FOTClientPackets
 {
+    private FOTClientPackets() {}
+
     public static void setFishingHookBait(Minecraft minecraft, int entityId, ItemStack itemStack)
     {
         minecraft.execute(() ->
         {
-            if (minecraft.level != null)
+            if (minecraft.level == null || !(minecraft.level.getEntity(entityId) instanceof FishingHook fishingHook))
             {
-                var fishingHook = (FishingHook) minecraft.level.getEntity(entityId);
-
-                if (fishingHook == null)
-                {
-                    return;
-                }
-
-                fishingHook.fishofthieves$setBaitStack(itemStack);
+                return;
             }
+
+            fishingHook.fishofthieves$setBaitStack(itemStack);
         });
     }
 
@@ -48,17 +45,12 @@ public class FOTClientPackets
     {
         minecraft.execute(() ->
         {
-            if (minecraft.level != null)
+            if (minecraft.level == null || !(minecraft.level.getEntity(entityId) instanceof Shoal shoal))
             {
-                var shoal = (Shoal) minecraft.level.getEntity(entityId);
-
-                if (shoal == null)
-                {
-                    return;
-                }
-
-                shoal.syncClientShoalFish(shoalFishData, forcedUpdate);
+                return;
             }
+
+            shoal.syncClientShoalFish(shoalFishData, forcedUpdate);
         });
     }
 }

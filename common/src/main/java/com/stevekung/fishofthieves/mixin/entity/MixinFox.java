@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class MixinFox
 {
     @Mixin(Fox.FoxEatBerriesGoal.class)
-    public static abstract class MixinFoxEatBerriesGoal extends MoveToBlockGoal
+    public abstract static class MixinFoxEatBerriesGoal extends MoveToBlockGoal
     {
         @Unique
         private Fox fox;

@@ -103,8 +103,8 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         if (!isLower(state) && state.getValue(AGE) >= 4)
         {
             var destroySpeed = 0.6f;
-            var i = player.hasCorrectToolForDrops(state) ? 30 : 100;
-            return player.getDestroySpeed(state) / destroySpeed / (float) i;
+            var modifier = player.hasCorrectToolForDrops(state) ? 30 : 100;
+            return player.getDestroySpeed(state) / destroySpeed / modifier;
         }
         return super.getDestroyProgress(state, player, level, pos);
     }

@@ -83,7 +83,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     private final ResourceKey<? extends Registry<T>> registryKey;
     private final ResourceKey<T> resourceKey;
 
-    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
+    protected AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -132,7 +132,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     {
         super.readAdditionalSaveData(compound);
 
-        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(resourceKey -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(resourceKey)).ifPresent(this::setVariant);
+        Optional.ofNullable(ResourceLocation.tryParse(compound.getString(VARIANT_TAG))).map(resourceLocation -> ResourceKey.create(this.getRegistryKey(), resourceLocation)).flatMap(key -> this.registryAccess().registryOrThrow(this.getRegistryKey()).getHolder(key)).ifPresent(this::setVariant);
         this.setTrophy(compound.getBoolean(TROPHY_TAG));
         this.setHasFed(compound.getBoolean(HAS_FED_TAG));
         this.setNoFlip(compound.getBoolean(NO_FLIP_TAG));

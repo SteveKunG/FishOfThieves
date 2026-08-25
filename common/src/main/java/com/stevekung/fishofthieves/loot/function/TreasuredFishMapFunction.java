@@ -86,7 +86,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             if (farthest.isPresent())
             {
                 var blockPos = farthest.get();
-                FishOfThieves.LOGGER.debug("Found farthest shoal at: {}", blockPos);
+                FishOfThieves.LOGGER.debug("Found the farthest shoal at: {}", blockPos);
                 return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance);
             }
             else
