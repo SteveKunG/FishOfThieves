@@ -10,7 +10,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.piston.PistonBaseBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
 
 public class ShoalTestSuite implements FOTGameTest
 {
@@ -101,7 +101,7 @@ public class ShoalTestSuite implements FOTGameTest
         shoal.createNaturalSpawn(true);
         shoal.createTreasuredSpawn(2);
         shoal.setInvulnerable(true);
-        helper.setBlock(blockPos.north(), Blocks.PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.SOUTH));
+        helper.setBlock(blockPos.north(), Blocks.PISTON.defaultBlockState().setValue(DirectionalBlock.FACING, Direction.SOUTH));
         helper.runAtTickTime(50, () -> helper.setBlock(blockPos.north().above(), Blocks.REDSTONE_BLOCK));
         helper.succeedWhenEntityNotPresent(FOTEntities.SHOAL, blockPos);
     }

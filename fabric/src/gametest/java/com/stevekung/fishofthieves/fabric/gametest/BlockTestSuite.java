@@ -172,7 +172,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 2, 1);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -189,7 +189,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.withLowHealth(chicken);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -253,9 +253,9 @@ public class BlockTestSuite implements FOTGameTest
         var buttonPos = new BlockPos(1, 4, 0);
         var blockPos = new BlockPos(1, 5, 2);
 
-        helper.setBlock(blockPos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH).setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM));
-        helper.setBlock(blockPos.below(), FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH));
-        helper.setBlock(blockPos.below(2), FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH));
+        helper.setBlock(blockPos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM));
+        helper.setBlock(blockPos.below(), FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH));
+        helper.setBlock(blockPos.below(2), FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH));
         helper.setBlock(blockPos.below(3), FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, Direction.SOUTH).setValue(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER));
 
         helper.runAtTickTime(20, () -> helper.pressButton(buttonPos));
@@ -276,7 +276,7 @@ public class BlockTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 4, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
-        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
+        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(FaceAttachedHorizontalDirectionalBlock.FACE, AttachFace.FLOOR));
 
         if (helper.getBlockEntity(dispenserPos) instanceof DispenserBlockEntity dispenser)
         {
@@ -284,7 +284,7 @@ public class BlockTestSuite implements FOTGameTest
         }
 
         helper.setBlock(blockPos.south(), FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
@@ -308,7 +308,7 @@ public class BlockTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 4, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
-        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
+        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(FaceAttachedHorizontalDirectionalBlock.FACE, AttachFace.FLOOR));
 
         if (helper.getBlockEntity(dispenserPos) instanceof DispenserBlockEntity dispenser)
         {
@@ -318,7 +318,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
         helper.setBlock(blockPos.above(), FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(HangingMangoFruitBlock.AGE, 2));
+        helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(AbstractMangoFruitBlock.AGE, 2));
 
         helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below(2)));
     }
@@ -356,7 +356,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
+        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(AbstractMangoFruitBlock.AGE, 2).setValue(AbstractMangoFruitBlock.FALLING, false));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -370,7 +370,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
+        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(AbstractMangoFruitBlock.AGE, 2).setValue(AbstractMangoFruitBlock.FALLING, false));
         var chicken = helper.spawnWithNoFreeWill(EntityType.CHICKEN, targetPos);
         helper.withLowHealth(chicken);
 
