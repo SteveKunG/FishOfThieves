@@ -24,12 +24,12 @@ public enum ShoalChance
     SWAMP(context -> context.biome().is(Biomes.SWAMP) || context.biome().is(Biomes.MANGROVE_SWAMP), FishOfThieves.CONFIG.shoal.weight.swamp);
 
     private static final ShoalChance[] VALUES = values();
-    private final Predicate<ShoalSpawnContext> context;
+    private final Predicate<ShoalSpawnContext> spawnContext;
     private final int poolWeight;
 
-    ShoalChance(Predicate<ShoalSpawnContext> context, int poolWeight)
+    ShoalChance(Predicate<ShoalSpawnContext> spawnContext, int poolWeight)
     {
-        this.context = context;
+        this.spawnContext = spawnContext;
         this.poolWeight = poolWeight;
     }
 
@@ -39,7 +39,7 @@ public enum ShoalChance
         var continentalness = TerrainUtils.getContinentalness(level, blockPos);
         var context = new ShoalSpawnContext(biome, continentalness);
 
-        if (this.context.test(context))
+        if (this.spawnContext.test(context))
         {
             var weight = this.poolWeight / 100.0f;
             var randomChance = randomSource.nextFloat();

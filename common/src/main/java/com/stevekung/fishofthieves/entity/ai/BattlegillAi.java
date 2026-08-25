@@ -28,6 +28,8 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class BattlegillAi
 {
+    private BattlegillAi() {}
+
     public static Brain<?> makeBrain(Brain<Battlegill> brain)
     {
         initCoreActivity(brain);

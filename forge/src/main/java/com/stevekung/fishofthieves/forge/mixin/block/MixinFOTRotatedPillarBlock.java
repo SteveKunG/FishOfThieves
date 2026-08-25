@@ -17,12 +17,9 @@ public abstract class MixinFOTRotatedPillarBlock implements IForgeBlock
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate)
     {
-        if (toolAction == ToolActions.AXE_STRIP)
+        if (toolAction == ToolActions.AXE_STRIP && AxeStrippableDummy.STRIPPED_BLOCKS.containsKey(state.getBlock()))
         {
-            if (AxeStrippableDummy.STRIPPED_BLOCKS.containsKey(state.getBlock()))
-            {
-                return AxeStrippableDummy.STRIPPED_BLOCKS.get(state.getBlock()).withPropertiesOf(state);
-            }
+            return AxeStrippableDummy.STRIPPED_BLOCKS.get(state.getBlock()).withPropertiesOf(state);
         }
         return null;
     }

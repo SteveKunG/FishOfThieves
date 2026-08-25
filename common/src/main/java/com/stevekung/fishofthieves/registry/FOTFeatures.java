@@ -227,13 +227,13 @@ public class FOTFeatures
                 .decorators(List.of(
                         new AttachedToLeavesDecorator(0.1F, 2, 0,
                                 new RandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
-                                        HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
-                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
+                                        AbstractMangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                        AbstractMangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
                         new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
                                 new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
-                                        MangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                        AbstractMangoFruitBlock.AGE, UniformInt.of(0, 2),
                                         MangoFruitBlock.FACING,
-                                        MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
+                                        AbstractMangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
                         new BeehiveDecorator(beehiveChance)))
                 .ignoreVines();
     }

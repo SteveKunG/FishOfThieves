@@ -262,8 +262,8 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
         {
             if (direction.getAxis().isHorizontal())
             {
-                var direction2 = direction.getOpposite();
-                blockState = blockState.setValue(FACING, direction2);
+                var opposite = direction.getOpposite();
+                blockState = blockState.setValue(FACING, opposite);
 
                 if (blockState.canSurvive(levelReader, blockPos))
                 {

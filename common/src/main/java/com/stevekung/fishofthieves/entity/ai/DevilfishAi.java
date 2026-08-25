@@ -28,6 +28,8 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class DevilfishAi
 {
+    private DevilfishAi() {}
+
     public static Brain<?> makeBrain(Brain<Devilfish> brain)
     {
         initCoreActivity(brain);

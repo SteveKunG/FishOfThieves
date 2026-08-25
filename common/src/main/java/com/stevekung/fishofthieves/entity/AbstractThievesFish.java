@@ -75,7 +75,7 @@ public abstract class AbstractThievesFish<T extends FishData> extends AbstractFi
             FOTMemoryModuleTypes.BREACHED_TICK
     );
 
-    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
+    protected AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();

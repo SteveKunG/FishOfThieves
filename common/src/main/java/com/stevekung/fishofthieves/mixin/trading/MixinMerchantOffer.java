@@ -10,6 +10,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
 
@@ -30,11 +31,11 @@ public class MixinMerchantOffer implements TreasuredFishMapRestock
     @Inject(method = "<init>(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     private void fishofthieves$init(CompoundTag compoundTag, CallbackInfo info)
     {
-        if (compoundTag.contains(TreasuredFishMapRestock.IS_TREASURED_MAP_TAG, CompoundTag.TAG_BYTE))
+        if (compoundTag.contains(TreasuredFishMapRestock.IS_TREASURED_MAP_TAG, Tag.TAG_BYTE))
         {
             this.isTreasuredMap = compoundTag.getBoolean(TreasuredFishMapRestock.IS_TREASURED_MAP_TAG);
         }
-        if (compoundTag.contains(TreasuredFishMapRestock.TIER_TAG, CompoundTag.TAG_INT))
+        if (compoundTag.contains(TreasuredFishMapRestock.TIER_TAG, Tag.TAG_INT))
         {
             this.tier = compoundTag.getInt(TreasuredFishMapRestock.TIER_TAG);
         }

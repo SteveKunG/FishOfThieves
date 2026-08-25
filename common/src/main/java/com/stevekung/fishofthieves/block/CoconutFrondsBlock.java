@@ -68,12 +68,9 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        if (context instanceof EntityCollisionContext entityCollisionContext)
+        if (context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null && entityCollisionContext.getEntity().isSwimming())
         {
-            if (entityCollisionContext.getEntity() != null && entityCollisionContext.getEntity().isSwimming())
-            {
-                return Shapes.empty();
-            }
+            return Shapes.empty();
         }
         return super.getCollisionShape(state, level, pos, context);
     }
@@ -245,12 +242,9 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
             var blockState = this.defaultBlockState().setValue(FACING, direction);
             var otherState = context.getLevel().getBlockState(context.getClickedPos().relative(blockState.getValue(FACING).getOpposite()));
 
-            if (otherState.is(this))
+            if (otherState.is(this) && (otherState.getValue(PART) == Part.SINGLE || otherState.getValue(PART) == Part.TAIL))
             {
-                if (otherState.getValue(PART) == Part.SINGLE || otherState.getValue(PART) == Part.TAIL)
-                {
-                    blockState = blockState.setValue(PART, Part.TAIL);
-                }
+                blockState = blockState.setValue(PART, Part.TAIL);
             }
 
             if (blockState.canSurvive(context.getLevel(), context.getClickedPos()))
@@ -303,6 +297,7 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
             this.name = name;
         }
 
+        @Override
         public String toString()
         {
             return this.name;

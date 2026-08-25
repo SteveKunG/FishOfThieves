@@ -86,17 +86,17 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             }
             else
             {
-                var maxLeavesDistanceFromLocalY = this.maxLeavesDistanceFromLocalY - localY + 1;
+                var maxLeavesDistance = this.maxLeavesDistanceFromLocalY - localY + 1;
 
                 for (var pair : this.reduceLeavesDistance)
                 {
                     if (maxFreeTreeHeight == pair.getFirst())
                     {
-                        maxLeavesDistanceFromLocalY -= pair.getSecond();
+                        maxLeavesDistance -= pair.getSecond();
                     }
                 }
 
-                this.placeLeavesHorizontalDirections(level, pos, random, config, blockSetter, maxLeavesDistanceFromLocalY, localY);
+                this.placeLeavesHorizontalDirections(level, pos, random, config, blockSetter, maxLeavesDistance, localY);
             }
         }
     }
@@ -156,18 +156,18 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             }
             else
             {
-                var tailLeavesState = this.tailLeavesState.getState(random, blockPos);
+                var tailLeaves = this.tailLeavesState.getState(random, blockPos);
 
-                if (tailLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+                if (tailLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {
-                    tailLeavesState = tailLeavesState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+                    tailLeaves = tailLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
                 }
 
-                var middleLeavesState = this.middleLeavesState.getState(random, blockPos);
+                var middleLeaves = this.middleLeavesState.getState(random, blockPos);
 
-                if (middleLeavesState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+                if (middleLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {
-                    middleLeavesState = middleLeavesState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+                    middleLeaves = middleLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
                 }
 
                 for (var i = 1; i <= maxLeavesDistanceFromLocalY; i++)
@@ -178,11 +178,11 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                     {
                         if (i > 1 && i < maxLeavesDistanceFromLocalY)
                         {
-                            blockSetter.set(posAroundLog, middleLeavesState);
+                            blockSetter.set(posAroundLog, middleLeaves);
                         }
                         else if (i == maxLeavesDistanceFromLocalY)
                         {
-                            blockSetter.set(posAroundLog, tailLeavesState);
+                            blockSetter.set(posAroundLog, tailLeaves);
                         }
                         else
                         {
@@ -193,9 +193,9 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                     {
                         var previousLeavesPos = mutableBlockPos.offset(opposite.getStepX() * (i - 1), localY, opposite.getStepZ() * (i - 1));
 
-                        if (level.isStateAtPosition(previousLeavesPos, middleLeavesState::equals))
+                        if (level.isStateAtPosition(previousLeavesPos, middleLeaves::equals))
                         {
-                            blockSetter.set(previousLeavesPos, tailLeavesState);
+                            blockSetter.set(previousLeavesPos, tailLeaves);
                         }
                         // Skip when found non-air while placing leaves and set leaves to tail state
                         break;

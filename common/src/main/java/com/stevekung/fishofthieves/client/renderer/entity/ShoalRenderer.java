@@ -8,7 +8,6 @@ import com.stevekung.fishofthieves.mixin.client.accessor.EntityRenderDispatcherA
 
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -19,12 +18,9 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class ShoalRenderer extends EntityRenderer<Shoal>
 {
-    private final EntityRenderDispatcher entityRenderDispatcher;
-
     public ShoalRenderer(EntityRendererProvider.Context context)
     {
         super(context);
-        this.entityRenderDispatcher = context.getEntityRenderDispatcher();
     }
 
     // For petals rotation equations credit to https://github.com/VazkiiMods/Botania/blob/1.20.x/Xplat/src/main/java/vazkii/botania/client/render/block_entity/PetalApothecaryBlockEntityRenderer.java#L63

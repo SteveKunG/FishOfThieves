@@ -18,6 +18,8 @@ public class TerrainUtils
 {
     private static final OverworldBiomeBuilder OVERWORLD_BUILDER = new OverworldBiomeBuilder();
 
+    private TerrainUtils() {}
+
     public static Continentalness getContinentalness(ServerLevel level, BlockPos blockPos)
     {
         var continentalness = Climate.unquantizeCoord(TerrainUtils.getTargetPoint(level, blockPos).continentalness());

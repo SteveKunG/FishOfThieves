@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
@@ -91,7 +90,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
             FOTMemoryModuleTypes.BREACHED_TICK
     );
 
-    public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
+    protected AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -117,12 +116,9 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @Override
     public void remove(Entity.RemovalReason reason)
     {
-        if (!this.level().isClientSide() && this.isDeadOrDying())
+        if (!this.level().isClientSide() && this.isDeadOrDying() && this.isFollower())
         {
-            if (this.isFollower())
-            {
-                this.getLeader().removeFollower();
-            }
+            this.getLeader().removeFollower();
         }
         super.remove(reason);
     }
@@ -175,7 +171,7 @@ public abstract class AbstractSchoolingThievesFish<T extends FishData> extends A
     @SuppressWarnings("rawtypes")
     public void addThievesFishFollowers(Stream<AbstractSchoolingThievesFish> followers)
     {
-        var list = followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
+        var list = followers.limit((long) this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).toList();
         var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
 
         list.forEach(fish ->

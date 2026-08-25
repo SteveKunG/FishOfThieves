@@ -59,29 +59,26 @@ public class GuardianFruitTreeStructure extends Structure
 
     private static int findSuitableY(ChunkGenerator chunkGenerator, int height, BoundingBox box, LevelHeightAccessor level, RandomState randomState)
     {
-        var i = level.getMinBuildHeight() + 15;
-        var list = List.of(new BlockPos(box.minX(), 0, box.minZ()), new BlockPos(box.maxX(), 0, box.minZ()), new BlockPos(box.minX(), 0, box.maxZ()), new BlockPos(box.maxX(), 0, box.maxZ()));
-        var list2 = list.stream().map(blockPos -> chunkGenerator.getBaseColumn(blockPos.getX(), blockPos.getZ(), level, randomState)).toList();
-        int l;
+        var minY = level.getMinBuildHeight() + 15;
+        var bottomCorners = List.of(new BlockPos(box.minX(), 0, box.minZ()), new BlockPos(box.maxX(), 0, box.minZ()), new BlockPos(box.minX(), 0, box.maxZ()), new BlockPos(box.maxX(), 0, box.maxZ()));
+        var columns = bottomCorners.stream().map(blockPos -> chunkGenerator.getBaseColumn(blockPos.getX(), blockPos.getZ(), level, randomState)).toList();
+        int projectedY;
 
-        for (l = height; l > i; l--)
+        for (projectedY = height; projectedY > minY; projectedY--)
         {
-            var m = 0;
+            var cornersOnSolidGround = 0;
 
-            for (var noiseColumn : list2)
+            for (var noiseColumn : columns)
             {
-                var blockState = noiseColumn.getBlock(l);
+                var blockState = noiseColumn.getBlock(projectedY);
 
-                if (Heightmap.Types.OCEAN_FLOOR_WG.isOpaque().test(blockState))
+                if (Heightmap.Types.OCEAN_FLOOR_WG.isOpaque().test(blockState) && ++cornersOnSolidGround == 3)
                 {
-                    if (++m == 3)
-                    {
-                        return l;
-                    }
+                    return projectedY;
                 }
             }
         }
-        return l;
+        return projectedY;
     }
 
     @Override

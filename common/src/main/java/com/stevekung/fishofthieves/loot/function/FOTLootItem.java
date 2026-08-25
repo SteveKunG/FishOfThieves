@@ -56,16 +56,7 @@ public class FOTLootItem extends LootPoolSingletonContainer
         {
             super.serializeCustom(object, context, conditions);
             var resourceLocation = BuiltInRegistries.ITEM.getKey(context.item);
-
-            //noinspection ConstantValue
-            if (resourceLocation == null)
-            {
-                throw new IllegalArgumentException("Can't serialize unknown item " + context.item);
-            }
-            else
-            {
-                object.addProperty("name", resourceLocation.toString());
-            }
+            object.addProperty("name", resourceLocation.toString());
         }
 
         @Override

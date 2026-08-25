@@ -25,7 +25,7 @@ public abstract class FishingRealProvider implements DataProvider
     private final PackOutput output;
     private final CompletableFuture<HolderLookup.Provider> provider;
 
-    public FishingRealProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider)
+    protected FishingRealProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider)
     {
         this.output = output;
         this.provider = provider;
@@ -47,7 +47,7 @@ public abstract class FishingRealProvider implements DataProvider
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput)
     {
-        return this.provider.thenCompose(provider ->
+        return this.provider.thenCompose(ignored ->
         {
             this.builders.clear();
             this.addFishingReal();

@@ -17,12 +17,9 @@ public abstract class MixinSmallRotatedPillarBlock implements IForgeBlock
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate)
     {
-        if (toolAction == ToolActions.AXE_STRIP)
+        if (toolAction == ToolActions.AXE_STRIP && AxeStrippableDummy.Small.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
         {
-            if (AxeStrippableDummy.Small.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
-            {
-                return AxeStrippableDummy.Small.CUSTOM_STRIPPABLES.get(state.getBlock()).withPropertiesOf(state);
-            }
+            return AxeStrippableDummy.Small.CUSTOM_STRIPPABLES.get(state.getBlock()).withPropertiesOf(state);
         }
         return null;
     }

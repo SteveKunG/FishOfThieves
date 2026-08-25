@@ -16,6 +16,7 @@ import net.minecraft.data.DataProvider;
 public class LanguageSyncProvider implements DataProvider
 {
     private static final Pattern ENTRY_PATTERN = Pattern.compile("\"(.*?)\"\\s*:\\s*\"(.*?)\"\\s*,?");
+    private static final String KEY_VALUE_FORMAT = "\n  \"%s\": \"%s\"";
     private final CompletableFuture<HolderLookup.Provider> provider;
 
     public LanguageSyncProvider(CompletableFuture<HolderLookup.Provider> provider)
@@ -26,7 +27,7 @@ public class LanguageSyncProvider implements DataProvider
     @Override
     public CompletableFuture<?> run(CachedOutput output)
     {
-        return this.provider.thenCompose(provider -> CompletableFuture.runAsync(() ->
+        return this.provider.thenCompose(ignored -> CompletableFuture.runAsync(() ->
         {
             var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
             var mainTranslationJson = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/en_us.json");
@@ -101,26 +102,19 @@ public class LanguageSyncProvider implements DataProvider
                             var entry = iterator.next();
                             var key = entry.getKey();
                             var value = entry.getValue();
-                            var isComment = key.startsWith("_comment");
 
                             if (lineBreaks.get(key))
                             {
                                 updatedJson.append("\n");
                             }
 
-                            // Always update _commentN keys
-                            if (isComment)
+                            if (orderedTranslationJson.containsKey(key))
                             {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
-                                modified = true;
-                            }
-                            else if (orderedTranslationJson.containsKey(key))
-                            {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, orderedTranslationJson.get(key)));
+                                updatedJson.append(String.format(KEY_VALUE_FORMAT, key, orderedTranslationJson.get(key)));
                             }
                             else
                             {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
+                                updatedJson.append(String.format(KEY_VALUE_FORMAT, key, value));
                                 modified = true;
                             }
 

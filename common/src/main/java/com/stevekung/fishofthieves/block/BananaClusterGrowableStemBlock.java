@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.block;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.apache.logging.log4j.util.TriConsumer;
@@ -81,14 +80,14 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
                 .ifPresent(direction -> growBananaBlossomOrCluster(direction, level, level::setBlock, blockPos -> level.getFluidState(blockPos).getType() == Fluids.WATER, random, pos.below().relative(direction)));
     }
 
-    public static void growBananaBlossomOrCluster(Direction direction, LevelSimulatedReader level, TriConsumer<BlockPos, BlockState, Integer> setBlock, Function<BlockPos, Boolean> isWater, RandomSource random, BlockPos pos)
+    public static void growBananaBlossomOrCluster(Direction direction, LevelSimulatedReader level, TriConsumer<BlockPos, BlockState, Integer> setBlock, Predicate<BlockPos> isWater, RandomSource random, BlockPos pos)
     {
         var maxY = findMaxYBelow(level, pos);
         var isSmallCluster = false;
 
         if (maxY == 1)
         {
-            setBlock.accept(pos, createBlossomState(direction, isWater.apply(pos), BananaHangingType.STEM), Block.UPDATE_ALL);
+            setBlock.accept(pos, createBlossomState(direction, isWater.test(pos), BananaHangingType.STEM), Block.UPDATE_ALL);
         }
         else
         {
@@ -104,11 +103,11 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
                 banana = updateBananaHangingState(banana, stateAbove, height);
                 isSmallCluster |= banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING);
 
-                setBlock.accept(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.apply(blockPos)), Block.UPDATE_ALL);
+                setBlock.accept(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.test(blockPos)), Block.UPDATE_ALL);
 
                 yBottom = Math.max(yBottom, height);
             }
-            setBlock.accept(pos.below(yBottom), createBlossomState(direction, isWater.apply(pos.below(yBottom)), determineHangingType(yBottom, isSmallCluster)), Block.UPDATE_ALL);
+            setBlock.accept(pos.below(yBottom), createBlossomState(direction, isWater.test(pos.below(yBottom)), determineHangingType(yBottom, isSmallCluster)), Block.UPDATE_ALL);
         }
     }
 
@@ -117,7 +116,7 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
         return FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState()
                 .setValue(BananaBlossomPlantBlock.FACING, direction.getOpposite())
                 .setValue(BananaBlossomPlantBlock.HANGING, hangingType)
-                .setValue(BananaBlossomPlantBlock.WATERLOGGED, isWaterlogged);
+                .setValue(BananaBlossomBlock.WATERLOGGED, isWaterlogged);
     }
 
     private static BlockState selectBananaState(RandomSource random)

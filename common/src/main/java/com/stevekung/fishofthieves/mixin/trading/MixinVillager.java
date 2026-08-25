@@ -33,17 +33,18 @@ public abstract class MixinVillager extends AbstractVillager
         if (isTreasuredFishMap && merchantOffer.isOutOfStock())
         {
             var pair = TreasuredFishMapForEmeralds.getTreasuredFishMap((ServerLevel) this.level(), this, Shoal.FILLED_MAP_TREASURED_FISH, treasuredFishOffer.fishofthieves$getTier());
+            var posString = this.blockPosition().toShortString();
 
             if (pair != null)
             {
                 treasuredFishOffer.fishofthieves$setResult(pair.getFirst());
                 merchantOffer.getBaseCostA().setCount(pair.getSecond());
-                FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
+                FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, posString);
             }
             else
             {
                 // Do not reset uses until new treasured fish location is available
-                FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
+                FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, posString);
                 info.cancel();
             }
         }

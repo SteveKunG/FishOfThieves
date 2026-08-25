@@ -93,11 +93,11 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
 
     private void addPrismarineDripColumnsBelow(RandomSource random, LevelAccessor level)
     {
-        for (var i = this.boundingBox.minX() + 1; i < this.boundingBox.maxX(); i++)
+        for (var x = this.boundingBox.minX() + 1; x < this.boundingBox.maxX(); x++)
         {
-            for (var j = this.boundingBox.minZ() + 1; j < this.boundingBox.maxZ(); j++)
+            for (var z = this.boundingBox.minZ() + 1; z < this.boundingBox.maxZ(); z++)
             {
-                var blockPos = new BlockPos(i, this.boundingBox.minY(), j);
+                var blockPos = new BlockPos(x, this.boundingBox.minY(), z);
 
                 if (level.getBlockState(blockPos).is(Blocks.PRISMARINE))
                 {
@@ -111,45 +111,45 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     {
         var mutableBlockPos = pos.mutable();
         this.placeDecoratedBlocksOrMagma(random, level, mutableBlockPos);
-        var i = 8;
+        var remainingCap = 8;
 
-        while (i > 0 && random.nextFloat() < 0.5F)
+        while (remainingCap > 0 && random.nextFloat() < 0.5F)
         {
             mutableBlockPos.move(Direction.DOWN);
-            i--;
+            remainingCap--;
             this.placeDecoratedBlocksOrMagma(random, level, mutableBlockPos);
         }
     }
 
     private void spreadPrismarine(RandomSource random, LevelAccessor level)
     {
-        var blockPos = this.boundingBox.getCenter();
-        var i = blockPos.getX();
-        var j = blockPos.getZ();
-        var fs = new float[] { 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.9F, 0.9F, 0.8F, 0.7F, 0.6F, 0.4F, 0.2F };
-        var k = fs.length;
-        var l = (this.boundingBox.getXSpan() + this.boundingBox.getZSpan()) / 2;
-        var m = random.nextInt(Math.max(1, 8 - l / 2));
+        var centerPos = this.boundingBox.getCenter();
+        var centerX = centerPos.getX();
+        var centerZ = centerPos.getZ();
+        var prismarineProbabilityByDistance = new float[] { 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.9F, 0.9F, 0.8F, 0.7F, 0.6F, 0.4F, 0.2F };
+        var maxDistance = prismarineProbabilityByDistance.length;
+        var averageWidth = (this.boundingBox.getXSpan() + this.boundingBox.getZSpan()) / 2;
+        var distanceAdjustment = random.nextInt(Math.max(1, 8 - averageWidth / 2));
         var mutableBlockPos = BlockPos.ZERO.mutable();
 
-        for (var o = i - k; o <= i + k; o++)
+        for (var x = centerX - maxDistance; x <= centerX + maxDistance; x++)
         {
-            for (var p = j - k; p <= j + k; p++)
+            for (var z = centerZ - maxDistance; z <= centerZ + maxDistance; z++)
             {
-                var q = Math.abs(o - i) + Math.abs(p - j);
-                var r = Math.max(0, q + m);
+                var distance = Math.abs(x - centerX) + Math.abs(z - centerZ);
+                var adjustedDistance = Math.max(0, distance + distanceAdjustment);
 
-                if (r < k)
+                if (adjustedDistance < maxDistance)
                 {
-                    var f = fs[r];
+                    var probabilityOfPrismarine = prismarineProbabilityByDistance[adjustedDistance];
 
-                    if (random.nextDouble() < (double) f)
+                    if (random.nextDouble() < probabilityOfPrismarine)
                     {
-                        var s = getSurfaceY(level, o, p);
-                        var t = Math.min(this.boundingBox.minY(), s);
-                        mutableBlockPos.set(o, t, p);
+                        var surfaceY = getSurfaceY(level, x, z);
+                        var y = Math.min(this.boundingBox.minY(), surfaceY);
+                        mutableBlockPos.set(x, y, z);
 
-                        if (Math.abs(t - this.boundingBox.minY()) <= 3 && this.canBlockBeReplaced(level, mutableBlockPos))
+                        if (Math.abs(y - this.boundingBox.minY()) <= 3 && this.canBlockBeReplaced(level, mutableBlockPos))
                         {
                             this.placeDecoratedBlocksOrMagma(random, level, mutableBlockPos);
                             this.addPrismarineDripColumn(random, level, mutableBlockPos.below());

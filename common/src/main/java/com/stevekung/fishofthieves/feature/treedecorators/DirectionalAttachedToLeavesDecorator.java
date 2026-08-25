@@ -48,25 +48,25 @@ public class DirectionalAttachedToLeavesDecorator extends TreeDecorator
     @Override
     public void place(TreeDecorator.Context context)
     {
-        var set = new HashSet<BlockPos>();
+        var blacklistSet = new HashSet<BlockPos>();
         var randomSource = context.random();
 
-        for (var blockPos : Util.shuffledCopy(context.leaves(), randomSource))
+        for (var leafPos : Util.shuffledCopy(context.leaves(), randomSource))
         {
             var direction = Util.getRandom(this.directions, randomSource);
-            var blockPos2 = blockPos.relative(direction);
+            var placementPos = leafPos.relative(direction);
 
-            if (!set.contains(blockPos2) && randomSource.nextFloat() < this.probability && this.hasRequiredEmptyBlocks(context, blockPos, direction))
+            if (!blacklistSet.contains(placementPos) && randomSource.nextFloat() < this.probability && this.hasRequiredEmptyBlocks(context, leafPos, direction))
             {
-                var blockPos3 = blockPos2.offset(-this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ);
-                var blockPos4 = blockPos2.offset(this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ);
+                var corner1 = placementPos.offset(-this.exclusionRadiusXZ, -this.exclusionRadiusY, -this.exclusionRadiusXZ);
+                var corner2 = placementPos.offset(this.exclusionRadiusXZ, this.exclusionRadiusY, this.exclusionRadiusXZ);
 
-                for (var blockPos5 : BlockPos.betweenClosed(blockPos3, blockPos4))
+                for (var inPos : BlockPos.betweenClosed(corner1, corner2))
                 {
-                    set.add(blockPos5.immutable());
+                    blacklistSet.add(inPos.immutable());
                 }
 
-                context.setBlock(blockPos2, this.blockProvider.getState(randomSource, blockPos2, this.opposite ? direction.getOpposite() : direction));
+                context.setBlock(placementPos, this.blockProvider.getState(randomSource, placementPos, this.opposite ? direction.getOpposite() : direction));
             }
         }
     }

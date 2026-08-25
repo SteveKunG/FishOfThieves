@@ -10,6 +10,8 @@ import net.minecraft.world.level.biome.Biomes;
 
 public class FOTBiolith
 {
+    private FOTBiolith() {}
+
     public static void init()
     {
         BiomePlacement.addSubOverworld(Biomes.MUSHROOM_FIELDS, FOTBiomes.TROPICAL_ISLAND, SubBiomeMatcher.of(
