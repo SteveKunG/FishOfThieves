@@ -3,11 +3,11 @@ package com.stevekung.fishofthieves.feature.treedecorators;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.block.BananaShootsPlantBlock;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
@@ -37,14 +37,14 @@ public class BananaShootsDecorator extends TreeDecorator
 
         for (var direction : Direction.Plane.HORIZONTAL)
         {
-            if (!(randomSource.nextFloat() >= this.probability))
+            if (randomSource.nextFloat() < this.probability)
             {
                 var opposite = direction.getOpposite();
                 var posAroundLog = blockPos.offset(opposite.getStepX(), 0, opposite.getStepZ());
 
                 if (context.isAir(posAroundLog))
                 {
-                    context.setBlock(posAroundLog, FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction));
+                    context.setBlock(posAroundLog, FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                 }
             }
         }

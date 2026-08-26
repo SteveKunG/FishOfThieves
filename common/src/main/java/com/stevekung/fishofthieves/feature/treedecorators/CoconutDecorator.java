@@ -12,6 +12,7 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.registry.FOTTreeDecoratorTypes;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -45,14 +46,14 @@ public class CoconutDecorator extends TreeDecorator
     {
         var randomSource = context.random();
 
-        if (!(randomSource.nextFloat() >= this.probability))
+        if (randomSource.nextFloat() < this.probability)
         {
             var list = context.logs();
             var yAtStart = list.getFirst().getY();
             var maxY = Collections.max(list.stream().map(blockPos -> blockPos.getY() - yAtStart).toList());
-            var yToGrowCoconutAt = maxY - this.yToGrowCoconutAt;
+            var yToGrowCoconut = maxY - this.yToGrowCoconutAt;
 
-            list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconutAt).findFirst().ifPresent(blockPos ->
+            list.stream().filter(blockPos -> blockPos.getY() - yAtStart == yToGrowCoconut).findFirst().ifPresent(blockPos ->
             {
                 Predicate<BlockState> canGrow = blockState -> blockState.is(FOTTags.Blocks.COCONUT_GROWABLE_LOG_SPAWNABLE);
 
@@ -69,7 +70,7 @@ public class CoconutDecorator extends TreeDecorator
 
                             if (context.isAir(posAroundLog))
                             {
-                                context.setBlock(posAroundLog, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(CoconutFruitBlock.FACING, direction));
+                                context.setBlock(posAroundLog, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.AGE, randomSource.nextInt(3)).setValue(HorizontalDirectionalBlock.FACING, direction));
                             }
                         }
                     }

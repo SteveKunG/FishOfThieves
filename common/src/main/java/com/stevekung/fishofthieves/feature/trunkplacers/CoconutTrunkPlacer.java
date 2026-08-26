@@ -59,18 +59,18 @@ public class CoconutTrunkPlacer extends TrunkPlacer
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config)
     {
         setDirtAt(level, blockSetter, random, pos.below(), config);
-        var mediumTrunkStart = this.mediumTrunkStart.sample(random);
-        var mediumTrunkHeight = this.mediumTrunkHeight.sample(random);
+        var trunkStart = this.mediumTrunkStart.sample(random);
+        var trunkHeight = this.mediumTrunkHeight.sample(random);
 
         // If medium trunk start position is same with medium trunk height limit, increase by one
-        if (this.increaseMediumTrunkByOne && mediumTrunkStart == mediumTrunkHeight)
+        if (this.increaseMediumTrunkByOne && trunkStart == trunkHeight)
         {
-            mediumTrunkHeight += 1;
+            trunkHeight += 1;
         }
 
         for (var height = 0; height < freeTreeHeight; height++)
         {
-            this.placeLog(level, blockSetter, random, pos.above(height), config, mediumTrunkStart, mediumTrunkHeight, height, height == freeTreeHeight - 1);
+            this.placeLog(level, blockSetter, random, pos.above(height), config, trunkStart, trunkHeight, height, height == freeTreeHeight - 1);
         }
         return List.of(new FoliagePlacer.FoliageAttachment(pos.above(freeTreeHeight), 0, false));
     }

@@ -28,7 +28,11 @@ public record LivingEntityHasEffectCondition(HolderSet<MobEffect> mobEffect) imp
         {
             for (var holder : livingEntity.getActiveEffectsMap().keySet())
             {
-                return this.mobEffect.contains(holder);
+                if (!this.mobEffect.contains(holder))
+                {
+                    continue;
+                }
+                return true;
             }
         }
         return false;

@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.mixin.trading;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -93,12 +93,12 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
             var offer = offers.get(index);
             var result = offer.getResult();
             var finalIndex = index;
-            Function<RestockableData, Boolean> removeFunction = restockableData -> restockableData.index() == finalIndex;
+            Predicate<RestockableData> removeFunction = restockableData -> restockableData.index() == finalIndex;
 
             // Check if current offer index is not a filled map or does not contain map decoration component
             if (!result.is(Items.FILLED_MAP) || !result.has(DataComponents.MAP_DECORATIONS))
             {
-                this.restockableDataSet.removeIf(removeFunction::apply);
+                this.restockableDataSet.removeIf(removeFunction);
             }
             // Check for filled map but isn't treasured fish map
             else if (result.is(Items.FILLED_MAP) && result.has(DataComponents.MAP_DECORATIONS))
@@ -109,7 +109,7 @@ public abstract class MixinAbstractVillager extends AgeableMob implements Restoc
                 {
                     if (!entry.type().is(FOTMapDecorationTypes.TREASURED_FISH))
                     {
-                        this.restockableDataSet.removeIf(removeFunction::apply);
+                        this.restockableDataSet.removeIf(removeFunction);
                     }
                 }
             }

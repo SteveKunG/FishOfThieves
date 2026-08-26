@@ -37,6 +37,7 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
             var offer = this.getOffers().get(index);
             var finalIndex = index;
             var optional = data.stream().filter(restockableData -> restockableData.index() == finalIndex).findFirst();
+            var posString = this.blockPosition().toShortString();
 
             if (optional.isPresent())
             {
@@ -52,12 +53,12 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
                     {
                         treasuredFishOffer.fishofthieves$setResult(pair.getFirst());
                         offer.getBaseCostA().setCount(pair.getSecond());
-                        FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
+                        FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, posString);
                     }
                     else
                     {
                         // Do not reset uses until new treasured fish location is available
-                        FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
+                        FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, posString);
                         treasuredMapOfferIndexRef.set(index);
                     }
                 }

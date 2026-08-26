@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.blockentity;
 
 import org.jspecify.annotations.Nullable;
 
+import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.FishPlaqueBlock;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 
@@ -123,7 +124,7 @@ public class FishPlaqueBlockEntity extends BlockEntity
 
     public float getAnimation(float partialTick)
     {
-        return this.isAnimating ? (float) this.animationTickCount + partialTick : (float) this.animationTickCount;
+        return this.isAnimating ? this.animationTickCount + partialTick : (float) this.animationTickCount;
     }
 
     @Nullable
@@ -143,6 +144,14 @@ public class FishPlaqueBlockEntity extends BlockEntity
     @Nullable
     public static Entity createEntity(FishPlaqueBlockEntity blockEntity, Level level)
     {
-        return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, EntityProcessor.NOP);
+        try
+        {
+            return EntityType.loadEntityRecursive(blockEntity.getPlaqueData(), level, EntitySpawnReason.LOAD, EntityProcessor.NOP);
+        }
+        catch (Exception e)
+        {
+            FishOfThieves.LOGGER.warn("Cannot load entity from plaque data", e);
+            return null;
+        }
     }
 }

@@ -64,6 +64,10 @@ public class FishPlaqueTestSuite implements FOTGameTest
                 helper.fail(Component.literal("EntityType id or variant tag is not matched!"));
             }
         }
+        else
+        {
+            helper.fail("Fish plaque data is not found!");
+        }
     }
 
     @GameTest(structure = FISH_PLAQUE)
@@ -121,6 +125,10 @@ public class FishPlaqueTestSuite implements FOTGameTest
                 helper.fail(Component.literal("EntityType id is not a salmon!"));
             }
         }
+        else
+        {
+            helper.fail("Fish plaque data is not found!");
+        }
     }
 
     @GameTest(structure = FISH_PLAQUE)
@@ -173,6 +181,10 @@ public class FishPlaqueTestSuite implements FOTGameTest
             {
                 helper.fail(Component.literal("EntityType id is not a tropical fish!"));
             }
+        }
+        else
+        {
+            helper.fail("Fish plaque data is not found!");
         }
     }
 
@@ -235,6 +247,10 @@ public class FishPlaqueTestSuite implements FOTGameTest
             {
                 helper.fail(Component.literal("EntityType id is not an axolotl!"));
             }
+        }
+        else
+        {
+            helper.fail("Fish plaque data is not found!");
         }
     }
 

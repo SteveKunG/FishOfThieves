@@ -55,7 +55,7 @@ public class BananaDecorator extends TreeDecorator
         {
             for (var direction : Direction.Plane.HORIZONTAL)
             {
-                if (!(randomSource.nextFloat() >= this.probability))
+                if (randomSource.nextFloat() < this.probability)
                 {
                     var opposite = direction.getOpposite();
                     var posAroundLog = blockPos.offset(opposite.getStepX(), 0, opposite.getStepZ());

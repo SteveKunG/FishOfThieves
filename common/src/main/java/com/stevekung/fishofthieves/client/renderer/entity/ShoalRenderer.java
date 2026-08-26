@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.mixin.client.accessor.EntityRenderDispatcherA
 
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
@@ -22,12 +21,9 @@ import net.minecraft.world.entity.Entity;
 
 public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
 {
-    private final EntityRenderDispatcher entityRenderDispatcher;
-
     public ShoalRenderer(EntityRendererProvider.Context context)
     {
         super(context);
-        this.entityRenderDispatcher = context.getEntityRenderDispatcher();
     }
 
     @Override

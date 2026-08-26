@@ -100,21 +100,12 @@ public class SmallRotatedPillarBlock extends RotatedPillarBlock implements Simpl
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        switch (state.getValue(AXIS))
+        return switch (state.getValue(AXIS))
         {
-            case X ->
-            {
-                return SHAPE_HORIZONTAL_WE;
-            }
-            case Z ->
-            {
-                return SHAPE_HORIZONTAL_NS;
-            }
-            default ->
-            {
-                return SHAPE_VERTICAL;
-            }
-        }
+            case X -> SHAPE_HORIZONTAL_WE;
+            case Z -> SHAPE_HORIZONTAL_NS;
+            default -> SHAPE_VERTICAL;
+        };
     }
 
     @Override

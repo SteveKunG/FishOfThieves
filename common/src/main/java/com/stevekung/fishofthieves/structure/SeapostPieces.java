@@ -134,7 +134,7 @@ public class SeapostPieces
                     villager.snapTo(pos, 0.0F, 0.0F);
                     villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.STRUCTURE, null);
                     level.addFreshEntityWithPassengers(villager);
-                    level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(TrapDoorBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
+                    level.setBlock(pos, Blocks.SPRUCE_TRAPDOOR.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, this.placeSettings.getRotation().rotate(Direction.NORTH)).setValue(TrapDoorBlock.HALF, Half.TOP).setValue(TrapDoorBlock.OPEN, true), Block.UPDATE_CLIENTS);
                 }
                 case "seapost_fisherman" ->
                 {

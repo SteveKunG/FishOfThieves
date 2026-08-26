@@ -193,12 +193,11 @@ public class FishOfThievesFabric implements ModInitializer
 
         context.server().execute(() ->
         {
-            var shoal = (Shoal) context.player().level().getEntity(entityId);
-
-            if (shoal != null)
+            if (!(context.player().level().getEntity(entityId) instanceof Shoal shoal))
             {
-                FOTPlatform.syncClientShoalFish(shoal, false);
+                return;
             }
+            FOTPlatform.syncClientShoalFish(shoal, false);
         });
     }
 

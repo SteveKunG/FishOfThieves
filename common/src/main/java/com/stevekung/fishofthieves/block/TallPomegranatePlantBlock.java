@@ -93,7 +93,7 @@ public class TallPomegranatePlantBlock extends DoublePlantBlock implements Bonem
 
     private boolean isUnobstructed(Level level, BlockPos pos)
     {
-        return level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY(), pos.getZ())) && level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY() + 1, pos.getZ()));
+        return level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY(), pos.getZ())) && level.isUnobstructed(null, UPPER_SHAPE.move(pos.getX(), pos.getY() + 1d, pos.getZ()));
     }
 
     @Override

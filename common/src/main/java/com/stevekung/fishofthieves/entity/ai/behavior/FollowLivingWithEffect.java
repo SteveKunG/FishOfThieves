@@ -80,7 +80,14 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
     @Override
     protected void tick(ServerLevel level, PathfinderMob owner, long gameTime)
     {
-        var optionalPlayer = this.getLivingEntitiesHasEffect(owner).get().findClosest(this.hasEffectPredicate.apply(owner));
+        var livingOptional = this.getLivingEntitiesHasEffect(owner);
+
+        if (livingOptional.isEmpty())
+        {
+            return;
+        }
+
+        var optionalPlayer = livingOptional.get().findClosest(this.hasEffectPredicate.apply(owner));
 
         if (optionalPlayer.isPresent())
         {
