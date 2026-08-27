@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 
 public abstract class AbstractFlockFish extends AbstractSchoolingFish
 {
-    public AbstractFlockFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
+    protected AbstractFlockFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level)
     {
         super(entityType, level);
     }

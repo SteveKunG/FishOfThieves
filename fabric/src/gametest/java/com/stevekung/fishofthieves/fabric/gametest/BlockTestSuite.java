@@ -40,7 +40,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.runAtTickTime(20, () ->
         {
             helper.destroyBlock(blockPos.north(1));
-            helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.SINGLE, blockState -> Component.literal("Expected coconut fronds single state!")));
+            helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.SINGLE, _ -> Component.literal("Expected coconut fronds single state!")));
         });
     }
 
@@ -64,8 +64,8 @@ public class BlockTestSuite implements FOTGameTest
             helper.destroyBlock(blockPos.north(2));
             helper.succeedWhen(() ->
             {
-                helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.STEM, blockState -> Component.literal("Expected coconut fronds stem state!"));
-                helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, blockState -> Component.literal("Expected coconut fronds tail state!"));
+                helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.STEM, _ -> Component.literal("Expected coconut fronds stem state!"));
+                helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, _ -> Component.literal("Expected coconut fronds tail state!"));
             });
         });
     }
@@ -91,9 +91,9 @@ public class BlockTestSuite implements FOTGameTest
             helper.destroyBlock(blockPos.north(3));
             helper.succeedWhen(() ->
             {
-                helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.STEM, blockState -> Component.literal("Expected coconut fronds stem state!"));
-                helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.MIDDLE, blockState -> Component.literal("Expected coconut fronds middle state!"));
-                helper.assertBlockState(blockPos.north(2), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, blockState -> Component.literal("Expected coconut fronds tail state!"));
+                helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.STEM, _ -> Component.literal("Expected coconut fronds stem state!"));
+                helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.MIDDLE, _ -> Component.literal("Expected coconut fronds middle state!"));
+                helper.assertBlockState(blockPos.north(2), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, _ -> Component.literal("Expected coconut fronds tail state!"));
             });
         });
     }
@@ -117,7 +117,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.runAtTickTime(20, () ->
         {
             helper.useBlock(blockPos, player);
-            helper.succeedWhen(() -> helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, blockState -> Component.literal("Expected coconut fronds tail state!")));
+            helper.succeedWhen(() -> helper.assertBlockState(blockPos.north(), blockState -> blockState.is(FOTBlocks.COCONUT_FRONDS) && blockState.getValue(CoconutFrondsBlock.PART) == CoconutFrondsBlock.Part.TAIL, _ -> Component.literal("Expected coconut fronds tail state!")));
         });
     }
 
@@ -145,7 +145,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.succeedWhen(() ->
         {
-            helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, blockState -> Component.literal("Expected full water cauldron!"));
+            helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, _ -> Component.literal("Expected full water cauldron!"));
             level.getServer().setWeatherParameters(0, 0, false, false);
         });
     }
@@ -162,7 +162,7 @@ public class BlockTestSuite implements FOTGameTest
         {
             for (var direction : Direction.Plane.HORIZONTAL.stream().toList())
             {
-                helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.COCONUT_FRUIT, block -> Component.literal("Expected coconut fruit at %s!".formatted(direction)));
+                helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.COCONUT_FRUIT, _ -> Component.literal("Expected coconut fruit at %s!".formatted(direction)));
             }
         });
     }
@@ -174,7 +174,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 1, 1);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -191,7 +191,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.withLowHealth(chicken);
 
         helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos.north(), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -220,7 +220,7 @@ public class BlockTestSuite implements FOTGameTest
         {
             for (var direction : Direction.Plane.HORIZONTAL.stream().toList())
             {
-                helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.BANANA_SHOOTS_PLANT, block -> Component.literal("Expected banana shoots plant at %s!".formatted(direction)));
+                helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.BANANA_SHOOTS_PLANT, _ -> Component.literal("Expected banana shoots plant at %s!".formatted(direction)));
             }
         });
     }
@@ -244,7 +244,7 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.succeedWhen(() ->
         {
-            helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, blockState -> Component.literal("Expected full water cauldron!"));
+            helper.assertBlockState(cauldronPos, blockState -> blockState.is(Blocks.WATER_CAULDRON) && blockState.getValue(LayeredCauldronBlock.LEVEL) == 3, _ -> Component.literal("Expected full water cauldron!"));
             level.getServer().setWeatherParameters(0, 0, false, false);
         });
     }
@@ -255,9 +255,9 @@ public class BlockTestSuite implements FOTGameTest
         var buttonPos = new BlockPos(1, 3, 0);
         var blockPos = new BlockPos(1, 4, 2);
 
-        helper.setBlock(blockPos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH).setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM));
-        helper.setBlock(blockPos.below(), FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH));
-        helper.setBlock(blockPos.below(2), FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(BananaClusterPlantBlock.FACING, Direction.SOUTH));
+        helper.setBlock(blockPos, FOTBlocks.RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(BananaClusterPlantBlock.HANGING, BananaClusterPlantBlock.HangingType.STEM));
+        helper.setBlock(blockPos.below(), FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH));
+        helper.setBlock(blockPos.below(2), FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH));
         helper.setBlock(blockPos.below(3), FOTBlocks.BANANA_BLOSSOM_PLANT.defaultBlockState().setValue(BananaBlossomPlantBlock.FACING, Direction.SOUTH).setValue(BananaBlossomPlantBlock.HANGING, BananaHangingType.SMALL_CLUSTER));
 
         helper.runAtTickTime(20, () -> helper.pressButton(buttonPos));
@@ -266,7 +266,7 @@ public class BlockTestSuite implements FOTGameTest
         {
             for (var i = 0; i < 4; i++)
             {
-                helper.assertBlock(new BlockPos(1, 1, 2).above(i), block -> block == Blocks.AIR, block -> Component.literal("Expected air block!"));
+                helper.assertBlock(new BlockPos(1, 1, 2).above(i), block -> block == Blocks.AIR, _ -> Component.literal("Expected air block!"));
             }
         });
     }
@@ -278,11 +278,11 @@ public class BlockTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
-        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
+        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(FaceAttachedHorizontalDirectionalBlock.FACE, AttachFace.FLOOR));
         helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class).setItem(0, new ItemStack(Items.ARROW, 64));
 
         helper.setBlock(blockPos.south(), FOTBlocks.COCONUT_FRUIT_GROWABLE_LOG);
-        helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
+        helper.setBlock(blockPos, FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH).setValue(CoconutFruitBlock.AGE, 2));
 
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
@@ -306,13 +306,13 @@ public class BlockTestSuite implements FOTGameTest
         var blockPos = new BlockPos(1, 2, 2);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, Direction.SOUTH));
-        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(ButtonBlock.FACE, AttachFace.FLOOR));
+        helper.setBlock(dispenserPos.above(), Blocks.STONE_BUTTON.defaultBlockState().setValue(FaceAttachedHorizontalDirectionalBlock.FACE, AttachFace.FLOOR));
         helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class).setItem(0, new ItemStack(Items.ARROW, 64));
 
         helper.runAtTickTime(20, () -> helper.pressButton(dispenserPos.above()));
 
         helper.setBlock(blockPos.above(), FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(HangingMangoFruitBlock.AGE, 2));
+        helper.setBlock(blockPos, FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState().setValue(AbstractMangoFruitBlock.AGE, 2));
 
         helper.succeedWhen(() -> helper.assertEntityPresent(EntityType.FALLING_BLOCK, blockPos.below()));
     }
@@ -333,11 +333,11 @@ public class BlockTestSuite implements FOTGameTest
             {
                 if (direction == Direction.DOWN)
                 {
-                    helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.HANGING_MANGO_FRUIT, block -> Component.literal("Expected hanging mango fruit at %s!".formatted(direction)));
+                    helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.HANGING_MANGO_FRUIT, _ -> Component.literal("Expected hanging mango fruit at %s!".formatted(direction)));
                 }
                 else
                 {
-                    helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.MANGO_FRUIT, block -> Component.literal("Expected mango fruit at %s!".formatted(direction)));
+                    helper.assertBlock(blockPos.relative(direction), block -> block == FOTBlocks.MANGO_FRUIT, _ -> Component.literal("Expected mango fruit at %s!".formatted(direction)));
                 }
             }
         });
@@ -350,7 +350,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 1, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
+        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(AbstractMangoFruitBlock.AGE, 2).setValue(AbstractMangoFruitBlock.FALLING, false));
 
         helper.runAtTickTime(20, () -> helper.destroyBlock(blockPos));
 
@@ -364,7 +364,7 @@ public class BlockTestSuite implements FOTGameTest
         var targetPos = new BlockPos(1, 1, 2);
 
         helper.setBlock(blockPos, FOTBlocks.MANGO_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT, true));
-        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(MangoFruitBlock.AGE, 2).setValue(MangoFruitBlock.FALLING, false));
+        helper.setBlock(blockPos.north(), FOTBlocks.MANGO_FRUIT.defaultBlockState().setValue(MangoFruitBlock.FACING, Direction.SOUTH).setValue(AbstractMangoFruitBlock.AGE, 2).setValue(AbstractMangoFruitBlock.FALLING, false));
         var chicken = helper.spawnWithNoFreeWill(EntityType.CHICKEN, targetPos);
         helper.withLowHealth(chicken);
 
@@ -383,7 +383,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.setBlock(blockPos, FOTBlocks.RIPE_PINEAPPLE_BLOCK);
         helper.useBlock(blockPos, player);
 
-        helper.succeedWhen(() -> helper.assertBlock(blockPos, block -> block == FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> Component.literal("Expected crownless ripe pineapple block!")));
+        helper.succeedWhen(() -> helper.assertBlock(blockPos, block -> block == FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, _ -> Component.literal("Expected crownless ripe pineapple block!")));
     }
 
     @GameTest(structure = EMPTY_3X3)
@@ -404,7 +404,7 @@ public class BlockTestSuite implements FOTGameTest
         helper.setBlock(blockPos, FOTBlocks.POMEGRANATE_PLANT);
         helper.onEachTick(() -> helper.useBlock(blockPos, player));
 
-        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 3, blockState -> Component.literal("Expected full growth pomegranate plant!")));
+        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 3, _ -> Component.literal("Expected full growth pomegranate plant!")));
     }
 
     @GameTest(structure = EMPTY_3X3)
@@ -427,8 +427,8 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.succeedWhen(() ->
         {
-            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, blockState -> Component.literal("Expected full growth tall pomegranate plant!"));
-            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, blockState -> Component.literal("Expected full growth tall pomegranate plant!"));
+            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, _ -> Component.literal("Expected full growth tall pomegranate plant!"));
+            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(TallPomegranatePlantBlock.AGE) == 3, _ -> Component.literal("Expected full growth tall pomegranate plant!"));
         });
     }
 
@@ -463,7 +463,7 @@ public class BlockTestSuite implements FOTGameTest
             helper.spawn(EntityType.FOX, blockPos.north());
         });
 
-        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!")));
+        helper.succeedWhen(() -> helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, _ -> Component.literal("Fox doesn't like pomegranate!")));
     }
 
     @GameTest(structure = EMPTY_3X3, maxTicks = 500)
@@ -489,8 +489,8 @@ public class BlockTestSuite implements FOTGameTest
 
         helper.succeedWhen(() ->
         {
-            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!"));
-            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, blockState -> Component.literal("Fox doesn't like pomegranate!"));
+            helper.assertBlockState(blockPos, blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, _ -> Component.literal("Fox doesn't like pomegranate!"));
+            helper.assertBlockState(blockPos.above(), blockState -> blockState.is(FOTBlocks.TALL_POMEGRANATE_PLANT) && blockState.getValue(PomegranatePlantBlock.AGE) == 0, _ -> Component.literal("Fox doesn't like pomegranate!"));
         });
     }
 }

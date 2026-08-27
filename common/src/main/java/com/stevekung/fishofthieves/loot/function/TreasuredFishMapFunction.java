@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
+//TODO Implement dynamic emerald cost
 public class TreasuredFishMapFunction extends LootItemConditionalFunction
 {
     public static final MapCodec<TreasuredFishMapFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance)
@@ -88,7 +89,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             if (farthest.isPresent())
             {
                 var blockPos = farthest.get();
-                FishOfThieves.LOGGER.debug("Found farthest shoal at: {}", blockPos);
+                FishOfThieves.LOGGER.debug("Found the farthest shoal at: {}", blockPos);
                 return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance, this.tier);
             }
             else

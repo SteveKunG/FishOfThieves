@@ -45,6 +45,8 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class FOTLootManager
 {
+    private FOTLootManager() {}
+
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, ReloadableServerRegistries.Holder holder, LootParams lootParams)
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))
@@ -66,18 +68,18 @@ public class FOTLootManager
         return Util.make(new HashMap<>(), map ->
         {
             // Gameplay
-            map.put(BuiltInLootTables.FISHERMAN_GIFT, (builder, provider) -> FOTLootManager.getFishermanGiftLoot(builder));
+            map.put(BuiltInLootTables.FISHERMAN_GIFT, (builder, _) -> FOTLootManager.getFishermanGiftLoot(builder));
             map.put(BuiltInLootTables.FISHING, (builder, provider) -> getFishingLoot(builder, provider, true));
             map.put(BuiltInLootTables.FISHING_FISH, (builder, provider) -> getFishingLoot(builder, provider, false));
-            map.put(BuiltInLootTables.FISHING_JUNK, (builder, provider) -> builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE).setWeight(1)));
+            map.put(BuiltInLootTables.FISHING_JUNK, (builder, _) -> builder.add(LootItem.lootTableItem(FOTBlocks.FISH_BONE).setWeight(1)));
 
             // Entity Loot
             EntityType.POLAR_BEAR.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getPolarBearLoot));
             EntityType.DOLPHIN.getDefaultLootTable().ifPresent(key -> map.put(key, FOTLootManager::getDolphinLoot));
 
             // Archaeology
-            map.put(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
-            map.put(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY, (builder, provider) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
+            map.put(BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY, (builder, _) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
+            map.put(BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY, (builder, _) -> FOTLootManager.getOceanRuinsArchaeologyLoot(builder));
         });
     }
 
@@ -90,9 +92,9 @@ public class FOTLootManager
             EntityType.ELDER_GUARDIAN.getDefaultLootTable().ifPresent(key -> map.put(key, (builder, provider) -> FOTLootManager.getGuardianLoot(builder, provider, true)));
 
             // Chests
-            map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, provider) -> FOTLootManager.getVillageFisherLoot(builder));
-            map.put(BuiltInLootTables.BURIED_TREASURE, (builder, provider) -> FOTLootManager.getBuriedTreasureLoot(builder));
-            map.put(BuiltInLootTables.SHIPWRECK_SUPPLY, (builder, provider) -> FOTLootManager.getShipwreckSupplyLoot(builder));
+            map.put(BuiltInLootTables.VILLAGE_FISHER, (builder, _) -> FOTLootManager.getVillageFisherLoot(builder));
+            map.put(BuiltInLootTables.BURIED_TREASURE, (builder, _) -> FOTLootManager.getBuriedTreasureLoot(builder));
+            map.put(BuiltInLootTables.SHIPWRECK_SUPPLY, (builder, _) -> FOTLootManager.getShipwreckSupplyLoot(builder));
             map.put(BuiltInLootTables.JUNGLE_TEMPLE, FOTLootManager::getJungleTempleLoot);
         });
     }

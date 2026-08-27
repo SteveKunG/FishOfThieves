@@ -84,13 +84,11 @@ public class Shoal extends Entity
         this.expiredAt = input.getLongOr(LIFETIME_TAG, -1);
         this.setTreasured(input.getBooleanOr(TREASURED_TAG, false));
 
-        if (!this.level().isClientSide())
+        if (!this.level().isClientSide() && input.getBooleanOr(NATURAL_TAG, false))
         {
-            if (input.getBooleanOr(NATURAL_TAG, false))
-            {
-                this.createNaturalSpawn(false);
-            }
+            this.createNaturalSpawn(false);
         }
+
         FOTPlatform.syncClientShoalFish(this, false);
     }
 
@@ -219,10 +217,19 @@ public class Shoal extends Entity
             this.shoalFishClient = shoalFishData.stream()
                     .map(shoalFishData1 ->
                     {
-                        var compoundTag = shoalFishData1.data();
-                        compoundTag.putString("id", shoalFishData1.id());
-                        return EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+                        try
+                        {
+                            var compoundTag = shoalFishData1.data();
+                            compoundTag.putString("id", shoalFishData1.id());
+                            return EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+                        }
+                        catch (Exception e)
+                        {
+                            FishOfThieves.LOGGER.warn("Rejected invalid shoal fish data", e);
+                            return null;
+                        }
                     })
+                    .filter(Objects::nonNull)
                     .filter(LivingEntity.class::isInstance)
                     .map(LivingEntity.class::cast)
                     .peek(livingEntity -> livingEntity.wasTouchingWater = true)
@@ -242,7 +249,16 @@ public class Shoal extends Entity
         var uuid = shoalFish.uuid();
         var compoundTag = shoalFish.data();
         compoundTag.putString("id", shoalFish.id());
-        var entity = EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+        Entity entity = null;
+
+        try
+        {
+            entity = EntityType.loadEntityRecursive(compoundTag, this.level(), EntitySpawnReason.LOAD, EntityProcessor.NOP);
+        }
+        catch (Exception e)
+        {
+            FishOfThieves.LOGGER.warn("Cannot load entity from shoal data", e);
+        }
 
         if (entity instanceof LivingEntity livingEntity)
         {
@@ -372,7 +388,7 @@ public class Shoal extends Entity
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
     {
-        level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
+        level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), Block.UPDATE_CLIENTS);
 
         var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(blockPos).inflate(1));
 

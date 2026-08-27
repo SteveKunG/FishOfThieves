@@ -39,8 +39,8 @@ public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
 
     public interface Scaleable<S extends LivingEntityRenderState>
     {
-        HeadphoneModel.Scaleable<LivingEntityRenderState> COD = (entity, poseStack) -> poseStack.translate(0.0f, 0.25f, -0.05f);
-        HeadphoneModel.Scaleable<LivingEntityRenderState> SALMON = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<LivingEntityRenderState> COD = (_, poseStack) -> poseStack.translate(0.0f, 0.25f, -0.05f);
+        HeadphoneModel.Scaleable<LivingEntityRenderState> SALMON = (_, poseStack) ->
         {
             poseStack.scale(1.5f, 1.5f, 1.5f);
             poseStack.translate(0.0f, -0.275f, 0.0f);
@@ -88,7 +88,7 @@ public class HeadphoneModel<S extends EntityRenderState> extends EntityModel<S>
             }
             poseStack.translate(0.0f, y, z);
         };
-        HeadphoneModel.Scaleable<LivingEntityRenderState> TADPOLE = (entity, poseStack) ->
+        HeadphoneModel.Scaleable<LivingEntityRenderState> TADPOLE = (_, poseStack) ->
         {
             poseStack.scale(1.1f, 1.1f, 1.1f);
             poseStack.translate(0.0f, 0.15f, -0.08f);

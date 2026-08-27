@@ -34,7 +34,7 @@ public class StartAttackingIgnoreFlockLeader<E extends Mob> extends Behavior<E>
 
     public StartAttackingIgnoreFlockLeader(Function<E, Optional<? extends LivingEntity>> targetFinderFunction)
     {
-        this(mob -> true, targetFinderFunction);
+        this(_ -> true, targetFinderFunction);
     }
 
     @Override

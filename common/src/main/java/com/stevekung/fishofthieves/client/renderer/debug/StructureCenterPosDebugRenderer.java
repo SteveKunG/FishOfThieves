@@ -22,7 +22,7 @@ public record StructureCenterPosDebugRenderer(Minecraft minecraft) implements De
     {
         var entityPos = this.minecraft.player.blockPosition();
 
-        debugValueAccess.forEachChunk(FOTDebugSubscriptions.STRUCTURE_CENTER_POS, (chunkPos, list) -> list.forEach(info ->
+        debugValueAccess.forEachChunk(FOTDebugSubscriptions.STRUCTURE_CENTER_POS, (_, list) -> list.forEach(info ->
         {
             info.structurePosList().forEach(structurePos ->
             {

@@ -28,6 +28,8 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class WreckerAi
 {
+    private WreckerAi() {}
+
     public static List<ActivityData<Wrecker>> getActivities()
     {
         return List.of(initCoreActivity(), initIdleActivity(), initFightActivity());

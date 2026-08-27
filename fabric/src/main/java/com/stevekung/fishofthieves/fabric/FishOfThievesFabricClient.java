@@ -26,7 +26,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         FOTDebugScreenEntries.init();
 
         FishOfThievesClient.getBlockColors().forEach(entry -> BlockColorRegistry.register(entry.blockColors(), entry.blocks()));
-        ParticleRenderEvents.ALLOW_TERRAIN_PARTICLE_TINT.register((blockState, level, blockPos) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
+        ParticleRenderEvents.ALLOW_TERRAIN_PARTICLE_TINT.register((blockState, _, _) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
         FishOfThievesClient.registerBlockEntityRenderers();
 

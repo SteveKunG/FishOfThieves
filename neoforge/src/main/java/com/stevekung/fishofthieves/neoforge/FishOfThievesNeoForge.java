@@ -79,39 +79,39 @@ public class FishOfThievesNeoForge
     @SubscribeEvent
     public void onRegister(RegisterEvent event)
     {
-        event.register(Registries.BLOCK, helper -> FOTBlocks.init());
-        event.register(Registries.ITEM, helper -> FOTItems.init());
-        event.register(Registries.BLOCK_ENTITY_TYPE, helper -> FOTBlockEntityTypes.init());
-        event.register(Registries.ENTITY_TYPE, helper -> FOTEntities.init());
-        event.register(Registries.SOUND_EVENT, helper -> FOTSoundEvents.init());
-        event.register(Registries.FEATURE, helper -> FOTFeatures.init());
-        event.register(Registries.SENSOR_TYPE, helper -> FOTSensorTypes.init());
-        event.register(Registries.MEMORY_MODULE_TYPE, helper -> FOTMemoryModuleTypes.init());
-        event.register(Registries.STRUCTURE_TYPE, helper -> FOTStructures.init());
-        event.register(Registries.LOOT_CONDITION_TYPE, helper -> FOTLootItemConditions.init());
-        event.register(Registries.LOOT_POOL_ENTRY_TYPE, helper -> FOTLootPoolEntries.init());
-        event.register(Registries.CREATIVE_MODE_TAB, helper -> FOTCreativeTabs.init());
-        event.register(Registries.TRIGGER_TYPE, helper -> FOTCriteriaTriggers.init());
-        event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, helper -> FOTEntitySubPredicates.init());
-        event.register(Registries.DATA_COMPONENT_PREDICATE_TYPE, helper -> FOTDataComponentPredicates.init());
-        event.register(Registries.BLOCK_PREDICATE_TYPE, helper -> FOTBlockPredicateTypes.init());
-        event.register(Registries.TREE_DECORATOR_TYPE, helper -> FOTTreeDecoratorTypes.init());
-        event.register(Registries.FOLIAGE_PLACER_TYPE, helper -> FOTFoliagePlacerTypes.init());
-        event.register(Registries.BLOCK_STATE_PROVIDER_TYPE, helper -> FOTBlockStateProviderTypes.init());
-        event.register(Registries.TRUNK_PLACER_TYPE, helper -> FOTTrunkPlacerTypes.init());
-        event.register(Registries.DECORATED_POT_PATTERN, helper -> FOTDecoratedPotPatterns.putItemsToPotTexture());
-        event.register(Registries.MOB_EFFECT, helper -> FOTMobEffects.init());
-        event.register(Registries.SPAWN_CONDITION_TYPE, helper -> FOTSpawnConditions.init());
-        event.register(Registries.DATA_COMPONENT_TYPE, helper -> FOTDataComponentTypes.init());
-        event.register(Registries.PLACEMENT_MODIFIER_TYPE, helper -> FOTPlacementModifiers.init());
-        event.register(Registries.MATERIAL_CONDITION, helper -> FOTSurfaceRuleConditionSources.init());
-        event.register(Registries.DEBUG_SUBSCRIPTION, helper -> FOTDebugSubscriptions.init());
-        event.register(Registries.POINT_OF_INTEREST_TYPE, helper -> FOTPoiTypes.init());
-        event.register(Registries.MAP_DECORATION_TYPE, helper -> FOTMapDecorationTypes.init());
-        event.register(Registries.LOOT_FUNCTION_TYPE, helper -> FOTLootItemFunctions.init());
-        event.register(Registries.ENVIRONMENT_ATTRIBUTE, helper -> FOTEnvironmentAttributes.init());
-        event.register(Registries.GAME_RULE, helper -> FOTGameRules.init());
-        event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, helper -> FOTDataSerializers.init());
+        event.register(Registries.BLOCK, _ -> FOTBlocks.init());
+        event.register(Registries.ITEM, _ -> FOTItems.init());
+        event.register(Registries.BLOCK_ENTITY_TYPE, _ -> FOTBlockEntityTypes.init());
+        event.register(Registries.ENTITY_TYPE, _ -> FOTEntities.init());
+        event.register(Registries.SOUND_EVENT, _ -> FOTSoundEvents.init());
+        event.register(Registries.FEATURE, _ -> FOTFeatures.init());
+        event.register(Registries.SENSOR_TYPE, _ -> FOTSensorTypes.init());
+        event.register(Registries.MEMORY_MODULE_TYPE, _ -> FOTMemoryModuleTypes.init());
+        event.register(Registries.STRUCTURE_TYPE, _ -> FOTStructures.init());
+        event.register(Registries.LOOT_CONDITION_TYPE, _ -> FOTLootItemConditions.init());
+        event.register(Registries.LOOT_POOL_ENTRY_TYPE, _ -> FOTLootPoolEntries.init());
+        event.register(Registries.CREATIVE_MODE_TAB, _ -> FOTCreativeTabs.init());
+        event.register(Registries.TRIGGER_TYPE, _ -> FOTCriteriaTriggers.init());
+        event.register(Registries.ENTITY_SUB_PREDICATE_TYPE, _ -> FOTEntitySubPredicates.init());
+        event.register(Registries.DATA_COMPONENT_PREDICATE_TYPE, _ -> FOTDataComponentPredicates.init());
+        event.register(Registries.BLOCK_PREDICATE_TYPE, _ -> FOTBlockPredicateTypes.init());
+        event.register(Registries.TREE_DECORATOR_TYPE, _ -> FOTTreeDecoratorTypes.init());
+        event.register(Registries.FOLIAGE_PLACER_TYPE, _ -> FOTFoliagePlacerTypes.init());
+        event.register(Registries.BLOCK_STATE_PROVIDER_TYPE, _ -> FOTBlockStateProviderTypes.init());
+        event.register(Registries.TRUNK_PLACER_TYPE, _ -> FOTTrunkPlacerTypes.init());
+        event.register(Registries.DECORATED_POT_PATTERN, _ -> FOTDecoratedPotPatterns.putItemsToPotTexture());
+        event.register(Registries.MOB_EFFECT, _ -> FOTMobEffects.init());
+        event.register(Registries.SPAWN_CONDITION_TYPE, _ -> FOTSpawnConditions.init());
+        event.register(Registries.DATA_COMPONENT_TYPE, _ -> FOTDataComponentTypes.init());
+        event.register(Registries.PLACEMENT_MODIFIER_TYPE, _ -> FOTPlacementModifiers.init());
+        event.register(Registries.MATERIAL_CONDITION, _ -> FOTSurfaceRuleConditionSources.init());
+        event.register(Registries.DEBUG_SUBSCRIPTION, _ -> FOTDebugSubscriptions.init());
+        event.register(Registries.POINT_OF_INTEREST_TYPE, _ -> FOTPoiTypes.init());
+        event.register(Registries.MAP_DECORATION_TYPE, _ -> FOTMapDecorationTypes.init());
+        event.register(Registries.LOOT_FUNCTION_TYPE, _ -> FOTLootItemFunctions.init());
+        event.register(Registries.ENVIRONMENT_ATTRIBUTE, _ -> FOTEnvironmentAttributes.init());
+        event.register(Registries.GAME_RULE, _ -> FOTGameRules.init());
+        event.register(NeoForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, _ -> FOTDataSerializers.init());
     }
 
     @SubscribeEvent

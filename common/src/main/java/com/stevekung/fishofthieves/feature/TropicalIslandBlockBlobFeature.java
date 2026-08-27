@@ -36,14 +36,14 @@ public class TropicalIslandBlockBlobFeature extends Feature<BlockBlobConfigurati
         {
             for (var i = 0; i < 5; i++)
             {
-                var j = 1 + randomSource.nextInt(2);
-                var k = 1 + randomSource.nextInt(2);
-                var l = 1 + randomSource.nextInt(2);
-                var f = (float) (j + k + l) * 0.333F + 0.75F;
+                var xr = 1 + randomSource.nextInt(2);
+                var yr = 1 + randomSource.nextInt(2);
+                var zr = 1 + randomSource.nextInt(2);
+                var tr = (xr + yr + zr) * 0.333F + 0.75F;
 
-                for (var blockPos2 : BlockPos.betweenClosed(blockPos.offset(-j, -k, -l), blockPos.offset(j, k, l)))
+                for (var blockPos2 : BlockPos.betweenClosed(blockPos.offset(-xr, -yr, -zr), blockPos.offset(xr, yr, zr)))
                 {
-                    if (blockPos2.distSqr(blockPos) <= (double) (f * f))
+                    if (blockPos2.distSqr(blockPos) <= tr * tr)
                     {
                         level.setBlock(blockPos2, config.state(), Block.UPDATE_ALL);
                     }

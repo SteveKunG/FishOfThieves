@@ -36,9 +36,7 @@ public abstract class MixinEntityType<T extends Entity> implements BucketableEnt
         }
         else
         {
-            consumer = entity ->
-            {
-            };
+            consumer = _ -> {};
         }
         return this.fishofthieves$spawnByBucket(serverLevel, consumer, entitySpawnReason);
     }

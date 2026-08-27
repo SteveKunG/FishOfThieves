@@ -30,6 +30,8 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class BattlegillAi
 {
+    private BattlegillAi() {}
+
     public static List<ActivityData<Battlegill>> getActivities()
     {
         return List.of(initCoreActivity(), initIdleActivity(), initFightActivity());
