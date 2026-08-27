@@ -129,7 +129,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
     @Override
     public double getMeleeAttackRangeSqr(LivingEntity entity)
     {
-        return 0.5 + (double) entity.getBbWidth() * 2.0;
+        return 0.5 + entity.getBbWidth() * 2.0;
     }
 
     @Override

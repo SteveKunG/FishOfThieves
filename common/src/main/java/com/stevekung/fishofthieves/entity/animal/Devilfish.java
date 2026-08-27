@@ -122,7 +122,7 @@ public class Devilfish extends AbstractSchoolingThievesFish<DevilfishVariant>
     @Override
     public double getMeleeAttackRangeSqr(LivingEntity entity)
     {
-        return 1.0 + (double) entity.getBbWidth() * 2.0;
+        return 1.0 + entity.getBbWidth() * 2.0;
     }
 
     @Override

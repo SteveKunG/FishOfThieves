@@ -61,6 +61,8 @@ public class Shoal extends Entity
 
     private List<LivingEntity> shoalFishClient = new ArrayList<>();
 
+    private final Random javaRandom = new Random();
+
     public Shoal(EntityType<?> entityType, Level level)
     {
         super(entityType, level);
@@ -122,13 +124,11 @@ public class Shoal extends Entity
             }
         }
 
-        if (!this.level().isClientSide())
+        if (!this.level().isClientSide() && compound.contains(NATURAL_TAG) && compound.getBoolean(NATURAL_TAG))
         {
-            if (compound.contains(NATURAL_TAG) && compound.getBoolean(NATURAL_TAG))
-            {
-                this.createNaturalSpawn(false);
-            }
+            this.createNaturalSpawn(false);
         }
+
         FOTPlatform.syncClientShoalFish(this, false);
     }
 
@@ -292,8 +292,12 @@ public class Shoal extends Entity
                     })
                     .filter(Objects::nonNull)
                     .filter(LivingEntity.class::isInstance)
-                    .map(LivingEntity.class::cast)
-                    .peek(livingEntity -> livingEntity.wasTouchingWater = true)
+                    .map(entity ->
+                    {
+                        var livingEntity = (LivingEntity) entity;
+                        livingEntity.wasTouchingWater = true;
+                        return livingEntity;
+                    })
                     .toList();
         }
     }
@@ -373,7 +377,7 @@ public class Shoal extends Entity
             commonFish.add(FOTEntities.STORMFISH);
         }
 
-        for (var entityType : pickRandom(commonFish, 3))
+        for (var entityType : pickRandom(this.javaRandom, commonFish, 3))
         {
             var entity = entityType.create(serverLevel);
 
@@ -411,7 +415,7 @@ public class Shoal extends Entity
         var prevShoalSize = this.shoalFishData.size();
         this.shoalFishData.clear();
 
-        for (var entityType : pickRandom(tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST, prevShoalSize))
+        for (var entityType : pickRandom(this.javaRandom, tier == 1 ? TIER_1_FISH_QUEST : TIER_2_FISH_QUEST, prevShoalSize))
         {
             var entity = entityType.create(serverLevel);
 
@@ -444,7 +448,7 @@ public class Shoal extends Entity
 
     public static void setTreasuredShoal(Level level, BlockPos blockPos, int tier)
     {
-        level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), ShoalBlock.UPDATE_CLIENTS);
+        level.setBlock(blockPos, FOTBlocks.SHOAL.defaultBlockState().setValue(ShoalBlock.TREASURED, true), Block.UPDATE_CLIENTS);
 
         var shoals = level.getEntitiesOfClass(Shoal.class, new AABB(blockPos).inflate(1));
 
@@ -529,8 +533,8 @@ public class Shoal extends Entity
         }
     }
 
-    private static List<? extends EntityType<?>> pickRandom(List<EntityType<?>> list, int count)
+    private static List<? extends EntityType<?>> pickRandom(Random random, List<EntityType<?>> list, int count)
     {
-        return new Random().ints(0, list.size()).distinct().limit(count).mapToObj(list::get).toList();
+        return random.ints(0, list.size()).distinct().limit(count).mapToObj(list::get).toList();
     }
 }

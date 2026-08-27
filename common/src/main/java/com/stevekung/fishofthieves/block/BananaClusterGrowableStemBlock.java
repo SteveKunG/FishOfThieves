@@ -17,6 +17,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
@@ -103,7 +104,7 @@ public class BananaClusterGrowableStemBlock extends BananaStemBlock implements B
                 banana = updateBananaHangingState(banana, stateAbove, height);
                 isSmallCluster |= banana.hasProperty(UnderripeBananaClusterPlantBlock.HANGING);
 
-                setBlock.accept(blockPos, banana.setValue(BananaClusterPlantBlock.FACING, direction.getOpposite()).setValue(BananaClusterPlantBlock.WATERLOGGED, isWater.test(blockPos)), Block.UPDATE_ALL);
+                setBlock.accept(blockPos, banana.setValue(HorizontalDirectionalBlock.FACING, direction.getOpposite()).setValue(AbstractBananaClusterBlock.WATERLOGGED, isWater.test(blockPos)), Block.UPDATE_ALL);
 
                 yBottom = Math.max(yBottom, height);
             }
