@@ -17,12 +17,9 @@ public abstract class MixinFOTRotatedPillarBlock implements IBlockExtension
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate)
     {
-        if (itemAbility == ItemAbilities.AXE_STRIP)
+        if (itemAbility == ItemAbilities.AXE_STRIP && AxeStrippableDummy.STRIPPED_BLOCKS.containsKey(state.getBlock()))
         {
-            if (AxeStrippableDummy.STRIPPED_BLOCKS.containsKey(state.getBlock()))
-            {
-                return AxeStrippableDummy.STRIPPED_BLOCKS.get(state.getBlock()).withPropertiesOf(state);
-            }
+            return AxeStrippableDummy.STRIPPED_BLOCKS.get(state.getBlock()).withPropertiesOf(state);
         }
         return null;
     }

@@ -22,7 +22,7 @@ public class MixinV4070
     private Map<String, Supplier<TypeTemplate>> fishofthieves$registerEntities(Map<String, Supplier<TypeTemplate>> original, @Local(argsOnly = true) Schema schema)
     {
         schema.registerSimple(original, "fishofthieves:coconut_boat");
-        schema.register(original, "fishofthieves:coconut_chest_boat", string -> DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema))));
+        schema.register(original, "fishofthieves:coconut_chest_boat", _ -> DSL.optionalFields("Items", DSL.list(References.ITEM_STACK.in(schema))));
         return original;
     }
 }

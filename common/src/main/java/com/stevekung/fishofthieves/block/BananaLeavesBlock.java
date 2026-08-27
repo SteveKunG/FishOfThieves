@@ -120,12 +120,9 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        if (context instanceof EntityCollisionContext entityCollisionContext)
+        if (context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() != null && entityCollisionContext.getEntity().isSwimming())
         {
-            if (entityCollisionContext.getEntity() != null && entityCollisionContext.getEntity().isSwimming())
-            {
-                return Shapes.empty();
-            }
+            return Shapes.empty();
         }
         return super.getCollisionShape(state, level, pos, context);
     }
@@ -343,6 +340,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
             this.name = name;
         }
 
+        @Override
         public String toString()
         {
             return this.name;
@@ -367,6 +365,7 @@ public class BananaLeavesBlock extends HorizontalDirectionalBlock implements Sim
             this.name = name;
         }
 
+        @Override
         public String toString()
         {
             return this.name;

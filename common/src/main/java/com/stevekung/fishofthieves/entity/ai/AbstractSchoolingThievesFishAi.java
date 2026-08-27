@@ -31,6 +31,8 @@ public class AbstractSchoolingThievesFishAi
 {
     private static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(900, 1600);
 
+    private AbstractSchoolingThievesFishAi() {}
+
     public static void initMemories(AbstractFlockFish fish)
     {
         fish.getBrain().setMemory(FOTMemoryModuleTypes.SCHOOL_SIZE, 1);

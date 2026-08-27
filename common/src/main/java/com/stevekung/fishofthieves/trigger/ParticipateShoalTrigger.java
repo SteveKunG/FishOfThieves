@@ -22,7 +22,7 @@ public class ParticipateShoalTrigger extends SimpleCriterionTrigger<ParticipateS
 
     public void trigger(ServerPlayer player)
     {
-        this.trigger(player, triggerInstance -> true);
+        this.trigger(player, _ -> true);
     }
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance

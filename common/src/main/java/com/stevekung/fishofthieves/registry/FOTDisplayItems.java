@@ -86,25 +86,26 @@ public class FOTDisplayItems
         output.accept(FOTItems.COCONUT_HANGING_SIGN);
         output.accept(FOTItems.COCONUT_BOAT);
         output.accept(FOTItems.COCONUT_CHEST_BOAT);
-        output.accept(FOTItems.COCONUT_FRONDS);
-        output.accept(FOTItems.BANANA_STEM);
+
         output.accept(FOTItems.BANANA_LEAVES);
+        output.accept(FOTItems.COCONUT_FRONDS);
+        output.accept(FOTItems.MANGO_LEAVES);
+        output.accept(FOTItems.BANANA_STEM);
         output.accept(FOTItems.BANANA_SHOOTS);
         output.accept(FOTItems.BANANA_BLOSSOM);
+        output.accept(FOTItems.MANGO_PIT);
+        output.accept(FOTItems.MANGO_SAPLING);
+        output.accept(FOTItems.PINEAPPLE_CROWN);
+        output.accept(FOTItems.POMEGRANATE_SEEDS);
+        output.accept(FOTItems.PINEAPPLE_SEEDS);
+        output.accept(FOTItems.POMEGRANATE_PLANT);
+        output.accept(FOTItems.TALL_POMEGRANATE_PLANT);
         output.accept(FOTItems.UNDERRIPE_BANANA_CLUSTER);
         output.accept(FOTItems.BARELY_RIPE_BANANA_CLUSTER);
         output.accept(FOTItems.RIPE_BANANA_CLUSTER);
-        output.accept(FOTItems.PINEAPPLE_SEEDS);
-        output.accept(FOTItems.PINEAPPLE_CROWN);
         output.accept(FOTItems.UNDERRIPE_PINEAPPLE_BLOCK);
-        output.accept(FOTItems.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTItems.CROWNLESS_RIPE_PINEAPPLE_BLOCK);
-        output.accept(FOTItems.MANGO_LEAVES);
-        output.accept(FOTItems.MANGO_PIT);
-        output.accept(FOTItems.MANGO_SAPLING);
-        output.accept(FOTItems.POMEGRANATE_PLANT);
-        output.accept(FOTItems.TALL_POMEGRANATE_PLANT);
-        output.accept(FOTItems.POMEGRANATE_SEEDS);
+        output.accept(FOTItems.RIPE_PINEAPPLE_BLOCK);
         output.accept(FOTItems.PRISMARIZED_LOG);
         output.accept(FOTItems.BUDDING_PRISMARIZED_LOG);
 
@@ -186,14 +187,14 @@ public class FOTDisplayItems
         output.accept(FOTItems.GILDED_WARPED_FISH_PLAQUE);
         output.accept(FOTItems.GILDED_COCONUT_FISH_PLAQUE);
 
-        output.accept(FOTItems.COCONUT);
         output.accept(FOTItems.BANANA);
-        output.accept(FOTItems.PINEAPPLE);
-        output.accept(FOTItems.CROWNLESS_PINEAPPLE);
-        output.accept(FOTItems.HALF_PINEAPPLE);
-        output.accept(FOTItems.MANGO);
-        output.accept(FOTItems.RAW_MANGO);
+        output.accept(FOTItems.COCONUT);
         output.accept(FOTItems.POMEGRANATE);
+        output.accept(FOTItems.RAW_MANGO);
+        output.accept(FOTItems.MANGO);
+        output.accept(FOTItems.HALF_PINEAPPLE);
+        output.accept(FOTItems.CROWNLESS_PINEAPPLE);
+        output.accept(FOTItems.PINEAPPLE);
         output.accept(FOTItems.GUARDIAN_FRUIT);
 
         output.accept(FOTItems.STORMFISH_POTTERY_SHERD);

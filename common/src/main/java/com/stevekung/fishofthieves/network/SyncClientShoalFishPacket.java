@@ -17,7 +17,7 @@ public record SyncClientShoalFishPacket(int entityId, List<ShoalFishData> shoalF
 
     public SyncClientShoalFishPacket(FriendlyByteBuf buf)
     {
-        this(buf.readVarInt(), buf.readCollection(ArrayList::new, buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt())), buf.readBoolean());
+        this(buf.readVarInt(), buf.readCollection(size -> new ArrayList<>(Math.min(size, ShoalFishData.MAX_SHOAL_FISH)), buf1 -> new ShoalFishData(buf1.readUtf(), buf1.readUUID(), buf1.readNbt())), buf.readBoolean());
     }
 
     public void write(FriendlyByteBuf buff)

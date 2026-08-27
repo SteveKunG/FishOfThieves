@@ -28,7 +28,7 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
 
     public FollowLivingWithEffect(Function<LivingEntity, Float> speedModifier, Function<LivingEntity, Predicate<LivingEntity>> hasEffectPredicate)
     {
-        this(speedModifier, livingEntity -> 2.5, hasEffectPredicate);
+        this(speedModifier, _ -> 2.5, hasEffectPredicate);
     }
 
     public FollowLivingWithEffect(Function<LivingEntity, Float> speedModifier, Function<LivingEntity, Double> closeEnoughDistance, Function<LivingEntity, Predicate<LivingEntity>> hasEffectPredicate)
@@ -80,7 +80,14 @@ public class FollowLivingWithEffect extends Behavior<PathfinderMob>
     @Override
     protected void tick(ServerLevel level, PathfinderMob owner, long gameTime)
     {
-        var optionalPlayer = this.getLivingEntitiesHasEffect(owner).get().findClosest(this.hasEffectPredicate.apply(owner));
+        var livingOptional = this.getLivingEntitiesHasEffect(owner);
+
+        if (livingOptional.isEmpty())
+        {
+            return;
+        }
+
+        var optionalPlayer = livingOptional.get().findClosest(this.hasEffectPredicate.apply(owner));
 
         if (optionalPlayer.isPresent())
         {
