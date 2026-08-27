@@ -25,6 +25,7 @@
   ],
   "mixins": [
     "accessor.PointedDripstoneBlockAccessor",
+    "accessor.SurfaceRules_ContextAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "animal.MixinBee",
