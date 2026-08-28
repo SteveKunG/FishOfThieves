@@ -28,6 +28,7 @@
   "mixins": [
     "accessor.PointedDripstoneBlockAccessor",
     "accessor.SpeleothemBlockAccessor",
+    "accessor.SurfaceRules_ContextAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
     "animal.MixinBee",

@@ -10,6 +10,8 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.trade.RestockableVillager;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
+import com.stevekung.fishofthieves.registry.FOTDataComponentTypes;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -82,9 +84,9 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
 
                                 if (treasuredFishMapOffer != null)
                                 {
-                                    treasuredFishOffer.fishofthieves$setResult(treasuredFishMapOffer.getResult());
-                                    //TODO Set price based on distance
-                                    //offer.getBaseCostA().setCount(pair.getSecond());
+                                    var result = treasuredFishMapOffer.getResult();
+                                    treasuredFishOffer.fishofthieves$setResult(result);
+                                    offer.getBaseCostA().setCount(result.getOrDefault(FOTDataComponentTypes.TREASURED_FISH_MAP_COST, ShoalSpawner.TIER_1_MIN_EMERALD_COST));
                                     FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, posString);
                                 }
                                 else

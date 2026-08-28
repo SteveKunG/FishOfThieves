@@ -10,6 +10,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
+import com.stevekung.fishofthieves.registry.FOTDataComponentTypes;
 import com.stevekung.fishofthieves.registry.FOTMapDecorationTypes;
 import com.stevekung.fishofthieves.registry.FOTPoiTypes;
 import com.stevekung.fishofthieves.shoal.ShoalSpawner;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-//TODO Implement dynamic emerald cost
 public class TreasuredFishMapFunction extends LootItemConditionalFunction
 {
     public static final MapCodec<TreasuredFishMapFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance)
@@ -76,40 +76,46 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     {
         if (stack.is(Items.MAP))
         {
-            var vec3 = context.getOptionalParameter(LootContextParams.ORIGIN);
+            var origin = context.getOptionalParameter(LootContextParams.ORIGIN);
 
-            if (vec3 == null)
+            if (origin == null)
             {
                 return stack;
             }
 
+            var originPos = BlockPos.containing(origin);
+            var randomSource = context.getRandom();
             var serverLevel = context.getLevel();
-            var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), this.minimumSearchRadius, this.maximumSearchRadius, serverLevel.getPoiManager());
+            var farthest = ShoalSpawner.findFarthest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), originPos, this.minimumSearchRadius, this.maximumSearchRadius, serverLevel.getPoiManager());
+            int tier = this.tier.orElseGet(() -> randomSource.nextFloat() < this.highTierChance ? 1 : 2);
 
             if (farthest.isPresent())
             {
                 var blockPos = farthest.get();
-                FishOfThieves.LOGGER.debug("Found the farthest shoal at: {}", blockPos);
-                return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance, this.tier);
+                var cost = ShoalSpawner.calculateEmeraldCost(tier, Math.sqrt(blockPos.distSqr(originPos)));
+                FishOfThieves.LOGGER.debug("Found the farthest shoal at: {} (cost: {})", blockPos, cost);
+                return createTreasuredFishMap(serverLevel, blockPos, this.zoom, tier, cost);
             }
             else
             {
-                var attemptPos = ShoalSpawner.attemptSpawnShoal(serverLevel, BlockPos.containing(vec3), this.maxAttempt);
+                var attemptPos = ShoalSpawner.attemptSpawnShoal(serverLevel, originPos, this.maxAttempt);
 
                 if (attemptPos != null)
                 {
-                    FishOfThieves.LOGGER.debug("Shoal spawn from map at: {}", attemptPos);
-                    return createTreasuredFishMap(serverLevel, attemptPos, context, this.zoom, this.highTierChance, this.tier);
+                    var cost = ShoalSpawner.calculateEmeraldCost(tier, Math.sqrt(attemptPos.distSqr(originPos)));
+                    FishOfThieves.LOGGER.debug("Shoal spawn from map by fisherman at: {} (cost: {})", attemptPos, cost);
+                    return createTreasuredFishMap(serverLevel, attemptPos, this.zoom, tier, cost);
                 }
                 else
                 {
-                    var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), BlockPos.containing(vec3), this.maximumSearchRadius, PoiManager.Occupancy.ANY);
+                    var nearest = serverLevel.getPoiManager().findClosest(holder -> holder.is(FOTPoiTypes.NATURAL_SHOAL), originPos, this.maximumSearchRadius, PoiManager.Occupancy.ANY);
 
                     if (nearest.isPresent())
                     {
                         var blockPos = nearest.get();
-                        FishOfThieves.LOGGER.debug("Found nearest shoal at: {}", blockPos);
-                        return createTreasuredFishMap(serverLevel, blockPos, context, this.zoom, this.highTierChance, this.tier);
+                        var cost = ShoalSpawner.calculateEmeraldCost(tier, Math.sqrt(blockPos.distSqr(originPos)));
+                        FishOfThieves.LOGGER.debug("Found nearest shoal at: {} (cost: {})", blockPos, cost);
+                        return createTreasuredFishMap(serverLevel, blockPos, this.zoom, tier, cost);
                     }
                 }
             }
@@ -117,12 +123,13 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         return stack;
     }
 
-    private static ItemStack createTreasuredFishMap(ServerLevel serverLevel, BlockPos blockPos, LootContext context, byte zoom, float highTierChance, Optional<Integer> tier)
+    private static ItemStack createTreasuredFishMap(ServerLevel serverLevel, BlockPos shoalPos, byte zoom, int tier, int cost)
     {
-        var itemStack = MapItem.create(serverLevel, blockPos.getX(), blockPos.getZ(), zoom, true, true);
+        var itemStack = MapItem.create(serverLevel, shoalPos.getX(), shoalPos.getZ(), zoom, true, true);
         MapItem.renderBiomePreviewMap(serverLevel, itemStack);
-        MapItemSavedData.addTargetDecoration(itemStack, blockPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
-        Shoal.setTreasuredShoal(serverLevel, blockPos, tier.orElseGet(() -> context.getRandom().nextFloat() < highTierChance ? 1 : 2));
+        MapItemSavedData.addTargetDecoration(itemStack, shoalPos, "+", FOTMapDecorationTypes.TREASURED_FISH);
+        Shoal.setTreasuredShoal(serverLevel, shoalPos, tier);
+        itemStack.set(FOTDataComponentTypes.TREASURED_FISH_MAP_COST, cost);
         return itemStack;
     }
 
