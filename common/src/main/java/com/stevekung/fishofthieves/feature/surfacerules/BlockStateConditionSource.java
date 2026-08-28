@@ -1,10 +1,10 @@
 package com.stevekung.fishofthieves.feature.surfacerules;
 
-import java.util.Objects;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.stevekung.fishofthieves.mixin.accessor.SurfaceRules_ContextAccessor;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -20,12 +20,12 @@ public class BlockStateConditionSource extends SurfaceRules implements SurfaceRu
 
     private final BlockState blockState;
     private final int offset;
+    private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
     public BlockStateConditionSource(BlockState blockState, int offset)
     {
         this.blockState = blockState;
         this.offset = offset;
-        Objects.requireNonNull(this.blockState);
     }
 
     public BlockState blockState()
@@ -47,6 +47,11 @@ public class BlockStateConditionSource extends SurfaceRules implements SurfaceRu
     @Override
     public Condition apply(Context context)
     {
-        return () -> context.chunk.getBlockState(context.pos.offset(0, this.offset, 0)).is(this.blockState.getBlock());
+        return () ->
+        {
+            var accessor = ((SurfaceRules_ContextAccessor) (Object) context);
+            var pos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY() + this.offset, accessor.getBlockZ());
+            return accessor.getChunk().getBlockState(pos).is(this.blockState.getBlock());
+        };
     }
 }

@@ -1,7 +1,9 @@
 package com.stevekung.fishofthieves.feature.surfacerules;
 
 import com.mojang.serialization.MapCodec;
+import com.stevekung.fishofthieves.mixin.accessor.SurfaceRules_ContextAccessor;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.KeyDispatchDataCodec;
@@ -10,6 +12,7 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
 public class WaterSurroundedConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
 {
     public static final KeyDispatchDataCodec<WaterSurroundedConditionSource> CODEC = KeyDispatchDataCodec.of(MapCodec.unit(new WaterSurroundedConditionSource()));
+    private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
     @Override
     public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec()
@@ -22,7 +25,8 @@ public class WaterSurroundedConditionSource extends SurfaceRules implements Surf
     {
         return () ->
         {
-            var blockPos = context.pos;
+            var accessor = ((SurfaceRules_ContextAccessor) (Object) context);
+            var blockPos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY(), accessor.getBlockZ());
             var localX = blockPos.getX() & 15;
             var localZ = blockPos.getZ() & 15;
 
@@ -37,7 +41,7 @@ public class WaterSurroundedConditionSource extends SurfaceRules implements Surf
                     continue;
                 }
 
-                var fluidState = context.chunk.getFluidState(blockPos.relative(direction));
+                var fluidState = accessor.getChunk().getFluidState(blockPos.relative(direction));
 
                 if (fluidState.is(FluidTags.WATER))
                 {
