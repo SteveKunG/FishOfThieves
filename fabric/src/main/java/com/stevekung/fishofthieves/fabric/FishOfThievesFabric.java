@@ -19,11 +19,11 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistryView;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.registry.BlockTransformerRegistry;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -121,10 +121,10 @@ public class FishOfThievesFabric implements ModInitializer
 
         FOTCreativeTabs.init();
 
-        BlockTransformerRegistry.registerStripping(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
-        BlockTransformerRegistry.registerStripping(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
+        BlockTransformerHelper.registerStripping(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
+        BlockTransformerHelper.registerStripping(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
-        CustomStrippables.CUSTOM_STRIPPABLES.forEach((key, value) -> BlockTransformerRegistry.registerStripping(key, new CopyPropertiesProvider(BlockStateProvider.simple(value))));
+        CustomStrippables.CUSTOM_STRIPPABLES.forEach((key, value) -> BlockTransformerHelper.registerStripping(key, new CopyPropertiesProvider(BlockStateProvider.simple(value))));
 
         BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 

@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.utils;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -11,6 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
+import net.minecraft.world.level.levelgen.densityfunction.SamplerContext;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public class TerrainUtils
@@ -63,6 +63,10 @@ public class TerrainUtils
         var chunkX = QuartPos.fromBlock(blockPos.getX());
         var chunkY = QuartPos.fromBlock(blockPos.getY());
         var chunkZ = QuartPos.fromBlock(blockPos.getZ());
-        return Objects.requireNonNullElseGet(level.getChunkSource().randomState().sampler(), Climate::empty).sample(chunkX, chunkY, chunkZ);
+        var chunkSource = level.getChunkSource();
+        var samplerContext = SamplerContext.builder().enableCaches().build();
+        var randomState = chunkSource.randomState();
+        var sampler = randomState.createClimateSampler(samplerContext);
+        return sampler.sample(chunkX, chunkY, chunkZ);
     }
 }

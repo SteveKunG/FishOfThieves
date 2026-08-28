@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.feature.surfacerules.WaterSurroundedCondition
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 
 public class FOTSurfaceRuleConditionSources
 {
@@ -19,7 +19,7 @@ public class FOTSurfaceRuleConditionSources
         FishOfThieves.LOGGER.info("Registering Surface Rule Condition Source");
     }
 
-    private static <S extends SurfaceRules.ConditionSource> MapCodec<S> register(String key, MapCodec<S> dataCodec)
+    private static <S extends MaterialCondition> MapCodec<S> register(String key, MapCodec<S> dataCodec)
     {
         return Registry.register(BuiltInRegistries.MATERIAL_CONDITION_TYPE, FishOfThieves.id(key), dataCodec);
     }

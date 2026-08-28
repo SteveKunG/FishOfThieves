@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.feature.placement;
 
+import com.stevekung.fishofthieves.mixin.accessor.RandomStateAccessor;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -20,11 +22,11 @@ public abstract class AbstractNoiseRouterFilter implements PlacementFilter
     @Override
     public boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos)
     {
+        //TODO Test
         var serverChunkCache = context.getLevel().getLevel().getChunkSource();
         var randomState = serverChunkCache.randomState();
-        var singlePointContext = new DensityFunction.SinglePointContext(pos.getX(), pos.getY(), pos.getZ());
-        var densityFunction = this.getDensityFunction(randomState.router()).compute(singlePointContext);
-        return densityFunction >= this.floatProvider.min() && densityFunction <= this.floatProvider.max();
+        var interval = this.getDensityFunction(((RandomStateAccessor) (Object) randomState).getRouter()).range();
+        return interval.min() >= this.floatProvider.min() && interval.max() <= this.floatProvider.max();
     }
 
     protected abstract DensityFunction getDensityFunction(NoiseRouter noiseRouter);

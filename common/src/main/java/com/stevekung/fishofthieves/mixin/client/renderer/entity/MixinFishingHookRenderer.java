@@ -46,7 +46,7 @@ public abstract class MixinFishingHookRenderer extends EntityRenderer<FishingHoo
             poseStack.pushPose();
             poseStack.scale(1.0F, 1.0F, 1.0F);
             poseStack.translate(0f, -0.5f, 0f);
-            poseStack.mulPose(cameraRenderState.orientation);
+            poseStack.rotate(cameraRenderState.orientation);
             fishingHookRenderState.fishofthieves$getBaitStack().submit(poseStack, submitNodeCollector, fishingHookRenderState.lightCoords, OverlayTexture.NO_OVERLAY, fishingHookRenderState.outlineColor);
             poseStack.popPose();
         }

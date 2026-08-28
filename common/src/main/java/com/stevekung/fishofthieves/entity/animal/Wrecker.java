@@ -13,7 +13,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.SectionPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -242,7 +241,7 @@ public class Wrecker extends AbstractThievesFish<WreckerVariant>
 
         if (structure1 != null)
         {
-            for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos1, 0), structure1))
+            for (var structureStart : level.structureManager().startsForStructure(chunkPos1.x(), chunkPos1.z(), structure1))
             {
                 var structureCenter = structureStart.getPieces()
                         .stream()

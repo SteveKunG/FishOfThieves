@@ -4,20 +4,22 @@ import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.material.MaterialRuleContext;
+import net.minecraft.world.level.levelgen.material.condition.ConditionEvaluator;
+import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 
-public class WaterSurroundedConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
+public class WaterSurroundedConditionSource implements MaterialCondition
 {
     public static final MapCodec<WaterSurroundedConditionSource> CODEC = MapCodec.unit(new WaterSurroundedConditionSource());
 
     @Override
-    public MapCodec<? extends ConditionSource> codec()
+    public MapCodec<? extends MaterialCondition> codec()
     {
         return WaterSurroundedConditionSource.CODEC;
     }
 
     @Override
-    public SurfaceRules.Condition apply(SurfaceRules.Context context)
+    public ConditionEvaluator compile(MaterialRuleContext context)
     {
         return () ->
         {
@@ -36,7 +38,7 @@ public class WaterSurroundedConditionSource extends SurfaceRules implements Surf
                     continue;
                 }
 
-                var fluidState = context.chunk.getFluidState(blockPos.relative(direction));
+                var fluidState = context.getChunkAccess().getFluidState(blockPos.relative(direction));
 
                 if (fluidState.is(FluidTags.WATER))
                 {

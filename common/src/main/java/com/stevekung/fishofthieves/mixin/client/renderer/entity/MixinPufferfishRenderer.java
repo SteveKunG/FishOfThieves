@@ -21,7 +21,7 @@ public class MixinPufferfishRenderer
         if (renderState.fishofthieves$isDancing())
         {
             var degree = -20.0f * Mth.sin(2.0f * renderState.ageInTicks);
-            poseStack.mulPose(Axis.YP.rotationDegrees(degree));
+            poseStack.rotate(Axis.YP.rotationDegrees(degree));
         }
     }
 }

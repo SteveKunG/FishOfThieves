@@ -2,8 +2,7 @@ accessWidener v1 official
 accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
 accessible field net/minecraft/world/item/MobBucketItem type Lnet/minecraft/world/entity/EntityType;
 accessible field net/minecraft/world/item/MobBucketItem emptySound Lnet/minecraft/sounds/SoundEvent;
-accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context chunk Lnet/minecraft/world/level/chunk/ChunkAccess;
-accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
+accessible field net/minecraft/world/level/levelgen/material/MaterialRuleContext pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
 accessible field net/minecraft/client/data/models/BlockModelGenerators ROTATION_HORIZONTAL_FACING_ALT Lnet/minecraft/client/data/models/blockstates/PropertyDispatch;
 accessible field net/minecraft/world/entity/projectile/FishingHook nibble I
@@ -26,6 +25,5 @@ accessible method net/minecraft/world/level/storage/loot/providers/number/Number
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier
 extendable class net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier
-accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
 accessible class net/minecraft/util/datafix/fixes/EntitySpawnerItemVariantComponentFix$Fixer
 accessible class net/minecraft/world/item/CreativeModeTab$Output

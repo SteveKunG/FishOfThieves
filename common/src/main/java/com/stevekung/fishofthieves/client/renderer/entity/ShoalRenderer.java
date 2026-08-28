@@ -73,7 +73,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
 
             v /= 2F;
             poseStack.translate(v, v, v);
-            poseStack.mulPose(new Quaternionf().rotateAxis(-rad, 0, yRotate, zRotate));
+            poseStack.rotate(new Quaternionf().rotateAxis(-rad, 0, yRotate, zRotate));
             poseStack.translate(-v, -v, -v);
             v *= 2F;
 

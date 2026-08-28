@@ -12,7 +12,6 @@ import com.stevekung.fishofthieves.utils.TerrainUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.entity.Entity;
@@ -46,7 +45,7 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
         for (var structureHolder : structureRangeCondition.structures().stream().toList())
         {
             var structure = structureHolder.value();
-            var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos, structure).isValid();
+            var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos.getX(), blockPos.getY(), blockPos.getZ(), structure).isValid();
 
             // If it has no source entity, just check if position is inside the structure
             if (entity == null)
@@ -84,7 +83,7 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
 
                     if (structure1 != null)
                     {
-                        for (var structureStart : level.structureManager().startsForStructure(SectionPos.of(chunkPos1, 0), structure1))
+                        for (var structureStart : level.structureManager().startsForStructure(chunkPos1.x(), chunkPos1.z(), structure1))
                         {
                             var structureDist = structureStart.getPieces().stream().map(structurePiece -> structurePiece.getBoundingBox().getCenter().distManhattan(entityPos)).findAny().orElse(Integer.MAX_VALUE);
 

@@ -7,17 +7,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.material.MaterialRuleContext;
+import net.minecraft.world.level.levelgen.material.condition.ConditionEvaluator;
+import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 
-public class BlockStateConditionSource extends SurfaceRules implements SurfaceRules.ConditionSource
+public record BlockStateConditionSource(BlockState blockState, int offset) implements MaterialCondition
 {
-    public static final MapCodec<BlockStateConditionSource> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            BlockState.CODEC.fieldOf("block_state").forGetter(BlockStateConditionSource::blockState),
-            Codec.INT.fieldOf("offset").forGetter(BlockStateConditionSource::offset)
-    ).apply(instance, BlockStateConditionSource::new));
-
-    private final BlockState blockState;
-    private final int offset;
+    public static final MapCodec<BlockStateConditionSource> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(BlockState.CODEC.fieldOf("block_state").forGetter(BlockStateConditionSource::blockState), Codec.INT.fieldOf("offset").forGetter(BlockStateConditionSource::offset)).apply(instance, BlockStateConditionSource::new));
 
     public BlockStateConditionSource(BlockState blockState, int offset)
     {
@@ -26,25 +22,15 @@ public class BlockStateConditionSource extends SurfaceRules implements SurfaceRu
         Objects.requireNonNull(this.blockState);
     }
 
-    public BlockState blockState()
-    {
-        return this.blockState;
-    }
-
-    public int offset()
-    {
-        return this.offset;
-    }
-
     @Override
-    public MapCodec<? extends ConditionSource> codec()
+    public MapCodec<? extends MaterialCondition> codec()
     {
         return BlockStateConditionSource.CODEC;
     }
 
     @Override
-    public Condition apply(Context context)
+    public ConditionEvaluator compile(MaterialRuleContext context)
     {
-        return () -> context.chunk.getBlockState(context.pos.offset(0, this.offset, 0)).is(this.blockState.getBlock());
+        return () -> context.getChunkAccess().getBlockState(context.pos.offset(0, this.offset, 0)).is(this.blockState.getBlock());
     }
 }

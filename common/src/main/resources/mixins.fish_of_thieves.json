@@ -27,6 +27,7 @@
   ],
   "mixins": [
     "accessor.PointedDripstoneBlockAccessor",
+    "accessor.RandomStateAccessor",
     "accessor.SpeleothemBlockAccessor",
     "animal.MixinAbstractFish",
     "animal.MixinAxolotl",
@@ -62,6 +63,8 @@
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour",
     "level.block.state.MixinWoodType",
+    "level.levelgen.MixinMaterialRuleContext",
+    "level.levelgen.MixinMaterialSystem",
     "loot.MixinUniformContainerBase_Builder",
     "trading.MixinAbstractVillager",
     "trading.MixinMerchantOffer",

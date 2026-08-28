@@ -85,20 +85,20 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
             poseStack.translate(-vec3Translate.x(), -vec3Translate.y(), -vec3Translate.z());
 
             // Rotate by rotation state
-            poseStack.mulPose(Axis.YP.rotationDegrees(yDegree));
+            poseStack.rotate(Axis.YP.rotationDegrees(yDegree));
 
             // Adjust rendered entity position a little bit
             poseStack.translate(0, -0.02f, 0);
 
             if (isHorizontal)
             {
-                poseStack.mulPose(Axis.XP.rotationDegrees(rotation * 360.0F / 8.0F));
+                poseStack.rotate(Axis.XP.rotationDegrees(rotation * 360.0F / 8.0F));
                 poseStack.translate(0, -0.10f, 0);
             }
             else
             {
-                poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
-                poseStack.mulPose(Axis.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
+                poseStack.rotate(Axis.ZP.rotationDegrees(90.0F));
+                poseStack.rotate(Axis.YP.rotationDegrees(-rotation * 360.0F / 8.0F));
             }
 
             poseStack.scale(scale, scale, scale);

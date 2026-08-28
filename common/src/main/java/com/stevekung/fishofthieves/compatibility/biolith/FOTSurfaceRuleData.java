@@ -10,46 +10,48 @@ import net.minecraft.data.worldgen.material.VanillaMaterialConditions;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.material.MaterialRules;
+import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 
 public class FOTSurfaceRuleData
 {
-    private static final SurfaceRules.RuleSource SAND = makeStateRule(Blocks.SAND);
-    private static final SurfaceRules.RuleSource SANDSTONE = makeStateRule(Blocks.SANDSTONE);
+    private static final MaterialRule SAND = makeStateRule(Blocks.SAND);
+    private static final MaterialRule SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
-    public static SurfaceRules.RuleSource overworld(HolderGetter<SurfaceRules.ConditionSource> conditionSource, HolderGetter<Biome> biomes)
+    public static MaterialRule overworld(HolderGetter<MaterialCondition> conditionSource, HolderGetter<Biome> biomes)
     {
-        return SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), makeRules(conditionSource, biomes)));
+        return MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.abovePreliminarySurface(), makeRules(conditionSource, biomes)));
     }
 
-    private static SurfaceRules.RuleSource makeRules(HolderGetter<SurfaceRules.ConditionSource> conditionSource, HolderGetter<Biome> biomes)
+    private static MaterialRule makeRules(HolderGetter<MaterialCondition> conditionSource, HolderGetter<Biome> biomes)
     {
-        var waterAboveCheck = SurfaceRules.waterBlockCheck(1, 0);
-        var y62 = SurfaceRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
+        var waterAboveCheck = MaterialRules.waterBlockCheck(1, 0);
+        var y62 = MaterialRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
         var airAboveCheck = blockStateCheck(Blocks.AIR, 1);
-        var sixBelowWater = SurfaceRules.waterStartCheck(-6, -1);
-        var sandWithSandstone = SurfaceRules.sequence(SurfaceRules.ifTrue(conditionSource.getOrThrow(VanillaMaterialConditions.ON_CEILING).value(), SANDSTONE), SAND);
+        var sixBelowWater = MaterialRules.waterStartCheck(-6, -1);
+        var sandWithSandstone = MaterialRules.sequence(MaterialRules.ifTrue(conditionSource.getOrThrow(VanillaMaterialConditions.ON_CEILING).value(), SANDSTONE), SAND);
 
-        var surfaceBelow64 = SurfaceRules.not(
-                SurfaceRules.yStartCheck(
+        var surfaceBelow64 = MaterialRules.not(
+                MaterialRules.yStartCheck(
                         VerticalAnchor.absolute(64), 0));
 
-        return SurfaceRules.sequence(
+        return MaterialRules.sequence(
 
-                SurfaceRules.ifTrue(
+                MaterialRules.ifTrue(
                         sixBelowWater,
-                        SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(
+                        MaterialRules.sequence(
+                                MaterialRules.ifTrue(
                                         conditionSource.getOrThrow(VanillaMaterialConditions.UNDER_FLOOR).value(),
-                                        SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
-                                                        SurfaceRules.sequence(
-                                                                SurfaceRules.ifTrue(surfaceBelow64,
-                                                                        SurfaceRules.sequence(
-                                                                                SurfaceRules.ifTrue(SurfaceRules.not(waterAboveCheck), sandWithSandstone),
+                                        MaterialRules.sequence(
+                                                MaterialRules.ifTrue(MaterialRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
+                                                        MaterialRules.sequence(
+                                                                MaterialRules.ifTrue(surfaceBelow64,
+                                                                        MaterialRules.sequence(
+                                                                                MaterialRules.ifTrue(MaterialRules.not(waterAboveCheck), sandWithSandstone),
 
-                                                                                SurfaceRules.ifTrue(y62, SurfaceRules.ifTrue(waterSurrounded(), sandWithSandstone))
+                                                                                MaterialRules.ifTrue(y62, MaterialRules.ifTrue(waterSurrounded(), sandWithSandstone))
                                                                         ))
                                                         )
                                                 )
@@ -57,16 +59,16 @@ public class FOTSurfaceRuleData
                         )
                 ),
 
-                SurfaceRules.ifTrue(
+                MaterialRules.ifTrue(
                         conditionSource.getOrThrow(VanillaMaterialConditions.ON_FLOOR).value(),
-                        SurfaceRules.sequence(
-                                SurfaceRules.ifTrue(SurfaceRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
-                                        SurfaceRules.ifTrue(airAboveCheck, SurfaceRules.sequence(
-                                                SurfaceRules.ifTrue(
-                                                        SurfaceRules.noiseCondition2d(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
+                        MaterialRules.sequence(
+                                MaterialRules.ifTrue(MaterialRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
+                                        MaterialRules.ifTrue(airAboveCheck, MaterialRules.sequence(
+                                                MaterialRules.ifTrue(
+                                                        MaterialRules.noiseCondition2d(FOTNoises.SAND_PATCHES, -0.6, -0.45), SAND),
 
-                                                SurfaceRules.ifTrue(
-                                                        SurfaceRules.noiseCondition2d(FOTNoises.SAND_PATCHES, 0.1, 0.2), SAND)
+                                                MaterialRules.ifTrue(
+                                                        MaterialRules.noiseCondition2d(FOTNoises.SAND_PATCHES, 0.1, 0.2), SAND)
                                         )))
                         )
                 )
@@ -74,18 +76,18 @@ public class FOTSurfaceRuleData
         );
     }
 
-    private static SurfaceRules.ConditionSource waterSurrounded()
+    private static MaterialCondition waterSurrounded()
     {
         return new WaterSurroundedConditionSource();
     }
 
-    private static SurfaceRules.ConditionSource blockStateCheck(Block block, int offset)
+    private static MaterialCondition blockStateCheck(Block block, int offset)
     {
         return new BlockStateConditionSource(block.defaultBlockState(), offset);
     }
 
-    private static SurfaceRules.RuleSource makeStateRule(Block block)
+    private static MaterialRule makeStateRule(Block block)
     {
-        return SurfaceRules.state(block.defaultBlockState());
+        return MaterialRules.state(block.defaultBlockState());
     }
 }

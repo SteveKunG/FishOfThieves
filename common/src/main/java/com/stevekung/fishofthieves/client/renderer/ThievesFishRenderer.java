@@ -66,12 +66,12 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
         var inWater = renderState.isInWater || renderState.isNoFlip;
         var rotationRenderData = this.setupRotations(renderState, inWater);
         var degree = rotationRenderData.baseDegree * Mth.sin(rotationRenderData.bodyRotBase * rotationRenderData.bodyRotSpeed * renderState.ageInTicks);
-        poseStack.mulPose(Axis.YP.rotationDegrees(degree));
+        poseStack.rotate(Axis.YP.rotationDegrees(degree));
 
         if (!inWater)
         {
             rotationRenderData.translateConsumer.accept(poseStack);
-            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0f));
+            poseStack.rotate(Axis.ZP.rotationDegrees(90.0f));
         }
         this.doFishPitchYaw(renderState, poseStack);
     }
@@ -93,7 +93,7 @@ public abstract class ThievesFishRenderer<V extends AbstractFishVariant, S exten
     {
         if (!renderState.hasImpulse)
         {
-            poseStack.mulPose(Axis.XP.rotation(renderState.xRot * ((float) Math.PI / -180F)));
+            poseStack.rotate(Axis.XP.rotation(renderState.xRot * ((float) Math.PI / -180F)));
         }
     }
 

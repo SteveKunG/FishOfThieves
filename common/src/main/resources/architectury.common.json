@@ -26,6 +26,9 @@
     ],
     "net/minecraft/world/entity/variant/SpawnContext": [
       "com/stevekung/fishofthieves/entity/condition/SpawnContextExtender"
+    ],
+    "net/minecraft/world/level/levelgen/material/MaterialRuleContext": [
+      "com/stevekung/fishofthieves/levelgen/MaterialRuleContextExtender"
     ]
   }
 }
