@@ -17,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -28,6 +29,12 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class ShoalSpawner
 {
+    public static final int TIER_1_MIN_EMERALD_COST = 12;
+    private static final int TIER_1_MAX_EMERALD_COST = 32;
+    private static final int TIER_2_MIN_EMERALD_COST = 16;
+    private static final int TIER_2_MAX_EMERALD_COST = 48;
+    private static final double MAX_SEARCH_DISTANCE = 100.0D;
+
     private ShoalSpawner() {}
 
     @Nullable
@@ -39,6 +46,20 @@ public final class ShoalSpawner
     public static Optional<BlockPos> findFarthest(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
     {
         return getInRange(typePredicate, pos, minimumDistance, maximumDistance, poiManager).map(PoiRecord::getPos).min(Comparator.comparingDouble(blockPos2 -> blockPos2.distSqr(pos)));
+    }
+
+    /**
+     * Calculates a dynamic emerald cost based on distance between trader and shoal.
+     * Closer shoals are more expensive, farther shoals are cheaper.
+     */
+    public static int calculateEmeraldCost(int tier, double distance)
+    {
+        var minEmeraldCost = tier == 2 ? TIER_2_MIN_EMERALD_COST : TIER_1_MIN_EMERALD_COST;
+        var maxEmeraldCost = tier == 2 ? TIER_2_MAX_EMERALD_COST : TIER_1_MAX_EMERALD_COST;
+        var clampedDistance = Mth.clamp(distance, 0.0D, MAX_SEARCH_DISTANCE);
+        var ratio = clampedDistance / MAX_SEARCH_DISTANCE;
+        var cost = maxEmeraldCost - (int) Math.round(ratio * (maxEmeraldCost - minEmeraldCost));
+        return Mth.clamp(cost, minEmeraldCost, maxEmeraldCost);
     }
 
     private static Stream<PoiRecord> getInRange(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
