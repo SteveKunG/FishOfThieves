@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.entity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
@@ -193,7 +194,8 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     public void addThievesFishFollowers(Stream<AbstractFlockFish> followers)
     {
-        var list = followers.limit((long) this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).toList();
+        // Do not change to toList() because we're adding flock followers below
+        var list = followers.limit((long) this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
         var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
 
         list.forEach(fish ->
