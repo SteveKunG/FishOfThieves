@@ -121,7 +121,8 @@
       "components": {
         "fishofthieves:stormfish/variant": "fishofthieves:starshine",
         "minecraft:bucket_entity_data": {
-          "creative": 1
+          "creative": 1,
+          "stormfish_variant": "fishofthieves:ancient"
         }
       },
       "count": 1,
