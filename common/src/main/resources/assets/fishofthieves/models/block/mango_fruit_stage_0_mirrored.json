@@ -24,7 +24,7 @@
 		{
 			"from": [8, 10, -2],
 			"to": [8, 14, 2],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, -1]},
 			"faces": {
 				"east": {"uv": [6, 0, 10, 4], "texture": "#stem", "tintindex": 0},

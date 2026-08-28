@@ -24,7 +24,7 @@
 		{
 			"from": [8, 12, 6],
 			"to": [8, 16, 10],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": -45, "axis": "y", "origin": [8, 12, 8]},
 			"faces": {
 				"east": {"uv": [0, 0, 4, 4], "texture": "#stem", "tintindex": 0},
@@ -34,7 +34,7 @@
 		{
 			"from": [6, 12, 8],
 			"to": [10, 16, 8],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": -45, "axis": "y", "origin": [8, 12, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 4, 4], "texture": "#stem", "tintindex": 0},

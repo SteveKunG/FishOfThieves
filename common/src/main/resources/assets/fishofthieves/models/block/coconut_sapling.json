@@ -24,7 +24,7 @@
 			"from": [0, 5, 8],
 			"to": [16, 21, 8],
 			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
-            "shade": false,
+            "shade_direction_override": "up",
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#sapling"}
@@ -34,7 +34,7 @@
 			"from": [8, 5, 0],
 			"to": [8, 21, 16],
 			"rotation": {"angle": 45, "axis": "y", "origin": [8, 5, 8]},
-            "shade": false,
+            "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [0, 0, 16, 16], "texture": "#sapling"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#sapling"}

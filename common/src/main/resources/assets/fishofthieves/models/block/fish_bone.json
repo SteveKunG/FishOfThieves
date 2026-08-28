@@ -58,7 +58,7 @@
 		{
 			"from": [4, 0.1, 8.75],
 			"to": [9, 3.1, 8.75],
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"north": {"uv": [4, 1.5, 6.5, 3], "texture": "#fish_bone"},
 				"south": {"uv": [4, 1.5, 6.5, 3], "texture": "#fish_bone"}
@@ -67,7 +67,7 @@
 		{
 			"from": [4, 0.1, 6],
 			"to": [9, 0.1, 9],
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [9, 3, 6.5, 1.5], "texture": "#fish_bone"},
 				"down": {"uv": [9, 1.5, 6.5, 3], "texture": "#fish_bone"}
@@ -76,7 +76,7 @@
 		{
 			"from": [4, 3.1, 5.75],
 			"to": [9, 3.1, 8.75],
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [9, 3, 6.5, 1.5], "texture": "#fish_bone"},
 				"down": {"uv": [9, 1.5, 6.5, 3], "texture": "#fish_bone"}
@@ -85,7 +85,7 @@
 		{
 			"from": [4, 1.6, 9.75],
 			"to": [11, 1.6, 12.75],
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"up": {"uv": [7.5, 4.5, 4, 3], "texture": "#fish_bone"},
 				"down": {"uv": [7.5, 3, 4, 4.5], "texture": "#fish_bone"}
@@ -94,7 +94,7 @@
 		{
 			"from": [0.25, 1.6, 6.25],
 			"to": [3.25, 1.6, 11.25],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": -22.5, "axis": "y", "origin": [2, 0, 9.5]},
 			"faces": {
 				"up": {"uv": [9, 5.5, 7.5, 3], "texture": "#fish_bone"},

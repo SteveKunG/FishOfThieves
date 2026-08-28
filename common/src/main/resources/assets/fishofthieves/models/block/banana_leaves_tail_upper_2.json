@@ -10,7 +10,7 @@
 		{
 			"from": [0, 5.1117, -2.37017],
 			"to": [16, 5.1117, 13.62983],
-			"shade": false,
+			"shade_direction_override": "up",
 			"rotation": {"angle": 45, "axis": "x", "origin": [0, 5.1117, -2.37017]},
 			"faces": {
 				"up": {"uv": [16, 16, 0, 0], "texture": "#leaves"},
