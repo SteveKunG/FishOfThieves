@@ -17,12 +17,9 @@ public abstract class MixinMediumRotatedPillarBlock implements IBlockExtension
     @Override
     public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate)
     {
-        if (itemAbility == ItemAbilities.AXE_STRIP)
+        if (itemAbility == ItemAbilities.AXE_STRIP && AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
         {
-            if (AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.containsKey(state.getBlock()))
-            {
-                return AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.get(state.getBlock()).withPropertiesOf(state);
-            }
+            return AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES.get(state.getBlock()).withPropertiesOf(state);
         }
         return null;
     }

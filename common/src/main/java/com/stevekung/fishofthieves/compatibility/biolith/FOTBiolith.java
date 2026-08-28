@@ -2,6 +2,8 @@ package com.stevekung.fishofthieves.compatibility.biolith;
 
 public class FOTBiolith
 {
+    private FOTBiolith() {}
+
     public static void init()
     {
 //        BiomePlacement.addSubOverworld(Biomes.MUSHROOM_FIELDS, FOTBiomes.TROPICAL_ISLAND, new AllOfCriterion(List.of(

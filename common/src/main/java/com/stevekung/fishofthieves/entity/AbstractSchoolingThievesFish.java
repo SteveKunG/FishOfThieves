@@ -105,7 +105,7 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     private final ResourceKey<T> resourceKey;
     private final DataComponentType<Holder<T>> dataComponentType;
 
-    public AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
+    protected AbstractSchoolingThievesFish(EntityType<? extends AbstractSchoolingFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
     {
         super(entityType, level);
         this.refreshDimensions();
@@ -188,12 +188,9 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     public void remove(Entity.RemovalReason reason)
     {
-        if (!this.level().isClientSide() && this.isDeadOrDying())
+        if (!this.level().isClientSide() && this.isDeadOrDying() && this.isFollower())
         {
-            if (this.isFollower())
-            {
-                this.getLeader().removeFollower();
-            }
+            this.getLeader().removeFollower();
         }
         super.remove(reason);
     }
@@ -246,7 +243,8 @@ public abstract class AbstractSchoolingThievesFish<T extends AbstractFishVariant
     @Override
     public void addThievesFishFollowers(Stream<AbstractFlockFish> followers)
     {
-        var list = followers.limit(this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
+        // Do not change to toList() because we're adding flock followers below
+        var list = followers.limit((long) this.getMaxSchoolSize() - this.getSchoolSize()).filter(fish -> fish != this).collect(Collectors.toList());
         var hasFlockFollowerMem = this.getBrain().hasMemoryValue(FOTMemoryModuleTypes.FLOCK_FOLLOWERS);
 
         list.forEach(fish ->

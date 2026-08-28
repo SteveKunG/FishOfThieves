@@ -12,6 +12,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CoconutFruitGrowableLogBlock extends SmallRotatedPillarBlock implements BonemealableBlock
@@ -56,6 +57,6 @@ public class CoconutFruitGrowableLogBlock extends SmallRotatedPillarBlock implem
 
     private void growCoconuts(ServerLevel level, RandomSource random, BlockPos pos)
     {
-        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(CoconutFruitBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
+        Direction.Plane.HORIZONTAL.shuffledCopy(random).stream().filter(direction -> level.getBlockState(pos.relative(direction)).isAir()).findFirst().ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.COCONUT_FRUIT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }

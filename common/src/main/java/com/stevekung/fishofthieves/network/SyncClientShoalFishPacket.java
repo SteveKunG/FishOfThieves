@@ -18,7 +18,7 @@ public record SyncClientShoalFishPacket(int entityId, List<ShoalFishData> shoalF
     public static final StreamCodec<ByteBuf, SyncClientShoalFishPacket> CODEC = StreamCodec.composite(
             ByteBufCodecs.INT,
             SyncClientShoalFishPacket::entityId,
-            ShoalFishData.STREAM_CODEC.apply(ByteBufCodecs.collection(ArrayList::new)),
+            ShoalFishData.STREAM_CODEC.apply(ByteBufCodecs.collection(ArrayList::new, ShoalFishData.MAX_SHOAL_FISH)),
             SyncClientShoalFishPacket::shoalFishData,
             ByteBufCodecs.BOOL,
             SyncClientShoalFishPacket::forcedUpdate,

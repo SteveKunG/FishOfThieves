@@ -20,6 +20,8 @@ public class FOTSurfaceRuleData
     private static final MaterialRule SAND = makeStateRule(Blocks.SAND);
     private static final MaterialRule SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
+    private FOTSurfaceRuleData() {}
+
     public static MaterialRule overworld(HolderGetter<MaterialCondition> conditionSource, HolderGetter<Biome> biomes)
     {
         return MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.abovePreliminarySurface(), makeRules(conditionSource, biomes)));

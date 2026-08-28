@@ -93,7 +93,7 @@ public class FOTMobBucketItem<T extends AbstractFishVariant> extends MobBucketIt
                 return;
             }
 
-            var fishVariantComponent = (Holder<? extends AbstractFishVariant>) itemStack.get(this.dataComponentType);
+            var fishVariantComponent = itemStack.get(this.dataComponentType);
 
             if (context.registries() != null && fishVariantComponent.unwrapKey().isPresent())
             {

@@ -42,14 +42,14 @@ public class MixinEntitySpawnerItemVariantComponentFix
 
         if (component != null)
         {
-            info.setReturnValue(typed.updateTyped(opticFinder2, typed1 -> new EntitySpawnerItemVariantComponentFix.Fixer()
+            info.setReturnValue(typed.updateTyped(opticFinder2, new EntitySpawnerItemVariantComponentFix.Fixer()
             {
                 @Override
                 public <T> Dynamic<T> fixRemainder(Dynamic<T> dynamic, Dynamic<T> dynamic2)
                 {
                     return fixThievesFishBucket(component, dynamic, dynamic2);
                 }
-            }.apply(typed1)));
+            }));
         }
     }
 

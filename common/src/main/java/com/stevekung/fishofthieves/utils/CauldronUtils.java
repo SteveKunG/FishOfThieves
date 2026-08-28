@@ -26,6 +26,8 @@ public class CauldronUtils
 {
     private static final Predicate<BlockState> IS_CAULDRON = blockState -> blockState.getBlock() instanceof AbstractCauldronBlock;
 
+    private CauldronUtils() {}
+
     public static void fillCauldronFromLeavesTail(BlockState state, ServerLevel level, BlockPos pos)
     {
         var optional = CauldronUtils.findFillableCauldronBelowLeavesTail(level, pos);

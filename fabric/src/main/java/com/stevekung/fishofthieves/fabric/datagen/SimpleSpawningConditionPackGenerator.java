@@ -35,8 +35,8 @@ public class SimpleSpawningConditionPackGenerator implements DataGeneratorEntryp
                 .add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrapSimple)
         ).thenApply(RegistrySetBuilder.PatchedRegistries::full);
 
-        pack.addProvider((output, provider) -> new DynamicRegistryProvider(output, extraProvider));
-        pack.addProvider((output, provider) -> PackMetadataGenerator.forFeaturePack(output, Component.translatable("dataPack.simple_spawning_condition_pack.description")));
+        pack.addProvider((output, _) -> new DynamicRegistryProvider(output, extraProvider));
+        pack.addProvider((output, _) -> PackMetadataGenerator.forFeaturePack(output, Component.translatable("dataPack.simple_spawning_condition_pack.description")));
     }
 
     private static class DynamicRegistryProvider extends FabricDynamicRegistryProvider

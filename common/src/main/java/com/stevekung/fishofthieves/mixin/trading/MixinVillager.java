@@ -10,6 +10,8 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.item.trade.RestockableVillager;
 import com.stevekung.fishofthieves.item.trade.TreasuredFishMapRestock;
+import com.stevekung.fishofthieves.registry.FOTDataComponentTypes;
+import com.stevekung.fishofthieves.shoal.ShoalSpawner;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +48,7 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
             var offer = this.getOffers().get(index);
             var finalIndex = index;
             var optional = data.stream().filter(restockableData -> restockableData.index() == finalIndex).findFirst();
+            var posString = this.blockPosition().toShortString();
 
             if (optional.isPresent())
             {
@@ -81,14 +84,15 @@ public abstract class MixinVillager extends AbstractVillager implements Restocka
 
                                 if (treasuredFishMapOffer != null)
                                 {
-                                    treasuredFishOffer.fishofthieves$setResult(treasuredFishMapOffer.getResult());
-                                    //TODO Set price based on distance
-                                    FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, this.blockPosition().toShortString());
+                                    var result = treasuredFishMapOffer.getResult();
+                                    treasuredFishOffer.fishofthieves$setResult(result);
+                                    offer.getBaseCostA().setCount(result.getOrDefault(FOTDataComponentTypes.TREASURED_FISH_MAP_COST, ShoalSpawner.TIER_1_MIN_EMERALD_COST));
+                                    FishOfThieves.LOGGER.debug("Villager {} has restocked at {}", this, posString);
                                 }
                                 else
                                 {
                                     // Do not reset uses until new treasured fish location is available
-                                    FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, this.blockPosition().toShortString());
+                                    FishOfThieves.LOGGER.debug("Villager {} at {} cannot restock due to no suitable locations for shoal", this, posString);
                                     treasuredMapOfferIndexRef.set(index);
                                 }
                             }

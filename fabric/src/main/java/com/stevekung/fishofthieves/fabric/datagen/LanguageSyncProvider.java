@@ -15,7 +15,8 @@ import net.minecraft.data.DataProvider;
 
 public class LanguageSyncProvider implements DataProvider
 {
-    private static final Pattern ENTRY_PATTERN = Pattern.compile("\"(.*?)\"\\s*:\\s*\"(.*?)\"\\s*,?");
+    private static final Pattern ENTRY_PATTERN = Pattern.compile("\"([^\"]*)\"\\s*:\\s*\"([^\"]*)\"\\s*,?");
+    private static final String KEY_VALUE_FORMAT = "\n  \"%s\": \"%s\"";
     private final CompletableFuture<HolderLookup.Provider> provider;
 
     public LanguageSyncProvider(CompletableFuture<HolderLookup.Provider> provider)
@@ -26,7 +27,7 @@ public class LanguageSyncProvider implements DataProvider
     @Override
     public CompletableFuture<?> run(CachedOutput output)
     {
-        return this.provider.thenCompose(provider -> CompletableFuture.runAsync(() ->
+        return this.provider.thenCompose(ignored -> CompletableFuture.runAsync(() ->
         {
             var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
             var mainTranslationJson = basePath.resolve("common/src/main/resources/assets/fishofthieves/lang/en_us.json");
@@ -64,89 +65,85 @@ public class LanguageSyncProvider implements DataProvider
                     }
                 }
 
-                Files.list(otherTranslations).filter(path -> path.toString().endsWith(".json") && !path.toString().equals("en_us.json")).forEach(path ->
+                try (var files = Files.list(otherTranslations))
                 {
-                    try
+                    files.filter(path -> path.toString().endsWith(".json") && !path.toString().equals("en_us.json")).forEach(path ->
                     {
-                        var translationJson = Files.readString(path);
-                        var translationLines = translationJson.split("\\R");
-                        var orderedTranslationJson = new LinkedHashMap<String, String>();
-
-                        for (var line : translationLines)
+                        try
                         {
-                            if (line.trim().isEmpty() || !line.contains(":"))
+                            var translationJson = Files.readString(path);
+                            var translationLines = translationJson.split("\\R");
+                            var orderedTranslationJson = new LinkedHashMap<String, String>();
+
+                            for (var line : translationLines)
                             {
-                                continue;
+                                if (line.trim().isEmpty() || !line.contains(":"))
+                                {
+                                    continue;
+                                }
+
+                                var matcher = ENTRY_PATTERN.matcher(line);
+
+                                if (matcher.find())
+                                {
+                                    var key = matcher.group(1);
+                                    var value = matcher.group(2);
+                                    orderedTranslationJson.put(key, value);
+                                }
                             }
 
-                            var matcher = ENTRY_PATTERN.matcher(line);
+                            var modified = false;
+                            var updatedJson = new StringBuilder();
+                            updatedJson.append("{");
 
-                            if (matcher.find())
+                            var entrySet = orderedMainJson.entrySet();
+                            var iterator = entrySet.iterator();
+
+                            while (iterator.hasNext())
                             {
-                                var key = matcher.group(1);
-                                var value = matcher.group(2);
-                                orderedTranslationJson.put(key, value);
+                                var entry = iterator.next();
+                                var key = entry.getKey();
+                                var value = entry.getValue();
+
+                                if (lineBreaks.get(key))
+                                {
+                                    updatedJson.append("\n");
+                                }
+
+                                if (orderedTranslationJson.containsKey(key))
+                                {
+                                    updatedJson.append(String.format(KEY_VALUE_FORMAT, key, orderedTranslationJson.get(key)));
+                                }
+                                else
+                                {
+                                    updatedJson.append(String.format(KEY_VALUE_FORMAT, key, value));
+                                    modified = true;
+                                }
+
+                                if (iterator.hasNext())
+                                {
+                                    updatedJson.append(",");
+                                }
+                            }
+
+                            updatedJson.append("\n}");
+
+                            if (modified)
+                            {
+                                Files.writeString(path, updatedJson.toString());
+                                FishOfThieves.LOGGER.info("Updated: {}", path.getFileName());
                             }
                         }
-
-                        var modified = false;
-                        var updatedJson = new StringBuilder();
-                        updatedJson.append("{");
-
-                        var entrySet = orderedMainJson.entrySet();
-                        var iterator = entrySet.iterator();
-
-                        while (iterator.hasNext())
+                        catch (IOException e)
                         {
-                            var entry = iterator.next();
-                            var key = entry.getKey();
-                            var value = entry.getValue();
-                            var isComment = key.startsWith("_comment");
-
-                            if (lineBreaks.get(key))
-                            {
-                                updatedJson.append("\n");
-                            }
-
-                            // Always update _commentN keys
-                            if (isComment)
-                            {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
-                                modified = true;
-                            }
-                            else if (orderedTranslationJson.containsKey(key))
-                            {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, orderedTranslationJson.get(key)));
-                            }
-                            else
-                            {
-                                updatedJson.append(String.format("\n  \"%s\": \"%s\"", key, value));
-                                modified = true;
-                            }
-
-                            if (iterator.hasNext())
-                            {
-                                updatedJson.append(",");
-                            }
+                            FishOfThieves.LOGGER.error("Failed to process: {}", path.getFileName(), e);
                         }
-
-                        updatedJson.append("\n}");
-
-                        if (modified)
-                        {
-                            Files.writeString(path, updatedJson.toString());
-                            FishOfThieves.LOGGER.info("Updated: {}", path.getFileName());
-                        }
-                    }
-                    catch (IOException e)
-                    {
-                        FishOfThieves.LOGGER.error("Failed to process: {}", path.getFileName());
-                    }
-                });
+                    });
+                }
             }
             catch (IOException e)
             {
-                FishOfThieves.LOGGER.error("Error loading main JSON file: {}", e.getMessage());
+                FishOfThieves.LOGGER.error("Error loading main JSON file", e);
             }
         }));
     }

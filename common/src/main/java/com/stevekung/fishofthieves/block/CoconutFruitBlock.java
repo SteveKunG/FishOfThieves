@@ -66,12 +66,9 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     {
         int age = state.getValue(AGE);
 
-        if (age < 2)
+        if (age < 2 && random.nextInt(5) == 0)
         {
-            if (random.nextInt(5) == 0)
-            {
-                level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
-            }
+            level.setBlock(pos, state.setValue(AGE, age + 1), Block.UPDATE_CLIENTS);
         }
     }
 
@@ -112,13 +109,13 @@ public class CoconutFruitBlock extends HorizontalDirectionalBlock implements Bon
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        int i = state.getValue(AGE);
+        int age = state.getValue(AGE);
         return switch (state.getValue(FACING))
         {
-            case SOUTH -> SOUTH_AABB[i];
-            case WEST -> WEST_AABB[i];
-            case EAST -> EAST_AABB[i];
-            default -> NORTH_AABB[i];
+            case SOUTH -> SOUTH_AABB[age];
+            case WEST -> WEST_AABB[age];
+            case EAST -> EAST_AABB[age];
+            default -> NORTH_AABB[age];
         };
     }
 

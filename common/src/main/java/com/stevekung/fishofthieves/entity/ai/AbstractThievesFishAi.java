@@ -35,6 +35,8 @@ public class AbstractThievesFishAi
 {
     public static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(1200, 2000);
 
+    private AbstractThievesFishAi() {}
+
     public static List<ActivityData<AbstractThievesFish<?>>> getActivities()
     {
         return List.of(initCoreActivity(), initIdleActivity(), initRetreatActivity());
@@ -163,9 +165,9 @@ public class AbstractThievesFishAi
         }
         else
         {
-            var livingEntity = brain.getMemory(MemoryModuleType.AVOID_TARGET).get();
+            var avoidTarget = brain.getMemory(MemoryModuleType.AVOID_TARGET);
 
-            if (livingEntity instanceof Player player)
+            if (avoidTarget.isPresent() && avoidTarget.get() instanceof Player player)
             {
                 return !brain.isMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER, player);
             }
@@ -182,7 +184,13 @@ public class AbstractThievesFishAi
 
         if (brain.hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_PLAYER))
         {
-            var player = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER).get();
+            var optionalPlayer = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_PLAYER);
+
+            if (optionalPlayer.isEmpty())
+            {
+                return false;
+            }
+            var player = optionalPlayer.get();
             return !player.isCrouching() && !player.hasEffect(FOTMobEffects.GUARDIAN_STIFLE) && fish.closerThan(player, 6.0);
         }
         else

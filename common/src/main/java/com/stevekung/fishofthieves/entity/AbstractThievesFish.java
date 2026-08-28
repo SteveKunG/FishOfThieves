@@ -87,7 +87,7 @@ public abstract class AbstractThievesFish<T extends AbstractFishVariant> extends
     private final ResourceKey<T> resourceKey;
     private final DataComponentType<Holder<T>> dataComponentType;
 
-    public AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
+    protected AbstractThievesFish(EntityType<? extends AbstractFish> entityType, Level level, ResourceKey<? extends Registry<T>> registryKey, ResourceKey<T> resourceKey, DataComponentType<Holder<T>> dataComponentType)
     {
         super(entityType, level);
         this.refreshDimensions();

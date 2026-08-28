@@ -136,7 +136,7 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(block)
-                                .apply(List.of(2), integer -> SetItemCountFunction.setCount(ConstantValue.exactly((float) integer))
+                                .apply(List.of(2), integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
                                         .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.COUNT, integer))))
                                 .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(BananaLeavesBlock.PART, BananaLeavesBlock.Part.STEM)))))));
 

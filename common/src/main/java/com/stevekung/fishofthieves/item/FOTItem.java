@@ -116,16 +116,13 @@ public class FOTItem extends Item implements ResourceKeyHolder
 
     public static ItemStack generateRandomFishVariantLootItem(ItemStack itemStack, @Nullable Entity entity, ServerLevel level, @Nullable Vec3 vec3, RandomSource randomSource)
     {
-        if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getItem() instanceof ResourceKeyHolder keyHolder)
+        if (FishOfThieves.CONFIG.general.enableFishItemDropWithVariant && itemStack.getItem() instanceof ResourceKeyHolder keyHolder && vec3 != null)
         {
-            if (vec3 != null)
-            {
-                var blockPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
-                var context = new SpawnContext(blockPos, level, level.environmentAttributes(), level.getBiome(blockPos));
-                context.fishofthieves$setEntity(entity);
-                AbstractFishVariant.pick(level.registryAccess().lookupOrThrow(keyHolder.getResourceKey()).listElements(), Holder::value, randomSource, context)
-                        .ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(keyHolder.getResourceKey().identifier().getPath(), holder.key().identifier().toString())))));
-            }
+            var blockPos = BlockPos.containing(vec3.x, vec3.y, vec3.z);
+            var context = new SpawnContext(blockPos, level, level.environmentAttributes(), level.getBiome(blockPos));
+            context.fishofthieves$setEntity(entity);
+            AbstractFishVariant.pick(level.registryAccess().lookupOrThrow(keyHolder.getResourceKey()).listElements(), Holder::value, randomSource, context)
+                    .ifPresent(holder -> itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(Util.make(new CompoundTag(), compoundTag -> compoundTag.putString(keyHolder.getResourceKey().identifier().getPath(), holder.key().identifier().toString())))));
         }
         return itemStack;
     }

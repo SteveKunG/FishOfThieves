@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.*;
 import com.stevekung.fishofthieves.feature.FishBoneFeature;
 import com.stevekung.fishofthieves.feature.SimpleAgeBlockFeature;
+import com.stevekung.fishofthieves.feature.TropicalIslandBlockBlobFeature;
 import com.stevekung.fishofthieves.feature.foliageplacers.BananaLeavesPlacer;
 import com.stevekung.fishofthieves.feature.foliageplacers.CoconutFrondsPlacer;
 import com.stevekung.fishofthieves.feature.stateproviders.DirectionalRandomizedIntBooleanStateProvider;
@@ -160,7 +161,7 @@ public class FOTFeatures
                                 .add(FOTBlocks.TROPICAL_MONSTERA.defaultBlockState(), 4)
                                 .add(FOTBlocks.TROPICAL_RED_FERN.defaultBlockState(), 2)
                                 .add(FOTBlocks.VERTICAL_BANANA_LEAVES.defaultBlockState(), 1))));
-        context.register(TROPICAL_ISLAND_ROCK, new BlockBlobFeature(Blocks.STONE.defaultBlockState(), BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)));
+        context.register(TROPICAL_ISLAND_ROCK, new TropicalIslandBlockBlobFeature(Blocks.STONE.defaultBlockState(), BlockPredicate.matchesTag(BlockTags.FOREST_ROCK_CAN_PLACE_ON)));
 
         context.register(SPARSE_JUNGLE_FRUIT_TREES, new SimpleRandomSelectorFeature(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.MANGO_TREE_LEAF_LITTER_CHECKED),

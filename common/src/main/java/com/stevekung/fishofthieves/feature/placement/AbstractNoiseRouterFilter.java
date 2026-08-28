@@ -14,7 +14,7 @@ public abstract class AbstractNoiseRouterFilter implements PlacementFilter
 {
     protected final FloatProvider floatProvider;
 
-    public AbstractNoiseRouterFilter(FloatProvider floatProvider)
+    protected AbstractNoiseRouterFilter(FloatProvider floatProvider)
     {
         this.floatProvider = floatProvider;
     }

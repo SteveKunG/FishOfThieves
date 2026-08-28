@@ -13,6 +13,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -38,21 +39,12 @@ public class BananaStemBlock extends SmallRotatedPillarBlock implements Bonemeal
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context)
     {
-        switch (state.getValue(AXIS))
+        return switch (state.getValue(AXIS))
         {
-            case X ->
-            {
-                return SHAPE_HORIZONTAL_WE;
-            }
-            case Z ->
-            {
-                return SHAPE_HORIZONTAL_NS;
-            }
-            default ->
-            {
-                return SHAPE_VERTICAL;
-            }
-        }
+            case X -> SHAPE_HORIZONTAL_WE;
+            case Z -> SHAPE_HORIZONTAL_NS;
+            default -> SHAPE_VERTICAL;
+        };
     }
 
     @Override
@@ -86,6 +78,6 @@ public class BananaStemBlock extends SmallRotatedPillarBlock implements Bonemeal
     {
         Direction.Plane.HORIZONTAL.shuffledCopy(random).stream()
                 .filter(direction -> level.getBlockState(pos.relative(direction)).isAir() && FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().canSurvive(level, pos.relative(direction))).findFirst()
-                .ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(BananaShootsPlantBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
+                .ifPresent(direction -> level.setBlock(pos.relative(direction), FOTBlocks.BANANA_SHOOTS_PLANT.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction.getOpposite()), Block.UPDATE_CLIENTS));
     }
 }

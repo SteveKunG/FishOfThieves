@@ -55,14 +55,14 @@ public class BananaDecorator extends TreeDecorator
         {
             for (var direction : Direction.Plane.HORIZONTAL)
             {
-                if (!(randomSource.nextFloat() >= this.probability))
+                if (randomSource.nextFloat() < this.probability)
                 {
                     var opposite = direction.getOpposite();
                     var posAroundLog = blockPos.offset(opposite.getStepX(), 0, opposite.getStepZ());
 
                     if (context.isAir(posAroundLog) && level.isStateAtPosition(posAroundLog.above(), blockState -> blockState.is(FOTBlocks.BANANA_LEAVES)))
                     {
-                        BananaClusterGrowableStemBlock.growBananaBlossomOrCluster(opposite, level, (blockPos1, blockState, flags) -> context.setBlock(blockPos1, blockState), blockPosx -> level.isFluidAtPosition(blockPosx, fluidState -> fluidState.is(Fluids.WATER)), randomSource, posAroundLog);
+                        BananaClusterGrowableStemBlock.growBananaBlossomOrCluster(opposite, level, (blockPos1, blockState, _) -> context.setBlock(blockPos1, blockState), blockPosx -> level.isFluidAtPosition(blockPosx, fluidState -> fluidState.is(Fluids.WATER)), randomSource, posAroundLog);
                     }
                 }
             }

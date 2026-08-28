@@ -26,6 +26,7 @@
     "client.screen.MixinSignEditScreen"
   ],
   "mixins": [
+    "accessor.MaterialRuleContextAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "accessor.RandomStateAccessor",
     "accessor.SpeleothemBlockAccessor",

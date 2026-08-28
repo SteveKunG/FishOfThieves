@@ -38,14 +38,14 @@ public record TropicalIslandBlockBlobFeature(BlockState state, BlockPredicate ca
         {
             for (var i = 0; i < 5; i++)
             {
-                var j = 1 + random.nextInt(2);
-                var k = 1 + random.nextInt(2);
-                var l = 1 + random.nextInt(2);
-                var f = (float) (j + k + l) * 0.333F + 0.75F;
+                var xr = 1 + random.nextInt(2);
+                var yr = 1 + random.nextInt(2);
+                var zr = 1 + random.nextInt(2);
+                var tr = (xr + yr + zr) * 0.333F + 0.75F;
 
-                for (var blockPos2 : BlockPos.betweenClosed(origin.offset(-j, -k, -l), origin.offset(j, k, l)))
+                for (var blockPos2 : BlockPos.betweenClosed(origin.offset(-xr, -yr, -zr), origin.offset(xr, yr, zr)))
                 {
-                    if (blockPos2.distSqr(origin) <= (double) (f * f))
+                    if (blockPos2.distSqr(origin) <= tr * tr)
                     {
                         level.setBlock(blockPos2, this.state, Block.UPDATE_ALL);
                     }

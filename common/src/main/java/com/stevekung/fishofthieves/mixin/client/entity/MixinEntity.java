@@ -14,18 +14,18 @@ import net.minecraft.world.entity.Entity;
 public class MixinEntity implements FishPlaqueDisplay
 {
     @Unique
-    private boolean fishofthieves$inFishPlaque;
+    private boolean inFishPlaque;
 
     @Override
     public void fishofthieves$setIsInFishPlaque(boolean inFishPlaque)
     {
-        this.fishofthieves$inFishPlaque = inFishPlaque;
+        this.inFishPlaque = inFishPlaque;
     }
 
     @Inject(method = "isInWater", cancellable = true, at = @At("HEAD"))
     private void fishofthieves$isInWaterForFishPlaque(CallbackInfoReturnable<Boolean> info)
     {
-        if (this.fishofthieves$inFishPlaque)
+        if (this.inFishPlaque)
         {
             info.setReturnValue(true);
         }

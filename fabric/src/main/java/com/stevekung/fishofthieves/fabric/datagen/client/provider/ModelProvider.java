@@ -46,6 +46,7 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
@@ -452,7 +453,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(TallPomegranatePlantBlock.AGE, 0, 2, 3)
-                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
                         this.createRotatedVariants(upperModel)
                 )
 
@@ -460,7 +461,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(TallPomegranatePlantBlock.AGE, 1)
-                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
                         this.createRotatedVariants(upperFloweringModel)
                 )
 
@@ -468,7 +469,7 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(TallPomegranatePlantBlock.AGE, 2)
-                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
                         this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruiting"))
                 )
 
@@ -476,14 +477,14 @@ public class ModelProvider extends FabricModelProvider
                 .with(
                         condition()
                                 .term(TallPomegranatePlantBlock.AGE, 3)
-                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.UPPER),
+                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
                         this.createRotatedVariants(ModelLocationUtils.getModelLocation(block, "_fruit"))
                 )
 
                 // Lower
                 .with(
                         condition()
-                                .term(TallPomegranatePlantBlock.HALF, DoubleBlockHalf.LOWER),
+                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER),
                         plainVariant(ModelLocationUtils.getModelLocation(block, "_lower"))
                 )
         );
@@ -499,7 +500,7 @@ public class ModelProvider extends FabricModelProvider
     private void createHangingMangoFruit(BlockModelGenerators generator)
     {
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(FOTBlocks.HANGING_MANGO_FRUIT)
-                .with(PropertyDispatch.initial(HangingMangoFruitBlock.AGE).generate(age ->
+                .with(PropertyDispatch.initial(AbstractMangoFruitBlock.AGE).generate(age ->
                 {
                     var model = ModelLocationUtils.getModelLocation(FOTBlocks.HANGING_MANGO_FRUIT, "_stage_" + age);
                     var textureMapping = new TextureMapping().put(FOTModelTemplates.FRUIT, TextureMapping.getBlockTexture(FOTBlocks.MANGO_FRUIT, "_stage_" + age));
@@ -524,7 +525,7 @@ public class ModelProvider extends FabricModelProvider
     {
         var block = FOTBlocks.MANGO_FRUIT;
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
-                .with(PropertyDispatch.initial(MangoFruitBlock.AGE).generate(age ->
+                .with(PropertyDispatch.initial(AbstractMangoFruitBlock.AGE).generate(age ->
                 {
                     var model = ModelLocationUtils.getModelLocation(block, "_stage_" + age);
                     var mirroredModel = ModelLocationUtils.getModelLocation(block, "_stage_" + age + "_mirrored");
@@ -549,7 +550,7 @@ public class ModelProvider extends FabricModelProvider
         var block = FOTBlocks.PINEAPPLE_CROP;
         var fullStageModel = BlockModelGenerators.PlantType.NOT_TINTED.getCross().create(ModelLocationUtils.getModelLocation(block, "_lower_stage_full"), TextureMapping.cross(TextureMapping.getBlockTexture(block, "_lower_stage_full")), generator.modelOutput);
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
-                .with(PropertyDispatch.initial(PineappleCropBlock.AGE, PineappleCropBlock.HALF).generate((age, half) ->
+                .with(PropertyDispatch.initial(PineappleCropBlock.AGE, DoublePlantBlock.HALF).generate((age, half) ->
                         {
                             if (half == DoubleBlockHalf.LOWER)
                             {

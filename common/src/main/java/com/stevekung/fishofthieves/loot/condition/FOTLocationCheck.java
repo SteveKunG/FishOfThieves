@@ -29,7 +29,7 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
     {
         var vec3 = context.getOptionalParameter(LootContextParams.ORIGIN);
         var entity = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
-        return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), entity, vec3.x() + (double) this.offset.getX(), vec3.y() + (double) this.offset.getY(), vec3.z() + (double) this.offset.getZ()));
+        return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), entity, vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ()));
     }
 
     public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
