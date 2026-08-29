@@ -55,6 +55,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addWoodenFishPlaqueRecipe(FOTBlocks.MANGROVE_FISH_PLAQUE, Items.MANGROVE_PLANKS);
         this.addWoodenFishPlaqueRecipe(FOTBlocks.CHERRY_FISH_PLAQUE, Items.CHERRY_PLANKS);
         this.addWoodenFishPlaqueRecipe(FOTBlocks.PALE_OAK_FISH_PLAQUE, Items.PALE_OAK_PLANKS);
+        this.addWoodenFishPlaqueRecipe(FOTBlocks.POPLAR_FISH_PLAQUE, Items.POPLAR_PLANKS);
         this.addWoodenFishPlaqueRecipe(FOTBlocks.BAMBOO_FISH_PLAQUE, Items.BAMBOO_PLANKS);
         this.addWoodenFishPlaqueRecipe(FOTBlocks.CRIMSON_FISH_PLAQUE, Items.CRIMSON_PLANKS);
         this.addWoodenFishPlaqueRecipe(FOTBlocks.WARPED_FISH_PLAQUE, Items.WARPED_PLANKS);
@@ -69,6 +70,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
+        this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_POPLAR_FISH_PLAQUE, FOTBlocks.POPLAR_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addIronFrameFishPlaqueRecipe(FOTBlocks.IRON_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
@@ -83,6 +85,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
+        this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_POPLAR_FISH_PLAQUE, FOTBlocks.POPLAR_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addCopperFrameFishPlaqueRecipe(FOTBlocks.COPPER_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
@@ -97,6 +100,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
+        this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_POPLAR_FISH_PLAQUE, FOTBlocks.POPLAR_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addGoldenFrameFishPlaqueRecipe(FOTBlocks.GOLDEN_FRAME_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);
@@ -111,6 +115,7 @@ public class ModRecipeProvider extends RecipeProvider
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_MANGROVE_FISH_PLAQUE, FOTBlocks.MANGROVE_FISH_PLAQUE);
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_CHERRY_FISH_PLAQUE, FOTBlocks.CHERRY_FISH_PLAQUE);
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_PALE_OAK_FISH_PLAQUE, FOTBlocks.PALE_OAK_FISH_PLAQUE);
+        this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_POPLAR_FISH_PLAQUE, FOTBlocks.POPLAR_FISH_PLAQUE);
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_BAMBOO_FISH_PLAQUE, FOTBlocks.BAMBOO_FISH_PLAQUE);
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_CRIMSON_FISH_PLAQUE, FOTBlocks.CRIMSON_FISH_PLAQUE);
         this.addGildedFishPlaqueRecipe(FOTBlocks.GILDED_WARPED_FISH_PLAQUE, FOTBlocks.WARPED_FISH_PLAQUE);

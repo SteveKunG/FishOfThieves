@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "copper_frame_fish_plaque",
+  "key": {
+    "F": "fishofthieves:poplar_fish_plaque",
+    "N": "minecraft:copper_nugget"
+  },
+  "pattern": [
+    "NNN",
+    "NFN",
+    "NNN"
+  ],
+  "result": {
+    "id": "fishofthieves:copper_frame_poplar_fish_plaque"
+  }
+}

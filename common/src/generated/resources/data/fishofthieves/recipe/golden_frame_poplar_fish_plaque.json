@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "golden_frame_fish_plaque",
+  "key": {
+    "F": "fishofthieves:poplar_fish_plaque",
+    "G": "minecraft:gold_nugget"
+  },
+  "pattern": [
+    "GGG",
+    "GFG",
+    "GGG"
+  ],
+  "result": {
+    "id": "fishofthieves:golden_frame_poplar_fish_plaque"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_fish_plaque",
+  "key": {
+    "F": "minecraft:item_frame",
+    "P": "minecraft:poplar_planks"
+  },
+  "pattern": [
+    "PPP",
+    "PFP",
+    "PPP"
+  ],
+  "result": {
+    "count": 6,
+    "id": "fishofthieves:poplar_fish_plaque"
+  }
+}

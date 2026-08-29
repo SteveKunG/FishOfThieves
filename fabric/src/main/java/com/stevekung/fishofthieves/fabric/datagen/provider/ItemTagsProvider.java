@@ -82,7 +82,7 @@ public class ItemTagsProvider extends FabricTagsProvider.ItemTagsProvider
         this.builder(FOTTags.Items.FISH_PLAQUE_BUCKET_BLACKLIST);
         this.builder(FOTTags.Items.WOODEN_FISH_PLAQUE).add(FOTBlockItemIds.OAK_FISH_PLAQUE, FOTBlockItemIds.SPRUCE_FISH_PLAQUE,
                 FOTBlockItemIds.BIRCH_FISH_PLAQUE, FOTBlockItemIds.JUNGLE_FISH_PLAQUE, FOTBlockItemIds.ACACIA_FISH_PLAQUE,
-                FOTBlockItemIds.DARK_OAK_FISH_PLAQUE, FOTBlockItemIds.MANGROVE_FISH_PLAQUE, FOTBlockItemIds.CHERRY_FISH_PLAQUE, FOTBlockItemIds.PALE_OAK_FISH_PLAQUE,
+                FOTBlockItemIds.DARK_OAK_FISH_PLAQUE, FOTBlockItemIds.MANGROVE_FISH_PLAQUE, FOTBlockItemIds.CHERRY_FISH_PLAQUE, FOTBlockItemIds.PALE_OAK_FISH_PLAQUE, FOTBlockItemIds.POPLAR_FISH_PLAQUE,
                 FOTBlockItemIds.BAMBOO_FISH_PLAQUE, FOTBlockItemIds.COCONUT_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.IRON_FRAME_FISH_PLAQUE, FOTTags.Items.IRON_FRAME_FISH_PLAQUE);
         this.copy(FOTTags.Blocks.COPPER_FRAME_FISH_PLAQUE, FOTTags.Items.COPPER_FRAME_FISH_PLAQUE);

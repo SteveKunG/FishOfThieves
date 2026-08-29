@@ -17,6 +17,7 @@ public class FOTBlockItemIds
     public static final BlockItemId MANGROVE_FISH_PLAQUE = create("mangrove_fish_plaque");
     public static final BlockItemId CHERRY_FISH_PLAQUE = create("cherry_fish_plaque");
     public static final BlockItemId PALE_OAK_FISH_PLAQUE = create("pale_oak_fish_plaque");
+    public static final BlockItemId POPLAR_FISH_PLAQUE = create("poplar_fish_plaque");
     public static final BlockItemId BAMBOO_FISH_PLAQUE = create("bamboo_fish_plaque");
     public static final BlockItemId CRIMSON_FISH_PLAQUE = create("crimson_fish_plaque");
     public static final BlockItemId WARPED_FISH_PLAQUE = create("warped_fish_plaque");
@@ -29,6 +30,7 @@ public class FOTBlockItemIds
     public static final BlockItemId IRON_FRAME_MANGROVE_FISH_PLAQUE = create("iron_frame_mangrove_fish_plaque");
     public static final BlockItemId IRON_FRAME_CHERRY_FISH_PLAQUE = create("iron_frame_cherry_fish_plaque");
     public static final BlockItemId IRON_FRAME_PALE_OAK_FISH_PLAQUE = create("iron_frame_pale_oak_fish_plaque");
+    public static final BlockItemId IRON_FRAME_POPLAR_FISH_PLAQUE = create("iron_frame_poplar_fish_plaque");
     public static final BlockItemId IRON_FRAME_BAMBOO_FISH_PLAQUE = create("iron_frame_bamboo_fish_plaque");
     public static final BlockItemId IRON_FRAME_CRIMSON_FISH_PLAQUE = create("iron_frame_crimson_fish_plaque");
     public static final BlockItemId IRON_FRAME_WARPED_FISH_PLAQUE = create("iron_frame_warped_fish_plaque");
@@ -41,6 +43,7 @@ public class FOTBlockItemIds
     public static final BlockItemId GOLDEN_FRAME_MANGROVE_FISH_PLAQUE = create("golden_frame_mangrove_fish_plaque");
     public static final BlockItemId GOLDEN_FRAME_CHERRY_FISH_PLAQUE = create("golden_frame_cherry_fish_plaque");
     public static final BlockItemId GOLDEN_FRAME_PALE_OAK_FISH_PLAQUE = create("golden_frame_pale_oak_fish_plaque");
+    public static final BlockItemId GOLDEN_FRAME_POPLAR_FISH_PLAQUE = create("golden_frame_poplar_fish_plaque");
     public static final BlockItemId GOLDEN_FRAME_BAMBOO_FISH_PLAQUE = create("golden_frame_bamboo_fish_plaque");
     public static final BlockItemId GOLDEN_FRAME_CRIMSON_FISH_PLAQUE = create("golden_frame_crimson_fish_plaque");
     public static final BlockItemId GOLDEN_FRAME_WARPED_FISH_PLAQUE = create("golden_frame_warped_fish_plaque");
@@ -53,6 +56,7 @@ public class FOTBlockItemIds
     public static final BlockItemId COPPER_FRAME_MANGROVE_FISH_PLAQUE = create("copper_frame_mangrove_fish_plaque");
     public static final BlockItemId COPPER_FRAME_CHERRY_FISH_PLAQUE = create("copper_frame_cherry_fish_plaque");
     public static final BlockItemId COPPER_FRAME_PALE_OAK_FISH_PLAQUE = create("copper_frame_pale_oak_fish_plaque");
+    public static final BlockItemId COPPER_FRAME_POPLAR_FISH_PLAQUE = create("copper_frame_poplar_fish_plaque");
     public static final BlockItemId COPPER_FRAME_BAMBOO_FISH_PLAQUE = create("copper_frame_bamboo_fish_plaque");
     public static final BlockItemId COPPER_FRAME_CRIMSON_FISH_PLAQUE = create("copper_frame_crimson_fish_plaque");
     public static final BlockItemId COPPER_FRAME_WARPED_FISH_PLAQUE = create("copper_frame_warped_fish_plaque");
@@ -65,6 +69,7 @@ public class FOTBlockItemIds
     public static final BlockItemId GILDED_MANGROVE_FISH_PLAQUE = create("gilded_mangrove_fish_plaque");
     public static final BlockItemId GILDED_CHERRY_FISH_PLAQUE = create("gilded_cherry_fish_plaque");
     public static final BlockItemId GILDED_PALE_OAK_FISH_PLAQUE = create("gilded_pale_oak_fish_plaque");
+    public static final BlockItemId GILDED_POPLAR_FISH_PLAQUE = create("gilded_poplar_fish_plaque");
     public static final BlockItemId GILDED_BAMBOO_FISH_PLAQUE = create("gilded_bamboo_fish_plaque");
     public static final BlockItemId GILDED_CRIMSON_FISH_PLAQUE = create("gilded_crimson_fish_plaque");
     public static final BlockItemId GILDED_WARPED_FISH_PLAQUE = create("gilded_warped_fish_plaque");
