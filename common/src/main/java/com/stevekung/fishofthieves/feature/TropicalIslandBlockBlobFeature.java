@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -47,7 +46,7 @@ public record TropicalIslandBlockBlobFeature(BlockState state, BlockPredicate ca
                 {
                     if (blockPos2.distSqr(origin) <= tr * tr)
                     {
-                        level.setBlock(blockPos2, this.state, Block.UPDATE_ALL);
+                        level.setBlockAndUpdate(blockPos2, this.state);
                     }
                 }
 

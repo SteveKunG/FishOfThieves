@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:block_blob",
+  "type": "fishofthieves:tropical_island_block_blob",
   "can_place_on": {
     "type": "minecraft:matching_block_tag",
     "tag": "minecraft:forest_rock_can_place_on"
