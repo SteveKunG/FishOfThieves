@@ -47,6 +47,7 @@ dependencies {
     modCompileOnly("com.github.glitchfiend:SereneSeasons-forge:${minecraft_version}-${serene_seasons_version}")
     modImplementation("com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${glitchcore_version}")
     modRuntimeOnly("maven.modrinth:cyanide:${cyanide_forge_version}")
+    modRuntimeOnly("maven.modrinth:kaleidoscope-cookery:${kaleidoscope_cookery_version}")
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))

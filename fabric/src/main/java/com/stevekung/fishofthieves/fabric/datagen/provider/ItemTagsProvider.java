@@ -19,8 +19,9 @@ import net.minecraft.world.item.Item;
 public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
 {
     // Common Tags
-    private static final TagKey<Item> C_RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("c", "foods/raw_fishes"));
-    private static final TagKey<Item> C_COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("c", "foods/cooked_fishes"));
+    private static final TagKey<Item> C_RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("c", "raw_fishes"));
+    private static final TagKey<Item> C_FOODS_RAW_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("c", "foods/raw_fishes"));
+    private static final TagKey<Item> C_FOODS_COOKED_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("c", "foods/cooked_fishes"));
 
     // Croptopia
     private static final TagKey<Item> CROPTOPIA_FISHES = TagKey.create(Registries.ITEM, new ResourceLocation("croptopia", "fishes"));
@@ -91,7 +92,8 @@ public class ItemTagsProvider extends FabricTagProvider.ItemTagProvider
 
         // Common
         this.getOrCreateTagBuilder(C_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
-        this.getOrCreateTagBuilder(C_COOKED_FISHES).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
+        this.getOrCreateTagBuilder(C_FOODS_RAW_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
+        this.getOrCreateTagBuilder(C_FOODS_COOKED_FISHES).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
         this.getOrCreateTagBuilder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
                 .forceAddTag(FOTTags.Items.WORMS)
