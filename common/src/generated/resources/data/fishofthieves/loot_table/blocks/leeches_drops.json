@@ -125,7 +125,7 @@
           "name": "fishofthieves:leeches"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -173,7 +173,7 @@
           "name": "fishofthieves:leeches"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

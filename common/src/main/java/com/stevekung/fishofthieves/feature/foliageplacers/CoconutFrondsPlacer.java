@@ -14,6 +14,7 @@ import com.stevekung.fishofthieves.registry.FOTFoliagePlacerTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -31,12 +32,12 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     public static final MapCodec<CoconutFrondsPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> frondsPart(instance).apply(instance, CoconutFrondsPlacer::new));
     final int height;
     final int maxLeavesDistanceFromLocalY;
-    final BlockStateProvider topLeavesState;
-    final BlockStateProvider middleLeavesState;
-    final BlockStateProvider tailLeavesState;
+    final Holder<BlockStateProvider> topLeavesState;
+    final Holder<BlockStateProvider> middleLeavesState;
+    final Holder<BlockStateProvider> tailLeavesState;
     final List<Pair<Integer, Integer>> reduceLeavesDistance;
 
-    static <P extends CoconutFrondsPlacer> Products.P6<Mu<P>, Integer, Integer, BlockStateProvider, BlockStateProvider, BlockStateProvider, List<Pair<Integer, Integer>>> frondsPart(Instance<P> instance)
+    static <P extends CoconutFrondsPlacer> Products.P6<Mu<P>, Integer, Integer, Holder<BlockStateProvider>, Holder<BlockStateProvider>, Holder<BlockStateProvider>, List<Pair<Integer, Integer>>> frondsPart(Instance<P> instance)
     {
         return instance.group(Codec.intRange(0, 8).fieldOf("height").forGetter(placer -> placer.height))
                 .and(Codec.intRange(0, 8).fieldOf("max_leaves_distance_from_local_y").forGetter(placer -> placer.maxLeavesDistanceFromLocalY))
@@ -46,7 +47,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
                 .and(Codec.mapPair(Codec.intRange(0, 16).fieldOf("at_tree_height"), Codec.intRange(0, 8).fieldOf("reduce_by")).codec().listOf().optionalFieldOf("reduce_leaves_distance", List.of()).forGetter(placer -> placer.reduceLeavesDistance));
     }
 
-    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, BlockStateProvider topLeavesState, BlockStateProvider middleLeavesState, BlockStateProvider tailLeavesState, List<Pair<Integer, Integer>> reduceLeavesDistance)
+    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, Holder<BlockStateProvider> topLeavesState, Holder<BlockStateProvider> middleLeavesState, Holder<BlockStateProvider> tailLeavesState, List<Pair<Integer, Integer>> reduceLeavesDistance)
     {
         super(ConstantInt.of(0), ConstantInt.of(0));
         this.height = height;
@@ -58,7 +59,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     }
 
     @SafeVarargs
-    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, BlockStateProvider topLeavesState, BlockStateProvider middleLeavesState, BlockStateProvider tailLeavesState, Pair<Integer, Integer>... reduceLeavesDistance)
+    public CoconutFrondsPlacer(int height, int maxLeavesDistanceFromLocalY, Holder<BlockStateProvider> topLeavesState, Holder<BlockStateProvider> middleLeavesState, Holder<BlockStateProvider> tailLeavesState, Pair<Integer, Integer>... reduceLeavesDistance)
     {
         this(height, maxLeavesDistanceFromLocalY, topLeavesState, middleLeavesState, tailLeavesState, Arrays.stream(reduceLeavesDistance).toList());
     }
@@ -118,7 +119,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     {
         if (TreeFeature.validTreePos(level, blockPos))
         {
-            var blockState = this.topLeavesState.getState(level, random, blockPos);
+            var blockState = this.topLeavesState.value().getState(level, random, blockPos);
 
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
             {
@@ -135,7 +136,7 @@ public class CoconutFrondsPlacer extends FoliagePlacer
         for (var direction : Direction.Plane.HORIZONTAL)
         {
             var opposite = direction.getOpposite();
-            var leavesBlockState = feature.foliageProvider().getState(level, random, blockPos);
+            var leavesBlockState = feature.foliageProvider().value().getState(level, random, blockPos);
 
             if (leavesBlockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
             {
@@ -157,14 +158,14 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             }
             else
             {
-                var tailLeaves = this.tailLeavesState.getState(level, random, blockPos);
+                var tailLeaves = this.tailLeavesState.value().getState(level, random, blockPos);
 
                 if (tailLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {
                     tailLeaves = tailLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
                 }
 
-                var middleLeaves = this.middleLeavesState.getState(level, random, blockPos);
+                var middleLeaves = this.middleLeavesState.value().getState(level, random, blockPos);
 
                 if (middleLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
                 {

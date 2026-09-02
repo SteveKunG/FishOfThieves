@@ -34,8 +34,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.TagEntry;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import it.unimi.dsi.fastutil.ints.IntList;
 
@@ -76,32 +75,32 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
     {
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_SUPPLY, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(UniformGenerator.between(4.0F, 12.0F))
+                        .setRolls(ContextIntProviders.between(4, 12))
                         .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(12)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 8.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 8))))
                         .add(LootItem.lootTableItem(FOTItems.COCONUT).setWeight(10)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 6))))
                         .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(8)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3))))
                         .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(5)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 3))))
                         .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(3)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2))))
                         .add(LootItem.lootTableItem(Items.OAK_PLANKS).setWeight(8)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 6.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 6))))
                         .add(TagEntry.expandTag(this.items.getOrThrow(FOTTags.Items.WORMS)).setWeight(5)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(8.0F, 16.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(8, 16))))
                         .add(LootItem.lootTableItem(Items.OAK_LOG).setWeight(2)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 8))))
                         .add(FOTTagEntry.expandTag(this.items.getOrThrow(FOTTags.Items.THIEVES_FISH)).setWeight(3)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4))))
                         .add(LootItem.lootTableItem(Items.MAP)
                                 .apply(ExplorationMapFunction.makeExplorationMap(this.structures.getOrThrow(StructureTags.ON_TREASURE_MAPS))
                                         .setMapDecoration(MapDecorationTypes.RED_X)
                                         .setZoom((byte) 1)
                                         .setSkipKnownStructures(false))))
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(LootItem.lootTableItem(Items.MAP)
                                 .apply(TreasuredFishMapFunction.makeTreasuredFishMap()
                                         .setZoom((byte) 1)
@@ -113,16 +112,16 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
 
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_COMBAT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(UniformGenerator.between(2.0F, 6.0F))
+                        .setRolls(ContextIntProviders.between(2, 6))
                         .add(LootItem.lootTableItem(Items.GUNPOWDER).setWeight(5)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3))))
                         .add(LootItem.lootTableItem(Items.FIRE_CHARGE).setWeight(4)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2))))
                         .add(LootItem.lootTableItem(Items.TNT).setWeight(2)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))));
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2))))));
 
         consumer.accept(FOTLootTables.Chests.SEAPOST_BARREL_FIREWORK, LootTable.lootTable()
-                .withPool(buildFirework(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 4.0F)))));
+                .withPool(buildFirework(LootPool.lootPool().setRolls(ContextIntProviders.between(2, 4)))));
     }
 
     private static LootPool.Builder buildFirework(LootPool.Builder builder)
@@ -133,7 +132,7 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
         {
             builder.add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(1)
                     .apply(setFirework(new ListOperation.StandAlone<>(List.of(new FireworkExplosion(Util.getRandom(VALUES, random), IntList.of(color), IntList.of(), random.nextBoolean(), random.nextBoolean())), ListOperation.Append.INSTANCE), Optional.of(1)))
-                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))));
+                    .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4))));
         }
         return builder;
     }

@@ -46,8 +46,8 @@ import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class FOTLootManager
 {
@@ -192,38 +192,38 @@ public class FOTLootManager
     public static LootPool.Builder getGuardianLoot(LootPool.Builder builder, HolderGetter<Enchantment> enchantments, boolean elder)
     {
         var weight = elder ? 3 : 2;
-        return builder.setRolls(ConstantValue.exactly(1.0F))
+        return builder.setRolls(ContextIntProviders.exactly(1))
                 .add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .setWeight(weight)
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.BATTLEGILL)
                         .setWeight(weight)
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))));
     }
 
     public static LootPool.Builder getDolphinLoot(LootPool.Builder builder, HolderGetter<Enchantment> enchantments)
     {
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments))))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .when(FOTLootItemConditions.THUNDERING));
     }
@@ -233,33 +233,33 @@ public class FOTLootManager
         return builder.add(FOTLootItem.lootTableItem(FOTItems.SPLASHTAIL)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(10)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.ANCIENTSCALE)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.PLENTIFIN)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WILDSPLASH)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(6)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.WRECKER)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(5)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F))))
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH)
                         .apply(SmeltItemFunction.smelted().when(shouldSmeltLoot(enchantments)))
                         .setWeight(5)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 1.0f)))
-                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, UniformGenerator.between(0.0F, 1.0F)))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
                         .when(FOTLootItemConditions.THUNDERING));
     }
 
@@ -276,46 +276,46 @@ public class FOTLootManager
 
     public static LootPool.Builder getVillageFisherLoot(LootPool.Builder builder, HolderGetter<Item> holderGetter)
     {
-        return builder.add(FOTTagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.THIEVES_FISH)).setWeight(1).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.add(FOTTagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.THIEVES_FISH)).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 5))));
     }
 
     public static LootPool.Builder getBuriedTreasureLoot(LootPool.Builder builder, HolderGetter<Item> holderGetter)
     {
-        return builder.setRolls(ConstantValue.exactly(2.0f)).add(TagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.COOKED_THIEVES_FISH))
-                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0f, 5.0f))));
+        return builder.setRolls(ContextIntProviders.exactly(2)).add(TagEntry.expandTag(holderGetter.getOrThrow(FOTTags.Items.COOKED_THIEVES_FISH))
+                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 5))));
     }
 
     public static LootPool.Builder getShipwreckSupplyLoot(LootPool.Builder builder)
     {
-        return builder.setRolls(UniformGenerator.between(1.0F, 3.0F))
+        return builder.setRolls(ContextIntProviders.between(1, 3))
                 .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(9)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 6))))
                 .add(LootItem.lootTableItem(FOTItems.COCONUT).setWeight(7)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4))))
                 .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(5)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3))))
                 .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(4)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2))))
                 .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(2)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 1))))
                 ;
     }
 
     public static LootPool.Builder getJungleTempleLoot(LootPool.Builder builder, HolderLookup.Provider provider)
     {
         var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
-        return builder.setRolls(UniformGenerator.between(1.0F, 2.0F))
+        return builder.setRolls(ContextIntProviders.between(1, 2))
                 .add(LootItem.lootTableItem(FOTItems.BANANA).setWeight(9)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 8.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 8))))
                 .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))))
                 .add(LootItem.lootTableItem(FOTItems.POMEGRANATE).setWeight(5)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 6.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 6))))
                 .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))))
                 .add(LootItem.lootTableItem(FOTItems.MANGO).setWeight(4)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4))))
                 .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))))
                 .add(LootItem.lootTableItem(FOTItems.PINEAPPLE).setWeight(2)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3))))
                 .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomeLookup.getOrThrow(FOTBiomes.TROPICAL_ISLAND)))))
                 ;
     }

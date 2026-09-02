@@ -22,8 +22,10 @@ import com.stevekung.fishofthieves.feature.trunkplacers.BananaTrunkPlacer;
 import com.stevekung.fishofthieves.feature.trunkplacers.CoconutTrunkPlacer;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BlockStateProviders;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.TreePlacements;
@@ -85,30 +87,30 @@ public class FOTFeatures
     public static void bootstrap(BootstrapContext<Feature> context)
     {
         var placedFeature = context.lookup(Registries.PLACED_FEATURE);
-        var biomes = context.lookup(Registries.BIOME);
-        var belowTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
+        var blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
+        Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 
         context.register(FISH_BONE, FishBoneFeature.INSTANCE);
         context.register(COCONUT_TREE, createCoconutTree(belowTrunkProvider)
                 .decorators(List.of(new CoconutDecorator(0.6F, 0.45F, 2)))
-                .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
+                .belowTrunkProvider(BlockStateProvider.holderOf(Blocks.SAND))
                 .ignoreVines()
                 .build());
         context.register(OLD_COCONUT_TREE, createOldCoconutTree(belowTrunkProvider)
                 .decorators(List.of(new CoconutDecorator(0.2F, 0.7F, 3)))
-                .belowTrunkProvider(BlockStateProvider.simple(Blocks.SAND))
+                .belowTrunkProvider(BlockStateProvider.holderOf(Blocks.SAND))
                 .ignoreVines()
                 .build());
         context.register(BANANA_TREE, createBananaTree(belowTrunkProvider)
                 .decorators(List.of(
                         new BananaDecorator(0.4f, 0.2f, 0.4f, 6),
                         new BananaShootsDecorator(0.3f)))
-                .belowTrunkProvider(BlockStateProvider.simple(Blocks.DIRT))
+                .belowTrunkProvider(BlockStateProvider.holderOf(Blocks.DIRT))
                 .ignoreVines()
                 .build());
         List<TreeDecorator> leafLitters = List.of(
-                new PlaceOnGroundDecorator(96, 4, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3))),
-                new PlaceOnGroundDecorator(150, 2, 2, new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4))));
+                new PlaceOnGroundDecorator(96, 4, 2, Holder.direct(new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 3)))),
+                new PlaceOnGroundDecorator(150, 2, 2, Holder.direct(new WeightedStateProvider(VegetationFeatures.leafLitterPatchBuilder(1, 4)))));
         context.register(MANGO_TREE, createMangoTree(0.01F, belowTrunkProvider).build());
         context.register(MANGO_TREE_BEES_02, createMangoTree(0.2F, belowTrunkProvider).build());
         context.register(MANGO_TREE_LEAF_LITTER, createMangoTree(0.01F, leafLitters, belowTrunkProvider).build());
@@ -136,11 +138,11 @@ public class FOTFeatures
                 .add(FOTBlocks.PINEAPPLE_CROP.defaultBlockState().setValue(PineappleCropBlock.AGE, 3), 2)
         )));
         context.register(TALL_WILD_PINEAPPLE, new SimpleAgeBlockFeature(
-                new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.PINEAPPLE_CROP.defaultBlockState()), PineappleCropBlock.AGE, UniformInt.of(4, 5))));
+                new RandomizedIntStateProvider(BlockStateProvider.of(FOTBlocks.PINEAPPLE_CROP.defaultBlockState()), PineappleCropBlock.AGE, UniformInt.of(4, 5))));
         context.register(PATCH_WILD_PINEAPPLE, new RandomSelectorFeature(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_PINEAPPLE), 0.85F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_PINEAPPLE)));
-        context.register(PATCH_TROPICAL_MELON, new SimpleBlockFeature(BlockStateProvider.simple(Blocks.MELON)));
+        context.register(PATCH_TROPICAL_MELON, new SimpleBlockFeature(BlockStateProvider.of(Blocks.MELON)));
         context.register(TREES_COCONUT, new SimpleRandomSelectorFeature(HolderSet.direct(
                 placedFeature.getOrThrow(FOTPlacements.COCONUT_TREE_CHECKED),
                 placedFeature.getOrThrow(FOTPlacements.OLD_COCONUT_TREE_CHECKED)
@@ -152,7 +154,7 @@ public class FOTFeatures
                 .add(FOTBlocks.POMEGRANATE_PLANT.defaultBlockState().setValue(PomegranatePlantBlock.AGE, 3), 2)
         )));
         context.register(TALL_WILD_POMEGRANATE, new SimpleAgeBlockFeature(
-                new RandomizedIntStateProvider(BlockStateProvider.simple(FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState()), PomegranatePlantBlock.AGE, UniformInt.of(0, 3))));
+                new RandomizedIntStateProvider(BlockStateProvider.of(FOTBlocks.TALL_POMEGRANATE_PLANT.defaultBlockState()), PomegranatePlantBlock.AGE, UniformInt.of(0, 3))));
         context.register(PATCH_WILD_POMEGRANATE, new RandomSelectorFeature(List.of(
                 new WeightedPlacedFeature(placedFeature.getOrThrow(FOTPlacements.TALL_WILD_POMEGRANATE), 0.5F)),
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE)));
@@ -174,54 +176,54 @@ public class FOTFeatures
                 placedFeature.getOrThrow(FOTPlacements.WILD_POMEGRANATE))));
     }
 
-    private static TreeFeature.Builder createCoconutTree(BlockStateProvider belowTrunkProvider)
+    private static TreeFeature.Builder createCoconutTree(Holder<BlockStateProvider> belowTrunkProvider)
     {
         return new TreeFeature.Builder(
-                BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(8, 2, UniformInt.of(1, 2), UniformInt.of(1, 2), false, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
-                BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(2, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(8, 1)),
+                BlockStateProvider.of(FOTBlocks.COCONUT_LOG),
+                new CoconutTrunkPlacer(8, 2, UniformInt.of(1, 2), UniformInt.of(1, 2), false, BlockStateProvider.holderOf(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.holderOf(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.holderOf(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                BlockStateProvider.of(FOTBlocks.COCONUT_FRONDS),
+                new CoconutFrondsPlacer(2, 1, BlockStateProvider.holderOf(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.holderOf(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.holderOf(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL)), Pair.of(8, 1)),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeFeature.Builder createOldCoconutTree(BlockStateProvider belowTrunkProvider)
+    private static TreeFeature.Builder createOldCoconutTree(Holder<BlockStateProvider> belowTrunkProvider)
     {
         return new TreeFeature.Builder(
-                BlockStateProvider.simple(FOTBlocks.COCONUT_LOG),
-                new CoconutTrunkPlacer(12, 3, UniformInt.of(8, 9), UniformInt.of(1, 2), true, BlockStateProvider.simple(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.simple(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
-                BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS),
-                new CoconutFrondsPlacer(3, 1, BlockStateProvider.simple(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.simple(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL))),
+                BlockStateProvider.of(FOTBlocks.COCONUT_LOG),
+                new CoconutTrunkPlacer(12, 3, UniformInt.of(8, 9), UniformInt.of(1, 2), true, BlockStateProvider.holderOf(FOTBlocks.SMALL_COCONUT_LOG), BlockStateProvider.holderOf(FOTBlocks.MEDIUM_COCONUT_LOG), BlockStateProvider.holderOf(FOTBlocks.SMALL_TOP_COCONUT_LOG)),
+                BlockStateProvider.of(FOTBlocks.COCONUT_FRONDS),
+                new CoconutFrondsPlacer(3, 1, BlockStateProvider.holderOf(FOTBlocks.VERTICAL_COCONUT_FRONDS), BlockStateProvider.holderOf(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.MIDDLE)), BlockStateProvider.holderOf(FOTBlocks.COCONUT_FRONDS.defaultBlockState().setValue(CoconutFrondsBlock.PART, CoconutFrondsBlock.Part.TAIL))),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeFeature.Builder createBananaTree(BlockStateProvider belowTrunkProvider)
+    private static TreeFeature.Builder createBananaTree(Holder<BlockStateProvider> belowTrunkProvider)
     {
         return new TreeFeature.Builder(
-                BlockStateProvider.simple(FOTBlocks.BANANA_STEM),
-                new BananaTrunkPlacer(3, 6, BlockStateProvider.simple(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM)),
-                BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)),
-                new BananaLeavesPlacer(0.2f, BlockStateProvider.simple(FOTBlocks.VERTICAL_BANANA_LEAVES), BlockStateProvider.simple(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER))),
+                BlockStateProvider.of(FOTBlocks.BANANA_STEM),
+                new BananaTrunkPlacer(3, 6, BlockStateProvider.holderOf(FOTBlocks.BANANA_CLUSTER_GROWABLE_STEM)),
+                BlockStateProvider.of(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER)),
+                new BananaLeavesPlacer(0.2f, BlockStateProvider.holderOf(FOTBlocks.VERTICAL_BANANA_LEAVES), BlockStateProvider.holderOf(FOTBlocks.BANANA_LEAVES.defaultBlockState().setValue(BananaLeavesBlock.PART, BananaLeavesBlock.Part.TAIL).setValue(BananaLeavesBlock.TYPE, BananaLeavesBlock.Type.UPPER))),
                 new ThreeLayersFeatureSize(2, 2, 0, 2, 2, OptionalInt.empty()), belowTrunkProvider);
     }
 
-    private static TreeFeature.Builder createMangoTree(float beehiveChance, List<TreeDecorator> additionalDecorators, BlockStateProvider belowTrunkProvider)
+    private static TreeFeature.Builder createMangoTree(float beehiveChance, List<TreeDecorator> additionalDecorators, Holder<BlockStateProvider> belowTrunkProvider)
     {
         var decorators = new ArrayList<>(List.of(
                 new AttachedToLeavesDecorator(0.1F, 2, 0,
-                        new RandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
+                        Holder.direct(new RandomizedIntBooleanStateProvider(BlockStateProvider.holderOf(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
                                 HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
-                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 2, List.of(Direction.DOWN)),
+                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f))), 2, List.of(Direction.DOWN)),
                 new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
-                        new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.simple(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
+                        new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.holderOf(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
                                 MangoFruitBlock.AGE, UniformInt.of(0, 2),
                                 MangoFruitBlock.FACING,
                                 MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
                 new BeehiveDecorator(beehiveChance)
         ));
         decorators.addAll(additionalDecorators);
-        return new TreeFeature.Builder(BlockStateProvider.simple(Blocks.OAK_LOG),
+        return new TreeFeature.Builder(BlockStateProvider.of(Blocks.OAK_LOG),
                 new FancyTrunkPlacer(5, 11, 0),
-                BlockStateProvider.simple(FOTBlocks.MANGO_LEAVES),
+                BlockStateProvider.of(FOTBlocks.MANGO_LEAVES),
                 new FancyFoliagePlacer(ConstantInt.of(3),
                         ConstantInt.of(4), 4),
                 new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)), belowTrunkProvider)
@@ -229,7 +231,7 @@ public class FOTFeatures
                 .ignoreVines();
     }
 
-    private static TreeFeature.Builder createMangoTree(float beehiveChance, BlockStateProvider belowTrunkProvider)
+    private static TreeFeature.Builder createMangoTree(float beehiveChance, Holder<BlockStateProvider> belowTrunkProvider)
     {
         return createMangoTree(beehiveChance, List.of(), belowTrunkProvider);
     }

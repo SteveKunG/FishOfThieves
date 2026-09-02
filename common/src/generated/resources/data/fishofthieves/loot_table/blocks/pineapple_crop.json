@@ -23,7 +23,7 @@
                   },
                   "modifier": {
                     "type": "minecraft:set_count",
-                    "count": 1.0
+                    "count": 1
                   },
                   "name": "fishofthieves:pineapple_seeds"
                 }
@@ -51,7 +51,7 @@
                           "age": "1"
                         }
                       },
-                      "count": 1.0
+                      "count": 1
                     },
                     {
                       "type": "minecraft:set_count",
@@ -62,7 +62,7 @@
                           "age": "2"
                         }
                       },
-                      "count": 1.0
+                      "count": 1
                     },
                     {
                       "type": "minecraft:set_count",
@@ -73,7 +73,7 @@
                           "age": "3"
                         }
                       },
-                      "count": 1.0
+                      "count": 1
                     },
                     {
                       "type": "minecraft:set_count",
@@ -84,7 +84,7 @@
                           "age": "4"
                         }
                       },
-                      "count": 1.0
+                      "count": 1
                     }
                   ],
                   "name": "fishofthieves:pineapple_crown"
@@ -101,7 +101,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

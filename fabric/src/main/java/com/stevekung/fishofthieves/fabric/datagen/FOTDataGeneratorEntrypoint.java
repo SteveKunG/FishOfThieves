@@ -151,7 +151,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(Registries.TIMELINE));
             entries.addAll(registries.lookupOrThrow(Registries.VILLAGER_TRADE));
             entries.addAll(registries.lookupOrThrow(Registries.DECORATED_POT_PATTERN));
-            entries.addAll(registries.lookupOrThrow(Registries.NUMBER_PROVIDER));
+            entries.addAll(registries.lookupOrThrow(Registries.CONTEXT_INT_PROVIDER));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.SPLASHTAIL_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.PONDIE_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.ISLEHOPPER_VARIANT));

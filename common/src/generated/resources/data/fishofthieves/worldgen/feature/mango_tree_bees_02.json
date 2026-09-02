@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:cannot_replace_below_tree_trunk"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
   "decorators": [
     {
       "type": "minecraft:attached_to_leaves",
@@ -32,8 +15,11 @@
           "min_inclusive": 0
         },
         "source": {
-          "type": "minecraft:simple_state_provider",
-          "state": "fishofthieves:hanging_mango_fruit"
+          "id": "fishofthieves:hanging_mango_fruit",
+          "properties": {
+            "age": "0",
+            "falling": "false"
+          }
         }
       },
       "directions": [
@@ -57,8 +43,12 @@
           "min_inclusive": 0
         },
         "source": {
-          "type": "minecraft:simple_state_provider",
-          "state": "fishofthieves:mango_fruit"
+          "id": "fishofthieves:mango_fruit",
+          "properties": {
+            "age": "0",
+            "facing": "north",
+            "falling": "false"
+          }
         }
       },
       "directions": [
@@ -85,8 +75,12 @@
     "radius": 3
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "fishofthieves:mango_leaves"
+    "id": "fishofthieves:mango_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -102,7 +96,9 @@
     "height_rand_b": 0
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:oak_log"
+    "id": "minecraft:oak_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

@@ -2,11 +2,11 @@
   "gives": {
     "id": "minecraft:emerald"
   },
-  "max_uses": 9.0,
+  "max_uses": 9,
   "reputation_discount": 0.05,
   "wants": {
-    "count": 8.0,
+    "count": 8,
     "id": "fishofthieves:plentifin"
   },
-  "xp": 17.0
+  "xp": 17
 }

@@ -3,8 +3,11 @@
   "to_place": {
     "property": "age",
     "source": {
-      "type": "minecraft:simple_state_provider",
-      "state": "fishofthieves:pineapple_crop"
+      "id": "fishofthieves:pineapple_crop",
+      "properties": {
+        "age": "0",
+        "half": "lower"
+      }
     },
     "values": {
       "type": "minecraft:uniform",

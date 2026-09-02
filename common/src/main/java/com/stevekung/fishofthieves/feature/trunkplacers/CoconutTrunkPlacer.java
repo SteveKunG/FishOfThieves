@@ -9,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTTrunkPlacerTypes;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
@@ -35,11 +36,11 @@ public class CoconutTrunkPlacer extends TrunkPlacer
     private final IntProvider mediumTrunkStart;
     private final IntProvider mediumTrunkHeight;
     private final boolean increaseMediumTrunkByOne;
-    private final BlockStateProvider smallLog;
-    private final BlockStateProvider mediumLog;
-    private final BlockStateProvider topLog;
+    private final Holder<BlockStateProvider> smallLog;
+    private final Holder<BlockStateProvider> mediumLog;
+    private final Holder<BlockStateProvider> topLog;
 
-    public CoconutTrunkPlacer(int baseHeight, int heightRandA, IntProvider mediumTrunkStart, IntProvider mediumTrunkHeight, boolean increaseMediumTrunkByOne, BlockStateProvider smallLog, BlockStateProvider mediumLog, BlockStateProvider topLog)
+    public CoconutTrunkPlacer(int baseHeight, int heightRandA, IntProvider mediumTrunkStart, IntProvider mediumTrunkHeight, boolean increaseMediumTrunkByOne, Holder<BlockStateProvider> smallLog, Holder<BlockStateProvider> mediumLog, Holder<BlockStateProvider> topLog)
     {
         super(baseHeight, heightRandA, 0);
         this.mediumTrunkStart = mediumTrunkStart;
@@ -80,20 +81,20 @@ public class CoconutTrunkPlacer extends TrunkPlacer
     {
         if (this.validTreePos(level, pos))
         {
-            var blockState = feature.trunkProvider().getState(level, random, pos);
+            var blockState = feature.trunkProvider().value().getState(level, random, pos);
             var maxMediumTrunkHeight = mediumTrunkStart + mediumTrunkHeight;
 
             if (isTop)
             {
-                blockState = this.topLog.getState(level, random, pos);
+                blockState = this.topLog.value().getState(level, random, pos);
             }
             else if (height >= mediumTrunkStart && height < maxMediumTrunkHeight)
             {
-                blockState = this.mediumLog.getState(level, random, pos);
+                blockState = this.mediumLog.value().getState(level, random, pos);
             }
             else if (height >= maxMediumTrunkHeight)
             {
-                blockState = this.smallLog.getState(level, random, pos);
+                blockState = this.smallLog.value().getState(level, random, pos);
             }
             blockSetter.accept(pos, blockState);
         }

@@ -70,9 +70,9 @@
       ],
       "modifier": {
         "type": "minecraft:set_count",
-        "count": 1.0
+        "count": 1
       },
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -102,8 +102,8 @@
               "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
+                "max": 4,
+                "min": 2
               }
             },
             {
@@ -118,7 +118,7 @@
           "name": "fishofthieves:pomegranate"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

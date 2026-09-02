@@ -124,7 +124,7 @@ public class FishOfThievesFabric implements ModInitializer
         BlockTransformerHelper.registerStripping(FOTBlocks.COCONUT_LOG, FOTBlocks.STRIPPED_COCONUT_LOG);
         BlockTransformerHelper.registerStripping(FOTBlocks.COCONUT_WOOD, FOTBlocks.STRIPPED_COCONUT_WOOD);
 
-        CustomStrippables.CUSTOM_STRIPPABLES.forEach((key, value) -> BlockTransformerHelper.registerStripping(key, new CopyPropertiesProvider(BlockStateProvider.simple(value))));
+        CustomStrippables.CUSTOM_STRIPPABLES.forEach((key, value) -> BlockTransformerHelper.registerStripping(key, new CopyPropertiesProvider(BlockStateProvider.holderOf(value))));
 
         BlockEntityTypes.SHELF.addValidBlock(FOTBlocks.COCONUT_SHELF);
 

@@ -9,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTTrunkPlacerTypes;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,9 +26,9 @@ public class BananaTrunkPlacer extends TrunkPlacer
                     Codec.intRange(0, 12).fieldOf("height_rand_a").forGetter(trunkPlacer -> trunkPlacer.heightRandA),
                     BlockStateProvider.CODEC.fieldOf("top_log").forGetter(trunkPlacer -> trunkPlacer.topLog))
             .apply(instance, BananaTrunkPlacer::new));
-    private final BlockStateProvider topLog;
+    private final Holder<BlockStateProvider> topLog;
 
-    public BananaTrunkPlacer(int baseHeight, int heightRandA, BlockStateProvider topLog)
+    public BananaTrunkPlacer(int baseHeight, int heightRandA, Holder<BlockStateProvider> topLog)
     {
         super(baseHeight, heightRandA, 0);
         this.topLog = topLog;
@@ -56,7 +57,7 @@ public class BananaTrunkPlacer extends TrunkPlacer
         if (this.validTreePos(level, pos))
         {
             var log = isTop ? this.topLog : feature.trunkProvider();
-            var blockState = log.getState(level, random, pos);
+            var blockState = log.value().getState(level, random, pos);
             blockSetter.accept(pos, blockState);
         }
     }

@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -92,22 +91,22 @@ public class ItemTagsProvider extends FabricTagsProvider.ItemTagsProvider
         this.copy(FOTTags.Blocks.BANANA_CLUSTERS, FOTTags.Items.BANANA_CLUSTERS);
 
         // Common
-        this.builder(ConventionalItemTags.RAW_FISH_FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH);
-        this.builder(ConventionalItemTags.COOKED_FISH_FOODS).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
-        this.builder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
-                .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
-                .forceAddTag(FOTTags.Items.WORMS)
-                .add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.HALF_PINEAPPLE, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO,
-                        FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);
-        this.builder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTItemIds.FISH_BUCKETS.toArray(ResourceKey[]::new));
+//        this.builder(ConventionalItemTags.RAW_FISH_FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH);TODO
+//        this.builder(ConventionalItemTags.COOKED_FISH_FOODS).forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH);
+//        this.builder(ConventionalItemTags.FOODS).forceAddTag(FOTTags.Items.THIEVES_FISH)
+//                .forceAddTag(FOTTags.Items.COOKED_THIEVES_FISH)
+//                .forceAddTag(FOTTags.Items.WORMS)
+//                .add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.HALF_PINEAPPLE, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO,
+//                        FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);
+//        this.builder(ConventionalItemTags.ENTITY_WATER_BUCKETS).add(FOTItemIds.FISH_BUCKETS.toArray(ResourceKey[]::new));
 
         // Croptopia compatibility
         this.builder(CROPTOPIA_FISHES).forceAddTag(FOTTags.Items.THIEVES_FISH);
 
         // NeoForge
-        this.builder(ConventionalItemTags.CROPS).add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO, FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);
+//        this.builder(ConventionalItemTags.CROPS).add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO, FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);TODO
         this.builder(C_SEEDS).add(FOTItemIds.PINEAPPLE_SEEDS, FOTItemIds.POMEGRANATE_SEEDS).add(FOTBlockItemIds.MANGO_PIT);
-        this.builder(ConventionalItemTags.FRUIT_FOODS).add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO, FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);
+//        this.builder(ConventionalItemTags.FRUIT_FOODS).add(FOTItemIds.COCONUT, FOTItemIds.BANANA, FOTItemIds.PINEAPPLE, FOTItemIds.CROWNLESS_PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.RAW_MANGO, FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);TODO
         this.builder(C_FRUITS_SWEET).add(FOTItemIds.BANANA, FOTItemIds.PINEAPPLE, FOTItemIds.MANGO, FOTItemIds.POMEGRANATE, FOTItemIds.GUARDIAN_FRUIT);
 
         this.builder(FOTTags.Items.SERENE_SEASONS_YEAR_ROUND_CROPS).add(FOTItemIds.BANANA, FOTItemIds.GUARDIAN_FRUIT)

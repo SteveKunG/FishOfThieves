@@ -41,8 +41,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class EntityLootProvider extends SimpleFabricLootTableSubProvider
 {
@@ -67,7 +66,7 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
 
         consumer.accept(FOTLootTables.Entities.FISH_BONE_DROP, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0f))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, 0.025F, 0.01F))));
 
@@ -87,20 +86,20 @@ public class EntityLootProvider extends SimpleFabricLootTableSubProvider
     {
         consumer.accept(entityType.getDefaultLootTable().orElseThrow(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0f))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(this.applyCustomData(LootItem.lootTableItem(item)
                                 .apply(SmeltItemFunction.smelted()
                                         .when(FOTLootManager.shouldSmeltLoot(enchantments)))
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 4))
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TROPHY, new TrophyFishPredicate(true))))
                                         .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().put(FOTEntitySubPredicates.TREASURED, new TreasuredFishPredicate(false))))
                                 ), entityType, registryKey, dataComponentType, enchantments)))
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0f))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(LootItem.lootTableItem(Items.BONE_MEAL))
                         .when(LootItemRandomChanceCondition.randomChance(0.05F)))
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0f))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(LootItem.lootTableItem(FOTBlocks.FISH_BONE))
                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, 0.025F, 0.01F))));
     }

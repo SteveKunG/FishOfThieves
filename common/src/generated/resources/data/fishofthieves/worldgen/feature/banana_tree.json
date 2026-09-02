@@ -1,8 +1,7 @@
 {
   "type": "minecraft:tree",
   "below_trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:dirt"
+    "id": "minecraft:dirt"
   },
   "decorators": [
     {
@@ -21,34 +20,31 @@
     "type": "fishofthieves:banana_leaves_placer",
     "one_leaves_chance": 0.2,
     "tail_leaves_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "id": "fishofthieves:banana_leaves",
-        "properties": {
-          "type": "upper",
-          "count": "1",
-          "facing": "north",
-          "part": "tail",
-          "waterlogged": "false"
-        }
-      }
-    },
-    "top_leaves_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": "fishofthieves:vertical_banana_leaves"
-    }
-  },
-  "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": {
       "id": "fishofthieves:banana_leaves",
       "properties": {
         "type": "upper",
         "count": "1",
         "facing": "north",
-        "part": "stem",
+        "part": "tail",
         "waterlogged": "false"
       }
+    },
+    "top_leaves_state": {
+      "id": "fishofthieves:vertical_banana_leaves",
+      "properties": {
+        "ceiling": "false",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "foliage_provider": {
+    "id": "fishofthieves:banana_leaves",
+    "properties": {
+      "type": "upper",
+      "count": "1",
+      "facing": "north",
+      "part": "stem",
+      "waterlogged": "false"
     }
   },
   "ignore_vines": true,
@@ -64,12 +60,18 @@
     "base_height": 3,
     "height_rand_a": 6,
     "top_log": {
-      "type": "minecraft:simple_state_provider",
-      "state": "fishofthieves:banana_cluster_growable_stem"
+      "id": "fishofthieves:banana_cluster_growable_stem",
+      "properties": {
+        "axis": "y",
+        "waterlogged": "false"
+      }
     }
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "fishofthieves:banana_stem"
+    "id": "fishofthieves:banana_stem",
+    "properties": {
+      "axis": "y",
+      "waterlogged": "false"
+    }
   }
 }

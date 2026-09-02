@@ -2,11 +2,11 @@
   "gives": {
     "id": "minecraft:emerald"
   },
-  "max_uses": 8.0,
+  "max_uses": 8,
   "reputation_discount": 0.05,
   "wants": {
-    "count": 32.0,
+    "count": 32,
     "id": "fishofthieves:grubs"
   },
-  "xp": 12.0
+  "xp": 12
 }

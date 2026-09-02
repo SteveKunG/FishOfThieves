@@ -11,6 +11,7 @@ import com.stevekung.fishofthieves.registry.FOTFoliagePlacerTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -28,17 +29,17 @@ public class BananaLeavesPlacer extends FoliagePlacer
 {
     public static final MapCodec<BananaLeavesPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> frondsPart(instance).apply(instance, BananaLeavesPlacer::new));
     final float oneLeavesChance;
-    final BlockStateProvider topLeavesState;
-    final BlockStateProvider tailLeavesState;
+    final Holder<BlockStateProvider> topLeavesState;
+    final Holder<BlockStateProvider> tailLeavesState;
 
-    static <P extends BananaLeavesPlacer> Products.P3<Mu<P>, Float, BlockStateProvider, BlockStateProvider> frondsPart(Instance<P> instance)
+    static <P extends BananaLeavesPlacer> Products.P3<Mu<P>, Float, Holder<BlockStateProvider>, Holder<BlockStateProvider>> frondsPart(Instance<P> instance)
     {
         return instance.group(Codec.floatRange(0.0f, 1.0f).fieldOf("one_leaves_chance").forGetter(placer -> placer.oneLeavesChance))
                 .and(BlockStateProvider.CODEC.fieldOf("top_leaves_state").forGetter(placer -> placer.topLeavesState))
                 .and(BlockStateProvider.CODEC.fieldOf("tail_leaves_state").forGetter(placer -> placer.tailLeavesState));
     }
 
-    public BananaLeavesPlacer(float oneLeavesChance, BlockStateProvider topLeavesState, BlockStateProvider tailLeavesState)
+    public BananaLeavesPlacer(float oneLeavesChance, Holder<BlockStateProvider> topLeavesState, Holder<BlockStateProvider> tailLeavesState)
     {
         super(ConstantInt.of(0), ConstantInt.of(0));
         this.oneLeavesChance = oneLeavesChance;
@@ -80,8 +81,8 @@ public class BananaLeavesPlacer extends FoliagePlacer
                     if (this.isAir(level, posAroundLog) && this.isAir(level, posAroundLog.relative(opposite)))
                     {
                         var singleLeaves = random.nextFloat() < this.oneLeavesChance;
-                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, feature.foliageProvider().getState(level, random, pos), opposite, singleLeaves));
-                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, this.tailLeavesState.getState(level, random, pos), opposite, singleLeaves));
+                        blockSetter.set(posAroundLog, this.applyAdditionalState(level, posAroundLog, feature.foliageProvider().value().getState(level, random, pos), opposite, singleLeaves));
+                        blockSetter.set(posAroundLog.relative(opposite), this.applyAdditionalState(level, posAroundLog, this.tailLeavesState.value().getState(level, random, pos), opposite, singleLeaves));
                     }
                 }
             }
@@ -109,7 +110,7 @@ public class BananaLeavesPlacer extends FoliagePlacer
     {
         if (TreeFeature.validTreePos(level, blockPos))
         {
-            var blockState = this.topLeavesState.getState(level, random, blockPos);
+            var blockState = this.topLeavesState.value().getState(level, random, blockPos);
 
             if (blockState.hasProperty(BlockStateProperties.WATERLOGGED))
             {

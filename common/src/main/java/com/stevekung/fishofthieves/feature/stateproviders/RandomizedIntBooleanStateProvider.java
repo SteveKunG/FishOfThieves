@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.stevekung.fishofthieves.registry.FOTBlockStateProviderTypes;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.FloatProviders;
@@ -29,7 +30,7 @@ public class RandomizedIntBooleanStateProvider implements BlockStateProvider
                     Codec.STRING.fieldOf("boolean_property").forGetter(provider -> provider.booleanPropertyName),
                     FloatProviders.CODEC.fieldOf("boolean_chance").forGetter(provider -> provider.booleanChance))
             .apply(instance, RandomizedIntBooleanStateProvider::new));
-    private final BlockStateProvider source;
+    private final Holder<BlockStateProvider> source;
     private final String integerPropertyName;
     @Nullable
     private IntegerProperty integerProperty;
@@ -39,7 +40,7 @@ public class RandomizedIntBooleanStateProvider implements BlockStateProvider
     private BooleanProperty booleanProperty;
     private final FloatProvider booleanChance;
 
-    public RandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, BooleanProperty booleanProperty, FloatProvider booleanChance)
+    public RandomizedIntBooleanStateProvider(Holder<BlockStateProvider> source, IntegerProperty integerProperty, IntProvider integerValues, BooleanProperty booleanProperty, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerProperty = integerProperty;
@@ -59,7 +60,7 @@ public class RandomizedIntBooleanStateProvider implements BlockStateProvider
         }
     }
 
-    public RandomizedIntBooleanStateProvider(BlockStateProvider source, String integerPropertyName, IntProvider integerValues, String booleanPropertyName, FloatProvider booleanChance)
+    public RandomizedIntBooleanStateProvider(Holder<BlockStateProvider> source, String integerPropertyName, IntProvider integerValues, String booleanPropertyName, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerPropertyName = integerPropertyName;
@@ -77,7 +78,7 @@ public class RandomizedIntBooleanStateProvider implements BlockStateProvider
     @Override
     public BlockState getState(LevelAccessor level, RandomSource random, BlockPos pos)
     {
-        var blockState = this.source.getState(level, random, pos);
+        var blockState = this.source.value().getState(level, random, pos);
 
         if (this.integerProperty == null || !blockState.hasProperty(this.integerProperty))
         {

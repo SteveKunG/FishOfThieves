@@ -20,9 +20,9 @@
       ],
       "modifier": {
         "type": "minecraft:set_count",
-        "count": 1.0
+        "count": 1
       },
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -40,9 +40,9 @@
       ],
       "modifier": {
         "type": "minecraft:set_count",
-        "count": 1.0
+        "count": 1
       },
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

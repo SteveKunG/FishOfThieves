@@ -9,6 +9,7 @@ import com.stevekung.fishofthieves.registry.FOTBlockStateProviderTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.util.valueproviders.FloatProviders;
@@ -32,7 +33,7 @@ public class DirectionalRandomizedIntBooleanStateProvider implements BlockStateP
                     Codec.STRING.fieldOf("boolean_property").forGetter(provider -> provider.booleanPropertyName),
                     FloatProviders.CODEC.fieldOf("boolean_chance").forGetter(provider -> provider.booleanChance))
             .apply(instance, DirectionalRandomizedIntBooleanStateProvider::new));
-    private final BlockStateProvider source;
+    private final Holder<BlockStateProvider> source;
     private final String integerPropertyName;
     @Nullable
     private IntegerProperty integerProperty;
@@ -45,7 +46,7 @@ public class DirectionalRandomizedIntBooleanStateProvider implements BlockStateP
     private BooleanProperty booleanProperty;
     private final FloatProvider booleanChance;
 
-    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, IntegerProperty integerProperty, IntProvider integerValues, EnumProperty<Direction> directionProperty, BooleanProperty booleanProperty, FloatProvider booleanChance)
+    public DirectionalRandomizedIntBooleanStateProvider(Holder<BlockStateProvider> source, IntegerProperty integerProperty, IntProvider integerValues, EnumProperty<Direction> directionProperty, BooleanProperty booleanProperty, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerProperty = integerProperty;
@@ -67,7 +68,7 @@ public class DirectionalRandomizedIntBooleanStateProvider implements BlockStateP
         }
     }
 
-    public DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider source, String integerPropertyName, IntProvider integerValues, String directionPropertyName, String booleanPropertyName, FloatProvider booleanChance)
+    public DirectionalRandomizedIntBooleanStateProvider(Holder<BlockStateProvider> source, String integerPropertyName, IntProvider integerValues, String directionPropertyName, String booleanPropertyName, FloatProvider booleanChance)
     {
         this.source = source;
         this.integerPropertyName = integerPropertyName;
@@ -92,7 +93,7 @@ public class DirectionalRandomizedIntBooleanStateProvider implements BlockStateP
     @SuppressWarnings("unchecked")
     public BlockState getState(LevelAccessor level, RandomSource random, BlockPos pos, Direction direction)
     {
-        var blockState = this.source.getState(level, random, pos);
+        var blockState = this.source.value().getState(level, random, pos);
 
         if (this.integerProperty == null || !blockState.hasProperty(this.integerProperty))
         {
