@@ -2,13 +2,34 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      },
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "fishofthieves:coconut_fronds"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:any_of",
+                "terms": [
+                  "minecraft:tool/can_shear",
+                  "minecraft:tool/can_silk_touch"
+                ]
+              },
+              "name": "fishofthieves:coconut_fronds"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:table_bonus",
+                "chances": [
+                  0.5,
+                  1.0
+                ],
+                "enchantment": "minecraft:fortune"
+              },
+              "name": "fishofthieves:coconut_fronds"
+            }
+          ]
         }
       ],
       "rolls": 1

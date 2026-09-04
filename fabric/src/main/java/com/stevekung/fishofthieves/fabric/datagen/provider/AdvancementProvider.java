@@ -18,7 +18,6 @@ import com.stevekung.fishofthieves.item.predicate.ItemBucketEntityDataPredicate;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.BattlegillVariants;
 import com.stevekung.fishofthieves.registry.variant.DevilfishVariants;
-import com.stevekung.fishofthieves.registry.variant.StormfishVariants;
 import com.stevekung.fishofthieves.trigger.*;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -101,6 +100,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
                                         .of(Fluids.WATER))))
                 .save(consumer, this.mod("root"));
 
+        //TODO
 //        var fishCollectors = this.addFishBuckets(Advancement.Builder.advancement().parent(advancement), itemLookup)
 //                .display(FOTItems.SPLASHTAIL_BUCKET,
 //                        Component.translatable("advancements.fishofthieves.fish_collectors.title"),
@@ -131,7 +131,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
 //                        Component.translatable("advancements.fishofthieves.treasured_fish_collectors.description"),
 //                        AdvancementType.CHALLENGE, true, true, false)
 //                .rewards(AdvancementRewards.Builder.experience(3000).addLootTable(lootTableLookup.getOrThrow(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS)))
-//                .save(consumer, this.mod("treasured_fish_collectors"));TODO
+//                .save(consumer, this.mod("treasured_fish_collectors"));
 
         Advancement.Builder.advancement().parent(advancement).addCriterion(this.getItemName(FOTItems.DEVILFISH_BUCKET),
                         PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(Optional.empty(),

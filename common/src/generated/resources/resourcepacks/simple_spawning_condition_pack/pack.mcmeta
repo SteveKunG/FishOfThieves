@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "description": {
+      "translate": "dataPack.simple_spawning_condition_pack.description"
+    },
+    "max_format": 119,
+    "min_format": 119
+  }
+}

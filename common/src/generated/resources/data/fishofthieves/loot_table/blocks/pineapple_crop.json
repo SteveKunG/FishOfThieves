@@ -41,6 +41,73 @@
               "children": [
                 {
                   "type": "minecraft:item",
+                  "modifier": {
+                    "type": "minecraft:set_count",
+                    "count": 1
+                  },
+                  "name": "fishofthieves:underripe_pineapple_block"
+                }
+              ],
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  "minecraft:tool/can_silk_touch",
+                  {
+                    "type": "minecraft:match_block",
+                    "blocks": "fishofthieves:pineapple_crop",
+                    "state": {
+                      "age": "4"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:alternatives",
+              "children": [
+                {
+                  "type": "minecraft:alternatives",
+                  "children": [
+                    {
+                      "type": "minecraft:item",
+                      "condition": "minecraft:tool/can_silk_touch",
+                      "modifier": {
+                        "type": "minecraft:set_count",
+                        "count": 1
+                      },
+                      "name": "fishofthieves:ripe_pineapple_block"
+                    },
+                    {
+                      "type": "minecraft:item",
+                      "condition": {
+                        "type": "minecraft:match_block",
+                        "blocks": "fishofthieves:pineapple_crop",
+                        "state": {
+                          "half": "lower"
+                        }
+                      },
+                      "modifier": {
+                        "type": "minecraft:set_count",
+                        "count": 1
+                      },
+                      "name": "fishofthieves:pineapple"
+                    }
+                  ]
+                }
+              ],
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "fishofthieves:pineapple_crop",
+                "state": {
+                  "age": "5"
+                }
+              }
+            },
+            {
+              "type": "minecraft:alternatives",
+              "children": [
+                {
+                  "type": "minecraft:item",
                   "modifier": [
                     {
                       "type": "minecraft:set_count",

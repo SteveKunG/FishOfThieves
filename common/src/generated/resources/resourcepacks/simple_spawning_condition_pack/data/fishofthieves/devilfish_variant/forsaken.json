@@ -1,0 +1,16 @@
+{
+  "name": "forsaken",
+  "order": 3,
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": {
+          "type": "fishofthieves:probability",
+          "chance": 0.05
+        },
+        "priority": 0
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/devilfish/forsaken"
+}

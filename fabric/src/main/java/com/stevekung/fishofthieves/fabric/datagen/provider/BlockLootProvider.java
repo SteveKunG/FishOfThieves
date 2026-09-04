@@ -14,15 +14,17 @@ import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.storage.loot.IntLimit;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
@@ -133,8 +135,7 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
                         .add(LootItem.lootTableItem(FOTItems.COCONUT)
                                 .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 4))))
                         .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties().hasProperty(CoconutFruitBlock.AGE, 2)))));
-//        this.add(FOTBlocks.COCONUT_FRONDS, block -> this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.5F, 1.0F))));TODO
-        this.dropSelf(FOTBlocks.COCONUT_FRONDS);
+        this.add(FOTBlocks.COCONUT_FRONDS, block -> this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.5F, 1.0F))));
         this.dropSelf(FOTBlocks.BANANA_STEM);
         this.add(FOTBlocks.BANANA_LEAVES, block -> LootTable.lootTable()
                 .withPool(this.applyExplosionCondition(block, LootPool.lootPool()
@@ -163,35 +164,23 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
         this.dropSelf(FOTBlocks.BANANA_SHOOTS);
         this.dropSelf(FOTBlocks.BANANA_BLOSSOM);
 
-        //TODO
-        this.dropOther(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, Blocks.STONE);
-        this.dropOther(FOTBlocks.RIPE_BANANA_CLUSTER, Blocks.STONE);
-        this.dropOther(FOTBlocks.UNDERRIPE_BANANA_CLUSTER, Blocks.STONE);
-        this.dropOther(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER, Blocks.STONE);
-        this.dropOther(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, Blocks.STONE);
-        this.dropOther(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, Blocks.STONE);
-        this.dropOther(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, Blocks.STONE);
-        this.dropOther(FOTBlocks.RIPE_PINEAPPLE_BLOCK, Blocks.STONE);
-        this.dropOther(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, Blocks.STONE);
-        this.dropOther(FOTBlocks.MANGO_LEAVES, Blocks.STONE);
-
-//        this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, this.createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
-//                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(5.0F, 8.0F)))
-//                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
-//                .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
-//        this.add(FOTBlocks.RIPE_BANANA_CLUSTER, block -> this.createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(FOTItems.BANANA)
-//                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(5.0F, 8.0F)))
-//                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
-//                .apply(LimitCount.limitCount(IntRange.upperBound(9))))));
-//        this.dropWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
-//        this.dropWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
-//        this.otherWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
-//        this.otherWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.add(FOTBlocks.RIPE_BANANA_CLUSTER_PLANT, this.createSilkTouchDispatchTable(FOTBlocks.RIPE_BANANA_CLUSTER, this.applyExplosionDecay(FOTBlocks.RIPE_BANANA_CLUSTER, LootItem.lootTableItem(FOTItems.BANANA)
+                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(5, 8)))
+                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
+                .apply(LimitCount.limitCount(IntLimit.upperBound(9))))));
+        this.add(FOTBlocks.RIPE_BANANA_CLUSTER, block -> this.createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(FOTItems.BANANA)
+                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(5, 8)))
+                .apply(ApplyBonusCount.addUniformBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
+                .apply(LimitCount.limitCount(IntLimit.upperBound(9))))));
+        this.dropWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        this.dropWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
+        this.otherWhenSilkTouch(FOTBlocks.UNDERRIPE_BANANA_CLUSTER_PLANT, FOTBlocks.UNDERRIPE_BANANA_CLUSTER);
+        this.otherWhenSilkTouch(FOTBlocks.BARELY_RIPE_BANANA_CLUSTER_PLANT, FOTBlocks.BARELY_RIPE_BANANA_CLUSTER);
         this.add(FOTBlocks.PINEAPPLE_CROP, this::createPineappleCropLoot);
-//        this.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE_CROWN));
-//        this.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE));
-//        this.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.CROWNLESS_PINEAPPLE));
-//        this.add(FOTBlocks.MANGO_LEAVES, block -> this.createLeavesDrops(block, FOTBlocks.MANGO_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE_CROWN));
+        this.add(FOTBlocks.RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.PINEAPPLE));
+        this.add(FOTBlocks.CROWNLESS_RIPE_PINEAPPLE_BLOCK, block -> this.createSingleItemTableWithSilkTouch(block, FOTItems.CROWNLESS_PINEAPPLE));
+        this.add(FOTBlocks.MANGO_LEAVES, block -> this.createLeavesDrops(block, FOTBlocks.MANGO_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES));
         this.add(FOTBlocks.MANGO_FRUIT, this::createMangoFruitDrops);
         this.add(FOTBlocks.HANGING_MANGO_FRUIT, this::createMangoFruitDrops);
         this.dropSelf(FOTBlocks.MANGO_PIT);
@@ -280,20 +269,20 @@ public class BlockLootProvider extends FabricBlockLootSubProvider
                                 .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
                                         .hasProperty(PineappleCropBlock.AGE, 0))),
 
-//                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)TODO
-//                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1.0F))))
-//                                .when(this.hasSilkTouch())
-//                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
-//                                        .hasProperty(PineappleCropBlock.AGE, 4))),
-//
-//                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK)
-//                                        .when(this.hasSilkTouch())
-//                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1.0F)))
-//                                        .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE)
-//                                                .when(isLower)
-//                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1.0F)))))
-//                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
-//                                        .hasProperty(PineappleCropBlock.AGE, 5))),
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                                .when(this.hasSilkTouch())
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PineappleCropBlock.AGE, 4))),
+
+                        AlternativesEntry.alternatives(LootItem.lootTableItem(FOTBlocks.RIPE_PINEAPPLE_BLOCK)
+                                        .when(this.hasSilkTouch())
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
+                                        .otherwise(LootItem.lootTableItem(FOTItems.PINEAPPLE)
+                                                .when(isLower)
+                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))))
+                                .when(MatchBlock.blockMatches(this.blocks, block, StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(PineappleCropBlock.AGE, 5))),
 
                         AlternativesEntry.alternatives(LootItem.lootTableItem(FOTItems.PINEAPPLE_CROWN)
                                         .apply(List.of(1, 2, 3, 4), age -> SetItemCountFunction.setCount(ContextIntProviders.exactly(1))

@@ -42,7 +42,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
         builder.add(Registries.VILLAGER_TRADE, FOTVillagerTrades::bootstrap);
         builder.add(Registries.DECORATED_POT_PATTERN, FOTDecoratedPotPatterns::bootstrap);
-//        builder.add(Registries.NUMBER_PROVIDER, FOTNumberProviders::bootstrap);TODO
+        //builder.add(Registries.CONTEXT_INT_PROVIDER, FOTContextIntProviders::bootstrap);TODO
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -97,7 +97,7 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(TimelineTagsProvider::new);
         pack.addProvider(VillagerTradesTagsProvider::new);
 
-//        new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);TODO
+        new SimpleSpawningConditionPackGenerator().onInitializeDataGenerator(dataGenerator);
 
         var basePath = Paths.get("").toAbsolutePath().getParent().getParent().getParent();
         var inputPath = basePath.resolve("common/src/main/resources/data/").resolve(FishOfThieves.MOD_ID).resolve("structure");

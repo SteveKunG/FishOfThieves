@@ -1,0 +1,24 @@
+{
+  "glow_texture": "fishofthieves:entity/splashtail/seafoam_glow",
+  "name": "seafoam",
+  "order": 4,
+  "spawn_settings": {
+    "entity": [
+      {
+        "condition": {
+          "type": "fishofthieves:all_of",
+          "terms": [
+            {
+              "type": "fishofthieves:is_night"
+            },
+            {
+              "type": "fishofthieves:see_sky"
+            }
+          ]
+        },
+        "priority": 0
+      }
+    ]
+  },
+  "texture": "fishofthieves:entity/splashtail/seafoam"
+}
