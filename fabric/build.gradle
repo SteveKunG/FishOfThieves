@@ -12,6 +12,7 @@ loom {
         systemProperties.putAll(rootProject.commonProperties)
         jvmArguments.addAll(rootProject.commonVmArgs)
         jvmArguments.addAll(rootProject.hotswapVmArgs)
+        jvmArguments.add("-XX:StackShadowPages=32")
     }
 
     runs {
