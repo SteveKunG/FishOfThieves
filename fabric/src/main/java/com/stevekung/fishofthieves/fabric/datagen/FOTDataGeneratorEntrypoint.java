@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
@@ -20,11 +21,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.MultiRegistryBootstrap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.structures.NbtToSnbt;
 import net.minecraft.data.structures.SnbtToNbt;
 import net.minecraft.data.structures.StructureUpdater;
+import net.minecraft.resources.ResourceKey;
 
 @SuppressWarnings("unused")
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
@@ -42,7 +46,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(Registries.TIMELINE, FOTTimelines::bootstrap);
         builder.add(Registries.VILLAGER_TRADE, FOTVillagerTrades::bootstrap);
         builder.add(Registries.DECORATED_POT_PATTERN, FOTDecoratedPotPatterns::bootstrap);
-        //builder.add(Registries.CONTEXT_INT_PROVIDER, FOTContextIntProviders::bootstrap);TODO
         builder.add(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariants::bootstrap);
         builder.add(FOTRegistries.PONDIE_VARIANT, PondieVariants::bootstrap);
         builder.add(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariants::bootstrap);
@@ -54,6 +57,25 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         builder.add(FOTRegistries.WRECKER_VARIANT, WreckerVariants::bootstrap);
         builder.add(FOTRegistries.STORMFISH_VARIANT, StormfishVariants::bootstrap);
         builder.add(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteractions::bootstrap);
+    }
+
+    @Override
+    public void buildReloadableRegistry(RegistrySetBuilder builder)
+    {
+        builder.add(new MultiRegistryBootstrap()
+        {
+            @Override
+            public Set<ResourceKey<? extends Registry<?>>> requestedRegistries()
+            {
+                return Set.of(Registries.CONTEXT_INT_PROVIDER);
+            }
+
+            @Override
+            public void run(BootstrapGetter registries)
+            {
+                FOTContextIntProviders.bootstrap(registries.get(Registries.CONTEXT_INT_PROVIDER));
+            }
+        });
     }
 
     @SuppressWarnings({ "ResultOfMethodCallIgnored", "UnstableApiUsage" })

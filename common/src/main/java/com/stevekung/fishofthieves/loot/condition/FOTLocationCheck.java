@@ -27,8 +27,8 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
     @Override
     public boolean test(LootContext context)
     {
-        var vec3 = context.getOptionalParameter(LootContextParams.ORIGIN);
-        var entity = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        var vec3 = context.getOptional(LootContextParams.ORIGIN);
+        var entity = context.getOptional(LootContextParams.THIS_ENTITY);
         return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), entity, vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ()));
     }
 

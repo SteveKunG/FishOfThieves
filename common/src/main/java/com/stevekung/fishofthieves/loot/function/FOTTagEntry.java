@@ -69,12 +69,12 @@ public class FOTTagEntry extends ExpandableContainerBase
         return true;
     }
 
-    private ItemStack createItemStackWithData(LootContext lootContext, Holder<Item> itemHolder)
+    private ItemStack createItemStackWithData(LootContext context, Holder<Item> itemHolder)
     {
         var itemStack = new ItemStack(itemHolder);
-        var vec3 = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
-        var entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
-        return FOTItem.generateRandomFishVariantLootItem(itemStack, entity, lootContext.getLevel(), vec3, lootContext.getRandom());
+        var vec3 = context.getOptional(LootContextParams.ORIGIN);
+        var entity = context.getOptional(LootContextParams.THIS_ENTITY);
+        return FOTItem.generateRandomFishVariantLootItem(itemStack, entity, context.getLevel(), vec3, context.getRandom());
     }
 
     public static UniformContainerBase.Builder<?> expandTag(HolderSet<Item> tag)

@@ -36,12 +36,12 @@ public class FOTLootItem extends SingleEntryContainerBase
     }
 
     @Override
-    public void createItemStack(Consumer<ItemStack> stackConsumer, LootContext lootContext)
+    public void createItemStack(Consumer<ItemStack> stackConsumer, LootContext context)
     {
         var itemStack = new ItemStack(this.item);
-        var vec3 = lootContext.getOptionalParameter(LootContextParams.ORIGIN);
-        var entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
-        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, entity, lootContext.getLevel(), vec3, lootContext.getRandom()));
+        var vec3 = context.getOptional(LootContextParams.ORIGIN);
+        var entity = context.getOptional(LootContextParams.THIS_ENTITY);
+        stackConsumer.accept(FOTItem.generateRandomFishVariantLootItem(itemStack, entity, context.getLevel(), vec3, context.getRandom()));
     }
 
     @SuppressWarnings("deprecation")

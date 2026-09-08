@@ -76,7 +76,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     {
         if (stack.is(Items.MAP))
         {
-            var origin = context.getOptionalParameter(LootContextParams.ORIGIN);
+            var origin = context.getOptional(LootContextParams.ORIGIN);
 
             if (origin == null)
             {

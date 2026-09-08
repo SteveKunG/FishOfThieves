@@ -37,7 +37,7 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
     @Override
     public boolean test(LootContext context)
     {
-        var entity = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        var entity = context.getOptional(LootContextParams.THIS_ENTITY);
         return entity != null && this.entityPredicate.matches(context.getLevel(), null, entity) && this.checkBaitFromHook(entity);
     }
 
