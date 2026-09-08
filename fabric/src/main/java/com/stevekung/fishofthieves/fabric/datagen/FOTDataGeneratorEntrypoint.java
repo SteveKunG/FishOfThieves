@@ -25,10 +25,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.MultiRegistryBootstrap;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.data.structures.NbtToSnbt;
 import net.minecraft.data.structures.SnbtToNbt;
 import net.minecraft.data.structures.StructureUpdater;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.TagEntry;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 @SuppressWarnings("unused")
 public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
@@ -67,13 +73,43 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             @Override
             public Set<ResourceKey<? extends Registry<?>>> requestedRegistries()
             {
-                return Set.of(Registries.CONTEXT_INT_PROVIDER);
+                return Set.of(Registries.CONTEXT_INT_PROVIDER, Registries.LOOT_TABLE);
             }
 
             @Override
             public void run(BootstrapGetter registries)
             {
                 FOTContextIntProviders.bootstrap(registries.get(Registries.CONTEXT_INT_PROVIDER));
+                createReloadableLootProvider(registries.get(Registries.LOOT_TABLE)).run();
+            }
+
+            private static LootTableSubProvider createReloadableLootProvider(BootstrapContext<LootTable> context)
+            {
+                return () ->
+                {
+                    var items = context.lookup(Registries.ITEM);
+
+                    context.register(FOTLootTables.Advancements.FISH_COLLECTORS, LootTable.lootTable()
+                            .withPool(LootPool.lootPool()
+                                    .setRolls(ContextIntProviders.between(2, 4))
+                                    .add(TagEntry.expandTag(items.getOrThrow(FOTTags.Items.WOODEN_FISH_PLAQUE)))).build());
+
+                    context.register(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS, LootTable.lootTable()
+                            .withPool(LootPool.lootPool()
+                                    .setRolls(ContextIntProviders.between(1, 2))
+                                    .add(TagEntry.expandTag(items.getOrThrow(FOTTags.Items.IRON_FRAME_FISH_PLAQUE))))
+                            .withPool(LootPool.lootPool()
+                                    .setRolls(ContextIntProviders.between(1, 2))
+                                    .add(TagEntry.expandTag(items.getOrThrow(FOTTags.Items.COPPER_FRAME_FISH_PLAQUE))))
+                            .withPool(LootPool.lootPool()
+                                    .setRolls(ContextIntProviders.between(4, 8))
+                                    .add(TagEntry.expandTag(items.getOrThrow(FOTTags.Items.GOLDEN_FRAME_FISH_PLAQUE)))).build());
+
+                    context.register(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS, LootTable.lootTable()
+                            .withPool(LootPool.lootPool()
+                                    .setRolls(ContextIntProviders.between(4, 8))
+                                    .add(TagEntry.expandTag(items.getOrThrow(FOTTags.Items.GILDED_FRAME_FISH_PLAQUE)))).build());
+                };
             }
         });
     }
@@ -103,7 +139,6 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(CustomBlockLootProvider::new);
         pack.addProvider(EntityLootProvider::new);
         pack.addProvider(ChestLootProvider::new);
-        pack.addProvider(AdvancementRewardProvider::new);
         var blockTagsProvider = pack.addProvider(BlockTagsProvider::new);
         pack.addProvider((dataOutput, provider) -> new ItemTagsProvider(dataOutput, provider, blockTagsProvider));
         pack.addProvider(EntityTagsProvider::new);
@@ -185,6 +220,10 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
             entries.addAll(registries.lookupOrThrow(FOTRegistries.WRECKER_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.STORMFISH_VARIANT));
             entries.addAll(registries.lookupOrThrow(FOTRegistries.FISH_PLAQUE_INTERACTION));
+
+            entries.add(registries.getOrThrow(FOTLootTables.Advancements.FISH_COLLECTORS));
+            entries.add(registries.getOrThrow(FOTLootTables.Advancements.MASTER_FISH_COLLECTORS));
+            entries.add(registries.getOrThrow(FOTLootTables.Advancements.LEGENDARY_FISH_COLLECTORS));
         }
 
         @Override
