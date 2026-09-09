@@ -51,6 +51,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.PlaceOnGroundDe
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
+@SuppressWarnings("deprecation")
 public class FOTFeatures
 {
     public static final ResourceKey<Feature> FISH_BONE = createKey("fish_bone");
@@ -211,13 +212,13 @@ public class FOTFeatures
         var decorators = new ArrayList<>(List.of(
                 new AttachedToLeavesDecorator(0.1F, 2, 0,
                         Holder.direct(new RandomizedIntBooleanStateProvider(BlockStateProvider.holderOf(FOTBlocks.HANGING_MANGO_FRUIT.defaultBlockState()),
-                                HangingMangoFruitBlock.AGE, UniformInt.of(0, 2),
-                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f))), 2, List.of(Direction.DOWN)),
+                                AbstractMangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                AbstractMangoFruitBlock.FALLING, ConstantFloat.of(0.6f))), 2, List.of(Direction.DOWN)),
                 new DirectionalAttachedToLeavesDecorator(0.5F, 1, 1,
                         new DirectionalRandomizedIntBooleanStateProvider(BlockStateProvider.holderOf(FOTBlocks.MANGO_FRUIT.defaultBlockState()),
-                                MangoFruitBlock.AGE, UniformInt.of(0, 2),
+                                AbstractMangoFruitBlock.AGE, UniformInt.of(0, 2),
                                 MangoFruitBlock.FACING,
-                                MangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
+                                AbstractMangoFruitBlock.FALLING, ConstantFloat.of(0.6f)), 1, Direction.Plane.HORIZONTAL.stream().toList(), true),
                 new BeehiveDecorator(beehiveChance)
         ));
         decorators.addAll(additionalDecorators);
