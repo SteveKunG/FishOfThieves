@@ -22,18 +22,18 @@ public class FOTSurfaceRuleData
 
     private FOTSurfaceRuleData() {}
 
-    public static MaterialRule overworld(HolderGetter<MaterialCondition> conditionSource, HolderGetter<Biome> biomes)
+    public static MaterialRule overworld(HolderGetter<MaterialCondition> materialCondition, HolderGetter<Biome> biomes)
     {
-        return MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.abovePreliminarySurface(), makeRules(conditionSource, biomes)));
+        return MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.abovePreliminarySurface(), makeRules(materialCondition, biomes)));
     }
 
-    private static MaterialRule makeRules(HolderGetter<MaterialCondition> conditionSource, HolderGetter<Biome> biomes)
+    private static MaterialRule makeRules(HolderGetter<MaterialCondition> materialCondition, HolderGetter<Biome> biomes)
     {
         var waterAboveCheck = MaterialRules.waterBlockCheck(1, 0);
         var y62 = MaterialRules.yBlockCheck(VerticalAnchor.absolute(62), 0);
         var airAboveCheck = blockStateCheck(Blocks.AIR, 1);
         var sixBelowWater = MaterialRules.waterStartCheck(-6, -1);
-        var sandWithSandstone = MaterialRules.sequence(MaterialRules.ifTrue(conditionSource.getOrThrow(VanillaMaterialConditions.ON_CEILING).value(), SANDSTONE), SAND);
+        var sandWithSandstone = MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.getCondition(materialCondition, VanillaMaterialConditions.ON_CEILING), SANDSTONE), SAND);
 
         var surfaceBelow64 = MaterialRules.not(
                 MaterialRules.yStartCheck(
@@ -45,7 +45,7 @@ public class FOTSurfaceRuleData
                         sixBelowWater,
                         MaterialRules.sequence(
                                 MaterialRules.ifTrue(
-                                        conditionSource.getOrThrow(VanillaMaterialConditions.UNDER_FLOOR).value(),
+                                        MaterialRules.getCondition(materialCondition, VanillaMaterialConditions.UNDER_FLOOR),
                                         MaterialRules.sequence(
                                                 MaterialRules.ifTrue(MaterialRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                                         MaterialRules.sequence(
@@ -62,7 +62,7 @@ public class FOTSurfaceRuleData
                 ),
 
                 MaterialRules.ifTrue(
-                        conditionSource.getOrThrow(VanillaMaterialConditions.ON_FLOOR).value(),
+                        MaterialRules.getCondition(materialCondition, VanillaMaterialConditions.ON_FLOOR),
                         MaterialRules.sequence(
                                 MaterialRules.ifTrue(MaterialRules.isBiome(biomes, FOTBiomes.TROPICAL_ISLAND),
                                         MaterialRules.ifTrue(airAboveCheck, MaterialRules.sequence(

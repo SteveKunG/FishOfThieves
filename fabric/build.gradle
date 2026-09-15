@@ -70,10 +70,10 @@ dependencies {
     //localRuntime("maven.modrinth:continuity:${continuity_version}")TODO
     //localRuntime("maven.modrinth:xaeros-minimap:fabric-${xaeros_minimap_version}")TODO
     //localRuntime("xaero.lib:xaerolib-fabric-${minecraft_version}:+")TODO
-    /*implementation("com.terraformersmc:biolith-fabric:${biolith_version}") {TODO
+    implementation("com.terraformersmc:biolith-fabric:${biolith_version}") {
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
-    }*/
+    }
     /*compileOnly("com.github.glitchfiend:SereneSeasons-fabric:${minecraft_version}-${serene_seasons_version}") {TODO
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "net.fabricmc", module: "fabric-loader"
