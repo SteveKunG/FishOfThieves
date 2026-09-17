@@ -21,7 +21,6 @@ import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
@@ -69,7 +68,7 @@ public class FOTLootManager
         }
     }
 
-    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootTableMap()
+    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderGetter.Provider, LootPool.Builder>> getInjectedLootTableMap()
     {
         return Util.make(new HashMap<>(), map ->
         {
@@ -89,7 +88,7 @@ public class FOTLootManager
         });
     }
 
-    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderLookup.Provider, LootPool.Builder>> getInjectedLootPoolMap()
+    public static Map<ResourceKey<LootTable>, BiFunction<LootPool.Builder, HolderGetter.Provider, LootPool.Builder>> getInjectedLootPoolMap()
     {
         return Util.make(new HashMap<>(), map ->
         {
@@ -119,7 +118,7 @@ public class FOTLootManager
                 .add(FOTLootItem.lootTableItem(FOTItems.STORMFISH).when(FOTLootItemConditions.THUNDERING));
     }
 
-    public static LootPool.Builder getFishingLoot(LootPool.Builder builder, HolderLookup.Provider provider, boolean useBaits)
+    public static LootPool.Builder getFishingLoot(LootPool.Builder builder, HolderGetter.Provider provider, boolean useBaits)
     {
         var structureLookup = provider.lookupOrThrow(Registries.STRUCTURE);
         var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
@@ -301,7 +300,7 @@ public class FOTLootManager
                 ;
     }
 
-    public static LootPool.Builder getJungleTempleLoot(LootPool.Builder builder, HolderLookup.Provider provider)
+    public static LootPool.Builder getJungleTempleLoot(LootPool.Builder builder, HolderGetter.Provider provider)
     {
         var biomeLookup = provider.lookupOrThrow(Registries.BIOME);
         return builder.setRolls(ContextIntProviders.between(1, 2))

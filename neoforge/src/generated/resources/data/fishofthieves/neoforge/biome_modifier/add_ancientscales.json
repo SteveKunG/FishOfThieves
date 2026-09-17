@@ -3,8 +3,11 @@
   "biomes": "#fishofthieves:spawns_ancientscales",
   "spawners": {
     "type": "fishofthieves:ancientscale",
-    "maxCount": 8,
-    "minCount": 4,
+    "count": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 8,
+      "min_inclusive": 4
+    },
     "weight": 8
   }
 }

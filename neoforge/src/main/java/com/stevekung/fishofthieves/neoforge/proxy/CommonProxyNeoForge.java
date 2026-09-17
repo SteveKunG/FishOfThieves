@@ -9,7 +9,6 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
-import com.stevekung.fishofthieves.registry.FOTTags;
 import com.stevekung.fishofthieves.storage.BaitStorageAccessor;
 
 import net.minecraft.network.chat.Component;
@@ -32,7 +31,6 @@ import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
 
 public class CommonProxyNeoForge
@@ -59,17 +57,6 @@ public class CommonProxyNeoForge
                 FOTBiolith.init();
             }
         });
-    }
-
-    @SubscribeEvent
-    public void onFuelBurnTime(FurnaceFuelBurnTimeEvent event)
-    {
-        var itemStack = event.getItemStack();
-
-        if (itemStack.is(FOTTags.Items.WOODEN_FISH_PLAQUE))
-        {
-            event.setBurnTime(300);
-        }
     }
 
     @SubscribeEvent

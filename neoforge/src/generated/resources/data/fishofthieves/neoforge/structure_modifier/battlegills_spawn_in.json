@@ -2,8 +2,11 @@
   "type": "fishofthieves:thieves_fish_spawns_in_structure",
   "spawnerData": {
     "type": "fishofthieves:battlegill",
-    "maxCount": 4,
-    "minCount": 2,
+    "count": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 2
+    },
     "weight": 5
   },
   "structure": "#fishofthieves:battlegills_spawn_in"

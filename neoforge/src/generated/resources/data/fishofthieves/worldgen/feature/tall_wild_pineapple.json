@@ -1,0 +1,18 @@
+{
+  "type": "fishofthieves:simple_age_block",
+  "to_place": {
+    "property": "age",
+    "source": {
+      "id": "fishofthieves:pineapple_crop",
+      "properties": {
+        "age": "0",
+        "half": "lower"
+      }
+    },
+    "values": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 5,
+      "min_inclusive": 4
+    }
+  }
+}

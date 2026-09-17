@@ -85,6 +85,7 @@ public class FishOfThievesNeoForge
         event.register(Registries.ENTITY_TYPE, _ -> FOTEntities.init());
         event.register(Registries.SOUND_EVENT, _ -> FOTSoundEvents.init());
         event.register(Registries.FEATURE, _ -> FOTFeatures.init());
+        event.register(Registries.FEATURE_TYPE, _ -> FOTFeatureTypes.init());
         event.register(Registries.SENSOR_TYPE, _ -> FOTSensorTypes.init());
         event.register(Registries.MEMORY_MODULE_TYPE, _ -> FOTMemoryModuleTypes.init());
         event.register(Registries.STRUCTURE_TYPE, _ -> FOTStructures.init());

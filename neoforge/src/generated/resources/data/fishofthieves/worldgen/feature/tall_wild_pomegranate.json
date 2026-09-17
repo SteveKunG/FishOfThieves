@@ -1,0 +1,19 @@
+{
+  "type": "fishofthieves:simple_age_block",
+  "to_place": {
+    "property": "age",
+    "source": {
+      "id": "fishofthieves:tall_pomegranate_plant",
+      "properties": {
+        "age": "0",
+        "half": "lower",
+        "persistent": "false"
+      }
+    },
+    "values": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 0
+    }
+  }
+}

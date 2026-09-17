@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "fishofthieves:pomegranate_plant",
+        "weight": 8
+      },
+      {
+        "data": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
+            "age": "1",
+            "persistent": "false"
+          }
+        },
+        "weight": 6
+      },
+      {
+        "data": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
+            "age": "2",
+            "persistent": "false"
+          }
+        },
+        "weight": 4
+      },
+      {
+        "data": {
+          "id": "fishofthieves:pomegranate_plant",
+          "properties": {
+            "age": "3",
+            "persistent": "false"
+          }
+        },
+        "weight": 2
+      }
+    ]
+  }
+}

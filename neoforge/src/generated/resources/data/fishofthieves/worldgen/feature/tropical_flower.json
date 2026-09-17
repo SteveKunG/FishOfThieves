@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "fishofthieves:pink_plumeria",
+        "weight": 12
+      },
+      {
+        "data": "fishofthieves:light_blue_plumeria",
+        "weight": 10
+      },
+      {
+        "data": "fishofthieves:white_plumeria",
+        "weight": 8
+      },
+      {
+        "data": "fishofthieves:tropical_monstera",
+        "weight": 3
+      },
+      {
+        "data": "fishofthieves:tropical_red_fern",
+        "weight": 3
+      },
+      {
+        "data": "fishofthieves:vertical_banana_leaves",
+        "weight": 2
+      }
+    ]
+  }
+}

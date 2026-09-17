@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:simple_random_selector",
-  "config": {
-    "features": [
-      "fishofthieves:mango_tree_leaf_litter_checked",
-      "fishofthieves:banana_tree_checked"
-    ]
-  }
-}

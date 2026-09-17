@@ -1,0 +1,28 @@
+{
+  "values": {
+    "fishofthieves:coconut_fruit_growable_log": {
+      "stripped_block": "fishofthieves:stripped_small_coconut_log"
+    },
+    "fishofthieves:coconut_log": {
+      "stripped_block": "fishofthieves:stripped_coconut_log"
+    },
+    "fishofthieves:coconut_wood": {
+      "stripped_block": "fishofthieves:stripped_coconut_wood"
+    },
+    "fishofthieves:medium_coconut_log": {
+      "stripped_block": "fishofthieves:stripped_medium_coconut_log"
+    },
+    "fishofthieves:medium_coconut_wood": {
+      "stripped_block": "fishofthieves:stripped_medium_coconut_wood"
+    },
+    "fishofthieves:small_coconut_log": {
+      "stripped_block": "fishofthieves:stripped_small_coconut_log"
+    },
+    "fishofthieves:small_coconut_wood": {
+      "stripped_block": "fishofthieves:stripped_small_coconut_wood"
+    },
+    "fishofthieves:small_top_coconut_log": {
+      "stripped_block": "fishofthieves:stripped_small_coconut_wood"
+    }
+  }
+}

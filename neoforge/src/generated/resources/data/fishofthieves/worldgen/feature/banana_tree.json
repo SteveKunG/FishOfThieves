@@ -1,0 +1,77 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "id": "minecraft:dirt"
+  },
+  "decorators": [
+    {
+      "type": "fishofthieves:banana",
+      "barely_ripe_probability": 0.4,
+      "max_banana_cluster": 6,
+      "probability": 0.4,
+      "ripe_probability": 0.2
+    },
+    {
+      "type": "fishofthieves:banana_shoots",
+      "probability": 0.3
+    }
+  ],
+  "foliage_placer": {
+    "type": "fishofthieves:banana_leaves_placer",
+    "one_leaves_chance": 0.2,
+    "tail_leaves_state": {
+      "id": "fishofthieves:banana_leaves",
+      "properties": {
+        "type": "upper",
+        "count": "1",
+        "facing": "north",
+        "part": "tail",
+        "waterlogged": "false"
+      }
+    },
+    "top_leaves_state": {
+      "id": "fishofthieves:vertical_banana_leaves",
+      "properties": {
+        "ceiling": "false",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "foliage_provider": {
+    "id": "fishofthieves:banana_leaves",
+    "properties": {
+      "type": "upper",
+      "count": "1",
+      "facing": "north",
+      "part": "stem",
+      "waterlogged": "false"
+    }
+  },
+  "ignore_vines": true,
+  "minimum_size": {
+    "type": "minecraft:three_layers_feature_size",
+    "limit": 2,
+    "middle_size": 2,
+    "upper_limit": 2,
+    "upper_size": 2
+  },
+  "trunk_placer": {
+    "type": "fishofthieves:banana_trunk_placer",
+    "base_height": 3,
+    "height_rand_a": 6,
+    "top_log": {
+      "id": "fishofthieves:banana_cluster_growable_stem",
+      "properties": {
+        "axis": "y",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "trunk_provider": {
+    "id": "fishofthieves:banana_stem",
+    "properties": {
+      "axis": "y",
+      "waterlogged": "false"
+    }
+  }
+}

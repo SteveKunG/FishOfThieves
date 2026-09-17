@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.neoforge.world;
 
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -11,11 +10,9 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -64,21 +61,7 @@ public class FOTStructureModifiers
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Server event)
     {
-        event.getGenerator().addProvider(true, (DataProvider.Factory<StructureModifiers>) output -> new StructureModifiers(output, event.getLookupProvider()));
-    }
-
-    private static class StructureModifiers extends DatapackBuiltinEntriesProvider
-    {
-        public StructureModifiers(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
-        {
-            super(output, registries, BUILDER, Set.of(FishOfThieves.MOD_ID));
-        }
-
-        @Override
-        public String getName()
-        {
-            return "Structure Modifier Registries: " + FishOfThieves.MOD_ID;
-        }
+        event.getGenerator().addProvider(true, (DataProvider.Factory<?>) output -> DatapackBuiltinEntriesProvider.forWorldLayer(output, "Structure Modifier Registries: " + FishOfThieves.MOD_ID, event.getWorldLookupProvider(), BUILDER, Set.of(FishOfThieves.MOD_ID)));
     }
 
     private static StructureModifier addStructureSpawns(Weighted<MobSpawnSettings.SpawnerData> spawnerData, TagKey<Structure> structureTagKey)

@@ -6,9 +6,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "accessor.CropBlockAccessor",
-    "block.MixinFOTRotatedPillarBlock",
-    "block.MixinMediumRotatedPillarBlock",
-    "block.MixinSmallRotatedPillarBlock",
     "item.MixinFOTWormItem"
   ],
   "client": [

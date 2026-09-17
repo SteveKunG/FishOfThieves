@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    "fishofthieves:coconut_tree_checked",
+    "fishofthieves:old_coconut_tree_checked"
+  ]
+}

@@ -1,19 +1,21 @@
 package com.stevekung.fishofthieves.neoforge.datagen;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.neoforge.CompostableList;
+import com.stevekung.fishofthieves.neoforge.AxeStrippableDummy;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
+import net.neoforged.neoforge.registries.datamaps.builtin.Strippable;
 
 @EventBusSubscriber(modid = FishOfThieves.MOD_ID)
 public class FOTDataMapGenerator
@@ -21,8 +23,7 @@ public class FOTDataMapGenerator
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Server event)
     {
-        FishOfThieves.initCompostables();
-        event.getGenerator().addProvider(true, (DataProvider.Factory<FOTDataMapProvider>) output -> new FOTDataMapProvider(output, event.getLookupProvider()));
+        event.getGenerator().addProvider(true, (DataProvider.Factory<FOTDataMapProvider>) output -> new FOTDataMapProvider(output, event.getWorldLookupProvider()));
     }
 
     private static class FOTDataMapProvider extends DataMapProvider
@@ -32,12 +33,13 @@ public class FOTDataMapGenerator
             super(packOutput, lookupProvider);
         }
 
-        @SuppressWarnings("deprecation")
         @Override
         protected void gather(HolderLookup.Provider provider)
         {
-            var compostable = this.builder(NeoForgeDataMaps.COMPOSTABLES);
-            CompostableList.COMPOSTABLES.forEach((itemLike, value) -> compostable.add(itemLike.asItem().builtInRegistryHolder(), new Compostable(value, false), false));
+            var strippable = this.builder(NeoForgeDataMaps.STRIPPABLES);
+            Stream.of(AxeStrippableDummy.STRIPPED_BLOCKS, AxeStrippableDummy.Small.CUSTOM_STRIPPABLES, AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES)
+                    .flatMap(map -> map.entrySet().stream())
+                    .forEach(entry -> strippable.add(BuiltInRegistries.BLOCK.getKey(entry.getKey()), new Strippable(entry.getValue()), false));
         }
     }
 }
