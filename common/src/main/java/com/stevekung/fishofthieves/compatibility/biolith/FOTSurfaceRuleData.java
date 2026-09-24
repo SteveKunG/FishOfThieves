@@ -6,6 +6,8 @@ import com.stevekung.fishofthieves.registry.FOTBiomes;
 import com.stevekung.fishofthieves.registry.FOTNoises;
 
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.material.VanillaMaterialConditions;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -22,8 +24,10 @@ public class FOTSurfaceRuleData
 
     private FOTSurfaceRuleData() {}
 
-    public static MaterialRule overworld(HolderGetter<MaterialCondition> materialCondition, HolderGetter<Biome> biomes)
+    public static MaterialRule overworld(RegistryAccess registryAccess)
     {
+        var materialCondition = registryAccess.lookupOrThrow(Registries.MATERIAL_CONDITION);
+        var biomes = registryAccess.lookupOrThrow(Registries.BIOME);
         return MaterialRules.sequence(MaterialRules.ifTrue(MaterialRules.abovePreliminarySurface(), makeRules(materialCondition, biomes)));
     }
 

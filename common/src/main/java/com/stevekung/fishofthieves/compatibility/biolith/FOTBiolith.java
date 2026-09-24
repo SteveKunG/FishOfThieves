@@ -24,7 +24,6 @@ public class FOTBiolith
                 new ValueCriterion(BiomeParameterTargets.WEIRDNESS, FishOfThieves.CONFIG.biome.tropicalIslandMinimumWeirdness, FishOfThieves.CONFIG.biome.tropicalIslandMaximumWeirdness)
         )));
 
-        //TODO
-//        SurfaceGeneration.addOverworldSurfaceRules(FishOfThieves.id("surface_rules"), FOTSurfaceRuleData::overworld);TODO
+        SurfaceGeneration.addOverworldSurfaceRules(FishOfThieves.id("surface_rules"), FOTSurfaceRuleData::overworld);
     }
 }
