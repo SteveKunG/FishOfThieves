@@ -7,15 +7,21 @@ import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.neoforge.AxeStrippableDummy;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.BlockTransformer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.component.BlockTransformers;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
-import net.neoforged.neoforge.registries.datamaps.builtin.Strippable;
+import net.neoforged.neoforge.registries.datamaps.builtin.Transformable;
 
 @EventBusSubscriber(modid = FishOfThieves.MOD_ID)
 public class FOTDataMapGenerator
@@ -36,10 +42,17 @@ public class FOTDataMapGenerator
         @Override
         protected void gather(HolderLookup.Provider provider)
         {
-            var strippable = this.builder(NeoForgeDataMaps.STRIPPABLES);
+            var transformable = this.builder(NeoForgeDataMaps.TRANSFORMABLES);
             Stream.of(AxeStrippableDummy.STRIPPED_BLOCKS, AxeStrippableDummy.Small.CUSTOM_STRIPPABLES, AxeStrippableDummy.Medium.CUSTOM_STRIPPABLES)
                     .flatMap(map -> map.entrySet().stream())
-                    .forEach(entry -> strippable.add(BuiltInRegistries.BLOCK.getKey(entry.getKey()), new Strippable(entry.getValue()), false));
+                    .forEach(entry -> transformable
+                            .add(BuiltInRegistries.BLOCK.getKey(entry.getKey()),
+                                    new Transformable(BlockTransformers.AXE, BlockTransformer.BlockTransformData
+                                            .builder(RuleBasedStateProvider.builder()
+                                                    .ifTrueThenProvide(BlockPredicate.matchesBlocks(entry.getKey()), new CopyPropertiesProvider(entry.getValue()))
+                                                    .build())
+                                            .sound(SoundEvents.AXE_STRIP)
+                                            .build()), false));
         }
     }
 }
