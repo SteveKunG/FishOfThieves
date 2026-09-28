@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
@@ -79,7 +80,7 @@ public class FOTStructureModifiers
         private static final DeferredHolder<MapCodec<? extends StructureModifier>, MapCodec<? extends StructureModifier>> SERIALIZER = DeferredHolder.create(NeoForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS, ADD_THIEVES_FISH_SPAWNS_IN_STRUCTURE_RL);
 
         @Override
-        public void modify(Holder<Structure> structure, Phase phase, ModifiableStructureInfo.StructureInfo.Builder builder)
+        public void modify(RegistryAccess registryAccess, Holder<Structure> structure, Phase phase, ModifiableStructureInfo.StructureInfo.Builder builder)
         {
             if (phase == Phase.ADD && structure.is(this.structureTagKey))
             {

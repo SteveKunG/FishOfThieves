@@ -22,9 +22,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(FishOfThieves.MOD_ID)
@@ -61,19 +61,19 @@ public class FishOfThievesNeoForge
     }
 
     @SubscribeEvent
-    public void registerRegistries(DataPackRegistryEvent.NewRegistry event)
+    public void registerRegistries(NewDatapackRegistryEvent event)
     {
-        event.dataPackRegistry(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, SplashtailVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, PondieVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, IslehopperVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, AncientscaleVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, PlentifinVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, WildsplashVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DevilfishVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, BattlegillVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, WreckerVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, StormfishVariant.NETWORK_CODEC);
-        event.dataPackRegistry(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, FishPlaqueInteraction.DIRECT_CODEC);
+        event.worldRegistry(FOTRegistries.SPLASHTAIL_VARIANT, SplashtailVariant.DIRECT_CODEC, SplashtailVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.PONDIE_VARIANT, PondieVariant.DIRECT_CODEC, PondieVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.ISLEHOPPER_VARIANT, IslehopperVariant.DIRECT_CODEC, IslehopperVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.ANCIENTSCALE_VARIANT, AncientscaleVariant.DIRECT_CODEC, AncientscaleVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.PLENTIFIN_VARIANT, PlentifinVariant.DIRECT_CODEC, PlentifinVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.WILDSPLASH_VARIANT, WildsplashVariant.DIRECT_CODEC, WildsplashVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.DEVILFISH_VARIANT, DevilfishVariant.DIRECT_CODEC, DevilfishVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.BATTLEGILL_VARIANT, BattlegillVariant.DIRECT_CODEC, BattlegillVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.WRECKER_VARIANT, WreckerVariant.DIRECT_CODEC, WreckerVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.STORMFISH_VARIANT, StormfishVariant.DIRECT_CODEC, StormfishVariant.NETWORK_CODEC);
+        event.worldRegistry(FOTRegistries.FISH_PLAQUE_INTERACTION, FishPlaqueInteraction.DIRECT_CODEC, FishPlaqueInteraction.DIRECT_CODEC);
     }
 
     @SubscribeEvent
