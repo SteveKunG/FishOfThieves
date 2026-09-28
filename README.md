@@ -12,13 +12,14 @@
 
 ---
 
-| Minecraft Version | Status       |
-|-------------------|--------------|
-| 1.20.1            | ✅ Active     |
-| 1.21.1            | ✅ Active     |
-| 1.21.11           | ✅ Active     |
-| 26.1.x            | ✅ Active     |
-| 26.2.x            | ✅ Active     |
+| Minecraft Version | Status    |
+|-------------------|-----------|
+| 1.20.1            | ✅ Active |
+| 1.21.1            | ✅ Active |
+| 1.21.11           | ✅ Active |
+| 26.1.x            | ✅ Active |
+| 26.2.x            | ✅ Active |
+| 26.3.x            | ✅ Active |
 
 ## **About**
 
