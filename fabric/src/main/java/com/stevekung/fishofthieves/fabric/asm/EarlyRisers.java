@@ -13,5 +13,11 @@ public class EarlyRisers implements Runnable
 
         var grassColorModifier = remapper.mapClassName("intermediary", "net.minecraft.class_4763$class_5486");
         ClassTinkerers.enumBuilder(grassColorModifier, String.class).addEnumSubclass("FISHOFTHIEVES_TROPICAL_ISLAND", "com.stevekung.fishofthieves.fabric.asm.TropicalIslandGrassColorModifier", "fishofthieves:tropical_island").build();
+
+        var boatType = remapper.mapClassName("intermediary", "net.minecraft.class_1690$class_1692");
+        var block = 'L' + remapper.mapClassName("intermediary", "net.minecraft.class_2248") + ';';
+        ClassTinkerers.enumBuilder(boatType, block, String.class)
+                .addEnum("FISHOFTHIEVES_COCONUT", () -> new Object[] { null, "fishofthieves_coconut"})
+                .build();
     }
 }

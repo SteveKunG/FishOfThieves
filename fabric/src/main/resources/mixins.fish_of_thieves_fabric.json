@@ -7,6 +7,7 @@
     "client.renderer.MixinFogRenderer"
   ],
   "mixins": [
+    "accessor.BoatTypeAccessor",
     "item.MixinAxeItem",
     "world.level.MixinNaturalSpawner"
   ],

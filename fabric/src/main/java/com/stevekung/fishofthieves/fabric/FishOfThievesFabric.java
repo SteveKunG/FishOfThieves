@@ -10,6 +10,7 @@ import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
 import com.stevekung.fishofthieves.entity.variant.*;
+import com.stevekung.fishofthieves.fabric.mixin.accessor.BoatTypeAccessor;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
 import com.stevekung.fishofthieves.network.RequestServerShoalFishPacket;
@@ -124,6 +125,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPoiTypes.init();
         FOTMapDecorationTypes.init();
         FOTLootItemFunctions.init();
+
+        ((BoatTypeAccessor) (Object) FOTBoatTypes.COCONUT).fishofthieves$setPlanks(FOTBlocks.COCONUT_PLANKS);
 
         if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
         {
