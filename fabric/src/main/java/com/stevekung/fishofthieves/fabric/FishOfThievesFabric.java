@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.fabric;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
@@ -42,6 +41,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
+
+import xyz.bluspring.fork.mm.api.ClassTinkerers;
 
 public class FishOfThievesFabric implements ModInitializer
 {
