@@ -30,7 +30,7 @@
     "modmenu": [
       "com.stevekung.fishofthieves.fabric.modmenu.ModMenuIntegration"
     ],
-    "mm:early_risers": [
+    "mm_kilt:early_risers": [
       "com.stevekung.fishofthieves.fabric.asm.EarlyRisers"
     ]
   },

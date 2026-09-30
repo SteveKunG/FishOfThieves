@@ -54,9 +54,9 @@ loom {
 repositories {
     maven {
         name = "Fabric ASM"
-        url = "https://jitpack.io/"
+        url = "https://mvn.devos.one/releases/"
         content {
-            includeGroup "com.github.Chocohead"
+            includeGroup "xyz.bluspring.fork"
         }
     }
     maven {
@@ -83,7 +83,7 @@ dependencies {
     }
     modRuntimeOnly("maven.modrinth:structure-void-toggle:4.2.7+1.20.1_fabric")
     modRuntimeOnly "maven.modrinth:world-preview:1.3.1"
-    modImplementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
+    modImplementation(include("xyz.bluspring.fork:Fabric-ASM:2.5.3"))
     modImplementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
 }
 

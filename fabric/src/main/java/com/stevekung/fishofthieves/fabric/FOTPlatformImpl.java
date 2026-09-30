@@ -1,6 +1,5 @@
 package com.stevekung.fishofthieves.fabric;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.serialization.Lifecycle;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
@@ -49,6 +48,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+
+import xyz.bluspring.fork.mm.api.ClassTinkerers;
 
 public class FOTPlatformImpl
 {
