@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 @Mixin(Boat.Type.class)
 public class MixinBoatType
 {
+    @SuppressWarnings("target")
     @Shadow
     @Mutable
     @Final
