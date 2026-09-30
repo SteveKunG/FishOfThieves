@@ -37,7 +37,7 @@ public abstract class MixinServerLevel extends Level implements BaitStorageAcces
 
     MixinServerLevel()
     {
-        super(null, null, null, null, false, false, 0, 0);
+        super(null, null, null, null, false, false, 0);
     }
 
     @Inject(method = "tickThunder", cancellable = true, at = @At(value = "INVOKE", target = "net/minecraft/server/level/ServerLevel.isThundering()Z"))

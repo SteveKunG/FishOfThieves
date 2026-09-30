@@ -42,16 +42,16 @@ public class ChestLootProvider extends SimpleFabricLootTableSubProvider
 {
     private static final FireworkExplosion.Shape[] VALUES = FireworkExplosion.Shape.values();
     private static final IntList FIREWORK_COLORS = IntList.of(
-            DyeColor.RED.getFireworkColor(),
-            DyeColor.ORANGE.getFireworkColor(),
-            DyeColor.YELLOW.getFireworkColor(),
-            DyeColor.LIME.getFireworkColor(),
-            DyeColor.BLUE.getFireworkColor(),
-            DyeColor.CYAN.getFireworkColor(),
-            DyeColor.LIGHT_BLUE.getFireworkColor(),
-            DyeColor.PURPLE.getFireworkColor(),
-            DyeColor.MAGENTA.getFireworkColor(),
-            DyeColor.WHITE.getFireworkColor(),
+            FireworkExplosion.defaultFireworkTint(DyeColor.RED),
+            FireworkExplosion.defaultFireworkTint(DyeColor.ORANGE),
+            FireworkExplosion.defaultFireworkTint(DyeColor.YELLOW),
+            FireworkExplosion.defaultFireworkTint(DyeColor.LIME),
+            FireworkExplosion.defaultFireworkTint(DyeColor.BLUE),
+            FireworkExplosion.defaultFireworkTint(DyeColor.CYAN),
+            FireworkExplosion.defaultFireworkTint(DyeColor.LIGHT_BLUE),
+            FireworkExplosion.defaultFireworkTint(DyeColor.PURPLE),
+            FireworkExplosion.defaultFireworkTint(DyeColor.MAGENTA),
+            FireworkExplosion.defaultFireworkTint(DyeColor.WHITE),
             6942120 // athena
     );
     private final HolderGetter<Item> items;

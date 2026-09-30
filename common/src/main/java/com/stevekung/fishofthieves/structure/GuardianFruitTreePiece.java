@@ -49,7 +49,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     @SuppressWarnings("deprecation")
     private static StructurePlaceSettings makeSettings(HolderLookup.Provider registries, StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
     {
-        var structureTemplate = structureTemplateManager.getOrCreate(location);
+        var structureTemplate = structureTemplateManager.getOrEmpty(location);
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
         return makeSettings(registries, tag.read("Mirror", Mirror.LEGACY_CODEC).orElseThrow(), tag.read("Rotation", Rotation.LEGACY_CODEC).orElseThrow(), blockPos);
     }

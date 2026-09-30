@@ -42,7 +42,7 @@ public class GuardianFruitTreeStructure extends Structure
     {
         var worldgenRandom = context.random();
         var resourceLocation = FishOfThieves.id(GUARDIAN_FRUIT_TREES[worldgenRandom.nextInt(GUARDIAN_FRUIT_TREES.length)]);
-        var structureTemplate = context.structureTemplateManager().getOrCreate(resourceLocation);
+        var structureTemplate = context.structureTemplateManager().getOrEmpty(resourceLocation);
         var rotation = Rotation.getRandom(worldgenRandom);
         var mirror = worldgenRandom.nextFloat() < 0.5F ? Mirror.NONE : Mirror.FRONT_BACK;
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
@@ -52,7 +52,7 @@ public class GuardianFruitTreeStructure extends Structure
         var blockPos2 = context.chunkPos().getWorldPosition();
         var boundingBox = structureTemplate.getBoundingBox(blockPos2, rotation, blockPos, mirror);
         var blockPos3 = boundingBox.getCenter();
-        var height = chunkGenerator.getBaseHeight(blockPos3.getX(), blockPos3.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, levelHeightAccessor, randomState) - 1;
+        var height = chunkGenerator.getFirstFreeHeight(blockPos3.getX(), blockPos3.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, levelHeightAccessor, randomState) - 1;
         var y = findSuitableY(chunkGenerator, height, boundingBox, levelHeightAccessor, randomState);
         var blockPos4 = new BlockPos(blockPos2.getX(), y, blockPos2.getZ());
         return Optional.of(new Structure.GenerationStub(blockPos4, structurePiecesBuilder -> structurePiecesBuilder.addPiece(new GuardianFruitTreePiece(context.registryAccess(), context.structureTemplateManager(), blockPos4, resourceLocation, rotation, mirror, blockPos, this.fruitChance))));

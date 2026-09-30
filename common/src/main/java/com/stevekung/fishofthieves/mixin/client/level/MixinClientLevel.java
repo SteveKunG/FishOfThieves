@@ -25,7 +25,7 @@ public abstract class MixinClientLevel extends Level
 {
     MixinClientLevel()
     {
-        super(null, null, null, null, false, false, 0, 0);
+        super(null, null, null, null, false, false, 0);
     }
 
     @Inject(method = "doAnimateTick", at = @At(value = "FIELD", target = "net/minecraft/world/attribute/EnvironmentAttributes.AMBIENT_PARTICLES:Lnet/minecraft/world/attribute/EnvironmentAttribute;"))

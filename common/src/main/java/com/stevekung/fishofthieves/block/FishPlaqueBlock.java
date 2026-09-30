@@ -33,6 +33,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Bucketable;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -317,9 +318,9 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     }
 
     @Override
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience)
+    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience, @Nullable Entity breaker)
     {
-        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
+        super.spawnAfterBreak(state, level, pos, stack, dropExperience, breaker);
         this.spawnFish(state, level, pos, level.getBlockEntity(pos));
     }
 

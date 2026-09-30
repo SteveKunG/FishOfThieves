@@ -23,7 +23,7 @@ public abstract class AbstractNoiseRouterFilter implements PlacementFilter
     @Override
     public boolean shouldPlace(PlacementContext context, RandomSource random, BlockPos pos)
     {
-        var serverChunkCache = context.getLevel().getLevel().getChunkSource();
+        var serverChunkCache = context.level().getLevel().getChunkSource();
         var randomState = serverChunkCache.randomState();
         var densityFunction = this.getDensityFunction(((RandomStateAccessor) (Object) randomState).getRouter());
         var samplerContext = SamplerContext.builder().enableCaches().useBufferArena(randomState.acquireDensityBufferPool()).build();
