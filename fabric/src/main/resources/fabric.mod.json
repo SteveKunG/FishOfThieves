@@ -77,7 +77,10 @@
         "com/stevekung/fishofthieves/entity/condition/SpawnContextExtender"
       ],
       "net/minecraft/world/level/levelgen/material/MaterialRuleContext": [
-        "com/stevekung/fishofthieves/levelgen/MaterialRuleContextExtender"
+        "com/stevekung/fishofthieves/levelgen/ChunkAccessExtender"
+      ],
+      "net/minecraft/world/level/levelgen/ChunkTerrainBuilder": [
+        "com/stevekung/fishofthieves/levelgen/ChunkAccessExtender"
       ]
     }
   }

@@ -3,7 +3,6 @@ package com.stevekung.fishofthieves.feature.surfacerules;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.stevekung.fishofthieves.mixin.accessor.MaterialRuleContextAccessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -49,8 +48,7 @@ public class BlockStateConditionSource implements MaterialCondition
     {
         return () ->
         {
-            var accessor = ((MaterialRuleContextAccessor) (Object) context);
-            var pos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY() + this.offset, accessor.getBlockZ());
+            var pos = this.mutablePos.set(context.blockX(), context.blockY() + this.offset, context.blockZ());
             return context.getChunkAccess().getBlockState(pos).is(this.blockState.getBlock());
         };
     }

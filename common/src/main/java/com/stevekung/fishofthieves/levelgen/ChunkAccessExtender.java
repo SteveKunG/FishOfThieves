@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.levelgen;
 
 import net.minecraft.world.level.chunk.ChunkAccess;
 
-public interface MaterialRuleContextExtender
+public interface ChunkAccessExtender
 {
     default ChunkAccess getChunkAccess()
     {

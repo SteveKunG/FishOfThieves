@@ -26,7 +26,6 @@
     "client.screen.MixinSignEditScreen"
   ],
   "mixins": [
-    "accessor.MaterialRuleContextAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "accessor.RandomStateAccessor",
     "accessor.SpeleothemBlockAccessor",
@@ -64,8 +63,9 @@
     "level.MixinServerLevel",
     "level.block.state.MixinBlockBehaviour",
     "level.block.state.MixinWoodType",
+    "level.levelgen.MixinChunkTerrainBuilder",
     "level.levelgen.MixinMaterialRuleContext",
-    "level.levelgen.MixinMaterialSystem",
+    "level.levelgen.MixinNoiseBasedChunkGenerator",
     "loot.MixinUniformContainerBase_Builder",
     "trading.MixinAbstractVillager",
     "trading.MixinMerchantOffer",

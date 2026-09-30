@@ -1,7 +1,6 @@
 package com.stevekung.fishofthieves.feature.surfacerules;
 
 import com.mojang.serialization.MapCodec;
-import com.stevekung.fishofthieves.mixin.accessor.MaterialRuleContextAccessor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,8 +25,7 @@ public class WaterSurroundedConditionSource implements MaterialCondition
     {
         return () ->
         {
-            var accessor = ((MaterialRuleContextAccessor) (Object) context);
-            var blockPos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY(), accessor.getBlockZ());
+            var blockPos = this.mutablePos.set(context.blockX(), context.blockY(), context.blockZ());
             var localX = blockPos.getX() & 15;
             var localZ = blockPos.getZ() & 15;
 
