@@ -21,6 +21,7 @@
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [
+    "accessor.BoatTypeAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "accessor.SurfaceRules_ContextAccessor",
     "animal.MixinAbstractFish",

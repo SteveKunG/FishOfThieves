@@ -1,8 +1,8 @@
 package com.stevekung.fishofthieves.fabric.asm;
 
-import com.chocohead.mm.api.ClassTinkerers;
-
 import net.fabricmc.loader.api.FabricLoader;
+
+import xyz.bluspring.fork.mm.api.ClassTinkerers;
 
 public class EarlyRisers implements Runnable
 {

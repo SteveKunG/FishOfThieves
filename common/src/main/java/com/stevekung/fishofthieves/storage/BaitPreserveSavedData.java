@@ -78,7 +78,7 @@ public class BaitPreserveSavedData extends SavedData
         {
             var listTag = new ListTag();
 
-            for (var entry : this.baitStorage.entrySet())
+            for (var entry : this.baitStorage.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).toList())
             {
                 var baitStorageTag = new CompoundTag();
                 var pos = entry.getKey();

@@ -2,7 +2,6 @@ package com.stevekung.fishofthieves.fabric;
 
 import java.util.ArrayList;
 
-import com.chocohead.mm.api.ClassTinkerers;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
@@ -55,6 +54,8 @@ import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
+
+import xyz.bluspring.fork.mm.api.ClassTinkerers;
 
 public class FishOfThievesFabric implements ModInitializer
 {
