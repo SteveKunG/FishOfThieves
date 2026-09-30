@@ -7,6 +7,7 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.entity.shoal.Shoal;
+import com.stevekung.fishofthieves.mixin.accessor.BoatTypeAccessor;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
 import com.stevekung.fishofthieves.registry.*;
 import com.stevekung.fishofthieves.registry.variant.*;
@@ -69,6 +70,8 @@ public class FishOfThievesFabric implements ModInitializer
         FOTPlacementModifiers.init();
         FOTSurfaceRuleConditionSources.init();
         FOTPoiTypes.init();
+
+        ((BoatTypeAccessor) (Object) FOTBoatTypes.COCONUT).fishofthieves$setPlanks(FOTBlocks.COCONUT_PLANKS);
 
         if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
         {

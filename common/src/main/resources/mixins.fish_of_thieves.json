@@ -24,6 +24,7 @@
     "client.screen.MixinHangingSignEditScreen"
   ],
   "mixins": [
+    "accessor.BoatTypeAccessor",
     "accessor.PointedDripstoneBlockAccessor",
     "accessor.SurfaceRules_ContextAccessor",
     "animal.MixinAbstractFish",
@@ -40,7 +41,6 @@
     "datafix.MixinDataFixers",
     "effect.MixinMobEffectUtil",
     "entity.MixinBoat",
-    "entity.MixinBoat$BoatType",
     "entity.MixinChestBoat",
     "entity.MixinEntity",
     "entity.MixinEntityType",
