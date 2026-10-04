@@ -71,9 +71,9 @@ public class GuardianFruitTreeStructure extends Structure
 
             for (var noiseColumn : columns)
             {
-                var blockState = noiseColumn.getBlock(projectedY);
+                var matches = noiseColumn.isSolid(projectedY);
 
-                if (Heightmap.Types.OCEAN_FLOOR_WG.isOpaque().test(blockState) && ++cornersOnSolidGround == 3)
+                if (matches && ++cornersOnSolidGround == 3)
                 {
                     return projectedY;
                 }
