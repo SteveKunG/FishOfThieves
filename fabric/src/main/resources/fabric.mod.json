@@ -79,7 +79,7 @@
       "net/minecraft/world/level/levelgen/material/MaterialRuleContext": [
         "com/stevekung/fishofthieves/levelgen/ChunkAccessExtender"
       ],
-      "net/minecraft/world/level/levelgen/ChunkTerrainBuilder": [
+      "net/minecraft/world/level/levelgen/RandomState": [
         "com/stevekung/fishofthieves/levelgen/ChunkAccessExtender"
       ]
     }

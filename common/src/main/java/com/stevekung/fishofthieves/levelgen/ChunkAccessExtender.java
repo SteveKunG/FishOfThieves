@@ -4,12 +4,12 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 
 public interface ChunkAccessExtender
 {
-    default ChunkAccess getChunkAccess()
+    default ChunkAccess fishofthieves$getChunkAccess()
     {
         throw new AssertionError("Implemented via mixin");
     }
 
-    default void setChunkAccess(ChunkAccess chunkAccess)
+    default void fishofthieves$setChunkAccess(ChunkAccess chunkAccess)
     {
         throw new AssertionError("Implemented via mixin");
     }

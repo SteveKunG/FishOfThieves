@@ -49,7 +49,7 @@ public class BlockStateConditionSource implements MaterialCondition
         return () ->
         {
             var pos = this.mutablePos.set(context.blockX(), context.blockY() + this.offset, context.blockZ());
-            return context.getChunkAccess().getBlockState(pos).is(this.blockState.getBlock());
+            return context.fishofthieves$getChunkAccess().getBlockState(pos).is(this.blockState.getBlock());
         };
     }
 }

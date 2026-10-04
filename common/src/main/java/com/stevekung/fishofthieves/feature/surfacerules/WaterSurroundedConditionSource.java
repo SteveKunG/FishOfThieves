@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.material.MaterialRuleContext;
 import net.minecraft.world.level.levelgen.material.condition.ConditionEvaluator;
 import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 
+@Deprecated //TODO Better implementation of sand around water
 public class WaterSurroundedConditionSource implements MaterialCondition
 {
     public static final MapCodec<WaterSurroundedConditionSource> CODEC = MapCodec.unit(new WaterSurroundedConditionSource());
@@ -40,7 +41,7 @@ public class WaterSurroundedConditionSource implements MaterialCondition
                     continue;
                 }
 
-                var fluidState = context.getChunkAccess().getFluidState(blockPos.relative(direction));
+                var fluidState = context.fishofthieves$getChunkAccess().getFluidState(blockPos.relative(direction));
 
                 if (fluidState.is(FluidTags.WATER))
                 {
