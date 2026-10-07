@@ -45,7 +45,7 @@ public record FOTLocationPredicate(Optional<Continentalness> continentalness, Op
         for (var structureHolder : structureRangeCondition.structures().stream().toList())
         {
             var structure = structureHolder.value();
-            var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos.getX(), blockPos.getY(), blockPos.getZ(), structure).isValid();
+            var isInsideStructure = level.structureManager().getStructureWithPieceAt(blockPos.getX(), blockPos.getY(), blockPos.getZ(), structure) != null;
 
             // If it has no source entity, just check if position is inside the structure
             if (entity == null)

@@ -34,7 +34,7 @@ public class TerrainUtils
 
     public static boolean isInFeature(ServerLevel level, BlockPos blockPos, TagKey<Structure> tagKey)
     {
-        return level.structureManager().getStructureWithPieceAt(blockPos, tagKey).isValid();
+        return level.structureManager().getStructureWithPieceAt(blockPos, tagKey) != null;
     }
 
     public static Optional<BlockPos> lookForBlock(ServerLevel level, BlockPos blockPos, int range, Predicate<BlockPos> posFilter)

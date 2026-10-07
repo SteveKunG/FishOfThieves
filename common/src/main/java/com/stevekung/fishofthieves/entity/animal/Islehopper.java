@@ -141,7 +141,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         {
             return this.calculateTreasuredGlow(this.level(), this.blockPosition());
         }
-        return Mth.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
+        return Math.clamp(1.0F + Mth.cos(ageInTicks * 0.05f), 0.5F, 1.0F);
     }
 
     @Override

@@ -25,15 +25,15 @@ public class MixinNaturalSpawner
     {
         if (category == MobCategory.WATER_AMBIENT)
         {
-            if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN).isValid())
+            if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.ANCIENTSCALES_SPAWN_IN) != null)
             {
                 info.setReturnValue(FOTEntities.SpawnData.ANCIENTSCALE);
             }
-            else if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN).isValid())
+            else if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.BATTLEGILLS_SPAWN_IN) != null)
             {
                 info.setReturnValue(FOTEntities.SpawnData.BATTLEGILL);
             }
-            else if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.WRECKERS_SPAWN_IN).isValid())
+            else if (structureManager.getStructureWithPieceAt(pos, FOTTags.Structures.WRECKERS_SPAWN_IN) != null)
             {
                 info.setReturnValue(FOTEntities.SpawnData.WRECKER);
             }

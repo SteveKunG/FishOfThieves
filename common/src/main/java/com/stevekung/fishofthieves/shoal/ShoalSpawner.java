@@ -17,7 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -56,10 +55,10 @@ public final class ShoalSpawner
     {
         var minEmeraldCost = tier == 2 ? TIER_2_MIN_EMERALD_COST : TIER_1_MIN_EMERALD_COST;
         var maxEmeraldCost = tier == 2 ? TIER_2_MAX_EMERALD_COST : TIER_1_MAX_EMERALD_COST;
-        var clampedDistance = Mth.clamp(distance, 0.0D, MAX_SEARCH_DISTANCE);
+        var clampedDistance = Math.clamp(distance, 0.0D, MAX_SEARCH_DISTANCE);
         var ratio = clampedDistance / MAX_SEARCH_DISTANCE;
         var cost = maxEmeraldCost - (int) Math.round(ratio * (maxEmeraldCost - minEmeraldCost));
-        return Mth.clamp(cost, minEmeraldCost, maxEmeraldCost);
+        return Math.clamp(cost, minEmeraldCost, maxEmeraldCost);
     }
 
     private static Stream<PoiRecord> getInRange(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)

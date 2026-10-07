@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.block;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -10,6 +11,7 @@ import com.stevekung.fishofthieves.registry.FOTItems;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -25,6 +27,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
@@ -110,7 +114,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     }
 
     @Override
-    public SoundType getSoundType(BlockState state)
+    public Optional<ResourceKey<BlockSoundSet>> getSounds(BlockState state)
     {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER)
         {
@@ -118,10 +122,10 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
             if (age >= 4)
             {
-                return SoundType.WOOD;
+                return Optional.of(BlockSoundSets.WOOD);
             }
         }
-        return super.getSoundType(state);
+        return super.getSounds(state);
     }
 
     @Override
