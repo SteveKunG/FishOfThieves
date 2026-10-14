@@ -44,12 +44,12 @@ public class WaterDripOnBlockTrigger extends SimpleCriterionTrigger<WaterDripOnB
 
         public static Criterion<TriggerInstance> waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate)
         {
-            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), statePredicate.build(), Optional.empty()));
+            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), Optional.of(statePredicate.build()), Optional.empty()));
         }
 
         public static Criterion<TriggerInstance> waterDrip(Block block, StatePropertiesPredicate.Builder statePredicate, LocationPredicate.Builder locationPredicate)
         {
-            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), statePredicate.build(), Optional.of(locationPredicate.build())));
+            return FOTCriteriaTriggers.WATER_DRIP_ON_BLOCK.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(block.builtInRegistryHolder()), Optional.of(statePredicate.build()), Optional.of(locationPredicate.build())));
         }
 
         public boolean matches(BlockState state, ServerLevel serverLevel, double x, double y, double z)

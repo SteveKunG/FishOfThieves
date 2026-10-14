@@ -348,7 +348,7 @@ public class FishPlaqueBlock extends BaseEntityBlock implements SimpleWaterlogge
     @Override
     public FluidState getFluidState(BlockState state)
     {
-        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
     }
 
     @Override

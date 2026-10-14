@@ -19,6 +19,7 @@ import com.stevekung.fishofthieves.registry.FOTEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.color.block.BlockTintSources;
+import net.minecraft.client.core.registries.BuiltInClientRegistries;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.object.boat.BoatModel;
@@ -98,9 +99,9 @@ public class FishOfThievesClient
 
     public static void registerBlockEntityRenderers()
     {
-        BlockEntityRenderers.register(FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.SIGN, StandingSignRenderer::new);
-        BlockEntityRenderers.register(FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.SIGN, StandingSignRenderer::new);
+        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
     @SuppressWarnings("unchecked")

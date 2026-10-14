@@ -76,7 +76,7 @@ public class FishBoneBlock extends HorizontalDirectionalBlock implements SimpleW
     {
         if (state.getValue(WATERLOGGED))
         {
-            return Fluids.WATER.getSource(false);
+            return Fluids.WATER.getSource();
         }
         return super.getFluidState(state);
     }

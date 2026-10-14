@@ -63,7 +63,7 @@ public class ShoalBlock extends Block implements BucketPickup
     @Override
     public FluidState getFluidState(BlockState state)
     {
-        return Fluids.WATER.getSource(false);
+        return Fluids.WATER.getSource();
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.core.registries.BuiltInClientRegistries;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 
 public class FishOfThievesFabricClient implements ClientModInitializer
@@ -30,7 +31,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
 
         FishOfThievesClient.registerBlockEntityRenderers();
 
-        FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRenderers.register(entry.entityType(), entry.factory()));
+        FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRenderers.register(BuiltInClientRegistries.ENTITY_RENDERER, entry.entityType(), entry.factory()));
 
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> FishOfThievesClient.getHeadphone().forEach(entry ->
         {

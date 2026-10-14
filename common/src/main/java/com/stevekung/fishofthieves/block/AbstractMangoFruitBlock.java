@@ -29,7 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class AbstractMangoFruitBlock extends Block implements BonemealableBlock, Fallable
 {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_2;
-    public static final BooleanProperty FALLING = BlockStateProperties.FALLING;
+    public static final BooleanProperty FALLING = BooleanProperty.create("falling");
 
     public AbstractMangoFruitBlock(Properties properties)
     {
