@@ -4,10 +4,10 @@ import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.levelgen.material.MaterialRuleContext;
 import net.minecraft.world.level.levelgen.material.condition.ConditionEvaluator;
 import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
+import net.minecraft.world.level.material.Fluids;
 
 @Deprecated //TODO Better implementation of sand around water
 public class WaterSurroundedConditionSource implements MaterialCondition
@@ -43,7 +43,7 @@ public class WaterSurroundedConditionSource implements MaterialCondition
 
                 var fluidState = context.fishofthieves$getChunkAccess().getFluidState(blockPos.relative(direction));
 
-                if (fluidState.is(FluidTags.WATER))
+                if (fluidState.is(Fluids.WATER))
                 {
                     return true;
                 }

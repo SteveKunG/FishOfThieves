@@ -11,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -133,7 +132,7 @@ public class ShoalBlock extends Block implements BucketPickup
             var blockState = level.getBlockState(blockPos);
             var fluidState = blockState.getFluidState();
 
-            if (!fluidState.is(FluidTags.WATER) || !fluidState.isSource() || !blockState.getCollisionShape(level, blockPos).isEmpty())
+            if (!fluidState.is(Fluids.WATER) || !fluidState.isSource() || !blockState.getCollisionShape(level, blockPos).isEmpty())
             {
                 return false;
             }

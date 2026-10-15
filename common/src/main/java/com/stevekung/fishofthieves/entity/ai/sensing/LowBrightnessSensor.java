@@ -7,10 +7,10 @@ import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.level.material.Fluids;
 
 public class LowBrightnessSensor extends Sensor<LivingEntity>
 {
@@ -34,6 +34,6 @@ public class LowBrightnessSensor extends Sensor<LivingEntity>
 
     private static boolean isLowLight(ServerLevel level, BlockPos blockPos)
     {
-        return level.getFluidState(blockPos).is(FluidTags.WATER) && level.getRawBrightness(blockPos, 0) <= 5;
+        return level.getFluidState(blockPos).is(Fluids.WATER) && level.getRawBrightness(blockPos, 0) <= 5;
     }
 }

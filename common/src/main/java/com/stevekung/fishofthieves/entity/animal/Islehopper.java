@@ -21,7 +21,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluids;
 
 public class Islehopper extends AbstractThievesFish<IslehopperVariant>
 {
@@ -153,7 +153,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource random)
     {
         var isSurfaceWater = WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, entitySpawnReason, blockPos, random);
-        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var isWater = level.getFluidState(blockPos.below()).is(Fluids.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var continentalness = TerrainUtils.getContinentalness(level.getLevel(), blockPos);
         var peakTypes = TerrainUtils.getPeakTypes(level.getLevel(), blockPos);
         var isCoast = continentalness == Continentalness.COAST && (peakTypes == PeakTypes.LOW || peakTypes == PeakTypes.MID || peakTypes == PeakTypes.VALLEY);

@@ -8,13 +8,13 @@ import com.stevekung.fishofthieves.registry.FOTSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Bucketable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.level.material.Fluids;
 
 public class FishBreaching<E extends LivingEntity> extends Behavior<E>
 {
@@ -73,7 +73,7 @@ public class FishBreaching<E extends LivingEntity> extends Behavior<E>
     private boolean waterIsClear(E entity, BlockPos blockPos, int dx, int dz, int scale)
     {
         blockPos = blockPos.offset(dx * scale, 0, dz * scale);
-        return entity.level().getFluidState(blockPos).is(FluidTags.WATER) && !entity.level().getBlockState(blockPos).is(BlockTags.BLOCKS_MOTION);
+        return entity.level().getFluidState(blockPos).is(Fluids.WATER) && !entity.level().getBlockState(blockPos).is(BlockTags.BLOCKS_MOTION);
     }
 
     private boolean surfaceIsClear(E entity, BlockPos blockPos, int dx, int dz, int scale)

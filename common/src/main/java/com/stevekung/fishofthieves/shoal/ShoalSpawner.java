@@ -16,7 +16,6 @@ import com.stevekung.fishofthieves.registry.FOTTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
@@ -25,6 +24,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.material.Fluids;
 
 public final class ShoalSpawner
 {
@@ -179,7 +179,7 @@ public final class ShoalSpawner
             {
                 var fluidState = blockState.getFluidState();
 
-                if (!fluidState.is(FluidTags.WATER) || !fluidState.isSource() || !blockState.getCollisionShape(level, blockPos).isEmpty())
+                if (!fluidState.is(Fluids.WATER) || !fluidState.isSource() || !blockState.getCollisionShape(level, blockPos).isEmpty())
                 {
                     return false;
                 }

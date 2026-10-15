@@ -16,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -27,6 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.material.Fluids;
 
 public class Stormfish extends AbstractThievesFish<StormfishVariant>
 {
@@ -136,7 +136,7 @@ public class Stormfish extends AbstractThievesFish<StormfishVariant>
     @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends WaterAnimal> entityType, ServerLevelAccessor level, EntitySpawnReason entitySpawnReason, BlockPos blockPos, RandomSource random)
     {
-        var isWater = level.getFluidState(blockPos.below()).is(FluidTags.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
+        var isWater = level.getFluidState(blockPos.below()).is(Fluids.WATER) && level.getBlockState(blockPos.above()).is(Blocks.WATER);
         var levelData = level.getLevelData();
         return isWater && level.getLevel().isRaining() && level.getLevel().isThundering() && level.canSeeSkyFromBelowWater(blockPos);
     }
