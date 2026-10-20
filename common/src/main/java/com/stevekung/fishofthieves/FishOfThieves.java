@@ -61,6 +61,11 @@ public class FishOfThieves
         DispenserBlock.registerBehavior(FOTItems.COCONUT_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_BOAT));
         DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_CHEST_BOAT));
 
+        initFlammable();
+    }
+
+    public static void initFlammable()
+    {
         FOTPlatform.addFlammableBlock(FOTBlocks.COCONUT_FRONDS, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.BANANA_LEAVES, 30, 60);
         FOTPlatform.addFlammableBlock(FOTBlocks.VERTICAL_COCONUT_FRONDS, 30, 60);

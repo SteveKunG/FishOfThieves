@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.neoforge.AxeStrippableDummy;
+import com.stevekung.fishofthieves.neoforge.FishOfThievesNeoForge;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.BlockTransformer;
@@ -29,6 +30,7 @@ public class FOTDataMapGenerator
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent.Server event)
     {
+        FishOfThieves.initFlammable();
         event.getGenerator().addProvider(true, (DataProvider.Factory<FOTDataMapProvider>) output -> new FOTDataMapProvider(output, event.getWorldLookupProvider()));
     }
 
@@ -53,6 +55,9 @@ public class FOTDataMapGenerator
                                                     .build())
                                             .sound(SoundEvents.AXE_STRIP)
                                             .build()), false));
+
+            var flammable = this.builder(NeoForgeDataMaps.FLAMMABLE);
+            FishOfThievesNeoForge.FLAMMABLE_MAP.forEach((block, flammable1) -> flammable.add(BuiltInRegistries.BLOCK.getKey(block), flammable1, false));
         }
     }
 }
