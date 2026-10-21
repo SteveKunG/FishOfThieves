@@ -1,0 +1,224 @@
+{
+  "values": {
+    "fishofthieves:banana_blossom": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:banana_blossom_plant": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:banana_cluster_growable_stem": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:banana_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "fishofthieves:banana_shoots": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:banana_shoots_plant": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:banana_stem": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:barely_ripe_banana_cluster": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:barely_ripe_banana_cluster_plant": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:budding_prismarized_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_fence": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_fence_gate": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_fronds": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "fishofthieves:coconut_fruit": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_fruit_growable_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_planks": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_sapling": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:coconut_shelf": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "fishofthieves:coconut_slab": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_stairs": {
+      "burn_odds": 20,
+      "ignite_odds": 5
+    },
+    "fishofthieves:coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:crownless_ripe_pineapple_block": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "fishofthieves:light_blue_plumeria": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:mango_fruit": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "fishofthieves:mango_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "fishofthieves:mango_pit": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:mango_sapling": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:medium_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:medium_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:pink_plumeria": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:pomegranate_plant": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:pomegranate_sapling": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:prismarized_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:ripe_banana_cluster": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:ripe_banana_cluster_plant": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:ripe_pineapple_block": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "fishofthieves:small_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:small_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:small_top_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_medium_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_medium_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_small_coconut_log": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:stripped_small_coconut_wood": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:tall_pomegranate_plant": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:tropical_monstera": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:tropical_red_fern": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    },
+    "fishofthieves:underripe_banana_cluster": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:underripe_banana_cluster_plant": {
+      "burn_odds": 5,
+      "ignite_odds": 5
+    },
+    "fishofthieves:underripe_pineapple_block": {
+      "burn_odds": 20,
+      "ignite_odds": 30
+    },
+    "fishofthieves:vertical_banana_leaves": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "fishofthieves:vertical_coconut_fronds": {
+      "burn_odds": 60,
+      "ignite_odds": 30
+    },
+    "fishofthieves:white_plumeria": {
+      "burn_odds": 100,
+      "ignite_odds": 60
+    }
+  }
+}

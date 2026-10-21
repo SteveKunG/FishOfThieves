@@ -1,5 +1,8 @@
 package com.stevekung.fishofthieves.neoforge;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
@@ -15,6 +18,7 @@ import com.stevekung.fishofthieves.registry.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
@@ -26,12 +30,14 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.registries.datamaps.builtin.Flammable;
 
 @Mod(FishOfThieves.MOD_ID)
 public class FishOfThievesNeoForge
 {
     private static final String PROTOCOL_VERSION = "1";
     public static final DeferredRegister<EntityDataSerializer<?>> ENTITY_DATA_SERIALIZERS = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS, FishOfThieves.MOD_ID);
+    public static final Map<Block, Flammable> FLAMMABLE_MAP = new HashMap<>();
 
     public FishOfThievesNeoForge()
     {
