@@ -7,6 +7,7 @@ import org.jspecify.annotations.Nullable;
 import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.block.ShoalBlock;
+import com.stevekung.fishofthieves.entity.FakeWaterEntity;
 import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTCriteriaTriggers;
@@ -243,7 +244,7 @@ public class Shoal extends Entity
                     .map(entity ->
                     {
                         var livingEntity = (LivingEntity) entity;
-                        //livingEntity.wasTouchingWater = true; TODO Mock entity is in water
+                        ((FakeWaterEntity) livingEntity).fishofthieves$setIsInFakeWater();
                         return livingEntity;
                     })
                     .toList();
