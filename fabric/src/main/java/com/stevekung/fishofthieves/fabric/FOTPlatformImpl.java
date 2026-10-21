@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -41,7 +40,7 @@ public class FOTPlatformImpl
 
     public static void addFlammableBlock(Block block, int encouragement, int flammability)
     {
-        FlammableBlockRegistry.getDefaultInstance().add(block, encouragement, flammability);
+        //FlammableBlockRegistry.getDefaultInstance().add(block, encouragement, flammability);TODO
     }
 
     public static CreativeModeTab.Builder getCreativeTabBuilder()

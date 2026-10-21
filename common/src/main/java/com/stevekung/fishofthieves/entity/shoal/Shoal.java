@@ -243,7 +243,7 @@ public class Shoal extends Entity
                     .map(entity ->
                     {
                         var livingEntity = (LivingEntity) entity;
-                        livingEntity.wasTouchingWater = true;
+                        //livingEntity.wasTouchingWater = true; TODO Mock entity is in water
                         return livingEntity;
                     })
                     .toList();
