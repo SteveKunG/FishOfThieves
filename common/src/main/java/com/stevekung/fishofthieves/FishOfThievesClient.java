@@ -1,22 +1,17 @@
 package com.stevekung.fishofthieves;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import com.stevekung.fishofthieves.client.model.*;
 import com.stevekung.fishofthieves.client.renderer.blockentity.FishPlaqueRenderer;
 import com.stevekung.fishofthieves.client.renderer.entity.*;
-import com.stevekung.fishofthieves.config.FishOfThievesConfig;
-import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
 import com.stevekung.fishofthieves.registry.FOTBlockEntityTypes;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
 
 import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -26,27 +21,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
 public class FishOfThievesClient
 {
-    private static final Map<String, Object> PREVIOUS_CONFIG_VALUES = new HashMap<>();
-
-    public static void init()
-    {
-        onConfigLoad();
-        AutoConfig.getConfigHolder(FishOfThievesConfig.class).registerSaveListener((holder, config) -> onConfigChanged(config));
-    }
-
     public static List<ModelLayerEntry> getModelLayers()
     {
         return List.of(
@@ -120,54 +103,6 @@ public class FishOfThievesClient
         {
             list.add(new ItemColorEntry((itemStack, tintIndex) -> FoliageColor.getDefaultColor(), FOTBlocks.MANGO_LEAVES));
         });
-    }
-
-    private static void onConfigLoad()
-    {
-        PREVIOUS_CONFIG_VALUES.put("displayAllFishVariantInCreativeTab", FishOfThieves.CONFIG.general.displayAllFishVariantInCreativeTab);
-        PREVIOUS_CONFIG_VALUES.put("displayTrophySpawnEggInCreativeTab", FishOfThieves.CONFIG.general.displayTrophySpawnEggInCreativeTab);
-        PREVIOUS_CONFIG_VALUES.put("displayTrophyBucketInCreativeTab", FishOfThieves.CONFIG.general.displayTrophyBucketInCreativeTab);
-    }
-
-    private static InteractionResult onConfigChanged(FishOfThievesConfig config)
-    {
-        var minecraft = Minecraft.getInstance();
-        var player = minecraft.player;
-
-        if (player != null && (
-                isConfigChanged(config, "displayAllFishVariantInCreativeTab") ||
-                        isConfigChanged(config, "displayTrophySpawnEggInCreativeTab") ||
-                        isConfigChanged(config, "displayTrophyBucketInCreativeTab")
-        ))
-        {
-            MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.level().registryAccess()));
-            MixinCreativeModeTabs.invokeBuildAllTabContents(MixinCreativeModeTabs.getCACHED_PARAMETERS());
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.PASS;
-    }
-
-    private static boolean isConfigChanged(FishOfThievesConfig config, String configName)
-    {
-        var previousValue = PREVIOUS_CONFIG_VALUES.get(configName);
-        Object currentValue = switch (configName)
-        {
-            case "displayAllFishVariantInCreativeTab" -> config.general.displayAllFishVariantInCreativeTab;
-            case "displayTrophySpawnEggInCreativeTab" -> config.general.displayTrophySpawnEggInCreativeTab;
-            case "displayTrophyBucketInCreativeTab" -> config.general.displayTrophyBucketInCreativeTab;
-            default ->
-            {
-                FishOfThieves.LOGGER.error("Unknown configuration parameter: {}", configName);
-                yield false;
-            }
-        };
-
-        if (previousValue == null || previousValue != currentValue)
-        {
-            PREVIOUS_CONFIG_VALUES.put(configName, currentValue);
-            return true;
-        }
-        return false;
     }
 
     public record ModelLayerEntry(ModelLayerLocation layerLocation, Supplier<LayerDefinition> supplier) {}

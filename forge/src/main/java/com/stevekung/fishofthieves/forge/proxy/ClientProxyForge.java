@@ -18,14 +18,12 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
 public class ClientProxyForge
 {
     public void init()
     {
         var context = FMLJavaModLoadingContext.get();
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get()));
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> FishOfThievesConfig.build().generateScreen(screen)));
         MinecraftForge.EVENT_BUS.register(this);
         context.getModEventBus().addListener(this::clientSetup);
         context.getModEventBus().addListener(this::registerRenderers);

@@ -38,15 +38,18 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.DispenserBlock;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 public class FishOfThieves
 {
+    static
+    {
+        FishOfThievesConfig.HANDLER.load();
+    }
+
     public static final String MOD_ID = "fishofthieves";
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
+    public static final FishOfThievesConfig CONFIG = FishOfThievesConfig.HANDLER.instance();
 
     public static final GameRules.Key<GameRules.BooleanValue> SHOAL_SPAWNING = FOTPlatform.registerGameRule("shoal_spawning", GameRules.Category.SPAWNING, FOTPlatform.getGameRuleBoolean(true));
 
