@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.config;
 
+import com.google.gson.FieldNamingPolicy;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
 
@@ -31,6 +32,7 @@ public class FishOfThievesConfig
     public static final ConfigClassHandler<FishOfThievesConfig> HANDLER = ConfigClassHandler.createBuilder(FishOfThievesConfig.class)
             .id(FishOfThieves.id("config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
+                    .appendGsonBuilder(builder -> builder.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY))
                     .setPath(YACLPlatform.getConfigDir().resolve("fishofthieves.json"))
                     .build())
             .build();
