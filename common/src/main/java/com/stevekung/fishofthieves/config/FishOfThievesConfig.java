@@ -2,32 +2,34 @@ package com.stevekung.fishofthieves.config;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.fabricmc.loader.api.FabricLoader;
 
-@Config(name = FishOfThieves.MOD_ID)
-@Config.Gui.Background("minecraft:textures/block/prismarine_bricks.png")
-public final class FishOfThievesConfig implements ConfigData
+import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
+import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
+
+public class FishOfThievesConfig
 {
-    @ConfigEntry.Category("general")
-    @ConfigEntry.Gui.TransitiveObject
+    public static ConfigClassHandler<FishOfThievesConfig> HANDLER = ConfigClassHandler.createBuilder(FishOfThievesConfig.class)
+            .id(FishOfThieves.id("config"))
+            .serializer(config -> GsonConfigSerializerBuilder.create(config)
+                    .setPath(FabricLoader.getInstance().getConfigDir().resolve("fishofthieves.json"))
+                    .build())
+            .build();
+
+    @SerialEntry
     public General general;
 
-    @ConfigEntry.Category("biome")
-    @ConfigEntry.Gui.TransitiveObject
+    @SerialEntry
     public Biome biome;
 
-    @ConfigEntry.Category("spawn_rate")
-    @ConfigEntry.Gui.TransitiveObject
+    @SerialEntry
     public SpawnRate spawnRate;
 
-    @ConfigEntry.Category("shoal")
-    @ConfigEntry.Gui.TransitiveObject
+    @SerialEntry
     public Shoal shoal;
 
-    @ConfigEntry.Category("debug")
-    @ConfigEntry.Gui.TransitiveObject
+    @SerialEntry
     public Debug debug;
 
     public FishOfThievesConfig()
@@ -41,14 +43,19 @@ public final class FishOfThievesConfig implements ConfigData
 
     public static class General
     {
+        @SerialEntry
         public float trophyMaxHealth = 5.0F;
 
+        @SerialEntry
         public boolean enableEarthwormsDrop = true;
 
+        @SerialEntry
         public boolean enableGrubsDrop = true;
 
+        @SerialEntry
         public boolean enableLeechesDrop = true;
 
+        @SerialEntry
         @ConfigEntry.Gui.Tooltip(count = 2)
         public boolean enableWormsAttachedHook = true;
 
@@ -231,9 +238,16 @@ public final class FishOfThievesConfig implements ConfigData
 
     public static class Debug
     {
+        @SerialEntry
         public boolean enableStructureCenterPosRender = true;
+
+        @SerialEntry
         public boolean displayStructureCenterPosInfo = true;
+
+        @SerialEntry
         public int structureCenterPosRangeLimit = 64;
+
+        @SerialEntry
         public boolean spawnBeaconAtShoal = false;
     }
 }
