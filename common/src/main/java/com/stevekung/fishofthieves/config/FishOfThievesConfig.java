@@ -10,25 +10,16 @@ import net.minecraft.world.item.CreativeModeTab;
 
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
+import dev.isxander.yacl3.api.controller.IntegerFieldControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
+import dev.isxander.yacl3.gui.controllers.slider.FloatSliderController;
 import dev.isxander.yacl3.platform.YACLPlatform;
 
 public class FishOfThievesConfig
 {
-    private static final OptionEventListener<Boolean> ON_FISH_ITEM_CHANGED = (option, event) ->
-    {
-        var minecraft = Minecraft.getInstance();
-        var player = minecraft.player;
-
-        if (player != null && event == OptionEventListener.Event.STATE_CHANGE)
-        {
-            MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.level().registryAccess()));
-            MixinCreativeModeTabs.invokeBuildAllTabContents(MixinCreativeModeTabs.getCACHED_PARAMETERS());
-        }
-    };
     public static final ConfigClassHandler<FishOfThievesConfig> HANDLER = ConfigClassHandler.createBuilder(FishOfThievesConfig.class)
             .id(FishOfThieves.id("config"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
@@ -42,11 +33,26 @@ public class FishOfThievesConfig
         HANDLER.load();
     }
 
+    private static void rebuildCreativeTab(Minecraft minecraft)
+    {
+        var player = minecraft.player;
+
+        if (player != null)
+        {
+            MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.level().registryAccess()));
+            MixinCreativeModeTabs.invokeBuildAllTabContents(MixinCreativeModeTabs.getCACHED_PARAMETERS());
+        }
+    }
+
     public static YetAnotherConfigLib build()
     {
         return YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable("config.fishofthieves.title"))
                 .category(general())
+                .category(biome())
+                .category(spawnRate())
+                .category(shoal())
+                .category(debug())
                 .save(HANDLER::save)
                 .build();
     }
@@ -137,7 +143,7 @@ public class FishOfThievesConfig
                                 () -> HANDLER.instance().general.displayAllFishVariantInCreativeTab,
                                 val -> HANDLER.instance().general.displayAllFishVariantInCreativeTab = val
                         )
-                        .addListener(ON_FISH_ITEM_CHANGED)
+                        .flag(FishOfThievesConfig::rebuildCreativeTab)
                         .controller(TickBoxControllerBuilder::create)
                         .build()
                 )
@@ -149,7 +155,7 @@ public class FishOfThievesConfig
                                 () -> HANDLER.instance().general.displayTrophySpawnEggInCreativeTab,
                                 val -> HANDLER.instance().general.displayTrophySpawnEggInCreativeTab = val
                         )
-                        .addListener(ON_FISH_ITEM_CHANGED)
+                        .flag(FishOfThievesConfig::rebuildCreativeTab)
                         .controller(TickBoxControllerBuilder::create)
                         .build()
                 )
@@ -161,7 +167,465 @@ public class FishOfThievesConfig
                                 () -> HANDLER.instance().general.displayTrophyBucketInCreativeTab,
                                 val -> HANDLER.instance().general.displayTrophyBucketInCreativeTab = val
                         )
-                        .addListener(ON_FISH_ITEM_CHANGED)
+                        .flag(FishOfThievesConfig::rebuildCreativeTab)
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
+                .build();
+    }
+
+    public static ConfigCategory biome()
+    {
+        return ConfigCategory.createBuilder().name(Component.translatable("config.category.fishofthieves.biome.title"))
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.biome.tropicalIslandBiomeGeneration"))
+                        .binding(
+                                HANDLER.defaults().biome.tropicalIslandBiomeGeneration,
+                                () -> HANDLER.instance().biome.tropicalIslandBiomeGeneration,
+                                val -> HANDLER.instance().biome.tropicalIslandBiomeGeneration = val
+                        )
+                        .flag(OptionFlag.GAME_RESTART)
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Float>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.biome.tropicalIslandMinimumWeirdness"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.biome.tropicalIslandMinimumWeirdness.tooltip")))
+                        .binding(
+                                HANDLER.defaults().biome.tropicalIslandMinimumWeirdness,
+                                () -> HANDLER.instance().biome.tropicalIslandMinimumWeirdness,
+                                val -> HANDLER.instance().biome.tropicalIslandMinimumWeirdness = val
+                        )
+                        .flag(OptionFlag.GAME_RESTART)
+                        .customController(opt -> FloatSliderController.createInternal(opt,
+                                -2f,
+                                2f,
+                                0.1f,
+                                val -> Component.literal(String.valueOf(val))))
+                        .build()
+                )
+                .option(Option.<Float>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.biome.tropicalIslandMaximumWeirdness"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.biome.tropicalIslandMaximumWeirdness.tooltip")))
+                        .binding(
+                                HANDLER.defaults().biome.tropicalIslandMaximumWeirdness,
+                                () -> HANDLER.instance().biome.tropicalIslandMaximumWeirdness,
+                                val -> HANDLER.instance().biome.tropicalIslandMaximumWeirdness = val
+                        )
+                        .flag(OptionFlag.GAME_RESTART)
+                        .customController(opt -> FloatSliderController.createInternal(opt,
+                                -2f,
+                                2f,
+                                0.1f,
+                                val -> Component.literal(String.valueOf(val))))
+                        .build()
+                )
+                .build();
+    }
+
+    public static ConfigCategory spawnRate()
+    {
+        return ConfigCategory.createBuilder().name(Component.translatable("config.category.fishofthieves.spawn_rate.title"))
+                .option(Option.<Float>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.spawnRate.trophyProbability"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.trophyProbability.tooltip")))
+                        .binding(
+                                HANDLER.defaults().spawnRate.trophyProbability,
+                                () -> HANDLER.instance().spawnRate.trophyProbability,
+                                val -> HANDLER.instance().spawnRate.trophyProbability = val
+                        )
+                        .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                        .build()
+                )
+                .group(OptionGroup.createBuilder()
+                        .collapsed(true)
+                        .name(Component.translatable("config.option.fishofthieves.spawnRate.variant"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.tooltip")))
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.umberSplashtailProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.umberSplashtailProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.umberSplashtailProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.umberSplashtailProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.umberSplashtailProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.brightPondieProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.brightPondieProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.brightPondieProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.brightPondieProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.brightPondieProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.ravenIslehopperProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.ravenIslehopperProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.ravenIslehopperProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.ravenIslehopperProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.ravenIslehopperProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.boneAncientscaleProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.boneAncientscaleProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.boneAncientscaleProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.boneAncientscaleProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.boneAncientscaleProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.bonedustPlentifinProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.bonedustPlentifinProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.bonedustPlentifinProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.bonedustPlentifinProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.bonedustPlentifinProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.muddyWildsplashProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.muddyWildsplashProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.muddyWildsplashProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.muddyWildsplashProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.muddyWildsplashProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.forsakenDevilfishProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.forsakenDevilfishProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.forsakenDevilfishProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.forsakenDevilfishProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.forsakenDevilfishProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.sandBattlegillProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.sandBattlegillProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.sandBattlegillProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.sandBattlegillProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.sandBattlegillProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.snowWreckerProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.snowWreckerProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.snowWreckerProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.snowWreckerProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.snowWreckerProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .option(Option.<Float>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.variant.shadowStormfishProbability"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.variant.shadowStormfishProbability.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.variant.shadowStormfishProbability,
+                                        () -> HANDLER.instance().spawnRate.variant.shadowStormfishProbability,
+                                        val -> HANDLER.instance().spawnRate.variant.shadowStormfishProbability = val
+                                )
+                                .controller(opt -> FloatFieldControllerBuilder.create(opt).min(0f).max(1f))
+                                .build())
+                        .build())
+                .group(OptionGroup.createBuilder()
+                        .collapsed(true)
+                        .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.tooltip")))
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.splashtail"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.splashtail.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.splashtail,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.splashtail,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.splashtail = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.pondie"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.pondie.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.pondie,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.pondie,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.pondie = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.islehopper"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.islehopper.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.islehopper,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.islehopper,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.islehopper = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.ancientscale"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.ancientscale.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.ancientscale,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.ancientscale,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.ancientscale = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.plentifin"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.plentifin.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.plentifin,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.plentifin,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.plentifin = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.wildsplash"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.wildsplash.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.wildsplash,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.wildsplash,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.wildsplash = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.devilfish"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.devilfish.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.devilfish,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.devilfish,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.devilfish = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.battlegill"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.battlegill.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.battlegill,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.battlegill,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.battlegill = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.wrecker"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.wrecker.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.wrecker,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.wrecker,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.wrecker = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.stormfish"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.spawnRate.fishWeight.stormfish.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().spawnRate.fishWeight.stormfish,
+                                        () -> HANDLER.instance().spawnRate.fishWeight.stormfish,
+                                        val -> HANDLER.instance().spawnRate.fishWeight.stormfish = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build())
+                        .build())
+                .build();
+    }
+
+    public static ConfigCategory shoal()
+    {
+        return ConfigCategory.createBuilder().name(Component.translatable("config.category.fishofthieves.shoal.title"))
+                .option(Option.<Integer>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.shoal.chance"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.chance.tooltip")))
+                        .binding(
+                                HANDLER.defaults().shoal.chance,
+                                () -> HANDLER.instance().shoal.chance,
+                                val -> HANDLER.instance().shoal.chance = val
+                        )
+                        .controller(IntegerFieldControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Integer>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.shoal.chanceRaining"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.chanceRaining.tooltip")))
+                        .binding(
+                                HANDLER.defaults().shoal.chanceRaining,
+                                () -> HANDLER.instance().shoal.chanceRaining,
+                                val -> HANDLER.instance().shoal.chanceRaining = val
+                        )
+                        .controller(IntegerFieldControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Integer>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.shoal.spreadDistance"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.spreadDistance.tooltip")))
+                        .binding(
+                                HANDLER.defaults().shoal.spreadDistance,
+                                () -> HANDLER.instance().shoal.spreadDistance,
+                                val -> HANDLER.instance().shoal.spreadDistance = val
+                        )
+                        .controller(IntegerFieldControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Integer>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.shoal.maxLifetimeDay"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.maxLifetimeDay.tooltip0"), Component.translatable("config.option.fishofthieves.shoal.maxLifetimeDay.tooltip1")))
+                        .binding(
+                                HANDLER.defaults().shoal.maxLifetimeDay,
+                                () -> HANDLER.instance().shoal.maxLifetimeDay,
+                                val -> HANDLER.instance().shoal.maxLifetimeDay = val
+                        )
+                        .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                        .build()
+                )
+                .group(OptionGroup.createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.shoal.weight"))
+                        .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.tooltip")))
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.riverOrBeach"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.riverOrBeach.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.riverOrBeach,
+                                        () -> HANDLER.instance().shoal.weight.riverOrBeach,
+                                        val -> HANDLER.instance().shoal.weight.riverOrBeach = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.coast"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.coast.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.coast,
+                                        () -> HANDLER.instance().shoal.weight.coast,
+                                        val -> HANDLER.instance().shoal.weight.coast = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.tropicalIsland"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.tropicalIsland.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.tropicalIsland,
+                                        () -> HANDLER.instance().shoal.weight.tropicalIsland,
+                                        val -> HANDLER.instance().shoal.weight.tropicalIsland = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.ocean"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.ocean.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.ocean,
+                                        () -> HANDLER.instance().shoal.weight.ocean,
+                                        val -> HANDLER.instance().shoal.weight.ocean = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.deepOcean"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.deepOcean.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.deepOcean,
+                                        () -> HANDLER.instance().shoal.weight.deepOcean,
+                                        val -> HANDLER.instance().shoal.weight.deepOcean = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .option(Option.<Integer>createBuilder()
+                                .name(Component.translatable("config.option.fishofthieves.shoal.weight.swamp"))
+                                .description(OptionDescription.of(Component.translatable("config.option.fishofthieves.shoal.weight.swamp.tooltip")))
+                                .binding(
+                                        HANDLER.defaults().shoal.weight.swamp,
+                                        () -> HANDLER.instance().shoal.weight.swamp,
+                                        val -> HANDLER.instance().shoal.weight.swamp = val
+                                )
+                                .flag(OptionFlag.GAME_RESTART)
+                                .controller(opt -> IntegerFieldControllerBuilder.create(opt).min(1).max(100))
+                                .build()
+                        )
+                        .build())
+                .build();
+    }
+
+    public static ConfigCategory debug()
+    {
+        return ConfigCategory.createBuilder().name(Component.literal("Debug"))
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.debug.enableStructureCenterPosRender"))
+                        .binding(
+                                HANDLER.defaults().debug.enableStructureCenterPosRender,
+                                () -> HANDLER.instance().debug.enableStructureCenterPosRender,
+                                val -> HANDLER.instance().debug.enableStructureCenterPosRender = val
+                        )
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.debug.displayStructureCenterPosInfo"))
+                        .binding(
+                                HANDLER.defaults().debug.displayStructureCenterPosInfo,
+                                () -> HANDLER.instance().debug.displayStructureCenterPosInfo,
+                                val -> HANDLER.instance().debug.displayStructureCenterPosInfo = val
+                        )
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Integer>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.debug.structureCenterPosRangeLimit"))
+                        .binding(
+                                HANDLER.defaults().debug.structureCenterPosRangeLimit,
+                                () -> HANDLER.instance().debug.structureCenterPosRangeLimit,
+                                val -> HANDLER.instance().debug.structureCenterPosRangeLimit = val
+                        )
+                        .controller(IntegerFieldControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.debug.spawnBeaconAtShoal"))
+                        .binding(
+                                HANDLER.defaults().debug.spawnBeaconAtShoal,
+                                () -> HANDLER.instance().debug.spawnBeaconAtShoal,
+                                val -> HANDLER.instance().debug.spawnBeaconAtShoal = val
+                        )
                         .controller(TickBoxControllerBuilder::create)
                         .build()
                 )
@@ -222,127 +686,89 @@ public class FishOfThievesConfig
     public static class Biome
     {
         @SerialEntry
-//        @ConfigEntry.Gui.RequiresRestart
         public boolean tropicalIslandBiomeGeneration = true;
 
         @SerialEntry
-//        @ConfigEntry.Gui.RequiresRestart
-//        @ConfigEntry.Gui.Tooltip
         public float tropicalIslandMinimumWeirdness = -1.2f;
 
         @SerialEntry
-//        @ConfigEntry.Gui.RequiresRestart
-//        @ConfigEntry.Gui.Tooltip
         public float tropicalIslandMaximumWeirdness = 1.2f;
     }
 
     public static class SpawnRate
     {
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public float trophyProbability = 0.15F;
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public Variant variant = new Variant();
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public FishWeight fishWeight = new FishWeight();
 
         public static class Variant
         {
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float umberSplashtailProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float brightPondieProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float ravenIslehopperProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float boneAncientscaleProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float bonedustPlentifinProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float muddyWildsplashProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float forsakenDevilfishProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float sandBattlegillProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float snowWreckerProbability = 0.1F;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
             public float shadowStormfishProbability = 0.1F;
         }
 
         public static class FishWeight
         {
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int splashtail = 15;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int pondie = 15;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int islehopper = 8;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int ancientscale = 8;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int plentifin = 12;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int wildsplash = 10;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int devilfish = 4;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int battlegill = 5;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int wrecker = 50;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
             public int stormfish = 12;
         }
     }
@@ -350,62 +776,38 @@ public class FishOfThievesConfig
     public static class Shoal
     {
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public int chance = 2000;
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public int chanceRaining = 250;
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public int spreadDistance = 64;
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip(count = 2)
-//        @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
         public int maxLifetimeDay = 3;
 
         @SerialEntry
-//        @ConfigEntry.Gui.Tooltip
         public Weight weight = new Weight();
 
         public static class Weight
         {
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int riverOrBeach = 96;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int coast = 88;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int tropicalIsland = 92;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int ocean = 10;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int deepOcean = 5;
 
             @SerialEntry
-//            @ConfigEntry.Gui.Tooltip
-//            @ConfigEntry.Gui.RequiresRestart
-//            @ConfigEntry.BoundedDiscrete(min = 1, max = 100)
             public int swamp = 80;
         }
     }
