@@ -90,7 +90,7 @@ dependencies {
 List<String> devExcludes = ["**/gametest/", "**/datagen/", "data/forge/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json", "resourcepacks/simple_spawning_condition_pack/**"]
 
 shadowJar {
-    configurations = [project.configurations.shadowBundle]
+    configurations.set([project.configurations.shadowBundle])
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = project(":common").ext.fileName

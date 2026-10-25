@@ -26,6 +26,10 @@ ext {
     fileName = "${archives_base_name}-mc${minecraft_version}"
 }
 
+tasks.named("shadowJar") {
+    enabled = false
+}
+
 remapJar {
     archiveClassifier = "common"
     archiveVersion = "v${mod_version}"

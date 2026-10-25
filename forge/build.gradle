@@ -56,7 +56,7 @@ dependencies {
 List<String> commonExcludes = [".cache", "data/fabric/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json"]
 
 shadowJar {
-    configurations = [project.configurations.shadowBundle]
+    configurations.set([project.configurations.shadowBundle])
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = project(":common").ext.fileName
