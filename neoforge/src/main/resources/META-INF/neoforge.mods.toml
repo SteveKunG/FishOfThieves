@@ -30,9 +30,9 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
-modId = "cloth_config"
+modId = "yet_another_config_lib_v3"
 type = "required"
-versionRange = "[26.2,)"
+versionRange = "[3.9,)"
 ordering = "NONE"
 side = "BOTH"
 
