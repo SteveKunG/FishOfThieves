@@ -56,7 +56,7 @@ processResources {
 List<String> commonExcludes = [".cache", "**/datagen/", "**/resourcepacks/", "gametest_structures/**", "regular_structures/**", "data/fabric/**", "architectury.common.json"]
 
 shadowJar {
-    configurations = [project.configurations.shadowBundle]
+    configurations.set([project.configurations.shadowBundle])
     archiveClassifier = "dev"
     archiveVersion = "v${mod_version}"
     archiveBaseName = project(":common").ext.fileName

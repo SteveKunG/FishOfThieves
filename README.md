@@ -49,13 +49,13 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ![Wrecker around the shipwreck](https://i.imgur.com/VwyAl67.png)
 
-<img width="1920" height="1081" alt="fishing_hook_with_bait" src="https://github.com/user-attachments/assets/7e23df75-e1f6-4554-9706-9734b8384bb9" /><br>
+![Fishing hook with bait](https://github.com/user-attachments/assets/7e23df75-e1f6-4554-9706-9734b8384bb9)
 
-<img width="1920" height="1081" alt="treasured_fish" src="https://github.com/user-attachments/assets/bf7c118f-ba48-49c7-9875-6c6e6b4c3720" /><br>
+![Treasured fish](https://github.com/user-attachments/assets/bf7c118f-ba48-49c7-9875-6c6e6b4c3720)
 
-<img width="1920" height="1081" alt="fish_shoal_at_seapost" src="https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171" /><br>
+![Fish shoal at seapost](https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171)
 
-<img width="1920" height="1081" alt="treasured_fish_map" src="https://github.com/user-attachments/assets/a50c0489-b07e-4c69-ad6a-676f0750b27b" /><br>
+![Treasured fish map](https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171)
 
 ![Coconut Tree at beaches](https://i.imgur.com/Ly2BYkX.png)
 
@@ -75,18 +75,24 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ### **Fabric**
 
-- [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
+- [Fabric Loader](https://fabricmc.net/use/installer/), [Fabric API](https://modrinth.com/mod/fabric-api) are required
+- Install [YetAnotherConfigLib (YACL)](https://modrinth.com/mod/yacl) for configuration
+  - Note: For older version use [Cloth Config](https://modrinth.com/mod/cloth-config)
 - Install [Mod Menu](https://modrinth.com/mod/modmenu) (optional, for in-game configuration)
 - Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ### **Forge (1.20.1)**
 
-- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
+- [Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) is required
+- Install [YetAnotherConfigLib (YACL)](https://modrinth.com/mod/yacl) for configuration
+  - Note: For older version use [Cloth Config](https://modrinth.com/mod/cloth-config)
 - Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ### **NeoForge**
 
-- [NeoForge](https://projects.neoforged.net/neoforged/neoforge) and [Cloth Config](https://modrinth.com/mod/cloth-config) are required
+- [NeoForge](https://projects.neoforged.net/neoforged/neoforge) is required
+- Install [YetAnotherConfigLib (YACL)](https://modrinth.com/mod/yacl) for configuration
+  - Note: For older version use [Cloth Config](https://modrinth.com/mod/cloth-config)
 - Install [Biolith](https://modrinth.com/mod/biolith) (optional but required for Tropical Island biome generation)
 
 ---

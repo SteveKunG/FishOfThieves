@@ -26,7 +26,6 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        FishOfThievesClient.init();
         FOTDecoratedPotPatternsClient.init();
         FOTDebugScreenEntries.init();
 
