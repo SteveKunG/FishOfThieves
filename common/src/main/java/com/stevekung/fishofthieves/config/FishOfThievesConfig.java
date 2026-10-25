@@ -83,6 +83,16 @@ public class FishOfThievesConfig
                 .option(Option.<Boolean>createBuilder()
                         .name(Component.translatable("config.option.fishofthieves.general.enableGrubsDrop"))
                         .binding(
+                                HANDLER.defaults().general.enableGrubsDrop,
+                                () -> HANDLER.instance().general.enableGrubsDrop,
+                                val -> HANDLER.instance().general.enableGrubsDrop = val
+                        )
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.translatable("config.option.fishofthieves.general.enableLeechesDrop"))
+                        .binding(
                                 HANDLER.defaults().general.enableLeechesDrop,
                                 () -> HANDLER.instance().general.enableLeechesDrop,
                                 val -> HANDLER.instance().general.enableLeechesDrop = val
