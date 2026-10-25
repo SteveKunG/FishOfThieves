@@ -21,14 +21,12 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
 public class ClientProxyNeoForge
 {
     public void init()
     {
         var eventBus = ModLoadingContext.get().getActiveContainer().getEventBus();
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (mc, screen) -> AutoConfig.getConfigScreen(FishOfThievesConfig.class, screen).get());
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (mc, screen) -> FishOfThievesConfig.build().generateScreen(screen));
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::registerRenderers);
         eventBus.addListener(this::registerLayerDefinitions);
