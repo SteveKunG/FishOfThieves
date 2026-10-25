@@ -55,7 +55,7 @@ Can be found [here](https://github.com/SteveKunG/FishOfThieves/wiki).
 
 ![Fish shoal at seapost](https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171)
 
-![Treasured fish map](https://github.com/user-attachments/assets/e4080f69-5514-4420-a869-94651d308171)
+![Treasured fish map](https://github.com/user-attachments/assets/a50c0489-b07e-4c69-ad6a-676f0750b27b)
 
 ![Coconut Tree at beaches](https://i.imgur.com/Ly2BYkX.png)
 
