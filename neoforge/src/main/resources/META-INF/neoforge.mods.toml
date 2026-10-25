@@ -31,7 +31,7 @@ side = "BOTH"
 
 [[dependencies.fishofthieves]]
 modId = "yet_another_config_lib_v3"
-mandatory = true
+type = "required"
 versionRange = "[3.8,)"
 ordering = "NONE"
 side = "BOTH"
