@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.variant.*;
 import com.stevekung.fishofthieves.neoforge.compatibility.Aquaculture2;
@@ -51,7 +50,6 @@ public class FishOfThievesNeoForge
         if (FMLEnvironment.getDist().isClient())
         {
             new ClientProxyNeoForge().init();
-            FishOfThievesClient.init();
         }
         new CommonProxyNeoForge().init();
     }

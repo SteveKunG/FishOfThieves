@@ -27,15 +27,17 @@ import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
 
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-
 public class FishOfThieves
 {
+    static
+    {
+        FishOfThievesConfig.HANDLER.load();
+    }
+
     public static final String MOD_ID = "fishofthieves";
     public static final String MOD_RESOURCES = MOD_ID + ":";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final FishOfThievesConfig CONFIG = AutoConfig.register(FishOfThievesConfig.class, GsonConfigSerializer::new).getConfig();
+    public static final FishOfThievesConfig CONFIG = FishOfThievesConfig.HANDLER.instance();
     public static final Identifier RECEIVE_FISHING_HOOK_BAIT = FishOfThieves.id("receive_fishing_hook_bait");
     public static final Identifier SYNC_CLIENT_SHOAL_FISH = FishOfThieves.id("sync_client_shoal_fish");
     public static final Identifier REQUEST_SERVER_SHOAL_FISH = FishOfThieves.id("request_server_shoal_fish");

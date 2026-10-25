@@ -35,6 +35,7 @@ public class BlockTagsProvider extends FabricTagsProvider.BlockTagsProvider
                 .forceAddTag(FOTTags.Blocks.BANANA_CLUSTER_PLANTS)
                 .forceAddTag(FOTTags.Blocks.BANANA_CLUSTERS);
         this.builder(BlockTags.MINEABLE_WITH_HOE).add(FOTBlockItemIds.MANGO_LEAVES);
+        this.builder(BlockTags.LOGS).forceAddTag(FOTTags.Blocks.COCONUT_LOGS).forceAddTag(FOTTags.Blocks.BANANA_STEMS).forceAddTag(FOTTags.Blocks.SMALL_COCONUT_LOGS);
         this.builder(BlockTags.OVERWORLD_NATURAL_LOGS).add(FOTBlockItemIds.COCONUT_LOG, FOTBlockItemIds.SMALL_COCONUT_LOG,
                 FOTBlockItemIds.COCONUT_FRUIT_GROWABLE_LOG, FOTBlockItemIds.SMALL_TOP_COCONUT_LOG,
                 FOTBlockItemIds.MEDIUM_COCONUT_LOG).forceAddTag(FOTTags.Blocks.BANANA_STEMS);

@@ -11,6 +11,7 @@ description = "${mod_description}"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/fish-of-thieves"
 updateJSONURL = "https://api.modrinth.com/updates/fish-of-thieves/forge_updates.json?neoforge=only"
 iconFile = "logo.png"
+bannerFile = "logo.png"
 authors = "SteveKunG, PloyiinGz, Gucc1Guy"
 enumExtensions = "META-INF/enumextensions.json"
 
@@ -30,9 +31,9 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.fishofthieves]]
-modId = "cloth_config"
+modId = "yet_another_config_lib_v3"
 type = "required"
-versionRange = "[26.3,)"
+versionRange = "[3.9,)"
 ordering = "NONE"
 side = "BOTH"
 

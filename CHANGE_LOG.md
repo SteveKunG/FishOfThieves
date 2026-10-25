@@ -1,11 +1,9 @@
 # Features
-- Treasured Fish Map emerald cost now based on Shoal distance
-  - Closer shoals are more expensive, farther shoals are cheaper
-- Reorganized creative inventory
+- Migrated to use YetAnotherConfigLib (YACL) as a main configuration mod
+
+# Misc
+- Added Shoal icon for Xaeros's Minimap mod
 
 # Bug Fixes
-- Stability and code improvement
-- Internal libraries update
-- [26.1.2] Fixed incorrect Shoal entity lighting
-- [1.20.1, 1.21.1] Fixed crash with other mod when register new boat type, closes #126
-- Fixed empty item saving into bait storage, closes #128
+- [26.3] Re-generate brewing recipes
+- [26.3] Fixed missing log blocks for minecraft:logs block tag

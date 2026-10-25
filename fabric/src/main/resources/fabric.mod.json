@@ -38,7 +38,7 @@
   "depends": {
     "fabricloader": ">=0.19",
     "fabric-api": ">=0.161",
-    "cloth-config": ">=26.3",
+    "yet_another_config_lib_v3": ">=3.9",
     "minecraft": ">=26.3"
   },
   "accessWidener": "fish_of_thieves.accesswidener",

@@ -23,7 +23,6 @@ public class FishOfThievesFabricClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        FishOfThievesClient.init();
         FOTDebugScreenEntries.init();
 
         FishOfThievesClient.getBlockColors().forEach(entry -> BlockColorRegistry.register(entry.blockColors(), entry.blocks()));
