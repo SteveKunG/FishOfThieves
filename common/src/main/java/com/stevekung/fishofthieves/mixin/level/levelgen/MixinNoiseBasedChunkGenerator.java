@@ -25,7 +25,7 @@ public class MixinNoiseBasedChunkGenerator
             method = "buildTerrain(Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/levelgen/blending/Blender;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/StructureManager;Lnet/minecraft/server/level/WorldGenRegion;Ljava/util/Set;Lnet/minecraft/world/level/levelgen/NoiseSettings;)Lnet/minecraft/world/level/chunk/ChunkAccess;",
             at = @At(
                     value = "INVOKE",
-                    target = "net/minecraft/world/level/levelgen/ChunkTerrainBuilder.<init>(Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/levelgen/densityfunction/DensitySamplerSet;Lnet/minecraft/world/level/levelgen/densityfunction/DensityVolume;Lnet/minecraft/world/level/levelgen/VerticalAnchor$Context;Lnet/minecraft/world/level/levelgen/material/rule/MaterialRule;Lnet/minecraft/world/level/biome/BiomeResolver;Ljava/util/Set;)V"))
+                    target = "net/minecraft/world/level/levelgen/ChunkTerrainBuilder.<init>(Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/levelgen/densityfunction/DensitySamplerSet;Lnet/minecraft/world/level/levelgen/densityfunction/DensityVolume;Lnet/minecraft/world/level/levelgen/material/rule/MaterialRule;Lnet/minecraft/world/level/biome/BiomeResolver;Ljava/util/Set;)V"))
     private void fishofthieves$setChunkAccess(ChunkAccess chunk, Blender blender, RandomState randomState, StructureManager structureManager, @Nullable WorldGenRegion carverBiomeRegion, Set<Holder<Biome>> possibleBiomes, NoiseSettings noiseSettings, CallbackInfoReturnable<ChunkAccess> info)
     {
         randomState.fishofthieves$setChunkAccess(chunk);

@@ -2,6 +2,7 @@ package com.stevekung.fishofthieves.fabric;
 
 import com.stevekung.fishofthieves.FishOfThievesClient;
 import com.stevekung.fishofthieves.client.FOTDebugScreenEntries;
+import com.stevekung.fishofthieves.client.registry.FOTSelectItemModelProperties;
 import com.stevekung.fishofthieves.client.renderer.entity.layers.HeadphoneLayer;
 import com.stevekung.fishofthieves.network.FOTClientPackets;
 import com.stevekung.fishofthieves.network.ReceiveFishingHookBaitPacket;
@@ -29,6 +30,7 @@ public class FishOfThievesFabricClient implements ClientModInitializer
         ParticleRenderEvents.ALLOW_TERRAIN_PARTICLE_TINT.register((blockState, _, _) -> !blockState.is(FOTTags.Blocks.MANGO_FRUITS));
 
         FishOfThievesClient.registerBlockEntityRenderers();
+        FOTSelectItemModelProperties.init();
 
         FishOfThievesClient.getEntityRenderers().forEach(entry -> EntityRenderers.register(BuiltInClientRegistries.ENTITY_RENDERER, entry.entityType(), entry.factory()));
 
