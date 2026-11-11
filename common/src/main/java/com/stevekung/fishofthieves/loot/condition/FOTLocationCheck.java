@@ -1,6 +1,9 @@
 package com.stevekung.fishofthieves.loot.condition;
 
 import java.util.Optional;
+import java.util.Set;
+
+import org.jspecify.annotations.Nullable;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -9,19 +12,33 @@ import com.stevekung.fishofthieves.loot.predicate.FOTLocationPredicate;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPos offset) implements LootItemCondition
+public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPos offset) implements LootItemCondition.ContextUser
 {
     private static final MapCodec<BlockPos> OFFSET_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.optionalFieldOf("offsetX", 0).forGetter(Vec3i::getX), Codec.INT.optionalFieldOf("offsetY", 0).forGetter(Vec3i::getY), Codec.INT.optionalFieldOf("offsetZ", 0).forGetter(Vec3i::getZ)).apply(instance, BlockPos::new));
     public static final MapCodec<FOTLocationCheck> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(FOTLocationPredicate.CODEC.optionalFieldOf("predicate").forGetter(FOTLocationCheck::predicate), OFFSET_CODEC.forGetter(FOTLocationCheck::offset)).apply(instance, FOTLocationCheck::new));
 
     @Override
-    public MapCodec<? extends LootItemCondition> codec()
+    public MapCodec<? extends LootItemCondition.ContextUser> codec()
     {
         return CODEC;
+    }
+
+    @Override
+    public Set<ContextKey<?>> requiredContextParams()
+    {
+        return Set.of();
+    }
+
+    @Override
+    public @Nullable Boolean constantValue(ConstantConditionEvaluationContext context)
+    {
+        return null;
     }
 
     @Override
@@ -31,6 +48,9 @@ public record FOTLocationCheck(Optional<FOTLocationPredicate> predicate, BlockPo
         var entity = context.getOptional(LootContextParams.THIS_ENTITY);
         return vec3 != null && (this.predicate.isEmpty() || this.predicate.get().matches(context.getLevel(), entity, vec3.x() + this.offset.getX(), vec3.y() + this.offset.getY(), vec3.z() + this.offset.getZ()));
     }
+
+    @Override
+    public void validate(ValidationContext context) {}
 
     public static Builder checkLocation(FOTLocationPredicate.Builder locationPredicateBuilder)
     {

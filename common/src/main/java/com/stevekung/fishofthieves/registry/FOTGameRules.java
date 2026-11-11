@@ -2,11 +2,11 @@ package com.stevekung.fishofthieves.registry;
 
 import java.util.function.ToIntFunction;
 
-import com.mojang.brigadier.arguments.ArgumentType;
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.serialization.Codec;
 import com.stevekung.fishofthieves.FishOfThieves;
 
+import net.minecraft.commands.arguments.BooleanArgument;
+import net.minecraft.commands.arguments.SerializableArgument;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -21,13 +21,13 @@ public class FOTGameRules
         FishOfThieves.LOGGER.info("Registering Game Rules");
     }
 
-    private static GameRule<Boolean> registerBoolean(String string, GameRuleCategory gameRuleCategory, boolean defaultValue)
+    private static GameRule<Boolean> registerBoolean(String id, GameRuleCategory category, boolean defaultValue)
     {
-        return register(string, gameRuleCategory, GameRuleType.BOOL, BoolArgumentType.bool(), Codec.BOOL, defaultValue, FeatureFlagSet.of(), GameRuleTypeVisitor::visitBoolean, boolean_ -> boolean_ ? 1 : 0);
+        return register(id, category, GameRuleType.BOOL, BooleanArgument.INSTANCE, Codec.BOOL, defaultValue, FeatureFlagSet.of(), GameRuleTypeVisitor::visitBoolean, boolean_ -> boolean_ ? 1 : 0);
     }
 
-    private static <T> GameRule<T> register(String string, GameRuleCategory gameRuleCategory, GameRuleType gameRuleType, ArgumentType<T> argumentType, Codec<T> codec, T defaultValue, FeatureFlagSet featureFlagSet, GameRules.VisitorCaller<T> visitorCaller, ToIntFunction<T> toIntFunction)
+    private static <T> GameRule<T> register(String string, GameRuleCategory gameRuleCategory, GameRuleType gameRuleType, SerializableArgument.ContextFree<T> argument, Codec<T> codec, T defaultValue, FeatureFlagSet featureFlagSet, GameRules.VisitorCaller<T> visitorCaller, ToIntFunction<T> toIntFunction)
     {
-        return Registry.register(BuiltInRegistries.GAME_RULE, FishOfThieves.id(string), new GameRule<>(gameRuleCategory, gameRuleType, argumentType, visitorCaller, codec, toIntFunction, defaultValue, featureFlagSet));
+        return Registry.register(BuiltInRegistries.GAME_RULE, FishOfThieves.id(string), new GameRule<>(gameRuleCategory, gameRuleType, argument, visitorCaller, codec, toIntFunction, defaultValue, featureFlagSet));
     }
 }

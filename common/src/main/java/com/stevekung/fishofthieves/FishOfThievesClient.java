@@ -20,6 +20,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.object.boat.BoatModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.StandingSignRenderer;
@@ -27,6 +28,7 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.WritableRegistry;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -82,9 +84,9 @@ public class FishOfThievesClient
 
     public static void registerBlockEntityRenderers()
     {
-        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
-        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.SIGN, StandingSignRenderer::new);
-        BlockEntityRenderers.register(BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
+        BlockEntityRenderers.register((WritableRegistry<BlockEntityRendererProvider<?, ?>>) BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.FISH_PLAQUE, FishPlaqueRenderer::new);
+        BlockEntityRenderers.register((WritableRegistry<BlockEntityRendererProvider<?, ?>>) BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.SIGN, StandingSignRenderer::new);
+        BlockEntityRenderers.register((WritableRegistry<BlockEntityRendererProvider<?, ?>>) BuiltInClientRegistries.BLOCK_ENTITY_RENDERER, FOTBlockEntityTypes.HANGING_SIGN, HangingSignRenderer::new);
     }
 
     @SuppressWarnings("unchecked")

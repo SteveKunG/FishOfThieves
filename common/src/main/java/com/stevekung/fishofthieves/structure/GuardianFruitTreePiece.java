@@ -7,7 +7,7 @@ import com.stevekung.fishofthieves.registry.FOTStructures;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
@@ -27,7 +27,7 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
 {
     private float fruitChance;
 
-    public GuardianFruitTreePiece(HolderLookup.Provider registries, StructureTemplateManager structureTemplateManager, BlockPos templatePosition, Identifier location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
+    public GuardianFruitTreePiece(HolderGetter.Provider registries, StructureTemplateManager structureTemplateManager, BlockPos templatePosition, Identifier location, Rotation rotation, Mirror mirror, BlockPos pivotPos, float fruitChance)
     {
         super(FOTStructures.PieceType.GUARDIAN_FRUIT_TREE_PIECE, 0, structureTemplateManager, location, location.toString(), makeSettings(registries, mirror, rotation, pivotPos), templatePosition);
         this.fruitChance = fruitChance;
@@ -47,14 +47,14 @@ public class GuardianFruitTreePiece extends TemplateStructurePiece
     }
 
     @SuppressWarnings("deprecation")
-    private static StructurePlaceSettings makeSettings(HolderLookup.Provider registries, StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
+    private static StructurePlaceSettings makeSettings(HolderGetter.Provider registries, StructureTemplateManager structureTemplateManager, CompoundTag tag, Identifier location)
     {
         var structureTemplate = structureTemplateManager.getOrEmpty(location);
         var blockPos = new BlockPos(structureTemplate.getSize().getX() / 2, 0, structureTemplate.getSize().getZ() / 2);
         return makeSettings(registries, tag.read("Mirror", Mirror.LEGACY_CODEC).orElseThrow(), tag.read("Rotation", Rotation.LEGACY_CODEC).orElseThrow(), blockPos);
     }
 
-    private static StructurePlaceSettings makeSettings(HolderLookup.Provider registries, Mirror mirror, Rotation rotation, BlockPos pos)
+    private static StructurePlaceSettings makeSettings(HolderGetter.Provider registries, Mirror mirror, Rotation rotation, BlockPos pos)
     {
         var blockIgnoreProcessor = BlockIgnoreProcessor.STRUCTURE_BLOCK;
         var list = new ArrayList<ProcessorRule>();

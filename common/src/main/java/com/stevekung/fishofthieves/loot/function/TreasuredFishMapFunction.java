@@ -29,7 +29,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public class TreasuredFishMapFunction extends LootItemConditionalFunction
+public class TreasuredFishMapFunction extends LootItemConditionalFunction.ContextUser
 {
     public static final MapCodec<TreasuredFishMapFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance)
             .and(
@@ -60,13 +60,13 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
     }
 
     @Override
-    public MapCodec<? extends LootItemConditionalFunction> codec()
+    public MapCodec<? extends LootItemConditionalFunction.ContextUser> codec()
     {
         return CODEC;
     }
 
     @Override
-    public Set<ContextKey<?>> getReferencedContextParams()
+    public Set<ContextKey<?>> getRequiredParams()
     {
         return ImmutableSet.of(LootContextParams.ORIGIN);
     }

@@ -11,10 +11,11 @@ import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate entityPredicate) implements LootItemCondition
+public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate entityPredicate) implements LootItemCondition.ContextUser
 {
     public static final MapCodec<BaitAttachedCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
             .group(
@@ -23,13 +24,13 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
             .apply(instance, BaitAttachedCondition::new));
 
     @Override
-    public MapCodec<? extends LootItemCondition> codec()
+    public MapCodec<? extends LootItemCondition.ContextUser> codec()
     {
         return CODEC;
     }
 
     @Override
-    public Set<ContextKey<?>> getReferencedContextParams()
+    public Set<ContextKey<?>> requiredContextParams()
     {
         return Set.of(LootContextParams.THIS_ENTITY);
     }
@@ -40,6 +41,9 @@ public record BaitAttachedCondition(ItemPredicate itemPredicate, EntityPredicate
         var entity = context.getOptional(LootContextParams.THIS_ENTITY);
         return entity != null && this.entityPredicate.matches(context.getLevel(), null, entity) && this.checkBaitFromHook(entity);
     }
+
+    @Override
+    public void validate(ValidationContext context) {}
 
     private boolean checkBaitFromHook(Entity entity)
     {
