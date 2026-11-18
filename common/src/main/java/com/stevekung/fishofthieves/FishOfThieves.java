@@ -13,9 +13,7 @@ import com.stevekung.fishofthieves.entity.AbstractSchoolingThievesFish;
 import com.stevekung.fishofthieves.entity.animal.*;
 import com.stevekung.fishofthieves.registry.FOTBlocks;
 import com.stevekung.fishofthieves.registry.FOTEntities;
-import com.stevekung.fishofthieves.registry.FOTItems;
 
-import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
@@ -24,8 +22,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.DispenserBlock;
 
 public class FishOfThieves
 {
@@ -49,20 +45,6 @@ public class FishOfThieves
 
     public static void initCommon()
     {
-        var bucket = DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET);
-        DispenserBlock.registerBehavior(FOTItems.SPLASHTAIL_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.PONDIE_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.ISLEHOPPER_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.ANCIENTSCALE_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.PLENTIFIN_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.WILDSPLASH_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.DEVILFISH_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.BATTLEGILL_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.WRECKER_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.STORMFISH_BUCKET, bucket);
-        DispenserBlock.registerBehavior(FOTItems.COCONUT_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_BOAT));
-        DispenserBlock.registerBehavior(FOTItems.COCONUT_CHEST_BOAT, new BoatDispenseItemBehavior(FOTEntities.COCONUT_CHEST_BOAT));
-
         initFlammable();
     }
 

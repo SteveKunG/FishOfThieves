@@ -1,5 +1,4 @@
 accessWidener v1 official
-accessible field net/minecraft/world/level/block/DispenserBlock DISPENSER_REGISTRY Ljava/util/Map;
 accessible field net/minecraft/world/item/MobBucketItem type Lnet/minecraft/world/entity/EntityType;
 accessible field net/minecraft/world/item/MobBucketItem emptySound Lnet/minecraft/sounds/SoundEvent;
 accessible field net/minecraft/world/level/levelgen/material/MaterialRuleContext pos Lnet/minecraft/core/BlockPos$MutableBlockPos;
