@@ -27,8 +27,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class ShoalSpawner
 {
-    private ShoalSpawner() {}
-
     @Nullable
     public static BlockPos spawn(ServerLevel level, int x, int z)
     {

@@ -35,8 +35,6 @@ public class AbstractThievesFishAi
 {
     public static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(1200, 2000);
 
-    private AbstractThievesFishAi() {}
-
     public static Brain<?> makeBrain(Brain<AbstractThievesFish<?>> brain)
     {
         initCoreActivity(brain);

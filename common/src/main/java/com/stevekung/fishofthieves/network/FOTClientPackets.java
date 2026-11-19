@@ -15,8 +15,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class FOTClientPackets
 {
-    private FOTClientPackets() {}
-
     public static void setFishingHookBait(Minecraft minecraft, int entityId, ItemStack itemStack)
     {
         minecraft.execute(() ->

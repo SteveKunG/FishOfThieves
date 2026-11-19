@@ -21,11 +21,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 
-public class CauldronUtils
+public final class CauldronUtils
 {
     private static final Predicate<BlockState> IS_CAULDRON = blockState -> blockState.getBlock() instanceof AbstractCauldronBlock;
-
-    private CauldronUtils() {}
 
     public static void fillCauldronFromLeavesTail(BlockState state, ServerLevel level, BlockPos pos)
     {
@@ -33,24 +31,24 @@ public class CauldronUtils
 
         if (optional.isPresent())
         {
-            var blockPos2 = optional.get();
-            var blockState2 = level.getBlockState(blockPos2);
+            var cauldronPos = optional.get();
+            var cauldronState = level.getBlockState(cauldronPos);
             var trigger = false;
 
-            if (blockState2.getBlock() != Blocks.WATER_CAULDRON)
+            if (cauldronState.getBlock() != Blocks.WATER_CAULDRON)
             {
                 var blockState = Blocks.WATER_CAULDRON.defaultBlockState();
-                level.setBlockAndUpdate(blockPos2, blockState);
-                level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos2, GameEvent.Context.of(blockState));
-                level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, blockPos2, 0);
+                level.setBlockAndUpdate(cauldronPos, blockState);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, cauldronPos, GameEvent.Context.of(blockState));
+                level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, cauldronPos, 0);
                 trigger = true;
             }
-            else if (!((LayeredCauldronBlock) blockState2.getBlock()).isFull(blockState2))
+            else if (!((LayeredCauldronBlock) cauldronState.getBlock()).isFull(cauldronState))
             {
-                var blockState = blockState2.setValue(LayeredCauldronBlock.LEVEL, blockState2.getValue(LayeredCauldronBlock.LEVEL) + 1);
-                level.setBlockAndUpdate(blockPos2, blockState);
-                level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos2, GameEvent.Context.of(blockState));
-                level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, blockPos2, 0);
+                var blockState = cauldronState.setValue(LayeredCauldronBlock.LEVEL, cauldronState.getValue(LayeredCauldronBlock.LEVEL) + 1);
+                level.setBlockAndUpdate(cauldronPos, blockState);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, cauldronPos, GameEvent.Context.of(blockState));
+                level.levelEvent(LevelEvent.SOUND_DRIP_WATER_INTO_CAULDRON, cauldronPos, 0);
                 trigger = true;
             }
 

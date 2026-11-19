@@ -11,7 +11,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class ParticleUtils
+public final class ParticleUtils
 {
     /**
      * Huge thanks to <a href="https://github.com/RottenKiwi2004">RottenKiwi</a> with help to understand "basic" math concept for spawning water dripping particles.
