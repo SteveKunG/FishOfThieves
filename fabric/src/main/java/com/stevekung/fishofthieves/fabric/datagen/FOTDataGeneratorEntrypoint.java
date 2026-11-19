@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.fabric.datagen.provider.*;
+import com.stevekung.fishofthieves.fabric.datagen.provider.compat.kaleidoscope.KaleidoscopeCookeryRecipeProvider;
 import com.stevekung.fishofthieves.fabric.datagen.variant.*;
 import com.stevekung.fishofthieves.registry.*;
 
@@ -60,6 +61,9 @@ public class FOTDataGeneratorEntrypoint implements DataGeneratorEntrypoint
         pack.addProvider(ModFishingRealProvider::new);
         pack.addProvider(DynamicRegistryProvider::new);
         pack.addProvider((dataOutput, provider) -> new LanguageSyncProvider(provider));
+
+        // Kaleidoscope Compatibility
+        pack.addProvider(KaleidoscopeCookeryRecipeProvider::new);
 
         pack.addProvider(SplashtailVariantTagsProvider::new);
         pack.addProvider(PondieVariantTagsProvider::new);
