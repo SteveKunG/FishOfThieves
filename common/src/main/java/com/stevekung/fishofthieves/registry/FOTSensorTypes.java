@@ -1,6 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FOTPlatform;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
 import com.stevekung.fishofthieves.entity.ai.sensing.*;
 
@@ -10,10 +11,10 @@ import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 
 public class FOTSensorTypes
 {
-    public static final SensorType<TemptingSensor> COMMON_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getCommonTemptations()));
-    public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getLeechesTemptations()));
-    public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getEarthwormsTemptations()));
-    public static final SensorType<TemptingSensor> GRUBS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(AbstractThievesFishAi.getGrubsTemptations()));
+    public static final SensorType<TemptingSensor> COMMON_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(ThievesFish.WORMS));
+    public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(ThievesFish.LEECHES_FOOD));
+    public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(ThievesFish.EARTHWORMS_FOOD));
+    public static final SensorType<TemptingSensor> GRUBS_THIEVES_FISH_TEMPTATIONS = new SensorType<>(() -> new TemptingSensor(ThievesFish.GRUBS_FOOD));
     public static final SensorType<NearestWreckerLocatedSensor> NEAREST_WRECKER_LOCATED = new SensorType<>(NearestWreckerLocatedSensor::new);
     public static final SensorType<FishAttackablesSensor> BATTLEGILL_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE)));
     public static final SensorType<FishAttackablesSensor> DEVILFISH_ATTACKABLES = new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().is(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE)));

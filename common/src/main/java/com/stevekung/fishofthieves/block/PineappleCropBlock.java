@@ -288,11 +288,11 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
     {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER)
         {
-            return state.getValue(AGE) == 5 ? new ItemStack(FOTBlocks.RIPE_PINEAPPLE_BLOCK) : state.getValue(AGE) == 4 ? new ItemStack(FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK) : new ItemStack(FOTItems.PINEAPPLE_CROWN);
+            return new ItemStack(state.getValue(AGE) == 5 ? FOTBlocks.RIPE_PINEAPPLE_BLOCK : state.getValue(AGE) == 4 ? FOTBlocks.UNDERRIPE_PINEAPPLE_BLOCK : FOTItems.PINEAPPLE_CROWN);
         }
         else
         {
-            return state.getValue(AGE) == 0 ? new ItemStack(FOTItems.PINEAPPLE_SEEDS) : new ItemStack(FOTItems.PINEAPPLE_CROWN);
+            return new ItemStack(state.getValue(AGE) == 0 ? FOTItems.PINEAPPLE_SEEDS : FOTItems.PINEAPPLE_CROWN);
         }
     }
 }
