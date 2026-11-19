@@ -120,7 +120,7 @@ public class Islehopper extends AbstractThievesFish<IslehopperVariant>
         {
             var multiplier = this.isTrophy() ? 2 : 1;
 
-            if (entity instanceof ServerPlayer serverPlayer && entity.hurt(this.damageSources().mobAttack(this), multiplier))
+            if (entity instanceof ServerPlayer serverPlayer && entity.hurt(this.damageSources().mobAttack(this), (float) multiplier))
             {
                 if (!this.isSilent())
                 {

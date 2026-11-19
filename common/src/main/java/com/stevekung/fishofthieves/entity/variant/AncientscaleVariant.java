@@ -19,16 +19,4 @@ public record AncientscaleVariant(String name, ResourceLocation texture, Optiona
     {
         this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
     }
-
-    @Override
-    public ResourceLocation fullTexture()
-    {
-        return AbstractFishVariant.fullTextureId(this.texture);
-    }
-
-    @Override
-    public Optional<ResourceLocation> fullGlowTexture()
-    {
-        return this.glowTexture.map(AbstractFishVariant::fullTextureId);
-    }
 }

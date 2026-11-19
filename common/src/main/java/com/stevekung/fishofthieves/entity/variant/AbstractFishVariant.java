@@ -35,9 +35,15 @@ public interface AbstractFishVariant
 
     ResourceLocation texture();
 
-    ResourceLocation fullTexture();
+    default ResourceLocation fullTexture()
+    {
+        return AbstractFishVariant.fullTextureId(this.texture());
+    }
 
-    Optional<ResourceLocation> fullGlowTexture();
+    default Optional<ResourceLocation> fullGlowTexture()
+    {
+        return this.glowTexture().map(AbstractFishVariant::fullTextureId);
+    }
 
     Optional<ResourceLocation> glowTexture();
 
