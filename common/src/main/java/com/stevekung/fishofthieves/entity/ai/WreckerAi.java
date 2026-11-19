@@ -27,8 +27,6 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class WreckerAi
 {
-    private WreckerAi() {}
-
     public static Brain<?> makeBrain(Brain<Wrecker> brain)
     {
         initCoreActivity(brain);

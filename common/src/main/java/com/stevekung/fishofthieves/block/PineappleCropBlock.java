@@ -38,6 +38,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class PineappleCropBlock extends DoublePlantBlock implements BonemealableBlock
 {
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 5);
+    public static final int MAX_AGE = 5;
 
     private static final VoxelShape BASE_SHAPE = Block.box(2, 0, 2, 14, 9, 14);
     private static final VoxelShape STAGE_3_SHAPE = Shapes.join(Block.box(6.5, 9, 6.5, 9.5, 12, 9.5), BASE_SHAPE, BooleanOp.OR);
@@ -54,14 +55,9 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
-    private int getMaxAge()
-    {
-        return 5;
-    }
-
     private boolean isLowerAge(BlockState state)
     {
-        return state.getValue(AGE) < this.getMaxAge();
+        return state.getValue(AGE) < MAX_AGE;
     }
 
     @Override
@@ -213,7 +209,7 @@ public class PineappleCropBlock extends DoublePlantBlock implements Bonemealable
 
     private void grow(ServerLevel level, BlockState state, BlockPos pos, int growthAge)
     {
-        var age = Math.min(state.getValue(AGE) + growthAge, this.getMaxAge());
+        var age = Math.min(state.getValue(AGE) + growthAge, MAX_AGE);
 
         if (this.canGrow(level, pos, state, age))
         {

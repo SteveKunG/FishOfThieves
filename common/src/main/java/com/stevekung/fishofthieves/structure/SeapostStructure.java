@@ -24,14 +24,14 @@ public class SeapostStructure extends Structure
     @Override
     public Optional<Structure.GenerationStub> findGenerationPoint(Structure.GenerationContext context)
     {
-        return onTopOfChunkCenter(context, Heightmap.Types.OCEAN_FLOOR_WG, structurePiecesBuilder -> this.generatePieces(structurePiecesBuilder, context));
+        return onTopOfChunkCenter(context, Heightmap.Types.OCEAN_FLOOR_WG, builder -> this.generatePieces(builder, context));
     }
 
-    private void generatePieces(StructurePiecesBuilder structurePiecesBuilder, Structure.GenerationContext generationContext)
+    private void generatePieces(StructurePiecesBuilder builder, Structure.GenerationContext context)
     {
-        var rotation = Rotation.getRandom(generationContext.random());
-        var blockPos = new BlockPos(generationContext.chunkPos().getMinBlockX(), generationContext.chunkGenerator().getSeaLevel() - 4, generationContext.chunkPos().getMinBlockZ());
-        SeapostPieces.addPieces(generationContext.structureTemplateManager(), blockPos, rotation, structurePiecesBuilder);
+        var rotation = Rotation.getRandom(context.random());
+        var blockPos = new BlockPos(context.chunkPos().getMinBlockX(), context.chunkGenerator().getSeaLevel() - 4, context.chunkPos().getMinBlockZ());
+        SeapostPieces.addPieces(context.structureTemplateManager(), blockPos, rotation, builder);
     }
 
     @Override
