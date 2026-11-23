@@ -67,7 +67,7 @@ public class LanguageSyncProvider implements DataProvider
 
                 try (var files = Files.list(otherTranslations))
                 {
-                    files.filter(path -> path.toString().endsWith(".json") && !path.toString().equals("en_us.json")).forEach(path ->
+                    files.filter(path -> path.toString().endsWith(".json") && !path.getFileName().toString().equals("en_us.json")).forEach(path ->
                     {
                         try
                         {

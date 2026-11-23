@@ -1,0 +1,33 @@
+{
+  "name": "patchouli.fishofthieves.entry.blocks.banana_stem",
+  "category": "fishofthieves:blocks",
+  "icon": "fishofthieves:banana_stem",
+  "priority": true,
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.banana_stem.page0"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/banana_stem/img0.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.banana_stem.image.text0",
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.banana_stem.page1"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/banana_stem/img1.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.banana_stem.image.text1",
+      "border": true
+    }
+  ]
+}

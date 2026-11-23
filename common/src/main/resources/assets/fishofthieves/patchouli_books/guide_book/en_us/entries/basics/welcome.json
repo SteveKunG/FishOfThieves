@@ -1,0 +1,13 @@
+{
+  "name": "patchouli.fishofthieves.entry.basics.welcome",
+  "category": "fishofthieves:basics",
+  "icon": "fishofthieves:splashtail",
+  "priority": true,
+  "sortnum": -10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "This is a test entry, but it should show up!"
+    }
+  ]
+}

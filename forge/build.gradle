@@ -31,6 +31,11 @@ loom {
     }
 }
 
+// Include resources from the common project
+sourceSets.main.resources {
+    srcDir "../common/src/main/resources"
+}
+
 repositories {
     maven {
         name = "Aquaculture 2"
@@ -47,10 +52,19 @@ dependencies {
     modCompileOnly("com.github.glitchfiend:SereneSeasons-forge:${minecraft_version}-${serene_seasons_version}")
     modImplementation("com.github.glitchfiend:GlitchCore-forge:${minecraft_version}-${glitchcore_version}")
     modRuntimeOnly("maven.modrinth:cyanide:${cyanide_forge_version}")
+    modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE"
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
     implementation(include("io.github.llamalad7:mixinextras-forge:${mixinextras_version}"))
     implementation(include("com.moulberry:mixinconstraints:${mixin_constraints_version}"))
+}
+
+processResources {
+    filesMatching("data/fishofthieves/patchouli_books/guide_book/book.json") {
+        filter { line ->
+            line.replaceAll("patchouli_book_version", patchouli_book_version)
+        }
+    }
 }
 
 List<String> commonExcludes = [".cache", "data/fabric/**", "gametest_structures/**", "regular_structures/**", "architectury.common.json"]

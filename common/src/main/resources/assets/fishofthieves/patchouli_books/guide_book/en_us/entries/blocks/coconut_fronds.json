@@ -1,0 +1,48 @@
+{
+  "name": "patchouli.fishofthieves.entry.blocks.coconut_fronds",
+  "category": "fishofthieves:blocks",
+  "icon": "fishofthieves:coconut_fronds",
+  "priority": true,
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.page0"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img0.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text0",
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.page1"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img1_0.png",
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img1_1.png",
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img1_2.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text1",
+      "border": true
+    },
+    {
+      "type": "patchouli:text",
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.page2"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img2_0.png",
+        "fishofthieves:textures/gui/patchouli/entries/coconut_fronds/img2_1.png"
+      ],
+      "text": "patchouli.fishofthieves.entry.blocks.coconut_fronds.image.text2",
+      "border": true
+    }
+  ]
+}
