@@ -22,11 +22,11 @@ public class MixinBoatRenderer
         {
             if (chestBoat)
             {
-                info.setReturnValue(FishOfThieves.id("textures/entity/chest_boat/" + type.getName() + ".png"));
+                info.setReturnValue(FishOfThieves.id("textures/entity/chest_boat/fishofthieves_coconut.png"));
             }
             else
             {
-                info.setReturnValue(FishOfThieves.id("textures/entity/boat/" + type.getName() + ".png"));
+                info.setReturnValue(FishOfThieves.id("textures/entity/boat/fishofthieves_coconut.png"));
             }
         }
     }

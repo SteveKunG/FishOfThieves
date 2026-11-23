@@ -8,8 +8,6 @@ import com.stevekung.fishofthieves.FOTPlatform;
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.compatibility.biolith.FOTBiolith;
 import com.stevekung.fishofthieves.loot.FOTLootManager;
-import com.stevekung.fishofthieves.mixin.accessor.BoatTypeAccessor;
-import com.stevekung.fishofthieves.registry.FOTBoatTypes;
 import com.stevekung.fishofthieves.registry.FOTTags;
 
 import net.minecraft.network.chat.Component;
@@ -57,8 +55,6 @@ public class CommonProxyNeoForge
             {
                 FOTBiolith.init();
             }
-
-            ((BoatTypeAccessor) (Object) FOTBoatTypes.COCONUT).fishofthieves$setName("fishofthieves_coconut");
         });
     }
 

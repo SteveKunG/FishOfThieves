@@ -155,7 +155,7 @@ public class FishOfThievesNeoForge
         return type.cast(switch (idx)
         {
             case 0 -> (Supplier<Block>) () -> FOTBlocks.COCONUT_PLANKS;
-            case 1 -> "fishofthieves:coconut"; // Will change to fishofthieves_coconut later to maintain compatibility
+            case 1 -> "fishofthieves:coconut";
             case 2 -> (Supplier<Item>) () -> FOTItems.COCONUT_BOAT;
             case 3 -> (Supplier<Item>) () -> FOTItems.COCONUT_CHEST_BOAT;
             case 4 -> (Supplier<Item>) () -> Items.STICK;

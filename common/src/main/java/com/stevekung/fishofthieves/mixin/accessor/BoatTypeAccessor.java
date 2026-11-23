@@ -15,10 +15,4 @@ public interface BoatTypeAccessor
     @Mutable
     @Final
     void fishofthieves$setPlanks(Block planks);
-
-    // NeoForge only
-    @Accessor("name")
-    @Mutable
-    @Final
-    void fishofthieves$setName(String name);
 }
