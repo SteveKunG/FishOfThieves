@@ -1,5 +1,7 @@
 package com.stevekung.fishofthieves.neoforge;
 
+import java.util.function.Supplier;
+
 import com.stevekung.fishofthieves.FishOfThieves;
 import com.stevekung.fishofthieves.api.block.fish_plaque.FishPlaqueInteraction;
 import com.stevekung.fishofthieves.entity.variant.*;
@@ -13,7 +15,10 @@ import com.stevekung.fishofthieves.registry.*;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
@@ -136,6 +141,24 @@ public class FishOfThievesNeoForge
             case 0 -> "fishofthieves:tropical_island";
             case 1 ->
                     (BiomeSpecialEffects.GrassColorModifier.ColorModifier) (x, z, grassColor) -> FOTGrassColorModifier.getGrassColor(x, z);
+            default -> throw new IllegalArgumentException("Unexpected parameter index: " + idx);
+        });
+    }
+
+    @SuppressWarnings("unused")
+    public static Object getCoconutBoatType(int idx, Class<?> type)
+    {
+        if (idx == 5)
+        {
+            return false;
+        }
+        return type.cast(switch (idx)
+        {
+            case 0 -> (Supplier<Block>) () -> FOTBlocks.COCONUT_PLANKS;
+            case 1 -> "fishofthieves:coconut"; // Will change to fishofthieves_coconut later to maintain compatibility
+            case 2 -> (Supplier<Item>) () -> FOTItems.COCONUT_BOAT;
+            case 3 -> (Supplier<Item>) () -> FOTItems.COCONUT_CHEST_BOAT;
+            case 4 -> (Supplier<Item>) () -> Items.STICK;
             default -> throw new IllegalArgumentException("Unexpected parameter index: " + idx);
         });
     }

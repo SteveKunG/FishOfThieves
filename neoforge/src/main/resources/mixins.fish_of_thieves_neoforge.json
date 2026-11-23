@@ -9,7 +9,6 @@
     "block.MixinFOTRotatedPillarBlock",
     "block.MixinMediumRotatedPillarBlock",
     "block.MixinSmallRotatedPillarBlock",
-    "entity.MixinBoatType",
     "item.MixinFOTWormItem"
   ],
   "client": [

@@ -8,6 +8,15 @@
         "class": "com/stevekung/fishofthieves/neoforge/FishOfThievesNeoForge",
         "method": "getTropicalIslandGrassColorParameters"
       }
+    },
+    {
+      "enum": "net/minecraft/world/entity/vehicle/Boat$Type",
+      "name": "FISHOFTHIEVES_COCONUT",
+      "constructor": "(Ljava/util/function/Supplier;Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Z)V",
+      "parameters": {
+        "class": "com/stevekung/fishofthieves/neoforge/FishOfThievesNeoForge",
+        "method": "getCoconutBoatType"
+      }
     }
   ]
 }
