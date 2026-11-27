@@ -7,7 +7,6 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTMobEffects;
@@ -15,7 +14,6 @@ import com.stevekung.fishofthieves.registry.FOTMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -32,13 +30,10 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.Item;
 
 public class AbstractThievesFishAi
 {
     public static final UniformInt TIME_BETWEEN_BREACH = UniformInt.of(1200, 2000);
-
-    private AbstractThievesFishAi() {}
 
     public static List<ActivityData<AbstractThievesFish<?>>> getActivities()
     {
@@ -56,26 +51,6 @@ public class AbstractThievesFishAi
     public static void updateActivity(AbstractThievesFish<?> fish)
     {
         fish.getBrain().setActiveActivityToFirstValid(List.of(Activity.AVOID, Activity.IDLE));
-    }
-
-    public static TagKey<Item> getCommonTemptations()
-    {
-        return ThievesFish.WORMS;
-    }
-
-    public static TagKey<Item> getLeechesTemptations()
-    {
-        return ThievesFish.LEECHES_FOOD;
-    }
-
-    public static TagKey<Item> getEarthwormsTemptations()
-    {
-        return ThievesFish.EARTHWORMS_FOOD;
-    }
-
-    public static TagKey<Item> getGrubsTemptations()
-    {
-        return ThievesFish.GRUBS_FOOD;
     }
 
     public static <T extends AbstractThievesFish<?>> void customServerAiStep(T fish, Brain<T> brain)

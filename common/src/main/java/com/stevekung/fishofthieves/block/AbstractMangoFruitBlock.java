@@ -156,7 +156,7 @@ public class AbstractMangoFruitBlock extends Block implements BonemealableBlock,
     @Override
     public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData)
     {
-        return state.getValue(AGE) == 1 ? new ItemStack(FOTItems.RAW_MANGO) : new ItemStack(FOTItems.MANGO);
+        return new ItemStack(state.getValue(AGE) == 1 ? FOTItems.RAW_MANGO : FOTItems.MANGO);
     }
 
     public static boolean canMangoFall(BlockState state)

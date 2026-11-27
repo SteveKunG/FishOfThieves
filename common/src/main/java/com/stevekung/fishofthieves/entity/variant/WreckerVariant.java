@@ -10,7 +10,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryFileCodec;
 
 public record WreckerVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, SpawnSettings spawnSettings, int order) implements AbstractFishVariant
@@ -23,17 +22,5 @@ public record WreckerVariant(String name, ClientAsset.ResourceTexture texture, O
     public WreckerVariant(String name, ClientAsset.ResourceTexture texture, Optional<ClientAsset.ResourceTexture> glowTexture, Optional<Boolean> treasured, int order)
     {
         this(name, texture, glowTexture, treasured, SpawnSettings.EMPTY, order);
-    }
-
-    @Override
-    public Identifier fullTexture()
-    {
-        return this.texture.texturePath();
-    }
-
-    @Override
-    public Optional<Identifier> fullGlowTexture()
-    {
-        return this.glowTexture.map(ClientAsset.ResourceTexture::texturePath);
     }
 }
