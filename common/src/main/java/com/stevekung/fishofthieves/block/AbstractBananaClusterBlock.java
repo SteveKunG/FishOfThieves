@@ -65,7 +65,7 @@ public abstract class AbstractBananaClusterBlock extends HorizontalDirectionalBl
         {
             scheduledTickAccess.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
+        return state.canSurvive(level, currentPos) ? super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource) : Blocks.AIR.defaultBlockState();
     }
 
     @Override

@@ -3,10 +3,8 @@ package com.stevekung.fishofthieves.neoforge.compatibility;
 import com.stevekung.fishofthieves.registry.FOTItems;
 import com.teammetallurgy.aquaculture.api.AquacultureAPI;
 
-public class Aquaculture2
+public final class Aquaculture2
 {
-    private Aquaculture2() {}
-
     public static void init()
     {
         AquacultureAPI.FISH_DATA.add(FOTItems.SPLASHTAIL, 20, 50, 5);

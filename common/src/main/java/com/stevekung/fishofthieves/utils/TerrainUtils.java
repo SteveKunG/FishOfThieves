@@ -13,11 +13,9 @@ import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
-public class TerrainUtils
+public final class TerrainUtils
 {
     private static final OverworldBiomeBuilder OVERWORLD_BUILDER = new OverworldBiomeBuilder();
-
-    private TerrainUtils() {}
 
     public static Continentalness getContinentalness(ServerLevel level, BlockPos blockPos)
     {
