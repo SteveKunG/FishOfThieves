@@ -4,7 +4,7 @@
       "type": "fishofthieves:treasured_fish_map",
       "max_attempt": 10,
       "maximum_search_radius": 100,
-      "mininum_search_radius": 50,
+      "minimum_search_radius": 50,
       "tier": 2,
       "zoom": 1
     },
