@@ -18,7 +18,7 @@ public class MixinGameRuleRegistryFix
         throw new AssertionError();
     }
 
-    @ModifyReturnValue(method = "method_76071(Lcom/mojang/serialization/Dynamic;)Lcom/mojang/serialization/Dynamic;", at = @At("RETURN"))
+    @ModifyReturnValue(method = "lambda$makeRule$2", at = @At("RETURN"))
     private static Dynamic<?> fishofthieves$fixShoalSpawning(Dynamic<?> returnValue)
     {
         return returnValue.setFieldIfPresent("fishofthieves:shoal_spawning", returnValue.get("fishofthieves:shoal_spawning").result().map(MixinGameRuleRegistryFix::convertBoolean));
