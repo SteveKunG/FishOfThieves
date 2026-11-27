@@ -181,7 +181,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             {
                 json.addProperty("zoom", treasuredFishMapFunction.zoom);
             }
-            json.addProperty("mininum_search_radius", treasuredFishMapFunction.minimumSearchRadius);
+            json.addProperty("minimum_search_radius", treasuredFishMapFunction.minimumSearchRadius);
             json.addProperty("maximum_search_radius", treasuredFishMapFunction.maximumSearchRadius);
             json.addProperty("max_attempt", treasuredFishMapFunction.maxAttempt);
             json.addProperty("high_tier_chance", treasuredFishMapFunction.highTierChance);
@@ -191,7 +191,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
         public TreasuredFishMapFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions)
         {
             var zoom = GsonHelper.getAsByte(object, "zoom", (byte) 2);
-            var minimumSearchRadius = GsonHelper.getAsInt(object, "mininum_search_radius");
+            var minimumSearchRadius = GsonHelper.getAsInt(object, "minimum_search_radius");
             var maximumSearchRadius = GsonHelper.getAsInt(object, "maximum_search_radius");
             var maxAttempt = GsonHelper.getAsInt(object, "max_attempt");
             var highTierChance = GsonHelper.getAsFloat(object, "high_tier_chance");

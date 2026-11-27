@@ -10,11 +10,9 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 
 public class ShoalRenderer extends EntityRenderer<Shoal>
 {
@@ -53,7 +51,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
         {
             var entity = list.get(index);
             var offset = offsetPerFish * index;
-            float deg = (int) (ageInTicks / rotationModifier % 360F + offset);
+            var deg = ageInTicks / rotationModifier % 360F + offset;
             var rad = (float) (deg / 180F * Math.PI);
             var radiusX = (float) (radiusBase + radiusMod * Math.sin(ageInTicks / modifier));
             var radiusZ = (float) (radiusBase + radiusMod * Math.cos(ageInTicks / modifier));
@@ -63,7 +61,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
 
             poseStack.pushPose();
             poseStack.translate(x, y, z);
-            var yRotate = Math.max(0.6F, Mth.sin(ageInTicks * 0.1f) / 4.0F);
+            var yRotate = 0.6F + Mth.sin(ageInTicks * 0.1F) / 4.0F;
             var zRotate = (float) Math.cos(0.1f * ageInTicks) / 16F;
 
             v /= 2F;
@@ -72,7 +70,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
             poseStack.translate(-v, -v, -v);
             v *= 2F;
 
-            this.renderEntityInShoal(entity, ageInTicks, entityYaw, partialTicks, poseStack, buffer, packedLight);
+            this.renderEntityInShoal(entity, ageInTicks, entityYaw, poseStack, buffer, packedLight);
             poseStack.popPose();
         }
 
@@ -80,47 +78,11 @@ public class ShoalRenderer extends EntityRenderer<Shoal>
         super.render(shoal, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private void renderEntityInShoal(Entity entity, float ageInTicks, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
+    @SuppressWarnings("unchecked")
+    private void renderEntityInShoal(Entity entity, float ageInTicks, float entityYaw, PoseStack poseStack, MultiBufferSource buffer, int packedLight)
     {
         var renderer = (EntityRenderer<? super Entity>) ((EntityRenderDispatcherAccessor) this.entityRenderDispatcher).getRenderers().get(entity.getType());
         renderer.render(entity, entityYaw, ageInTicks, poseStack, buffer, packedLight);
-
-        if (entity instanceof LivingEntity livingEntity && renderer instanceof LivingEntityRenderer livingEntityRenderer)
-        {
-            var yBodyRot = Mth.rotLerp(partialTicks, livingEntity.yBodyRotO, livingEntity.yBodyRot);
-            var yHeadRot = Mth.rotLerp(partialTicks, livingEntity.yHeadRotO, livingEntity.yHeadRot);
-            var netHeadYaw = yHeadRot - yBodyRot;
-            var limbSwingAmount = 0.0F;
-            var limbSwing = 0.0F;
-            var headPitch = Mth.lerp(partialTicks, livingEntity.xRotO, livingEntity.getXRot());
-
-            if (LivingEntityRenderer.isEntityUpsideDown(livingEntity))
-            {
-                headPitch *= -1.0F;
-                netHeadYaw *= -1.0F;
-            }
-
-            if (!livingEntity.isPassenger() && livingEntity.isAlive())
-            {
-                limbSwingAmount = livingEntity.walkAnimation.speed(partialTicks);
-                limbSwing = livingEntity.walkAnimation.position(partialTicks);
-
-                if (livingEntity.isBaby())
-                {
-                    limbSwing *= 3.0F;
-                }
-
-                if (limbSwingAmount > 1.0F)
-                {
-                    limbSwingAmount = 1.0F;
-                }
-            }
-
-            var model = livingEntityRenderer.getModel();
-            model.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
-            model.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        }
     }
 
     @Override
