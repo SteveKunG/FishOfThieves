@@ -22,8 +22,6 @@ public class FOTSurfaceRuleData
     private static final MaterialRule SAND = makeStateRule(Blocks.SAND);
     private static final MaterialRule SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
-    private FOTSurfaceRuleData() {}
-
     public static MaterialRule overworld(RegistryAccess registryAccess)
     {
         var materialCondition = registryAccess.lookupOrThrow(Registries.MATERIAL_CONDITION);

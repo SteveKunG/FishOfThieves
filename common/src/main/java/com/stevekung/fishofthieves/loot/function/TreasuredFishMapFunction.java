@@ -35,7 +35,7 @@ public class TreasuredFishMapFunction extends LootItemConditionalFunction
             .and(
                     instance.group(
                             Codec.BYTE.optionalFieldOf("zoom", (byte) 2).forGetter(function -> function.zoom),
-                            Codec.INT.fieldOf("mininum_search_radius").forGetter(function -> function.minimumSearchRadius),
+                            Codec.INT.fieldOf("minimum_search_radius").forGetter(function -> function.minimumSearchRadius),
                             Codec.INT.fieldOf("maximum_search_radius").forGetter(function -> function.maximumSearchRadius),
                             Codec.INT.fieldOf("max_attempt").forGetter(function -> function.maxAttempt),
                             Codec.FLOAT.optionalFieldOf("high_tier_chance", 0f).forGetter(function -> function.highTierChance),

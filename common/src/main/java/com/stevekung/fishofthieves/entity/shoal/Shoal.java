@@ -35,6 +35,7 @@ import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.RandomSupport;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -75,6 +76,7 @@ public class Shoal extends Entity
     public Shoal(EntityType<?> entityType, Level level)
     {
         super(entityType, level);
+        this.javaRandom.setSeed(RandomSupport.generateUniqueSeed());
         this.noPhysics = true;
     }
 
@@ -260,7 +262,7 @@ public class Shoal extends Entity
     {
         var shoalFish = Util.getRandom(this.shoalFishData, this.random);
         var uuid = shoalFish.uuid();
-        var compoundTag = shoalFish.data();
+        var compoundTag = shoalFish.data().copy();
         compoundTag.putString("id", shoalFish.id());
         Entity entity = null;
 
@@ -332,6 +334,7 @@ public class Shoal extends Entity
             if (entity instanceof Mob mob)
             {
                 var compoundTag = new CompoundTag();
+                mob.snapTo(this.position());
                 mob.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(entity.blockPosition()), EntitySpawnReason.NATURAL, null);
 
                 try (var scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), FishOfThieves.LOGGER))
@@ -488,6 +491,6 @@ public class Shoal extends Entity
 
     private static List<? extends EntityType<?>> pickRandom(Random random, List<EntityType<?>> list, int count)
     {
-        return random.ints(0, list.size()).distinct().limit(count).mapToObj(list::get).toList();
+        return random.ints(0, list.size()).distinct().limit(Math.min(count, list.size())).mapToObj(list::get).toList();
     }
 }

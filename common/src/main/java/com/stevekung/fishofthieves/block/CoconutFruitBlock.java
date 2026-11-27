@@ -30,19 +30,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoconutFruitBlock extends HorizontalDirectionalBlock implements BonemealableBlock, Fallable
 {
-    private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
+    private static final VoxelShape[] EAST_AABB = {
             Block.box(12, 8, 5, 18, 14, 11),
             Block.box(10, 6, 4, 18, 14, 12),
             Block.box(7, 3, 2.5, 18, 14, 13.5) };
-    private static final VoxelShape[] WEST_AABB = new VoxelShape[] {
+    private static final VoxelShape[] WEST_AABB = {
             Block.box(-2, 8, 5, 4, 14, 11),
             Block.box(-2, 6, 4, 6, 14, 12),
             Block.box(-2, 3, 2.5, 9, 14, 13.5) };
-    private static final VoxelShape[] NORTH_AABB = new VoxelShape[] {
+    private static final VoxelShape[] NORTH_AABB = {
             Block.box(5, 8, -2, 11, 14, 4),
             Block.box(4, 6, -2, 12, 14, 6),
             Block.box(2.5, 3, -2, 13.5, 14, 9) };
-    private static final VoxelShape[] SOUTH_AABB = new VoxelShape[] {
+    private static final VoxelShape[] SOUTH_AABB = {
             Block.box(5, 8, 12, 11, 14, 18),
             Block.box(4, 6, 10, 12, 14, 18),
             Block.box(2.5, 3, 7, 13.5, 14, 18) };

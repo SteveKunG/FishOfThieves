@@ -65,7 +65,7 @@ public class AdvancementProvider extends FabricAdvancementProvider
             FOTItems.WRECKER_BUCKET, FOTRegistries.WRECKER_VARIANT,
             FOTItems.STORMFISH_BUCKET, FOTRegistries.STORMFISH_VARIANT
     );
-    private static final Item[] FRUITS = new Item[] {
+    private static final Item[] FRUITS = {
             FOTItems.BANANA,
             FOTItems.COCONUT,
             FOTItems.POMEGRANATE,

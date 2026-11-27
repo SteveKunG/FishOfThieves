@@ -42,9 +42,15 @@ public interface AbstractFishVariant extends PriorityProvider<SpawnContext, Spaw
 
     ClientAsset.ResourceTexture texture();
 
-    Identifier fullTexture();
+    default Identifier fullTexture()
+    {
+        return this.texture().texturePath();
+    }
 
-    Optional<Identifier> fullGlowTexture();
+    default Optional<Identifier> fullGlowTexture()
+    {
+        return this.glowTexture().map(ClientAsset.ResourceTexture::texturePath);
+    }
 
     Optional<ClientAsset.ResourceTexture> glowTexture();
 

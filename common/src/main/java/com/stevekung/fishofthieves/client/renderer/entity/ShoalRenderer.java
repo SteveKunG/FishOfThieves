@@ -54,7 +54,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
         {
             var livingEntityRenderState = list.get(index);
             var offset = offsetPerFish * index;
-            float deg = (int) (ageInTicks / rotationModifier % 360F + offset);
+            var deg = ageInTicks / rotationModifier % 360F + offset;
             var rad = (float) (deg / 180F * Math.PI);
             var radiusX = (float) (radiusBase + radiusMod * Math.sin(ageInTicks / modifier));
             var radiusZ = (float) (radiusBase + radiusMod * Math.cos(ageInTicks / modifier));
@@ -64,7 +64,7 @@ public class ShoalRenderer extends EntityRenderer<Shoal, ShoalRenderState>
 
             poseStack.pushPose();
             poseStack.translate(x, y, z);
-            var yRotate = Math.max(0.6F, Mth.sin(ageInTicks * 0.1f) / 4.0F);
+            var yRotate = 0.6F + Mth.sin(ageInTicks * 0.1F) / 4.0F;
             var zRotate = (float) Math.cos(0.1f * ageInTicks) / 16F;
 
             v /= 2F;

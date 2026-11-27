@@ -160,6 +160,5 @@ public class FishOfThieves
         }).stream().map(entry -> (FishOfThieves.SpawnPlacementEntry<Mob>) entry).toList();
     }
 
-    public record SpawnPlacementEntry<T extends Mob>(EntityType<T> type, SpawnPlacements.SpawnPredicate<T> spawnPredicate)
-    {}
+    public record SpawnPlacementEntry<T extends Mob>(EntityType<T> type, SpawnPlacements.SpawnPredicate<T> spawnPredicate) {}
 }
