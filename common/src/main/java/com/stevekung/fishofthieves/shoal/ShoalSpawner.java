@@ -35,35 +35,43 @@ public final class ShoalSpawner
 
     public static Optional<BlockPos> findFarthest(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
     {
-        return getInRange(typePredicate, pos, minimumDistance, maximumDistance, poiManager).map(PoiRecord::getPos).min(Comparator.comparingDouble(blockPos2 -> blockPos2.distSqr(pos)));
+        return getInRange(typePredicate, pos, minimumDistance, maximumDistance, poiManager).map(PoiRecord::getPos).max(Comparator.comparingDouble(blockPos2 -> blockPos2.distSqr(pos)));
     }
 
-    private static Stream<PoiRecord> getInRange(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
+    private static Stream<PoiRecord> getInRange(Predicate<Holder<PoiType>> typePredicate, BlockPos center, int minimumDistance, int maximumDistance, PoiManager poiManager)
     {
         var minSum = minimumDistance * minimumDistance;
         var maxSum = maximumDistance * maximumDistance;
-        return getInSquare(typePredicate, pos, minimumDistance, maximumDistance, poiManager).filter(poiRecord ->
+        return getInSquare(typePredicate, center, maximumDistance, poiManager).filter(poiRecord ->
         {
             var blockPos = poiRecord.getPos();
-            FishOfThieves.LOGGER.debug("minSum {} <= {}: {}", blockPos.distSqr(pos), minSum, blockPos.distSqr(pos) >= minSum);
-            FishOfThieves.LOGGER.debug("maxSum {} <= {}: {}", blockPos.distSqr(pos), maxSum, blockPos.distSqr(pos) <= maxSum);
-            return blockPos.distSqr(pos) >= minSum && blockPos.distSqr(pos) <= maxSum;
+
+            if (FOTPlatform.isDevelopment())
+            {
+                FishOfThieves.LOGGER.debug("minSum {} <= {}: {}", blockPos.distSqr(center), minSum, blockPos.distSqr(center) >= minSum);
+                FishOfThieves.LOGGER.debug("maxSum {} <= {}: {}", blockPos.distSqr(center), maxSum, blockPos.distSqr(center) <= maxSum);
+            }
+            return blockPos.distSqr(center) >= minSum && blockPos.distSqr(center) <= maxSum;
         });
     }
 
-    private static Stream<PoiRecord> getInSquare(Predicate<Holder<PoiType>> typePredicate, BlockPos pos, int minimumDistance, int maximumDistance, PoiManager poiManager)
+    private static Stream<PoiRecord> getInSquare(Predicate<Holder<PoiType>> typePredicate, BlockPos center, int maximumDistance, PoiManager poiManager)
     {
         var chunkRadius = Math.floorDiv(maximumDistance, 16) + 1;
-        return ChunkPos.rangeClosed(new ChunkPos(pos), chunkRadius).flatMap(chunkPos -> poiManager.getInChunk(typePredicate, chunkPos, PoiManager.Occupancy.ANY)).filter(poiRecord ->
+        return ChunkPos.rangeClosed(new ChunkPos(center), chunkRadius).flatMap(chunkPos -> poiManager.getInChunk(typePredicate, chunkPos, PoiManager.Occupancy.ANY)).filter(poiRecord ->
         {
-            var blockPos2 = poiRecord.getPos();
-            FishOfThieves.LOGGER.debug("absX: {}", Math.abs(blockPos2.getX() - pos.getX()));
-            FishOfThieves.LOGGER.debug("absZ: {}", Math.abs(blockPos2.getZ() - pos.getZ()));
-            FishOfThieves.LOGGER.debug("minimumDistance: {}", minimumDistance);
-            FishOfThieves.LOGGER.debug("maximumDistance: {}", maximumDistance);
-            FishOfThieves.LOGGER.debug("logic minimumDistance: {}", Math.abs(blockPos2.getX() - pos.getX()) >= minimumDistance && Math.abs(blockPos2.getZ() - pos.getZ()) >= minimumDistance);
-            FishOfThieves.LOGGER.debug("logic maximumDistance: {}", Math.abs(blockPos2.getX() - pos.getX()) <= maximumDistance && Math.abs(blockPos2.getZ() - pos.getZ()) <= maximumDistance);
-            return Math.abs(blockPos2.getX() - pos.getX()) >= minimumDistance && Math.abs(blockPos2.getZ() - pos.getZ()) >= minimumDistance && Math.abs(blockPos2.getX() - pos.getX()) <= maximumDistance && Math.abs(blockPos2.getZ() - pos.getZ()) <= maximumDistance;
+            var pos = poiRecord.getPos();
+            var dx = Math.abs(pos.getX() - center.getX());
+            var dz = Math.abs(pos.getZ() - center.getZ());
+
+            if (FOTPlatform.isDevelopment())
+            {
+                FishOfThieves.LOGGER.debug("dx: {}", dx);
+                FishOfThieves.LOGGER.debug("dz: {}", dz);
+                FishOfThieves.LOGGER.debug("maximumDistance: {}", maximumDistance);
+                FishOfThieves.LOGGER.debug("logic maximumDistance: {}", dx <= maximumDistance && dz <= maximumDistance);
+            }
+            return dx <= maximumDistance && dz <= maximumDistance;
         });
     }
 

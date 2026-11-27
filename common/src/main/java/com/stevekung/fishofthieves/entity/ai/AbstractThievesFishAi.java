@@ -7,7 +7,6 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.stevekung.fishofthieves.entity.AbstractThievesFish;
-import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.behavior.FishBreaching;
 import com.stevekung.fishofthieves.registry.FOTMemoryModuleTypes;
 import com.stevekung.fishofthieves.registry.FOTMobEffects;
@@ -29,7 +28,6 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class AbstractThievesFishAi
 {
@@ -57,26 +55,6 @@ public class AbstractThievesFishAi
     public static void updateActivity(AbstractThievesFish<?> fish)
     {
         fish.getBrain().setActiveActivityToFirstValid(List.of(Activity.AVOID, Activity.IDLE));
-    }
-
-    public static Ingredient getCommonTemptations()
-    {
-        return ThievesFish.WORMS;
-    }
-
-    public static Ingredient getLeechesTemptations()
-    {
-        return ThievesFish.LEECHES_FOOD;
-    }
-
-    public static Ingredient getEarthwormsTemptations()
-    {
-        return ThievesFish.EARTHWORMS_FOOD;
-    }
-
-    public static Ingredient getGrubsTemptations()
-    {
-        return ThievesFish.GRUBS_FOOD;
     }
 
     public static <T extends AbstractThievesFish<?>> void customServerAiStep(T fish, Brain<T> brain)
