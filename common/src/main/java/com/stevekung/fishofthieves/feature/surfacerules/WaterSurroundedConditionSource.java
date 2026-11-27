@@ -24,7 +24,7 @@ public class WaterSurroundedConditionSource extends SurfaceRules implements Surf
     {
         return () ->
         {
-            var accessor = ((SurfaceRules_ContextAccessor) (Object) context);
+            var accessor = (SurfaceRules_ContextAccessor) (Object) context;
             var blockPos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY(), accessor.getBlockZ());
             var localX = blockPos.getX() & 15;
             var localZ = blockPos.getZ() & 15;

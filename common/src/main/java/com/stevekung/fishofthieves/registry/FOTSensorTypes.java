@@ -1,7 +1,7 @@
 package com.stevekung.fishofthieves.registry;
 
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.entity.ai.AbstractThievesFishAi;
+import com.stevekung.fishofthieves.entity.ThievesFish;
 import com.stevekung.fishofthieves.entity.ai.sensing.*;
 
 import net.minecraft.core.Registry;
@@ -13,10 +13,10 @@ import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 @SuppressWarnings("deprecation")
 public class FOTSensorTypes
 {
-    public static final SensorType<TemptingSensor> COMMON_THIEVES_FISH_TEMPTATIONS = register("common_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(AbstractThievesFishAi.getCommonTemptations()))));
-    public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = register("leeches_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(AbstractThievesFishAi.getLeechesTemptations()))));
-    public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = register("earthworms_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(AbstractThievesFishAi.getEarthwormsTemptations()))));
-    public static final SensorType<TemptingSensor> GRUBS_THIEVES_FISH_TEMPTATIONS = register("grubs_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(AbstractThievesFishAi.getGrubsTemptations()))));
+    public static final SensorType<TemptingSensor> COMMON_THIEVES_FISH_TEMPTATIONS = register("common_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(ThievesFish.WORMS))));
+    public static final SensorType<TemptingSensor> LEECHES_THIEVES_FISH_TEMPTATIONS = register("leeches_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(ThievesFish.LEECHES_FOOD))));
+    public static final SensorType<TemptingSensor> EARTHWORMS_THIEVES_FISH_TEMPTATIONS = register("earthworms_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(ThievesFish.EARTHWORMS_FOOD))));
+    public static final SensorType<TemptingSensor> GRUBS_THIEVES_FISH_TEMPTATIONS = register("grubs_thieves_fish_temptations", new SensorType<>(() -> new TemptingSensor(itemStack -> itemStack.is(ThievesFish.GRUBS_FOOD))));
     public static final SensorType<NearestWreckerLocatedSensor> NEAREST_WRECKER_LOCATED = register("nearest_wrecker_located", new SensorType<>(NearestWreckerLocatedSensor::new));
     public static final SensorType<FishAttackablesSensor> BATTLEGILL_ATTACKABLES = register("battlegill_attackables", new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().builtInRegistryHolder().is(FOTTags.EntityTypes.BATTLEGILL_ATTACKABLE))));
     public static final SensorType<FishAttackablesSensor> DEVILFISH_ATTACKABLES = register("devilfish_attackables", new SensorType<>(() -> new FishAttackablesSensor(target -> target.getType().builtInRegistryHolder().is(FOTTags.EntityTypes.DEVILFISH_ATTACKABLE))));

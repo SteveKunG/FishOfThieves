@@ -17,7 +17,7 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 
 public class FishBreaching<E extends LivingEntity> extends Behavior<E>
 {
-    private static final int[] STEPS_TO_CHECK = new int[] { 1, 2, 3 };
+    private static final int[] STEPS_TO_CHECK = { 1, 2, 3 };
     private final float jumpVelocity;
     private final float horizontalVelocity;
     private final UniformInt chance;

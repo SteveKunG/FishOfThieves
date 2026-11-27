@@ -43,11 +43,11 @@ public class BlockStateConditionSource extends SurfaceRules implements SurfaceRu
     }
 
     @Override
-    public Condition apply(SurfaceRules.Context context)
+    public SurfaceRules.Condition apply(SurfaceRules.Context context)
     {
         return () ->
         {
-            var accessor = ((SurfaceRules_ContextAccessor) (Object) context);
+            var accessor = (SurfaceRules_ContextAccessor) (Object) context;
             var pos = this.mutablePos.set(accessor.getBlockX(), accessor.getBlockY() + this.offset, accessor.getBlockZ());
             return accessor.getChunk().getBlockState(pos).is(this.blockState.getBlock());
         };

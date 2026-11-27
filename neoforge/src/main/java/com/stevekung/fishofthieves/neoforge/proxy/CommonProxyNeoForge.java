@@ -54,6 +54,7 @@ public class CommonProxyNeoForge
         {
             FishOfThieves.initCommon();
 
+            //noinspection ConstantValue
             if (FishOfThieves.CONFIG.biome.tropicalIslandBiomeGeneration && FOTPlatform.isModLoaded("biolith"))
             {
                 FOTBiolith.init();
