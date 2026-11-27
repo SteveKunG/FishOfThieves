@@ -98,66 +98,40 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos)
     {
-        var oppositePos = pos.relative(state.getValue(FACING).getOpposite());
-        var oppositeState = level.getBlockState(oppositePos);
-        var facingState = level.getBlockState(pos.relative(state.getValue(FACING)));
-
         if (state.getValue(WATERLOGGED))
         {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        switch (state.getValue(PART))
+        // If there is no support block behind just destroy it
+        if (direction == state.getValue(FACING).getOpposite() && !state.canSurvive(level, pos))
         {
-            case SINGLE ->
-            {
-                // Update to stem state if placing at next block
-                if (facingState.is(this) && facingState.getValue(FACING) == state.getValue(FACING))
-                {
-                    return state.setValue(PART, Part.STEM);
-                }
-            }
-            case STEM ->
-            {
-                // Update to single state if block next to leaves isn't itself
-                if (!facingState.is(this))
-                {
-                    return state.setValue(PART, Part.SINGLE);
-                }
-            }
-            case MIDDLE ->
-            {
-                // Update to tail state if block next to leaves isn't itself
-                if (!facingState.is(this))
-                {
-                    return state.setValue(PART, Part.TAIL);
-                }
-                // If block behind leaves isn't itself, and it is solid block, update to stem state.
-                else if (!oppositeState.is(this) && oppositeState.isSolid())
-                {
-                    return state.setValue(PART, Part.STEM);
-                }
-            }
-            case TAIL ->
-            {
-                // If block next to leaves is itself with the same facing and tail state, set to middle state.
-                if (facingState.is(this) && facingState.getValue(FACING) == state.getValue(FACING) && facingState.getValue(PART) == Part.TAIL)
-                {
-                    return state.setValue(PART, Part.MIDDLE);
-                }
-                // If block behind leaves is air, destroy
-                else if (oppositeState.is(Blocks.AIR))
-                {
-                    return Blocks.AIR.defaultBlockState();
-                }
-                // If block behind leaves isn't itself, and it is solid block, update to single state.
-                else if (!oppositeState.is(this) && oppositeState.isSolid())
-                {
-                    return state.setValue(PART, Part.SINGLE);
-                }
-            }
+            return Blocks.AIR.defaultBlockState();
         }
-        return state.canSurvive(level, pos) ? super.updateShape(state, direction, neighborState, level, pos, neighborPos) : Blocks.AIR.defaultBlockState();
+        return super.updateShape(this.updatePart(state, level, pos), direction, neighborState, level, pos, neighborPos);
+    }
+
+    private boolean isConnected(BlockState other, Direction facing)
+    {
+        return other.is(this) && other.getValue(FACING) == facing;
+    }
+
+    private BlockState updatePart(BlockState state, LevelAccessor level, BlockPos pos)
+    {
+        var facing = state.getValue(FACING);
+        var hasBehind = this.isConnected(level.getBlockState(pos.relative(facing.getOpposite())), facing);
+        var hasFront = this.isConnected(level.getBlockState(pos.relative(facing)), facing);
+        Part part;
+
+        if (hasBehind)
+        {
+            part = hasFront ? Part.MIDDLE : Part.TAIL;
+        }
+        else
+        {
+            part = hasFront ? Part.STEM : Part.SINGLE;
+        }
+        return state.setValue(PART, part);
     }
 
     @Override
@@ -229,7 +203,9 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        var fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        var clickedPos = context.getClickedPos();
+        var level = context.getLevel();
+        var fluidState = context.getLevel().getFluidState(clickedPos);
         var direction = context.getClickedFace();
         var isWater = fluidState.getType() == Fluids.WATER;
 
@@ -240,16 +216,16 @@ public class CoconutFrondsBlock extends HorizontalDirectionalBlock implements Bo
         else
         {
             var blockState = this.defaultBlockState().setValue(FACING, direction);
-            var otherState = context.getLevel().getBlockState(context.getClickedPos().relative(blockState.getValue(FACING).getOpposite()));
+            var otherState = level.getBlockState(clickedPos.relative(blockState.getValue(FACING).getOpposite()));
 
             if (otherState.is(this) && (otherState.getValue(PART) == Part.SINGLE || otherState.getValue(PART) == Part.TAIL))
             {
                 blockState = blockState.setValue(PART, Part.TAIL);
             }
 
-            if (blockState.canSurvive(context.getLevel(), context.getClickedPos()))
+            if (blockState.canSurvive(level, clickedPos))
             {
-                return blockState.setValue(WATERLOGGED, isWater);
+                return this.updatePart(blockState, level, clickedPos).setValue(WATERLOGGED, isWater);
             }
         }
         return null;

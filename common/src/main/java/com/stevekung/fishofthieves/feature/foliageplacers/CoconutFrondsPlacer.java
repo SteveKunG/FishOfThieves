@@ -1,5 +1,6 @@
 package com.stevekung.fishofthieves.feature.foliageplacers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -130,19 +132,38 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     private void placeLeavesHorizontalDirections(LevelSimulatedReader level, BlockPos blockPos, RandomSource random, TreeConfiguration config, FoliagePlacer.FoliageSetter blockSetter, int maxLeavesDistanceFromLocalY, int localY)
     {
         var mutableBlockPos = blockPos.mutable();
+        var leavesBlockState = config.foliageProvider.getState(random, blockPos);
+        var tailLeaves = this.tailLeavesState.getState(random, blockPos);
+        var middleLeaves = this.middleLeavesState.getState(random, blockPos);
+
+        if (leavesBlockState.hasProperty(BlockStateProperties.WATERLOGGED))
+        {
+            leavesBlockState = this.addWaterLogged(leavesBlockState, level, blockPos);
+        }
+        if (tailLeaves.hasProperty(BlockStateProperties.WATERLOGGED))
+        {
+            tailLeaves = this.addWaterLogged(tailLeaves, level, blockPos);
+        }
+        if (middleLeaves.hasProperty(BlockStateProperties.WATERLOGGED))
+        {
+            middleLeaves = this.addWaterLogged(middleLeaves, level, blockPos);
+        }
 
         for (var direction : Direction.Plane.HORIZONTAL)
         {
             var opposite = direction.getOpposite();
-            var leavesBlockState = config.foliageProvider.getState(random, blockPos);
 
             if (leavesBlockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
             {
                 leavesBlockState = leavesBlockState.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
             }
-            if (leavesBlockState.hasProperty(BlockStateProperties.WATERLOGGED))
+            if (tailLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
             {
-                leavesBlockState = leavesBlockState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
+                tailLeaves = tailLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
+            }
+            if (middleLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
+            {
+                middleLeaves = middleLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
             }
 
             if (maxLeavesDistanceFromLocalY == 1)
@@ -156,50 +177,27 @@ public class CoconutFrondsPlacer extends FoliagePlacer
             }
             else
             {
-                var tailLeaves = this.tailLeavesState.getState(random, blockPos);
-
-                if (tailLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
-                {
-                    tailLeaves = tailLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
-                }
-
-                var middleLeaves = this.middleLeavesState.getState(random, blockPos);
-
-                if (middleLeaves.hasProperty(BlockStateProperties.HORIZONTAL_FACING))
-                {
-                    middleLeaves = middleLeaves.setValue(BlockStateProperties.HORIZONTAL_FACING, opposite);
-                }
+                List<BlockPos> row = new ArrayList<>();
 
                 for (var i = 1; i <= maxLeavesDistanceFromLocalY; i++)
                 {
                     var posAroundLog = mutableBlockPos.offset(opposite.getStepX() * i, localY, opposite.getStepZ() * i);
 
-                    if (this.isAir(level, posAroundLog))
+                    // Skip non-air block which block position cannot place fronds
+                    if (!this.isAir(level, posAroundLog))
                     {
-                        if (i > 1 && i < maxLeavesDistanceFromLocalY)
-                        {
-                            blockSetter.set(posAroundLog, middleLeaves);
-                        }
-                        else if (i == maxLeavesDistanceFromLocalY)
-                        {
-                            blockSetter.set(posAroundLog, tailLeaves);
-                        }
-                        else
-                        {
-                            blockSetter.set(posAroundLog, leavesBlockState);
-                        }
-                    }
-                    else
-                    {
-                        var previousLeavesPos = mutableBlockPos.offset(opposite.getStepX() * (i - 1), localY, opposite.getStepZ() * (i - 1));
-
-                        if (level.isStateAtPosition(previousLeavesPos, middleLeaves::equals))
-                        {
-                            blockSetter.set(previousLeavesPos, tailLeaves);
-                        }
-                        // Skip when found non-air while placing leaves and set leaves to tail state
                         break;
                     }
+                    row.add(posAroundLog.immutable());
+                }
+
+                // Place fronds by row
+                for (var rowIndex = 0; rowIndex < row.size(); rowIndex++)
+                {
+                    var isFirst = rowIndex == 0;
+                    var isLast = rowIndex == row.size() - 1;
+                    var state = isFirst ? leavesBlockState : isLast ? tailLeaves : middleLeaves;
+                    blockSetter.set(row.get(rowIndex), state);
                 }
             }
         }
@@ -208,5 +206,10 @@ public class CoconutFrondsPlacer extends FoliagePlacer
     private boolean isAir(LevelSimulatedReader level, BlockPos blockPos)
     {
         return level.isStateAtPosition(blockPos, BlockBehaviour.BlockStateBase::isAir);
+    }
+
+    private BlockState addWaterLogged(BlockState sourceState, LevelSimulatedReader level, BlockPos blockPos)
+    {
+        return sourceState.setValue(BlockStateProperties.WATERLOGGED, level.isFluidAtPosition(blockPos, fluidState -> fluidState.isSourceOfType(Fluids.WATER)));
     }
 }
