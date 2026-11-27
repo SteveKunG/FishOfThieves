@@ -2,7 +2,7 @@ package com.stevekung.fishofthieves.config;
 
 import com.google.gson.FieldNamingPolicy;
 import com.stevekung.fishofthieves.FishOfThieves;
-import com.stevekung.fishofthieves.mixin.client.MixinCreativeModeTabs;
+import com.stevekung.fishofthieves.mixin.client.accessor.CreativeModeTabsAccessor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -39,8 +39,8 @@ public class FishOfThievesConfig
 
         if (player != null)
         {
-            MixinCreativeModeTabs.setCACHED_PARAMETERS(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.registryAccess()));
-            MixinCreativeModeTabs.invokeBuildAllTabContents(MixinCreativeModeTabs.getCACHED_PARAMETERS());
+            CreativeModeTabsAccessor.setCachedParameters(new CreativeModeTab.ItemDisplayParameters(player.connection.enabledFeatures(), player.canUseGameMasterBlocks(), player.registryAccess()));
+            CreativeModeTabsAccessor.invokeBuildAllTabContents(CreativeModeTabsAccessor.getCachedParameters());
         }
     }
 

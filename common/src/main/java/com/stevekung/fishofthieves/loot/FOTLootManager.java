@@ -50,8 +50,6 @@ import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntPr
 
 public class FOTLootManager
 {
-    private FOTLootManager() {}
-
     public static void dropWorms(List<ItemStack> droppedList, BlockState blockState, ReloadableServerRegistries.Holder holder, LootParams lootParams)
     {
         if (FishOfThieves.CONFIG.general.enableEarthwormsDrop && blockState.is(FOTTags.Blocks.EARTHWORMS_DROPS) && !blockState.is(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST))

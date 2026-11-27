@@ -70,7 +70,7 @@ public class BananaShootsPlantBlock extends HorizontalDirectionalBlock
     @Override
     public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource randomSource)
     {
-        return !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource);
+        return state.canSurvive(level, currentPos) ? super.updateShape(state, level, scheduledTickAccess, currentPos, direction, neighborPos, neighborState, randomSource) : Blocks.AIR.defaultBlockState();
     }
 
     @Override

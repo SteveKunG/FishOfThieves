@@ -18,16 +18,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MangoFruitBlock extends AbstractMangoFruitBlock
 {
-    private static final VoxelShape[] EAST_AABB = new VoxelShape[] {
+    private static final VoxelShape[] EAST_AABB = {
             Block.box(13, 5, 6.5, 16, 10, 9.5),
             Block.box(11, 3, 5.5, 16, 10, 10.5) };
-    private static final VoxelShape[] WEST_AABB = new VoxelShape[] {
+    private static final VoxelShape[] WEST_AABB = {
             Block.box(0, 5, 6.5, 3, 10, 9.5),
             Block.box(0, 3, 5.5, 5, 10, 10.5) };
-    private static final VoxelShape[] NORTH_AABB = new VoxelShape[] {
+    private static final VoxelShape[] NORTH_AABB = {
             Block.box(6.5, 5, 0, 9.5, 10, 3),
             Block.box(5.5, 3, 0, 10.5, 10, 5) };
-    private static final VoxelShape[] SOUTH_AABB = new VoxelShape[] {
+    private static final VoxelShape[] SOUTH_AABB = {
             Block.box(6.5, 5, 13, 9.5, 10, 16),
             Block.box(5.5, 3, 11, 10.5, 10, 16) };
 
