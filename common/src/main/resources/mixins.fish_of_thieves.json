@@ -37,6 +37,7 @@
     "datafix.MixinDataFixers",
     "datafix.MixinDataFixSchemas",
     "datafix.MixinEntitySpawnerItemVariantComponentFix",
+    "datafix.MixinGameRuleRegistryFix",
     "datafix.MixinItemStackComponentizationFix",
     "datafix.MixinV99_And_1460",
     "datafix.MixinV3202",
