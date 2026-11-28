@@ -2,6 +2,6 @@
   "values": [
     "#minecraft:dirt",
     "#minecraft:grass_blocks",
-    "#minecraft:substrate_overworld"
+    "minecraft:grass_block"
   ]
 }
