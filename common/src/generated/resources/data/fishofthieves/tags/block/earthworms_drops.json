@@ -1,5 +1,7 @@
 {
   "values": [
-    "#minecraft:dirt"
+    "minecraft:grass_block",
+    "#minecraft:dirt",
+    "#minecraft:grass_blocks"
   ]
 }
