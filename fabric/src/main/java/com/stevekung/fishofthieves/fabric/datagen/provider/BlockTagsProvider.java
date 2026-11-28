@@ -82,7 +82,7 @@ public class BlockTagsProvider extends FabricTagsProvider.BlockTagsProvider
         this.builder(FOTTags.Blocks.FIRELIGHT_DEVILFISH_WARM_BLOCKS).add(BlockItemIds.MAGMA_BLOCK);
         this.builder(FOTTags.Blocks.CORAL_WILDSPLASH_SPAWNABLE_ON).forceAddTag(BlockTags.CORALS).forceAddTag(BlockTags.CORAL_BLOCKS).forceAddTag(BlockTags.WALL_CORALS);
         this.builder(FOTTags.Blocks.AMETHYST_ISLEHOPPER_SPAWNABLE_ON).forceAddTag(BlockTags.CRYSTAL_SOUND_BLOCKS);
-        this.builder(FOTTags.Blocks.EARTHWORMS_DROPS).forceAddTag(BlockTags.DIRT);
+        this.builder(FOTTags.Blocks.EARTHWORMS_DROPS).add(BlockItemIds.GRASS_BLOCK).forceAddTag(BlockTags.DIRT).forceAddTag(BlockTags.GRASS_BLOCKS);
         this.builder(FOTTags.Blocks.GRUBS_DROPS).forceAddTag(BlockTags.SAND);
         this.builder(FOTTags.Blocks.LEECHES_DROPS).add(BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS).forceAddTag(BlockTags.SAND);
         this.builder(FOTTags.Blocks.EARTHWORMS_DROP_BLACKLIST).add(BlockItemIds.MOSS_BLOCK, BlockItemIds.COARSE_DIRT, BlockItemIds.MYCELIUM, BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS);
@@ -131,7 +131,7 @@ public class BlockTagsProvider extends FabricTagsProvider.BlockTagsProvider
                 FOTBlockItemIds.UNDERRIPE_BANANA_CLUSTER_PLANT);
         this.builder(FOTTags.Blocks.BANANA_CLUSTERS).add(FOTBlockItemIds.RIPE_BANANA_CLUSTER, FOTBlockItemIds.BARELY_RIPE_BANANA_CLUSTER,
                 FOTBlockItemIds.UNDERRIPE_BANANA_CLUSTER);
-        this.builder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT);
+        this.builder(FOTTags.Blocks.BANANA_SHOOTS_PLACEABLE_ON).forceAddTag(BlockTags.DIRT).forceAddTag(BlockTags.GRASS_BLOCKS).forceAddTag(BlockTags.SUBSTRATE_OVERWORLD);
         this.builder(FOTTags.Blocks.MANGO_FRUITS).add(FOTBlockItemIds.MANGO_FRUIT, FOTBlockItemIds.HANGING_MANGO_FRUIT);
 
         this.builder(FOTTags.Blocks.SERENE_SEASONS_YEAR_ROUND_CROPS)
